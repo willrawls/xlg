@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13E1113F-0A23-47AC-9D31-FAD9B743A644}"
+	ProjectSection(SolutionItems) = preProject
+		..\Support\AdventureWorks.xlgs = ..\Support\AdventureWorks.xlgs
+		..\Support\CSharp DAL Project File.xlg.xsl = ..\Support\CSharp DAL Project File.xlg.xsl
+		..\Support\CSharp DAL.xlg.xsl = ..\Support\CSharp DAL.xlg.xsl
+		..\DAL\M4DCrudTSM\M4DCrudTSM.sql = ..\DAL\M4DCrudTSM\M4DCrudTSM.sql
+		..\..\wd\Dev\Rawls_W\ToolStateModelLoader\ToolStateModelLoader\LocalHelper\NewGeneratedDalCode.cs = ..\..\wd\Dev\Rawls_W\ToolStateModelLoader\ToolStateModelLoader\LocalHelper\NewGeneratedDalCode.cs
+		..\Support\Simple ASPX Grid.xlg.xsl = ..\Support\Simple ASPX Grid.xlg.xsl
+		..\Support\Simple File System.xlg.xsl = ..\Support\Simple File System.xlg.xsl
+		..\Support\Simple Web Page.xlg.xsl = ..\Support\Simple Web Page.xlg.xsl
+		..\Support\Uber Indexing.xlg.xsl = ..\Support\Uber Indexing.xlg.xsl
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX", "MetX\MetX.csproj", "{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.System_Data_SqlClient", "MetX.Data.Provider.System_Data_SqlClient\MetX.Data.Factory.System_Data_SqlClient.csproj", "{95A40D2C-3B75-49B8-BB1B-1A09D6A1CA99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gather_CommandLine", "MetX.Data.Factory.MetX_Gather_CommandLine\MetX.Data.Factory.MetX_Gather_CommandLine.csproj", "{660A775E-95FC-470C-B7C3-A94CA3E720DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gather_PowerShell", "MetX.Data.Factory.MetX_Gather_PowerShell\MetX.Data.Factory.MetX_Gather_PowerShell.csproj", "{EB20510C-37AE-41D6-A33E-6FEA1EA7DF9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gather_FileSystem", "MetX.Data.Factory.MetX_Gather_FileSystem\MetX.Data.Factory.MetX_Gather_FileSystem.csproj", "{A1888B4D-18C3-4D35-B746-83965069A30A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A40D2C-3B75-49B8-BB1B-1A09D6A1CA99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A40D2C-3B75-49B8-BB1B-1A09D6A1CA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A40D2C-3B75-49B8-BB1B-1A09D6A1CA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A40D2C-3B75-49B8-BB1B-1A09D6A1CA99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660A775E-95FC-470C-B7C3-A94CA3E720DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660A775E-95FC-470C-B7C3-A94CA3E720DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660A775E-95FC-470C-B7C3-A94CA3E720DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660A775E-95FC-470C-B7C3-A94CA3E720DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB20510C-37AE-41D6-A33E-6FEA1EA7DF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB20510C-37AE-41D6-A33E-6FEA1EA7DF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB20510C-37AE-41D6-A33E-6FEA1EA7DF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB20510C-37AE-41D6-A33E-6FEA1EA7DF9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1888B4D-18C3-4D35-B746-83965069A30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1888B4D-18C3-4D35-B746-83965069A30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1888B4D-18C3-4D35-B746-83965069A30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1888B4D-18C3-4D35-B746-83965069A30A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

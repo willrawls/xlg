@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XlgDocDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Tables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Table" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Columns" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element name="Keys" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="Columns" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="Name" type="xs:string" />
+                        <xs:attribute name="IsPrimary" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Indexes" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Index" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="IndexColumns" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="IndexColumn" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:attribute name="IndexColumnName" type="xs:string" />
+                                    <xs:attribute name="PropertyName" type="xs:string" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="IndexName" type="xs:string" />
+                        <xs:attribute name="IsClustered" type="xs:string" />
+                        <xs:attribute name="SingleColumnIndex" type="xs:string" />
+                        <xs:attribute name="PropertyName" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="TableName" type="xs:string" />
+            <xs:attribute name="ClassName" type="xs:string" />
+            <xs:attribute name="PrimaryKeyColumnName" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element ref="Include" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Columns">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="ColumnName" type="xs:string" />
+            <xs:attribute name="PropertyName" type="xs:string" />
+            <xs:attribute name="CSharpVariableType" type="xs:string" />
+            <xs:attribute name="IsDotNetObject" type="xs:string" />
+            <xs:attribute name="CovertToPart" type="xs:string" />
+            <xs:attribute name="VBVariableType" type="xs:string" />
+            <xs:attribute name="AuditField" type="xs:string" />
+            <xs:attribute name="DbType" type="xs:string" />
+            <xs:attribute name="AutoIncrement" type="xs:string" />
+            <xs:attribute name="IsForiegnKey" type="xs:string" />
+            <xs:attribute name="IsNullable" type="xs:string" />
+            <xs:attribute name="IsIdentity" type="xs:string" />
+            <xs:attribute name="IsPrimaryKey" type="xs:string" />
+            <xs:attribute name="IsIndexed" type="xs:string" />
+            <xs:attribute name="MaxLength" type="xs:string" />
+            <xs:attribute name="Column" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StoredProcedures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="StoredProcedure" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Parameters" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="DataType" type="xs:string" />
+                        <xs:attribute name="CSharpVariableType" type="xs:string" />
+                        <xs:attribute name="CovertToPart" type="xs:string" />
+                        <xs:attribute name="VBVariableType" type="xs:string" />
+                        <xs:attribute name="IsDotNetObject" type="xs:string" />
+                        <xs:attribute name="ParameterName" type="xs:string" />
+                        <xs:attribute name="VariableName" type="xs:string" />
+                        <xs:attribute name="IsInput" type="xs:string" />
+                        <xs:attribute name="IsOutput" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="StoredProcedureName" type="xs:string" />
+            <xs:attribute name="MethodName" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element ref="Include" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="ClassName" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XslEndpoints">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="XslEndpoints" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="VirtualPath" type="xs:string" />
+      <xs:attribute name="xlgPath" type="xs:string" />
+      <xs:attribute name="VirtualDir" type="xs:string" />
+      <xs:attribute name="Path" type="xs:string" />
+      <xs:attribute name="Folder" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Include">
+    <xs:complexType>
+      <xs:attribute name="Name" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xlgDoc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Tables" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="StoredProcedures" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="XslEndpoints" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="Render" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Xsls" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="Include" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="Skip" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Path" type="xs:string" />
+                  <xs:attribute name="UrlExtension" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element ref="Tables" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="StoredProcedures" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="IncludeNamespace" type="xs:string" />
+      <xs:attribute name="ConnectionStringName" type="xs:string" />
+      <xs:attribute name="Namespace" type="xs:string" />
+      <xs:attribute name="VDirName" type="xs:string" />
+      <xs:attribute name="DatabaseProvider" type="xs:string" />
+      <xs:attribute name="OutputFolder" type="xs:string" />
+      <xs:attribute name="ProviderName" type="xs:string" />
+      <xs:attribute name="XlgInstanceID" type="xs:string" />
+      <xs:attribute name="MetXObjectName" type="xs:string" />
+      <xs:attribute name="MetXAssemblyString" type="xs:string" />
+      <xs:attribute name="MetXProviderAssemblyString" type="xs:string" />
+      <xs:attribute name="ProviderAssemblyString" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Tables" />
+        <xs:element ref="Columns" />
+        <xs:element ref="StoredProcedures" />
+        <xs:element ref="XslEndpoints" />
+        <xs:element ref="Include" />
+        <xs:element ref="xlgDoc" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

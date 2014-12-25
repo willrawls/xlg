@@ -1,0 +1,1897 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MetX</name>
+    </assembly>
+    <members>
+        <member name="T:MetX.IO.Email">
+            <summary>
+            Allows for the sending of a simple emamil asynchronously on another thread.
+            </summary>
+        </member>
+        <member name="M:MetX.IO.Email.SendMail(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Allows for the quick and asynchronous sending of a simple email</summary>
+            <param name="FromName">Display name of the person sending the email</param>
+            <param name="FromEmail">From Email address</param>
+            <param name="ToName">Display name for the person receiving the email</param>
+            <param name="ToEmail">To Email Address</param>
+            <param name="Subject">Email Subject</param>
+            <param name="Body">Email Body (pure text)</param>
+        </member>
+        <member name="M:MetX.IO.Email.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Asynchronously sends a MailMessage
+            </summary>
+            <param name="mm">The MailMessage to send</param>
+        </member>
+        <member name="M:MetX.IO.Email.Start(System.Object)">
+            <summary>Private function for sending the asychronous email on a new thread</summary>
+        </member>
+        <member name="T:MetX.xml">
+            <summary>Helper functions for dealing with xml strings</summary>
+        </member>
+        <member name="F:MetX.xml.Declaration">
+            <summary>The ?xml directive that should be at the top of each file</summary>
+        </member>
+        <member name="M:MetX.xml.ToJson(System.Xml.XmlElement,System.Text.StringBuilder)">
+            <summary>Converts an XmlElement into a JSON string and appends it to Target</summary>
+            <param name="Element">The XmlElment to walk and translate to JSON</param>
+            <param name="Target">The StringBuilder to append the JSON string into</param>
+        </member>
+        <member name="M:MetX.xml.AttributeEncode(System.Object)">
+            <summary>For use when you are building an xml string and you need to insure the value of an attribute is properly encoded.</summary>
+            <param name="strIn">The text to encode as an xml attribute</param>
+            <returns>The xml attribute encoded string</returns>
+            
+            <example>
+            <code>
+            string x = "&amp;amp;amp;amp;amp;lt;Item Name=\"" + AttributeEncode("Yes &amp;amp;amp;amp;amp;amp; no") + "\" /&amp;amp;amp;amp;amp;gt;";
+            // x = &amp;amp;amp;amp;amp;lt;Item Name="Yes &amp;amp;amp;amp;amp;amp;amp; no" /&amp;amp;amp;amp;amp;gt;
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.xml.Wrap(System.String,System.String,System.String)">
+            <summary>Wraps some text in a tag with optional attributes for that tag. NOTE: tagValue may contain any valid text or XML
+            <para>Handles several scenarios when tagValue is blank.</para>
+            </summary>
+            <param name="TagName">The tag to wrap tagValue in</param>
+            <param name="tagValue">The text to wrap as the text node of the wrapping tag</param>
+            <param name="tagAttributes">The attributes of the wrapping tag (optional)</param>
+            <returns>An xml string with a TagName element having tagAttributes as attributes wrapping tagValue</returns>
+            
+            <exmaple>
+            <code>
+            string x = Wrap("Item", "This is a test", "Source=\"Somewhere\"");
+            // x = &amp;amp;amp;amp;amp;lt;Item Source="Somewhere"&amp;amp;amp;amp;amp;gt;This is a test&amp;amp;amp;amp;amp;lt;/Item/&amp;amp;amp;amp;amp;gt;
+            </code>
+            </exmaple>
+        </member>
+        <member name="M:MetX.xml.Wrap(System.String,System.String)">
+            <summary>Wraps some text in a xml element. NOTE: tagValue may contain any valid text or XML</summary>
+            <param name="TagName">The tag to wrap tagValue in</param>
+            <param name="tagValue">The text to wrap as the text node of the wrapping tag</param>
+            <returns>An xml string with a TagName element wrapping tagValue</returns>
+            
+            <exmaple>
+            <code>
+            string x = Wrap("Item", "This is a test");
+            // x = &amp;amp;amp;amp;amp;lt;Item&amp;amp;amp;amp;amp;gt;This is a test&amp;amp;amp;amp;amp;lt;/Item/&amp;amp;amp;amp;amp;gt;
+            </code>
+            </exmaple>
+        </member>
+        <member name="M:MetX.xml.Writer(System.IO.Stream)">
+            <summary>
+            Don't forget to close the XmlWriter or wrap this line in a using statement
+            </summary>
+            <param name="Output">The stream to wrap</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.xml.Writer(System.IO.TextWriter)">
+            <summary>
+            Don't forget to close the XmlWriter or wrap this line in a using statement
+            </summary>
+            <param name="Output">The TextWriter to wrap</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.xml.Writer(System.Text.StringBuilder)">
+            <summary>
+            Don't forget to close the XmlWriter or wrap this line in a using statement
+            </summary>
+            <param name="Output">The StringBuilder to wrap</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.xml.FromXml``1(System.String)">
+            <summary>
+            Turns an xml string into a object
+            </summary>
+            <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+            <param name="XmlDoc">An xml string containing the serialized object</param>
+            <returns>The deserializd object</returns>
+        </member>
+        <member name="M:MetX.xml.LoadFile``1(System.String)">
+            <summary>
+            Turns the xml contents of a file into an object
+            </summary>
+            <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+            <param name="FilePath">The file to read the xml from</param>
+            <returns>The deserializd object</returns>
+        </member>
+        <member name="M:MetX.xml.SaveFile``1(System.String,``0)">
+            <summary>
+            Save a object as xml into a file. If the file is already there it is deleted then recreated with the xml contents of the supplied object.
+            </summary>
+            <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+            <param name="FilePath">The file to write the xml to</param>
+            <param name="ToSerialize">The object to serialize</param>
+        </member>
+        <member name="M:MetX.xml.ToXml``1(``0,System.Boolean)">
+            <summary>
+            Turns an object into an xml string
+            </summary>
+            <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+            <param name="ToSerialize">The object to serialize</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.xml.Serializer(System.Type)">
+            <summary>
+            Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are stored internally in a sorted list for quick retrieval.
+            </summary>
+            <param name="t">The type to return a XmlSerializer for</param>
+            <returns>The XmlSerializer for the type</returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetDataService(System.String)">
+            <summary>
+            Typically called from DAL code.
+            </summary>
+            <param name="ConnectionStringName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetDataServiceManually(System.String,System.String,System.String)">
+            <summary>
+            Typically used to generate code when an app.config or web.config isn't available or desired.
+            </summary>
+            <param name="ConnectionStringName"></param>
+            <param name="ConnectionString"></param>
+            <param name="ProviderName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetReader(MetX.Data.QueryCommand)">
+            <summary>
+            Returns an IDataReader using the passed-in command
+            </summary>
+            <param name="cmd">C#CD: </param>
+            <returns>IDataReader</returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetStoredProcedureResult(MetX.Data.QueryCommand)">
+            <summary>
+            Returns an IDataReader using the passed-in command
+            </summary>
+            <param name="cmd">C#CD: </param>
+            <returns>IDataReader</returns>
+        </member>
+        <member name="M:MetX.Data.DataService.ToDataSet(MetX.Data.QueryCommand)">
+            <summary>
+            Returns a DataSet based on the passed-in command
+            </summary>
+            <param name="cmd">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.ExecuteScalar(MetX.Data.QueryCommand)">
+            <summary>
+            Returns a scalar object based on the passed-in command
+            </summary>
+            <param name="cmd">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.ExecuteQuery(MetX.Data.QueryCommand)">
+            <summary>
+            Executes a pass-through query on the DB
+            </summary>
+            <param name="cmd">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetTableSchema(System.String)">
+            <param name="tableName">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetTables">
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetSPList">
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetForeignKeyTableName(System.String)">
+            <param name="fkColumn">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetSPParams(System.String)">
+            <param name="spName">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetDbType(System.String)">
+            <param name="dataType">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetClientType">
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.DataService.GetIDbCommand(MetX.Data.QueryCommand)">
+            <param name="qry">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="T:MetX.Data.xlgSource">
+            <summary>
+            Represents a library to generate
+            </summary>
+        </member>
+        <member name="T:MetX.Data.AggregateFunction">
+            <summary>
+            Enum for General SQL Functions
+            </summary>
+        </member>
+        <member name="T:MetX.Data.Comparison">
+            <summary>
+            SQL Comparison Operators
+            </summary>
+        </member>
+        <member name="T:MetX.Data.Aggregate">
+            <summary>
+            Creates an aggregate function call for ANSI SQL
+            </summary>
+        </member>
+        <member name="T:MetX.Data.Where">
+            <summary>
+            Creates a WHERE clause for a SQL Statement
+            </summary>
+        </member>
+        <member name="T:MetX.Data.OrderBy">
+            <summary>
+            Creates an ORDER BY statement for ANSI SQL
+            </summary>
+        </member>
+        <member name="T:MetX.Data.Query">
+            <summary>
+            Creates a SQL Statement and SQL Commands
+            </summary>
+        </member>
+        <member name="M:MetX.Data.Query.GetComparisonOperator(MetX.Data.Comparison)">
+            <summary>
+            Takes the enum value and returns the proper SQL 
+            </summary>
+            <param name="comp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.Data.Query.AddInnerJoin(System.String,System.String,System.String)">
+            <summary>C#CD: </summary>
+            <param name="ToTableName">C#CD: </param>
+            <param name="FromColumnName">C#CD: </param>
+            <param name="ToColumnName">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddInnerJoin(System.String)">
+            <summary>C#CD: </summary>
+            <param name="ToTableName">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddAggregate(System.String,MetX.Data.AggregateFunction,System.String)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <param name="func">C#CD: </param>
+            <param name="alias">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddAggregate(MetX.Data.Aggregate)">
+            <summary>C#CD: </summary>
+            <param name="agg">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.BeginParen">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.Query.EndParen">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.Query.AddWhere(MetX.Data.Where)">
+            <summary>C#CD: </summary>
+            <param name="where">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddWhere(System.String,System.Object)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <param name="paramValue">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddWhere(System.String,System.String,System.Object)">
+            <summary>C#CD: </summary>
+            <param name="tableName">C#CD: </param>
+            <param name="columnName">C#CD: </param>
+            <param name="paramValue">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddWhere(System.String,MetX.Data.Comparison,System.Object)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <param name="comp">C#CD: </param>
+            <param name="paramValue">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.AddWhere(System.String,System.String,MetX.Data.Comparison,System.Object)">
+            <summary>C#CD: </summary>
+            <param name="tableName">C#CD: </param>
+            <param name="columnName">C#CD: </param>
+            <param name="comp">C#CD: </param>
+            <param name="paramValue">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.Query.BuildSelectCommand">
+            <summary>
+            Creates a SELECT command based on the Query object's settings.
+            If you need a more complex query you should consider using a Stored Procedure
+            </summary>
+        </member>
+        <member name="M:MetX.Data.Query.BuildDeleteCommand">
+            <summary>
+            Builds a Delete command based on a give WHERE condition
+            </summary>
+        </member>
+        <member name="M:MetX.Data.Query.BuildUpdateCommand">
+            <summary>
+            Builds an update query for this table with the passed-in hash values
+            </summary>
+        </member>
+        <member name="M:MetX.Data.Query.GetSelectSql">
+            <summary>
+            Creates a SELECT statement based on the Query object settings
+            </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.GetUpdateSql">
+            <summary>C#CD: </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.GetInsertSql">
+            <summary>
+            Loops the TableColums[] array for the object, creating a SQL string
+            for use as an INSERT statement
+            </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.GetDeleteSql">
+            <summary>C#CD: </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.ExecuteReader">
+            <summary>
+            Returns an IDataReader using the passed-in command
+            </summary>
+            <returns>IDataReader</returns>
+        </member>
+        <member name="M:MetX.Data.Query.ExecuteDataSet">
+            <summary>
+            Returns a DataSet based on the passed-in command
+            </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.ExecuteScalar">
+            <summary>
+            Returns a scalar object based on the passed-in command
+            </summary>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.Query.Execute">
+            <summary>
+            Executes a pass-through query on the DB
+            </summary>
+        </member>
+        <member name="T:MetX.Data.QueryType">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Select">
+            <summary>SELECT FROM query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Update">
+            <summary>UPDATE query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Insert">
+            <summary>INSERT INTO query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Delete">
+            <summary>DELETE FROM query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Exists">
+            <summary>IF EXISTS(query) SELECT 1 ELSE SELECT 0</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Count">
+            <summary>SELECT COUNT(*) FROM query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Max">
+            <summary>SELECT MAX(*) FROM query</summary>
+        </member>
+        <member name="F:MetX.Data.QueryType.Min">
+            <summary>SELECT MIN(*) FROM query</summary>
+        </member>
+        <member name="M:MetX.Data.DataProviderCollection.Add(System.Configuration.Provider.ProviderBase)">
+            <param name="provider">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.DataProvider.ToXml(System.String)">
+            <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+            <param name="SQL">The SQL to convert to an xml string</param>
+            <returns>The xml string attribute based representation of the SQL statement</returns>
+        </member>
+        <member name="T:MetX.Data.CodeGenerator">
+            <summary>Generates Data and xlg specific code</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.xlgDataXml">
+            <summary>The Data XML file to generate against</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.spClassName">
+            <summary>The class name to contain the Stored Procedures</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.VirtualPath">
+            <summary>Set externally indicating the path/virtual (sub directory) path to any overriding template(s).</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.VirtualxlgFilePath">
+            <summary>Set externally indicating the file of any overriding template(s)</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.SettingsFilePath">
+            <summary>Only used for static generation, this is the file that contains the necessary connection string</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.Namespace">
+            <summary>The namespace that should be passed into the XSL</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.VDirName">
+            <summary>Set internally (overridden externally) indicating the base vitual directory.</summary>
+        </member>
+        <member name="F:MetX.Data.CodeGenerator.xlgFilename">
+            <summary>The file containing the XSL to render code against.
+            <para>NOTE: This file does not have to exist. If it doesn't the internal XSL rendering C# will be used.</para>
+            </summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.#ctor">
+            <summary>Default constructor. Does nothing</summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.#ctor(System.String)">
+            <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
+            <param name="VirtualxlgFilePath">The virtual path and filename containing the xlg / Data XML</param>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.#ctor(System.String,System.String)">
+            <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on xlg file name and contents</summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.#ctor(System.String,System.String,System.String)">
+            <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.RegenerateCode(System.Xml.XmlDocument)">
+            <summary>Causes generation and returns the code/contents generated</summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetVirtualFile(System.String)">
+            <summary>Loads a file from the virutal file system relative to VirtualPath</summary>
+            <param name="VirtualFilename">The Virtual file to load</param>
+            <returns>The contents of the virtual file</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetClassName(System.String)">
+            <summary>Translates a table name into a CLSCompliant class name</summary>
+            <param name="TableName">The name of the table, stored procedure, etc to translate</param>
+            <returns>The translated class name</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.AddElement(System.Xml.XmlElement,System.String,System.String,System.String)">
+            <summary>Simplified way of adding an XmlElement to a XmlDocument</summary>
+            <param name="Target">The XmlDocment to add the Element onto</param>
+            <param name="ElementName">The node name of the element</param>
+            <param name="AttributeName">Name of an attribute to add</param>
+            <param name="AttributeValue">Value of the attribute</param>
+            <returns>The XmlElement added</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.AddAttribute(System.Xml.XmlElement,System.String,System.String)">
+            <summary>Simplified way of adding an attribute to a XmlElement</summary>
+            <param name="Target">The XmlElement to add the attribute to</param>
+            <param name="AttributeName">The name of the attribute to add</param>
+            <param name="AttributeValue">The value of the attribute to add</param>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetProperName(System.String,System.String,System.String)">
+            <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
+            <param name="sIn">The string to proper case</param>
+            <returns>The proper case translation</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetProperName(System.String)">
+            <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
+            <param name="sIn">The string to proper case</param>
+            <returns>The proper case translation</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetVBVariableType(System.Data.DbType)">
+            <summary>Translates a DbType into the VB.NET equivalent type (so "Currency" becomes "Decimal")</summary>
+            <param name="dbType">The DbType to convert</param>
+            <returns>The VB.NET type string</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetCSharpVariableType(System.Data.DbType)">
+            <summary>Translates a DbType into the C# equivalent type (so "Currency" becomes "Decimal")</summary>
+            <param name="dbType">The DbType to convert</param>
+            <returns>The C# type string</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetIsDotNetObject(System.Data.DbType)">
+            <summary>Translates a DbType into the C# equivalent type (so "Currency" becomes "Decimal")</summary>
+            <param name="dbType">The DbType to convert</param>
+            <returns>The C# type string</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.GetConvertToPart(System.Data.DbType)">
+            <summary>Translates a DbType into the .net equivalent type to convert another value to (so "Currency" becomes "Convert.ToCurrency")</summary>
+            <param name="dbType">The DbType to convert</param>
+            <returns>The portion of code necessary to convert another value to the same type as this</returns>
+        </member>
+        <member name="P:MetX.Data.CodeGenerator.Code">
+            <summary>Causes generation and returns the code/contents generated</summary>
+        </member>
+        <member name="P:MetX.Data.CodeGenerator.DataXml">
+            <summary>
+            Returns an XmlDocument containing a xlgData document with the child elements: Tables, StoredProcedures, and Xsls relative to the list indicated by the supplied include/skip lists.
+            </summary>
+        </member>
+        <member name="T:MetX.Data.CodeGenerator.Helper">
+            <summary>
+            Helper function for loading a virtual file from the virtual file system
+            </summary>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.Helper.GetVirtualFile(System.String)">
+            <summary>Load a file from the virtual file system</summary>
+            <param name="VirtualFilename">The virtual path and file to load</param>
+            <returns>The contents of the virtual file</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.Helper.GetPhysicalFileListFromVirtual(System.String)">
+            <summary>Returns a pysical list of files given a virtual path. Only files that acually exist in the virtual path will be returned. An empty list will be returned if the virtual path could not be mapped physically.</summary>
+            <param name="VirtualPath">The virtual path to retrieve a physical list of files</param>
+            <returns>The physical list of files</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.Helper.GetPhysicalFolderListFromVirtual(System.String)">
+            <summary>Returns a pysical list of sub directories physically residing in the physical path equivalent to a given virtual path. Only folders that acually exist in the virtual path will be returned. An empty list will be returned if the virtual path could not be mapped physically.</summary>
+            <param name="VirtualPath">The virtual path to retrieve a physical list of sub directories</param>
+            <returns>The physical list of files</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.Helper.VirtualPathToPhysical(System.String)">
+            <summary>Attemptes to convert a virtual path into a physical one. Physical path is not guarenteed to exist.</summary>
+            <param name="VirtualPath">The virtual path to map</param>
+            <returns>The physical file system path represented by VirtualPath</returns>
+        </member>
+        <member name="M:MetX.Data.CodeGenerator.Helper.GenerateViaXsl(System.Xml.XmlDocument,System.String)">
+            <summary>Performs a simple XSL transformation on a XmlDocument object</summary>
+            <param name="XmlDoc">The XmlDocument to convert</param>
+            <param name="sXsl">The XSLT contents to use in the conversion.</param>
+            <returns>The rendered content</returns>
+        </member>
+        <member name="T:MetX.Data.TableSchema">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="T:MetX.Data.TableSchema.TableColumnSettingCollection">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnSettingCollection.GetValue(System.String)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <returns>C#CD: </returns>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnSettingCollection.SetValue(System.String,System.Object)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <param name="oVal">C#CD: </param>
+        </member>
+        <member name="T:MetX.Data.TableSchema.TableColumnSetting">
+            <summary>
+            This is an intermediary class that holds the current value of a table column
+            for each object instance.
+            </summary>
+        </member>
+        <member name="F:MetX.Data.TableSchema.TableColumnSetting.columnName">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="F:MetX.Data.TableSchema.TableColumnSetting.currentValue">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="P:MetX.Data.TableSchema.TableColumnSetting.ColumnName">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="P:MetX.Data.TableSchema.TableColumnSetting.CurrentValue">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="T:MetX.Data.TableSchema.Table">
+            <summary>
+            Holds information about the base table - this class should be
+            static for each object
+            </summary>
+        </member>
+        <member name="F:MetX.Data.TableSchema.Table.INSERT_SQL">
+            <summary>The basic INSERT INTO sql statement used for Insert type queries</summary>
+        </member>
+        <member name="F:MetX.Data.TableSchema.Table.UPDATE_SQL">
+            <summary>The basic UPDATE sql statement used for Update type querie</summary>
+        </member>
+        <member name="F:MetX.Data.TableSchema.Table.FIELD_LIST">
+            <summary>The field list as it goes into the SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.Table.#ctor">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.Table.#ctor(System.String)">
+            <summary>C#CD: </summary>
+            <param name="tableName">C#CD: </param>
+        </member>
+        <member name="P:MetX.Data.TableSchema.Table.SELECT_SQL">
+            <summary>The basic SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
+        </member>
+        <member name="T:MetX.Data.TableSchema.TableColumnCollection">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnCollection.Add(System.String,System.Data.DbType,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>C#CD: </summary>
+            <param name="name">C#CD: </param>
+            <param name="dbType">C#CD: </param>
+            <param name="isNullable">C#CD: </param>
+            <param name="isPrimaryKey">C#CD: </param>
+            <param name="isForeignKey">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnCollection.Add(System.String,System.Data.DbType,System.Boolean)">
+            <summary>C#CD: </summary>
+            <param name="name">C#CD: </param>
+            <param name="dbType">C#CD: </param>
+            <param name="isNullable">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnCollection.GetColumn(System.String)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumnCollection.GetPrimaryKey">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="T:MetX.Data.TableSchema.TableColumn">
+            <summary>
+            A helper class to help define the columns in an underlying table
+            </summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumn.#ctor">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Data.TableSchema.TableColumn.#ctor(System.String,System.Data.DbType,System.Boolean,System.Boolean)">
+            <summary>C#CD: </summary>
+            <param name="columnName">C#CD: </param>
+            <param name="dbType">C#CD: </param>
+            <param name="isPrimaryKey">C#CD: </param>
+            <param name="isForeignKey">C#CD: </param>
+        </member>
+        <member name="T:MetX.Data.ActiveRecord">
+            <summary>
+            Base class for persisting objects. Follows the "Active Record Design Pattern".
+            You can read more on this pattern at http://en.wikipedia.org/wiki/Active_Record
+            </summary>
+        </member>
+        <member name="T:MetX.Urn.xlgUrn">
+            <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.
+            <para>NOTE: XSL functions must return a variable. Most functions in this library normally wouldn't return anything, but to accomodate XSL, they return a blank string.</para>
+            </summary>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.HasBit(System.Int32,System.Int32)">
+            <summary>
+            Returns if one or more bits are set in ToCheck
+            </summary>
+            <param name="ToCheck">The Integer to check</param>
+            <param name="Mask">The bit mask to check</param>
+            <returns>true if all bits set in Mask are set in ToCheck, else false</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.SetThemePath(System.String,System.String)">
+            <summary>Sets the internal variable 'ThemePath' used with FilePath, FileUrl, and FileContents</summary>
+            <param name="ThemePath">The virtual path to the theme directory (such as '/~/theme/YourClientName/')</param>
+            <param name="DefaultThemePath">The virtual path to the defalt theme directory (such as '/~/theme/default/')</param>
+            <returns>A blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.UrlEncode(System.String)">
+            <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
+            <param name="SupportPath">The virtual path to the xlgSupport directory (defalts to '/xlgSupport/')</param>
+            <returns>A blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.SetSupportPath(System.String)">
+            <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
+            <param name="SupportPath">The virtual path to the xlgSupport directory (defalts to '/xlgSupport/')</param>
+            <returns>A blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetThemePath">
+            <summary>Returns the value of the internal variable 'ThemePath'</summary>
+            <returns>The value of ThemePath</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetSupportPath">
+            <summary>Returns the value of the internal variable 'SupportPath'</summary>
+            <returns>The value of SupportPath</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.FilePath(System.String)">
+            <summary>Returns the physical path and file name of RelativePathFile.
+            <para>Checks if ThemePath + RelativePathFile exists first, if so, returns that physical path and filename.</para>
+            <para>If RelativePathFile exists, returns that.</para>
+            <para>If SupportPath + RelativePathFile exists, returns that.</para>
+            <para>Otherwise returns the string "unknown.file"</para>
+            </summary>
+            <param name="RelativePathFile">The relative path and file to retrieve (such as 'xsl/Appearence.xsl')</param>
+            <returns>The physical path and file found</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.FileUrl(System.String)">
+            <summary>Returns the virtual path and file name of RelativePathFile.
+            <para>Checks if ThemePath + RelativePathFile exists first, if so, returns that virtual path and filename.</para>
+            <para>If RelativePathFile exists, returns that.</para>
+            <para>If SupportPath + RelativePathFile exists, returns that.</para>
+            <para>Otherwise returns the string "unknown.file"</para>
+            </summary>
+            <param name="RelativePathFile">The relative path and file to retrieve (such as 'xsl/Appearence.xsl')</param>
+            <returns>The virtual path and file found</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.FileContents(System.String)">
+            <summary>Uses FilePath to determine the path to a physical file and then retrieves the string contents.</summary>
+            <param name="RelativePathFile">The relative path and file to retrieve</param>
+            <returns>The contents of the file</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.FileExists(System.String)">
+            <summary>
+            Same as calling System.IO.File.Exists
+            </summary>
+            <param name="PathAndFilename">Path and filename to the file</param>
+            <returns>True if the file exists</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.DirectoryExists(System.String)">
+            <summary>Same as calling System.IO.Directory.Exists</summary>
+            <param name="Path">The path to test existence for</param>
+            <returns>True if the folder exists</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.CreateDirectory(System.String)">
+            <summary>Same as calling System.IO.Directory.Create</summary>
+            <param name="Path">The path to create</param>
+            <returns>True if the folder exists</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.InsureDirectory(System.String)">
+            <summary>Same as calling System.IO.Directory.Create</summary>
+            <param name="Path">The path to create</param>
+            <returns>True if the folder exists</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sbAppend(System.String,System.String)">
+            <summary>
+            Appends a string to an internal string builder
+            </summary>
+            <param name="sbVarName">The name of the string builder to append to</param>
+            <param name="ToAppend">The string to append</param>
+            <returns>An empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sbAppendLine(System.String,System.String)">
+            <summary>
+            Appends a string to an internal string builder with a new line character at the end
+            </summary>
+            <param name="sbVarName">The name of the string builder to append to</param>
+            <param name="ToAppend">The string to append</param>
+            <returns>An empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sbGetVar(System.String)">
+            <summary>
+            Retrieves the contents of an internal string builder
+            </summary>
+            <param name="sbVarName">The string builder to retrieve</param>
+            <returns>The string builder contents</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sbRemove(System.String)">
+            <summary>
+            Removes an internal string builder
+            </summary>
+            <param name="sbVarName">The string builder to remove</param>
+            <returns>An empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.RemoveVar(System.String)">
+            <summary>Removes a specific internal variable set by SetVar</summary>
+            <param name="VarName">The variable to remove</param>
+            <returns>a blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.ClearVars">
+            <summary>Clears all internal (non-xsl) variables</summary>
+            <returns>a blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.SetVar(System.String,System.String)">
+            <summary>Sets an internal variable to some value. This value will persist until changed or until the end of rendering</summary>
+            <param name="VarName">The variable name to set</param>
+            <param name="VarValue">The value of the variable</param>
+            <returns>a blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetVar(System.String)">
+            <summary>Returns the value of an internal variable or a blank string if that variable wasn't set.</summary>
+            <param name="VarName">The variable to retrieve</param>
+            <returns>The variables value or a blank string if not set</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.IsVarSet(System.String)">
+            <summary>Returns true if the variable has been set and if the value's length is greater than zero</summary>
+            <param name="VarName">The variable to test.</param>
+            <returns>True if the variable has been set to a non empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sHash(System.String)">
+            <summary>Creates an incrementing number for the ToHash value and stores it in a table. Each time afterward sHash is called with ToHash, the same value will be returned. Among other things, useful for generating a script block and a short unique div name.</summary>
+            <param name="ToHash">The item to hash</param>
+            <returns>The hash value for the item</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sReplace(System.String,System.String,System.String)">
+            <summary>Replaces one string with another. Equivalent to calling string.Replace</summary>
+            <param name="ToSearch">The text to do the replacement on</param>
+            <param name="ToFind">The text to find</param>
+            <param name="ToReplace">The text to replace</param>
+            <returns>The string with text replaced.</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.InnerXML(System.Xml.XPath.XPathNodeIterator)">
+            <summary>Returns an xml string of the Inner text of one or more Nodes</summary>
+            <param name="Nodes">The nodes to return InnerXml for</param>
+            <returns>The inner xml string of the nodes</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.OuterXML(System.Xml.XPath.XPathNodeIterator)">
+            <summary>Returns an xml string of the Outer text of one or more Nodes</summary>
+            <param name="Nodes">The nodes to return OuterXml for</param>
+            <returns>The outer xml string of the nodes</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.OuterXmlJSON(System.String,System.Xml.XPath.XPathNodeIterator)">
+            <summary>Returns the OuterXml of Nodes in javascript format set to the javascript variable VarName. So this generates a single (usually very long) line of javascript.</summary>
+            <param name="VarName">The javascript variable name to place the outerxml into</param>
+            <param name="Nodes">The nodes to javascript code</param>
+            <returns>One line of javascript of the form var VarName = "outerxml of Nodes";</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.dateMax(System.String,System.String)">
+            <summary>Returns the maximum of two dates</summary>
+            <param name="sDate1">The first date to compare</param>
+            <param name="sDate2">The second date to compare</param>
+            <returns>The greater date</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.dateIsInRange(System.String,System.String,System.String)">
+            <summary>Determins if one date is between or equal to two other dates</summary>
+            <param name="sDateToTest">The date to test</param>
+            <param name="sDateBegin">The lower boundary to test</param>
+            <param name="sDateEnd">The upper boundary to test</param>
+            <returns>true if sDateToTest is between sDateBegin and sDateEnd</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetToken(System.String,System.Int32,System.String)">
+            <summary>Retrieves the nth delimited token</summary>
+            <param name="AllTokens">The string to retrieve a token from</param>
+            <param name="N">The token number to retrieve</param>
+            <param name="Delimiter">The delimiter separating each token</param>
+            <returns>The requested token or a blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.IndexOf(System.String,System.String)">
+            <summary>Returns the index of a string inside another string. Equivalent to string.IndexOf</summary>
+            <param name="ToSearch">The string to search</param>
+            <param name="ToFind">The string to find</param>
+            <returns>The index of ToFind in ToSearch. -1 if nothing is found</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.IsToday(System.String)">
+            <summary>Determins if the date passed in is today regardless of the time of day</summary>
+            <param name="DateStringToTest">The date to test</param>
+            <returns>true if the date is between 00:00am and 11:59pm today</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.IsInThePast(System.String)">
+            <summary>Determines if a date is in the past</summary>
+            <param name="DateStringToTest">The date to test</param>
+            <returns>true if the date is in the past (even by a second)</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.ProperCase(System.String)">
+            <summary>Returns the proper case of a string (such as a name). So "this is a test" becomes "This Is A Test".</summary>
+            <param name="Text">The text to proper case</param>
+            <returns>The proper case string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.Today">
+            <summary>Returns the current date and time</summary>
+            <returns>The current date/time</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.nzInteger(System.String)">
+            <summary>Returns the integer representation of a string</summary>
+            <param name="sOriginalText">The string to convert</param>
+            <returns>The integer representation of a string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.nzDouble(System.String)">
+            <summary>Returns the double representation of a string</summary>
+            <param name="sOriginalText">The string to convert</param>
+            <returns>The double representation of a string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.EmailToName(System.String)">
+            <summary>Extracts a name from an email address</summary>
+            <param name="sOriginalText">The Email address</param>
+            <returns>The extracted proper case name</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.Lower(System.String)">
+            <summary>Coverts the passed string to lowercase</summary>
+            <param name="sOriginalText">The text to convert</param>
+            <returns>The lowercase version of the string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.Upper(System.String)">
+            <summary>Coverts the passed string to uppercase</summary>
+            <param name="sOriginalText">The text to convert</param>
+            <returns>The uppercase version of the string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sXmlAgeOfDate(System.String)">
+            <summary>Returns the number of days old the date passed in is or a blank string if it isn't a valid date</summary>
+            <param name="XmlDate">The date to calculate</param>
+            <returns>The number of days old the date is</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sXmlDateOnlyForJavaScript(System.String,System.String)">
+            <summary>Converts an xml date/time into a javascript compatible date</summary>
+            <param name="XmlDate">The date/time to convert</param>
+            <param name="DefaultValue">The value to return if the date passed is blank or invalid</param>
+            <returns>The javascript date in MMMM, dd YYYY format</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sXmlDateOnly(System.String)">
+            <summary>Converts an xml date/time into a displayable date (MM/dd/YYYY format)</summary>
+            <param name="XmlDate">The date to convert</param>
+            <returns>The displayable date</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sXmlDate(System.String)">
+            <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
+            <param name="XmlDate">The date to convert</param>
+            <returns>The displayable date</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.Format(System.Single,System.String)">
+            <summary>Formats a number to a particular format (see the VB Format() function).</summary>
+            <param name="Value">The value to format</param>
+            <param name="FormatString">The VB.NET format string</param>
+            <returns>The formated string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.sXmlDate(System.String,System.String)">
+            <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
+            <param name="XmlDate">The date to convert</param>
+            <param name="sFormat">The VB.NET format string to format the date/time to</param>
+            <returns>The formated date/time string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.FirstName(System.String)">
+            <summary>Returns the first name (word) from the given string</summary>
+            <param name="Name">The name to parse</param>
+            <returns>The first name found</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.LastName(System.String)">
+            <summary>Returns the last name (word) from the given string</summary>
+            <param name="Name">The name to parse</param>
+            <returns>The last name found</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetNextID">
+            <summary>Increments an internal counter (NextID) and returns that value.</summary>
+            <returns>The next higher ID</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetNextLayer">
+            <summary>Subtracts one from the internal layer count (starting at 10,000) and returns that value</summary>
+            <returns>The next lower layer</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetNextRowClass">
+            <summary>Occilates between returning "contentDataRow1" and "contentDataRow2"</summary>
+            <returns>The next row CSS class value</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.ClearTotals">
+            <summary>
+            Clears the internal list of totals
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.ClearTotal(System.String)">
+            <summary>Clears the internal total to 0</summary>
+            <param name="TotalName">The name of the total to clear</param>
+            <returns>The string "0"</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.ClearTotal(System.String,System.String)">
+            <summary>Clears the internal total to some intial value</summary>
+            <param name="TotalName">The name of the total to clear</param>
+            <param name="sInitialValue">The value to set internal total to</param>
+            <returns>an empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.AddToTotal(System.String,System.String)">
+            <summary>Adds a value to the internal total</summary>
+            <param name="TotalName">The name of the total</param>
+            <param name="ToAdd">The value to add to the internal total</param>
+            <returns>An empty string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.SubtractFromTotal(System.String,System.String)">
+            <summary>Subtracts a value from the internal total</summary>
+            <param name="TotalName">The name of the total</param>
+            <param name="ToSubtract">The amount to subtract</param>
+            <returns>a blank string</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.GetTotal(System.String,System.Int32)">
+            <summary>Returns the current internal total value</summary>
+            <param name="TotalName">The name of the total</param>
+            <param name="DecimalPlaces">The number of decimal places to return the internal total (normally 2 or 0)</param>
+            <returns>The internal total formatted to the number of decimal places</returns>
+        </member>
+        <member name="M:MetX.Urn.xlgUrn.Distinct(System.Xml.XPath.XPathNodeIterator)">
+            <summary>
+            Returns a distinct set of nodes
+            </summary>
+            <param name="nodeset"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MetX.xsl">
+            <summary>Helper functions for dealing with xsl transformation</summary>
+        </member>
+        <member name="F:MetX.xsl.PageCacheSubKey">
+            <summary>Set this value when you wish your page's xslt compilation to be cached differently (say per theme, in this case the theme name will be sufficient).</summary>
+        </member>
+        <member name="M:MetX.xsl.Transform(System.Xml.XmlDocument,System.String)">
+            <summary>Performs an XSL Transformation on an XmlDocument</summary>
+            <param name="xmlDocument">The XmlDocument object to transform</param>
+            <param name="sXsltDocument">The XSL document</param>
+        </member>
+        <member name="M:MetX.xsl.Transform(System.IO.TextWriter,System.Xml.XmlDocument,System.String)">
+            <summary>Performs an XSL Transformation on an XmlDocument</summary>
+            <param name="xmlDocument">The XmlDocument object to transform</param>
+            <param name="sXsltDocument">The XSL document</param>
+        </member>
+        <member name="M:MetX.xsl.Transform(System.Web.Caching.Cache,System.Text.StringBuilder,System.String)">
+            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
+            <param name="PageCache">The PageCache object to retreive/store the XslCompiledTrasform from/to. If null, no caching is performed</param>
+            <param name="sXmlDocument">The xml string to transform</param>
+            <param name="xsltPath">The path and filename of the XSL file to load</param>
+            <returns>The transformed text</returns>
+        </member>
+        <member name="M:MetX.xsl.Transform(System.Web.Caching.Cache,System.Text.StringBuilder,System.String,System.Text.StringBuilder)">
+            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
+            <param name="PageCache">The PageCache object to retreive/store the XslCompiledTrasform from/to. If null, no caching is performed</param>
+            <param name="sXmlDocument">The xml string to transform</param>
+            <param name="xsltPath">The path and filename of the XSL file to load</param>
+            <param name="xsltDocumentContent">If supplied, the xsl stylesheet is assumed to already be loaded here. xsltPath is then used as a key to cache the request</param>
+            <returns>The transformed text</returns>
+        </member>
+        <member name="P:MetX.xsl.urlResolver">
+            <summary>Returns the page specific xlgUrnResolver or a default object if not specified.
+            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            </summary>
+        </member>
+        <member name="P:MetX.xsl.xlgUrn">
+            <summary>Automatically set to a new xlgUrn unless you supply your own..
+            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            </summary>
+        </member>
+        <member name="P:MetX.xsl.urns">
+            <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.UrnName and xlgSecurity.UrnClass.
+            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            </summary>
+        </member>
+        <member name="T:MetX.IO.xlgUrnResolver">
+            <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
+        </member>
+        <member name="F:MetX.IO.xlgUrnResolver.FileEntitys">
+            <summary>Only Load has been called on an XSL/XSL document, this will contain a list of the files included by the XSL/XML</summary>
+        </member>
+        <member name="M:MetX.IO.xlgUrnResolver.OnGetEntity(System.Uri,System.Type)">
+            <summary>Maps a URI to an object containing the physical resource. Override this to implement your own functionality</summary>
+            <param name="absoluteUri">The URI to retrieve</param>
+            <param name="ofObjectToReturn">The type of object to return. Current implementation only returns System.IO.Stream objects</param>
+            <returns>The actual resource</returns>
+        </member>
+        <member name="M:MetX.IO.xlgUrnResolver.#ctor">
+            <summary>Basic constructor</summary>
+        </member>
+        <member name="M:MetX.IO.xlgUrnResolver.GetEntity(System.Uri,System.String,System.Type)">
+            <summary>Resolves and retrieves the requested entity via URI</summary>
+            <param name="absoluteUri">The URI of the entity</param>
+            <param name="role">Unknown (see XmlResolver)</param>
+            <param name="ofObjectToReturn">Unknown (see XmlResolver)</param>
+            <returns>Unknown (see XmlResolver)</returns>
+        </member>
+        <member name="P:MetX.IO.xlgUrnResolver.Credentials">
+            <summary>Provides the base authentication credentials</summary>
+        </member>
+        <member name="T:MetX.SortedStringList">
+            <summary>
+            Basic implmentation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
+            </summary>
+        </member>
+        <member name="M:MetX.SortedStringList.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:MetX.SortedStringList.#ctor(System.Int32)">
+            <summary>
+            Creates a sorted string list with an initial capacity
+            </summary>
+            <param name="Capacity">The initial capacity of the sorted list.</param>
+        </member>
+        <member name="M:MetX.SortedStringList.ToXml(System.String,System.String)">
+            <summary>Retrieves the list as a xml string</summary>
+            <param name="TagName">The name of each element and the name of the wrapping element (appending an "s")</param>
+            <param name="TagAttributes">Any attributes to be added to the wrapping element</param>
+            <returns>An xml string of TagName elements wrapped in a TagName + "s" element with attributes equal to TagAttributes</returns>
+        </member>
+        <member name="T:MetX.IO.StateCollection">
+            <summary>Given two strings (such as a unique userid and the path to a web page),
+            StateCollection allows for an arbitrary number of name/value pairs to be quickly loaded and saved to the StateCollection table.</summary>
+        </member>
+        <member name="F:MetX.IO.StateCollection.mState">
+            <summary>The internal sorted list in memory</summary>
+        </member>
+        <member name="F:MetX.IO.StateCollection.StateParent">
+            <summary>The first of two unique strings that identify the secure state to work with.</summary>
+        </member>
+        <member name="F:MetX.IO.StateCollection.StateName">
+            <summary>The second of two unique strings that identify the secure state to work with.</summary>
+        </member>
+        <member name="F:MetX.IO.StateCollection.TagName">
+            <summary>Used by InnerXml, This is the name of each element.</summary>
+        </member>
+        <member name="F:MetX.IO.StateCollection.ConnectionName">
+            <summary>The name of the connection to use to connect to the database. Defaults to 'xlgSecurity'</summary>
+        </member>
+        <member name="M:MetX.IO.StateCollection.#ctor(System.String,System.String,System.String)">
+            <summary>Basic constructor. Does not load a profile, just sets up the properties.</summary>
+            <param name="StateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
+            <param name="StateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
+            <param name="TagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
+        </member>
+        <member name="M:MetX.IO.StateCollection.#ctor(System.String,System.String,System.String,MetX.SortedStringList)">
+            <summary>Basic constructor that additionally sets the intial state. Useful when loading state from an existing list or when setting up a new secure state.</summary>
+            <param name="StateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
+            <param name="StateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
+            <param name="TagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
+            <param name="InitialState">The initial set of name/value pairs for the named secure state.</param>
+        </member>
+        <member name="M:MetX.IO.StateCollection.Save">
+            <summary>Saves the current state to the StateCollection table. All previous items in the state are deleted.</summary>
+        </member>
+        <member name="P:MetX.IO.StateCollection.Item(System.String)">
+            <summary>Retrieves/Sets the string value for a name/value pair. If the item doesn't exist, the item will be created.</summary>
+        </member>
+        <member name="P:MetX.IO.StateCollection.State">
+            <summary>The secure state will load the first time this property is called and when a name/value list is not supplied in the constructor. Setting this property will overwrite the entire list.</summary>
+        </member>
+        <member name="P:MetX.IO.StateCollection.InnerXml">
+            <summary>Returns a string containing the xml representation of this state. The elements are wrapped with another element with the same name as TagName followed by an "s". So if TagName = "Item", then InnerXml will return a Items elemnt with one Item element per name/value pair.</summary>
+        </member>
+        <member name="T:MetX.Data.xlgFolder">
+            <summary>
+            Represents a library to generate
+            </summary>
+        </member>
+        <member name="T:MetX.Data.xlgFile">
+            <summary>
+            Represents a file
+            </summary>
+        </member>
+        <member name="T:MetX.Worker">
+            <summary>General helper functions</summary>
+        </member>
+        <member name="M:MetX.Worker.nzString(System.Object,System.String)">
+            <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
+            <param name="Value">The value to convert</param>
+            <param name="DefaultValue">The value to return if Value == null or DbNull or an empty string.</param>
+            <returns>The string representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzByteArray(System.Object)">
+            <summary>Returns the byte array representation of a value, even if it's DbNull or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The byte array representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzTimeSpan(System.Object)">
+            <summary>Returns the TimeSpan representation of a value, even if it's DbNull or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The TimeSpan representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzString(System.Object)">
+            <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The string representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzDouble(System.Object)">
+            <summary>Returns the double representation of a value, even if it's DbNull, a Guid, or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The double representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzDecimal(System.Object)">
+            <summary>Returns the double representation of a value, even if it's DbNull, a Guid, or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The double representation</returns>
+        </member>
+        <member name="M:MetX.Worker.s2db(System.Object)">
+            <summary>Returns a SQL appropriate phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited string of the value will be created. So if Value='fred', then this function will return "'fred'"</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The SQL appropriate phrase</returns>
+            
+            <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
+        </member>
+        <member name="M:MetX.Worker.s2db(System.Object,System.Int32)">
+            <summary>Returns a SQL appropriate phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited string of the value will be created. So if Value='fred', then this function will return "'fred'"</summary>
+            <param name="Value">The value to convert</param>
+            <param name="MaxLength">The maximum length the converted string should be. Values longer will be truncated.</param>
+            <returns>The SQL appropriate phrase</returns>
+            
+            <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
+        </member>
+        <member name="M:MetX.Worker.Date2Db(System.Object)">
+            <summary>Returns a SQL appropriate date/time phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited date/time string of the value will be created.</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The SQL appropriate date/time string</returns>
+            
+            <example><c>string x = "insert into x values(" + d2db(y) + ")";</c></example>
+        </member>
+        <member name="M:MetX.Worker.nzGuid(System.Object)">
+            <summary>Returns the Guid representation of a value, even if it's DbNull, a Guid, or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The Guid representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzDateTime(System.Object)">
+            <summary>Returns the DateTime representation of a value, even if it's DbNull or null</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The DateTime representation</returns>
+        </member>
+        <member name="M:MetX.Worker.nzDateTime(System.Object,System.DateTime)">
+            <summary>Returns the DateTime representation of a value, even if it's DbNull or null</summary>
+            <param name="Value">The value to convert</param>
+            <param name="RelativeTo">If the value passed in is only a time like value, The date portion of RelativeTo is used to fill in the date.</param>
+            <returns>The DateTime representation</returns>
+        </member>
+        <member name="M:MetX.Worker.AddConditionMonthRange(System.String,System.String,System.Web.HttpRequest,System.String@,System.String@,System.Boolean)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.
+            <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
+            </summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="RootAttributes">The xml string of attributes to add to</param>
+            <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
+        </member>
+        <member name="M:MetX.Worker.AddCondition(System.String,System.String,System.Web.HttpRequest,System.String@,System.Boolean)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
+        </member>
+        <member name="M:MetX.Worker.AddCondition(System.String,System.String,System.Web.HttpRequest,System.String@)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+        </member>
+        <member name="M:MetX.Worker.AddCondition(System.String,System.String,System.Web.HttpRequest,System.String@,System.String@,System.Boolean,System.String)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="RootAttributes">The string to add to the xml string attributes</param>
+            <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
+            <param name="DefaultValue">A default value to use if one isn't found in the Request</param>
+        </member>
+        <member name="M:MetX.Worker.AddCondition(System.String,System.String,System.Web.HttpRequest,System.String@,System.String@,System.Boolean)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="RootAttributes">The string containing xml string attributes to add to</param>
+            <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
+        </member>
+        <member name="M:MetX.Worker.AddCondition(System.String,System.String,System.Web.HttpRequest,System.String@,System.String@)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
+            <param name="TableName">The table to target in the where clause</param>
+            <param name="sField">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="RootAttributes">The string containing xml string attributes to add to</param>
+        </member>
+        <member name="M:MetX.Worker.AddConditionDateRange(System.String,System.String,System.String,System.String,System.Web.HttpRequest,System.String@,System.String,System.String)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.
+            <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
+            </summary>
+            <param name="sRangeField">The Request value to test</param>
+            <param name="StartDateField">FUTURE</param>
+            <param name="EndDateField">FUTURE</param>
+            <param name="Field">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="sRange">The range type to </param>
+            <param name="DefaultRangeName">FUTURE</param>
+            <returns>FUTURE</returns>
+        </member>
+        <member name="M:MetX.Worker.AddConditionDateRange(System.String,System.String,System.String,System.String,System.Web.HttpRequest,System.String@,System.String)">
+            <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.
+            <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
+            </summary>
+            <param name="sRangeField">The Request value to test</param>
+            <param name="StartDateField">FUTURE</param>
+            <param name="EndDateField">FUTURE</param>
+            <param name="Field">The field to target in the where clause</param>
+            <param name="Request">The Request to draw the value from</param>
+            <param name="Conditions">The current where clause to add to</param>
+            <param name="sRange">The range type to </param>
+        </member>
+        <member name="M:MetX.Worker.AddFullTextCondition(System.String,System.String,System.Web.HttpRequest,System.String@)">
+            <summary>Adds a full text condition to Conditions</summary>
+            <param name="TableName">The table to target</param>
+            <param name="sField">The field to target</param>
+            <param name="Request">The Request to pull the value from</param>
+            <param name="Conditions">The where clausse to add to</param>
+        </member>
+        <member name="M:MetX.Worker.AddLikeCondition(System.String,System.String,System.Web.HttpRequest,System.String@)">
+            <summary>Adds a LIKE text condition to Conditions (eg WHERE X LIKE '%y%')</summary>
+            <param name="TableName">The table to target</param>
+            <param name="sField">The field to target</param>
+            <param name="Request">The Request to pull the value from</param>
+            <param name="Conditions">The where clausse to add to</param>
+        </member>
+        <member name="M:MetX.Worker.AddLikeCondition(System.String,System.String,System.Web.HttpRequest,System.String@,System.String@)">
+            <summary>Adds a LIKE text condition to Conditions (eg WHERE X LIKE '%y%'). The asterick (*) is interpreted like a % (to simplify url encoding)</summary>
+            <param name="TableName">The table to target</param>
+            <param name="sField">The field to target</param>
+            <param name="Request">The Request to pull the value from</param>
+            <param name="Conditions">The where clausse to add to</param>
+            <param name="RootAttributes">The xml attribute string to add to</param>
+        </member>
+        <member name="M:MetX.Worker.EmailToName(System.String,System.String)">
+            <summary>Extracts a name from an email address</summary>
+            <param name="sOriginalText">The Email address</param>
+            <param name="DefaultName">The default name to use if none is found (or a blank email address is passed in)</param>
+            <returns>The extracted proper case name</returns>
+        </member>
+        <member name="M:MetX.Worker.FieldNV(System.String,System.String,System.Boolean)">
+            <summary>Builds a WHERE clause appropriate phrase for a single field and value</summary>
+            <param name="sField">The field to target</param>
+            <param name="sValue">The value. Special cases include "(NULL)" [FieldName + " IS NULL"], "not (NULL)" [FieldName + " IS NOT NULL"], "(BLANK)" [FieldName + "=''"], "(all)" if bAllMeansNotNull=true then [FieldName + " IS NOT NULL"] otherwise a blank string is returned</param>
+            <param name="bAllMeansNotNull">Controlls how "(all)" is interpreted</param>
+            <returns>The WHERE clause component</returns>
+        </member>
+        <member name="M:MetX.Worker.FieldNV(System.String,System.String,System.String@,System.Boolean)">
+            <summary>Builds a WHERE clause appropriate phrase for a single field and value</summary>
+            <param name="sField">The field to target</param>
+            <param name="sValue">The value. Special cases include "(NULL)" [FieldName + " IS NULL"], "not (NULL)" [FieldName + " IS NOT NULL"], "(BLANK)" [FieldName + "=''"], "(all)" if bAllMeansNotNull=true then [FieldName + " IS NOT NULL"] otherwise a blank string is returned</param>
+            <param name="RootAttributes">The xml attribute string to add to</param>
+            <param name="bAllMeansNotNull">Controlls how "(all)" is interpreted</param>
+            <returns>The WHERE clause component</returns>
+        </member>
+        <member name="M:MetX.Worker.LikePattern(System.String,System.Web.HttpRequest)">
+            <summary>Returns a value wrapped in percent (%) ready for use in a WHERE clause</summary>
+            <param name="sField">The Request field to pull</param>
+            <param name="Request">The Request to pull from</param>
+            <returns>The WHERE ready LIKE value</returns>
+        </member>
+        <member name="M:MetX.Worker.NV(System.String)">
+            <summary>Translates a string back into a database value where "(NULL)" will return DbNull.Value and "(BLANK)" will return string.Empty </summary>
+            <param name="sValue">The value to convert</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:MetX.Worker.NZ(System.Object)">
+            <summary>Converts an object to a string capable of retaining its state. DbNull or null becomes "(NULL)", an empty string becomes "(BLANK)", otherwise the value is returned</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:MetX.Worker.nzBoolean(System.Object)">
+            <summary>Converts an object to its boolean represenation. null and DbNull or blank strings return false. Failures to convert return false without raising an exception</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The converted boolean value</returns>
+        </member>
+        <member name="M:MetX.Worker.nzShort(System.Object)">
+            <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The converted integer value</returns>
+        </member>
+        <member name="M:MetX.Worker.nzLong(System.Object)">
+            <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The converted integer value</returns>
+        </member>
+        <member name="M:MetX.Worker.nzInteger(System.Object)">
+            <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
+            <param name="Value">The value to convert</param>
+            <returns>The converted integer value</returns>
+        </member>
+        <member name="M:MetX.Worker.nzInteger(System.Object,System.Int32)">
+            <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
+            <param name="Value">The value to convert</param>
+            <param name="DefaultValue">What to return if Value is DbNull, null, or an empty string.</param>
+            <returns>The converted integer value</returns>
+        </member>
+        <member name="T:MetX.IO.SmtpMail">
+            <summary>Provides methids to send email via smtp, with out CDO SYS installed.
+            <para>This is a manual implementation of the SMTP protocol.</para>
+            </summary>
+        </member>
+        <member name="F:MetX.IO.SmtpMail.SmtpServer">
+            <summary>Get or Set the name of the SMTP relay mail server</summary>
+        </member>
+        <member name="M:MetX.IO.SmtpMail.Send(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>Send an Email</summary>
+            <param name="FromName">The displayed name for the FROM address</param>
+            <param name="FromEmail">The FROM address</param>
+            <param name="ToName">The displayed name for the TO address</param>
+            <param name="ToEmail">The TO address</param>
+            <param name="Subject">The SUBJECT for the email</param>
+            <param name="Body">The text body of the email</param>
+            <returns>True if the email was sent</returns>
+        </member>
+        <member name="M:MetX.IO.SmtpMail.Send(System.Net.Mail.MailMessage)">
+            <summary>Sends an email message</summary>
+            <param name="message">The MailMessage to send</param>
+            <returns>Returns true if the email was sent.</returns>
+        </member>
+        <member name="T:MetX.Token">
+            <summary>Provides simple methods for retrieving tokens from a string.
+            <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
+            <para>Asking for a token beyond the end of a string returns a blank string. Asking for the zeroth or a negative token returns a blank string.</para>
+            </summary>
+        </member>
+        <member name="M:MetX.Token.Count(System.String,System.String)">
+            <summary>Returns the number of tokens in a string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+            
+            <example>
+            <code>
+            int x = Token.Count("this is a test", "is");
+            // x = 2;
+            x = Token.Count("this is a test", " ");
+            // x = 4;
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.Count(System.String)">
+            <summary>Returns the number of " " (space) delimited tokens in a string. IE: returns the number of words in a string.</summary>
+            <param name="Target">The string to target</param>
+            <returns>The number of tokens (words) in the string</returns>
+        </member>
+        <member name="M:MetX.Token.After(System.String,System.Int32,System.String)">
+            <summary>Returns all tokens after the indicated token.</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenNumber">The token number to return after</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+            
+            <example>
+            <code>
+            string x = Token.After("this is a test", 2, " ");
+            // x = "a test"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.After(System.String,System.Int32)">
+            <summary>Returns all tokens after the indicated " " (space) delimited token</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenNumber">The token number to return after</param>
+            
+            <example>
+            <code>
+            string x = Token.After("this is a test", 2);
+            // x = "a test"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.After(System.String)">
+            <summary>Returns all tokens after the first " " (space) delimited token</summary>
+            <param name="Target">The string to target</param>
+            <returns>All tokens after the first</returns>
+            
+            <example>
+            <code>
+            string x = Token.After("this is a test");
+            // x = "is a test"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.Before(System.String,System.Int64,System.String)">
+            <summary>Returns all tokens before the indicated token.</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenNumber">The token number to return before</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+            
+            <example>
+            <code>
+            string x = Token.Before("this is a test", 3, " ");
+            // x = "this is"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.Before(System.String,System.Int64)">
+            <summary>Returns all tokens before the indicated " " (space) delimited token.</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenNumber">The token number to return before</param>
+            
+            <example>
+            <code>
+            string x = Token.Before("this is a test", 3);
+            // x = "this is"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.First(System.String)">
+            <summary>Returns the first token in the indicated string</summary>
+            <param name="Target">The string to target</param>
+            <returns>The first token (word) in the string</returns>
+            
+            <example>
+            <code>
+            string x = Token.First("this is a test");
+            // x = "this"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.First(System.String,System.String)">
+            <summary>Returns the first delimited token in the indicated string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+            
+            <example>
+            <code>
+            string x = Token.First("this is a test", " a ");
+            // x = "this is"
+            </code>
+            </example>
+        </member>
+        <member name="M:MetX.Token.Get(System.String,System.Int32,System.String)">
+            <summary>Returns a single delimited token from a string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenNumber">The token to return</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+        </member>
+        <member name="M:MetX.Token.Last(System.String,System.String)">
+            <summary>Returns the last delimited token from a string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+        </member>
+        <member name="M:MetX.Token.BeforeLast(System.String,System.String)">
+            <summary>Returns everything before the last delimited token from a string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+        </member>
+        <member name="M:MetX.Token.AfterFirst(System.String,System.String)">
+            <summary>Returns everything after the first delimited token from a string</summary>
+            <param name="Target">The string to target</param>
+            <param name="TokenDelimiter">The token delimiter</param>
+        </member>
+        <member name="T:MetX.IO.sql">
+            <summary>Helper functions to simplify working with sql connections</summary>
+        </member>
+        <member name="M:MetX.IO.sql.GetString(System.Data.SqlClient.SqlDataReader,System.Int32,System.String)">
+            <summary>This returns the string representation of a column from a reader. Supports DBNull (default return value), guid, int, and datetime. All other types simply call GetString() on the reader.</summary>
+            <param name="rst">The reader</param>
+            <param name="Index">The column to retreive as a string</param>
+            <param name="DefaultReturnValue">If the column is DBNull, this will be the return value</param>
+            <returns>String representation of the field</returns>
+            
+            <example><c>GetString(reader, 0, "Something");</c>
+            Retrieves field 0. If it's DbNull, the string "Something" will be returned. </example>
+        </member>
+        <member name="M:MetX.IO.sql.GetString(System.Data.SqlClient.SqlDataReader,System.Int32)">
+            <summary>This returns the string representation of a column from a reader. Supports DBNull (as an empty string), guid, int, and datetime. All other types simply call GetString() on the reader.</summary>
+            <param name="rst">The reader</param>
+            <param name="Index">The column to retreive</param>
+            <returns>String representation of the field</returns>
+            
+            <example><c>GetString(reader, 0);</c>
+            Retrieves field 0. If it's DbNull, the string "" will be returned. </example>
+        </member>
+        <member name="M:MetX.IO.sql.GetDateTime(System.Data.SqlClient.SqlDataReader,System.Int32)">
+            <summary>This returns the DateTime representation of a column from a reader. Supports DBNull (as an empty string), guid, int, and datetime. All other types simply call GetDateTime() on the reader.</summary>
+            <param name="rst">The reader</param>
+            <param name="Index">The column to retreive</param>
+            <returns>String representation of the field</returns>
+            
+            <example><c>GetDateTime(reader, 0);</c>
+            Retrieves field 0. If it's DbNull, DateTime.MinValue will be returned. </example>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleStringValue(System.String,System.String,System.String)">
+            <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, DefaultReturnValue is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <param name="DefaultReturnValue">The value to return when DbNull is encountered.</param>
+            <returns>String value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleStringValue(System.String)">
+            <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, A blank string is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <returns>String value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleStringValue(System.String,System.String)">
+            <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, a blank string is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>String value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToXml(System.String,System.String,System.String,System.String)">
+            <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+            <param name="TagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+            <param name="TagAttributes">The attributes to add to the TagName element</param>
+            <param name="SQL">The SQL to convert to an xml string</param>
+            <param name="ConnectionName">The Connection from Web.config to use</param>
+            <returns>The xml string attribute based representation of the SQL statement</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToXml(System.String,System.String,System.String)">
+            <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+            <param name="TagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+            <param name="TagAttributes">The attributes to add to the TagName element</param>
+            <param name="SQL">The SQL to convert to an xml string</param>
+            <returns>The xml string attribute based representation of the SQL statement</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToXml(System.String,System.String)">
+            <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+            <param name="SQL">The SQL to convert to an xml string</param>
+            <param name="ConnectionName">The Connection from Web.config to use</param>
+            <returns>The xml string attribute based representation of the SQL statement</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToXml(System.String)">
+            <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+            <param name="SQL">The SQL to convert to an xml string</param>
+            <returns>The xml string attribute based representation of the SQL statement</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataSet(System.String,System.String)">
+            <summary>Simply runs the SQL statement and returns a DataSet</summary>
+            <param name="SQL">The SQL to run</param>
+            <param name="ConnectionName">The Connection from Web.config to use</param>
+            <returns>A DataSet object with the results</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataSet(System.String)">
+            <summary>Simply runs the SQL statement and returns a DataSet</summary>
+            <param name="SQL">The SQL to run</param>
+            <returns>A DataSet object with the results</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleDateValue(System.String,System.String)">
+            <summary>Returns the first column as a DateTime value of the first row of the passed sql. If DbNull is the value, DateTime.MinValue is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>DateTime value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleDateValue(System.String)">
+            <summary>Returns the first column as a DateTime value of the first row of the passed sql. If DbNull is the value, DateTime.MinValue is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <returns>DateTime value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleIntegerValue(System.String,System.String,System.Int32)">
+            <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, DefaultReturnValue is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <param name="DefaultReturnValue">The value to return if DbNull is encountered</param>
+            <returns>int value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleIntegerValue(System.String,System.String)">
+            <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>int value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.RetrieveSingleIntegerValue(System.String)">
+            <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+            <returns>int value of the first column of the first row</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataTable(System.String,System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>A DataTable object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataTable(System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <returns>A DataTable object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataTable(System.String,System.String,System.Data.DataTable)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <param name="ToFill">The DataTable to fill (could be a strongly typed DataTable)</param>
+            <returns>A DataTable object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataTable(System.String,System.Data.DataTable)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <param name="ToFill">The DataTable to fill (could be a strongly typed DataTable)</param>
+            <returns>A DataTable object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataRows(System.String,System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataRowCollection inside the first DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>A DataRowCollection object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataRows(System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the DataRowCollection inside the first DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+            <returns>A DataRowCollection object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataRow(System.String,System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the first DataRow inside the first DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>A DataRow object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.ToDataRow(System.String)">
+            <summary>Converts the SQL passed in into a DataSet and returns the first DataRow inside the first DataTable found, otherwise null is returned.</summary>
+            <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
+            <returns>A DataRow object representing the SQL statement or null</returns>
+        </member>
+        <member name="M:MetX.IO.sql.UpdateNotificationField(System.String,System.String,System.String,System.Int32)">
+            <summary>Updates a field in the Notification table for a single NotificationID</summary>
+            <param name="NotificationID">The NotificationID to update</param>
+            <param name="FieldName">The field to update</param>
+            <param name="NewValue">The new value of the field</param>
+            <param name="MaxLength">If the field has a maximum length, specify it and this function will insure the field does not exceed that length</param>
+            <returns>True if the record was updated</returns>
+        </member>
+        <member name="M:MetX.IO.sql.Execute(System.Collections.Generic.List{System.String},System.String)">
+            <summary>Executes a series of SQL statements on the same connection</summary>
+            <param name="SqlArray">The list of SQLs to execute</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        </member>
+        <member name="M:MetX.IO.sql.Execute(System.Collections.Generic.List{System.String})">
+            <summary>Executes a series of SQL statements on the same Default connection</summary>
+            <param name="SqlArray">The list of SQLs to execute</param>
+        </member>
+        <member name="M:MetX.IO.sql.Execute(System.String,System.String)">
+            <summary>Executes a SQL statement</summary>
+            <param name="SQL">The SQL to execute</param>
+            <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+            <returns>The number of records affected</returns>
+        </member>
+        <member name="M:MetX.IO.sql.Execute(System.String)">
+            <summary>Executes a SQL statement</summary>
+            <param name="SQL">The SQL to execute</param>
+            <returns>The number of records affected</returns>
+        </member>
+        <member name="M:MetX.IO.sql.GetConnection(System.String)">
+            <summary>Returns a SqlConnection object given the connection name from Web.config. If that entry is blank or missing, Default.SqlClient is used.</summary>
+            <param name="ConnectionName">The Web.config key name containing the connection string</param>
+            <returns>An open SqlConnection object to the appropriate database (remember to close it)</returns>
+        </member>
+        <member name="M:MetX.IO.sql.GetConnectionString(System.String)">
+            <summary>Returns the Web.config connection string named. If that entry is blank or missing, Default.SqlClient is returned.</summary>
+            <param name="ConnectionName">The Web.config key name</param>
+            <returns>A connection string</returns>
+        </member>
+        <member name="P:MetX.IO.sql.DefaultConnectionString">
+            <summary>Returns the value of the Web.config key "Default.SqlClient"</summary>
+        </member>
+        <member name="P:MetX.IO.sql.DefaultConnection">
+            <summary>Returns a SqlClonnetion object using DefaultConnectionString</summary>
+        </member>
+        <member name="T:MetX.IO.xlgDataSection">
+            <summary>Represents the xlg section in a configuration file</summary>
+        </member>
+        <member name="P:MetX.IO.xlgDataSection.Providers">
+            <summary>Represents a collection of ProviderSettings objects</summary>
+        </member>
+        <member name="P:MetX.IO.xlgDataSection.DefaultProvider">
+            <summary>The default provider to use</summary>
+        </member>
+        <member name="P:MetX.IO.xlgDataSection.ConnectionStringName">
+            <summary>The default connection to use</summary>
+        </member>
+        <member name="T:MetX.IO.HTTP">
+            <summary>Provides static methods to common web based tasks</summary>
+        </member>
+        <member name="M:MetX.IO.HTTP.GetURL(System.String,System.String)">
+            <summary>Makes an HTTP POST call returning the response (no headers)</summary>
+            <param name="lcURL">The Web address to post to</param>
+            <param name="PostData">The URL encoded data to send</param>
+            <returns>The response text from the post (ASCII encoded).</returns>
+        </member>
+        <member name="M:MetX.IO.HTTP.GetURL(System.String,System.Int32,System.String)">
+            <summary>Makes an HTTP POST call returning the response (no headers)</summary>
+            <param name="lcURL">The Web address to post to</param>
+            <param name="Timeout">The maximum number of seconds to wait for a response</param>
+            <param name="UserAgent">The UserAgent header value to pass</param>
+            <returns>The response text from the post (ASCII encoded)</returns>
+        </member>
+        <member name="M:MetX.IO.HTTP.GetURL(System.String,System.Int32)">
+            <summary>Makes an HTTP POST call returning the response (no headers)</summary>
+            <param name="lcURL">The Web address to post to</param>
+            <param name="Timeout">The maximum number of seconds to wait</param>
+            <returns>The response text from the post (Windows default code page encoded).</returns>
+        </member>
+        <member name="M:MetX.IO.HTTP.GetURL(System.String)">
+            <summary>Makes an HTTP POST call returning the response (no headers)</summary>
+            <param name="lcURL">The Web address to post to</param>
+            <returns>The response text from the post (Windows default code page encoded).</returns>
+        </member>
+        <member name="M:MetX.IO.HTTP.GetUrlByteArray(System.String)">
+            <summary>Makes an HTTP POST call returning the response (no headers)</summary>
+            <param name="lcURL">The Web address to post to</param>
+            <returns>The response text from the post (Windows default code page encoded).</returns>
+        </member>
+        <member name="M:MetX.IO.HTTP.PullPage(System.Uri,System.Web.HttpResponse,System.Boolean,System.Boolean)">
+            <summary>Pulls the contents of URL to the Response object. NOTE: Response is cleared before the URL's response is written to TheResponse</summary>
+            <param name="URL">The URL to pull</param>
+            <param name="TheResponse">The HttpResponse to write the result to</param>
+            <param name="ClearResponse">True if you want TheResponse.Clear() to be called before writing URL response to TheResponse</param>
+            <param name="EndResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
+        </member>
+        <member name="T:MetX.Data.DefaultXlg">
+            <summary>Provides access to static virtual file content for files</summary>
+        </member>
+        <member name="F:MetX.Data.DefaultXlg.xml">
+            <summary>The static contents of the file: "C:\data\code\wmr\MetX\Data\DataDefault.xml" as it existed at compile time.</summary>
+        </member>
+        <member name="P:MetX.Data.DefaultXlg.xmlStringBuilder">
+            <summary>Returns xml inside a StringBuilder.</summary>
+            <returns>A StringBuilder with the compile time file contents</returns>
+        </member>
+        <member name="T:MetX.IO.FileSystem">
+            <summary>Helper functions for the file system</summary>
+        </member>
+        <member name="M:MetX.IO.FileSystem.CleanFilesOlderThan(System.Int32,System.String)">
+            <summary>Deletes all files in a folder older than a certain number of minutes.</summary>
+            <param name="Minutes">The number of minutes ago the file must be created to be deleted. (So 5 means it must be at least 5 minutes old to be deleted).</param>
+            <param name="sPath">The folder to delete files from</param>
+        </member>
+        <member name="M:MetX.IO.FileSystem.CleanFoldersOlderThan(System.Int32,System.String)">
+            <summary>Deletes all sub folders older than a certain number of minutes.</summary>
+            <param name="Minutes">The number of minutes ago a folder must be created to be deleted (So 5 means it must be at least 5 minutes old to be deleted)</param>
+            <param name="sPath">The path to retrieve delete sub folders for. NOTE: The path itself will not be removed. So passing "C:\X\Y" would delete "C:\X\Y\Z" (if it's more than 5 minutes old) but not "C:\X\Y" (no matter how old it is)</param>
+        </member>
+        <member name="M:MetX.IO.FileSystem.DeepCopy(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
+            <param name="Source">The path from which files and subfolders should be copied</param>
+            <param name="Dest">The path to which those files and folders should be copied</param>
+            <returns>True if the operation was successful, otherwise an exception is thrown</returns>
+        </member>
+        <member name="M:MetX.IO.FileSystem.DeepContents(System.IO.DirectoryInfo)">
+            <summary>Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along the way</summary>
+            <param name="Source">The path from which files and subfolders to iterate</param>
+            <returns>True if the operation was successful, otherwise an exception is thrown</returns>
+        </member>
+        <member name="M:MetX.IO.FileSystem.DeepContents(MetX.Data.xlgFolder,System.IO.DirectoryInfo)">
+            <summary>Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along the way</summary>
+            <param name="Source">The path from which files and subfolders to iterate</param>
+            <returns>True if the operation was successful, otherwise an exception is thrown</returns>
+        </member>
+        <member name="M:MetX.IO.FileSystem.FileToString(System.String)">
+            <summary>Reads the entire contents of a file and returns it as a string</summary>
+            <param name="Filename">The path and filename to read</param>
+            <returns>The contents of the file or a blank string if the file does not exist.</returns>
+        </member>
+        <member name="M:MetX.IO.FileSystem.StringToFile(System.String,System.String)">
+            <summary>Writes a string to a file. If the file already exists, it will be deleted first (effectively overwriting the file)</summary>
+            <param name="Filename">The path and filename of the file to overwrite</param>
+            <param name="FileContents">The contents of the file to write</param>
+        </member>
+        <member name="M:MetX.IO.FileSystem.ParentDir(System.String)">
+            <summary>Given a path, it returns the parent folder (So for "C:\X\Y\Z", "C:\X\Y" would be returned.</summary>
+            <param name="Path">The path to find the parent for</param>
+            <returns>The path of the parent directory</returns>
+        </member>
+        <member name="M:MetX.IO.FileSystem.GatherOutput(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Runs a command line, waits for it to finish, gathers it's output from strin and returns the output.
+            </summary>
+            <param name="Filename">The filename to execute</param>
+            <param name="Arguments">Any (optional) arguments to pass to the executable</param>
+            <param name="WorkingFolder">The folder that the executing environment should initially be set to</param>
+            <param name="WaitTime">The number of seconds to wait before killing the process. If the value is less than 1, 60 seconds is assumed.</param>
+            <returns>The strout/strerr output by the executable</returns>
+        </member>
+        <member name="T:MetX.IO.xlgThemeResolver">
+            <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented. Additionally xlg type Theme support is added.</summary>
+        </member>
+        <member name="F:MetX.IO.xlgThemeResolver.ThemePath">
+            <summary>The relative path to the theme directory</summary>
+        </member>
+        <member name="F:MetX.IO.xlgThemeResolver.pathTrigger">
+            <summary>The string within the URL that triggers a conversion</summary>
+        </member>
+        <member name="F:MetX.IO.xlgThemeResolver.basePath">
+            <summary>The base path for all themes</summary>
+        </member>
+        <member name="F:MetX.IO.xlgThemeResolver.Transformer">
+            <summary>The xml class from the xlgHandler</summary>
+        </member>
+        <member name="M:MetX.IO.xlgThemeResolver.#ctor(MetX.xsl,System.String,System.String,System.String,System.String)">
+            <summary>Initializes the Theme Resolver</summary>
+            <param name="Transformer">The xml class from your xlgHandler</param>
+            <param name="ThemeName">The name of the theme (blue, red, YourClientName, etc)</param>
+            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
+            <param name="basePath">The relative base path for all themes</param>
+            <param name="ThemePath">The relative path to the specific theme directory</param>
+        </member>
+        <member name="M:MetX.IO.xlgThemeResolver.#ctor(MetX.xsl,System.String,System.String,System.String)">
+            <summary>Initializes the Theme Resolver</summary>
+            <param name="Transformer">The xml class from your xlgHandler</param>
+            <param name="ThemeName">The name of the theme (blue, red, YourClientName, etc)</param>
+            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
+            <param name="basePath">The relative base path for all themes</param>
+        </member>
+        <member name="M:MetX.IO.xlgThemeResolver.#ctor(MetX.xsl,System.String)">
+            <summary>Initializes the Theme Resolver. This is the one you should use most often.</summary>
+            <param name="Transformer">The xml class from your xlgHandler</param>
+            <param name="ThemeName">The name of the theme (blue, red, YourClientName, etc)</param>
+        </member>
+        <member name="M:MetX.IO.xlgThemeResolver.#ctor(MetX.xsl)">
+            <summary>Initializes the Theme Resolver</summary>
+            <param name="Transformer">The xml class from your xlgHandler</param>
+        </member>
+        <member name="M:MetX.IO.xlgThemeResolver.GetEntity(System.Uri,System.String,System.Type)">
+            <summary>Resolves and retrieves the requested entity via URI</summary>
+            <param name="absoluteUri">The URI to resolve</param>
+            <param name="role">N/A</param>
+            <param name="ofObjectToReturn">Type of object to return</param>
+            <returns>The resolved entity</returns>
+        </member>
+        <member name="P:MetX.IO.xlgThemeResolver.ThemeName">
+            <summary>The name of the theme to resolve to (when available)</summary>
+        </member>
+    </members>
+</doc>
