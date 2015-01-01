@@ -881,7 +881,7 @@ namespace MetX.Data
                     .Replace("__", "_")
                     .Replace("__", "_");
 
-                while (ToConvert.IndexOf("_") > -1)
+                while (ToConvert.IndexOf("_", StringComparison.Ordinal) > -1)
                 {
                     string af = Token.After(ToConvert, 1, "_");
                     if (af.Length > 0)
