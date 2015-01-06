@@ -612,6 +612,11 @@ namespace MetX.Glove
             buttonLoad_Click(null, null);
         }
 
+        private void scratchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 
