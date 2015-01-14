@@ -30,10 +30,10 @@ namespace MetX.Glove.Console
                 {
                     gloveFilename = args[0];
                     xslFilename = gloveFilename + ".xsl";
-                    if (gloveFilename.IndexOf("\\App_Code\\") > -1)
-                        configFilename = Token.First(gloveFilename, "\\App_Code\\") + "\\web.config";
+                    if (gloveFilename.IndexOf(@"\App_Code\", StringComparison.Ordinal) > -1)
+                        configFilename = Token.First(gloveFilename, @"\App_Code\") + "\\web.config";
                     else
-                        configFilename = Token.Before(gloveFilename, Token.Count(gloveFilename, "\\"), "\\") + "\\app.config";
+                        configFilename = Token.Before(gloveFilename, Token.Count(gloveFilename, @"\"), @"\") + @"\app.config";
                     outputFilename = gloveFilename.Replace(".xlg", ".Glove.cs");
                 }
                 else if (args.Length == 4)
@@ -52,8 +52,10 @@ namespace MetX.Glove.Console
 
                 try
                 {
-                    CodeGenerator Gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
-                    FileSystem.StringToFile(outputFilename, Gen.Code);
+                    CodeGenerator gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
+                    string generatedCode = gen.GeneratedCode;
+                    if (string.IsNullOrEmpty(generatedCode)) return;
+                    FileSystem.StringToFile(outputFilename, generatedCode);
                     System.Console.Write("--- SUCCESS: " + outputFilename);
                 }
                 catch (Exception ex)

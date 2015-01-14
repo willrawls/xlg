@@ -9,255 +9,291 @@ using System.Xml.Serialization;
 
 namespace MetX.Data
 {
-	[Serializable, XmlRoot(Namespace="", IsNullable=false)]
-	public class XlgSettings
-	{
-		static XmlSerializer xs = new XmlSerializer(typeof(XlgSettings));
+    [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
+    public class XlgSettings
+    {
+        static XmlSerializer m_Xs = new XmlSerializer(typeof(XlgSettings));
 
-		[XmlAttribute] public string Filename;
-        [XmlAttribute] public string DefaultConnectionString;
-        [XmlAttribute] public string DefaultProviderName;
+        [XmlAttribute]
+        public string Filename;
+        [XmlAttribute]
+        public string DefaultConnectionString;
+        [XmlAttribute]
+        public string DefaultProviderName;
 
-		[XmlArray("Sources", Namespace="", IsNullable=false), XmlArrayItem("Source", Namespace="",IsNullable=false)]
-		public List<xlgSource> Sources = new List<xlgSource>();
+        [XmlArray("Sources", Namespace = "", IsNullable = false), XmlArrayItem("Source", Namespace = "", IsNullable = false)]
+        public List<XlgSource> Sources = new List<XlgSource>();
 
-		[XmlIgnore]
-		public System.Windows.Forms.Form GUI;
+        [XmlIgnore]
+        public System.Windows.Forms.Form Gui;
 
-		public XlgSettings() { /* XmlSerilizer */ }
+        public XlgSettings() { /* XmlSerilizer */ }
 
-		public XlgSettings(System.Windows.Forms.Form GUI) { this.GUI = GUI; }
+        public XlgSettings(System.Windows.Forms.Form gui) { this.Gui = gui; }
 
-		public static XlgSettings FromXml(string xmldoc)
-		{
-			return (XlgSettings)xs.Deserialize(new StringReader(xmldoc));
-		}
+        public static XlgSettings FromXml(string xmldoc)
+        {
+            return (XlgSettings)m_Xs.Deserialize(new StringReader(xmldoc));
+        }
 
-		public string OuterXml()
-		{
-			StringBuilder sb = new StringBuilder();
-			using (StringWriter sw = new StringWriter(sb))
-				xs.Serialize(sw, this);
-			return sb.ToString();
-		}
+        public string OuterXml()
+        {
+            StringBuilder sb = new StringBuilder();
+            using (StringWriter sw = new StringWriter(sb))
+                m_Xs.Serialize(sw, this);
+            return sb.ToString();
+        }
 
-		public void Save()
-		{
-			File.WriteAllText(Filename, OuterXml());
-		}
+        public void Save()
+        {
+            File.WriteAllText(Filename, OuterXml());
+        }
 
-		public static XlgSettings Load(string Filename)
-		{
-			return FromXml(File.ReadAllText(Filename));
-		}
+        public static XlgSettings Load(string filename)
+        {
+            return FromXml(File.ReadAllText(filename));
+        }
 
-		public int Generate(System.Windows.Forms.Form GUI)
-		{
-			int GenCount = 0;
-			int LastGen = 0;
-			foreach (xlgSource CurrSource in Sources)
-			{
-				if (CurrSource.Selected)
-				{
-                    if(CurrSource.RegenerateOnly)
-                        LastGen = CurrSource.Regenerate(GUI);
+        public int Generate(System.Windows.Forms.Form gui)
+        {
+            int genCount = 0;
+            int lastGen = 0;
+            foreach (XlgSource currSource in Sources)
+            {
+                if (currSource.Selected)
+                {
+                    if (currSource.RegenerateOnly)
+                        lastGen = currSource.Regenerate(gui);
                     else
-					    LastGen = CurrSource.Generate(GUI);
-					if (LastGen == -1)
-						return -GenCount;
-					GenCount++;
-				}
-			}
-			return GenCount;
-		}
+                        lastGen = currSource.Generate(gui);
+                    if (lastGen == -1)
+                        return -genCount;
+                    genCount++;
+                }
+            }
+            return genCount;
+        }
 
-		public int Regenerate(System.Windows.Forms.Form GUI)
-		{
-			int GenCount = 0;
-			int LastGen = 0;
-			foreach (xlgSource CurrSource in Sources)
-			{
-				if (CurrSource.Selected)
-				{
-					LastGen = CurrSource.Regenerate(GUI);
-					if (LastGen == -1)
-						return -GenCount;
-					GenCount++;
-				}
-			}
-			return GenCount;
-		}
-	}
+        public int Regenerate(System.Windows.Forms.Form gui)
+        {
+            int genCount = 0;
+            int lastGen = 0;
+            foreach (XlgSource currSource in Sources)
+            {
+                if (currSource.Selected)
+                {
+                    lastGen = currSource.Regenerate(gui);
+                    if (lastGen == -1)
+                        return -genCount;
+                    genCount++;
+                }
+            }
+            return genCount;
+        }
+    }
 
-	/// <summary>
-	/// Represents a library to generate
-	/// </summary>
-	[Serializable, XmlType(Namespace="",AnonymousType=true)]
-	public class xlgSource
-	{
-		[XmlAttribute] public string BasePath;
-		[XmlAttribute] public string ParentNamespace;
-		[XmlAttribute] public string ConnectionName;
-		[XmlAttribute] public string DisplayName;
+    /// <summary>
+    /// Represents a library to generate
+    /// </summary>
+    [Serializable, XmlType(Namespace = "", AnonymousType = true)]
+    public class XlgSource
+    {
+        [XmlAttribute]
+        public string BasePath;
+        [XmlAttribute]
+        public string ParentNamespace;
+        [XmlAttribute]
+        public string ConnectionName;
+        [XmlAttribute]
+        public string DisplayName;
 
-		[XmlAttribute] public string XlgDocFilename;
-		[XmlAttribute] public string XslFilename;
-		//[XmlAttribute] public string ConfigFilename;
-		[XmlAttribute] public string OutputFilename;
-        [XmlAttribute] public string OutputXml;
+        [XmlAttribute]
+        public string XlgDocFilename;
+        [XmlAttribute]
+        public string XslFilename;
+        //[XmlAttribute] public string ConfigFilename;
+        [XmlAttribute]
+        public string OutputFilename;
+        [XmlAttribute]
+        public string OutputXml;
 
-        [XmlAttribute] public string ConnectionString;
-        [XmlAttribute] public string ProviderName;
+        [XmlAttribute]
+        public string ConnectionString;
+        [XmlAttribute]
+        public string ProviderName;
 
-		[XmlAttribute] public bool Selected;
-		
-		[XmlAttribute] public DateTime DateCreated;
-		[XmlAttribute] public DateTime DateModified;
-		[XmlAttribute] public DateTime LastGenerated;
-		[XmlAttribute] public DateTime LastRegenerated;
-        [XmlAttribute] public Guid     LastXlgInstanceID;
+        [XmlAttribute]
+        public bool Selected;
 
-        [XmlAttribute] public bool     RegenerateOnly;
-        [XmlAttribute] public string   SqlToXml;
+        [XmlAttribute]
+        public DateTime DateCreated;
+        [XmlAttribute]
+        public DateTime DateModified;
+        [XmlAttribute]
+        public DateTime LastGenerated;
+        [XmlAttribute]
+        public DateTime LastRegenerated;
+        [XmlAttribute]
+        public Guid LastXlgInstanceID;
 
-		private bool GenInProgress;
-		private object SyncRoot = new object();
+        [XmlAttribute]
+        public bool RegenerateOnly;
+        [XmlAttribute]
+        public string SqlToXml;
 
-		public XmlDocument LoadXlgDoc()
-		{
-			XmlDocument ret = new XmlDocument();
+        private bool m_GenInProgress;
+        private object m_SyncRoot = new object();
+
+        public XmlDocument LoadXlgDoc()
+        {
+            XmlDocument ret = new XmlDocument();
             ret.Load(OutputXml);
-			return ret;
-		}
+            return ret;
+        }
 
         [XmlIgnore]
         public string OutputPath
         {
-            get 
+            get
             {
-                if(!string.IsNullOrEmpty(OutputFilename))
+                if (!string.IsNullOrEmpty(OutputFilename))
                     return Token.BeforeLast(OutputFilename, @"\") + @"\";
                 return BasePath + ConnectionName;
             }
         }
 
-		private class opParams
-		{
-			public int op;
-			public System.Windows.Forms.Form GUI;
-			public opParams(int op, System.Windows.Forms.Form GUI)
-			{
-				this.op = op;
-				this.GUI = GUI;
-			}
-		}
+        private class OpParams
+        {
+            public int op;
+            public System.Windows.Forms.Form Gui;
+            public OpParams(int op, System.Windows.Forms.Form gui)
+            {
+                this.op = op;
+                this.Gui = gui;
+            }
+        }
 
-		private void internalOp(object Params) { opParams o = (opParams)Params; if ((int)o.op == 1) Regenerate(o.GUI); else Generate(o.GUI); }
-		public void RegenerateAsynch(System.Windows.Forms.Form GUI) { ThreadPool.QueueUserWorkItem(new WaitCallback(internalOp), new opParams(1, GUI)); }
-		public void GenerateAsynch(System.Windows.Forms.Form GUI) { ThreadPool.QueueUserWorkItem(new WaitCallback(internalOp), new opParams(2, GUI)); }
-		public int Regenerate(System.Windows.Forms.Form GUI)
-		{
-			if (GenInProgress) return 0;
-			lock (SyncRoot)
-			{
-				if (GenInProgress) return 0;
-				GenInProgress = true;
-				try
-				{
+        private void InternalOp(object Params) { OpParams o = (OpParams)Params; if ((int)o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
+        public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(1, gui)); }
+        public void GenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(2, gui)); }
+        public int Regenerate(System.Windows.Forms.Form gui)
+        {
+            if (m_GenInProgress) return 0;
+            lock (m_SyncRoot)
+            {
+                if (m_GenInProgress) return 0;
+                m_GenInProgress = true;
+                string originalDirectory = Environment.CurrentDirectory;
+                try
+                {
+                    Environment.CurrentDirectory = OutputPath;
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
-                    CodeGenerator Gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, GUI);
-					File.WriteAllText(OutputFilename, Gen.RegenerateCode(LoadXlgDoc()));
-					LastRegenerated = DateTime.Now;
-					return 1;
-				}
-				catch (Exception ex)
-				{
-					System.Windows.Forms.MessageBox.Show(ex.ToString());
-				}
-				finally
-				{
-					GenInProgress = false;
-				}
-			}
-			return -1;
-		}
+                    CodeGenerator gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                    File.WriteAllText(OutputFilename, gen.RegenerateCode(LoadXlgDoc()));
+                    LastRegenerated = DateTime.Now;
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    m_GenInProgress = false;
+                    Environment.CurrentDirectory = originalDirectory;
+                }
+            }
+            return -1;
+        }
 
-		public int Generate(System.Windows.Forms.Form GUI)
-		{
-			if (GenInProgress) return 0;
-			lock (SyncRoot)
-			{
-				if (GenInProgress) return 0;
-				GenInProgress = true;
-				try
-				{
+        public int Generate(System.Windows.Forms.Form gui)
+        {
+            if (m_GenInProgress) return 0;
+            lock (m_SyncRoot)
+            {
+                if (m_GenInProgress) return 0;
+                m_GenInProgress = true;
+                string originalDirectory = Environment.CurrentDirectory;
+                try
+                {
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
                     DataService.Instance = DataService.GetDataServiceManually(ConnectionName, ConnectionString, ProviderName);
-                    CodeGenerator Gen = null;
+                    CodeGenerator gen = null;
                     StringBuilder sb = null;
-                    string Output = null;
+                    string output = null;
+                    Environment.CurrentDirectory = OutputPath;
                     switch (DataService.Instance.ProviderType)
                     {
                         case ProviderTypeEnum.DataAndGather:
                             if (string.IsNullOrEmpty(SqlToXml))
                             {
-                                Gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, GUI);
-                                Gen.OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true);
-                                if (string.IsNullOrEmpty(Gen.OutputFolder))
+                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui)
+                                {
+                                    OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true)
+                                };
+                                if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
-                                File.WriteAllText(OutputFilename, Gen.Code);
+
+                                string generatedCode = gen.GeneratedCode;
+                                if (string.IsNullOrEmpty(generatedCode))
+                                    return -1;
+                                File.WriteAllText(OutputFilename, generatedCode);
                             }
                             else
                             {
                                 sb = new StringBuilder();
                                 DataService.Instance.Gatherer.GatherNow(sb, new string[] { ConnectionName, ConnectionString, SqlToXml });
-                                Output = sb.ToString();
-                                if (Output.StartsWith("<?xml "))
+                                output = sb.ToString();
+                                if (output.StartsWith("<?xml "))
                                 {
-									Gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, GUI);
-                                    Gen.CodeXmlDocument = new XmlDocument();
-                                    Gen.CodeXmlDocument.LoadXml(Output);
-                                    Gen.CodeXmlDocument.Save(OutputXml);
-                                    File.WriteAllText(OutputFilename, Gen.RegenerateCode(Gen.CodeXmlDocument));
+                                    gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                                    gen.CodeXmlDocument = new XmlDocument();
+                                    gen.CodeXmlDocument.LoadXml(output);
+                                    gen.CodeXmlDocument.Save(OutputXml);
+
+                                    string generatedCode = gen.RegenerateCode(gen.CodeXmlDocument);
+                                    if (string.IsNullOrEmpty(generatedCode))
+                                        return -1;
+                                    File.WriteAllText(OutputFilename, generatedCode);
                                 }
                                 else
                                 {
-                                    File.WriteAllText(OutputFilename, Output);
+                                    File.WriteAllText(OutputFilename, output);
                                 }
                                 LastRegenerated = DateTime.Now;
                             }
                             break;
 
                         case ProviderTypeEnum.Data:
-							Gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, GUI);
-                            Gen.OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true);
-                            if (string.IsNullOrEmpty(Gen.OutputFolder))
+                            gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                            gen.OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true);
+                            if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
-                            File.WriteAllText(OutputFilename, Gen.Code);
+                            File.WriteAllText(OutputFilename, gen.GeneratedCode);
                             break;
 
                         case ProviderTypeEnum.Gather:
                             sb = new StringBuilder();
                             DataService.Instance.Gatherer.GatherNow(sb, new string[] { ConnectionName, ConnectionString, SqlToXml });
-                            Output = sb.ToString();
-                            if (Output.StartsWith("<?xml "))
+                            output = sb.ToString();
+                            if (output.StartsWith("<?xml "))
                             {
-								Gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, GUI);
-                                Gen.CodeXmlDocument = new XmlDocument();
-                                Gen.CodeXmlDocument.LoadXml(Output);
-                                File.WriteAllText(OutputFilename, Gen.RegenerateCode(Gen.CodeXmlDocument));
+                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                                gen.CodeXmlDocument = new XmlDocument();
+                                gen.CodeXmlDocument.LoadXml(output);
+                                File.WriteAllText(OutputFilename, gen.RegenerateCode(gen.CodeXmlDocument));
                             }
                             else
                             {
-                                File.WriteAllText(OutputFilename, Output);
+                                File.WriteAllText(OutputFilename, output);
                             }
                             LastRegenerated = DateTime.Now;
                             break;
                     }
 
-                    if (Gen != null)
+                    if (gen != null)
                     {
                         if (string.IsNullOrEmpty(OutputXml))
                         {
@@ -266,64 +302,65 @@ namespace MetX.Data
                         using (StreamWriter sw = File.CreateText(OutputXml))
                         {
                             using (XmlWriter xw = xml.Writer(sw))
-                                Gen.CodeXmlDocument.WriteTo(xw);
+                                gen.CodeXmlDocument.WriteTo(xw);
                         }
                     }
-					LastGenerated = DateTime.Now;
-                    LastXlgInstanceID = (Gen != null ? Gen.XlgInstanceID : Guid.NewGuid() );
-					return 1;
-				}
-				catch (Exception ex)
-				{
-					System.Windows.Forms.MessageBox.Show(ex.ToString());
-				}
-				finally
-				{
-					GenInProgress = false;
-				}
-			}
-			return -1;
-		}
+                    LastGenerated = DateTime.Now;
+                    LastXlgInstanceID = (gen != null ? gen.XlgInstanceID : Guid.NewGuid());
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    m_GenInProgress = false;
+                    Environment.CurrentDirectory = originalDirectory;
+                }
+            }
+            return -1;
+        }
 
-		public xlgSource() { /* XmlSerializer */ }
+        public XlgSource() { /* XmlSerializer */ }
 
-        public xlgSource(string BasePath, string ParentNamespace, string DisplayName, string ConnectionName, string XlgDocFilename, string XslFilename, string ConfigFilename, string OutputFilename)
-		{
-			if (!BasePath.EndsWith(@"\")) BasePath += @"\";
-			this.BasePath = BasePath;
-			this.ParentNamespace = ParentNamespace;
-			this.ConnectionName = ConnectionName;
-			this.DisplayName = DisplayName;
-            this.XlgDocFilename = XlgDocFilename;
-			this.XslFilename = XslFilename;
-			//this.ConfigFilename = ConfigFilename;
-			this.OutputFilename = OutputFilename;
-			DateCreated = DateTime.Now;
-		}
+        public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, string xlgDocFilename, string xslFilename, string configFilename, string outputFilename)
+        {
+            if (!basePath.EndsWith(@"\")) basePath += @"\";
+            this.BasePath = basePath;
+            this.ParentNamespace = parentNamespace;
+            this.ConnectionName = connectionName;
+            this.DisplayName = displayName;
+            this.XlgDocFilename = xlgDocFilename;
+            this.XslFilename = xslFilename;
+            //this.ConfigFilename = ConfigFilename;
+            this.OutputFilename = outputFilename;
+            DateCreated = DateTime.Now;
+        }
 
-		public xlgSource(string BasePath, string ParentNamespace, string DisplayName, string ConnectionName, bool Selected)
-			: this(BasePath, ParentNamespace, DisplayName, ConnectionName)
-		{
-			this.Selected = Selected;
-		}
+        public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, bool selected)
+            : this(basePath, parentNamespace, displayName, connectionName)
+        {
+            this.Selected = selected;
+        }
 
-		public xlgSource(string BasePath, string ParentNamespace, string DisplayName, string ConnectionName)
-		{
-			if (!BasePath.EndsWith(@"\")) BasePath += @"\";
-			this.BasePath = BasePath;
-			this.ParentNamespace = ParentNamespace;
-			this.DisplayName = DisplayName;
-			this.ConnectionName = ConnectionName;
-            this.XlgDocFilename = BasePath + ParentNamespace + "." + ConnectionName + @"\" + ConnectionName + ".xlgd";
-			this.XslFilename = BasePath + @"Support\app.xlg.xsl";
-			//this.ConfigFilename = BasePath + @"Support\app.config";
-			this.OutputFilename = BasePath + ParentNamespace + "." + ConnectionName + @"\" + ConnectionName + ".Glove.cs";
-			DateCreated = DateTime.Now;
-		}
+        public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName)
+        {
+            if (!basePath.EndsWith(@"\")) basePath += @"\";
+            this.BasePath = basePath;
+            this.ParentNamespace = parentNamespace;
+            this.DisplayName = displayName;
+            this.ConnectionName = connectionName;
+            this.XlgDocFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".xlgd";
+            this.XslFilename = basePath + @"Support\app.xlg.xsl";
+            //this.ConfigFilename = BasePath + @"Support\app.config";
+            this.OutputFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".Glove.cs";
+            DateCreated = DateTime.Now;
+        }
 
-		public override string ToString()
-		{
-			return DisplayName;
-		}
-	}
+        public override string ToString()
+        {
+            return DisplayName;
+        }
+    }
 }

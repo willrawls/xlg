@@ -124,6 +124,8 @@ namespace MetX.Data
 
             DataService ret = new DataService();
             ret.Settings = ConnectionStrings[ConnectionStringName];
+            if (ret.Settings == null) return null;
+
             ret.Setup();
             return ret;
         }

@@ -42,21 +42,21 @@ namespace MetX.Data
         public abstract IDataReader GetReader(QueryCommand cmd);
         
 		public abstract DataSet ToDataSet(QueryCommand cmd);
-		public virtual DataSet ToDataSet(string SelectQueryText) { return ToDataSet(new QueryCommand(SelectQueryText)); }
-		public virtual DataSet ToDataSet(string SelectQueryText, System.Web.Caching.Cache Cache)
+		public virtual DataSet ToDataSet(string selectQueryText) { return ToDataSet(new QueryCommand(selectQueryText)); }
+		public virtual DataSet ToDataSet(string selectQueryText, System.Web.Caching.Cache cache)
 		{
 			DataSet ds = null;
-			string CacheKey = "DP" + SelectQueryText.GetHashCode().ToString();
-			string dsXml = (string)Cache[CacheKey];
+			string cacheKey = "DP" + selectQueryText.GetHashCode().ToString();
+			string dsXml = (string)cache[cacheKey];
 			if (dsXml == null)
 			{
-				ds = ToDataSet(SelectQueryText);
+				ds = ToDataSet(selectQueryText);
 				if (ds != null)
 				{
 					StringBuilder sb = new StringBuilder();
 					using (StringWriter sw = new StringWriter(sb))
 						ds.WriteXml(sw);
-					Cache.Add(CacheKey, sb.ToString(), null, DateTime.Now.AddMinutes(CacheTimeout), 
+					cache.Add(cacheKey, sb.ToString(), null, DateTime.Now.AddMinutes(CacheTimeout), 
 						System.Web.Caching.Cache.NoSlidingExpiration, 
 						System.Web.Caching.CacheItemPriority.AboveNormal, null);
 				}
@@ -72,7 +72,7 @@ namespace MetX.Data
 			return ds;
 		}
 
-		public abstract string ToXml(string TagName, string TagAttributes, string SQL);
+		public abstract string ToXml(string tagName, string tagAttributes, string sql);
         public abstract object ExecuteScalar(QueryCommand cmd);
         public abstract int ExecuteQuery(QueryCommand cmd);
         public abstract TableSchema.Table GetTableSchema(string tableName);
@@ -104,14 +104,14 @@ namespace MetX.Data
             LastConnection = null;
         }
 
-        public virtual string validIdentifier(string identifier)
+        public virtual string ValidIdentifier(string identifier)
         {
             if(identifier != null) // && identifier.IndexOf(" ") > 0)
                 return "[" + identifier + "]";
             return identifier;
         }
 
-        public virtual string topStatement 
+        public virtual string TopStatement 
         {
             get
             {
@@ -119,7 +119,7 @@ namespace MetX.Data
             }
         }
 
-        public virtual string commandSeparator 
+        public virtual string CommandSeparator 
         {
             get
             {
@@ -127,48 +127,48 @@ namespace MetX.Data
             }
         }
 
-        public virtual string selectStatement( string Top, int Page, QueryType qType )
+        public virtual string SelectStatement( string top, int page, QueryType qType )
         {
-            if (Top != null && Top.Length > 0 && qType == QueryType.Select)
-                return "SELECT " + topStatement + " " + Top + " ";
+            if (!string.IsNullOrEmpty(top) && qType == QueryType.Select)
+                return "SELECT " + TopStatement + " " + top + " ";
             return "SELECT ";
         }
 
-        public abstract string handlePage(string query, int offset, int limit, QueryType qType);
+        public abstract string HandlePage(string query, int offset, int limit, QueryType qType);
 
-        public DataRow ToDataRow(string SQL)
+        public DataRow ToDataRow(string sql)
         {
-            DataRowCollection rows = ToDataRows(SQL);
+            DataRowCollection rows = ToDataRows(sql);
             if (rows == null || rows.Count == 0)
                 return null;
             return rows[0];
         }
 
-        public DataRowCollection ToDataRows(string SQL)
+        public DataRowCollection ToDataRows(string sql)
         {
-            DataSet ds = ToDataSet(new QueryCommand(SQL));
+            DataSet ds = ToDataSet(new QueryCommand(sql));
             if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
                 return null;
             return ds.Tables[0].Rows;
         }
 
-		public int RetrieveSingleIntegerValue(string SQL)
+		public int RetrieveSingleIntegerValue(string sql)
         {
-            return Worker.nzInteger(ExecuteScalar(new QueryCommand(SQL)));
+            return Worker.nzInteger(ExecuteScalar(new QueryCommand(sql)));
         }
-        public object ExecuteScalar(string SQL)
+        public object ExecuteScalar(string sql)
         {
-            return ExecuteScalar(new QueryCommand(SQL));
+            return ExecuteScalar(new QueryCommand(sql));
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="SQL">The SQL to convert to an xml string</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public string ToXml(string SQL)
+        public string ToXml(string sql)
         {
-            return ToXml(null, null, SQL);
+            return ToXml(null, null, sql);
         }
-
+/*
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             base.Initialize(name, config);
@@ -180,7 +180,7 @@ namespace MetX.Data
             //    this.connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
             //else
             //    this.connectionString = DataService.Config.ConnectionStrings.ConnectionStrings[connectionStringName].ConnectionString;
-        }
+        }*/
 
     }
 

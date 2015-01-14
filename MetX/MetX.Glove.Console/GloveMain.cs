@@ -159,7 +159,7 @@ namespace MetX.Glove
                 if (string.IsNullOrEmpty(xlgSourceFilename) && Settings != null)
                 {
                     MetadataSources.Items.Clear();
-                    foreach (xlgSource currSource in Settings.Sources)
+                    foreach (XlgSource currSource in Settings.Sources)
                     {
                         ListViewItem lvi = new ListViewItem(currSource.DisplayName);
                         lvi.Tag = currSource;
@@ -171,9 +171,9 @@ namespace MetX.Glove
                 {
                     Settings = XlgSettings.Load(xlgSourceFilename);
                     Settings.Filename = xlgSourceFilename;
-                    Settings.GUI = this;
+                    Settings.Gui = this;
                     MetadataSources.Items.Clear();
-                    foreach (xlgSource currSource in Settings.Sources)
+                    foreach (XlgSource currSource in Settings.Sources)
                     {
                         ListViewItem lvi = new ListViewItem(currSource.DisplayName);
                         lvi.Tag = currSource;
@@ -298,17 +298,17 @@ namespace MetX.Glove
 
         private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            ((xlgSource)e.Item.Tag).Selected = e.Item.Checked;
+            ((XlgSource)e.Item.Tag).Selected = e.Item.Checked;
         }
 
-        xlgSource m_CurrSource = null;
+        XlgSource m_CurrSource = null;
 
         private void MetadataSources_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateItem();
             if (MetadataSources.SelectedItems.Count > 0)
             {
-                m_CurrSource = (xlgSource)MetadataSources.SelectedItems[0].Tag;
+                m_CurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
                 textAppXlgXsl.Text = m_CurrSource.XslFilename;
                 textOutput.Text = m_CurrSource.OutputFilename;
                 textOutputXml.Text = m_CurrSource.OutputXml;
@@ -380,14 +380,14 @@ namespace MetX.Glove
                 if (m_CurrSource == null && Settings.Sources.Count > 0)
                     m_CurrSource = Settings.Sources[0];
 
-                xlgSource newSource = null;
+                XlgSource newSource = null;
                 if (itemName == "CLONE")
                 {
-                    newSource = xml.FromXml<xlgSource>(xml.ToXml<xlgSource>(m_CurrSource, false));
+                    newSource = xml.FromXml<XlgSource>(xml.ToXml<XlgSource>(m_CurrSource, false));
                 }
                 else
                 {
-                    newSource = new xlgSource(AppData.BasePath, AppData.ParentNamespace, Token.Last((m_CurrSource != null ? m_CurrSource.ProviderName : (Settings.Sources.Count + 1).ToString()), ".") + ": " + itemName, itemName);
+                    newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace, Token.Last((m_CurrSource != null ? m_CurrSource.ProviderName : (Settings.Sources.Count + 1).ToString()), ".") + ": " + itemName, itemName);
 
                     if (m_CurrSource != null)
                         newSource.BasePath = Token.Before(m_CurrSource.OutputFilename, Token.Count(m_CurrSource.OutputFilename, @"\") - 1, @"\") + @"\" + itemName + @"\";
@@ -498,7 +498,7 @@ namespace MetX.Glove
         {
             XlgSettings t = Settings;
             Settings = new XlgSettings(this);
-            Settings.Sources = new List<xlgSource>();
+            Settings.Sources = new List<XlgSource>();
             Settings.DefaultConnectionString = t.DefaultConnectionString;
             Settings.DefaultProviderName = t.DefaultProviderName;
 
@@ -638,7 +638,7 @@ namespace MetX.Glove
         {
             List<string> directories = new List<string> { GloveMain.AppData.SupportPath };
             AddIfDifferent(directories, Path.GetDirectoryName(settings.Filename));           
-            foreach (xlgSource setting in settings.Sources)
+            foreach (XlgSource setting in settings.Sources)
             {
                 AddIfDifferent(directories, setting.BasePath);
                 AddIfDifferent(directories, Path.GetDirectoryName(setting.OutputFilename));

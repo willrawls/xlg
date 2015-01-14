@@ -75,7 +75,7 @@ namespace MetX.Data
         public Aggregate() {  }
         public Aggregate(DataProvider Instance, AggregateFunction agg, string columnName, string alias)
         {
-            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).ToUpper() + "(" + Instance.validIdentifier(columnName) + ") as '" + alias + "'";
+            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).ToUpper() + "(" + Instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
         }
         public static Aggregate New(DataProvider Instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(Instance, agg, columnName, alias); }
     }
@@ -288,8 +288,8 @@ namespace MetX.Data
 
         public OrderBy() { }
         public OrderBy(string orderString) { this.OrderString = orderString; }
-        public static OrderBy Desc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.validIdentifier(columnName) + " DESC"); }
-        public static OrderBy Asc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.validIdentifier(columnName)); }
+        public static OrderBy Desc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.ValidIdentifier(columnName) + " DESC"); }
+        public static OrderBy Asc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.ValidIdentifier(columnName)); }
         public static OrderBy Any(DataProvider Instance, string orderString) { return new OrderBy(orderString); }
     }
     #endregion
@@ -603,9 +603,9 @@ TryAgain:
 						where.ParameterName = where.ColumnName + i.ToString();
 
 						if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
-							sql += Instance.validIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + (where.ParameterValue == null || where.ParameterValue == DBNull.Value ? "NULL" : " @_" + where.ParameterName);
+							sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + (where.ParameterValue == null || where.ParameterValue == DBNull.Value ? "NULL" : " @_" + where.ParameterName);
 						else
-							sql += Instance.validIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + " " + (string)where.ParameterValue;
+							sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + " " + (string)where.ParameterValue;
 
 						if (cmd != null)
 							cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue);
@@ -735,8 +735,8 @@ TryAgain:
 
             string client = Instance.GetType().Name;
             //different rules for how to do TOP
-            string topStatement = Instance.topStatement;
-            string select = Instance.selectStatement( Top, Page, QueryType);
+            string topStatement = Instance.TopStatement;
+            string select = Instance.SelectStatement( Top, Page, QueryType);
             string groupBy = string.Empty;
             string where = string.Empty;
             string order = string.Empty;
@@ -794,7 +794,7 @@ TryAgain:
                             {
                                 //string the as bits off each one, and append on to the GROUP BY
                                 foreach (string sCol in selectCols)
-                                    groupBy += Instance.validIdentifier(sCol.Substring(0, sCol.ToLower().IndexOf(" as "))) + ",";
+                                    groupBy += Instance.ValidIdentifier(sCol.Substring(0, sCol.ToLower().IndexOf(" as "))) + ",";
 
                                 //remove the trailing comma
                                 groupBy = groupBy.Remove(groupBy.Length - 1, 1);
@@ -817,7 +817,7 @@ TryAgain:
                         foreach (Where wHaving in wheres)
                         {
                             if (!groupBy.Contains(wHaving.ColumnName))
-                                groupBy += Instance.validIdentifier(wHaving.ColumnName) + ",";
+                                groupBy += Instance.ValidIdentifier(wHaving.ColumnName) + ",";
                         }
                     }
 
@@ -869,13 +869,13 @@ TryAgain:
             //append on the SelectList, which is a property that can be set
             //and is "*" by default
 
-            select += " FROM " + Instance.validIdentifier(table.Name) + " ";
+            select += " FROM " + Instance.ValidIdentifier(table.Name) + " ";
 
 
             //joins
             if (joins != null && joins.Count > 0)
                 foreach (Join j in joins)
-                    join += " " + j.JoinType + " " + Instance.validIdentifier(j.JoinTable) + " ON " + Instance.validIdentifier(table.Name) + "." + Instance.validIdentifier(j.FromColumn) + "=" + Instance.validIdentifier(j.JoinTable) + "." + Instance.validIdentifier(j.ToColumn) + " ";
+                    join += " " + j.JoinType + " " + Instance.ValidIdentifier(j.JoinTable) + " ON " + Instance.ValidIdentifier(table.Name) + "." + Instance.ValidIdentifier(j.FromColumn) + "=" + Instance.ValidIdentifier(j.JoinTable) + "." + Instance.ValidIdentifier(j.ToColumn) + " ";
 
             //now for the wheres...
             //MUST USE parameters to avoid injection issues
@@ -899,7 +899,7 @@ TryAgain:
 
             int PageSize;
 			if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out PageSize) && PageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
-                query = Instance.handlePage(query, ((Page - 1) * PageSize) + 1, PageSize, QueryType);
+                query = Instance.HandlePage(query, ((Page - 1) * PageSize) + 1, PageSize, QueryType);
 
             if (QueryType == QueryType.Exists)
                 query = "IF EXISTS(" + query + ") SELECT 1 ELSE SELECT 0";
@@ -911,7 +911,7 @@ TryAgain:
         public string GetUpdateSql()
         {
             //split the TablNames and loop out the SQL
-            string updateSQL = "UPDATE " + Instance.validIdentifier(table.Name) + " SET ";
+            string updateSQL = "UPDATE " + Instance.ValidIdentifier(table.Name) + " SET ";
             string cols = "";
 
             foreach (TableSchema.TableColumn col in table.Columns)
@@ -925,7 +925,7 @@ TryAgain:
             updateSQL += cols;
 
             if (wheres == null || wheres.Count == 0)
-                updateSQL += " WHERE " + table.PrimaryKey.ColumnName + "=@" + table.PrimaryKey.ColumnName + Instance.commandSeparator; // + "SELECT @" + table.PrimaryKey.ColumnName + " as id";
+                updateSQL += " WHERE " + table.PrimaryKey.ColumnName + "=@" + table.PrimaryKey.ColumnName + Instance.CommandSeparator; // + "SELECT @" + table.PrimaryKey.ColumnName + " as id";
             else
                 updateSQL += BuildWhere();
             return updateSQL;
@@ -939,7 +939,7 @@ TryAgain:
         {
 
             //split the TablNames and loop out the SQL
-            string insertSQL = "INSERT INTO " + Instance.validIdentifier(table.Name) + " ";
+            string insertSQL = "INSERT INTO " + Instance.ValidIdentifier(table.Name) + " ";
 
             string cols = "";
             string pars = "";
@@ -949,7 +949,7 @@ TryAgain:
             {
                 if (!col.AutoIncrement)
                 {
-                    cols += Instance.validIdentifier(col.ColumnName) + ",";
+                    cols += Instance.ValidIdentifier(col.ColumnName) + ",";
                     pars += "@_" + col.ColumnName + ",";
                 }
             }
@@ -965,7 +965,7 @@ TryAgain:
             //this is for setting the PK after save. @@IDENTITY or IDENTITY_SCOPE can 
             //be used, but don't translate to other DBs. MAX does so it's used here
             if ( table.PrimaryKey != null && table.PrimaryKey.DataType != DbType.Guid)
-                insertSQL += " SELECT MAX(" + Instance.validIdentifier(table.PrimaryKey.ColumnName) + ") FROM " + Instance.validIdentifier(table.Name) + " as newID";
+                insertSQL += " SELECT MAX(" + Instance.ValidIdentifier(table.PrimaryKey.ColumnName) + ") FROM " + Instance.ValidIdentifier(table.Name) + " as newID";
 
             return insertSQL;
         }

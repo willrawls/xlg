@@ -94,6 +94,7 @@ namespace MetX.Data
         public class Table
         {
             public string Name;
+            public string Schema;
             public TableColumnCollection Columns = new TableColumnCollection();
             public TableIndexCollection Indexes = new TableIndexCollection();
             public TableKeyCollection Keys = new TableKeyCollection();
@@ -115,9 +116,11 @@ namespace MetX.Data
 
             /// <summary>C#CD: </summary>
             /// <param name="tableName">C#CD: </param>
-            public Table(string tableName)
+            /// <param name="schemaName"></param>
+            public Table(string tableName, string schemaName)
             {
                 Name = tableName;
+                Schema = schemaName;
             }
 
             public TableColumn PrimaryKey
@@ -127,6 +130,16 @@ namespace MetX.Data
                     if (Columns != null)
                         return Columns.GetPrimaryKey();
                     return null;
+                }
+            }
+
+            public string FullName
+            {
+                get
+                {
+                    if(string.IsNullOrEmpty(Schema))
+                        Schema = "dbo";
+                    return "[" + Schema + "].[" + Name + "]";
                 }
             }
         }
