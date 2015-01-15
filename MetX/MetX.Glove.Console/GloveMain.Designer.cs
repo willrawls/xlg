@@ -50,6 +50,8 @@ namespace MetX.Glove
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.scratchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +59,14 @@ namespace MetX.Glove
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ClipCommons = new System.Windows.Forms.ListBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.ClipScriptOutput = new System.Windows.Forms.TextBox();
+            this.ClipScriptInput = new System.Windows.Forms.TextBox();
+            this.ClipScriptList = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -100,24 +110,15 @@ namespace MetX.Glove
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.scratchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.ClipScriptList = new System.Windows.Forms.ListBox();
-            this.ClipScriptInput = new System.Windows.Forms.TextBox();
-            this.ClipScriptOutput = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.AddClipScript = new System.Windows.Forms.ToolStripButton();
-            this.AddCommonClip = new System.Windows.Forms.ToolStripButton();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ClipCommons = new System.Windows.Forms.ListBox();
-            this.RunScriptLocally = new System.Windows.Forms.ToolStripButton();
             this.RunClipScript = new System.Windows.Forms.ToolStripButton();
-            this.EditCommonScript = new System.Windows.Forms.ToolStripButton();
+            this.RunScriptLocally = new System.Windows.Forms.ToolStripButton();
+            this.AddClipScript = new System.Windows.Forms.ToolStripButton();
             this.EditClipScript = new System.Windows.Forms.ToolStripButton();
+            this.AddCommonClip = new System.Windows.Forms.ToolStripButton();
+            this.EditCommonScript = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -166,7 +167,7 @@ namespace MetX.Glove
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -176,14 +177,14 @@ namespace MetX.Glove
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -191,26 +192,26 @@ namespace MetX.Glove
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -296,6 +297,21 @@ namespace MetX.Glove
             this.optionsToolStripMenuItem.Text = "Delete Step / Database Target";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scratchToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
+            this.toolStripMenuItem1.Text = "&Clip";
+            // 
+            // scratchToolStripMenuItem
+            // 
+            this.scratchToolStripMenuItem.Name = "scratchToolStripMenuItem";
+            this.scratchToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.scratchToolStripMenuItem.Text = "&Scratch";
+            this.scratchToolStripMenuItem.Click += new System.EventHandler(this.scratchToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -308,12 +324,12 @@ namespace MetX.Glove
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(113, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -390,6 +406,82 @@ namespace MetX.Glove
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(558, 45);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Common Clips";
+            // 
+            // ClipCommons
+            // 
+            this.ClipCommons.FormattingEnabled = true;
+            this.ClipCommons.Location = new System.Drawing.Point(561, 61);
+            this.ClipCommons.Name = "ClipCommons";
+            this.ClipCommons.Size = new System.Drawing.Size(117, 199);
+            this.ClipCommons.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(682, 45);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(31, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Input";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(559, 263);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 13);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Clip Scripts";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(684, 263);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 13);
+            this.label16.TabIndex = 13;
+            this.label16.Text = "Output";
+            // 
+            // ClipScriptOutput
+            // 
+            this.ClipScriptOutput.AcceptsReturn = true;
+            this.ClipScriptOutput.AcceptsTab = true;
+            this.ClipScriptOutput.Location = new System.Drawing.Point(685, 279);
+            this.ClipScriptOutput.Multiline = true;
+            this.ClipScriptOutput.Name = "ClipScriptOutput";
+            this.ClipScriptOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.ClipScriptOutput.Size = new System.Drawing.Size(295, 212);
+            this.ClipScriptOutput.TabIndex = 4;
+            // 
+            // ClipScriptInput
+            // 
+            this.ClipScriptInput.AcceptsReturn = true;
+            this.ClipScriptInput.AcceptsTab = true;
+            this.ClipScriptInput.Location = new System.Drawing.Point(687, 61);
+            this.ClipScriptInput.Multiline = true;
+            this.ClipScriptInput.Name = "ClipScriptInput";
+            this.ClipScriptInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.ClipScriptInput.Size = new System.Drawing.Size(293, 199);
+            this.ClipScriptInput.TabIndex = 2;
+            this.ClipScriptInput.Text = "string[] word = line.Split(\' \');\r\nsb.Append(number + \"(\");\r\nsb.Append(word[0] + \"" +
+                "): \");\r\nsb.AppendLine(line);\r\n";
+            // 
+            // ClipScriptList
+            // 
+            this.ClipScriptList.FormattingEnabled = true;
+            this.ClipScriptList.Location = new System.Drawing.Point(562, 279);
+            this.ClipScriptList.Name = "ClipScriptList";
+            this.ClipScriptList.Size = new System.Drawing.Size(117, 212);
+            this.ClipScriptList.TabIndex = 3;
             // 
             // flowLayoutPanel1
             // 
@@ -847,76 +939,28 @@ namespace MetX.Glove
             this.toolStripButton5.Text = "Remove Step";
             this.toolStripButton5.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scratchToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
-            this.toolStripMenuItem1.Text = "&Clip";
-            // 
-            // scratchToolStripMenuItem
-            // 
-            this.scratchToolStripMenuItem.Name = "scratchToolStripMenuItem";
-            this.scratchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.scratchToolStripMenuItem.Text = "&Scratch";
-            this.scratchToolStripMenuItem.Click += new System.EventHandler(this.scratchToolStripMenuItem_Click);
-            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 31);
             // 
-            // ClipScriptList
+            // RunClipScript
             // 
-            this.ClipScriptList.FormattingEnabled = true;
-            this.ClipScriptList.Location = new System.Drawing.Point(562, 279);
-            this.ClipScriptList.Name = "ClipScriptList";
-            this.ClipScriptList.Size = new System.Drawing.Size(117, 212);
-            this.ClipScriptList.TabIndex = 3;
+            this.RunClipScript.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
+            this.RunClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RunClipScript.Name = "RunClipScript";
+            this.RunClipScript.Size = new System.Drawing.Size(56, 28);
+            this.RunClipScript.Text = "Run";
+            this.RunClipScript.Click += new System.EventHandler(this.RunClipScript_Click);
             // 
-            // ClipScriptInput
+            // RunScriptLocally
             // 
-            this.ClipScriptInput.Location = new System.Drawing.Point(687, 61);
-            this.ClipScriptInput.Multiline = true;
-            this.ClipScriptInput.Name = "ClipScriptInput";
-            this.ClipScriptInput.Size = new System.Drawing.Size(293, 199);
-            this.ClipScriptInput.TabIndex = 2;
-            // 
-            // ClipScriptOutput
-            // 
-            this.ClipScriptOutput.Location = new System.Drawing.Point(685, 279);
-            this.ClipScriptOutput.Multiline = true;
-            this.ClipScriptOutput.Name = "ClipScriptOutput";
-            this.ClipScriptOutput.Size = new System.Drawing.Size(295, 212);
-            this.ClipScriptOutput.TabIndex = 4;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(559, 263);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(59, 13);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "Clip Scripts";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(682, 45);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(31, 13);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "Input";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(684, 263);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(39, 13);
-            this.label16.TabIndex = 13;
-            this.label16.Text = "Output";
+            this.RunScriptLocally.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
+            this.RunScriptLocally.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RunScriptLocally.Name = "RunScriptLocally";
+            this.RunScriptLocally.Size = new System.Drawing.Size(65, 28);
+            this.RunScriptLocally.Text = "InOut";
+            this.RunScriptLocally.Click += new System.EventHandler(this.RunScriptLocally_Click);
             // 
             // AddClipScript
             // 
@@ -926,6 +970,14 @@ namespace MetX.Glove
             this.AddClipScript.Size = new System.Drawing.Size(65, 28);
             this.AddClipScript.Text = "Script";
             // 
+            // EditClipScript
+            // 
+            this.EditClipScript.Image = global::XLG.Pipeliner.Properties.Resources.folder_48;
+            this.EditClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditClipScript.Name = "EditClipScript";
+            this.EditClipScript.Size = new System.Drawing.Size(55, 28);
+            this.EditClipScript.Text = "Edit";
+            // 
             // AddCommonClip
             // 
             this.AddCommonClip.Image = global::XLG.Pipeliner.Properties.Resources.add_48;
@@ -934,39 +986,6 @@ namespace MetX.Glove
             this.AddCommonClip.Size = new System.Drawing.Size(86, 28);
             this.AddCommonClip.Text = "Common";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(558, 45);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(73, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Common Clips";
-            // 
-            // ClipCommons
-            // 
-            this.ClipCommons.FormattingEnabled = true;
-            this.ClipCommons.Location = new System.Drawing.Point(561, 61);
-            this.ClipCommons.Name = "ClipCommons";
-            this.ClipCommons.Size = new System.Drawing.Size(117, 199);
-            this.ClipCommons.TabIndex = 1;
-            // 
-            // RunScriptLocally
-            // 
-            this.RunScriptLocally.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
-            this.RunScriptLocally.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RunScriptLocally.Name = "RunScriptLocally";
-            this.RunScriptLocally.Size = new System.Drawing.Size(65, 28);
-            this.RunScriptLocally.Text = "InOut";
-            // 
-            // RunClipScript
-            // 
-            this.RunClipScript.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
-            this.RunClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RunClipScript.Name = "RunClipScript";
-            this.RunClipScript.Size = new System.Drawing.Size(56, 28);
-            this.RunClipScript.Text = "Run";
-            // 
             // EditCommonScript
             // 
             this.EditCommonScript.Image = global::XLG.Pipeliner.Properties.Resources.folder_48;
@@ -974,14 +993,6 @@ namespace MetX.Glove
             this.EditCommonScript.Name = "EditCommonScript";
             this.EditCommonScript.Size = new System.Drawing.Size(55, 28);
             this.EditCommonScript.Text = "Edit";
-            // 
-            // EditClipScript
-            // 
-            this.EditClipScript.Image = global::XLG.Pipeliner.Properties.Resources.folder_48;
-            this.EditClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EditClipScript.Name = "EditClipScript";
-            this.EditClipScript.Size = new System.Drawing.Size(55, 28);
-            this.EditClipScript.Text = "Edit";
             // 
             // GloveMain
             // 
@@ -999,6 +1010,7 @@ namespace MetX.Glove
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);

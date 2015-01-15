@@ -90,21 +90,17 @@ namespace MetX.Data
         }
 
         /// <summary>Causes generation and returns the code/contents generated</summary>
-        public string GeneratedCode
+        public string GenerateCode()
         {
-            get
+            string xlgXsl = GetVirtualFile(xlgFilename);
+            if (xlgXsl == null || xlgXsl.Length < 5)
             {
-                string xlgXsl = GetVirtualFile(xlgFilename);
-                if (xlgXsl == null || xlgXsl.Length < 5)
-                {
-                    throw new Exception("xlg.xsl missing (1).");
-                }
-                //xlgXsl = MetX.Data.xlg.xsl;
-                XlgInstanceID = Guid.NewGuid();
-                CodeXmlDocument = DataXml;
-                if (CodeXmlDocument == null) return null;
-                return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
+                throw new Exception("xlg.xsl missing (1).");
             }
+            XlgInstanceID = Guid.NewGuid();
+            CodeXmlDocument = DataXml;
+            if (CodeXmlDocument == null) return null;
+            return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
         }
 
         public string MetXAssemblyString { get { return m_FullName; } }
@@ -291,6 +287,7 @@ namespace MetX.Data
             }
             VDirName = Namespace;
 
+            
             try
             {
                 AppDomainAppPath = HttpRuntime.AppDomainAppPath;

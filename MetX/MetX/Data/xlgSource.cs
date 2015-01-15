@@ -236,8 +236,8 @@ namespace MetX.Data
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
 
-                                string generatedCode = gen.GeneratedCode;
-                                if (string.IsNullOrEmpty(generatedCode))
+                                string generatedCode = gen.GenerateCode();
+                                if (generatedCode == null)
                                     return -1;
                                 File.WriteAllText(OutputFilename, generatedCode);
                             }
@@ -271,7 +271,7 @@ namespace MetX.Data
                             gen.OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true);
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
-                            File.WriteAllText(OutputFilename, gen.GeneratedCode);
+                            File.WriteAllText(OutputFilename, gen.GenerateCode());
                             break;
 
                         case ProviderTypeEnum.Gather:

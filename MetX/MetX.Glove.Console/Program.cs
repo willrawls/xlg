@@ -53,7 +53,7 @@ namespace MetX.Glove.Console
                 try
                 {
                     CodeGenerator gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
-                    string generatedCode = gen.GeneratedCode;
+                    string generatedCode = gen.GenerateCode();
                     if (string.IsNullOrEmpty(generatedCode)) return;
                     FileSystem.StringToFile(outputFilename, generatedCode);
                     System.Console.Write("--- SUCCESS: " + outputFilename);

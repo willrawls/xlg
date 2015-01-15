@@ -680,8 +680,17 @@ namespace MetX.Urn
                 if (i > 0 && ((curr >= 'A' && curr <= 'Z') || (curr >= '0' && curr <= '9')))
                 {
                     char prev = target[i - 1];
-                    if (!((prev >= 'A' && prev <= 'Z') || (prev >= '0' && prev <= '9')))
-                        sb.Append(" ");
+                    //if (!((prev >= 'A' && prev <= 'Z') || (prev >= '0' && prev <= '9')))
+                    if(curr >= 'A' && curr <= 'Z')
+                    {
+                        if (!(prev >= 'A' && prev <= 'Z'))
+                            sb.Append(" ");
+                    }
+                    else // Is a number
+                    {
+                        if (!(prev >= '0' && prev <= '9'))
+                            sb.Append(" ");
+                    }
                 }
                 sb.Append(curr);
             }

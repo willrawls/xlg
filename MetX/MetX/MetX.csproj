@@ -143,7 +143,8 @@
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
-    <Compile Include="Library\Class1.cs" />
+    <EmbeddedResource Include="Library\ClipScriptProcessor.cs" />
+    <Compile Include="Library\IProcessForClipScript.cs" />
     <Compile Include="Library\xlgUrn.cs">
       <SubType>Code</SubType>
     </Compile>
