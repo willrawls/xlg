@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Threading;
 using System.Xml.Serialization;
-
+using MetX.Library;
 
 namespace MetX.Data
 {
@@ -44,22 +44,22 @@ namespace MetX.Data
 
         public static xlgFolder FromXml(string xmldoc)
         {
-            return xml.FromXml<xlgFolder>(xmldoc);
+            return Xml.FromXml<xlgFolder>(xmldoc);
         }
 
         public string OuterXml()
         {
-            return xml.ToXml<xlgFolder>(this, true);
+            return Xml.ToXml<xlgFolder>(this, true);
         }
 
         public void Save(string Filename)
         {
-            xml.SaveFile<xlgFolder>(Filename, this);
+            Xml.SaveFile<xlgFolder>(Filename, this);
         }
 
         public static xlgFolder Load(string Filename)
         {
-            return xml.LoadFile<xlgFolder>(Filename);
+            return Xml.LoadFile<xlgFolder>(Filename);
         }
     }
 

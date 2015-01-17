@@ -1,94 +1,77 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
-using System.Text;
-using System.Web;
-
 using System.IO;
+using System.Text;
 using System.Xml;
-using System.Xml.XPath;
 using System.Xml.Serialization;
-using System.Xml.Xsl;
-using System.Data.SqlClient;
-using System.Web.Caching;
-using System.Reflection;
-
-using MetX;
-using MetX.IO;
-using MetX.Urn;
 // // using MetX.Web;
-using MetX.Security;
-using MetX.Data;
 
-namespace MetX
+namespace MetX.Library
 {
     public class StringWriterWithEncoding : System.IO.StringWriter
     {
-        Encoding m_encoding;
+        Encoding m_Encoding;
         public StringWriterWithEncoding(StringBuilder sb, Encoding encoding)
             : base(sb)
         {
-            m_encoding = encoding;
+            m_Encoding = encoding;
         }
 
         public override Encoding Encoding
         {
             get
             {
-                return m_encoding;
+                return m_Encoding;
             }
         }
     }
 
-	public class xhtml
+	public class Xhtml
 	{
 		public const string Declaration = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
 		public const string TagHtmlBegin = "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
 
-		public void BeginDoc(TextWriter Output, XmlDocument Target)
+		public void BeginDoc(TextWriter output, XmlDocument target)
 		{
-			Output.WriteLine(xhtml.Declaration);
-			Output.WriteLine(xhtml.TagHtmlBegin);
-			Output.WriteLine("<title>Auto Output</title>");
-			Output.WriteLine("</head>");
-			Output.WriteLine("<body>");
+			output.WriteLine(Xhtml.Declaration);
+			output.WriteLine(Xhtml.TagHtmlBegin);
+			output.WriteLine("<title>Auto Output</title>");
+			output.WriteLine("</head>");
+			output.WriteLine("<body>");
 		}
 
-		public void EndDoc(TextWriter Output, XmlDocument Target)
+		public void EndDoc(TextWriter output, XmlDocument target)
 		{
-			Output.WriteLine("</body>");
-			Output.WriteLine("</html>");
+			output.WriteLine("</body>");
+			output.WriteLine("</html>");
 		}
 
-		public void ToDiv(TextWriter Output, XmlElement Target)
+		public void ToDiv(TextWriter output, XmlElement target)
 		{
-			Output.WriteLine("<span class=\"" + Target.Name + "_span\">" + Target.Name + "</span>");
-			Output.WriteLine("<div class=\"" + Target.Name + "_div\">");
+			output.WriteLine("<span class=\"" + target.Name + "_span\">" + target.Name + "</span>");
+			output.WriteLine("<div class=\"" + target.Name + "_div\">");
 				throw new Exception("Coding not completed. Finish or don't use me.");
-			Output.WriteLine("<div>");
+			output.WriteLine("<div>");
 		}
 	}
 
 	/// <summary>Helper functions for dealing with xml strings</summary>
-	public class xml
+	public class Xml
     {
 		/// <summary>The ?xml directive that should be at the top of each file</summary>
 		public const string Declaration = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
-		private static SortedList<int, XmlSerializer> Serializers;
+		private static SortedList<int, XmlSerializer> m_Serializers;
 
         /// <summary>Converts an XmlElement into a JSON string and appends it to Target</summary>
-        /// <param name="Element">The XmlElment to walk and translate to JSON</param>
-        /// <param name="Target">The StringBuilder to append the JSON string into</param>
-        public static void ToJson(XmlElement Element, StringBuilder Target)
+        /// <param name="element">The XmlElment to walk and translate to JSON</param>
+        /// <param name="target">The StringBuilder to append the JSON string into</param>
+        public static void ToJson(XmlElement element, StringBuilder target)
         {
-            ToJson(Element, Target, false, string.Empty, true);
+            ToJson(element, target, false, string.Empty, true);
         }
 
-        private static void ToJson(XmlElement Element, StringBuilder Target, bool ContainedInArray, string Indent, bool WrapWithBrace)
+        private static void ToJson(XmlElement element, StringBuilder target, bool containedInArray, string indent, bool wrapWithBrace)
         {
             /* Takes an XML document such as:
                 <a fred="george">
@@ -106,89 +89,89 @@ namespace MetX
              And generates a json string such as:
                 var VariableName = {"a": {"fred":"george", "b": [ { "x": "y", "c": "frank" }, { "x": "y", "c": "mary" } } ]};
              */
-            bool CommaNeeded = false;
-            if (Element.HasChildNodes || Element.HasAttributes)
+            bool commaNeeded = false;
+            if (element.HasChildNodes || element.HasAttributes)
             {
-                if(ContainedInArray)
-                    Target.Append("\n" + Indent + "{");
+                if(containedInArray)
+                    target.Append("\n" + indent + "{");
                 else
-                    Target.Append("\n" + Indent + "" + (WrapWithBrace ? "{" : string.Empty) + "\"" + Element.Name + "\":/*2*/\n" + Indent + "\t{");
+                    target.Append("\n" + indent + "" + (wrapWithBrace ? "{" : string.Empty) + "\"" + element.Name + "\":/*2*/\n" + indent + "\t{");
 
-                if (Element.HasAttributes)
+                if (element.HasAttributes)
                 {
-                    foreach (XmlAttribute CurrAttribute in Element.Attributes)
+                    foreach (XmlAttribute currAttribute in element.Attributes)
                     {
-                        if (CommaNeeded)
-                            Target.Append(",\"");
+                        if (commaNeeded)
+                            target.Append(",\"");
                         else
-                            Target.Append("\"");
-                        Target.Append(CurrAttribute.Name);
-                        Target.Append("\":\"");
-                        Target.Append(CurrAttribute.Value.Replace("\"", "\\\"").Replace(@"\", @"\\"));
-                        Target.Append("\"");
-                        CommaNeeded = true;
+                            target.Append("\"");
+                        target.Append(currAttribute.Name);
+                        target.Append("\":\"");
+                        target.Append(currAttribute.Value.Replace("\"", "\\\"").Replace(@"\", @"\\"));
+                        target.Append("\"");
+                        commaNeeded = true;
                     }
-                    if (CommaNeeded && Element.HasChildNodes) { Target.Append(",/*8*/"); CommaNeeded = false; }
+                    if (commaNeeded && element.HasChildNodes) { target.Append(",/*8*/"); commaNeeded = false; }
                 }
-                if (Element.HasChildNodes)
+                if (element.HasChildNodes)
                 {
-                    string LastNodeName = null;
-                    if (Element.ChildNodes.Count == 1)
+                    string lastNodeName = null;
+                    if (element.ChildNodes.Count == 1)
                     {
-                        if (Element.ChildNodes[0] is XmlElement)
+                        if (element.ChildNodes[0] is XmlElement)
                         {
-                            if (CommaNeeded) { Target.Append(",/*3*/"); CommaNeeded = false; }
-                            ToJson((XmlElement)Element.ChildNodes[0], Target, false, Indent + "\t", false);
+                            if (commaNeeded) { target.Append(",/*3*/"); commaNeeded = false; }
+                            ToJson((XmlElement)element.ChildNodes[0], target, false, indent + "\t", false);
                         }
                     }
                     else
                     {
-                        string Opener = "{";
-                        string Closer = "}";
-                        foreach (XmlElement CurrChild in Element.ChildNodes)
+                        string opener = "{";
+                        string closer = "}";
+                        foreach (XmlElement currChild in element.ChildNodes)
                         {
-                            if (CurrChild is XmlElement)
+                            if (currChild is XmlElement)
                             {
-                                if (CurrChild.Name != LastNodeName)
+                                if (currChild.Name != lastNodeName)
                                 {
-                                    if (CurrChild.NextSibling != null)
+                                    if (currChild.NextSibling != null)
                                     {
-                                        if (LastNodeName != null) Target.Append(Closer + ",/*1*/");
-                                        if (CurrChild.NextSibling.Name == CurrChild.Name)
+                                        if (lastNodeName != null) target.Append(closer + ",/*1*/");
+                                        if (currChild.NextSibling.Name == currChild.Name)
                                         {
-                                            Opener = "[";
-                                            Closer = "]";
+                                            opener = "[";
+                                            closer = "]";
                                         }
                                     }
                                     else
                                     {
-                                        if (LastNodeName != null) Target.Append(Closer + "/*9*/");
+                                        if (lastNodeName != null) target.Append(closer + "/*9*/");
                                     }
-                                    Target.Append("\n\t" + Indent + "\"" + CurrChild.Name + "\":/*4*/"); // + Opener);
-                                    if (Opener == "[")
-                                        Target.Append(Opener);
-                                    CommaNeeded = false;
+                                    target.Append("\n\t" + indent + "\"" + currChild.Name + "\":/*4*/"); // + Opener);
+                                    if (opener == "[")
+                                        target.Append(opener);
+                                    commaNeeded = false;
                                 }
-                                if (CommaNeeded) { Target.Append(",/*7*/"); CommaNeeded = false;  }
-                                ToJson((XmlElement)CurrChild, Target, true, Indent + "\t", true);
-                                LastNodeName = CurrChild.Name;
-                                CommaNeeded = true;
+                                if (commaNeeded) { target.Append(",/*7*/"); commaNeeded = false;  }
+                                ToJson((XmlElement)currChild, target, true, indent + "\t", true);
+                                lastNodeName = currChild.Name;
+                                commaNeeded = true;
                             }
                         }
-                        Target.Append(Closer);
+                        target.Append(closer);
                     }
                 }
-                if(WrapWithBrace)
-                    Target.AppendLine("}");
-                Target.Append(Indent);
+                if(wrapWithBrace)
+                    target.AppendLine("}");
+                target.Append(indent);
             }
-            else if (Element.Value != null)
+            else if (element.Value != null)
             {
-                Target.Append("\n" + Indent + "{\"" + Element.Name + "\":\"" + Element.Value.Replace("\"", "\\\"").Replace(@"\", @"\\") + "\"} /*5*/");
+                target.Append("\n" + indent + "{\"" + element.Name + "\":\"" + element.Value.Replace("\"", "\\\"").Replace(@"\", @"\\") + "\"} /*5*/");
             }
             else
             {
-                Target.Append("\n" + Indent + "{\"" + Element.Name + "\":null /*6*/} ");
+                target.Append("\n" + indent + "{\"" + element.Name + "\":null /*6*/} ");
             }
         }
 
@@ -226,7 +209,7 @@ namespace MetX
         /// <summary>Wraps some text in a tag with optional attributes for that tag. NOTE: tagValue may contain any valid text or XML
         /// <para>Handles several scenarios when tagValue is blank.</para>
         /// </summary>
-        /// <param name="TagName">The tag to wrap tagValue in</param>
+        /// <param name="tagName">The tag to wrap tagValue in</param>
         /// <param name="tagValue">The text to wrap as the text node of the wrapping tag</param>
         /// <param name="tagAttributes">The attributes of the wrapping tag (optional)</param>
         /// <returns>An xml string with a TagName element having tagAttributes as attributes wrapping tagValue</returns>
@@ -237,7 +220,7 @@ namespace MetX
         /// // x = &amp;amp;amp;amp;amp;lt;Item Source="Somewhere"&amp;amp;amp;amp;amp;gt;This is a test&amp;amp;amp;amp;amp;lt;/Item/&amp;amp;amp;amp;amp;gt;
         /// </code>
         /// </exmaple>
-        public static string Wrap(string TagName, string tagValue, string tagAttributes)
+        public static string Wrap(string tagName, string tagValue, string tagAttributes)
         {
             if (tagAttributes == null)
                 tagAttributes = string.Empty;
@@ -250,10 +233,10 @@ namespace MetX
                     // <tagName>
                     //    <tagName .../>
                     // </tagName>
-                    return "<" + TagName + ">\r\n" + tagValue + "</" + TagName + ">\r\n";
+                    return "<" + tagName + ">\r\n" + tagValue + "</" + tagName + ">\r\n";
                 // <tagName />
                 else
-                    return "<" + TagName + "/>\r\n";
+                    return "<" + tagName + "/>\r\n";
             }
             else
             {
@@ -261,16 +244,16 @@ namespace MetX
                     // <tagName tagAttributes ... >
                     //    <tagName .../>
                     // </tagName>
-                    return "<" + TagName + " " + tagAttributes + ">\r\n" + tagValue + "</" + TagName + ">\r\n";
+                    return "<" + tagName + " " + tagAttributes + ">\r\n" + tagValue + "</" + tagName + ">\r\n";
                 // <tagName tagAttributes ... />
                 else
-                    return "<" + TagName + " " + tagAttributes + "/>";
+                    return "<" + tagName + " " + tagAttributes + "/>";
             }
         }
 
 
         /// <summary>Wraps some text in a xml element. NOTE: tagValue may contain any valid text or XML</summary>
-        /// <param name="TagName">The tag to wrap tagValue in</param>
+        /// <param name="tagName">The tag to wrap tagValue in</param>
         /// <param name="tagValue">The text to wrap as the text node of the wrapping tag</param>
         /// <returns>An xml string with a TagName element wrapping tagValue</returns>
         /// 
@@ -280,71 +263,71 @@ namespace MetX
         /// // x = &amp;amp;amp;amp;amp;lt;Item&amp;amp;amp;amp;amp;gt;This is a test&amp;amp;amp;amp;amp;lt;/Item/&amp;amp;amp;amp;amp;gt;
         /// </code>
         /// </exmaple>
-        public static string Wrap(string TagName, string tagValue)
+        public static string Wrap(string tagName, string tagValue)
         {
-            return Wrap(TagName, tagValue, null);
+            return Wrap(tagName, tagValue, null);
         }
 
 		/// <summary>
 		/// Don't forget to close the XmlWriter or wrap this line in a using statement
 		/// </summary>
-		/// <param name="Output">The stream to wrap</param>
+		/// <param name="output">The stream to wrap</param>
 		/// <returns></returns>
-		public static XmlWriter Writer(Stream Output)
+		public static XmlWriter Writer(Stream output)
 		{
 			XmlWriterSettings settings = new XmlWriterSettings();
 			settings.OmitXmlDeclaration = true;
 			settings.Indent = true;
-			return XmlWriter.Create(Output, settings);
+			return XmlWriter.Create(output, settings);
 		}
 
 		/// <summary>
 		/// Don't forget to close the XmlWriter or wrap this line in a using statement
 		/// </summary>
-		/// <param name="Output">The TextWriter to wrap</param>
+		/// <param name="output">The TextWriter to wrap</param>
 		/// <returns></returns>
-		public static XmlWriter Writer(TextWriter Output)
+		public static XmlWriter Writer(TextWriter output)
 		{
 			XmlWriterSettings settings = new XmlWriterSettings();
 			settings.OmitXmlDeclaration = true;
 			settings.Indent = true;
-			return XmlWriter.Create(Output, settings);
+			return XmlWriter.Create(output, settings);
 		}
 
 		/// <summary>
 		/// Don't forget to close the XmlWriter or wrap this line in a using statement
 		/// </summary>
-		/// <param name="Output">The StringBuilder to wrap</param>
+		/// <param name="output">The StringBuilder to wrap</param>
 		/// <returns></returns>
-		public static XmlWriter Writer(StringBuilder Output)
+		public static XmlWriter Writer(StringBuilder output)
 		{
 			XmlWriterSettings settings = new XmlWriterSettings(); 
 			settings.OmitXmlDeclaration = true; 
 			settings.Indent = true;
-			return XmlWriter.Create(Output, settings);
+			return XmlWriter.Create(output, settings);
 		}
 
 		/// <summary>
 		/// Turns an xml string into a object
 		/// </summary>
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="XmlDoc">An xml string containing the serialized object</param>
+		/// <param name="xmlDoc">An xml string containing the serialized object</param>
 		/// <returns>The deserializd object</returns>
-		public static T FromXml<T>(string XmlDoc)
+		public static T FromXml<T>(string xmlDoc)
 		{
-			using (StringReader sr = new StringReader(XmlDoc))
+			using (StringReader sr = new StringReader(xmlDoc))
 				return (T)Serializer(typeof(T)).Deserialize(sr);
 		}
 		/// <summary>
 		/// Turns the xml contents of a file into an object
 		/// </summary>
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="FilePath">The file to read the xml from</param>
+		/// <param name="filePath">The file to read the xml from</param>
 		/// <returns>The deserializd object</returns>
-		public static T LoadFile<T>(string FilePath)
+		public static T LoadFile<T>(string filePath)
 		{
-			if(File.Exists(FilePath))
-                using(XmlTextReader xtr = new XmlTextReader(FilePath))
+			if(File.Exists(filePath))
+                using(XmlTextReader xtr = new XmlTextReader(filePath))
                     return (T)Serializer(typeof(T)).Deserialize(xtr);
 				//using (StreamReader s = System.IO.File.OpenText(FilePath))
 					//return (T) Serializer(typeof(T)).Deserialize(s);
@@ -355,17 +338,17 @@ namespace MetX
 		/// Save a object as xml into a file. If the file is already there it is deleted then recreated with the xml contents of the supplied object.
 		/// </summary>
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="FilePath">The file to write the xml to</param>
-		/// <param name="ToSerialize">The object to serialize</param>
-		public static void SaveFile<T>(string FilePath, T ToSerialize)
+		/// <param name="filePath">The file to write the xml to</param>
+		/// <param name="toSerialize">The object to serialize</param>
+		public static void SaveFile<T>(string filePath, T toSerialize)
 		{
-			if (File.Exists(FilePath))
+			if (File.Exists(filePath))
 			{
-				File.SetAttributes(FilePath, FileAttributes.Normal);
-				File.Delete(FilePath);
+				File.SetAttributes(filePath, FileAttributes.Normal);
+				File.Delete(filePath);
 			}
-            using (XmlTextWriter xtw = new XmlTextWriter(FilePath, Encoding.UTF8))
-                Serializer(typeof(T)).Serialize(xtw, ToSerialize);
+            using (XmlTextWriter xtw = new XmlTextWriter(filePath, Encoding.UTF8))
+                Serializer(typeof(T)).Serialize(xtw, toSerialize);
 			//using (StreamWriter sw = File.CreateText(FilePath))
 				//Serializer(typeof(T)).Serialize(sw, ToSerialize);
 		}
@@ -374,14 +357,14 @@ namespace MetX
 		/// Turns an object into an xml string
 		/// </summary>
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="ToSerialize">The object to serialize</param>
+		/// <param name="toSerialize">The object to serialize</param>
 		/// <returns></returns>
-		public static string ToXml<T>(T ToSerialize, bool RemoveNamespaces)
+		public static string ToXml<T>(T toSerialize, bool removeNamespaces)
 		{
 			StringBuilder sb = new StringBuilder();
 			using (XmlWriter xw = Writer(sb))
-				Serializer(typeof(T)).Serialize(xw, ToSerialize);
-            if (RemoveNamespaces)
+				Serializer(typeof(T)).Serialize(xw, toSerialize);
+            if (removeNamespaces)
             { 
                 sb.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
                 sb.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
@@ -396,16 +379,16 @@ namespace MetX
 		/// <returns>The XmlSerializer for the type</returns>
 		public static XmlSerializer Serializer(Type t)
 		{
-			if (Serializers == null)
-				Serializers = new SortedList<int, XmlSerializer>(10);
+			if (m_Serializers == null)
+				m_Serializers = new SortedList<int, XmlSerializer>(10);
 			XmlSerializer xs = null;
 			int hash = t.FullName.GetHashCode();
-			if (Serializers.ContainsKey(hash))
-				xs = Serializers[hash];
+			if (m_Serializers.ContainsKey(hash))
+				xs = m_Serializers[hash];
 			else
 			{
 				xs = new XmlSerializer(t);
-				Serializers.Add(hash, xs);
+				m_Serializers.Add(hash, xs);
 			}
 			return xs;
 		}

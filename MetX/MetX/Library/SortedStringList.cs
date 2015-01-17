@@ -1,6 +1,6 @@
-using System.Text; 
+using System.Text;
 
-namespace MetX
+namespace MetX.Library
 {
     /// <summary>
     /// Basic implmentation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
@@ -15,22 +15,22 @@ namespace MetX
         /// <summary>
         /// Creates a sorted string list with an initial capacity
         /// </summary>
-        /// <param name="Capacity">The initial capacity of the sorted list.</param>
-        public SortedStringList(int Capacity) : base(Capacity) { }
+        /// <param name="capacity">The initial capacity of the sorted list.</param>
+        public SortedStringList(int capacity) : base(capacity) { }
 
         /// <summary>Retrieves the list as a xml string</summary>
-        /// <param name="TagName">The name of each element and the name of the wrapping element (appending an "s")</param>
-        /// <param name="TagAttributes">Any attributes to be added to the wrapping element</param>
+        /// <param name="tagName">The name of each element and the name of the wrapping element (appending an "s")</param>
+        /// <param name="tagAttributes">Any attributes to be added to the wrapping element</param>
         /// <returns>An xml string of TagName elements wrapped in a TagName + "s" element with attributes equal to TagAttributes</returns>
-        public string ToXml(string TagName, string TagAttributes)
+        public string ToXml(string tagName, string tagAttributes)
         {
             if (Count > 0)
             {
                 StringBuilder ret = new StringBuilder();
-                ret.AppendLine("<" + TagName + "s" + (TagAttributes != null ? " " + TagAttributes : string.Empty) + ">");
-                foreach (System.Collections.Generic.KeyValuePair<string, string> CurrItem in this)
-                    ret.AppendLine("<" + TagName + " Name=\"" + xml.AttributeEncode(CurrItem.Key) + "\" Value=\"" + xml.AttributeEncode(CurrItem.Value) + "\"/>");
-                ret.AppendLine("</" + TagName + "s>");
+                ret.AppendLine("<" + tagName + "s" + (tagAttributes != null ? " " + tagAttributes : string.Empty) + ">");
+                foreach (System.Collections.Generic.KeyValuePair<string, string> currItem in this)
+                    ret.AppendLine("<" + tagName + " Name=\"" + Xml.AttributeEncode(currItem.Key) + "\" Value=\"" + Xml.AttributeEncode(currItem.Value) + "\"/>");
+                ret.AppendLine("</" + tagName + "s>");
                 return ret.ToString();
             }
             return string.Empty;

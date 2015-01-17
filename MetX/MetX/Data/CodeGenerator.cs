@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Xsl;
 using MetX.IO;
-using MetX.Urn;
+using MetX.Library;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
 
@@ -197,10 +197,10 @@ namespace MetX.Data
                 Namespace = Namespace.Substring(0, Namespace.Length - 6);
             }
 
-            VDirName = Token.Get(virtualxlgFilePath, 1, "/");
+            VDirName = StringExtensions.TokenAt(virtualxlgFilePath, 1, "/");
             if (VDirName.Length == 0)
             {
-                VDirName = Token.Get(virtualxlgFilePath, 2, "/");
+                VDirName = StringExtensions.TokenAt(virtualxlgFilePath, 2, "/");
             }
             try
             {
@@ -242,11 +242,11 @@ namespace MetX.Data
 
             if (file.IndexOf("\\App_Code\\") > -1)
             {
-                SettingsFilePath = Token.First(file, "\\App_Code\\") + "\\web.config";
+                SettingsFilePath = StringExtensions.FirstToken(file, "\\App_Code\\") + "\\web.config";
             }
             else
             {
-                SettingsFilePath = Token.Before(file, Token.Count(file, "\\"), "\\") + "\\app.config";
+                SettingsFilePath = StringExtensions.TokensBefore(file, StringExtensions.TokenCount(file, "\\"), "\\") + "\\app.config";
             }
             try
             {
@@ -417,7 +417,7 @@ namespace MetX.Data
             AddAttribute(xmlXsls, "xlgPath", GetxlgPath("/" + VDirName));
             AddAttribute(xmlXsls, "VirtualDir", string.Empty);
             AddAttribute(xmlXsls, "Path", path);
-            AddAttribute(xmlXsls, "Folder", Token.Last(path, @"\"));
+            AddAttribute(xmlXsls, "Folder", StringExtensions.LastToken(path, @"\"));
             root.AppendChild(xmlXsls);
 
             foreach (XmlElement currVirtual in m_XslsToRender.SelectNodes("Virtual"))
@@ -431,8 +431,8 @@ namespace MetX.Data
                     classname = "_" + classname;
                 }
 
-                if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + xml.AttributeEncode(classname) + "\"]") != null ||
-                    xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + xml.AttributeEncode(classname) + "\"]") != null)
+                if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
+                    xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
                 {
                     classname += "PageHandler";
                 }
@@ -466,8 +466,8 @@ namespace MetX.Data
                         classname = "_" + classname;
                     }
 
-                    if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + xml.AttributeEncode(classname) + "\"]") != null ||
-                        xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + xml.AttributeEncode(classname) + "\"]") != null)
+                    if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
+                        xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
                     {
                         classname += "PageHandler";
                     }
@@ -486,7 +486,7 @@ namespace MetX.Data
             }
             foreach (string xslFolder in Directory.GetDirectories(path))
             {
-                string folderName = Token.Last(xslFolder, @"\");
+                string folderName = StringExtensions.LastToken(xslFolder, @"\");
                 if (IsIncluded(m_XslsToRender, folderName) && IsIncluded(m_XslsToRender, renderPath + "/" + folderName))
                 {
                     XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
@@ -725,7 +725,7 @@ namespace MetX.Data
         {
             if (VirtualPath != null)
             {
-                if (Token.First(virtualFilename, ":/") != string.Empty || virtualFilename.Replace("\\", "/").StartsWith(VirtualPath))
+                if (StringExtensions.FirstToken(virtualFilename, ":/") != string.Empty || virtualFilename.Replace("\\", "/").StartsWith(VirtualPath))
                 {
                     return Helper.GetVirtualFile(virtualFilename);
                 }
@@ -1020,15 +1020,15 @@ namespace MetX.Data
 
                 while (toConvert.IndexOf("_", StringComparison.Ordinal) > -1)
                 {
-                    string af = Token.After(toConvert, 1, "_");
+                    string af = StringExtensions.TokensAfter(toConvert, 1, "_");
                     if (af.Length > 0)
                     {
                         af = af[0].ToString().ToUpper() + af.Substring(1);
-                        toConvert = Token.First(toConvert, "_") + af;
+                        toConvert = StringExtensions.FirstToken(toConvert, "_") + af;
                     }
                     else
                     {
-                        toConvert = Token.First(toConvert, "_");
+                        toConvert = StringExtensions.FirstToken(toConvert, "_");
                     }
                 }
                 if (toConvert == "Type")

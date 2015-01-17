@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Xml;
+using MetX.Library;
 using Microsoft.VisualBasic;
 
 namespace MetX.Data
@@ -34,10 +35,8 @@ namespace MetX.Data
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
         public override string ToXml(string tagName, string tagAttributes, string sql)
         {
-            if (sql.IndexOf("FOR XML") == -1)
-            {
-                sql += " FOR XML AUTO";
-            }
+            if (!sql.Contains("FOR XML")) sql += " FOR XML AUTO";
+
             StringBuilder returnValue = new StringBuilder();
             SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(sql, conn);
@@ -408,11 +407,11 @@ namespace MetX.Data
                         }
                         rdr.Read();
                         raw = rdr["constraint_keys"].ToString();
-                        string relatedTableName = Token.First(Token.After(raw, 1, "dbo."), "(").Trim();
+                        string relatedTableName = StringExtensions.FirstToken(StringExtensions.TokensAfter(raw, 1, "dbo."), "(").Trim();
                         if (tableSchema.Keys.Find(relatedTableName) == null)
                         {
                             key.Name = relatedTableName;
-                            foreach (string currCol in Token.Between(raw, "(", ")").Split(new char[] {','}))
+                            foreach (string currCol in StringExtensions.TokenBetween(raw, "(", ")").Split(new char[] {','}))
                             {
                                 if (currCol.Length > 0)
                                 {

@@ -170,7 +170,7 @@
     <Compile Include="IO\sql.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Library\Token.cs">
+    <Compile Include="Library\StringExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Library\Worker.cs">

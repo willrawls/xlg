@@ -9,6 +9,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Web.SessionState;
 using System.Collections.Generic;
+using MetX.Library;
 
 namespace MetX.IO
 {
@@ -125,7 +126,7 @@ namespace MetX.IO
         {
             get
             {
-                return State.ToXml(TagName, "StateParent=\"" + xml.AttributeEncode(StateParent) + "\" StateName=\"" + xml.AttributeEncode(StateName) + "\"");
+                return State.ToXml(TagName, "StateParent=\"" + Xml.AttributeEncode(StateParent) + "\" StateName=\"" + Xml.AttributeEncode(StateName) + "\"");
             }
         }
     }

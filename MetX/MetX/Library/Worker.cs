@@ -1,16 +1,10 @@
 using System;
-using System.Text.RegularExpressions;
 using System.Configuration;
-using System.Security.Cryptography;
-using System.Data;
-using System.Xml;
-using System.Data.SqlClient;
 using System.Text;
-using System.Collections;
-using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Web;
 
-namespace MetX
+namespace MetX.Library
 {
 	
 	/// <summary>General helper functions</summary>
@@ -99,273 +93,273 @@ namespace MetX
                         new TimeSpan(1, 7, 11), System.Web.Caching.CacheItemPriority.AboveNormal, null);
                 }
                 sEmail = sEmail.Trim();
-                sEmail = Token.First(sEmail, "@").Trim() + "@" + Token.First(Token.After(sEmail, 1, "@").ToLower(), "<").Trim();
+                sEmail = StringExtensions.FirstToken(sEmail, "@").Trim() + "@" + StringExtensions.FirstToken(StringExtensions.TokensAfter(sEmail, 1, "@").ToLower(), "<").Trim();
                 return email.IsMatch(sEmail);
             }
             return false;
         }
 
-        public static string Value(HttpRequest Request, System.Web.UI.StateBag ViewState, System.Web.SessionState.HttpSessionState Session, string Key)
+        public static string Value(HttpRequest request, System.Web.UI.StateBag viewState, System.Web.SessionState.HttpSessionState session, string key)
         {
             string ret = null;
-            if (Session != null) ret = Worker.Value(Session, Key);
-            if (string.IsNullOrEmpty(ret)) ret = Request[Key];
-            if (ViewState != null && string.IsNullOrEmpty(ret)) ret = Worker.Value(ViewState, Key);
-            if (string.IsNullOrEmpty(ret)) ret = Request.Headers[Key];
+            if (session != null) ret = Worker.Value(session, key);
+            if (string.IsNullOrEmpty(ret)) ret = request[key];
+            if (viewState != null && string.IsNullOrEmpty(ret)) ret = Worker.Value(viewState, key);
+            if (string.IsNullOrEmpty(ret)) ret = request.Headers[key];
             if (string.IsNullOrEmpty(ret))
-                if (Request.Cookies[Key] != null) ret = Request.Cookies[Key].Value;
+                if (request.Cookies[key] != null) ret = request.Cookies[key].Value;
             return ret;
         }
 
-        public static string Value(System.Web.UI.StateBag State, string Key)
+        public static string Value(System.Web.UI.StateBag state, string key)
         {
             string ret = string.Empty;
-            if (State != null)
-                try { ret = State[Key].ToString(); }
+            if (state != null)
+                try { ret = state[key].ToString(); }
                 catch { }
             return ret;
         }
 
-        public static string Value(System.Web.SessionState.HttpSessionState State, string Key)
+        public static string Value(System.Web.SessionState.HttpSessionState state, string key)
         {
             string ret = string.Empty;
-            if (State != null)
-                try { ret = State[Key].ToString(); }
+            if (state != null)
+                try { ret = state[key].ToString(); }
                 catch { }
             return ret;
         }
 
         /// <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
-        /// <param name="Value">The value to convert</param>
-        /// <param name="DefaultValue">The value to return if Value == null or DbNull or an empty string.</param>
+        /// <param name="value">The value to convert</param>
+        /// <param name="defaultValue">The value to return if Value == null or DbNull or an empty string.</param>
         /// <returns>The string representation</returns>
-        public static string nzString(object Value, string DefaultValue)
+        public static string nzString(object value, string defaultValue)
         {
-            if (Value == null || Value == DBNull.Value || Value.Equals(string.Empty))
-                return DefaultValue;
-            else if (Value is Guid)
-                return System.Convert.ToString(Value);
+            if (value == null || value == DBNull.Value || value.Equals(string.Empty))
+                return defaultValue;
+            else if (value is Guid)
+                return System.Convert.ToString(value);
             else
-                return Value.ToString().Trim();
+                return value.ToString().Trim();
         }
 
         /// <summary>Returns the byte array representation of a value, even if it's DbNull or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The byte array representation</returns>
-        public static byte[] nzByteArray(object Value)
+        public static byte[] NzByteArray(object value)
         {
-            if (Value == null || Value == DBNull.Value || Value.Equals(string.Empty))
+            if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return new byte[0];
-            else if (Value is byte[])
-                return (byte[])Value;
+            else if (value is byte[])
+                return (byte[])value;
             else
-                return Encoding.ASCII.GetBytes(nzString(Value));
+                return Encoding.ASCII.GetBytes(nzString(value));
         }
 
         /// <summary>Returns the TimeSpan representation of a value, even if it's DbNull or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The TimeSpan representation</returns>
-        public static TimeSpan nzTimeSpan(object Value)
+        public static TimeSpan NzTimeSpan(object value)
         {
-            if (Value == null || Value == DBNull.Value || Value.Equals(string.Empty))
+            if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return new TimeSpan();
-            else if (Value is TimeSpan)
-                return (TimeSpan) Value;
-            else if (Value is string && !string.IsNullOrEmpty((string) Value))
-                try { return TimeSpan.Parse((string) Value); }
+            else if (value is TimeSpan)
+                return (TimeSpan) value;
+            else if (value is string && !string.IsNullOrEmpty((string) value))
+                try { return TimeSpan.Parse((string) value); }
                 catch { }
             return new TimeSpan();
         }
 
-        public static string md5(string ToHash)
+        public static string Md5(string toHash)
         {
-            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ToHash, "md5").ToLower();
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(toHash, "md5").ToLower();
         }
 
-        public static char nzChar(object Value)
+        public static char NzChar(object value)
         {
-            if (Value == null || Value == DBNull.Value || Value.Equals(string.Empty))
+            if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return new char();
-            else if (Value is string)
-                return ((string)Value)[0];
-            else if (Value is char)
-                return (char)Value;
+            else if (value is string)
+                return ((string)value)[0];
+            else if (value is char)
+                return (char)value;
             else
             {
-                string ret = nzString(Value);
+                string ret = nzString(value);
                 if (ret.Length == 0)
                     return new char();
                 return ret[0];
             }
         }
 
-        public static byte nzByte(object Value)
+        public static byte NzByte(object value)
         {
-            if (Value is byte)
-                return (byte)Value;
-            if (Value is byte[])
-                if (((byte[])Value).Length == 0)
+            if (value is byte)
+                return (byte)value;
+            if (value is byte[])
+                if (((byte[])value).Length == 0)
                     return new byte();
                 else
-                    return ((byte[])Value)[0];
+                    return ((byte[])value)[0];
             else
-                return (byte) (int) nzChar(Value);
+                return (byte) (int) NzChar(value);
         }
 
 		/// <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
-		/// <param name="Value">The value to convert</param>
+		/// <param name="value">The value to convert</param>
 		/// <returns>The string representation</returns>
-		public static string nzString(object Value)
+		public static string nzString(object value)
 		{
-			if(Value == null || Value == DBNull.Value || Value.Equals(string.Empty))
+			if(value == null || value == DBNull.Value || value.Equals(string.Empty))
 				return string.Empty;
-			else if( Value is Guid)
-				return  System.Convert.ToString(Value);
+			else if( value is Guid)
+				return  System.Convert.ToString(value);
 			else
-				return Value.ToString().Trim();
+				return value.ToString().Trim();
 		}
 
         /// <summary>Returns the double representation of a value, even if it's DbNull, a Guid, or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The double representation</returns>
-        public static double nzDouble(object Value)
+        public static double NzDouble(object value)
         {
             double ret = 0;
-            string Text = nzString(Value);
-            if (Text.Length == 0)
+            string text = nzString(value);
+            if (text.Length == 0)
                 ret = 0;
             else 
                 try
                 {
-                    ret = System.Convert.ToDouble(Text);
+                    ret = System.Convert.ToDouble(text);
                 }
                 catch { }
             return ret;
         }
 
         /// <summary>Returns the double representation of a value, even if it's DbNull, a Guid, or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The double representation</returns>
-        public static decimal nzDecimal(object Value)
+        public static decimal NzDecimal(object value)
         {
             decimal ret = 0;
-            string Text = nzString(Value);
-            if (Text.Length == 0)
+            string text = nzString(value);
+            if (text.Length == 0)
                 ret = 0;
             else
                 try
                 {
-                    ret = System.Convert.ToDecimal(Text);
+                    ret = System.Convert.ToDecimal(text);
                 }
                 catch { }
             return ret;
         }
 
         /// <summary>Returns a SQL appropriate phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited string of the value will be created. So if Value='fred', then this function will return "'fred'"</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The SQL appropriate phrase</returns>
         /// 
         /// <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
-        public static string s2db(object Value)
+        public static string s2db(object value)
         {
-            if (Value == null || Value == DBNull.Value || (Value is DateTime && (DateTime)Value < DateTime.MinValue.AddYears(10)) || (Value is string && (string)Value == "(NULL)"))
+            if (value == null || value == DBNull.Value || (value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10)) || (value is string && (string)value == "(NULL)"))
                 return "NULL";
             else
-                return "'" + nzString(Value).Replace("'", "''") + "'";
+                return "'" + nzString(value).Replace("'", "''") + "'";
         }
 
         /// <summary>Returns a SQL appropriate phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited string of the value will be created. So if Value='fred', then this function will return "'fred'"</summary>
-        /// <param name="Value">The value to convert</param>
-        /// <param name="MaxLength">The maximum length the converted string should be. Values longer will be truncated.</param>
+        /// <param name="value">The value to convert</param>
+        /// <param name="maxLength">The maximum length the converted string should be. Values longer will be truncated.</param>
         /// <returns>The SQL appropriate phrase</returns>
         /// 
         /// <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
-        public static string s2db(object Value, int MaxLength)
+        public static string s2db(object value, int maxLength)
         {
-            if (Value == null || Value == DBNull.Value || (Value is DateTime && (DateTime)Value < DateTime.MinValue.AddYears(10)) || (Value is string && (string)Value == "(NULL)"))
+            if (value == null || value == DBNull.Value || (value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10)) || (value is string && (string)value == "(NULL)"))
                 return "NULL";
             else
             {
-                string ret = nzString(Value);
-                if (MaxLength > 0 && ret.Length > MaxLength)
-                    ret = ret.Substring(0, MaxLength);
+                string ret = nzString(value);
+                if (maxLength > 0 && ret.Length > maxLength)
+                    ret = ret.Substring(0, maxLength);
                 return "'" + ret.Replace("'", "''") + "'";
             }
         }
 
         /// <summary>Returns a SQL appropriate date/time phrase for an object value. If the object is null or DbNull, the string "NULL" will be returned. Otherwise a single quote delimited date/time string of the value will be created.</summary>
-		/// <param name="Value">The value to convert</param>
+		/// <param name="value">The value to convert</param>
 		/// <returns>The SQL appropriate date/time string</returns>
 		/// 
 		/// <example><c>string x = "insert into x values(" + d2db(y) + ")";</c></example>
-		public static string Date2Db(object Value)
+		public static string Date2Db(object value)
 		{
-            if (Value == null || Value == DBNull.Value || (Value is DateTime && (DateTime)Value < DateTime.MinValue.AddYears(10)) || (Value is string && (string)Value == "(NULL)"))
+            if (value == null || value == DBNull.Value || (value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10)) || (value is string && (string)value == "(NULL)"))
 				return "NULL";
 			else
-				return "'" + nzDateTime(Value, DateTime.Now).ToString().Replace("'", "''") + "'";
+				return "'" + nzDateTime(value, DateTime.Now).ToString().Replace("'", "''") + "'";
 		}
 
         /// <summary>Returns the Guid representation of a value, even if it's DbNull, a Guid, or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The Guid representation</returns>
-        public static Guid nzGuid(object Value)
+        public static Guid NzGuid(object value)
         {
-            if (Value == null || Value == System.DBNull.Value)
+            if (value == null || value == System.DBNull.Value)
                 return Guid.Empty;
-            else if (Value is string)
-                return new Guid((string)Value);
+            else if (value is string)
+                return new Guid((string)value);
             else
-                return (Guid)Value;
+                return (Guid)value;
         }
 
         /// <summary>Returns the DateTime representation of a value, even if it's DbNull or null</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The DateTime representation</returns>
-        public static System.DateTime nzDateTime(object Value)
+        public static System.DateTime nzDateTime(object value)
         {
-            return nzDateTime(Value, DateTime.MinValue);
+            return nzDateTime(value, DateTime.MinValue);
         }
 
         /// <summary>Returns the DateTime representation of a value, even if it's DbNull or null</summary>
-        /// <param name="Value">The value to convert</param>
-        /// <param name="RelativeTo">If the value passed in is only a time like value, The date portion of RelativeTo is used to fill in the date.</param>
+        /// <param name="value">The value to convert</param>
+        /// <param name="relativeTo">If the value passed in is only a time like value, The date portion of RelativeTo is used to fill in the date.</param>
         /// <returns>The DateTime representation</returns>
-        public static System.DateTime nzDateTime(object Value, DateTime RelativeTo)
+        public static System.DateTime nzDateTime(object value, DateTime relativeTo)
         {
             DateTime ret = DateTime.MinValue;
-            if (Value is DateTime)
-                return (DateTime) Value;
-            else if (Value != null && Value != DBNull.Value)
+            if (value is DateTime)
+                return (DateTime) value;
+            else if (value != null && value != DBNull.Value)
             {
-                string s = nzString(Value).Replace("-", "/").Replace("\\", "/");
+                string s = nzString(value).Replace("-", "/").Replace("\\", "/");
                 if(!DateTime.TryParse(s, out ret))
                 {
                     if (s.Length < 6)
                     {
-                        if (RelativeTo == DateTime.MinValue)
-                            return RelativeTo;
-                        s = RelativeTo.Month + "/" + RelativeTo.Day + "/" + RelativeTo.Year + " " + s;
+                        if (relativeTo == DateTime.MinValue)
+                            return relativeTo;
+                        s = relativeTo.Month + "/" + relativeTo.Day + "/" + relativeTo.Year + " " + s;
                     }
                     if (s.IndexOf(" ") > 7)
                     {
-                        string t = Token.Last(s, " ");
+                        string t = StringExtensions.LastToken(s, " ");
                         t = t.ToLower().Replace("p", string.Empty).Replace("a", string.Empty).Replace("m", string.Empty);
                         if (t.Length == 4)
                         {
-                            s = Token.First(s, " ") + " " + t.Substring(0, 2) + ":" + t.Substring(2);
+                            s = StringExtensions.FirstToken(s, " ") + " " + t.Substring(0, 2) + ":" + t.Substring(2);
                         }
                         else if (t.Length == 2)
                         {
-                            s = Token.First(s, " ") + " " + t + ":00";
+                            s = StringExtensions.FirstToken(s, " ") + " " + t + ":00";
                         }
                         else if(t.Length == 1)
                         {
                             int i = nzInteger(t);
                             if(i > 0 && i < 7)
-                                s = Token.First(s, " ") + " " + t + ":00 pm";
+                                s = StringExtensions.FirstToken(s, " ") + " " + t + ":00 pm";
                             else
-                                s = Token.First(s, " ") + " " + t + ":00 am";
+                                s = StringExtensions.FirstToken(s, " ") + " " + t + ":00 am";
                         }
                         else
                             return DateTime.MinValue;
@@ -394,242 +388,242 @@ namespace MetX
 		/// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.
 		/// <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
 		/// </summary>
-		/// <param name="TableName">The table to target in the where clause</param>
+		/// <param name="tableName">The table to target in the where clause</param>
 		/// <param name="sField">The field to target in the where clause</param>
-		/// <param name="Request">The Request to draw the value from</param>
-		/// <param name="Conditions">The current where clause to add to</param>
-		/// <param name="RootAttributes">The xml string of attributes to add to</param>
+		/// <param name="request">The Request to draw the value from</param>
+		/// <param name="conditions">The current where clause to add to</param>
+		/// <param name="rootAttributes">The xml string of attributes to add to</param>
 		/// <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
-		public static void AddConditionMonthRange(string TableName, string sField, HttpRequest Request, ref string Conditions, ref string RootAttributes, bool bAllMeansNotNull)
+		public static void AddConditionMonthRange(string tableName, string sField, HttpRequest request, ref string conditions, ref string rootAttributes, bool bAllMeansNotNull)
 		{
-			string sValue = nzString(Request[sField]);
+			string sValue = nzString(request[sField]);
 			if (sValue.Length > 0)
 			{
-				if (Conditions.Length > 0)
+				if (conditions.Length > 0)
 				{
-					Conditions += " AND ";
+					conditions += " AND ";
 				}
 				if (sValue.ToLower() == "all")
 				{
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if (Microsoft.VisualBasic.Information.IsDate(sValue))
 				{
-                    System.DateTime StartDate = nzDateTime(sValue, DateTime.Now);
-					Conditions += "(" + TableName + "." + sField + " BETWEEN '" + StartDate + "' AND '" + StartDate.AddMonths(1).AddDays(-1) + "')";
-					RootAttributes += " " + sField + "=\"" + xml.AttributeEncode(sValue) + "\"";
+                    System.DateTime startDate = nzDateTime(sValue, DateTime.Now);
+					conditions += "(" + tableName + "." + sField + " BETWEEN '" + startDate + "' AND '" + startDate.AddMonths(1).AddDays(-1) + "')";
+					rootAttributes += " " + sField + "=\"" + Xml.AttributeEncode(sValue) + "\"";
 				}
 			}
 			else
 			{
-				RootAttributes += " " + sField + "=\"ALL\"";
+				rootAttributes += " " + sField + "=\"ALL\"";
 			}
-			if (Conditions != null && Conditions.Length > 5 && Conditions.Substring(Conditions.Length - 5) == " AND ")
+			if (conditions != null && conditions.Length > 5 && conditions.Substring(conditions.Length - 5) == " AND ")
 			{
-				Conditions = Conditions.Substring(0, Conditions.Length - 5);
+				conditions = conditions.Substring(0, conditions.Length - 5);
 			}
 		}
 
 
         /// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
-        /// <param name="TableName">The table to target in the where clause</param>
+        /// <param name="tableName">The table to target in the where clause</param>
         /// <param name="sField">The field to target in the where clause</param>
-        /// <param name="Request">The Request to draw the value from</param>
-        /// <param name="Conditions">The current where clause to add to</param>
+        /// <param name="request">The Request to draw the value from</param>
+        /// <param name="conditions">The current where clause to add to</param>
         /// <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
-        public static void AddCondition(string TableName, string sField, HttpRequest Request, ref string Conditions, bool bAllMeansNotNull)
+        public static void AddCondition(string tableName, string sField, HttpRequest request, ref string conditions, bool bAllMeansNotNull)
 		{
-			string sValue = (Request[sField] + "").Trim();
+			string sValue = (request[sField] + "").Trim();
 			if (sValue.Length >  0)
 			{
-				if (Conditions.Length >  0)
-					Conditions += " AND ";
+				if (conditions.Length >  0)
+					conditions += " AND ";
 				if ( sValue.ToLower() ==  "all" )
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
 				else if (sValue.Substring(0,3).ToLower() ==  "in(")
 				{
 					sValue = sValue.Substring(2);
 					if (sValue.IndexOf("'") ==  - 1)
 						sValue = sValue.Replace("'", "''").Replace("(", "('").Replace(",", "','").Replace(")", "')");
-					Conditions += "(" + TableName + "." + sField + " IN " + sValue + ")";
+					conditions += "(" + tableName + "." + sField + " IN " + sValue + ")";
 				}
 				else
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
 			}
 		}
 
 
         /// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
-        /// <param name="TableName">The table to target in the where clause</param>
+        /// <param name="tableName">The table to target in the where clause</param>
         /// <param name="sField">The field to target in the where clause</param>
-        /// <param name="Request">The Request to draw the value from</param>
-        /// <param name="Conditions">The current where clause to add to</param>
-        public static void AddCondition(string TableName, string sField, HttpRequest Request, ref string Conditions)
+        /// <param name="request">The Request to draw the value from</param>
+        /// <param name="conditions">The current where clause to add to</param>
+        public static void AddCondition(string tableName, string sField, HttpRequest request, ref string conditions)
 		{
 			bool bAllMeansNotNull = true;
-			string sValue = (Request[sField] + "").Trim();
+			string sValue = (request[sField] + "").Trim();
 			if (sValue.Length >  0)
 			{
-				if (Conditions.Length >  0)
-					Conditions += " AND ";
+				if (conditions.Length >  0)
+					conditions += " AND ";
 				if (sValue.ToLower() ==  "all")
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
 				else if (sValue.Substring(0, 3).ToLower() ==  "in(")
 				{
 					sValue = sValue.Substring(2);
 					if (sValue.IndexOf("'") ==  -1)
 						sValue = sValue.Replace("'", "''").Replace("(", "('").Replace(",", "','").Replace(")", "')");
-					Conditions += "(" + TableName + "." + sField + " IN " + sValue + ")";
+					conditions += "(" + tableName + "." + sField + " IN " + sValue + ")";
 				}
 				else
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
 			}
 		}
 
 
 		/// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
-		/// <param name="TableName">The table to target in the where clause</param>
+		/// <param name="tableName">The table to target in the where clause</param>
 		/// <param name="sField">The field to target in the where clause</param>
-		/// <param name="Request">The Request to draw the value from</param>
-		/// <param name="Conditions">The current where clause to add to</param>
-		/// <param name="RootAttributes">The string to add to the xml string attributes</param>
+		/// <param name="request">The Request to draw the value from</param>
+		/// <param name="conditions">The current where clause to add to</param>
+		/// <param name="rootAttributes">The string to add to the xml string attributes</param>
 		/// <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
-		/// <param name="DefaultValue">A default value to use if one isn't found in the Request</param>
-		public static void AddCondition(string TableName, string sField, HttpRequest Request, ref string Conditions, ref string RootAttributes,  bool bAllMeansNotNull,  string DefaultValue)
+		/// <param name="defaultValue">A default value to use if one isn't found in the Request</param>
+		public static void AddCondition(string tableName, string sField, HttpRequest request, ref string conditions, ref string rootAttributes,  bool bAllMeansNotNull,  string defaultValue)
 		{
-			string sValue = (Request[sField] + "").Trim();
+			string sValue = (request[sField] + "").Trim();
 			if ((sValue).Length ==  0)
-				sValue = DefaultValue;
+				sValue = defaultValue;
 
 			if (sValue.Length >  0)
 			{
-				if (Conditions.Length >  0)
-					Conditions += " AND ";
+				if (conditions.Length >  0)
+					conditions += " AND ";
 
 				if (sValue.ToLower() ==  "all")
 				{
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if ((sValue.Substring(0, 3).ToLower()) ==  "in(")
 				{
 					sValue = sValue.Substring(2);
 					if (sValue.IndexOf("'") ==  - 1)
 						sValue = sValue.Replace("'", "''").Replace("(", "('").Replace(",", "','").Replace(")", "')");
-					Conditions += "(" + TableName + "." + sField + " IN " + sValue + ")";
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += "(" + tableName + "." + sField + " IN " + sValue + ")";
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if ((sValue.Substring(0, 8).ToLower()) ==  "between(")
 				{
 					sValue = sValue.Substring(8);
-                    Conditions += "(" + TableName + "." + sField + " BETWEEN " + Token.Get(sValue.Replace("'", "''"), 1, ",") + " AND " + Token.Get(sValue.Replace("'", "''"), 2, ",");
-					RootAttributes += " " + sField + "=\"ALL\"";
+                    conditions += "(" + tableName + "." + sField + " BETWEEN " + StringExtensions.TokenAt(sValue.Replace("'", "''"), 1, ",") + " AND " + StringExtensions.TokenAt(sValue.Replace("'", "''"), 2, ",");
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else
-					Conditions += FieldNV(TableName + "." + sField, sValue, ref RootAttributes, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, ref rootAttributes, bAllMeansNotNull);
 			}
 			else
-				RootAttributes += " " + sField + "=\"ALL\"";
-			if (Conditions.Substring(Conditions.Length - 5) ==  " AND ")
-				Conditions = Conditions.Substring(0, Conditions.Length - 5);
+				rootAttributes += " " + sField + "=\"ALL\"";
+			if (conditions.Substring(conditions.Length - 5) ==  " AND ")
+				conditions = conditions.Substring(0, conditions.Length - 5);
 		}
 
 
 
         /// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
-        /// <param name="TableName">The table to target in the where clause</param>
+        /// <param name="tableName">The table to target in the where clause</param>
         /// <param name="sField">The field to target in the where clause</param>
-        /// <param name="Request">The Request to draw the value from</param>
-        /// <param name="Conditions">The current where clause to add to</param>
-        /// <param name="RootAttributes">The string containing xml string attributes to add to</param>
+        /// <param name="request">The Request to draw the value from</param>
+        /// <param name="conditions">The current where clause to add to</param>
+        /// <param name="rootAttributes">The string containing xml string attributes to add to</param>
         /// <param name="bAllMeansNotNull">True if you want the Request value of "ALL" to add a FieldName + " NOT NULL" clause</param>
-        public static void AddCondition(string TableName, string sField, HttpRequest Request, ref string Conditions, ref string RootAttributes, bool bAllMeansNotNull)
+        public static void AddCondition(string tableName, string sField, HttpRequest request, ref string conditions, ref string rootAttributes, bool bAllMeansNotNull)
 		{
-			string DefaultValue = string.Empty; 
-			string sValue = Worker.nzString(Request[sField]);
+			string defaultValue = string.Empty; 
+			string sValue = Worker.nzString(request[sField]);
 			if (sValue.Length ==  0)
-				sValue = DefaultValue;
+				sValue = defaultValue;
 
 			if (sValue.Length >  0)
 			{
-				if (Conditions.Length >  0)
-					Conditions += " AND ";
+				if (conditions.Length >  0)
+					conditions += " AND ";
 
 				if (sValue.ToLower() ==  "all")
 				{
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if ((sValue.Substring(0, 3).ToLower()) ==  "in(")
 				{
 					sValue = sValue.Substring(2);
 					if (sValue.IndexOf("'") ==  -1)
 						sValue = sValue.Replace("(", "('").Replace(",", "','").Replace(")", "')");
-					Conditions += "(" + TableName + "." + sField + " IN " + sValue + ")";
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += "(" + tableName + "." + sField + " IN " + sValue + ")";
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if ((sValue.Substring(0, 8).ToLower()) ==  "between(")
 				{
 					sValue = sValue.Substring(8);
-					Conditions += "(" + TableName + "." + sField + " BETWEEN " + Token.Get(sValue, 1, ",") + " AND " + Token.Get(sValue, 2, ",");
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += "(" + tableName + "." + sField + " BETWEEN " + StringExtensions.TokenAt(sValue, 1, ",") + " AND " + StringExtensions.TokenAt(sValue, 2, ",");
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else
-					Conditions += FieldNV(TableName + "." + sField, sValue, ref RootAttributes, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, ref rootAttributes, bAllMeansNotNull);
 			}
 			else
-				RootAttributes += " " + sField + "=\"ALL\"";
-			if (Conditions.Substring(Conditions.Length - 5) ==  " AND ")
-				Conditions = Conditions.Substring(0, Conditions.Length - 5);
+				rootAttributes += " " + sField + "=\"ALL\"";
+			if (conditions.Substring(conditions.Length - 5) ==  " AND ")
+				conditions = conditions.Substring(0, conditions.Length - 5);
 		}
 
 
         /// <summary>Adds a condition to a where clause and to a set of xml string attributes from a specific Request value targeted at a specific table field.</summary>
-        /// <param name="TableName">The table to target in the where clause</param>
+        /// <param name="tableName">The table to target in the where clause</param>
         /// <param name="sField">The field to target in the where clause</param>
-        /// <param name="Request">The Request to draw the value from</param>
-        /// <param name="Conditions">The current where clause to add to</param>
-        /// <param name="RootAttributes">The string containing xml string attributes to add to</param>
-        public static void AddCondition(string TableName, string sField, HttpRequest Request, ref string Conditions, ref string RootAttributes)
+        /// <param name="request">The Request to draw the value from</param>
+        /// <param name="conditions">The current where clause to add to</param>
+        /// <param name="rootAttributes">The string containing xml string attributes to add to</param>
+        public static void AddCondition(string tableName, string sField, HttpRequest request, ref string conditions, ref string rootAttributes)
 		{
 			bool bAllMeansNotNull = true;
-			string DefaultValue = string.Empty;
-			string sValue = nzString(Request[sField]);
+			string defaultValue = string.Empty;
+			string sValue = nzString(request[sField]);
 			if (sValue.Length ==  0)
-				sValue = DefaultValue;
+				sValue = defaultValue;
 
             if (sValue.Length > 0)
 			{
-				if ((Conditions).Length >  0)
-					Conditions += " AND ";
+				if ((conditions).Length >  0)
+					conditions += " AND ";
 
                 if (sValue.ToLower() == "all")
 				{
-					Conditions += FieldNV(TableName + "." + sField, sValue, bAllMeansNotNull);
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += FieldNV(tableName + "." + sField, sValue, bAllMeansNotNull);
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if(sValue.Length > 3 && sValue.Substring(0, 3).ToLower() == "in(")
 				{
 					sValue = sValue.Substring(2);
 					if (sValue.IndexOf("'") ==  -1)
 						sValue = sValue.Replace("(", "('").Replace(",", "','").Replace(")", "')");
-					Conditions += "(" + TableName + "." + sField + " IN " + sValue + ")";
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += "(" + tableName + "." + sField + " IN " + sValue + ")";
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else if(sValue.Length > 8 && sValue.Substring(0, 8).ToLower() == "between(")
 				{
 					sValue = sValue.Substring(8);
-					Conditions += "(" + TableName + "." + sField + " BETWEEN " + Token.Get(sValue, 1, ",") + " AND " + Token.Get(sValue, 2, ",");
-					RootAttributes += " " + sField + "=\"ALL\"";
+					conditions += "(" + tableName + "." + sField + " BETWEEN " + StringExtensions.TokenAt(sValue, 1, ",") + " AND " + StringExtensions.TokenAt(sValue, 2, ",");
+					rootAttributes += " " + sField + "=\"ALL\"";
 				}
 				else
-					Conditions += FieldNV(TableName + "." + sField, sValue, ref RootAttributes, bAllMeansNotNull);
+					conditions += FieldNV(tableName + "." + sField, sValue, ref rootAttributes, bAllMeansNotNull);
 			}
 			else
-				RootAttributes += " " + sField + "=\"ALL\"";
-			if (Conditions.Length > 5 && Conditions.Substring(Conditions.Length - 5) ==  " AND ")
-				Conditions = Conditions.Substring(0, Conditions.Length - 5);
+				rootAttributes += " " + sField + "=\"ALL\"";
+			if (conditions.Length > 5 && conditions.Substring(conditions.Length - 5) ==  " AND ")
+				conditions = conditions.Substring(0, conditions.Length - 5);
 		}
 
 
@@ -637,78 +631,78 @@ namespace MetX
 		/// <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
 		/// </summary>
 		/// <param name="sRangeField">The Request value to test</param>
-		/// <param name="StartDateField">FUTURE</param>
-		/// <param name="EndDateField">FUTURE</param>
-		/// <param name="Field">The field to target in the where clause</param>
-		/// <param name="Request">The Request to draw the value from</param>
-		/// <param name="Conditions">The current where clause to add to</param>
+		/// <param name="startDateField">FUTURE</param>
+		/// <param name="endDateField">FUTURE</param>
+		/// <param name="field">The field to target in the where clause</param>
+		/// <param name="request">The Request to draw the value from</param>
+		/// <param name="conditions">The current where clause to add to</param>
 		/// <param name="sRange">The range type to </param>
-		/// <param name="DefaultRangeName">FUTURE</param>
+		/// <param name="defaultRangeName">FUTURE</param>
 		/// <returns>FUTURE</returns>
-		public static string AddConditionDateRange(string sRangeField, string StartDateField, string EndDateField, string Field, HttpRequest Request, ref string Conditions, string sRange,  string DefaultRangeName)
+		public static string AddConditionDateRange(string sRangeField, string startDateField, string endDateField, string field, HttpRequest request, ref string conditions, string sRange,  string defaultRangeName)
 		{
-			DateTime StartDate;
+			DateTime startDate;
 			string ret = string.Empty;
 
-			if ((Request[sRangeField] + "").Trim().ToLower().Length >  0)
-				sRange = (Request[sRangeField] + "").Trim().ToLower();
+			if ((request[sRangeField] + "").Trim().ToLower().Length >  0)
+				sRange = (request[sRangeField] + "").Trim().ToLower();
 			else if ((sRange).Length ==  0)
-				sRange = DefaultRangeName;
+				sRange = defaultRangeName;
 			if ((sRange).Length >  0)
 			{
-				if ((Conditions).Length >  0 &&  sRange.ToLower() !=  "everything")
-					Conditions += " AND ";
+				if ((conditions).Length >  0 &&  sRange.ToLower() !=  "everything")
+					conditions += " AND ";
 				if (sRange.ToLower() ==  "today" &&  DateTime.Now.Hour <  8)
 					sRange = "yesterday";
 				switch (sRange.ToLower())
 				{
 					case "yesterday":
-						ret += Field + " >= '" + DateTime.Today.AddDays(-1) + "' AND " + Field + " < '" + DateTime.Today + "'";
+						ret += field + " >= '" + DateTime.Today.AddDays(-1) + "' AND " + field + " < '" + DateTime.Today + "'";
 						break;
 					case "today":
-						ret += Field + " >= '" + DateTime.Today + "' AND " + Field + " < '" + DateTime.Today.AddDays(1) + "'";
+						ret += field + " >= '" + DateTime.Today + "' AND " + field + " < '" + DateTime.Today.AddDays(1) + "'";
 						break;
 					case "tomorrow":
-						ret += Field + " >= '" + DateTime.Today.AddDays(1) + "' AND " + Field + " < '" + DateTime.Today.AddDays(2) + "'";
+						ret += field + " >= '" + DateTime.Today.AddDays(1) + "' AND " + field + " < '" + DateTime.Today.AddDays(2) + "'";
 						break;
 					case "week":
-						StartDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek);
-						ret += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddDays(7) + "'";
+						startDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek);
+						ret += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddDays(7) + "'";
 						break;
 					case "lastweek":
-						StartDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek - 7);
-						ret += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddDays(7) + "'";
+						startDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek - 7);
+						ret += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddDays(7) + "'";
 						break;
 					case "month":
-						StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-						ret += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+						startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+						ret += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
 						break;
                     case "lastmonth":
-                        StartDate = DateTime.Today.AddMonths(-1);
-                        ret += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+                        startDate = DateTime.Today.AddMonths(-1);
+                        ret += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
                         break;
                     case "last3months":
-                        StartDate = DateTime.Today.AddMonths(-3);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(3) + "'";
+                        startDate = DateTime.Today.AddMonths(-3);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(3) + "'";
                         break;
                     case "last6months":
-                        StartDate = DateTime.Today.AddMonths(-6);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(6) + "'";
+                        startDate = DateTime.Today.AddMonths(-6);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(6) + "'";
                         break;
                     case "nextmonth":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
                         break;
                     case "next3months":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(3) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(3) + "'";
                         break;
                     case "next6months":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(6) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(6) + "'";
                         break;
                     case "year":
-						ret += " " + Field + " >= '01/01/" + DateTime.Today.Year + "' AND " + Field + " <= '12/31/" + DateTime.Today.Year + "'";
+						ret += " " + field + " >= '01/01/" + DateTime.Today.Year + "' AND " + field + " <= '12/31/" + DateTime.Today.Year + "'";
 						break;
 					case "everything":
 						break;
@@ -716,35 +710,35 @@ namespace MetX
 			}
 			else
 			{
-				if ( (Request[StartDateField] + "").Trim().Length >  0)
+				if ( (request[startDateField] + "").Trim().Length >  0)
 				{
-					if ((Conditions).Length >  0)
+					if ((conditions).Length >  0)
 					{
-						Conditions += " AND ";
-						ret += " " + Field + " >= '" + (Request[StartDateField] + "").Trim() + "'";
+						conditions += " AND ";
+						ret += " " + field + " >= '" + (request[startDateField] + "").Trim() + "'";
 						sRange = "other";
 					}
-					if ( (Request[EndDateField] + "").Trim().Length >  0)
+					if ( (request[endDateField] + "").Trim().Length >  0)
 					{
-						if ((Conditions).Length >  0)
+						if ((conditions).Length >  0)
 						{
 							ret += " AND ";
-							if ((Request[StartDateField] + "").Trim().Length >  0)
+							if ((request[startDateField] + "").Trim().Length >  0)
 							{
-                                if (nzDateTime(Request[StartDateField], DateTime.Now) != nzDateTime(Request[EndDateField], DateTime.Now))
+                                if (nzDateTime(request[startDateField], DateTime.Now) != nzDateTime(request[endDateField], DateTime.Now))
 								{
-									ret += " " + Field + " < '" + (Request[EndDateField] + "").Trim() + "'";
+									ret += " " + field + " < '" + (request[endDateField] + "").Trim() + "'";
 									sRange = "other";
 								}
 								else
 								{
-                                    ret += " " + Field + " < '" + nzDateTime(Request[StartDateField], DateTime.Now).AddDays(1) + "'";
+                                    ret += " " + field + " < '" + nzDateTime(request[startDateField], DateTime.Now).AddDays(1) + "'";
 									sRange = "other";
 								}
 							}
 							else
 							{
-								ret += " " + Field + " < '" + (Request[EndDateField] + "").Trim() + "'";
+								ret += " " + field + " < '" + (request[endDateField] + "").Trim() + "'";
 								sRange = "other";
 							}
 						}
@@ -752,7 +746,7 @@ namespace MetX
 				}
 			}
 			if(ret.Length > 0)
-				Conditions += ret;
+				conditions += ret;
 			return ret;
 		}
 
@@ -762,76 +756,76 @@ namespace MetX
         /// <para>The target will limit the date field to a range of dates from the date specified plus 1 month.</para>
         /// </summary>
         /// <param name="sRangeField">The Request value to test</param>
-        /// <param name="StartDateField">FUTURE</param>
-        /// <param name="EndDateField">FUTURE</param>
-        /// <param name="Field">The field to target in the where clause</param>
-        /// <param name="Request">The Request to draw the value from</param>
-        /// <param name="Conditions">The current where clause to add to</param>
+        /// <param name="startDateField">FUTURE</param>
+        /// <param name="endDateField">FUTURE</param>
+        /// <param name="field">The field to target in the where clause</param>
+        /// <param name="request">The Request to draw the value from</param>
+        /// <param name="conditions">The current where clause to add to</param>
         /// <param name="sRange">The range type to </param>
-        public static void AddConditionDateRange(string sRangeField, string StartDateField, string EndDateField, string Field, HttpRequest Request, ref string Conditions, string sRange)
+        public static void AddConditionDateRange(string sRangeField, string startDateField, string endDateField, string field, HttpRequest request, ref string conditions, string sRange)
 		{
-			string DefaultRangeName = "everything";
-			DateTime StartDate;
+			string defaultRangeName = "everything";
+			DateTime startDate;
 
-			if ((Request[sRangeField] + "").Trim().ToLower().Length >  0)
-				sRange = (Request[sRangeField] + "").Trim().ToLower();
+			if ((request[sRangeField] + "").Trim().ToLower().Length >  0)
+				sRange = (request[sRangeField] + "").Trim().ToLower();
 			else if ((sRange).Length ==  0)
-				sRange = DefaultRangeName;
+				sRange = defaultRangeName;
 			if ((sRange).Length >  0)
 			{
-				if ((Conditions).Length >  0 &&  sRange.ToLower() !=  "everything")
-					Conditions += " AND ";
+				if ((conditions).Length >  0 &&  sRange.ToLower() !=  "everything")
+					conditions += " AND ";
 				if (sRange.ToLower() ==  "today" &&  DateTime.Now.Hour <  8)
 					sRange = "yesterday";
 				switch (sRange.ToLower())
 				{
 					case "yesterday":
-						Conditions += Field + " >= '" + DateTime.Today.AddDays(-1) + "' AND " + Field + " < '" + DateTime.Today + "'";
+						conditions += field + " >= '" + DateTime.Today.AddDays(-1) + "' AND " + field + " < '" + DateTime.Today + "'";
 						break;
 					case "today":
-						Conditions += Field + " >= '" + DateTime.Today + "' AND " + Field + " < '" + DateTime.Today.AddDays(1) + "'";
+						conditions += field + " >= '" + DateTime.Today + "' AND " + field + " < '" + DateTime.Today.AddDays(1) + "'";
 						break;
 					case "tomorrow":
-						Conditions += Field + " >= '" + DateTime.Today.AddDays(1) + "' AND " + Field + " < '" + DateTime.Today.AddDays(2) + "'";
+						conditions += field + " >= '" + DateTime.Today.AddDays(1) + "' AND " + field + " < '" + DateTime.Today.AddDays(2) + "'";
 						break;
 					case "week":
-						StartDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek);
-						Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddDays(7) + "'";
+						startDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek);
+						conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddDays(7) + "'";
 						break;
 					case "lastweek":
-						StartDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek - 7);
-						Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddDays(7) + "'";
+						startDate = DateTime.Today.AddDays(1 - (int) DateTime.Today.DayOfWeek - 7);
+						conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddDays(7) + "'";
 						break;
 					case "month":
-						StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-						Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+						startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+						conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
 						break;
 					case "lastmonth":
-						StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-						Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+						startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+						conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
 						break;
 					case "last3months":
-                        StartDate = DateTime.Today.AddMonths(-3);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(3) + "'";
+                        startDate = DateTime.Today.AddMonths(-3);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(3) + "'";
                         break;
 					case "last6months":
-                        StartDate = DateTime.Today.AddMonths(-6);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(6) + "'";
+                        startDate = DateTime.Today.AddMonths(-6);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(6) + "'";
                         break;
                     case "nextmonth":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(1) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(1) + "'";
                         break;
                     case "next3months":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(3) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(3) + "'";
                         break;
                     case "next6months":
-                        StartDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
-                        Conditions += " " + Field + " >= '" + StartDate + "' AND " + Field + " < '" + StartDate.AddMonths(6) + "'";
+                        startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+                        conditions += " " + field + " >= '" + startDate + "' AND " + field + " < '" + startDate.AddMonths(6) + "'";
                         break;
                     case "year":
-						Conditions += " " + Field + " >= '01/01/" + DateTime.Today.Year + "' AND " + Field + " <= '12/31/" + DateTime.Today.Year + "'";
+						conditions += " " + field + " >= '01/01/" + DateTime.Today.Year + "' AND " + field + " <= '12/31/" + DateTime.Today.Year + "'";
 						break;
 					case "everything":
 						break;
@@ -839,35 +833,35 @@ namespace MetX
 			}
 			else
 			{
-				if ( (Request[StartDateField] + "").Trim().Length >  0)
+				if ( (request[startDateField] + "").Trim().Length >  0)
 				{
-					if ((Conditions).Length >  0)
+					if ((conditions).Length >  0)
 					{
-						Conditions += " AND ";
-						Conditions += " " + Field + " >= '" + (Request[StartDateField] + "").Trim() + "'";
+						conditions += " AND ";
+						conditions += " " + field + " >= '" + (request[startDateField] + "").Trim() + "'";
 						sRange = "other";
 					}
-					if ( (Request[EndDateField] + "").Trim().Length >  0)
+					if ( (request[endDateField] + "").Trim().Length >  0)
 					{
-						if ((Conditions).Length >  0)
+						if ((conditions).Length >  0)
 						{
-							Conditions += " AND ";
-							if ((Request[StartDateField] + "").Trim().Length >  0)
+							conditions += " AND ";
+							if ((request[startDateField] + "").Trim().Length >  0)
 							{
-                                if (nzDateTime(Request[StartDateField], DateTime.Now) != nzDateTime(Request[EndDateField], DateTime.Now))
+                                if (nzDateTime(request[startDateField], DateTime.Now) != nzDateTime(request[endDateField], DateTime.Now))
 								{
-									Conditions += " " + Field + " < '" + (Request[EndDateField] + "").Trim() + "'";
+									conditions += " " + field + " < '" + (request[endDateField] + "").Trim() + "'";
 									sRange = "other";
 								}
 								else
 								{
-                                    Conditions += " " + Field + " < '" + nzDateTime(Request[StartDateField], DateTime.Now).AddDays(1) + "'";
+                                    conditions += " " + field + " < '" + nzDateTime(request[startDateField], DateTime.Now).AddDays(1) + "'";
 									sRange = "other";
 								}
 							}
 							else
 							{
-								Conditions += " " + Field + " < '" + (Request[EndDateField] + "").Trim() + "'";
+								conditions += " " + field + " < '" + (request[endDateField] + "").Trim() + "'";
 								sRange = "other";
 							}
 						}
@@ -878,102 +872,102 @@ namespace MetX
 
 		
 		/// <summary>Adds a full text condition to Conditions</summary>
-		/// <param name="TableName">The table to target</param>
+		/// <param name="tableName">The table to target</param>
 		/// <param name="sField">The field to target</param>
-		/// <param name="Request">The Request to pull the value from</param>
-		/// <param name="Conditions">The where clausse to add to</param>
-		public static void AddFullTextCondition(string TableName, string sField, HttpRequest Request, ref string Conditions)
+		/// <param name="request">The Request to pull the value from</param>
+		/// <param name="conditions">The where clausse to add to</param>
+		public static void AddFullTextCondition(string tableName, string sField, HttpRequest request, ref string conditions)
 		{
-			string sValue = (Request[sField] + "").Trim().Replace("%", "*").Replace("'", "''");
+			string sValue = (request[sField] + "").Trim().Replace("%", "*").Replace("'", "''");
             if (sValue.Length > 0)
 			{
 				if (sValue.IndexOf(" ") >  0 &&  sValue.IndexOf("\"") ==  - 1)
 					sValue = "\"" + sValue + "\"";
-				if ((Conditions).Length >  0)
+				if ((conditions).Length >  0)
 				{
-					Conditions += " AND ";
+					conditions += " AND ";
 				}
-                Conditions += "(contains( *, '" + sValue + "'))";
+                conditions += "(contains( *, '" + sValue + "'))";
             }
 		}
 
 
         /// <summary>Adds a LIKE text condition to Conditions (eg WHERE X LIKE '%y%')</summary>
-        /// <param name="TableName">The table to target</param>
+        /// <param name="tableName">The table to target</param>
         /// <param name="sField">The field to target</param>
-        /// <param name="Request">The Request to pull the value from</param>
-        /// <param name="Conditions">The where clausse to add to</param>
-        public static void AddLikeCondition(string TableName, string sField, HttpRequest Request, ref string Conditions)
+        /// <param name="request">The Request to pull the value from</param>
+        /// <param name="conditions">The where clausse to add to</param>
+        public static void AddLikeCondition(string tableName, string sField, HttpRequest request, ref string conditions)
 		{
-			string sValue = LikePattern(sField, Request);
+			string sValue = LikePattern(sField, request);
             if (sValue.Length > 0)
 			{
-				if ((Conditions).Length >  0)
-					Conditions += " AND ";
-                Conditions += "(UPPER(" + TableName + "." + sField + ") LIKE '" + sValue.Replace("'", "''").ToUpper() + "')";
+				if ((conditions).Length >  0)
+					conditions += " AND ";
+                conditions += "(UPPER(" + tableName + "." + sField + ") LIKE '" + sValue.Replace("'", "''").ToUpper() + "')";
 			}
 		}
 
 
         /// <summary>Adds a LIKE text condition to Conditions (eg WHERE X LIKE '%y%'). The asterick (*) is interpreted like a % (to simplify url encoding)</summary>
-        /// <param name="TableName">The table to target</param>
+        /// <param name="tableName">The table to target</param>
         /// <param name="sField">The field to target</param>
-        /// <param name="Request">The Request to pull the value from</param>
-        /// <param name="Conditions">The where clausse to add to</param>
-        /// <param name="RootAttributes">The xml attribute string to add to</param>
-        public static void AddLikeCondition(string TableName, string sField, HttpRequest Request, ref string Conditions, ref string RootAttributes)
+        /// <param name="request">The Request to pull the value from</param>
+        /// <param name="conditions">The where clausse to add to</param>
+        /// <param name="rootAttributes">The xml attribute string to add to</param>
+        public static void AddLikeCondition(string tableName, string sField, HttpRequest request, ref string conditions, ref string rootAttributes)
         {
-            string sValue = LikePattern(sField, Request);
+            string sValue = LikePattern(sField, request);
             if (sValue.Length > 0)
             {
-                RootAttributes += " " + sField + "=\"" + xml.AttributeEncode(Request[sField]) + "\"";
-                if (Conditions.Length > 0)
-                    Conditions += " AND ";
+                rootAttributes += " " + sField + "=\"" + Xml.AttributeEncode(request[sField]) + "\"";
+                if (conditions.Length > 0)
+                    conditions += " AND ";
 
                 if (sValue.IndexOf(" ") == -1)
-                    Conditions += "(UPPER(" + TableName + "." + sField + ") LIKE " + Worker.s2db(sValue) + ")";
+                    conditions += "(UPPER(" + tableName + "." + sField + ") LIKE " + Worker.s2db(sValue) + ")";
                 else
                 {
                     sValue = sValue.Replace(" ", "% %");
                     bool isFirst = true;
-                    foreach (string CurrPart in sValue.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                    foreach (string currPart in sValue.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
                     {
                         if (isFirst)
                             isFirst = false;
                         else
-                            Conditions += " OR ";
-                        Conditions += "(UPPER(" + TableName + "." + sField + ") LIKE " + Worker.s2db(CurrPart) + ")";
+                            conditions += " OR ";
+                        conditions += "(UPPER(" + tableName + "." + sField + ") LIKE " + Worker.s2db(currPart) + ")";
                     }
                 }
             }
             else
             {
-                RootAttributes += " " + sField + "=\"ALL\"";
+                rootAttributes += " " + sField + "=\"ALL\"";
             }
         }
 		
 		
 		/// <summary>Extracts a name from an email address</summary>
 		/// <param name="sOriginalText">The Email address</param>
-		/// <param name="DefaultName">The default name to use if none is found (or a blank email address is passed in)</param>
+		/// <param name="defaultName">The default name to use if none is found (or a blank email address is passed in)</param>
 		/// <returns>The extracted proper case name</returns>
-		public static string EmailToName(string sOriginalText, string DefaultName)
+		public static string EmailToName(string sOriginalText, string defaultName)
 		{
-			string Text = (sOriginalText + "").Trim();
-			string ReturnValue;
+			string text = (sOriginalText + "").Trim();
+			string returnValue;
 
-			if (Text.IndexOf("@") > 0 )
-				Text = Text.Split('@')[0];
+			if (text.IndexOf("@") > 0 )
+				text = text.Split('@')[0];
 
-			Text = Text.Replace(".", " ");
-			Text = Text.Substring(0,1).ToUpper() + Text.Substring(1, Text.IndexOf(" ")).ToLower() + Text.Substring(Text.IndexOf(" ") + 1,1).ToUpper() + Text.Substring(Text.IndexOf(" ") + 2).ToLower();
+			text = text.Replace(".", " ");
+			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ")).ToLower() + text.Substring(text.IndexOf(" ") + 1,1).ToUpper() + text.Substring(text.IndexOf(" ") + 2).ToLower();
 
-			if( Text.Length == 0 )
-				ReturnValue = DefaultName;
+			if( text.Length == 0 )
+				returnValue = defaultName;
 			else
-				ReturnValue = Text;
+				returnValue = text;
 
-			return Microsoft.VisualBasic.Strings.StrConv(ReturnValue, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
+			return Microsoft.VisualBasic.Strings.StrConv(returnValue, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
 		}
 
 		
@@ -1007,30 +1001,30 @@ namespace MetX
         /// <summary>Builds a WHERE clause appropriate phrase for a single field and value</summary>
         /// <param name="sField">The field to target</param>
         /// <param name="sValue">The value. Special cases include "(NULL)" [FieldName + " IS NULL"], "not (NULL)" [FieldName + " IS NOT NULL"], "(BLANK)" [FieldName + "=''"], "(all)" if bAllMeansNotNull=true then [FieldName + " IS NOT NULL"] otherwise a blank string is returned</param>
-        /// <param name="RootAttributes">The xml attribute string to add to</param>
+        /// <param name="rootAttributes">The xml attribute string to add to</param>
         /// <param name="bAllMeansNotNull">Controlls how "(all)" is interpreted</param>
         /// <returns>The WHERE clause component</returns>
-        public static string FieldNV(string sField, string sValue, ref string RootAttributes, bool bAllMeansNotNull)
+        public static string FieldNV(string sField, string sValue, ref string rootAttributes, bool bAllMeansNotNull)
 		{
 			sValue = sValue.Replace("[Today]", DateTime.Today.ToString());
 			if (sValue ==  "(NULL)")
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"ALL\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"ALL\"";
 				return sField + " IS NULL";
 			}
 			else if (sValue ==  "not (NULL)")
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"ALL\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"ALL\"";
 				return "(NOT " + sField + " IS NULL)";
 			}
 			else if (sValue ==  "(BLANK)")
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"ALL\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"ALL\"";
 				return sField + "=''";
 			}
 			else if (sValue.ToLower() ==  "all")
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"ALL\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"ALL\"";
 				if (bAllMeansNotNull)
 					return "(NOT " + sField + " IS NULL)";
 				else
@@ -1038,7 +1032,7 @@ namespace MetX
 			}
 			else if(sValue.Length > 4 && sValue.ToLower().Substring(0, 4).Equals("not "))
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"ALL\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"ALL\"";
                 return "(NOT " + sField + "='" + sValue.Replace("'", "''").Substring(4) + "')";
 			}
 			else if (sValue.Length > 3 && sValue.ToLower().Substring(0, 3) ==  "lt ")
@@ -1051,7 +1045,7 @@ namespace MetX
                 return "(" + sField + " >= '" + sValue.Substring(3).Replace("'", "''") + "')";
 			else
 			{
-				RootAttributes += " " + Token.Get(sField, 2, ".") + "=\"" + xml.AttributeEncode(sValue) + "\"";
+				rootAttributes += " " + StringExtensions.TokenAt(sField, 2, ".") + "=\"" + Xml.AttributeEncode(sValue) + "\"";
                 return sField + "='" + sValue.Replace("'", "''") + "'";
 			}
 		}
@@ -1059,13 +1053,13 @@ namespace MetX
 		
 		/// <summary>Returns a value wrapped in percent (%) ready for use in a WHERE clause</summary>
 		/// <param name="sField">The Request field to pull</param>
-		/// <param name="Request">The Request to pull from</param>
+		/// <param name="request">The Request to pull from</param>
 		/// <returns>The WHERE ready LIKE value</returns>
-		public static string LikePattern(string sField, HttpRequest Request)
+		public static string LikePattern(string sField, HttpRequest request)
 		{
 			string sValue;
 			
-			sValue = (Request[sField] + "").Trim().Replace("*", "%");
+			sValue = (request[sField] + "").Trim().Replace("*", "%");
 			if (sValue.Length >  0)
 			{
 				if (sValue.Substring(0, 1) !=  "%" &&  sValue.Substring(sValue.Length - 1, 1) !=  "%")
@@ -1077,7 +1071,7 @@ namespace MetX
 		/// <summary>Translates a string back into a database value where "(NULL)" will return DbNull.Value and "(BLANK)" will return string.Empty </summary>
 		/// <param name="sValue">The value to convert</param>
 		/// <returns>The converted value</returns>
-		public static object NV(string sValue)
+		public static object Nv(string sValue)
 		{
 			if (sValue ==  "(NULL)")
 				return DBNull.Value;
@@ -1088,13 +1082,13 @@ namespace MetX
 		}
 
 		/// <summary>Converts an object to a string capable of retaining its state. DbNull or null becomes "(NULL)", an empty string becomes "(BLANK)", otherwise the value is returned</summary>
-		/// <param name="Value">The value to convert</param>
+		/// <param name="value">The value to convert</param>
 		/// <returns>The converted value</returns>
-		public static string NZ(object Value)
+		public static string Nz(object value)
 		{
-            if (Value == null || DBNull.Value.Equals(Value))
+            if (value == null || DBNull.Value.Equals(value))
 				return "(NULL)";
-            string x = nzString(Value);
+            string x = nzString(value);
 			if(x.Length == 0)
 				return "(BLANK)";
 			else
@@ -1103,15 +1097,15 @@ namespace MetX
 
 
         /// <summary>Converts an object to its boolean represenation. null and DbNull or blank strings return false. Failures to convert return false without raising an exception</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The converted boolean value</returns>
-        public static bool nzBoolean(object Value)
+        public static bool NzBoolean(object value)
         {
-            if (Value == null || Value is DBNull)
+            if (value == null || value is DBNull)
                 return false;
-            else if (Value is string)
+            else if (value is string)
             {
-                string v = ((string) Value).ToLower();
+                string v = ((string) value).ToLower();
                 if (v.Length == 0 || v == "false" || v == "0")
                     return false;
                 if (v == "true" || v == "1")
@@ -1119,103 +1113,103 @@ namespace MetX
             }
             try
             {
-                return Convert.ToBoolean(Value);
+                return Convert.ToBoolean(value);
             }
             catch { }
             return false;
         }
 
         /// <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The converted integer value</returns>
-        public static short nzShort(object Value)
+        public static short NzShort(object value)
         {
-			if (Value == null || Value is DBNull)
+			if (value == null || value is DBNull)
 				return 0;
-			else if (Value is string)
+			else if (value is string)
 			{
-				if (((string)Value).Length == 0)
+				if (((string)value).Length == 0)
 					return 0;
 				short ret;
-				if (short.TryParse((string)Value, out ret))
+				if (short.TryParse((string)value, out ret))
 					return ret;
 			}
 			try
             {
-                return (short)Microsoft.VisualBasic.Conversion.Val(Value);
+                return (short)Microsoft.VisualBasic.Conversion.Val(value);
             }
             catch { }
             return 0;
         }
 
         /// <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
-        /// <param name="Value">The value to convert</param>
+        /// <param name="value">The value to convert</param>
         /// <returns>The converted integer value</returns>
-        public static long nzLong(object Value)
+        public static long NzLong(object value)
         {
-			if (Value == null || Value is DBNull)
+			if (value == null || value is DBNull)
 				return 0;
-			else if (Value is string)
+			else if (value is string)
 			{
-				if (((string)Value).Length == 0)
+				if (((string)value).Length == 0)
 					return 0;
 				long ret;
-				if (long.TryParse((string)Value, out ret))
+				if (long.TryParse((string)value, out ret))
 					return ret;
 			}
 			try
             {
-                return (long)Microsoft.VisualBasic.Conversion.Val(Value);
+                return (long)Microsoft.VisualBasic.Conversion.Val(value);
             }
             catch { }
             return 0;
         }
 
         /// <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
-		/// <param name="Value">The value to convert</param>
+		/// <param name="value">The value to convert</param>
 		/// <returns>The converted integer value</returns>
-		public static int nzInteger(object Value)
+		public static int nzInteger(object value)
 		{
-			if (Value == null || Value is DBNull)
+			if (value == null || value is DBNull)
 				return 0;
-			else if (Value is string)
+			else if (value is string)
 			{
-				if(((string)Value).Length == 0)
+				if(((string)value).Length == 0)
 					return 0;
 				int ret;
-				if (int.TryParse((string)Value, out ret))
+				if (int.TryParse((string)value, out ret))
 					return ret;
 			}
             try
             {
-                return (int) Microsoft.VisualBasic.Conversion.Val(Value);
+                return (int) Microsoft.VisualBasic.Conversion.Val(value);
             }
             catch { }
             return 0;
 		}
 
         /// <summary>Converts an object to its integer represenation. null and DbNull or blank strings return 0. Failures to convert return 0 without raising an exception</summary>
-        /// <param name="Value">The value to convert</param>
-        /// <param name="DefaultValue">What to return if Value is DbNull, null, or an empty string.</param>
+        /// <param name="value">The value to convert</param>
+        /// <param name="defaultValue">What to return if Value is DbNull, null, or an empty string.</param>
         /// <returns>The converted integer value</returns>
-        public static int nzInteger(object Value, int DefaultValue)
+        public static int nzInteger(object value, int defaultValue)
         {
-			if (Value == null || Value is DBNull)
-				return DefaultValue;
-			else if (Value is string)
+			if (value == null || value is DBNull)
+				return defaultValue;
+			else if (value is string)
 			{
-				if (((string)Value).Length == 0)
-					return DefaultValue;
+				if (((string)value).Length == 0)
+					return defaultValue;
 				int ret;
-				if (int.TryParse((string)Value, out ret))
+				if (int.TryParse((string)value, out ret))
 					return ret;
 			}
 			try
             {
-                return Convert.ToInt32(Value);
+                return Convert.ToInt32(value);
             }
             catch { }
-            return DefaultValue;
+            return defaultValue;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Security.Permissions;
 using System.Security.Cryptography;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using MetX.Library;
 
 namespace MetX.Security
 {

@@ -4,6 +4,7 @@ using System.Text;
 
 using MetX;
 using MetX.Data;
+using MetX.Library;
 
 namespace MetX.Gather
 {
@@ -12,9 +13,9 @@ namespace MetX.Gather
 
         public override int GatherNow(StringBuilder sb, string[] args)
         {
-            System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(args[0]);
-            xlgFolder x = MetX.IO.FileSystem.DeepContents(Source);
-            sb.AppendLine(xml.Declaration);
+            System.IO.DirectoryInfo source = new System.IO.DirectoryInfo(args[0]);
+            xlgFolder x = MetX.IO.FileSystem.DeepContents(source);
+            sb.AppendLine(Xml.Declaration);
             sb.Append(x.OuterXml());
             return 0;
         }

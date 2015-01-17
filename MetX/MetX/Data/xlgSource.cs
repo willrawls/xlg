@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Threading;
 using System.Xml.Serialization;
-
+using MetX.Library;
 
 namespace MetX.Data
 {
@@ -157,7 +157,7 @@ namespace MetX.Data
             get
             {
                 if (!string.IsNullOrEmpty(OutputFilename))
-                    return Token.BeforeLast(OutputFilename, @"\") + @"\";
+                    return StringExtensions.TokensBeforeLast(OutputFilename, @"\") + @"\";
                 return BasePath + ConnectionName;
             }
         }
@@ -301,7 +301,7 @@ namespace MetX.Data
                         }
                         using (StreamWriter sw = File.CreateText(OutputXml))
                         {
-                            using (XmlWriter xw = xml.Writer(sw))
+                            using (XmlWriter xw = Xml.Writer(sw))
                                 gen.CodeXmlDocument.WriteTo(xw);
                         }
                     }

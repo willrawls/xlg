@@ -17,6 +17,7 @@ using System.Reflection;
 
 using MetX.IO;
 using MetX.Data;
+using MetX.Library;
 
 namespace MetX.IO
 {
@@ -161,7 +162,7 @@ namespace MetX.IO
             if (!Directory.Exists(Path))
             {
                 string Folder = (StripOffFilename
-                    ? Token.Before(Path, Token.Count(Path, @"\"), @"\")
+                    ? StringExtensions.TokensBefore(Path, StringExtensions.TokenCount(Path, @"\"), @"\")
                     : Path);
                 if (!Directory.Exists(Folder))
                 {

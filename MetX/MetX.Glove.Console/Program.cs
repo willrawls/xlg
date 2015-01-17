@@ -7,6 +7,7 @@ using MetX;
 using MetX.IO;
 using MetX.Security;
 using MetX.Data;
+using MetX.Library;
 
 namespace MetX.Glove.Console
 {
@@ -31,9 +32,9 @@ namespace MetX.Glove.Console
                     gloveFilename = args[0];
                     xslFilename = gloveFilename + ".xsl";
                     if (gloveFilename.IndexOf(@"\App_Code\", StringComparison.Ordinal) > -1)
-                        configFilename = Token.First(gloveFilename, @"\App_Code\") + "\\web.config";
+                        configFilename = StringExtensions.FirstToken(gloveFilename, @"\App_Code\") + "\\web.config";
                     else
-                        configFilename = Token.Before(gloveFilename, Token.Count(gloveFilename, @"\"), @"\") + @"\app.config";
+                        configFilename = StringExtensions.TokensBefore(gloveFilename, StringExtensions.TokenCount(gloveFilename, @"\"), @"\") + @"\app.config";
                     outputFilename = gloveFilename.Replace(".xlg", ".Glove.cs");
                 }
                 else if (args.Length == 4)

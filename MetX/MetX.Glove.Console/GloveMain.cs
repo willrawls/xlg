@@ -476,17 +476,17 @@ namespace MetX.Glove
                 XlgSource newSource = null;
                 if (itemName == "CLONE")
                 {
-                    newSource = xml.FromXml<XlgSource>(xml.ToXml<XlgSource>(m_CurrSource, false));
+                    newSource = Xml.FromXml<XlgSource>(Xml.ToXml<XlgSource>(m_CurrSource, false));
                 }
                 else
                 {
-                    newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace, Token.Last((m_CurrSource != null
+                    newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace, StringExtensions.LastToken((m_CurrSource != null
                         ? m_CurrSource.ProviderName
                         : (Settings.Sources.Count + 1).ToString()), ".") + ": " + itemName, itemName);
 
                     if (m_CurrSource != null)
                     {
-                        newSource.BasePath = Token.Before(m_CurrSource.OutputFilename, Token.Count(m_CurrSource.OutputFilename, @"\") - 1, @"\") + @"\" + itemName + @"\";
+                        newSource.BasePath = StringExtensions.TokensBefore(m_CurrSource.OutputFilename, StringExtensions.TokenCount(m_CurrSource.OutputFilename, @"\") - 1, @"\") + @"\" + itemName + @"\";
                     }
                     else
                     {

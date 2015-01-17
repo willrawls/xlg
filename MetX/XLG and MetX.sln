@@ -6,10 +6,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Support\AdventureWorks.xlgs = ..\Support\AdventureWorks.xlgs
 		..\Support\CSharp DAL Project File.xlg.xsl = ..\Support\CSharp DAL Project File.xlg.xsl
 		..\Support\CSharp DAL.xlg.xsl = ..\Support\CSharp DAL.xlg.xsl
+		Local.testsettings = Local.testsettings
 		..\Support\Simple ASPX Grid.xlg.xsl = ..\Support\Simple ASPX Grid.xlg.xsl
 		..\Support\Simple File System.xlg.xsl = ..\Support\Simple File System.xlg.xsl
 		..\Support\Simple Web Page.xlg.xsl = ..\Support\Simple Web Page.xlg.xsl
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		..\Support\Uber Indexing.xlg.xsl = ..\Support\Uber Indexing.xlg.xsl
+		XLG and MetX.vsmdi = XLG and MetX.vsmdi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
@@ -24,7 +27,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gath
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gather_FileSystem", "MetX.Data.Factory.MetX_Gather_FileSystem\MetX.Data.Factory.MetX_Gather_FileSystem.csproj", "{A1888B4D-18C3-4D35-B746-83965069A30A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMetX", "TestMetX\TestMetX.csproj", "{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}"
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = XLG and MetX.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -54,6 +62,10 @@ Global
 		{A1888B4D-18C3-4D35-B746-83965069A30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1888B4D-18C3-4D35-B746-83965069A30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1888B4D-18C3-4D35-B746-83965069A30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

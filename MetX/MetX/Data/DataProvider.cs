@@ -5,6 +5,7 @@ using System.Text;
 using System.Configuration.Provider;
 using System.Data;
 using System.Data.Common;
+using MetX.Library;
 
 namespace MetX.Data
 {

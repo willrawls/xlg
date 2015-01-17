@@ -4,6 +4,7 @@ using System.Text;
 using System.Data;
 using System.Data.Common;
 using System.Xml.Serialization;
+using MetX.Library;
 
 namespace MetX.Data
 {

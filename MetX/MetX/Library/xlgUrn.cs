@@ -1,18 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
 using System.Text;
 using System.Web;
-using System.Collections.Generic;
-
-using System.Xml;
 using System.Xml.XPath;
-using Mvp.Xml.Common.XPath;
 
-namespace MetX.Urn
+namespace MetX.Library
 {
 
     /// <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.
@@ -167,8 +160,8 @@ namespace MetX.Urn
                     filePath = m_C.Server.MapPath(relativePathFile);
                     if (File.Exists(filePath))
                     {
-                        ret = Token.After(m_C.Request.Url.AbsoluteUri, 4, "/");
-                        ret = Token.First(Token.Before(ret, Token.Count(ret, "/"), "/"), "?");
+                        ret = StringExtensions.TokensAfter(m_C.Request.Url.AbsoluteUri, 4, "/");
+                        ret = StringExtensions.FirstToken(StringExtensions.TokensBefore(ret, StringExtensions.TokenCount(ret, "/"), "/"), "?");
                         ret = ret + "/" + relativePathFile;
                     }
                     else
@@ -176,8 +169,8 @@ namespace MetX.Urn
                         filePath = m_C.Server.MapPath("~/" + relativePathFile);
                         if (File.Exists(filePath))
                         {
-                            ret = Token.After(m_C.Request.Url.AbsoluteUri, 4, "/");
-                            ret = Token.First(Token.Before(ret, Token.Count(ret, "/"), "/"), "?");
+                            ret = StringExtensions.TokensAfter(m_C.Request.Url.AbsoluteUri, 4, "/");
+                            ret = StringExtensions.FirstToken(StringExtensions.TokensBefore(ret, StringExtensions.TokenCount(ret, "/"), "/"), "?");
                             ret = ret + "/" + relativePathFile;
                         }
                         else
@@ -186,7 +179,7 @@ namespace MetX.Urn
                             if (File.Exists(filePath))
                             {
                                 ret = m_SupportPath + relativePathFile;
-                                vDirPath = Token.First(Token.Before(m_C.Request.Url.AbsoluteUri, 4, "/"), "?");
+                                vDirPath = StringExtensions.FirstToken(StringExtensions.TokensBefore(m_C.Request.Url.AbsoluteUri, 4, "/"), "?");
                                 ret = ret.Replace("~/", string.Empty);
                                 if (ret.StartsWith("/"))
                                     ret = vDirPath + ret;
@@ -198,7 +191,7 @@ namespace MetX.Urn
                     }
                 }
             }
-            vDirPath = Token.First(Token.Before(m_C.Request.Url.AbsoluteUri, 5, "/"), "?");
+            vDirPath = StringExtensions.FirstToken(StringExtensions.TokensBefore(m_C.Request.Url.AbsoluteUri, 5, "/"), "?");
             ret = ret.Replace("~/", string.Empty);
             if (ret.StartsWith("/"))
                 ret = vDirPath + ret;
@@ -250,15 +243,15 @@ namespace MetX.Urn
 
         /// <summary>Same as calling System.IO.Directory.Create</summary>
         /// <param name="path">The path to create</param>
-        /// <returns>True if the folder exists</returns>
+        /// <returns>True if the folder is created, false if it already existed</returns>
         public bool InsureDirectory(string path)
         {
-            if (!Directory.Exists(path))
+            if (Directory.Exists(path))
             {
-                Directory.CreateDirectory(path);
-                return true;
+                return false;
             }
-            return false;
+            Directory.CreateDirectory(path);
+            return true;
         }
 
         /// <summary>
@@ -391,6 +384,7 @@ namespace MetX.Urn
         {
             if (m_Ht == null)
                 m_Ht = new Dictionary<string, string>();
+            // ReSharper disable once InvertIf
             if (!m_Ht.ContainsKey(toHash))
             {
                 m_Ht.Add(toHash, m_NextHash.ToString());
@@ -521,7 +515,7 @@ namespace MetX.Urn
         /// <returns>The requested token or a blank string</returns>
         public string GetToken(string allTokens, int n, string delimiter)
         {
-            return Token.Get(allTokens, n, delimiter);
+            return StringExtensions.TokenAt(allTokens, n, delimiter);
         }
 
 
@@ -596,7 +590,7 @@ namespace MetX.Urn
         /// <returns>The double representation of a string</returns>
         public double NzDouble(string sOriginalText)
         {
-            return Worker.nzDouble(sOriginalText);
+            return Worker.NzDouble(sOriginalText);
         }
 
 
@@ -782,7 +776,7 @@ namespace MetX.Urn
         /// <returns>The first name found</returns>
         public string FirstName(string name)
         {
-            return Token.First(name, " ");
+            return StringExtensions.FirstToken(name, " ");
         }
 
         /// <summary>Returns the last name (word) from the given string</summary>
@@ -790,7 +784,7 @@ namespace MetX.Urn
         /// <returns>The last name found</returns>
         public string LastName(string name)
         {
-            return Token.Last(name, " ");
+            return StringExtensions.LastToken(name, " ");
         }
 
 
@@ -849,9 +843,9 @@ namespace MetX.Urn
             if (m_RunningTotals == null)
                 m_RunningTotals = new Dictionary<string, double>();
             if (m_RunningTotals.ContainsKey(totalName))
-                m_RunningTotals[totalName] = Worker.nzDouble(sInitialValue);
+                m_RunningTotals[totalName] = Worker.NzDouble(sInitialValue);
             else
-                m_RunningTotals.Add(totalName, Worker.nzDouble(sInitialValue));
+                m_RunningTotals.Add(totalName, Worker.NzDouble(sInitialValue));
             return string.Empty;
         }
 
@@ -867,7 +861,7 @@ namespace MetX.Urn
             if (m_RunningTotals.ContainsKey(totalName))
                 m_RunningTotals[totalName] += NzDouble(toAdd);
             else
-                m_RunningTotals.Add(totalName, Worker.nzDouble(toAdd));
+                m_RunningTotals.Add(totalName, Worker.NzDouble(toAdd));
             return string.Empty;
         }
 
@@ -883,7 +877,7 @@ namespace MetX.Urn
             if (m_RunningTotals.ContainsKey(totalName))
                 m_RunningTotals[totalName] -= NzDouble(toSubtract);
             else
-                m_RunningTotals.Add(totalName, -Worker.nzDouble(toSubtract));
+                m_RunningTotals.Add(totalName, -Worker.NzDouble(toSubtract));
             return string.Empty;
         }
 

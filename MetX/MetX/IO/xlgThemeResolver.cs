@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Web;
 using MetX;
+using MetX.Library;
 
 namespace MetX.IO
 {
@@ -15,7 +16,7 @@ namespace MetX.IO
         /// <summary>The base path for all themes</summary>
         public string basePath = "theme/";
         /// <summary>The xml class from the xlgHandler</summary>
-        public xsl Transformer;
+        public Xsl Transformer;
 
         private string m_ThemeName = "default";
 
@@ -25,7 +26,7 @@ namespace MetX.IO
         /// <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
         /// <param name="basePath">The relative base path for all themes</param>
         /// <param name="ThemePath">The relative path to the specific theme directory</param>
-        public xlgThemeResolver(xsl Transformer, string ThemeName, string pathTrigger, string basePath, string ThemePath) : base()
+        public xlgThemeResolver(Xsl Transformer, string ThemeName, string pathTrigger, string basePath, string ThemePath) : base()
         {
             this.Transformer = Transformer;
             this.pathTrigger = pathTrigger;
@@ -39,7 +40,7 @@ namespace MetX.IO
         /// <param name="ThemeName">The name of the theme (blue, red, YourClientName, etc)</param>
         /// <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
         /// <param name="basePath">The relative base path for all themes</param>
-        public xlgThemeResolver(xsl Transformer, string ThemeName, string pathTrigger, string basePath)
+        public xlgThemeResolver(Xsl Transformer, string ThemeName, string pathTrigger, string basePath)
             : base()
         {
             this.Transformer = Transformer;
@@ -51,7 +52,7 @@ namespace MetX.IO
         /// <summary>Initializes the Theme Resolver. This is the one you should use most often.</summary>
         /// <param name="Transformer">The xml class from your xlgHandler</param>
         /// <param name="ThemeName">The name of the theme (blue, red, YourClientName, etc)</param>
-        public xlgThemeResolver(xsl Transformer, string ThemeName)
+        public xlgThemeResolver(Xsl Transformer, string ThemeName)
             : base()
         {
             this.Transformer = Transformer;
@@ -60,7 +61,7 @@ namespace MetX.IO
 
         /// <summary>Initializes the Theme Resolver</summary>
         /// <param name="Transformer">The xml class from your xlgHandler</param>
-        public xlgThemeResolver(xsl Transformer)
+        public xlgThemeResolver(Xsl Transformer)
             : base()
         {
             this.Transformer = Transformer;
@@ -81,7 +82,7 @@ namespace MetX.IO
                 if (!ThemePath.EndsWith("/"))
                     ThemePath += "/";
                 Transformer.PageCacheSubKey = value;
-                Transformer.xlgUrn.SetThemePath("~/" + ThemePath, "~/" + pathTrigger);
+                Transformer.XlgUrn.SetThemePath("~/" + ThemePath, "~/" + pathTrigger);
             }
         }
 

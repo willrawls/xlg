@@ -15,6 +15,7 @@ using MetX;
 using MetX.IO;
 using MetX.Security;
 using MetX.Data;
+using MetX.Library;
 
 namespace MetX.Glove
 {
@@ -35,8 +36,8 @@ namespace MetX.Glove
 		static Microsoft.Win32.RegistryKey AppDataRegKey;
 
 		public XlgAppData() { }
-		public string ToXml() { return MetX.xml.ToXml<XlgAppData>(this, true); }
-		public static XlgAppData FromXml(string XmlDoc) { return MetX.xml.FromXml<XlgAppData>(XmlDoc); }
+		public string ToXml() { return Xml.ToXml<XlgAppData>(this, true); }
+		public static XlgAppData FromXml(string XmlDoc) { return Xml.FromXml<XlgAppData>(XmlDoc); }
 
 		public static XlgAppData ResetPreferences()
 		{
