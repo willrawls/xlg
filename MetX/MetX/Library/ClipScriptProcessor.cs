@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MetX;
@@ -8,11 +9,11 @@ namespace MetX
 {
     public class ClipScriptProcessor : IProcessForClipScript
     {
-        public bool ProcessLine(StringBuilder sb, string line, int number)
+        public bool ProcessLine(StringBuilder sb, string line, int number, int lineCount, Dictionary<string, string> d)
         {
-            if (string.IsNullOrEmpty(line)) return true;
+            if (string.IsNullOrEmpty(line) && number > -1) return true;
 
-            ~~ProcessLine~~
+//~~ProcessLine~~//
 
             return true;
         }

@@ -258,7 +258,7 @@ namespace MetX.Library
         /// <param name="target">The string to target</param>
         /// <param name="tokenNumber">The token to return</param>
         /// <param name="delimiter">The token delimiter</param>
-        public static string TokenAt(this string target, int tokenNumber, string delimiter)
+        public static string TokenAt(this string target, int tokenNumber, string delimiter = " ")
         {
             int currTokenLocation;
             int delimiterLength = delimiter.Length;

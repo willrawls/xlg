@@ -268,7 +268,50 @@ namespace MetX.Glove
             {
                 return null;
             }
-            string source = m_ClipScriptProcessorCs.Replace("~~ProcessLine~~", ClipScriptInput.Text);
+            string[] expandedClipScriptLines = ClipScriptInput.Lines;
+            for (int i = 0; i < expandedClipScriptLines.Length; i++)
+            {
+                string currScriptLine = expandedClipScriptLines[i];
+                int indent = currScriptLine.Length - currScriptLine.Trim().Length;
+
+                if (currScriptLine.Contains("~~:"))
+                {
+                    currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
+
+                    while (currScriptLine.Contains("%"))
+                    {
+                        string variableContent = currScriptLine.TokenAt(2, "%");
+                        string resolvedContent = string.Empty;
+                        if (variableContent.Length > 0)
+                        {
+                            if (variableContent.Contains(" "))
+                            {
+                                string variableName = variableContent.FirstToken();
+                                string variableIndex = variableContent.TokenAt(2);
+                                if(variableName != "d")
+                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
+                                else
+                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$","\"") + "] + \"";
+                            }
+                            else
+                            {
+                                resolvedContent = "\" + " + variableContent + " + \"";
+                            }
+                        }
+                        currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
+                    }
+                    currScriptLine = "sb.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
+                    currScriptLine = currScriptLine.Replace("AppendLine(\" + ", "AppendLine(").Replace(" + \"\")", ")").Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
+                    currScriptLine = (new string(' ', indent)) + "            " + currScriptLine.Replace(" + \"\" + ", string.Empty).Replace("~$~$", @"\%").Replace("~#~$", "\\\"");
+                    expandedClipScriptLines[i] = currScriptLine;
+                }
+                else
+                {
+                    expandedClipScriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
+                }
+            }
+
+            string source = m_ClipScriptProcessorCs.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, expandedClipScriptLines));
 
             CompilerParameters compilerParameters = new CompilerParameters
             {
@@ -297,6 +340,18 @@ namespace MetX.Glove
             {
                 MessageBox.Show("Compile error #" + (index + 1) + ": " + compilerResults.Errors[index]);
             }
+
+            try
+            {
+                string tempFile = Path.GetTempFileName();
+                File.WriteAllText(tempFile, source);
+                Process.Start(AppData.TextEditor, tempFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
             return null;
         }
 
@@ -789,7 +844,9 @@ namespace MetX.Glove
                 }
 
                 StringBuilder sb = new StringBuilder();
-                if (lines.Where((t, index) => !clipScriptProcessor.ProcessLine(sb, t, index)).Any())
+                int lineCount = lines.Count();
+                Dictionary<string, string> d = new Dictionary<string, string>();
+                if (lines.Where((t, index) => !clipScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any())
                 {
                     return;
                 }
@@ -799,8 +856,11 @@ namespace MetX.Glove
                 }
 
                 ClipScriptOutput.Text = sb.ToString();
+
                 if (!outputToClipboard)
                 {
+                    ClipScriptOutput.Focus();
+                    ClipScriptOutput.SelectAll();
                     return;
                 }
                 Clipboard.Clear();

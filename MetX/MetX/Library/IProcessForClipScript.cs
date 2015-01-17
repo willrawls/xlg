@@ -7,6 +7,6 @@ namespace MetX.Library
 {
     public interface IProcessForClipScript
     {
-        bool ProcessLine(StringBuilder sb, string line, int number);
+        bool ProcessLine(StringBuilder sb, string line, int number, int lineCount, Dictionary<string, string> d);
     }
 }

@@ -308,8 +308,8 @@ namespace MetX.Glove
             // scratchToolStripMenuItem
             // 
             this.scratchToolStripMenuItem.Name = "scratchToolStripMenuItem";
-            this.scratchToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.scratchToolStripMenuItem.Text = "&Scratch";
+            this.scratchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scratchToolStripMenuItem.Text = "&Scripts";
             this.scratchToolStripMenuItem.Click += new System.EventHandler(this.scratchToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -461,6 +461,7 @@ namespace MetX.Glove
             this.ClipScriptOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ClipScriptOutput.Size = new System.Drawing.Size(295, 212);
             this.ClipScriptOutput.TabIndex = 4;
+            this.ClipScriptOutput.WordWrap = false;
             // 
             // ClipScriptInput
             // 
@@ -472,8 +473,8 @@ namespace MetX.Glove
             this.ClipScriptInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ClipScriptInput.Size = new System.Drawing.Size(293, 199);
             this.ClipScriptInput.TabIndex = 2;
-            this.ClipScriptInput.Text = "string[] word = line.Split(\' \');\r\nsb.Append(number + \"(\");\r\nsb.Append(word[0] + \"" +
-                "): \");\r\nsb.AppendLine(line);\r\n";
+            this.ClipScriptInput.Text = resources.GetString("ClipScriptInput.Text");
+            this.ClipScriptInput.WordWrap = false;
             // 
             // ClipScriptList
             // 

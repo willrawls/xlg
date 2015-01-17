@@ -138,6 +138,38 @@
         2Mz2wxeg6/UAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="ClipScriptInput.Text" xml:space="preserve">
+    <value>// These lines are called for every line in the clipboard (except blank ones)
+// line is the string content of the current line
+// number is the current line number being processed
+// lineCount is the total number of lines to be processed.
+// d is a Dictionary&lt;string, string&gt; that perists across lines. Use it as you want
+// sb is a StringBuilder that you will write your output to (which goes in output/clipboard)
+
+if(number == 0) {
+  ~~:Lines starting with ~~: Are shorthand constructs for sb.AppendLine(...) with special expansion
+ // This makes it easier to read when encoding lines of C# in C# and what not.
+  sb.AppendLine("Or if you prefer, you can simply write C# code");
+  d["previous"] = "[Ready] "; // sets the "Previous" dictionary item to "[Ready] "
+  // Write a header
+  ~~:Example: Line # (First word): Second word
+}
+
+string[] word = line.Split(' ');
+if(word.Length &gt; 0) d["previous"] += word[0] + ", ";
+
+// The following two lines are equivalent
+// sb.AppendLine("\"Example\":\t" + number + " (" + word[0] + "): \"" + line + "\"");
+~~:Example: %number% (%word 0%): %word 1%
+
+if(number == lineCount - 1) { // After the last line
+  ~~:
+  ~~:This is only written at the end
+  ~~:
+  ~~: "Previous" dictionary entry is written out: 
+  ~~:%d "previous"%
+}</value>
+  </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>390, 19</value>
   </metadata>
