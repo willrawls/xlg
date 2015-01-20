@@ -11,6 +11,7 @@ using MetX.Data;
 using MetX.Library;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
+using XLG.Pipeliner;
 using XLG.Pipeliner.Properties;
 using FileSystem = MetX.IO.FileSystem;
 
@@ -19,7 +20,7 @@ namespace MetX.Glove
     public partial class GloveMain : Form
     {
         private static XlgAppData m_AppData;
-        private static string m_ClipScriptProcessorCs = null;
+        public static string ClipScriptProcessorSourceTemplate = null;
 
         public static XlgAppData AppData
         {
@@ -60,7 +61,7 @@ namespace MetX.Glove
             Enabled = false;
             try
             {
-                UpdateItem();
+                UpdateCurrentSource();
                 Settings.Generate(this);
             }
             catch (Exception ex)
@@ -250,111 +251,6 @@ namespace MetX.Glove
             }
         }
 
-        private IProcessForClipScript GetClipScripProcessor()
-        {
-            if (m_ClipScriptProcessorCs == null)
-            {
-                Assembly assembly = Assembly.GetAssembly(typeof(IProcessForClipScript));
-                using (var stream = assembly.GetManifestResourceStream("MetX.Library.ClipScriptProcessor.cs"))
-                {
-                    if (stream == null)
-                    {
-                        return null;
-                    }
-                    m_ClipScriptProcessorCs = new StreamReader(stream).ReadToEnd();
-                }
-            }
-            if (string.IsNullOrEmpty(m_ClipScriptProcessorCs))
-            {
-                return null;
-            }
-            string[] expandedClipScriptLines = ClipScriptInput.Lines;
-            for (int i = 0; i < expandedClipScriptLines.Length; i++)
-            {
-                string currScriptLine = expandedClipScriptLines[i];
-                int indent = currScriptLine.Length - currScriptLine.Trim().Length;
-
-                if (currScriptLine.Contains("~~:"))
-                {
-                    currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
-
-                    while (currScriptLine.Contains("%"))
-                    {
-                        string variableContent = currScriptLine.TokenAt(2, "%");
-                        string resolvedContent = string.Empty;
-                        if (variableContent.Length > 0)
-                        {
-                            if (variableContent.Contains(" "))
-                            {
-                                string variableName = variableContent.FirstToken();
-                                string variableIndex = variableContent.TokenAt(2);
-                                if(variableName != "d")
-                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
-                                else
-                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$","\"") + "] + \"";
-                            }
-                            else
-                            {
-                                resolvedContent = "\" + " + variableContent + " + \"";
-                            }
-                        }
-                        currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
-                    }
-                    currScriptLine = "sb.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
-                    currScriptLine = currScriptLine.Replace("AppendLine(\" + ", "AppendLine(").Replace(" + \"\")", ")").Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
-                    currScriptLine = (new string(' ', indent)) + "            " + currScriptLine.Replace(" + \"\" + ", string.Empty).Replace("~$~$", @"\%").Replace("~#~$", "\\\"");
-                    expandedClipScriptLines[i] = currScriptLine;
-                }
-                else
-                {
-                    expandedClipScriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
-                }
-            }
-
-            string source = m_ClipScriptProcessorCs.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, expandedClipScriptLines));
-
-            CompilerParameters compilerParameters = new CompilerParameters
-            {
-                GenerateExecutable = false,
-                GenerateInMemory = true,
-                IncludeDebugInformation = false,
-            };
-            compilerParameters
-                .ReferencedAssemblies
-                .AddRange(
-                    AppDomain.CurrentDomain
-                             .GetAssemblies()
-                             .Where(a => !a.IsDynamic)
-                             .Select(a => a.Location)
-                             .ToArray());
-            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
-
-            if (compilerResults.Errors.Count <= 0)
-            {
-                Assembly assembly = compilerResults.CompiledAssembly;
-                IProcessForClipScript clipScriptProcessor = assembly.CreateInstance("MetX.ClipScriptProcessor") as IProcessForClipScript;
-                return clipScriptProcessor;
-            }
-
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
-            {
-                MessageBox.Show("Compile error #" + (index + 1) + ": " + compilerResults.Errors[index]);
-            }
-
-            try
-            {
-                string tempFile = Path.GetTempFileName();
-                File.WriteAllText(tempFile, source);
-                Process.Start(AppData.TextEditor, tempFile);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-
-            return null;
-        }
-
         private void GloveMain_Load(object sender, EventArgs e)
         {
             MetadataSources.Focus();
@@ -428,7 +324,7 @@ namespace MetX.Glove
         {
             try
             {
-                UpdateItem();
+                UpdateCurrentSource();
                 if (MetadataSources.SelectedItems.Count <= 0) return;
                 m_CurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
                 textAppXlgXsl.Text = m_CurrSource.XslFilename;
@@ -438,7 +334,7 @@ namespace MetX.Glove
                 textConnectionName.Text = m_CurrSource.DisplayName;
                 textConnectionStringName.Text = m_CurrSource.ConnectionName;
                 textConnectionString.Text = m_CurrSource.ConnectionString;
-                textSqlToXml.Text = m_CurrSource.SqlToXml;
+                //textSqlToXml.Text = m_CurrSource.SqlToXml;
                 checkRegenerateOnly.Checked = m_CurrSource.RegenerateOnly;
                 int index = comboProviderName.FindString(m_CurrSource.ProviderName);
                 if (index > -1) comboProviderName.SelectedIndex = index;
@@ -450,7 +346,7 @@ namespace MetX.Glove
             }
         }
 
-        public void UpdateItem()
+        public void UpdateCurrentSource()
         {
             if (m_CurrSource == null) return;
             m_CurrSource.XslFilename = textAppXlgXsl.Text;
@@ -461,7 +357,7 @@ namespace MetX.Glove
             m_CurrSource.ConnectionName = textConnectionStringName.Text;
             m_CurrSource.ConnectionString = textConnectionString.Text;
             m_CurrSource.RegenerateOnly = checkRegenerateOnly.Checked;
-            m_CurrSource.SqlToXml = textSqlToXml.Text;
+//            m_CurrSource.SqlToXml = textSqlToXml.Text;
             if (comboProviderName.SelectedIndex > -1) m_CurrSource.ProviderName = (string) comboProviderName.SelectedItem;
         }
 
@@ -469,21 +365,24 @@ namespace MetX.Glove
         {
             try
             {
-                UpdateItem();
+                UpdateCurrentSource();
+                UpdateOpenClipScripts();
                 Settings.Save();
-                //XLG.Pipeliner.Properties.Settings.Default.LastXlgsFile = Settings.Filename;
-                //XLG.Pipeliner.Properties.Settings.Default.Save();
                 AppData.LastXlgsFile = Settings.Filename;
                 AppData.Save();
-                if (sender != null)
-                {
-                    RefreshList();
-                }
-
+                if (sender != null) RefreshList();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void UpdateOpenClipScripts()
+        {
+            foreach (ClipScriptEditor clipScriptEditor in ClipScriptEditors)
+            {
+                clipScriptEditor.UpdateBeforeSave();
             }
         }
 
@@ -700,6 +599,7 @@ namespace MetX.Glove
                 Settings = new XlgSettings(this)
                 {
                     Sources = new List<XlgSource>(),
+                    ClipScripts = new List<XlgClipScript>(),
                     DefaultConnectionString = t.DefaultConnectionString,
                     DefaultProviderName = t.DefaultProviderName
                 };
@@ -763,7 +663,6 @@ namespace MetX.Glove
 
         private void generateSelectedToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void regenerateSelectedToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { }
 
         private void buttonEditConnectionString_Click(object sender, EventArgs e)
         {
@@ -817,64 +716,30 @@ namespace MetX.Glove
             */
         }
 
-        private void loadStripButton_Click(object sender, EventArgs e) { buttonLoad_Click(null, null); }
         private void scratchToolStripMenuItem_Click(object sender, EventArgs e) { }
-        private void RunClipScript_Click(object sender, EventArgs e) { RunClipScriptNow(true); }
 
-        private void RunClipScriptNow(bool outputToClipboard)
+        public List<ClipScriptEditor> ClipScriptEditors = new List<ClipScriptEditor>();
+        public List<ClipScriptOutput> ClipScriptOutputs = new List<ClipScriptOutput>();
+
+        private void EditClipScript_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string toParse = Clipboard.GetText();
-                if (string.IsNullOrEmpty(toParse))
-                {
-                    return;
-                }
-
-                string[] lines = toParse.Replace("\r", string.Empty).Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length <= 0)
-                {
-                    return;
-                }
-
-                var clipScriptProcessor = GetClipScripProcessor();
-                if (clipScriptProcessor == null)
-                {
-                    return;
-                }
-
-                StringBuilder sb = new StringBuilder();
-                int lineCount = lines.Count();
-                Dictionary<string, string> d = new Dictionary<string, string>();
-                if (lines.Where((t, index) => !clipScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any())
-                {
-                    return;
-                }
-                if (sb.Length <= 0)
-                {
-                    return;
-                }
-
-                ClipScriptOutput.Text = sb.ToString();
-
-                if (!outputToClipboard)
-                {
-                    ClipScriptOutput.Focus();
-                    ClipScriptOutput.SelectAll();
-                    return;
-                }
-                Clipboard.Clear();
-                Clipboard.SetText(sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            OpenNewClipScriptEditor();
         }
 
-        private void RunScriptLocally_Click(object sender, EventArgs e)
+        public void OpenNewClipScriptEditor()
         {
-            RunClipScriptNow(false);
+            var clipScriptEditor = new ClipScriptEditor(this);
+            ClipScriptEditors.Add(clipScriptEditor);
+            clipScriptEditor.Show(this);
+            clipScriptEditor.BringToFront();
+        }
+
+        public void OpenNewClipScriptOutput(string title, string output)
+        {
+            var clipScriptOutput = new ClipScriptOutput(title, output);
+            ClipScriptOutputs.Add(clipScriptOutput);
+            clipScriptOutput.Show(this);
+            clipScriptOutput.BringToFront();
         }
     }
 }

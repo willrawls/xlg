@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Threading;
@@ -9,89 +8,6 @@ using MetX.Library;
 
 namespace MetX.Data
 {
-    [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
-    public class XlgSettings
-    {
-        static XmlSerializer m_Xs = new XmlSerializer(typeof(XlgSettings));
-
-        [XmlAttribute]
-        public string Filename;
-        [XmlAttribute]
-        public string DefaultConnectionString;
-        [XmlAttribute]
-        public string DefaultProviderName;
-
-        [XmlArray("Sources", Namespace = "", IsNullable = false), XmlArrayItem("Source", Namespace = "", IsNullable = false)]
-        public List<XlgSource> Sources = new List<XlgSource>();
-
-        [XmlIgnore]
-        public System.Windows.Forms.Form Gui;
-
-        public XlgSettings() { /* XmlSerilizer */ }
-
-        public XlgSettings(System.Windows.Forms.Form gui) { this.Gui = gui; }
-
-        public static XlgSettings FromXml(string xmldoc)
-        {
-            return (XlgSettings)m_Xs.Deserialize(new StringReader(xmldoc));
-        }
-
-        public string OuterXml()
-        {
-            StringBuilder sb = new StringBuilder();
-            using (StringWriter sw = new StringWriter(sb))
-                m_Xs.Serialize(sw, this);
-            return sb.ToString();
-        }
-
-        public void Save()
-        {
-            File.WriteAllText(Filename, OuterXml());
-        }
-
-        public static XlgSettings Load(string filename)
-        {
-            return FromXml(File.ReadAllText(filename));
-        }
-
-        public int Generate(System.Windows.Forms.Form gui)
-        {
-            int genCount = 0;
-            int lastGen = 0;
-            foreach (XlgSource currSource in Sources)
-            {
-                if (currSource.Selected)
-                {
-                    if (currSource.RegenerateOnly)
-                        lastGen = currSource.Regenerate(gui);
-                    else
-                        lastGen = currSource.Generate(gui);
-                    if (lastGen == -1)
-                        return -genCount;
-                    genCount++;
-                }
-            }
-            return genCount;
-        }
-
-        public int Regenerate(System.Windows.Forms.Form gui)
-        {
-            int genCount = 0;
-            int lastGen = 0;
-            foreach (XlgSource currSource in Sources)
-            {
-                if (currSource.Selected)
-                {
-                    lastGen = currSource.Regenerate(gui);
-                    if (lastGen == -1)
-                        return -genCount;
-                    genCount++;
-                }
-            }
-            return genCount;
-        }
-    }
-
     /// <summary>
     /// Represents a library to generate
     /// </summary>

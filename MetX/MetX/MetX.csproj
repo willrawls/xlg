@@ -126,8 +126,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
+    <Compile Include="Data\ClipScriptDestination.cs" />
     <Compile Include="Data\CodeGenerator.cs" />
-    <Compile Include="Data\xlgDoc.cs" />
+    <Compile Include="Data\XlgClipScript.cs" />
+    <Compile Include="Data\xlgFile.cs" />
     <Compile Include="Data\DataDefault.GenInclude.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +141,8 @@
     <Compile Include="Data\QueryCommand.cs" />
     <Compile Include="Data\Support.cs" />
     <Compile Include="Data\TableSchema.cs" />
+    <Compile Include="Data\xlgFolder.cs" />
+    <Compile Include="Data\XlgSettings.cs" />
     <Compile Include="Data\xlgSource.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
