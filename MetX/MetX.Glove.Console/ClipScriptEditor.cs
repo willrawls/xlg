@@ -16,13 +16,13 @@ namespace XLG.Pipeliner
 {
     public partial class ClipScriptEditor : Form
     {
-        private readonly GloveMain Main;
+        private readonly GloveMain m_Parent;
         public XlgClipScript CurrentScript;
 
-        public ClipScriptEditor(GloveMain main)
+        public ClipScriptEditor(GloveMain parent)
         {
             InitializeComponent();
-            Main = main;
+            m_Parent = parent;
         }
 
         private void RunClipScript_Click(object sender, EventArgs e)
@@ -34,19 +34,19 @@ namespace XLG.Pipeliner
         {
             try
             {
-                var toParse = Clipboard.GetText();
+                string toParse = Clipboard.GetText();
                 if (string.IsNullOrEmpty(toParse)) return;
 
-                var lines = toParse.Replace("\r", string.Empty)
+                string[] lines = toParse.Replace("\r", string.Empty)
                     .Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0) return;
 
-                var clipScriptProcessor = GetClipScriptProcessor();
+                IProcessForClipScript clipScriptProcessor = GetClipScriptProcessor();
                 if (clipScriptProcessor == null) return;
 
-                var sb = new StringBuilder();
-                var lineCount = lines.Length;
-                var d = new Dictionary<string, string>();
+                StringBuilder sb = new StringBuilder();
+                int lineCount = lines.Length;
+                Dictionary<string, string> d = new Dictionary<string, string>();
 
                 if (lines.Where((t, index) => !clipScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any()) return;
                 if (sb.Length <= 0) return;
@@ -56,7 +56,7 @@ namespace XLG.Pipeliner
                     switch (DestinationList.Text.ToLower().Replace(" ", string.Empty))
                     {
                         case "textbox":
-                            Main.OpenNewClipScriptOutput(ClipScriptList.Text + " at " + DateTime.Now.ToString("G"), sb.ToString());
+                            m_Parent.OpenNewClipScriptOutput(ClipScriptList.Text + " at " + DateTime.Now.ToString("G"), sb.ToString());
                             break;
 
                         case "clipboard":
@@ -88,8 +88,8 @@ namespace XLG.Pipeliner
         {
             if (GloveMain.ClipScriptProcessorSourceTemplate == null)
             {
-                var assembly = Assembly.GetAssembly(typeof (IProcessForClipScript));
-                using (var stream = assembly.GetManifestResourceStream("MetX.Library.ClipScriptProcessor.cs"))
+                Assembly assembly = Assembly.GetAssembly(typeof (IProcessForClipScript));
+                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.ClipScriptProcessor.cs"))
                 {
                     if (stream == null)
                     {
@@ -102,11 +102,11 @@ namespace XLG.Pipeliner
             {
                 return null;
             }
-            var expandedClipScriptLines = ClipScriptInput.Lines;
-            for (var i = 0; i < expandedClipScriptLines.Length; i++)
+            string[] expandedClipScriptLines = ClipScriptInput.Lines;
+            for (int i = 0; i < expandedClipScriptLines.Length; i++)
             {
-                var currScriptLine = expandedClipScriptLines[i];
-                var indent = currScriptLine.Length - currScriptLine.Trim().Length;
+                string currScriptLine = expandedClipScriptLines[i];
+                int indent = currScriptLine.Length - currScriptLine.Trim().Length;
 
                 if (currScriptLine.Contains("~~:"))
                 {
@@ -114,14 +114,14 @@ namespace XLG.Pipeliner
 
                     while (currScriptLine.Contains("%"))
                     {
-                        var variableContent = currScriptLine.TokenAt(2, "%");
-                        var resolvedContent = string.Empty;
+                        string variableContent = currScriptLine.TokenAt(2, "%");
+                        string resolvedContent = string.Empty;
                         if (variableContent.Length > 0)
                         {
                             if (variableContent.Contains(" "))
                             {
-                                var variableName = variableContent.FirstToken();
-                                var variableIndex = variableContent.TokenAt(2);
+                                string variableName = variableContent.FirstToken();
+                                string variableIndex = variableContent.TokenAt(2);
                                 if (variableName != "d")
                                     resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
                                 else
@@ -151,9 +151,9 @@ namespace XLG.Pipeliner
                 }
             }
 
-            var source = GloveMain.ClipScriptProcessorSourceTemplate.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, expandedClipScriptLines));
+            string source = GloveMain.ClipScriptProcessorSourceTemplate.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, expandedClipScriptLines));
 
-            var compilerParameters = new CompilerParameters
+            CompilerParameters compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = false,
                 GenerateInMemory = true,
@@ -167,17 +167,17 @@ namespace XLG.Pipeliner
                         .Where(a => !a.IsDynamic)
                         .Select(a => a.Location)
                         .ToArray());
-            var compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
+            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
 
             if (compilerResults.Errors.Count <= 0)
             {
-                var assembly = compilerResults.CompiledAssembly;
-                var clipScriptProcessor =
+                Assembly assembly = compilerResults.CompiledAssembly;
+                IProcessForClipScript clipScriptProcessor =
                     assembly.CreateInstance("MetX.ClipScriptProcessor") as IProcessForClipScript;
                 return clipScriptProcessor;
             }
 
-            for (var index = 0; index < compilerResults.Errors.Count; index++)
+            for (int index = 0; index < compilerResults.Errors.Count; index++)
             {
                 MessageBox.Show("Compile error #" + (index + 1) + ": " + compilerResults.Errors[index]);
             }
@@ -191,7 +191,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                var tempFile = Path.GetTempFileName();
+                string tempFile = Path.GetTempFileName();
                 File.WriteAllText(tempFile, source);
                 Process.Start(GloveMain.AppData.TextEditor, tempFile);
             }
@@ -211,7 +211,7 @@ namespace XLG.Pipeliner
 
         private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            start here
+            //TODO: start here
         }
 
         private void ClipScriptList_SelectedIndexChanged(object sender, EventArgs e)

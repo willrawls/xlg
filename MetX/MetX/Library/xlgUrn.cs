@@ -987,9 +987,11 @@ namespace MetX.Library
         private static XPathNavigator[] XPathNodeIteratorToNavigators(XPathNodeIterator nodesetToPossiblyKeep)
         {
             Dictionary<string, XPathNavigator> retNodes = new Dictionary<string, XPathNavigator>();
-            while (nodesetToPossiblyKeep.MoveNext()) 
+            while (nodesetToPossiblyKeep.MoveNext())
             {
-                retNodes.Add(nodesetToPossiblyKeep.Current.Value, nodesetToPossiblyKeep.Current);
+                string key = nodesetToPossiblyKeep.Current.Value;
+                if (string.IsNullOrEmpty(key)) key = Guid.NewGuid().ToString();
+                retNodes.Add(key, nodesetToPossiblyKeep.Current);
             }
             XPathNavigator[] ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);

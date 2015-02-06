@@ -564,12 +564,14 @@ namespace MetX.Data
 
                 XmlElement xmlColumns = xmlDoc.CreateElement("Columns");
                 xmlTable.AppendChild(xmlColumns);
-                foreach (TableSchema.TableColumn col in tbl.Columns)
+                for (int index = 0; index < tbl.Columns.Count; index++)
                 {
+                    TableSchema.TableColumn col = tbl.Columns[index];
                     XmlElement xmlColumn = xmlDoc.CreateElement("Column");
                     AddAttribute(xmlColumn, "ColumnName", col.ColumnName);
                     AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field"));
                     AddAttribute(xmlColumn, "CSharpVariableType", GetCSharpVariableType(col.DataType));
+                    AddAttribute(xmlColumn, "Location", (index+1).ToString());
                     AddAttribute(xmlColumn, "IsDotNetObject", GetIsDotNetObject(col.DataType).ToString());
                     AddAttribute(xmlColumn, "CovertToPart", GetConvertToPart(col.DataType));
                     AddAttribute(xmlColumn, "VBVariableType", GetVbVariableType(col.DataType));
@@ -590,20 +592,24 @@ namespace MetX.Data
                 {
                     XmlElement xmlKeys = xmlDoc.CreateElement("Keys");
                     xmlTable.AppendChild(xmlKeys);
-                    foreach (TableSchema.TableKey key in tbl.Keys)
+                    for (int index = 0; index < tbl.Keys.Count; index++)
                     {
+                        TableSchema.TableKey key = tbl.Keys[index];
                         XmlElement xmlKey = xmlDoc.CreateElement("Key");
                         AddAttribute(xmlKey, "Name", key.Name);
                         AddAttribute(xmlKey, "IsPrimary", key.IsPrimary.ToString());
+                        AddAttribute(xmlKey, "Location", index.ToString());
                         XmlElement xmlKeyColumns = xmlDoc.CreateElement("Columns");
-                        foreach (TableSchema.TableKeyColumn col in key.Columns)
+                        for (int i = 0; i < key.Columns.Count; i++)
                         {
+                            TableSchema.TableKeyColumn col = key.Columns[i];
                             XmlElement xmlKeyColumn = xmlDoc.CreateElement("Column");
                             AddAttribute(xmlKeyColumn, "Column", col.Column);
                             if (col.Related != null)
                             {
                                 AddAttribute(xmlKeyColumn, "Related", col.Related);
                             }
+                            AddAttribute(xmlKeyColumn, "Location", i.ToString());
                             xmlKeyColumns.AppendChild(xmlKeyColumn);
                         }
                         xmlKey.AppendChild(xmlKeyColumns);
@@ -614,8 +620,9 @@ namespace MetX.Data
                 {
                     XmlElement xmlIndexes = xmlDoc.CreateElement("Indexes");
                     xmlTable.AppendChild(xmlIndexes);
-                    foreach (TableSchema.TableIndex index in tbl.Indexes)
+                    for (int i = 0; i < tbl.Indexes.Count; i++)
                     {
+                        TableSchema.TableIndex index = tbl.Indexes[i];
                         XmlElement xmlIndex = xmlDoc.CreateElement("Index");
                         AddAttribute(xmlIndex, "IndexName", index.Name);
                         AddAttribute(xmlIndex, "IsClustered", index.IsClustered.ToString());
@@ -623,12 +630,15 @@ namespace MetX.Data
                             ? "True"
                             : "False"));
                         AddAttribute(xmlIndex, "PropertyName", GetProperName(tbl.Name, index.Name, "Index"));
+                        AddAttribute(xmlIndex, "Location", i.ToString());
                         XmlElement xmlIndexColumns = xmlDoc.CreateElement("IndexColumns");
                         xmlIndex.AppendChild(xmlIndexColumns);
-                        foreach (string indexColumn in index.Columns)
+                        for (int columnIndex = 0; columnIndex < index.Columns.Count; columnIndex++)
                         {
+                            string indexColumn = index.Columns[columnIndex];
                             XmlElement xmlIndexColumn = xmlDoc.CreateElement("IndexColumn");
                             AddAttribute(xmlIndexColumn, "IndexColumnName", indexColumn);
+                            AddAttribute(xmlIndexColumn, "Location", columnIndex.ToString());
                             AddAttribute(xmlIndexColumn, "PropertyName", GetProperName(tbl.Name, indexColumn, "Field"));
                             xmlIndexColumns.AppendChild(xmlIndexColumn);
                         }
@@ -650,8 +660,10 @@ namespace MetX.Data
 
             XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
             AddAttribute(xmlStoredProcedures, "ClassName", spClassName);
+            // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlStoredProcedures);
 
+            int sprocIndex = 1;
             foreach (string spName in sPs)
             {
                 // Make sure there is a stored proc to process 
@@ -661,12 +673,13 @@ namespace MetX.Data
                     XmlElement xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
                     AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
                     AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
-
+                    AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
                     //grab the parameters
                     paramReader = DataService.Instance.GetSPParams(spName);
 
                     XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
                     xmlStoredProcedure.AppendChild(xmlParameters);
+                    int parameterIndex = 1;
                     while (paramReader.Read())
                     {
                         //loop the params, pulling out the names and dataTypes
@@ -700,6 +713,7 @@ namespace MetX.Data
                         }
                         AddAttribute(xmlParameter, "DataType", dbType.ToString());
                         AddAttribute(xmlParameter, "CSharpVariableType", GetCSharpVariableType(dbType));
+                        AddAttribute(xmlParameter, "Location", (parameterIndex++).ToString());
                         AddAttribute(xmlParameter, "CovertToPart", GetConvertToPart(dbType));
                         AddAttribute(xmlParameter, "VBVariableType", GetVbVariableType(dbType));
                         AddAttribute(xmlParameter, "IsDotNetObject", GetIsDotNetObject(dbType).ToString());
