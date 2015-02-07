@@ -584,8 +584,10 @@ namespace MetX.Data
                     AddAttribute(xmlColumn, "IsPrimaryKey", col.IsPrimaryKey.ToString());
                     AddAttribute(xmlColumn, "IsIndexed", col.IsIndexed.ToString());
                     AddAttribute(xmlColumn, "MaxLength", col.MaxLength.ToString());
-                    AddAttribute(xmlColumn, "SourceType", col.SourceType.ToString());
-                    AddAttribute(xmlColumn, "DomainName", col.DomainName.ToString());
+                    AddAttribute(xmlColumn, "SourceType", col.SourceType);
+                    AddAttribute(xmlColumn, "DomainName", col.DomainName);
+                    AddAttribute(xmlColumn, "Precision", col.Precision.ToString());
+                    AddAttribute(xmlColumn, "Scale", col.Scale.ToString());
                     xmlColumns.AppendChild(xmlColumn);
                 }
                 if (tbl.Keys.Count > 0)

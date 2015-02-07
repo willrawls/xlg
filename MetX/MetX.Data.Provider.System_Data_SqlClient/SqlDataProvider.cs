@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml;
 using MetX.Library;
@@ -264,6 +265,17 @@ namespace MetX.Data
             }
         }
 
+        private int ToInt(object target, int defaultValue = -1)
+        {
+            if (target == null || target == DBNull.Value) return defaultValue;
+            if (target is byte) return (byte)target;
+            if (target is int) return (int)target;
+            string s = target.ToString();
+            int result;
+            if (int.TryParse(s, out result)) return result;
+            return defaultValue;
+        }
+
         /// <summary>C#CD: </summary>
         /// <param name="tableName">C#CD: </param>
         /// <returns>C#CD: </returns>
@@ -292,6 +304,8 @@ namespace MetX.Data
                         AutoIncrement = rdr["isIdentity"].ToString() == "1",
                         IsNullable = rdr["IsNullable"].ToString() == "YES",
                         DomainName = rdr["DomainName"].ToString(),
+                        Precision = ToInt(rdr["Precision"]),
+                        Scale = ToInt(rdr["Scale"]),
                         MaxLength = maxLength,
                     };
                     columns.Add(column);
@@ -573,7 +587,8 @@ namespace MetX.Data
         private const string TABLE_COLUMN_SQL = @"
 SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
  ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName, 
- CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity 
+ CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity,
+ NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale 
  FROM         INFORMATION_SCHEMA.COLUMNS 
  WHERE     (TABLE_NAME = @tblName) ";
 

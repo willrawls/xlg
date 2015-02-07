@@ -5,7 +5,7 @@ using MetX.Library;
 
 namespace MetX.Glove
 {
-    internal class FileSystemWatchers : List<FileSystemWatcher>
+    public class FileSystemWatchers : List<FileSystemWatcher>
     {
         public bool EnableRaisingEvents
         {

@@ -149,6 +149,8 @@
     <Compile Include="IO\StateCollection.cs" />
     <EmbeddedResource Include="Library\ClipScriptProcessor.cs" />
     <Compile Include="Library\IProcessForClipScript.cs" />
+    <Compile Include="Library\StringWriterWithEncoding.cs" />
+    <Compile Include="Library\Xhtml.cs" />
     <Compile Include="Library\xlgUrn.cs">
       <SubType>Code</SubType>
     </Compile>

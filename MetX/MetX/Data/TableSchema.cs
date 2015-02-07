@@ -308,6 +308,8 @@ namespace MetX.Data
             public bool IsIndexed;
             public string DomainName;
             public string SourceType;
+            public int Precision;
+            public int Scale;
 
             /// <summary>C#CD: </summary>
             public TableColumn(){ }

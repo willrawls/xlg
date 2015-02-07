@@ -30,7 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipScriptEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.SaveClipScript = new System.Windows.Forms.ToolStripButton();
+            this.AddClipScript = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.RunClipScript = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.ClipScriptList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -38,10 +42,6 @@
             this.DestinationList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ClipScriptInput = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.SaveClipScript = new System.Windows.Forms.ToolStripButton();
-            this.AddClipScript = new System.Windows.Forms.ToolStripButton();
-            this.RunClipScript = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,10 +65,44 @@
             this.toolStrip1.Size = new System.Drawing.Size(832, 31);
             this.toolStrip1.TabIndex = 14;
             // 
+            // SaveClipScript
+            // 
+            this.SaveClipScript.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.SaveClipScript.Image = global::XLG.Pipeliner.Properties.Resources.floppy_disk_48;
+            this.SaveClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveClipScript.Name = "SaveClipScript";
+            this.SaveClipScript.Size = new System.Drawing.Size(59, 28);
+            this.SaveClipScript.Text = "&Save";
+            this.SaveClipScript.ToolTipText = "Save the current ClipScript";
+            // 
+            // AddClipScript
+            // 
+            this.AddClipScript.Image = global::XLG.Pipeliner.Properties.Resources.add_48;
+            this.AddClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddClipScript.Name = "AddClipScript";
+            this.AddClipScript.Size = new System.Drawing.Size(92, 28);
+            this.AddClipScript.Text = "&New Script";
+            this.AddClipScript.ToolTipText = "Create a new ClipScript";
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // RunClipScript
+            // 
+            this.RunClipScript.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
+            this.RunClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RunClipScript.Name = "RunClipScript";
+            this.RunClipScript.Size = new System.Drawing.Size(56, 28);
+            this.RunClipScript.Text = "&Run";
+            this.RunClipScript.ToolTipText = "Runs the current ClipScript processing the clipboard";
+            this.RunClipScript.Click += new System.EventHandler(this.RunClipScript_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel1
             // 
@@ -125,40 +159,6 @@
             this.ClipScriptInput.TabIndex = 17;
             this.ClipScriptInput.Text = resources.GetString("ClipScriptInput.Text");
             this.ClipScriptInput.WordWrap = false;
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
-            // 
-            // SaveClipScript
-            // 
-            this.SaveClipScript.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.SaveClipScript.Image = global::XLG.Pipeliner.Properties.Resources.floppy_disk_48;
-            this.SaveClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveClipScript.Name = "SaveClipScript";
-            this.SaveClipScript.Size = new System.Drawing.Size(59, 28);
-            this.SaveClipScript.Text = "&Save";
-            this.SaveClipScript.ToolTipText = "Save the current ClipScript";
-            // 
-            // AddClipScript
-            // 
-            this.AddClipScript.Image = global::XLG.Pipeliner.Properties.Resources.add_48;
-            this.AddClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AddClipScript.Name = "AddClipScript";
-            this.AddClipScript.Size = new System.Drawing.Size(92, 28);
-            this.AddClipScript.Text = "&New Script";
-            this.AddClipScript.ToolTipText = "Create a new ClipScript";
-            // 
-            // RunClipScript
-            // 
-            this.RunClipScript.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
-            this.RunClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RunClipScript.Name = "RunClipScript";
-            this.RunClipScript.Size = new System.Drawing.Size(56, 28);
-            this.RunClipScript.Text = "&Run";
-            this.RunClipScript.ToolTipText = "Runs the current ClipScript processing the clipboard";
-            this.RunClipScript.Click += new System.EventHandler(this.RunClipScript_Click);
             // 
             // ClipScriptEditor
             // 
