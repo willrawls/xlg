@@ -1,26 +1,19 @@
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using MetX.Data;
+using MetX.IO;
 using MetX.Library;
-using Microsoft.CSharp;
-using Microsoft.VisualBasic;
-using XLG.Pipeliner;
 using XLG.Pipeliner.Properties;
-using FileSystem = MetX.IO.FileSystem;
 
-namespace MetX.Glove
+namespace XLG.Pipeliner
 {
     public partial class GloveMain : Form
     {
-        private static XlgAppData m_AppData;
         public static string ClipScriptProcessorSourceTemplate = null;
+        private static XlgAppData m_AppData;
 
         public static XlgAppData AppData
         {
@@ -35,12 +28,12 @@ namespace MetX.Glove
             set { m_AppData = value; }
         }
 
+        private readonly FileSystemWatchers m_FSWs = new FileSystemWatchers();
+        private readonly object m_SyncRoot = new object();
         private bool m_AutoGenActive = false;
         private XlgSource m_CurrSource = null;
         private bool m_RefreshingList;
         public XlgSettings Settings;
-        private readonly FileSystemWatchers m_FSWs = new FileSystemWatchers();
-        private readonly object m_SyncRoot = new object();
 
         public GloveMain()
         {
@@ -152,7 +145,7 @@ namespace MetX.Glove
         {
             if (InvokeRequired)
             {
-                Invoke(new EventHandler(buttonRegen_Click), new object[] { sender, e });
+                Invoke(new EventHandler(buttonRegen_Click), sender, e);
                 return;
             }
 
@@ -208,9 +201,8 @@ namespace MetX.Glove
                     MetadataSources.Items.Clear();
                     foreach (XlgSource currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName);
-                        lvi.Tag = currSource;
-                        lvi.Checked = currSource.Selected;
+                        ListViewItem lvi = new ListViewItem(currSource.DisplayName)
+                        {Tag = currSource, Checked = currSource.Selected};
                         MetadataSources.Items.Add(lvi);
                     }
                 }
@@ -222,9 +214,8 @@ namespace MetX.Glove
                     MetadataSources.Items.Clear();
                     foreach (XlgSource currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName);
-                        lvi.Tag = currSource;
-                        lvi.Checked = currSource.Selected;
+                        ListViewItem lvi = new ListViewItem(currSource.DisplayName)
+                        {Tag = currSource, Checked = currSource.Selected};
                         MetadataSources.Items.Add(lvi);
                     }
                     if (Settings.Filename != AppData.LastXlgsFile)
@@ -269,14 +260,14 @@ namespace MetX.Glove
                 if (m_FSWs.IsActive)
                 {
                     m_FSWs.End();
-                    autoRegenToolbarButton.Image = Resources.circle_blue;
-                    autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_blue;
+                    autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_blue;
+                    autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_blue;
                 }
                 else
                 {
                     m_FSWs.Begin(Settings, FSW_Changed, FSW_Error);
-                    autoRegenToolbarButton.Image = Resources.circle_green;
-                    autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
+                    autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_green;
+                    autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_green;
                 }
                 toolStrip1.Invalidate();
                 toolStrip1.Refresh();
@@ -287,12 +278,18 @@ namespace MetX.Glove
 
         private void FSW_Changed(object sender, FileSystemEventArgs e)
         {
-            if (e.FullPath.IndexOf(".xlg.xsl", StringComparison.Ordinal) <= 0) return;
+            if (e.FullPath.IndexOf(".xlg.xsl", StringComparison.Ordinal) <= 0)
+            {
+                return;
+            }
             try
             {
                 lock (m_SyncRoot)
                 {
-                    if (m_AutoGenActive) return;
+                    if (m_AutoGenActive)
+                    {
+                        return;
+                    }
                     m_AutoGenActive = true;
                 }
                 Invoke(new MethodInvoker(SynchAutoRegen));
@@ -310,23 +307,29 @@ namespace MetX.Glove
 
         private void SynchAutoRegen()
         {
-            autoRegenToolbarButton.Image = Resources.circle_orange;
-            autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_orange;
+            autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_orange;
+            autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_orange;
             m_FSWs.EnableRaisingEvents = false;
             buttonRegen_Click(null, null);
-            autoRegenToolbarButton.Image = Resources.circle_green;
-            autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
+            autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_green;
+            autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_green;
         }
 
-        private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e) { ((XlgSource)e.Item.Tag).Selected = e.Item.Checked; }
+        private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ((XlgSource) e.Item.Tag).Selected = e.Item.Checked;
+        }
 
         private void MetadataSources_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 UpdateCurrentSource();
-                if (MetadataSources.SelectedItems.Count <= 0) return;
-                m_CurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
+                if (MetadataSources.SelectedItems.Count <= 0)
+                {
+                    return;
+                }
+                m_CurrSource = (XlgSource) MetadataSources.SelectedItems[0].Tag;
                 textAppXlgXsl.Text = m_CurrSource.XslFilename;
                 textOutput.Text = m_CurrSource.OutputFilename;
                 textOutputXml.Text = m_CurrSource.OutputXml;
@@ -337,8 +340,10 @@ namespace MetX.Glove
                 //textSqlToXml.Text = m_CurrSource.SqlToXml;
                 checkRegenerateOnly.Checked = m_CurrSource.RegenerateOnly;
                 int index = comboProviderName.FindString(m_CurrSource.ProviderName);
-                if (index > -1) comboProviderName.SelectedIndex = index;
-
+                if (index > -1)
+                {
+                    comboProviderName.SelectedIndex = index;
+                }
             }
             catch (Exception ex)
             {
@@ -348,7 +353,10 @@ namespace MetX.Glove
 
         public void UpdateCurrentSource()
         {
-            if (m_CurrSource == null) return;
+            if (m_CurrSource == null)
+            {
+                return;
+            }
             m_CurrSource.XslFilename = textAppXlgXsl.Text;
             m_CurrSource.OutputFilename = textOutput.Text;
             m_CurrSource.OutputXml = textOutputXml.Text;
@@ -358,7 +366,10 @@ namespace MetX.Glove
             m_CurrSource.ConnectionString = textConnectionString.Text;
             m_CurrSource.RegenerateOnly = checkRegenerateOnly.Checked;
 //            m_CurrSource.SqlToXml = textSqlToXml.Text;
-            if (comboProviderName.SelectedIndex > -1) m_CurrSource.ProviderName = (string) comboProviderName.SelectedItem;
+            if (comboProviderName.SelectedIndex > -1)
+            {
+                m_CurrSource.ProviderName = (string) comboProviderName.SelectedItem;
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -366,7 +377,6 @@ namespace MetX.Glove
             try
             {
                 UpdateCurrentSource();
-                UpdateOpenClipScripts();
                 Settings.Save();
                 AppData.LastXlgsFile = Settings.Filename;
                 AppData.Save();
@@ -375,14 +385,6 @@ namespace MetX.Glove
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void UpdateOpenClipScripts()
-        {
-            foreach (ClipScriptEditor clipScriptEditor in ClipScriptEditors)
-            {
-                clipScriptEditor.UpdateBeforeSave();
             }
         }
 
@@ -408,7 +410,6 @@ namespace MetX.Glove
                 {
                     RefreshList(openFileDialog1.FileName);
                 }
-
             }
             catch (Exception ex)
             {
@@ -420,8 +421,15 @@ namespace MetX.Glove
         {
             try
             {
-                string itemName = Interaction.InputBox("What is the name of the database you wish to walk?", "DATABASE NAME", "CLONE", -1, -1);
-                if (string.IsNullOrEmpty(itemName)) return;
+                string itemName = "CLONE";
+
+                if (UI.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                    == DialogResult.Cancel
+                    || string.IsNullOrEmpty(itemName))
+                {
+                    return;
+                }
+
                 if (m_CurrSource == null && Settings.Sources.Count > 0)
                 {
                     m_CurrSource = Settings.Sources[0];
@@ -434,13 +442,15 @@ namespace MetX.Glove
                 }
                 else
                 {
-                    newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace, StringExtensions.LastToken((m_CurrSource != null
-                        ? m_CurrSource.ProviderName
-                        : (Settings.Sources.Count + 1).ToString()), ".") + ": " + itemName, itemName);
+                    newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace,
+                        (m_CurrSource != null
+                            ? m_CurrSource.ProviderName
+                            : (Settings.Sources.Count + 1).ToString()).LastToken(".") + ": " + itemName, itemName);
 
                     if (m_CurrSource != null)
                     {
-                        newSource.BasePath = StringExtensions.TokensBefore(m_CurrSource.OutputFilename, StringExtensions.TokenCount(m_CurrSource.OutputFilename, @"\") - 1, @"\") + @"\" + itemName + @"\";
+                        newSource.BasePath = m_CurrSource.OutputFilename.TokensBefore(m_CurrSource.OutputFilename.TokenCount(@"\") - 1, @"\") + @"\" + itemName
+                                             + @"\";
                     }
                     else
                     {
@@ -452,7 +462,8 @@ namespace MetX.Glove
                     if (m_CurrSource != null)
                     {
                         newSource.ConnectionString = m_CurrSource.ConnectionString;
-                        newSource.OutputFilename = newSource.BasePath + itemName + ".Glove." + Path.GetExtension(m_CurrSource.OutputFilename);
+                        newSource.OutputFilename = newSource.BasePath + itemName + ".Glove."
+                                                   + Path.GetExtension(m_CurrSource.OutputFilename);
                         newSource.OutputXml = newSource.BasePath + itemName + ".Glove.xml";
                         newSource.ProviderName = m_CurrSource.ProviderName;
                         newSource.Selected = true;
@@ -479,7 +490,6 @@ namespace MetX.Glove
                 buttonSave_Click(null, null);
                 RefreshList();
                 MetadataSources.Items[MetadataSources.Items.Count - 1].Selected = true;
-
             }
             catch (Exception ex)
             {
@@ -491,9 +501,18 @@ namespace MetX.Glove
         {
             try
             {
-                if (m_CurrSource == null) return;
-                var messageBoxResult = MessageBox.Show("Are you sure you want to remove the current step?\r\n\tThere is no undo for this action.", "REMOVE STEP", MessageBoxButtons.YesNo);
-                if (messageBoxResult == DialogResult.No) return;
+                if (m_CurrSource == null)
+                {
+                    return;
+                }
+                var messageBoxResult =
+                    MessageBox.Show(
+                        "Are you sure you want to remove the current step?\r\n\tThere is no undo for this action.",
+                        "REMOVE STEP", MessageBoxButtons.YesNo);
+                if (messageBoxResult == DialogResult.No)
+                {
+                    return;
+                }
                 Settings.Sources.Remove(m_CurrSource);
                 m_CurrSource = null;
                 buttonSave_Click(null, null);
@@ -512,7 +531,8 @@ namespace MetX.Glove
                 FileSystem.InsureFolderExists(textXlgFile.Text, true);
                 if (!File.Exists(textXlgFile.Text))
                 {
-                    File.WriteAllText(textXlgFile.Text, DefaultXlg.xml.Replace("[Default]", textConnectionStringName.Text));
+                    File.WriteAllText(textXlgFile.Text,
+                        DefaultXlg.xml.Replace("[Default]", textConnectionStringName.Text));
                 }
                 Process.Start(AppData.TextEditor, textXlgFile.Text);
             }
@@ -528,7 +548,6 @@ namespace MetX.Glove
             {
                 FileSystem.InsureFolderExists(textAppXlgXsl.Text, true);
                 Process.Start(AppData.TextEditor, textAppXlgXsl.Text);
-
             }
             catch (Exception ex)
             {
@@ -542,7 +561,6 @@ namespace MetX.Glove
             {
                 FileSystem.InsureFolderExists(textOutput.Text, true);
                 Process.Start(AppData.TextEditor, textOutput.Text);
-
             }
             catch (Exception ex)
             {
@@ -556,11 +574,11 @@ namespace MetX.Glove
             {
                 if (string.IsNullOrEmpty(textOutputXml.Text))
                 {
-                    textOutputXml.Text = textOutput.Text.Substring(0, textOutput.Text.Length - Path.GetExtension(textOutput.Text).Length) + ".xml";
+                    textOutputXml.Text = textOutput.Text.Substring(0,
+                        textOutput.Text.Length - Path.GetExtension(textOutput.Text).Length) + ".xml";
                 }
                 FileSystem.InsureFolderExists(textOutputXml.Text, true);
                 Process.Start(AppData.TextEditor, textOutputXml.Text);
-
             }
             catch (Exception ex)
             {
@@ -583,7 +601,6 @@ namespace MetX.Glove
                 {
                     textOutputXml.Text = saveFileDialog1.FileName;
                 }
-
             }
             catch (Exception ex)
             {
@@ -599,7 +616,7 @@ namespace MetX.Glove
                 Settings = new XlgSettings(this)
                 {
                     Sources = new List<XlgSource>(),
-                    ClipScripts = new List<XlgClipScript>(),
+                    ClipScripts = new List<XlgQuickScript>(),
                     DefaultConnectionString = t.DefaultConnectionString,
                     DefaultProviderName = t.DefaultProviderName
                 };
@@ -611,7 +628,10 @@ namespace MetX.Glove
                 saveFileDialog1.DefaultExt = ".xlgs";
                 saveFileDialog1.Filter = "*.xlgs|*.xlgs";
                 saveFileDialog1.ShowDialog(this);
-                if (string.IsNullOrEmpty(saveFileDialog1.FileName) || File.Exists(saveFileDialog1.FileName)) return;
+                if (string.IsNullOrEmpty(saveFileDialog1.FileName) || File.Exists(saveFileDialog1.FileName))
+                {
+                    return;
+                }
                 Settings.Filename = saveFileDialog1.FileName;
                 buttonSave_Click(null, null);
                 RefreshList();
@@ -639,7 +659,6 @@ namespace MetX.Glove
                 }
                 Settings.Filename = saveFileDialog1.FileName;
                 buttonSave_Click(null, null);
-
             }
             catch (Exception ex)
             {
@@ -653,7 +672,6 @@ namespace MetX.Glove
             {
                 buttonSave_Click(null, null);
                 Close();
-
             }
             catch (Exception ex)
             {
@@ -716,30 +734,11 @@ namespace MetX.Glove
             */
         }
 
-        private void scratchToolStripMenuItem_Click(object sender, EventArgs e) { }
-
-        public List<ClipScriptEditor> ClipScriptEditors = new List<ClipScriptEditor>();
-        public List<ClipScriptOutput> ClipScriptOutputs = new List<ClipScriptOutput>();
-
         private void EditClipScript_Click(object sender, EventArgs e)
         {
-            OpenNewClipScriptEditor();
-        }
-
-        public void OpenNewClipScriptEditor()
-        {
-            var clipScriptEditor = new ClipScriptEditor(this);
-            ClipScriptEditors.Add(clipScriptEditor);
-            clipScriptEditor.Show(this);
-            clipScriptEditor.BringToFront();
-        }
-
-        public void OpenNewClipScriptOutput(string title, string output)
-        {
-            var clipScriptOutput = new ClipScriptOutput(title, output);
-            ClipScriptOutputs.Add(clipScriptOutput);
-            clipScriptOutput.Show(this);
-            clipScriptOutput.BringToFront();
+            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
+            if (!File.Exists(exePath)) MessageBox.Show(this, "Quick scripts missing: " + exePath);
+            else Process.Start(exePath, string.Empty);
         }
     }
 }

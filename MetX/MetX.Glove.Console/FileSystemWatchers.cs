@@ -3,7 +3,7 @@ using System.IO;
 using MetX.Data;
 using MetX.Library;
 
-namespace MetX.Glove
+namespace XLG.Pipeliner
 {
     public class FileSystemWatchers : List<FileSystemWatcher>
     {

@@ -13,7 +13,7 @@ namespace MetX.Data
         private static XmlSerializer _settingsSerializer = new XmlSerializer(typeof (XlgSettings));
 
         [XmlArray("ClipScripts", Namespace = "", IsNullable = false),
-         XmlArrayItem("ClipScript", Namespace = "", IsNullable = false)] public List<XlgClipScript> ClipScripts = new List<XlgClipScript>();
+         XmlArrayItem("ClipScript", Namespace = "", IsNullable = false)] public List<XlgQuickScript> ClipScripts = new List<XlgQuickScript>();
 
         [XmlAttribute] public string DefaultConnectionString;
         [XmlAttribute] public string DefaultProviderName;
@@ -49,7 +49,7 @@ namespace MetX.Data
         public void Save()
         {
             if (ClipScripts == null)
-                ClipScripts = new List<XlgClipScript>();
+                ClipScripts = new List<XlgQuickScript>();
             File.WriteAllText(Filename, OuterXml());
         }
 

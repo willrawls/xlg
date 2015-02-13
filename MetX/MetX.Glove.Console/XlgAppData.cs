@@ -1,102 +1,101 @@
 using System;
-using System.IO;
-using System.Web.Configuration;
 using System.Collections.Generic;
-using System.Configuration;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-
-using MetX;
-using MetX.IO;
-using MetX.Security;
-using MetX.Data;
 using MetX.Library;
+using Microsoft.Win32;
 
-namespace MetX.Glove
+namespace XLG.Pipeliner
 {
-	[Serializable]
-	public class XlgAppData
-	{
-		[XmlAttribute]
-		public string BasePath;
-		[XmlAttribute]
-		public string SupportPath;
-		[XmlAttribute]
-		public string ParentNamespace;
-		[XmlAttribute]
-		public string TextEditor;
-		[XmlAttribute]
-		public string LastXlgsFile;
+    [Serializable]
+    public class XlgAppData
+    {
+        private static RegistryKey m_AppDataRegKey;
+        [XmlAttribute] public string BasePath;
+        [XmlAttribute] public string LastXlgsFile;
+        [XmlAttribute] public string ParentNamespace;
+        [XmlAttribute] public string SupportPath;
+        [XmlAttribute] public string TextEditor;
+        // ReSharper disable once EmptyConstructor
+        public XlgAppData() { }
+        public string ToXml() { return Xml.ToXml(this, true); }
+        public static XlgAppData FromXml(string xmlDoc) { return Xml.FromXml<XlgAppData>(xmlDoc); }
 
-		static Microsoft.Win32.RegistryKey AppDataRegKey;
+        public static XlgAppData ResetPreferences()
+        {
+            string drive = Environment.CurrentDirectory.Substring(0, 1);
 
-		public XlgAppData() { }
-		public string ToXml() { return Xml.ToXml<XlgAppData>(this, true); }
-		public static XlgAppData FromXml(string XmlDoc) { return Xml.FromXml<XlgAppData>(XmlDoc); }
+            XlgAppData ret = new XlgAppData
+            {
+                BasePath = drive + @":\data\code\xlg\DAL\",
+                SupportPath = drive + @":\data\code\xlg\Support\",
+                ParentNamespace = "xlg.dal",
+            };
+            ret.LastXlgsFile = ret.SupportPath + "Default.xlgs";
+            ret.TextEditor = ret.SupportPath + "Notepad2.exe";
+            ret.Save();
+            return ret;
+        }
 
-		public static XlgAppData ResetPreferences()
-		{
-			string Drive = System.Environment.CurrentDirectory.Substring(0, 1);
+        public static XlgAppData Load()
+        {
+            XlgAppData ret = null;
+            m_AppDataRegKey = Application.UserAppDataRegistry;
+            if (m_AppDataRegKey != null)
+            {
+                List<string> valueNames = new List<string>(m_AppDataRegKey.GetValueNames());
 
-			XlgAppData ret = new XlgAppData();
-			ret.BasePath = Drive + @":\data\code\xlg\DAL\";
-			ret.SupportPath = Drive + @":\data\code\xlg\Support\";
-			ret.LastXlgsFile = ret.SupportPath + "Default.xlgs";
-			ret.ParentNamespace = "xlg.dal";
-			ret.TextEditor = ret.SupportPath + "Notepad2.exe";
+                try
+                {
+                    if (valueNames.Count == 0 || !valueNames.Contains("Preferences"))
+                    {
+                        ret = ResetPreferences();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            ret = FromXml(m_AppDataRegKey.GetValue("Preferences") as string);
+                        }
+                        catch
+                        {
+                            ret = ResetPreferences();
+                        }
+                    }
+                }
+                finally
+                {
+                    if (m_AppDataRegKey != null)
+                    {
+                        m_AppDataRegKey.Close();
+                        m_AppDataRegKey = null;
+                    }
+                }
+            }
+            return ret;
+        }
 
-			ret.Save();
-			return ret;
-		}
+        public void Save()
+        {
+            bool openedKey = false;
+            if (m_AppDataRegKey == null)
+            {
+                m_AppDataRegKey = Application.UserAppDataRegistry;
+                openedKey = true;
+            }
 
-		public static XlgAppData Load()
-		{
-			AppDataRegKey = Application.UserAppDataRegistry;
-			List<string> ValueNames = new List<string>(AppDataRegKey.GetValueNames());
+            if (m_AppDataRegKey == null)
+            {
+                return;
+            }
+            m_AppDataRegKey.SetValue("Preferences", ToXml(), RegistryValueKind.String);
 
-			XlgAppData ret = null;
-			try
-			{
-				if (ValueNames == null || ValueNames.Count == 0 || !ValueNames.Contains("Preferences"))
-					ret = ResetPreferences();
-				else
-				{
-					try { ret = XlgAppData.FromXml(AppDataRegKey.GetValue("Preferences") as string); }
-					catch { ret = ResetPreferences(); }
-				}
-			}
-			finally
-			{
-				if (AppDataRegKey != null)
-				{
-					AppDataRegKey.Close();
-					AppDataRegKey = null;
-				}
-			}
-			return ret;
-		}
-
-		public void Save()
-		{
-			bool OpenedKey = false;
-			if (AppDataRegKey == null)
-			{
-				AppDataRegKey = Application.UserAppDataRegistry;
-				OpenedKey = true;
-			}
-
-			AppDataRegKey.SetValue("Preferences", ToXml(), Microsoft.Win32.RegistryValueKind.String);
-
-			if (OpenedKey && AppDataRegKey != null)
-			{
-				AppDataRegKey.Close();
-				AppDataRegKey = null;
-			}
-		}
-	}
+            if (!openedKey || m_AppDataRegKey == null)
+            {
+                return;
+            }
+            m_AppDataRegKey.Close();
+            m_AppDataRegKey = null;
+        }
+    }
 }

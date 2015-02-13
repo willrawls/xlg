@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XLG.Pipeliner</RootNamespace>
     <AssemblyName>xlgPipeliner</AssemblyName>
-    <StartupObject>MetX.Glove.Console.Program</StartupObject>
+    <StartupObject>XLG.Pipeliner.Program</StartupObject>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -74,29 +74,16 @@
     <DocumentationFile>..\..\bin\xlgPipeliner.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClipScriptEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClipScriptEditor.Designer.cs">
-      <DependentUpon>ClipScriptEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClipScriptOutput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClipScriptOutput.Designer.cs">
-      <DependentUpon>ClipScriptOutput.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileSystemWatchers.cs" />
     <Compile Include="GloveMain.cs">
       <SubType>Form</SubType>
@@ -105,7 +92,7 @@
       <DependentUpon>GloveMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -119,12 +106,6 @@
     <Compile Include="XlgAppData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ClipScriptEditor.resx">
-      <DependentUpon>ClipScriptEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ClipScriptOutput.resx">
-      <DependentUpon>ClipScriptOutput.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GloveMain.resx">
       <DependentUpon>GloveMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -153,27 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="batfile.ico" />
-    <Content Include="Properties\arrow_down_48.png" />
-    <Content Include="Properties\circle_blue.png" />
-    <Content Include="Properties\circle_green.png" />
-    <Content Include="Properties\circle_orange.png" />
-    <Content Include="Properties\refresh_48.png" />
-    <Content Include="Resources\1421584661_4.png" />
-    <Content Include="Resources\1421584690_2.png" />
-    <Content Include="Resources\1421584694_2.png" />
-    <Content Include="Resources\1421584753_Cut.png" />
-    <Content Include="Resources\1421584808_Copy.png" />
-    <Content Include="Resources\1421584898_clipboard.png" />
-    <Content Include="Resources\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
-    <Content Include="Resources\1421584946_file-48.png" />
     <Content Include="Settings.ico" />
-    <None Include="Resources\folder_48.png" />
-    <None Include="Resources\cancel_48.png" />
-    <None Include="Resources\database_remove_48.png" />
-    <None Include="Resources\database_add_48.png" />
-    <None Include="Resources\add_48.png" />
-    <None Include="Resources\floppy_disk_48.png" />
-    <None Include="Resources\cross_48.png" />
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>

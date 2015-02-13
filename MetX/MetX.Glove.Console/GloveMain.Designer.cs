@@ -1,4 +1,6 @@
-namespace MetX.Glove
+using System.Windows.Forms;
+
+namespace XLG.Pipeliner
 {
     partial class GloveMain
     {
@@ -33,17 +35,23 @@ namespace MetX.Glove
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regenerateCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regenerateSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.autoRegenOnChangedXSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.scratchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MetadataSources = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -79,23 +87,15 @@ namespace MetX.Glove
             this.textConnectionString = new System.Windows.Forms.TextBox();
             this.buttonEditConnectionString = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.regenerateCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoRegenOnChangedXSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.autoRegenToolbarButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.EditClipScript = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -117,8 +117,7 @@ namespace MetX.Glove
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.toolStripMenuItem1,
+            this.fileToolStripMenuItem, 
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -140,27 +139,57 @@ namespace MetX.Glove
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
+            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripMenuItem.Text = "&New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
+            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Text = "&Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -180,6 +209,14 @@ namespace MetX.Glove
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.toolsToolStripMenuItem.Text = "S&ettings";
             // 
+            // generateCheckedToolStripMenuItem
+            // 
+            this.generateCheckedToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateCheckedToolStripMenuItem.Image")));
+            this.generateCheckedToolStripMenuItem.Name = "generateCheckedToolStripMenuItem";
+            this.generateCheckedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.generateCheckedToolStripMenuItem.Text = "&Generate Checked";
+            this.generateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonGo_Click);
+            // 
             // generateSelectedToolStripMenuItem
             // 
             this.generateSelectedToolStripMenuItem.Enabled = false;
@@ -187,6 +224,14 @@ namespace MetX.Glove
             this.generateSelectedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.generateSelectedToolStripMenuItem.Text = "Generate &Selected";
             this.generateSelectedToolStripMenuItem.Click += new System.EventHandler(this.generateSelectedToolStripMenuItem_Click);
+            // 
+            // regenerateCheckedToolStripMenuItem
+            // 
+            this.regenerateCheckedToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("regenerateCheckedToolStripMenuItem.Image")));
+            this.regenerateCheckedToolStripMenuItem.Name = "regenerateCheckedToolStripMenuItem";
+            this.regenerateCheckedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.regenerateCheckedToolStripMenuItem.Text = "&Regenerate Checked";
+            this.regenerateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonRegen_Click);
             // 
             // regenerateSelectedToolStripMenuItem
             // 
@@ -201,25 +246,34 @@ namespace MetX.Glove
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
             // 
+            // autoRegenOnChangedXSLToolStripMenuItem
+            // 
+            this.autoRegenOnChangedXSLToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("autoRegenOnChangedXSLToolStripMenuItem.Image")));
+            this.autoRegenOnChangedXSLToolStripMenuItem.Name = "autoRegenOnChangedXSLToolStripMenuItem";
+            this.autoRegenOnChangedXSLToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.autoRegenOnChangedXSLToolStripMenuItem.Text = "Auto Regen when XSL changes";
+            this.autoRegenOnChangedXSLToolStripMenuItem.Click += new System.EventHandler(this.buttonAutoGen_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
-            // toolStripMenuItem1
+            // customizeToolStripMenuItem
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scratchToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(39, 20);
-            this.toolStripMenuItem1.Text = "&Edit";
+            this.customizeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("customizeToolStripMenuItem.Image")));
+            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.customizeToolStripMenuItem.Text = "&Add Step / Database Target";
+            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // scratchToolStripMenuItem
+            // optionsToolStripMenuItem
             // 
-            this.scratchToolStripMenuItem.Name = "scratchToolStripMenuItem";
-            this.scratchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.scratchToolStripMenuItem.Text = "&ClipScripts";
-            this.scratchToolStripMenuItem.Click += new System.EventHandler(this.scratchToolStripMenuItem_Click);
+            this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.optionsToolStripMenuItem.Text = "Delete Step / Database Target";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // MetadataSources
             // 
@@ -613,7 +667,6 @@ namespace MetX.Glove
             // 
             // toolStrip1
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton6,
             this.toolStripSeparator4,
@@ -625,10 +678,20 @@ namespace MetX.Glove
             this.toolStripButton5,
             this.toolStripSeparator8,
             this.EditClipScript});
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(736, 31);
             this.toolStrip1.TabIndex = 0;
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(59, 28);
+            this.toolStripButton6.Text = "&Save";
+            this.toolStripButton6.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // toolStripSeparator4
             // 
@@ -636,99 +699,9 @@ namespace MetX.Glove
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
             // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 31);
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.folder_48;
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "&Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.buttonLoad_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.floppy_disk_48;
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // generateCheckedToolStripMenuItem
-            // 
-            this.generateCheckedToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
-            this.generateCheckedToolStripMenuItem.Name = "generateCheckedToolStripMenuItem";
-            this.generateCheckedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.generateCheckedToolStripMenuItem.Text = "&Generate Checked";
-            this.generateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonGo_Click);
-            // 
-            // regenerateCheckedToolStripMenuItem
-            // 
-            this.regenerateCheckedToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.refresh_48;
-            this.regenerateCheckedToolStripMenuItem.Name = "regenerateCheckedToolStripMenuItem";
-            this.regenerateCheckedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.regenerateCheckedToolStripMenuItem.Text = "&Regenerate Checked";
-            this.regenerateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonRegen_Click);
-            // 
-            // autoRegenOnChangedXSLToolStripMenuItem
-            // 
-            this.autoRegenOnChangedXSLToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.circle_blue;
-            this.autoRegenOnChangedXSLToolStripMenuItem.Name = "autoRegenOnChangedXSLToolStripMenuItem";
-            this.autoRegenOnChangedXSLToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.autoRegenOnChangedXSLToolStripMenuItem.Text = "Auto Regen when XSL changes";
-            this.autoRegenOnChangedXSLToolStripMenuItem.Click += new System.EventHandler(this.buttonAutoGen_Click);
-            // 
-            // customizeToolStripMenuItem
-            // 
-            this.customizeToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.add_48;
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.customizeToolStripMenuItem.Text = "&Add Step / Database Target";
-            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Image = global::XLG.Pipeliner.Properties.Resources.cancel_48;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.optionsToolStripMenuItem.Text = "Delete Step / Database Target";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // toolStripButton6
-            // 
-            this.toolStripButton6.Image = global::XLG.Pipeliner.Properties.Resources.floppy_disk_48;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(59, 28);
-            this.toolStripButton6.Text = "&Save";
-            this.toolStripButton6.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // toolStripButton1
             // 
-            this.toolStripButton1.Image = global::XLG.Pipeliner.Properties.Resources.arrow_down_48;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(56, 28);
@@ -737,7 +710,7 @@ namespace MetX.Glove
             // 
             // toolStripButton2
             // 
-            this.toolStripButton2.Image = global::XLG.Pipeliner.Properties.Resources.refresh_48;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(68, 28);
@@ -746,16 +719,22 @@ namespace MetX.Glove
             // 
             // autoRegenToolbarButton
             // 
-            this.autoRegenToolbarButton.Image = global::XLG.Pipeliner.Properties.Resources.circle_blue;
+            this.autoRegenToolbarButton.Image = ((System.Drawing.Image)(resources.GetObject("autoRegenToolbarButton.Image")));
             this.autoRegenToolbarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.autoRegenToolbarButton.Name = "autoRegenToolbarButton";
             this.autoRegenToolbarButton.Size = new System.Drawing.Size(85, 28);
             this.autoRegenToolbarButton.Text = "&Auto Gen";
             this.autoRegenToolbarButton.Click += new System.EventHandler(this.buttonAutoGen_Click);
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
+            // 
             // toolStripButton4
             // 
-            this.toolStripButton4.Image = global::XLG.Pipeliner.Properties.Resources.add_48;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(83, 28);
@@ -764,20 +743,25 @@ namespace MetX.Glove
             // 
             // toolStripButton5
             // 
-            this.toolStripButton5.Image = global::XLG.Pipeliner.Properties.Resources.cancel_48;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(104, 28);
             this.toolStripButton5.Text = "Remove Step";
             this.toolStripButton5.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 31);
+            // 
             // EditClipScript
             // 
-            this.EditClipScript.Image = global::XLG.Pipeliner.Properties.Resources._1421584898_clipboard;
+            this.EditClipScript.Image = ((System.Drawing.Image)(resources.GetObject("EditClipScript.Image")));
             this.EditClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.EditClipScript.Name = "EditClipScript";
-            this.EditClipScript.Size = new System.Drawing.Size(86, 28);
-            this.EditClipScript.Text = "ClipScript";
+            this.EditClipScript.Size = new System.Drawing.Size(101, 28);
+            this.EditClipScript.Text = "&QuickScripts";
             this.EditClipScript.Click += new System.EventHandler(this.EditClipScript_Click);
             // 
             // GloveMain
@@ -877,8 +861,6 @@ namespace MetX.Glove
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonEditConnectionString;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem scratchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton EditClipScript;
     }

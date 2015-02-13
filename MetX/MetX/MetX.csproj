@@ -128,7 +128,7 @@
     <Compile Include="Data\ActiveRecord.cs" />
     <Compile Include="Data\ClipScriptDestination.cs" />
     <Compile Include="Data\CodeGenerator.cs" />
-    <Compile Include="Data\XlgClipScript.cs" />
+    <Compile Include="Data\XlgQuickScript.cs" />
     <Compile Include="Data\xlgFile.cs" />
     <Compile Include="Data\DataDefault.GenInclude.cs">
       <SubType>Code</SubType>
@@ -142,6 +142,7 @@
     <Compile Include="Data\Support.cs" />
     <Compile Include="Data\TableSchema.cs" />
     <Compile Include="Data\xlgFolder.cs" />
+    <Compile Include="Data\XlgQuickScriptFile.cs" />
     <Compile Include="Data\XlgSettings.cs" />
     <Compile Include="Data\xlgSource.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
@@ -150,11 +151,18 @@
     <EmbeddedResource Include="Library\ClipScriptProcessor.cs" />
     <Compile Include="Library\IProcessForClipScript.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
+    <Compile Include="Library\UI.cs" />
     <Compile Include="Library\Xhtml.cs" />
     <Compile Include="Library\xlgUrn.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Library\xsl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Security\Crypt.cs" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -186,6 +194,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Security\PartnerCrypt.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
@@ -195,6 +207,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="batfile.ico" />
+    <Content Include="Properties\arrow_down_48.png" />
+    <Content Include="Properties\circle_blue.png" />
+    <Content Include="Properties\circle_green.png" />
+    <Content Include="Properties\circle_orange.png" />
+    <Content Include="Properties\refresh_48.png" />
+    <Content Include="Properties\1421584661_4.png" />
+    <Content Include="Properties\1421584690_2.png" />
+    <Content Include="Properties\1421584694_2.png" />
+    <Content Include="Properties\1421584753_Cut.png" />
+    <Content Include="Properties\1421584808_Copy.png" />
+    <Content Include="Properties\1421584898_clipboard.png" />
+    <Content Include="Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
+    <Content Include="Properties\1421584946_file-48.png" />
+    <None Include="Properties\folder_48.png" />
+    <None Include="Properties\floppy_disk_48.png" />
+    <None Include="Properties\database_remove_48.png" />
+    <None Include="Properties\database_add_48.png" />
+    <None Include="Properties\cross_48.png" />
+    <None Include="Properties\cancel_48.png" />
+    <None Include="Properties\add_48.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -212,6 +244,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

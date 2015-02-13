@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Text;
-
-using MetX;
-using MetX.IO;
-using MetX.Security;
 using MetX.Data;
+using MetX.IO;
 using MetX.Library;
 
-namespace MetX.Glove.Console
+namespace XLG.Pipeliner
 {
     class Program
     {

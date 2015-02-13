@@ -1,6 +1,6 @@
 ﻿namespace XLG.Pipeliner
 {
-    partial class ClipScriptEditor
+    partial class QuickScriptEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipScriptEditor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickScriptEditor));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.SaveClipScript = new System.Windows.Forms.ToolStripButton();
             this.AddClipScript = new System.Windows.Forms.ToolStripButton();
@@ -36,12 +36,12 @@
             this.RunClipScript = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.ClipScriptList = new System.Windows.Forms.ToolStripComboBox();
+            this.QuickScriptList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.DestinationList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.ClipScriptInput = new System.Windows.Forms.TextBox();
+            this.QuickScriptInput = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +55,7 @@
             this.RunClipScript,
             this.toolStripSeparator3,
             this.toolStripLabel1,
-            this.ClipScriptList,
+            this.QuickScriptList,
             this.toolStripSeparator1,
             this.toolStripLabel2,
             this.DestinationList,
@@ -68,16 +68,17 @@
             // SaveClipScript
             // 
             this.SaveClipScript.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.SaveClipScript.Image = global::MetX.Properties.Resources.floppy_disk_48;
+            this.SaveClipScript.Image = ((System.Drawing.Image)(resources.GetObject("SaveClipScript.Image")));
             this.SaveClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveClipScript.Name = "SaveClipScript";
             this.SaveClipScript.Size = new System.Drawing.Size(59, 28);
             this.SaveClipScript.Text = "&Save";
             this.SaveClipScript.ToolTipText = "Save the current ClipScript";
+            this.SaveClipScript.Click += new System.EventHandler(this.SaveClipScript_Click);
             // 
             // AddClipScript
             // 
-            this.AddClipScript.Image = global::MetX.Properties.Resources.add_48;
+            this.AddClipScript.Image = ((System.Drawing.Image)(resources.GetObject("AddClipScript.Image")));
             this.AddClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.AddClipScript.Name = "AddClipScript";
             this.AddClipScript.Size = new System.Drawing.Size(92, 28);
@@ -91,7 +92,7 @@
             // 
             // RunClipScript
             // 
-            this.RunClipScript.Image = global::MetX.Properties.Resources.arrow_down_48;
+            this.RunClipScript.Image = ((System.Drawing.Image)(resources.GetObject("RunClipScript.Image")));
             this.RunClipScript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RunClipScript.Name = "RunClipScript";
             this.RunClipScript.Size = new System.Drawing.Size(56, 28);
@@ -110,11 +111,11 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(46, 28);
             this.toolStripLabel1.Text = "Source:";
             // 
-            // ClipScriptList
+            // QuickScriptList
             // 
-            this.ClipScriptList.Name = "ClipScriptList";
-            this.ClipScriptList.Size = new System.Drawing.Size(200, 31);
-            this.ClipScriptList.SelectedIndexChanged += new System.EventHandler(this.ClipScriptList_SelectedIndexChanged);
+            this.QuickScriptList.Name = "QuickScriptList";
+            this.QuickScriptList.Size = new System.Drawing.Size(200, 31);
+            this.QuickScriptList.SelectedIndexChanged += new System.EventHandler(this.QuickScriptList_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
@@ -144,30 +145,30 @@
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 31);
             // 
-            // ClipScriptInput
+            // QuickScriptInput
             // 
-            this.ClipScriptInput.AcceptsReturn = true;
-            this.ClipScriptInput.AcceptsTab = true;
-            this.ClipScriptInput.AllowDrop = true;
-            this.ClipScriptInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClipScriptInput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClipScriptInput.Location = new System.Drawing.Point(0, 31);
-            this.ClipScriptInput.Multiline = true;
-            this.ClipScriptInput.Name = "ClipScriptInput";
-            this.ClipScriptInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ClipScriptInput.Size = new System.Drawing.Size(832, 511);
-            this.ClipScriptInput.TabIndex = 17;
-            this.ClipScriptInput.Text = resources.GetString("ClipScriptInput.Text");
-            this.ClipScriptInput.WordWrap = false;
+            this.QuickScriptInput.AcceptsReturn = true;
+            this.QuickScriptInput.AcceptsTab = true;
+            this.QuickScriptInput.AllowDrop = true;
+            this.QuickScriptInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.QuickScriptInput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuickScriptInput.Location = new System.Drawing.Point(0, 31);
+            this.QuickScriptInput.Multiline = true;
+            this.QuickScriptInput.Name = "QuickScriptInput";
+            this.QuickScriptInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.QuickScriptInput.Size = new System.Drawing.Size(832, 511);
+            this.QuickScriptInput.TabIndex = 17;
+            this.QuickScriptInput.Text = resources.GetString("QuickScriptInput.Text");
+            this.QuickScriptInput.WordWrap = false;
             // 
-            // ClipScriptEditor
+            // QuickScriptEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 542);
-            this.Controls.Add(this.ClipScriptInput);
+            this.Controls.Add(this.QuickScriptInput);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "ClipScriptEditor";
+            this.Name = "QuickScriptEditor";
             this.Text = "Clip Script Editor";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -183,10 +184,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton RunClipScript;
         private System.Windows.Forms.ToolStripButton AddClipScript;
-        private System.Windows.Forms.TextBox ClipScriptInput;
+        private System.Windows.Forms.TextBox QuickScriptInput;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox ClipScriptList;
+        private System.Windows.Forms.ToolStripComboBox QuickScriptList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripComboBox DestinationList;

@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using MetX.Data;
-using MetX.Glove;
 using MetX.Library;
 using Microsoft.CSharp;
 
