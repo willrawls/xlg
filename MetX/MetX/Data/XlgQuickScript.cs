@@ -1,6 +1,6 @@
 using System;
-using System.Windows.Forms.VisualStyles;
-using System.Xml;
+using System.IO;
+using System.Text;
 using System.Xml.Serialization;
 using MetX.Library;
 
@@ -9,74 +9,91 @@ namespace MetX.Data
     /// <summary>
     /// Represents a clipboard processing script
     /// </summary>
-    [Serializable, XmlType(Namespace = "", AnonymousType = true)]
+    [Serializable]
+    [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
-        [XmlAttribute]
-        public string Name;
-        [XmlAttribute]
-        public string Script;
-        [XmlAttribute]
-        public ClipScriptDestination Destination;
+        [XmlAttribute] public ClipScriptDestination Destination;
+        [XmlAttribute] public Guid Id;
+        [XmlAttribute] public string Input;
+        [XmlAttribute] public string Name;
+        [XmlAttribute] public string Script;
 
-        public XlgQuickScript() { Script = string.Empty; Id = Guid.NewGuid(); }
-        [XmlAttribute]
-        public Guid Id;
-
-        public string Input;
-
-        public void Update(string name, string script, string destination)
+        public XlgQuickScript(string name = null, string script = "")
         {
             Name = name;
             Script = script;
-            Enum.TryParse(destination.Replace(" ", string.Empty), out Destination);
+            Id = Guid.NewGuid();
+            Destination = ClipScriptDestination.TextBox;
         }
 
-        public string ToString(bool isDefault)
+        public bool Parse(string rawScript)
         {
-            return "~~QuickScriptName:" + Name + Environment.NewLine +
-                   "~~QuickScriptDestination:" + Destination + Environment.NewLine +
-                   "~~QuickScriptId:" + Id + Environment.NewLine +
-                   (isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty) +
-                   Script;
-        }
+            bool ret = false;
+            if (string.IsNullOrEmpty(rawScript)) throw new ArgumentNullException("rawScript");
+            Name = rawScript.FirstToken(Environment.NewLine);
+            if (string.IsNullOrEmpty(Name)) Name = "Unnamed " + Guid.NewGuid();
 
-        public static void LoadLineFromFile(XlgQuickScriptFile ret, ref XlgQuickScript currScript, string line)
-        {
-            if (line.StartsWith("~~QuickScriptName:"))
+            rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
+            if (!rawScript.Contains("~~QuickScript"))
             {
-                if (!string.IsNullOrEmpty(currScript.Name))
-                {
-                    ret.Add(currScript);
-                    currScript = new XlgQuickScript();
-                }
-                currScript.Name = line.TokensAfterFirst(":");
-                if (string.IsNullOrEmpty(currScript.Name))
-                {
-                    currScript.Name = "Unnamed " + Guid.NewGuid();
-                }
-            }
-            else if (line.StartsWith("~~QuickScriptDefault:"))
-            {
-                ret.Default = currScript;
-            }
-            else if (line.StartsWith("~~QuickScriptDestination:"))
-            {
-                if (!Enum.TryParse(line.TokensAfterFirst(":"), out currScript.Destination))
-                    currScript.Destination = ClipScriptDestination.TextBox;
-            }
-            else if (line.StartsWith("~~QuickScriptInput:"))
-            {
-                currScript.Input = line.TokensAfterFirst(":");
-            }
-            else if (line.StartsWith("~~QuickScriptId:"))
-            {
-                if (!Guid.TryParse(line.TokensAfterFirst(":"), out currScript.Id)) currScript.Id = Guid.NewGuid();
+                Script = rawScript;
             }
             else
             {
-                currScript.Script += line + Environment.NewLine;
+                if(rawScript.Contains("~~QuickScriptInput"))
+                {
+                    Input =
+                        rawScript.TokensAfterFirst("~~QuickScriptInputStart:")
+                                 .TokensBeforeLast("~~QuickScriptInputEnd:");
+                    rawScript = rawScript.TokensAround("~~QuickScriptInputStart:", "~~QuickScriptInputEnd:" + Environment.NewLine);
+                }
+
+                StringBuilder sb = new StringBuilder();
+                foreach (string line in rawScript.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+                {
+                    if (line.StartsWith("~~QuickScriptDefault:"))
+                    {
+                        ret = true;
+                    }
+                    else if (line.StartsWith("~~QuickScriptDestination:"))
+                    {
+                        Destination = ClipScriptDestination.TextBox;
+                        if (!Enum.TryParse(line.TokensAfterFirst(":"), out Destination))
+                        {
+                            Destination = ClipScriptDestination.TextBox;
+                        }
+                    }
+                    else if (line.StartsWith("~~QuickScriptId:"))
+                    {
+                        if (!Guid.TryParse(line.TokensAfterFirst(":"), out Id))
+                        {
+                            Id = Guid.NewGuid();
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine(line);
+                    }
+                }
+                Script = sb.ToString();
             }
+            //if (string.IsNullOrEmpty(Script)) throw new InvalidDataException("Script missing");
+
+            return ret;
         }
+
+        public string ToFileFormat(bool isDefault)
+        {
+            return "~~QuickScriptName:" + Name.AsString() + Environment.NewLine +
+                   "~~QuickScriptDestination:" + Destination.AsString() + Environment.NewLine +
+                   "~~QuickScriptId:" + Id.AsString() + Environment.NewLine +
+                   (isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty) +
+                   (string.IsNullOrEmpty(Input) ? string.Empty : 
+                    "~~QuickScriptInputStart:" + Environment.NewLine + Input + "~~QuickScriptInputEnd:" + Environment.NewLine) +
+                   Script.AsString();
+        }
+
+        public override string ToString() { return Name; }
     }
 }

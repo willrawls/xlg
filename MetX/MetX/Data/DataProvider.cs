@@ -153,15 +153,6 @@ namespace MetX.Data
             return ds.Tables[0].Rows;
         }
 
-		public int RetrieveSingleIntegerValue(string sql)
-        {
-            return Worker.nzInteger(ExecuteScalar(new QueryCommand(sql)));
-        }
-        public object ExecuteScalar(string sql)
-        {
-            return ExecuteScalar(new QueryCommand(sql));
-        }
-
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
         /// <param name="sql">The SQL to convert to an xml string</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
@@ -169,21 +160,5 @@ namespace MetX.Data
         {
             return ToXml(null, null, sql);
         }
-/*
-        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
-        {
-            base.Initialize(name, config);
-
-            ////get the connection string from the web.config
-            //string connectionStringName = config["connectionStringName"].ToString();
-            
-            //if (DataService.Config == null)
-            //    this.connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-            //else
-            //    this.connectionString = DataService.Config.ConnectionStrings.ConnectionStrings[connectionStringName].ConnectionString;
-        }*/
-
     }
-
-
 }

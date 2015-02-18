@@ -50,7 +50,7 @@ namespace XLG.Pipeliner
 
         private static void AddIfDifferent(List<string> directories, string currDir)
         {
-            currDir = Worker.nzString(currDir).ToLower();
+            currDir = currDir.AsString().ToLower();
             if (!currDir.EndsWith(@"\"))
             {
                 currDir += @"\";

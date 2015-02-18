@@ -21,8 +21,8 @@ namespace MetX.QuickScripts
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            string filePath = Path.Combine(path, "Default.xlg.QuickScripts");
+
+            string filePath = Path.Combine(path, "Default.xlgq");
             Application.Run(new QuickScriptEditor(filePath));
         }
     }

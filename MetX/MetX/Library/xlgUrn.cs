@@ -160,8 +160,8 @@ namespace MetX.Library
                     filePath = m_C.Server.MapPath(relativePathFile);
                     if (File.Exists(filePath))
                     {
-                        ret = StringExtensions.TokensAfter(m_C.Request.Url.AbsoluteUri, 4, "/");
-                        ret = StringExtensions.FirstToken(StringExtensions.TokensBefore(ret, StringExtensions.TokenCount(ret, "/"), "/"), "?");
+                        ret = m_C.Request.Url.AbsoluteUri.TokensAfter(4, "/");
+                        ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
                         ret = ret + "/" + relativePathFile;
                     }
                     else
@@ -169,8 +169,8 @@ namespace MetX.Library
                         filePath = m_C.Server.MapPath("~/" + relativePathFile);
                         if (File.Exists(filePath))
                         {
-                            ret = StringExtensions.TokensAfter(m_C.Request.Url.AbsoluteUri, 4, "/");
-                            ret = StringExtensions.FirstToken(StringExtensions.TokensBefore(ret, StringExtensions.TokenCount(ret, "/"), "/"), "?");
+                            ret = m_C.Request.Url.AbsoluteUri.TokensAfter(4, "/");
+                            ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
                             ret = ret + "/" + relativePathFile;
                         }
                         else
@@ -179,7 +179,7 @@ namespace MetX.Library
                             if (File.Exists(filePath))
                             {
                                 ret = m_SupportPath + relativePathFile;
-                                vDirPath = StringExtensions.FirstToken(StringExtensions.TokensBefore(m_C.Request.Url.AbsoluteUri, 4, "/"), "?");
+                                vDirPath = m_C.Request.Url.AbsoluteUri.TokensBefore(4, "/").FirstToken("?");
                                 ret = ret.Replace("~/", string.Empty);
                                 if (ret.StartsWith("/"))
                                     ret = vDirPath + ret;
@@ -191,7 +191,7 @@ namespace MetX.Library
                     }
                 }
             }
-            vDirPath = StringExtensions.FirstToken(StringExtensions.TokensBefore(m_C.Request.Url.AbsoluteUri, 5, "/"), "?");
+            vDirPath = m_C.Request.Url.AbsoluteUri.TokensBefore(5, "/").FirstToken("?");
             ret = ret.Replace("~/", string.Empty);
             if (ret.StartsWith("/"))
                 ret = vDirPath + ret;
@@ -515,7 +515,7 @@ namespace MetX.Library
         /// <returns>The requested token or a blank string</returns>
         public string GetToken(string allTokens, int n, string delimiter)
         {
-            return StringExtensions.TokenAt(allTokens, n, delimiter);
+            return allTokens.TokenAt(n, delimiter);
         }
 
 
@@ -576,15 +576,6 @@ namespace MetX.Library
             return System.DateTime.Now.ToString();
         }
 
-
-        /// <summary>Returns the integer representation of a string</summary>
-        /// <param name="sOriginalText">The string to convert</param>
-        /// <returns>The integer representation of a string</returns>
-        public int NzInteger(string sOriginalText)
-        {
-            return Worker.nzInteger(sOriginalText);
-        }
-
         /// <summary>Returns the double representation of a string</summary>
         /// <param name="sOriginalText">The string to convert</param>
         /// <returns>The double representation of a string</returns>
@@ -608,7 +599,7 @@ namespace MetX.Library
         /// <returns>The lowercase version of the string</returns>
         public string Lower(string sOriginalText)
         {
-            return Worker.nzString(sOriginalText).ToLower();
+            return sOriginalText.AsString().ToLower();
         }
 
 
@@ -617,14 +608,14 @@ namespace MetX.Library
         /// <returns>The uppercase version of the string</returns>
         public string Upper(string sOriginalText)
         {
-            return Worker.nzString(sOriginalText).ToUpper();
+            return sOriginalText.AsString().ToUpper();
         }
 
         public string Camel(string sOriginalText)
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            string ret = Worker.nzString(sOriginalText);
+            string ret = sOriginalText.AsString();
             ret = ret == ret.ToUpper() 
                 ? ret.ToLower() 
                 : ret[0].ToString().ToLower() + ret.Substring(1);
@@ -635,7 +626,7 @@ namespace MetX.Library
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            string ret = Worker.nzString(sOriginalText);
+            string ret = sOriginalText.AsString();
             ret = ret[0].ToString().ToUpper() + ret.Substring(1);
             return ret;
         }
@@ -776,7 +767,7 @@ namespace MetX.Library
         /// <returns>The first name found</returns>
         public string FirstName(string name)
         {
-            return StringExtensions.FirstToken(name, " ");
+            return name.FirstToken(" ");
         }
 
         /// <summary>Returns the last name (word) from the given string</summary>
@@ -784,7 +775,7 @@ namespace MetX.Library
         /// <returns>The last name found</returns>
         public string LastName(string name)
         {
-            return StringExtensions.LastToken(name, " ");
+            return name.LastToken(" ");
         }
 
 

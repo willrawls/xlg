@@ -140,7 +140,7 @@ namespace MetX.Library
         /// </example>
         public static string AttributeEncode(object strIn)
         {
-            StringBuilder sb = new StringBuilder(Worker.nzString(strIn));
+            StringBuilder sb = new StringBuilder(Worker.AsString(strIn));
             sb.Replace(Convert.ToString((char)147), "&quot;");
             sb.Replace(Convert.ToString((char)148), "&quot;");
             sb.Replace(Convert.ToString((char)150), "-");

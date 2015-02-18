@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("William M. Rawls")]
 [assembly: AssemblyProduct("XLG")]
-[assembly: AssemblyCopyright("William M. Rawls 2009")]
+[assembly: AssemblyCopyright("William M. Rawls 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("2.6.0.0")]

@@ -2,35 +2,16 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("MetX.QuickScripts")]
-[assembly: AssemblyDescription("")]
+
+[assembly: AssemblyTitle("XLG Quick Scripts")]
+[assembly: AssemblyDescription("XML Library Generator - Quick Script Editor and Executor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MetX.QuickScripts")]
-[assembly: AssemblyCopyright("William Rawls Copyright ©  2015")]
+[assembly: AssemblyCompany("William M. Rawls")]
+[assembly: AssemblyProduct("XLG")]
+[assembly: AssemblyCopyright("Copyright ©  2015 - William M. Rawls")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("385c8b1e-7792-4b5b-ac14-0c66015caebe")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: Guid("fc4f34c4-7dcc-4101-82ed-6ee63bca7ed5")]
+[assembly: AssemblyVersion("2.2.0.*")]
+[assembly: AssemblyFileVersion("2.2.0.0")]

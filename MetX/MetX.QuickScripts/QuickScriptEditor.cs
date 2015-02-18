@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,17 @@ namespace XLG.Pipeliner
         public static List<QuickScriptEditor> Editors = new List<QuickScriptEditor>();
         public static List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static string Template = null;
-        public XlgQuickScript CurrentScript;
+
+        public XlgQuickScript SelectedScript
+        {
+            get
+            {
+                return QuickScriptList.SelectedItem as XlgQuickScript;
+            }
+        }
+
+        public XlgQuickScript CurrentScript = null;
+
         public XlgQuickScriptFile Scripts;
 
         public QuickScriptEditor(string filePath)
@@ -27,10 +38,31 @@ namespace XLG.Pipeliner
             LoadQuickScriptsFile(filePath);
         }
 
+        private void RefreshLists(bool loadDefaultScript)
+        {
+            Updating = true;
+            try
+            {
+                QuickScriptList.Items.Clear();
+                int defaultIndex = 0;
+                foreach (XlgQuickScript script in Scripts)
+                {
+                    QuickScriptList.Items.Add(script);
+                    if (Scripts.Default != null && script == Scripts.Default)
+                        defaultIndex = QuickScriptList.Items.Count - 1;
+                }
+                if (defaultIndex > -1) QuickScriptList.SelectedIndex = defaultIndex;
+            }
+            finally
+            {
+                Updating = false;
+            }
+        }
+
         private QuickScriptEditor(XlgQuickScriptFile scripts)
         {
             Scripts = scripts;
-            CurrentScript = scripts.Default;
+            RefreshLists(true);
         }
 
         public void OpenNewEditor()
@@ -49,11 +81,13 @@ namespace XLG.Pipeliner
             quickScriptOutput.BringToFront();
         }
 
-        public void UpdateBeforeSave()
+        public void UpdateScriptFromForm()
         {
             if (CurrentScript != null)
             {
-                CurrentScript.Update(QuickScriptList.Text, QuickScriptInput.Text, DestinationList.Text);
+                CurrentScript.Script = QuickScript.Text;
+                Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
+                Scripts.Default = CurrentScript;
             }
         }
 
@@ -71,27 +105,41 @@ namespace XLG.Pipeliner
             }
         }
 
+
         private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateBeforeSave();
-            XlgQuickScript selectedScript = Scripts.FirstOrDefault(x => x.Name == QuickScriptList.Text);
-            if (selectedScript != null) UpdateFormWithScript(selectedScript);
+            if (Updating) return;
+            UpdateScriptFromForm();
+            if (SelectedScript != null) UpdateFormWithScript(SelectedScript);
         }
+
+        public bool Updating;
 
         private void UpdateFormWithScript(XlgQuickScript selectedScript)
         {
+            if (SelectedScript == null)
+            {
+                //MessageBox.Show(this, "No script to update.");
+                return;
+            }
+
+            QuickScriptList.Text = selectedScript.Name;
+            QuickScript.Text = selectedScript.Script;
+            DestinationList.Text = selectedScript.Destination == ClipScriptDestination.Unknown
+                ? "Text Box" : selectedScript.Destination.ToString().Replace("Box", " Box");
+            QuickScript.Focus();
+            QuickScript.SelectionStart = 0;
+            QuickScript.SelectionLength = 0;
             CurrentScript = selectedScript;
-            QuickScriptList.Text = CurrentScript.Name;
-            QuickScriptInput.Text = CurrentScript.Input;
-            DestinationList.Text = CurrentScript.Destination.ToString();
         }
 
         private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Updating) return;
             if (CurrentScript == null) return;
             try
             {
-                if (!Enum.TryParse(DestinationList.Text, out CurrentScript.Destination))
+                if (!Enum.TryParse(DestinationList.Text.Replace(" ", ""), out CurrentScript.Destination))
                     MessageBox.Show("That didn't work");
             }
             catch (Exception ex)
@@ -100,7 +148,7 @@ namespace XLG.Pipeliner
             }
         }
 
-        private IProcessForClipScript GetClipScriptProcessor()
+        private IProcessForClipScript GetQuickScriptProcessor()
         {
             if (Template == null)
             {
@@ -118,7 +166,7 @@ namespace XLG.Pipeliner
             {
                 return null;
             }
-            string[] expandedClipScriptLines = QuickScriptInput.Lines;
+            string[] expandedClipScriptLines = QuickScript.Lines;
             for (int i = 0; i < expandedClipScriptLines.Length; i++)
             {
                 string currScriptLine = expandedClipScriptLines[i];
@@ -205,18 +253,17 @@ namespace XLG.Pipeliner
 
         private void LoadQuickScriptsFile(string clipScriptsFilePath)
         {
-            CurrentScript = null;
-
             Scripts = XlgQuickScriptFile.Load(clipScriptsFilePath);
-            CurrentScript = Scripts.Default;
+            RefreshLists(true);
+            UpdateFormWithScript(Scripts.Default);
         }
 
-        private void RunClipScript_Click(object sender, EventArgs e)
+        private void RunQuickScript_Click(object sender, EventArgs e)
         {
-            RunClipScriptNow();
+            RunQuickScriptNow();
         }
 
-        private void RunClipScriptNow()
+        private void RunQuickScriptNow()
         {
             try
             {
@@ -227,14 +274,14 @@ namespace XLG.Pipeliner
                     .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0) return;
 
-                IProcessForClipScript clipScriptProcessor = GetClipScriptProcessor();
-                if (clipScriptProcessor == null) return;
+                IProcessForClipScript quickScriptProcessor = GetQuickScriptProcessor();
+                if (quickScriptProcessor == null) return;
 
                 StringBuilder sb = new StringBuilder();
                 int lineCount = lines.Length;
                 Dictionary<string, string> d = new Dictionary<string, string>();
 
-                if (lines.Where((t, index) => !clipScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any()) return;
+                if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any()) return;
                 if (sb.Length <= 0) return;
 
                 try
@@ -242,6 +289,7 @@ namespace XLG.Pipeliner
                     switch (DestinationList.Text.ToLower().Replace(" ", string.Empty))
                     {
                         case "textbox":
+                        case "text box":
                             OpenNewOutput(QuickScriptList.Text + " at " + DateTime.Now.ToString("G"), sb.ToString());
                             break;
 
@@ -270,10 +318,14 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void SaveClipScript_Click(object sender, EventArgs e)
+        private void SaveQuickScript_Click(object sender, EventArgs e)
         {
+            if (Updating) return;
             if (Scripts != null)
+            {
+                UpdateScriptFromForm();
                 Scripts.Save();
+            }
         }
     }
 }

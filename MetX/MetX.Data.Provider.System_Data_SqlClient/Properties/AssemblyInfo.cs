@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("William M. Rawls")]
 [assembly: AssemblyProduct("MetX.Data.Provider.System_Data_SqlClient")]
-[assembly: AssemblyCopyright("Copyright © William M. Rawls 2009")]
+[assembly: AssemblyCopyright("Copyright © William M. Rawls 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

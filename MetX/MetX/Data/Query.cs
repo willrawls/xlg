@@ -402,8 +402,8 @@ TryAgain:
             if (updateSettings == null) updateSettings = new Dictionary<string, object>();
 
             //boolean massage for MySQL
-            if (Worker.nzString(value).ToLower() == "false") value = 0;
-            else if (Worker.nzString(value).ToLower() == "true") value = 1;
+            if (Worker.AsString(value).ToLower() == "false") value = 0;
+            else if (Worker.AsString(value).ToLower() == "true") value = 1;
 
             if (updateSettings.ContainsKey(columnName)) updateSettings[columnName] = value;
             else                                        updateSettings.Add(columnName, value);

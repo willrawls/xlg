@@ -85,7 +85,7 @@ namespace MetX.IO
                 if (mState == null)
                 {
                     mState = new SortedStringList(5);
-                    DataRowCollection rstState = sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.s2db(StateParent.ToLower()) + " AND StateName=" + Worker.s2db(StateName.ToLower()), ConnectionName);
+                    DataRowCollection rstState = sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2DB(StateParent.ToLower()) + " AND StateName=" + Worker.S2DB(StateName.ToLower()), ConnectionName);
                     if (rstState != null)
                     {
                         if (rstState.Count > 0)
@@ -112,11 +112,11 @@ namespace MetX.IO
             if (mState != null)
             {
                 SQLs = new List<string>(1 + mState.Count);
-                SQLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.s2db(StateParent.ToLower()) + " AND StateName=" + Worker.s2db(StateName.ToLower()));
+                SQLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.S2DB(StateParent.ToLower()) + " AND StateName=" + Worker.S2DB(StateName.ToLower()));
 
                 if (mState.Count > 0)
                     foreach (System.Collections.Generic.KeyValuePair<string, string> DE in mState)
-                        SQLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid().ToString() + "'," + Worker.s2db(StateParent) + "," + Worker.s2db(StateName) + "," + Worker.s2db(DE.Key) + "," + Worker.s2db(DE.Value) + ", getdate())");
+                        SQLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid().ToString() + "'," + Worker.S2DB(StateParent) + "," + Worker.S2DB(StateName) + "," + Worker.S2DB(DE.Key) + "," + Worker.S2DB(DE.Value) + ", getdate())");
                 sql.Execute(SQLs, ConnectionName);
             }
         }

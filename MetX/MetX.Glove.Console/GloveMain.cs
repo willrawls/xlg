@@ -6,27 +6,15 @@ using System.Windows.Forms;
 using MetX.Data;
 using MetX.IO;
 using MetX.Library;
-using XLG.Pipeliner.Properties;
+using MetX.Properties;
 
 namespace XLG.Pipeliner
 {
     public partial class GloveMain : Form
     {
-        public static string ClipScriptProcessorSourceTemplate = null;
         private static XlgAppData m_AppData;
 
-        public static XlgAppData AppData
-        {
-            get
-            {
-                if (m_AppData == null)
-                {
-                    m_AppData = XlgAppData.Load();
-                }
-                return m_AppData;
-            }
-            set { m_AppData = value; }
-        }
+        public static XlgAppData AppData { get { return m_AppData ?? (m_AppData = XlgAppData.Load()); } }
 
         private readonly FileSystemWatchers m_FSWs = new FileSystemWatchers();
         private readonly object m_SyncRoot = new object();
@@ -260,14 +248,14 @@ namespace XLG.Pipeliner
                 if (m_FSWs.IsActive)
                 {
                     m_FSWs.End();
-                    autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_blue;
-                    autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_blue;
+                    autoRegenToolbarButton.Image = Resources.circle_blue;
+                    autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_blue;
                 }
                 else
                 {
                     m_FSWs.Begin(Settings, FSW_Changed, FSW_Error);
-                    autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_green;
-                    autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_green;
+                    autoRegenToolbarButton.Image = Resources.circle_green;
+                    autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
                 }
                 toolStrip1.Invalidate();
                 toolStrip1.Refresh();
@@ -307,12 +295,12 @@ namespace XLG.Pipeliner
 
         private void SynchAutoRegen()
         {
-            autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_orange;
-            autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_orange;
+            autoRegenToolbarButton.Image = Resources.circle_orange;
+            autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_orange;
             m_FSWs.EnableRaisingEvents = false;
             buttonRegen_Click(null, null);
-            autoRegenToolbarButton.Image = MetX.Properties.Resources.circle_green;
-            autoRegenOnChangedXSLToolStripMenuItem.Image = MetX.Properties.Resources.circle_green;
+            autoRegenToolbarButton.Image = Resources.circle_green;
+            autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
         }
 
         private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -380,7 +368,10 @@ namespace XLG.Pipeliner
                 Settings.Save();
                 AppData.LastXlgsFile = Settings.Filename;
                 AppData.Save();
-                if (sender != null) RefreshList();
+                if (sender != null)
+                {
+                    RefreshList();
+                }
             }
             catch (Exception ex)
             {
@@ -449,8 +440,10 @@ namespace XLG.Pipeliner
 
                     if (m_CurrSource != null)
                     {
-                        newSource.BasePath = m_CurrSource.OutputFilename.TokensBefore(m_CurrSource.OutputFilename.TokenCount(@"\") - 1, @"\") + @"\" + itemName
-                                             + @"\";
+                        newSource.BasePath =
+                            m_CurrSource.OutputFilename.TokensBefore(m_CurrSource.OutputFilename.TokenCount(@"\") - 1,
+                                @"\") + @"\" + itemName
+                            + @"\";
                     }
                     else
                     {
@@ -737,8 +730,14 @@ namespace XLG.Pipeliner
         private void EditClipScript_Click(object sender, EventArgs e)
         {
             string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
-            if (!File.Exists(exePath)) MessageBox.Show(this, "Quick scripts missing: " + exePath);
-            else Process.Start(exePath, string.Empty);
+            if (!File.Exists(exePath))
+            {
+                MessageBox.Show(this, "Quick scripts missing: " + exePath);
+            }
+            else
+            {
+                Process.Start(exePath, string.Empty);
+            }
         }
     }
 }

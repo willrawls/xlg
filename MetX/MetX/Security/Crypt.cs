@@ -204,8 +204,8 @@ TryAgain:
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < NameValuePairs.Count; i++)
             {
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.nzString(NameValuePairs.GetKey(i))));
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.nzString(NameValuePairs[i])));
+                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.AsString(NameValuePairs.GetKey(i))));
+                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.AsString(NameValuePairs[i])));
             }
             return ToBase64(sb.ToString());
         }

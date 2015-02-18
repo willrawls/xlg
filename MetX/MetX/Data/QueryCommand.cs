@@ -54,7 +54,7 @@ namespace MetX.Data
             {
                 if (ParameterValue == null)
                     return "(DbNull.Value)";
-                return Worker.nzString(ParameterValue); 
+                return Worker.AsString(ParameterValue); 
             }
             set
             {

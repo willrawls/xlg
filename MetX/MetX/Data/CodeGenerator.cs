@@ -1315,9 +1315,9 @@ namespace MetX.Data
             switch (dbType)
             {
                 case DbType.AnsiString:
-                    return "Worker.nzString";
+                    return "Worker.AsString";
                 case DbType.AnsiStringFixedLength:
-                    return "Worker.nzString";
+                    return "Worker.AsString";
                 case DbType.Binary:
                     return "Worker.nzByteArray";
                 case DbType.Boolean:
@@ -1349,9 +1349,9 @@ namespace MetX.Data
                 case DbType.Single:
                     return "Worker.nzFloat";
                 case DbType.String:
-                    return "Worker.nzString";
+                    return "Worker.AsString";
                 case DbType.StringFixedLength:
-                    return "Worker.nzString";
+                    return "Worker.AsString";
                 case DbType.Time:
                     return "Worker.nzTimeSpan";
                 case DbType.UInt16:
@@ -1363,7 +1363,7 @@ namespace MetX.Data
                 case DbType.VarNumeric:
                     return "Worker.nzDecimal";
                 default:
-                    return "Worker.nzString";
+                    return "Worker.AsString";
             }
         }
 
