@@ -10,10 +10,10 @@ namespace MetX.Data
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
     {
-        private static XmlSerializer _settingsSerializer = new XmlSerializer(typeof (XlgSettings));
+        private static XmlSerializer m_SettingsSerializer = new XmlSerializer(typeof (XlgSettings));
 
-        [XmlArray("ClipScripts", Namespace = "", IsNullable = false),
-         XmlArrayItem("ClipScript", Namespace = "", IsNullable = false)] public List<XlgQuickScript> ClipScripts = new List<XlgQuickScript>();
+        [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
+         XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)] public List<XlgQuickScript> QuickScripts = new List<XlgQuickScript>();
 
         [XmlAttribute] public string DefaultConnectionString;
         [XmlAttribute] public string DefaultProviderName;
@@ -35,21 +35,21 @@ namespace MetX.Data
 
         public static XlgSettings FromXml(string xmldoc)
         {
-            return (XlgSettings) _settingsSerializer.Deserialize(new StringReader(xmldoc));
+            return (XlgSettings) m_SettingsSerializer.Deserialize(new StringReader(xmldoc));
         }
 
         public string OuterXml()
         {
             var sb = new StringBuilder();
             using (var sw = new StringWriter(sb))
-                _settingsSerializer.Serialize(sw, this);
+                m_SettingsSerializer.Serialize(sw, this);
             return sb.ToString();
         }
 
         public void Save()
         {
-            if (ClipScripts == null)
-                ClipScripts = new List<XlgQuickScript>();
+            if (QuickScripts == null)
+                QuickScripts = new List<XlgQuickScript>();
             File.WriteAllText(Filename, OuterXml());
         }
 

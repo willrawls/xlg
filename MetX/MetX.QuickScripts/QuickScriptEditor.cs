@@ -125,8 +125,22 @@ namespace XLG.Pipeliner
 
             QuickScriptList.Text = selectedScript.Name;
             QuickScript.Text = selectedScript.Script;
-            DestinationList.Text = selectedScript.Destination == ClipScriptDestination.Unknown
-                ? "Text Box" : selectedScript.Destination.ToString().Replace("Box", " Box");
+            bool originalUpdating = Updating;
+            Updating = true;
+            try
+            {
+                DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
+                    ? "Text Box"
+                    : selectedScript.Destination.ToString().Replace("Box", " Box");
+            }
+            catch
+            {
+                // ignored
+            }
+            finally
+            {
+                Updating = originalUpdating;
+            }
             QuickScript.Focus();
             QuickScript.SelectionStart = 0;
             QuickScript.SelectionLength = 0;
@@ -139,8 +153,9 @@ namespace XLG.Pipeliner
             if (CurrentScript == null) return;
             try
             {
-                if (!Enum.TryParse(DestinationList.Text.Replace(" ", ""), out CurrentScript.Destination))
-                    MessageBox.Show("That didn't work");
+                // Don't update here, update at save
+                //if (!Enum.TryParse(DestinationList.Text.Replace(" ", ""), out CurrentScript.Destination))
+                //    MessageBox.Show("That didn't work");
             }
             catch (Exception ex)
             {
@@ -148,15 +163,16 @@ namespace XLG.Pipeliner
             }
         }
 
-        private IProcessForClipScript GetQuickScriptProcessor()
+        private IProcessLine GetQuickScriptProcessor()
         {
             if (Template == null)
             {
-                Assembly assembly = Assembly.GetAssembly(typeof(IProcessForClipScript));
-                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.ClipScriptProcessor.cs"))
+                Assembly assembly = Assembly.GetAssembly(typeof(IProcessLine));
+                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
                 {
                     if (stream == null)
                     {
+                        MessageBox.Show(this, "Quick script processor resource missing.");
                         return null;
                     }
                     Template = new StreamReader(stream).ReadToEnd();
@@ -164,12 +180,13 @@ namespace XLG.Pipeliner
             }
             if (string.IsNullOrEmpty(Template))
             {
+                MessageBox.Show(this, "Quick script template missing.");
                 return null;
             }
-            string[] expandedClipScriptLines = QuickScript.Lines;
-            for (int i = 0; i < expandedClipScriptLines.Length; i++)
+            string[] scriptLines = QuickScript.Lines;
+            for (int i = 0; i < scriptLines.Length; i++)
             {
-                string currScriptLine = expandedClipScriptLines[i];
+                string currScriptLine = scriptLines[i];
                 int indent = currScriptLine.Length - currScriptLine.Trim().Length;
 
                 if (currScriptLine.Contains("~~:"))
@@ -207,15 +224,15 @@ namespace XLG.Pipeliner
                                      currScriptLine.Replace(" + \"\" + ", string.Empty)
                                          .Replace("~$~$", @"\%")
                                          .Replace("~#~$", "\\\"");
-                    expandedClipScriptLines[i] = currScriptLine;
+                    scriptLines[i] = currScriptLine;
                 }
                 else
                 {
-                    expandedClipScriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
+                    scriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
                 }
             }
 
-            string source = Template.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, expandedClipScriptLines));
+            string source = Template.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, scriptLines));
 
             CompilerParameters compilerParameters = new CompilerParameters
             {
@@ -236,9 +253,9 @@ namespace XLG.Pipeliner
             if (compilerResults.Errors.Count <= 0)
             {
                 Assembly assembly = compilerResults.CompiledAssembly;
-                IProcessForClipScript clipScriptProcessor =
-                    assembly.CreateInstance("MetX.ClipScriptProcessor") as IProcessForClipScript;
-                return clipScriptProcessor;
+                IProcessLine QuickScriptProcessor =
+                    assembly.CreateInstance("MetX.QuickScriptProcessor") as IProcessLine;
+                return QuickScriptProcessor;
             }
 
             for (int index = 0; index < compilerResults.Errors.Count; index++)
@@ -251,9 +268,9 @@ namespace XLG.Pipeliner
             return null;
         }
 
-        private void LoadQuickScriptsFile(string clipScriptsFilePath)
+        private void LoadQuickScriptsFile(string filePath)
         {
-            Scripts = XlgQuickScriptFile.Load(clipScriptsFilePath);
+            Scripts = XlgQuickScriptFile.Load(filePath);
             RefreshLists(true);
             UpdateFormWithScript(Scripts.Default);
         }
@@ -274,7 +291,7 @@ namespace XLG.Pipeliner
                     .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0) return;
 
-                IProcessForClipScript quickScriptProcessor = GetQuickScriptProcessor();
+                IProcessLine quickScriptProcessor = GetQuickScriptProcessor();
                 if (quickScriptProcessor == null) return;
 
                 StringBuilder sb = new StringBuilder();
@@ -283,7 +300,7 @@ namespace XLG.Pipeliner
 
                 if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(sb, t, index, lineCount, d)).Any()) return;
                 if (sb.Length <= 0) return;
-
+                
                 try
                 {
                     switch (DestinationList.Text.ToLower().Replace(" ", string.Empty))
@@ -325,6 +342,33 @@ namespace XLG.Pipeliner
             {
                 UpdateScriptFromForm();
                 Scripts.Save();
+            }
+        }
+
+        private void AddQuickScript_Click(object sender, EventArgs e)
+        {
+            if (Updating) return;
+            if (Scripts != null)
+            {
+                string name = string.Empty;
+                DialogResult uiInputBoxResult = UI.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
+                if (uiInputBoxResult == DialogResult.OK && (name ?? string.Empty).Trim() != string.Empty)
+                {
+                    UpdateScriptFromForm();
+                    Updating = true;
+                    try
+                    {
+                        XlgQuickScript newScript = new XlgQuickScript(name);
+                        Scripts.Add(newScript);
+                        QuickScriptList.Items.Add(newScript);
+                        QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
+                        UpdateFormWithScript(newScript);
+                    }
+                    finally
+                    {
+                        Updating = false;
+                    }
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ namespace MetX.Data
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
-        [XmlAttribute] public ClipScriptDestination Destination;
+        [XmlAttribute] public QuickScriptDestination Destination;
         [XmlAttribute] public Guid Id;
         [XmlAttribute] public string Input;
         [XmlAttribute] public string Name;
@@ -24,7 +24,7 @@ namespace MetX.Data
             Name = name;
             Script = script;
             Id = Guid.NewGuid();
-            Destination = ClipScriptDestination.TextBox;
+            Destination = QuickScriptDestination.TextBox;
         }
 
         public bool Parse(string rawScript)
@@ -58,10 +58,10 @@ namespace MetX.Data
                     }
                     else if (line.StartsWith("~~QuickScriptDestination:"))
                     {
-                        Destination = ClipScriptDestination.TextBox;
+                        Destination = QuickScriptDestination.TextBox;
                         if (!Enum.TryParse(line.TokensAfterFirst(":"), out Destination))
                         {
-                            Destination = ClipScriptDestination.TextBox;
+                            Destination = QuickScriptDestination.TextBox;
                         }
                     }
                     else if (line.StartsWith("~~QuickScriptId:"))

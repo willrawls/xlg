@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
-    <Compile Include="Data\ClipScriptDestination.cs" />
+    <Compile Include="Data\QuickScriptDestination.cs" />
     <Compile Include="Data\CodeGenerator.cs" />
     <Compile Include="Data\XlgQuickScript.cs" />
     <Compile Include="Data\xlgFile.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
-    <EmbeddedResource Include="Library\ClipScriptProcessor.cs" />
+    <EmbeddedResource Include="Library\QuickScriptProcessor.cs" />
     <Compile Include="Library\IProcessForClipScript.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
     <Compile Include="Library\UI.cs" />

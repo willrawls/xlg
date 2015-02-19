@@ -84,6 +84,7 @@
             this.AddClipScript.Size = new System.Drawing.Size(59, 28);
             this.AddClipScript.Text = "&New";
             this.AddClipScript.ToolTipText = "Create a new ClipScript";
+            this.AddClipScript.Click += new System.EventHandler(this.AddQuickScript_Click);
             // 
             // toolStripSeparator2
             // 
@@ -168,8 +169,9 @@
             this.ClientSize = new System.Drawing.Size(832, 542);
             this.Controls.Add(this.QuickScript);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "QuickScriptEditor";
-            this.Text = "Clip Script Editor";
+            this.Text = "Quick Scriptr";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

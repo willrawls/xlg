@@ -7,7 +7,7 @@ using MetX.Library;
 
 namespace MetX
 {
-    public class ClipScriptProcessor : IProcessForClipScript
+    public class QuickScriptProcessor : IProcessLine
     {
         public bool ProcessLine(StringBuilder sb, string line, int number, int lineCount, Dictionary<string, string> d)
         {

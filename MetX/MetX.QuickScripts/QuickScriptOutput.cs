@@ -14,11 +14,11 @@ namespace XLG.Pipeliner
         public QuickScriptOutput(string title, string output)
         {
             InitializeComponent();
-            base.Text = "ClipScript Output - " + title;
+            Text = "QuickScript Output - " + title;
             Output.Text = output;
         }
 
-        private void ClipScriptOutput_Load(object sender, EventArgs e)
+        private void QuickScriptOutput_Load(object sender, EventArgs e)
         {
             Output.SelectAll();
             Output.Focus();

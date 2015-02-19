@@ -762,7 +762,7 @@ namespace XLG.Pipeliner
             this.EditClipScript.Name = "EditClipScript";
             this.EditClipScript.Size = new System.Drawing.Size(101, 28);
             this.EditClipScript.Text = "&QuickScripts";
-            this.EditClipScript.Click += new System.EventHandler(this.EditClipScript_Click);
+            this.EditClipScript.Click += new System.EventHandler(this.EditQuickScript_Click);
             // 
             // GloveMain
             // 

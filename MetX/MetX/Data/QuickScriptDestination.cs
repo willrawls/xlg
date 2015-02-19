@@ -1,6 +1,6 @@
 namespace MetX.Data
 {
-    public enum ClipScriptDestination
+    public enum QuickScriptDestination
     {
         Unknown,
         TextBox,

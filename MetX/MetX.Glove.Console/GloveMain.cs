@@ -609,7 +609,7 @@ namespace XLG.Pipeliner
                 Settings = new XlgSettings(this)
                 {
                     Sources = new List<XlgSource>(),
-                    ClipScripts = new List<XlgQuickScript>(),
+                    //QuickScripts = new List<XlgQuickScript>(),
                     DefaultConnectionString = t.DefaultConnectionString,
                     DefaultProviderName = t.DefaultProviderName
                 };
@@ -727,7 +727,7 @@ namespace XLG.Pipeliner
             */
         }
 
-        private void EditClipScript_Click(object sender, EventArgs e)
+        private void EditQuickScript_Click(object sender, EventArgs e)
         {
             string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
             if (!File.Exists(exePath))

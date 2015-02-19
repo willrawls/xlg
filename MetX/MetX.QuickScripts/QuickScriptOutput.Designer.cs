@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickScriptOutput));
             this.Output = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -52,9 +53,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(746, 499);
             this.Controls.Add(this.Output);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "QuickScriptOutput";
-            this.Text = "ClipScript Output - ";
-            this.Load += new System.EventHandler(this.ClipScriptOutput_Load);
+            this.Text = "QuickScript Output";
+            this.Load += new System.EventHandler(this.QuickScriptOutput_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
