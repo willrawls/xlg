@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Windows.Forms;
 using MetX.Data;
@@ -18,7 +20,27 @@ namespace XLG.Pipeliner
     {
         public static List<QuickScriptEditor> Editors = new List<QuickScriptEditor>();
         public static List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
-        public static string Template = null;
+
+        private static string m_Template = null;
+        public static string Template
+        {
+            get
+            {
+                if (m_Template == null)
+                {
+                    Assembly assembly = Assembly.GetAssembly(typeof(IProcessLine));
+                    using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
+                    {
+                        if (stream == null)
+                        {
+                            throw new MissingManifestResourceException("Quick script processor resource missing.");
+                        }
+                        m_Template = new StreamReader(stream).ReadToEnd();
+                    }
+                }
+                return m_Template;
+            }
+        }
 
         public XlgQuickScript SelectedScript
         {
@@ -38,7 +60,7 @@ namespace XLG.Pipeliner
             LoadQuickScriptsFile(filePath);
         }
 
-        private void RefreshLists(bool loadDefaultScript)
+        private void RefreshLists()
         {
             Updating = true;
             try
@@ -62,7 +84,7 @@ namespace XLG.Pipeliner
         private QuickScriptEditor(XlgQuickScriptFile scripts)
         {
             Scripts = scripts;
-            RefreshLists(true);
+            RefreshLists();
         }
 
         public void OpenNewEditor()
@@ -83,12 +105,14 @@ namespace XLG.Pipeliner
 
         public void UpdateScriptFromForm()
         {
-            if (CurrentScript != null)
-            {
-                CurrentScript.Script = QuickScript.Text;
-                Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
-                Scripts.Default = CurrentScript;
-            }
+            if (CurrentScript == null) return;
+
+            CurrentScript.Script = QuickScript.Text;
+            Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
+            CurrentScript.Input = Input.Text;
+            CurrentScript.SliceAt = SliceAt.Text;
+            CurrentScript.DiceAt = DiceAt.Text;
+            Scripts.Default = CurrentScript;
         }
 
         private static void ViewTextInNotepad(string source)
@@ -125,64 +149,107 @@ namespace XLG.Pipeliner
 
             QuickScriptList.Text = selectedScript.Name;
             QuickScript.Text = selectedScript.Script;
-            bool originalUpdating = Updating;
-            Updating = true;
-            try
+            
+            DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
+                ? "Text Box"
+                : selectedScript.Destination.ToString().Replace("Box", " Box");
+            
+            int index = Input.FindString(selectedScript.Input);
+            Input.SelectedIndex = index > -1
+                ? index
+                : 0;
+
+            index = SliceAt.FindString(selectedScript.SliceAt);
+            if (index > -1)
             {
-                DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
-                    ? "Text Box"
-                    : selectedScript.Destination.ToString().Replace("Box", " Box");
+                SliceAt.SelectedIndex = index;
             }
-            catch
+            else
             {
-                // ignored
+                SliceAt.SelectedIndex = SliceAt.Items.Add(selectedScript.SliceAt);
             }
-            finally
+
+            index = DiceAt.FindString(selectedScript.DiceAt);
+            if (index > -1)
             {
-                Updating = originalUpdating;
+                DiceAt.SelectedIndex = index;
             }
+            else
+            {
+                DiceAt.SelectedIndex = DiceAt.Items.Add(selectedScript.DiceAt);
+            }
+
             QuickScript.Focus();
             QuickScript.SelectionStart = 0;
             QuickScript.SelectionLength = 0;
             CurrentScript = selectedScript;
         }
 
-        private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
+        public void DisplayExpandedQuickScriptSourceInNotepad()
         {
-            if (Updating) return;
-            if (CurrentScript == null) return;
             try
             {
-                // Don't update here, update at save
-                //if (!Enum.TryParse(DestinationList.Text.Replace(" ", ""), out CurrentScript.Destination))
-                //    MessageBox.Show("That didn't work");
+                string source = ConvertQuickScriptToCSharp();
+                if(!string.IsNullOrEmpty(source))
+                    ViewTextInNotepad(source);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(e.ToString());
             }
         }
 
-        private IProcessLine GetQuickScriptProcessor()
+        public IProcessLine GenerateQuickScriptLineProcessor()
         {
-            if (Template == null)
-            {
-                Assembly assembly = Assembly.GetAssembly(typeof(IProcessLine));
-                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
-                {
-                    if (stream == null)
-                    {
-                        MessageBox.Show(this, "Quick script processor resource missing.");
-                        return null;
-                    }
-                    Template = new StreamReader(stream).ReadToEnd();
-                }
-            }
             if (string.IsNullOrEmpty(Template))
             {
                 MessageBox.Show(this, "Quick script template missing.");
                 return null;
             }
+            string source = ConvertQuickScriptToCSharp();
+            CompilerResults compilerResults = CompileSource(source);
+
+            if (compilerResults.Errors.Count <= 0)
+            {
+                Assembly assembly = compilerResults.CompiledAssembly;
+                IProcessLine quickScriptProcessor = assembly.CreateInstance("MetX.QuickScriptProcessor") as IProcessLine;
+                return quickScriptProcessor;
+            }
+
+            StringBuilder sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine);
+            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            {
+                sb.AppendLine((index + 1) + ": " + compilerResults.Errors[index]);
+                sb.AppendLine();
+            }
+            MessageBox.Show(sb.ToString());
+            ViewTextInNotepad(source);
+
+            return null;
+        }
+
+        public static CompilerResults CompileSource(string source)
+        {
+            CompilerParameters compilerParameters = new CompilerParameters
+            {
+                GenerateExecutable = false,
+                GenerateInMemory = true,
+                IncludeDebugInformation = false
+            };
+            compilerParameters
+                .ReferencedAssemblies
+                .AddRange(
+                    AppDomain.CurrentDomain
+                             .GetAssemblies()
+                             .Where(a => !a.IsDynamic)
+                             .Select(a => a.Location)
+                             .ToArray());
+            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
+            return compilerResults;
+        }
+
+        public string ConvertQuickScriptToCSharp()
+        {
             string[] scriptLines = QuickScript.Lines;
             for (int i = 0; i < scriptLines.Length; i++)
             {
@@ -204,9 +271,15 @@ namespace XLG.Pipeliner
                                 string variableName = variableContent.FirstToken();
                                 string variableIndex = variableContent.TokenAt(2);
                                 if (variableName != "d")
-                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
+                                {
+                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
+                                                      + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
+                                }
                                 else
-                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"") + "] + \"";
+                                {
+                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"")
+                                                      + "] + \"";
+                                }
                             }
                             else
                             {
@@ -218,10 +291,13 @@ namespace XLG.Pipeliner
                     currScriptLine = "sb.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
                     currScriptLine =
                         currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                            .Replace(" + \"\")", ")")
-                            .Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
+                                      .Replace(" + \"\")", ")")
+                                      .Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
                     currScriptLine = (new string(' ', indent)) + "            " +
-                                     currScriptLine.Replace(" + \"\" + ", string.Empty)
+                                     currScriptLine
+                                         .Replace(" + \"\" + ", string.Empty)
+                                         .Replace("\"\" + ", string.Empty)
+                                         .Replace(" + \"\"", string.Empty)
                                          .Replace("~$~$", @"\%")
                                          .Replace("~#~$", "\\\"");
                     scriptLines[i] = currScriptLine;
@@ -231,47 +307,59 @@ namespace XLG.Pipeliner
                     scriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
                 }
             }
-
             string source = Template.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, scriptLines));
-
-            CompilerParameters compilerParameters = new CompilerParameters
-            {
-                GenerateExecutable = false,
-                GenerateInMemory = true,
-                IncludeDebugInformation = false
-            };
-            compilerParameters
-                .ReferencedAssemblies
-                .AddRange(
-                    AppDomain.CurrentDomain
-                        .GetAssemblies()
-                        .Where(a => !a.IsDynamic)
-                        .Select(a => a.Location)
-                        .ToArray());
-            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
-
-            if (compilerResults.Errors.Count <= 0)
-            {
-                Assembly assembly = compilerResults.CompiledAssembly;
-                IProcessLine QuickScriptProcessor =
-                    assembly.CreateInstance("MetX.QuickScriptProcessor") as IProcessLine;
-                return QuickScriptProcessor;
-            }
-
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
-            {
-                MessageBox.Show("Compile error #" + (index + 1) + ": " + compilerResults.Errors[index]);
-            }
-
-            ViewTextInNotepad(source);
-
-            return null;
+            return source;
         }
 
         private void LoadQuickScriptsFile(string filePath)
         {
             Scripts = XlgQuickScriptFile.Load(filePath);
-            RefreshLists(true);
+
+            if (Scripts.Count == 0)
+            {
+                XlgQuickScript script = new XlgQuickScript("First script", @"
+~~:%line.Left(20)%
+");
+                Scripts.Add(script);
+                Scripts.Default = script;
+                script = new XlgQuickScript("Example / Tutorial", @"
+// These lines are called for every non blank line in the source/clipboard
+// Several variables are always defined including:
+//   line is the string content of the current line
+//   number is the current line number being processed
+//   lineCount is the total number of lines to be processed.
+//   d is a Dictionary<string, string> that perists across lines. Use it as you want
+//   sb is a StringBuilder that you will write your output to (which goes in output/clipboard)
+
+// Write a header
+if(number == 0) 
+{
+  ~~:Lines starting with ~~: Are shorthand for sb.AppendLine(...) with special expansion
+  ~~:This makes it easier to write when encoding lines of C#.
+  ~~:Example: Line # (First word): Line content
+  sb.AppendLine(" + "\"Or if you prefer, you can simply write C# code\");" + Environment.NewLine +
+"  d[\"previous\"] = \"Ready \"; // sets the \"Previous\" dictionary item to \"Ready \"" + Environment.NewLine + @"
+}
+
+string[] word = line.Split(' ');
+if(word.Length > 0) d[" + "\"previous\"] += word[0] + \", \";" + Environment.NewLine + @"
+
+// The following two lines are equivalent
+// sb.AppendLine(" + "\"\\\"Example\\\":\\t\\\" + number + \\\" (\\\" + word[0] + \"): \\\"\" + line + \"\\\"\");" + Environment.NewLine +
+"~~:\"Example\":\\t%number% (%word 0%): \"%line%\"" + @"
+
+if(number == lineCount - 1) 
+{ 
+  // After the last line
+  ~~:
+  ~~:This is only written at the end
+  ~~:
+  ~~: " + "\"Previous\" dictionary entry is written out: " + Environment.NewLine +
+"  ~~:%d \"previous\"%" + Environment.NewLine + "}");
+                Scripts.Add(script);
+            }
+            
+            RefreshLists();
             UpdateFormWithScript(Scripts.Default);
         }
 
@@ -291,7 +379,7 @@ namespace XLG.Pipeliner
                     .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0) return;
 
-                IProcessLine quickScriptProcessor = GetQuickScriptProcessor();
+                IProcessLine quickScriptProcessor = GenerateQuickScriptLineProcessor();
                 if (quickScriptProcessor == null) return;
 
                 StringBuilder sb = new StringBuilder();
@@ -337,11 +425,18 @@ namespace XLG.Pipeliner
 
         private void SaveQuickScript_Click(object sender, EventArgs e)
         {
-            if (Updating) return;
-            if (Scripts != null)
+            try
             {
-                UpdateScriptFromForm();
-                Scripts.Save();
+                if (Updating) return;
+                if (Scripts != null)
+                {
+                    UpdateScriptFromForm();
+                    Scripts.Save();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
             }
         }
 
@@ -351,24 +446,82 @@ namespace XLG.Pipeliner
             if (Scripts != null)
             {
                 string name = string.Empty;
-                DialogResult uiInputBoxResult = UI.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
-                if (uiInputBoxResult == DialogResult.OK && (name ?? string.Empty).Trim() != string.Empty)
+                DialogResult answer = UI.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
+                if (answer != DialogResult.OK || (name ?? string.Empty).Trim() == string.Empty) return;
+
+                string script = string.Empty;
+                if (CurrentScript != null)
                 {
-                    UpdateScriptFromForm();
-                    Updating = true;
-                    try
+                    answer = MessageBox.Show(this, "Would you like to clone the current script?", "CLONE SCRIPT?", MessageBoxButtons.YesNoCancel);
+                    switch (answer)
                     {
-                        XlgQuickScript newScript = new XlgQuickScript(name);
-                        Scripts.Add(newScript);
-                        QuickScriptList.Items.Add(newScript);
-                        QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
-                        UpdateFormWithScript(newScript);
-                    }
-                    finally
-                    {
-                        Updating = false;
+                        case DialogResult.Cancel:
+                            return;
+                        case DialogResult.Yes:
+                            UpdateScriptFromForm();
+                            script = CurrentScript.Script;
+                            break;
                     }
                 }
+
+                UpdateScriptFromForm();
+                Updating = true;
+                try
+                {
+                    XlgQuickScript newScript = new XlgQuickScript(name, script);
+                    Scripts.Add(newScript);
+                    QuickScriptList.Items.Add(newScript);
+                    QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
+                    UpdateFormWithScript(newScript);
+                }
+                finally
+                {
+                    Updating = false;
+                }
+            }
+        }
+
+        private void ViewGeneratedCode_Click(object sender, EventArgs e)
+        {
+            DisplayExpandedQuickScriptSourceInNotepad();
+        }
+
+        private void QuickScriptEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveQuickScript_Click(sender, null);
+        }
+
+        private void DeleteScript_Click(object sender, EventArgs e)
+        {
+            if (Updating) return;
+            if (CurrentScript == null) return;
+
+            DialogResult answer = MessageBox.Show(this,
+                "This will permanently delete the current script.\n\tAre you sure this is what you want to do?",
+                "DELETE SCRIPT", MessageBoxButtons.YesNo);
+            if (answer == DialogResult.Yes)
+            {
+                Updating = true;
+                XlgQuickScript script = CurrentScript;
+                try
+                {
+                    QuickScriptList.Items.Remove(script);
+                    Scripts.Remove(script);
+                }
+                finally
+                {
+                    Updating = false;
+                }
+                if (Scripts.Count == 0)
+                {
+                    script = new XlgQuickScript("First script");
+                    Scripts.Add(script);
+                    Scripts.Default = script;
+                }
+                else if (Scripts.Default == script)
+                    Scripts.Default = Scripts[0];
+                RefreshLists();
+                UpdateFormWithScript(Scripts.Default);
             }
         }
     }

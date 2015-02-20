@@ -13,23 +13,29 @@ namespace MetX.Data
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
+        [XmlAttribute] public string Name;
         [XmlAttribute] public QuickScriptDestination Destination;
         [XmlAttribute] public Guid Id;
         [XmlAttribute] public string Input;
-        [XmlAttribute] public string Name;
+        [XmlAttribute] public string SliceAt;
+        [XmlAttribute] public string DiceAt;
         [XmlAttribute] public string Script;
-
+        
         public XlgQuickScript(string name = null, string script = "")
         {
             Name = name;
             Script = script;
             Id = Guid.NewGuid();
             Destination = QuickScriptDestination.TextBox;
+            SliceAt = "End of line";
+            DiceAt = "Space";
         }
 
         public bool Parse(string rawScript)
         {
             bool ret = false;
+            SliceAt = "End of line";
+            DiceAt = "Space";
             if (string.IsNullOrEmpty(rawScript)) throw new ArgumentNullException("rawScript");
             Name = rawScript.FirstToken(Environment.NewLine);
             if (string.IsNullOrEmpty(Name)) Name = "Unnamed " + Guid.NewGuid();
@@ -70,6 +76,14 @@ namespace MetX.Data
                         {
                             Id = Guid.NewGuid();
                         }
+                    }
+                    else if (line.StartsWith("~~QuickScriptSliceAt:"))
+                    {
+                        SliceAt = line.TokensAfterFirst(":");
+                    }
+                    else if (line.StartsWith("~~QuickScriptDiceAt:"))
+                    {
+                        DiceAt = line.TokensAfterFirst(":");
                     }
                     else
                     {
