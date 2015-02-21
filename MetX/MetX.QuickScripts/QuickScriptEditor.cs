@@ -18,8 +18,7 @@ namespace XLG.Pipeliner
 {
     public partial class QuickScriptEditor : Form
     {
-        public static List<QuickScriptEditor> Editors = new List<QuickScriptEditor>();
-        public static List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
+        public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
 
         public XlgQuickScript SelectedScript
         {
@@ -66,14 +65,6 @@ namespace XLG.Pipeliner
             RefreshLists();
         }
 
-        public void OpenNewEditor()
-        {
-            QuickScriptEditor quickScriptEditor = new QuickScriptEditor(Scripts);
-            Editors.Add(quickScriptEditor);
-            quickScriptEditor.Show(this);
-            quickScriptEditor.BringToFront();
-        }
-
         public void OpenNewOutput(string title, string output)
         {
             QuickScriptOutput quickScriptOutput = new QuickScriptOutput(title, output);
@@ -93,21 +84,6 @@ namespace XLG.Pipeliner
             CurrentScript.DiceAt = DiceAt.Text;
             Scripts.Default = CurrentScript;
         }
-
-        private static void ViewTextInNotepad(string source)
-        {
-            try
-            {
-                string tempFile = Path.GetTempFileName();
-                File.WriteAllText(tempFile, source);
-                Process.Start("notepad", tempFile);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
 
         private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -171,8 +147,7 @@ namespace XLG.Pipeliner
                 if (CurrentScript == null) return;
                 UpdateScriptFromForm();
                 string source = CurrentScript.ConvertQuickScriptToCSharp();
-                if(!string.IsNullOrEmpty(source))
-                    ViewTextInNotepad(source);
+                if(!string.IsNullOrEmpty(source)) QuickScriptWorker.ViewTextInNotepad(source);
             }
             catch (Exception e)
             {
@@ -207,7 +182,7 @@ namespace XLG.Pipeliner
                 sb.AppendLine();
             }
             MessageBox.Show(sb.ToString());
-            ViewTextInNotepad(source);
+            QuickScriptWorker.ViewTextInNotepad(source);
 
             return null;
         }
@@ -218,52 +193,16 @@ namespace XLG.Pipeliner
 
             if (Scripts.Count == 0)
             {
-                XlgQuickScript script = new XlgQuickScript("First script", FirstScript);
+                XlgQuickScript script = new XlgQuickScript("First script", QuickScriptWorker.FirstScript);
                 Scripts.Add(script);
                 Scripts.Default = script;
-                script = new XlgQuickScript("Example / Tutorial", ExampleTutorialScript);
+                script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
                 Scripts.Add(script);
             }
             
             RefreshLists();
             UpdateFormWithScript(Scripts.Default);
         }
-
-        public static readonly string FirstScript = "~~:%line.Left(20)%";
-        public static readonly string ExampleTutorialScript = @"
-// These lines are called for every non blank line in the source/clipboard
-// Several variables are always defined including:
-//   line is the string content of the current line
-//   number is the current line number being processed
-//   lineCount is the total number of lines to be processed.
-//   d is a Dictionary<string, string> that perists across lines. Use it as you want
-//   sb is a StringBuilder that you will write your output to (which goes in output/clipboard)
-
-// Write a header
-if(number == 0) 
-{
-  ~~:Lines starting with ~~: Are shorthand for sb.AppendLine(...) with special expansion
-  ~~:This makes it easier to write when encoding lines of C#.
-  ~~:Example: Line # (First word): Line content
-  sb.AppendLine(""Or if you prefer, you can simply write C# code"");" + Environment.NewLine +
-"  d[\"previous\"] = \"Ready \"; // sets the \"Previous\" dictionary item to \"Ready \"" + Environment.NewLine + @"
-}
-
-string[] word = line.Split(' ');
-if(word.Length > 0) d[" + "\"previous\"] += word[0] + \", \";" + Environment.NewLine + @"
-
-// The following two lines are equivalent
-// sb.AppendLine(" + "\"\\\"Example\\\":\\t\\\" + number + \\\" (\\\" + word[0] + \"): \\\"\" + line + \"\\\"\");" + Environment.NewLine +
-"~~:\"Example\":\\t%number% (%word 0%): \"%line%\"" + @"
-
-if(number == lineCount - 1) 
-{ 
-  // After the last line
-  ~~:
-  ~~:This is only written at the end
-  ~~:
-  ~~: " + "\"Previous\" dictionary entry is written out: " + Environment.NewLine +
-"  ~~:%d \"previous\"%" + Environment.NewLine + "}";
 
         private void RunQuickScript_Click(object sender, EventArgs e)
         {
@@ -306,7 +245,7 @@ if(number == lineCount - 1)
                             break;
 
                         case "notepad":
-                            ViewTextInNotepad(sb.ToString());
+                            QuickScriptWorker.ViewTextInNotepad(sb.ToString());
                             break;
 
                         case "file":
@@ -425,6 +364,21 @@ if(number == lineCount - 1)
                 RefreshLists();
                 UpdateFormWithScript(Scripts.Default);
             }
+        }
+
+        private void FilePathStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
