@@ -1,8 +1,13 @@
 using System;
+using System.CodeDom.Compiler;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Library;
+using Microsoft.CSharp;
 
 namespace MetX.Data
 {
@@ -36,9 +41,9 @@ namespace MetX.Data
             bool ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
-            if (string.IsNullOrEmpty(rawScript)) throw new ArgumentNullException("rawScript");
+            if (String.IsNullOrEmpty(rawScript)) throw new ArgumentNullException("rawScript");
             Name = rawScript.FirstToken(Environment.NewLine);
-            if (string.IsNullOrEmpty(Name)) Name = "Unnamed " + Guid.NewGuid();
+            if (String.IsNullOrEmpty(Name)) Name = "Unnamed " + Guid.NewGuid();
 
             rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
             if (!rawScript.Contains("~~QuickScript"))
@@ -102,12 +107,117 @@ namespace MetX.Data
             return "~~QuickScriptName:" + Name.AsString() + Environment.NewLine +
                    "~~QuickScriptDestination:" + Destination.AsString() + Environment.NewLine +
                    "~~QuickScriptId:" + Id.AsString() + Environment.NewLine +
-                   (isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty) +
-                   (string.IsNullOrEmpty(Input) ? string.Empty : 
+                   (isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : String.Empty) +
+                   (String.IsNullOrEmpty(Input) ? String.Empty : 
                     "~~QuickScriptInputStart:" + Environment.NewLine + Input + "~~QuickScriptInputEnd:" + Environment.NewLine) +
                    Script.AsString();
         }
 
         public override string ToString() { return Name; }
+
+        public string ConvertQuickScriptToCSharp()
+        {
+            string[] scriptLines = Script.Split(new[]{Environment.NewLine}, StringSplitOptions.None);
+            for (int i = 0; i < scriptLines.Length; i++)
+            {
+                string currScriptLine = scriptLines[i];
+                int indent = currScriptLine.Length - currScriptLine.Trim().Length;
+
+                if (currScriptLine.Contains("~~:"))
+                {
+                    // backslash percent will translate to % after parsing
+                    currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
+
+                    bool keepGoing = true;
+                    int iterations = 0;
+                    while (keepGoing && ++iterations < 1000 && currScriptLine.Contains("%") && currScriptLine.TokenCount("%") > 1)
+                    {
+                        string variableContent = currScriptLine.TokenAt(2, "%");
+                        string resolvedContent = String.Empty;
+                        if (variableContent.Length > 0)
+                        {
+                            if (variableContent.Contains(" "))
+                            {
+                                string variableName = variableContent.FirstToken();
+                                string variableIndex = variableContent.TokenAt(2);
+                                if (variableName != "d")
+                                {
+                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
+                                                      + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
+                                }
+                                else
+                                {
+                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"")
+                                                      + "] + \"";
+                                }
+                            }
+                            else
+                            {
+                                resolvedContent = "\" + " + variableContent + " + \"";
+                            }
+                        }
+                        else
+                            keepGoing = false;
+                        currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
+                    }
+                    currScriptLine = "sb.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
+                    currScriptLine =
+                        currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
+                                      .Replace(" + \"\")", ")")
+                                      .Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
+                    currScriptLine = (new string(' ', indent)) + "            " +
+                                     currScriptLine
+                                         .Replace(" + \"\" + ", String.Empty)
+                                         .Replace("\"\" + ", String.Empty)
+                                         .Replace(" + \"\"", String.Empty)
+                                         .Replace("~$~$", @"%")
+                                         .Replace("~#~$", "\\\"");
+                    scriptLines[i] = currScriptLine;
+                }
+                else
+                {
+                    scriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
+                }
+            }
+            string source = Template.Replace("//~~ProcessLine~~//", String.Join(Environment.NewLine, scriptLines));
+            return source;
+        }
+
+        private static string m_Template = null;
+        public static string Template
+        {
+            get
+            {
+                if (m_Template != null) return m_Template;
+
+                Assembly assembly = Assembly.GetAssembly(typeof(IProcessLine));
+                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
+                {
+                    if (stream == null) throw new MissingManifestResourceException("Quick script processor resource missing.");
+                    m_Template = new StreamReader(stream).ReadToEnd();
+                }
+                return m_Template;
+            }
+        }
+
+        public static CompilerResults CompileSource(string source)
+        {
+            CompilerParameters compilerParameters = new CompilerParameters
+            {
+                GenerateExecutable = false,
+                GenerateInMemory = true,
+                IncludeDebugInformation = false
+            };
+            compilerParameters
+                .ReferencedAssemblies
+                .AddRange(
+                    AppDomain.CurrentDomain
+                             .GetAssemblies()
+                             .Where(a => !a.IsDynamic)
+                             .Select(a => a.Location)
+                             .ToArray());
+            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
+            return compilerResults;
+        }
     }
 }

@@ -286,7 +286,8 @@ namespace MetX.Library
             //  Find the Nth token
             while (tokenNumber > 1)
             {
-                currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+                currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
+                //currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
                 if (currTokenLocation == -1)
                 {
                     return string.Empty;
@@ -300,7 +301,7 @@ namespace MetX.Library
             {
                 return target.Substring(0, currTokenLocation);
             }
-            return target;
+            return string.Empty;
         }
 
         /// <summary>Returns the last delimited token from a string</summary>

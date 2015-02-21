@@ -21,27 +21,6 @@ namespace XLG.Pipeliner
         public static List<QuickScriptEditor> Editors = new List<QuickScriptEditor>();
         public static List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
 
-        private static string m_Template = null;
-        public static string Template
-        {
-            get
-            {
-                if (m_Template == null)
-                {
-                    Assembly assembly = Assembly.GetAssembly(typeof(IProcessLine));
-                    using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
-                    {
-                        if (stream == null)
-                        {
-                            throw new MissingManifestResourceException("Quick script processor resource missing.");
-                        }
-                        m_Template = new StreamReader(stream).ReadToEnd();
-                    }
-                }
-                return m_Template;
-            }
-        }
-
         public XlgQuickScript SelectedScript
         {
             get
@@ -189,7 +168,9 @@ namespace XLG.Pipeliner
         {
             try
             {
-                string source = ConvertQuickScriptToCSharp();
+                if (CurrentScript == null) return;
+                UpdateScriptFromForm();
+                string source = CurrentScript.ConvertQuickScriptToCSharp();
                 if(!string.IsNullOrEmpty(source))
                     ViewTextInNotepad(source);
             }
@@ -201,13 +182,16 @@ namespace XLG.Pipeliner
 
         public IProcessLine GenerateQuickScriptLineProcessor()
         {
-            if (string.IsNullOrEmpty(Template))
+            if (string.IsNullOrEmpty(XlgQuickScript.Template))
             {
                 MessageBox.Show(this, "Quick script template missing.");
                 return null;
             }
-            string source = ConvertQuickScriptToCSharp();
-            CompilerResults compilerResults = CompileSource(source);
+
+            if (CurrentScript == null) return null;
+            UpdateScriptFromForm();
+            string source = CurrentScript.ConvertQuickScriptToCSharp();
+            CompilerResults compilerResults = XlgQuickScript.CompileSource(source);
 
             if (compilerResults.Errors.Count <= 0)
             {
@@ -228,101 +212,25 @@ namespace XLG.Pipeliner
             return null;
         }
 
-        public static CompilerResults CompileSource(string source)
-        {
-            CompilerParameters compilerParameters = new CompilerParameters
-            {
-                GenerateExecutable = false,
-                GenerateInMemory = true,
-                IncludeDebugInformation = false
-            };
-            compilerParameters
-                .ReferencedAssemblies
-                .AddRange(
-                    AppDomain.CurrentDomain
-                             .GetAssemblies()
-                             .Where(a => !a.IsDynamic)
-                             .Select(a => a.Location)
-                             .ToArray());
-            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
-            return compilerResults;
-        }
-
-        public string ConvertQuickScriptToCSharp()
-        {
-            string[] scriptLines = QuickScript.Lines;
-            for (int i = 0; i < scriptLines.Length; i++)
-            {
-                string currScriptLine = scriptLines[i];
-                int indent = currScriptLine.Length - currScriptLine.Trim().Length;
-
-                if (currScriptLine.Contains("~~:"))
-                {
-                    currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
-
-                    while (currScriptLine.Contains("%"))
-                    {
-                        string variableContent = currScriptLine.TokenAt(2, "%");
-                        string resolvedContent = string.Empty;
-                        if (variableContent.Length > 0)
-                        {
-                            if (variableContent.Contains(" "))
-                            {
-                                string variableName = variableContent.FirstToken();
-                                string variableIndex = variableContent.TokenAt(2);
-                                if (variableName != "d")
-                                {
-                                    resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
-                                                      + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
-                                }
-                                else
-                                {
-                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"")
-                                                      + "] + \"";
-                                }
-                            }
-                            else
-                            {
-                                resolvedContent = "\" + " + variableContent + " + \"";
-                            }
-                        }
-                        currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
-                    }
-                    currScriptLine = "sb.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
-                    currScriptLine =
-                        currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                                      .Replace(" + \"\")", ")")
-                                      .Replace("sb.AppendLine(\"\")", "sb.AppendLine()");
-                    currScriptLine = (new string(' ', indent)) + "            " +
-                                     currScriptLine
-                                         .Replace(" + \"\" + ", string.Empty)
-                                         .Replace("\"\" + ", string.Empty)
-                                         .Replace(" + \"\"", string.Empty)
-                                         .Replace("~$~$", @"\%")
-                                         .Replace("~#~$", "\\\"");
-                    scriptLines[i] = currScriptLine;
-                }
-                else
-                {
-                    scriptLines[i] = (new string(' ', indent)) + "            " + currScriptLine;
-                }
-            }
-            string source = Template.Replace("//~~ProcessLine~~//", string.Join(Environment.NewLine, scriptLines));
-            return source;
-        }
-
         private void LoadQuickScriptsFile(string filePath)
         {
             Scripts = XlgQuickScriptFile.Load(filePath);
 
             if (Scripts.Count == 0)
             {
-                XlgQuickScript script = new XlgQuickScript("First script", @"
-~~:%line.Left(20)%
-");
+                XlgQuickScript script = new XlgQuickScript("First script", FirstScript);
                 Scripts.Add(script);
                 Scripts.Default = script;
-                script = new XlgQuickScript("Example / Tutorial", @"
+                script = new XlgQuickScript("Example / Tutorial", ExampleTutorialScript);
+                Scripts.Add(script);
+            }
+            
+            RefreshLists();
+            UpdateFormWithScript(Scripts.Default);
+        }
+
+        public static readonly string FirstScript = "~~:%line.Left(20)%";
+        public static readonly string ExampleTutorialScript = @"
 // These lines are called for every non blank line in the source/clipboard
 // Several variables are always defined including:
 //   line is the string content of the current line
@@ -337,7 +245,7 @@ if(number == 0)
   ~~:Lines starting with ~~: Are shorthand for sb.AppendLine(...) with special expansion
   ~~:This makes it easier to write when encoding lines of C#.
   ~~:Example: Line # (First word): Line content
-  sb.AppendLine(" + "\"Or if you prefer, you can simply write C# code\");" + Environment.NewLine +
+  sb.AppendLine(""Or if you prefer, you can simply write C# code"");" + Environment.NewLine +
 "  d[\"previous\"] = \"Ready \"; // sets the \"Previous\" dictionary item to \"Ready \"" + Environment.NewLine + @"
 }
 
@@ -355,13 +263,7 @@ if(number == lineCount - 1)
   ~~:This is only written at the end
   ~~:
   ~~: " + "\"Previous\" dictionary entry is written out: " + Environment.NewLine +
-"  ~~:%d \"previous\"%" + Environment.NewLine + "}");
-                Scripts.Add(script);
-            }
-            
-            RefreshLists();
-            UpdateFormWithScript(Scripts.Default);
-        }
+"  ~~:%d \"previous\"%" + Environment.NewLine + "}";
 
         private void RunQuickScript_Click(object sender, EventArgs e)
         {
