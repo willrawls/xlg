@@ -37,10 +37,10 @@ namespace MetX.Data
             }
             File.WriteAllText(FilePath, content.ToString());
             string[] history = Directory.GetFiles(FilePath.TokensBeforeLast(@"\"), "*_* *.xlgq");
-            if (history.Length > 5)
+            if (history.Length > 4)
             {
                 Array.Sort(history);
-                for (int i = 5; i < history.Length; i++)
+                for (int i = 4; i < history.Length; i++)
                 {
                     File.SetAttributes(history[i], FileAttributes.Normal);
                     try
