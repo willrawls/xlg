@@ -146,7 +146,7 @@ namespace XLG.Pipeliner
             {
                 if (CurrentScript == null) return;
                 UpdateScriptFromForm();
-                string source = CurrentScript.ConvertQuickScriptToCSharp();
+                string source = CurrentScript.ToCSharp();
                 if(!string.IsNullOrEmpty(source)) QuickScriptWorker.ViewTextInNotepad(source);
             }
             catch (Exception e)
@@ -165,7 +165,7 @@ namespace XLG.Pipeliner
 
             if (CurrentScript == null) return null;
             UpdateScriptFromForm();
-            string source = CurrentScript.ConvertQuickScriptToCSharp();
+            string source = CurrentScript.ToCSharp();
             CompilerResults compilerResults = XlgQuickScript.CompileSource(source);
 
             if (compilerResults.Errors.Count <= 0)
@@ -366,19 +366,5 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void FilePathStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
     }
 }

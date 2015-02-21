@@ -47,17 +47,17 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SliceAt = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.DestinationList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.DiceAt = new System.Windows.Forms.ToolStripComboBox();
             this.FilePathStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
             this.InputFilePath = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.DestinationFilePath = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
-            this.DestinationList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.FilePathStrip.SuspendLayout();
@@ -81,7 +81,6 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(794, 31);
             this.toolStrip1.TabIndex = 14;
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // SaveScript
             // 
@@ -183,7 +182,6 @@
             this.toolStrip2.Size = new System.Drawing.Size(794, 25);
             this.toolStrip2.TabIndex = 18;
             this.toolStrip2.Text = "toolStrip2";
-            this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
             // 
             // ViewGeneratedCode
             // 
@@ -238,6 +236,28 @@
             this.SliceAt.Size = new System.Drawing.Size(84, 25);
             this.SliceAt.Tag = "";
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(70, 22);
+            this.toolStripLabel8.Text = "&Destination:";
+            // 
+            // DestinationList
+            // 
+            this.DestinationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DestinationList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DestinationList.Items.AddRange(new object[] {
+            "Text Box",
+            "Clipboard",
+            "Notepad"});
+            this.DestinationList.Name = "DestinationList";
+            this.DestinationList.Size = new System.Drawing.Size(121, 25);
+            // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Enabled = false;
@@ -275,7 +295,6 @@
             this.FilePathStrip.Size = new System.Drawing.Size(794, 25);
             this.FilePathStrip.TabIndex = 19;
             this.FilePathStrip.Text = "toolStrip3";
-            this.FilePathStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FilePathStrip_ItemClicked);
             // 
             // toolStripLabel6
             // 
@@ -288,6 +307,11 @@
             this.InputFilePath.Name = "InputFilePath";
             this.InputFilePath.Size = new System.Drawing.Size(285, 25);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // toolStripLabel7
             // 
             this.toolStripLabel7.Name = "toolStripLabel7";
@@ -298,33 +322,6 @@
             // 
             this.DestinationFilePath.Name = "DestinationFilePath";
             this.DestinationFilePath.Size = new System.Drawing.Size(310, 25);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel8
-            // 
-            this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(70, 22);
-            this.toolStripLabel8.Text = "&Destination:";
-            // 
-            // DestinationList
-            // 
-            this.DestinationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DestinationList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DestinationList.Items.AddRange(new object[] {
-            "Text Box",
-            "Clipboard",
-            "Notepad"});
-            this.DestinationList.Name = "DestinationList";
-            this.DestinationList.Size = new System.Drawing.Size(121, 25);
             // 
             // QuickScriptEditor
             // 

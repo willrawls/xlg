@@ -25,43 +25,52 @@ namespace MetX.Data
         [XmlAttribute] public string SliceAt;
         [XmlAttribute] public string DiceAt;
         [XmlAttribute] public string Script;
-        
+
+        public XlgQuickScript()
+        {
+            Script = string.Empty;
+            Id = Guid.NewGuid();
+            Destination = QuickScriptDestination.Notepad;
+            SliceAt = "End of line";
+            DiceAt = "Space";
+        }
+
         public XlgQuickScript(string name = null, string script = "")
         {
             Name = name;
             Script = script;
             Id = Guid.NewGuid();
-            Destination = QuickScriptDestination.TextBox;
+            Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
         }
 
-        public bool Parse(string rawScript)
+        public bool Parse(string rawScriptFromFile)
         {
             bool ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
-            if (String.IsNullOrEmpty(rawScript)) throw new ArgumentNullException("rawScript");
-            Name = rawScript.FirstToken(Environment.NewLine);
+            if (String.IsNullOrEmpty(rawScriptFromFile)) throw new ArgumentNullException("rawScriptFromFile");
+            Name = rawScriptFromFile.FirstToken(Environment.NewLine);
             if (String.IsNullOrEmpty(Name)) Name = "Unnamed " + Guid.NewGuid();
 
-            rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
-            if (!rawScript.Contains("~~QuickScript"))
+            rawScriptFromFile = rawScriptFromFile.TokensAfterFirst(Environment.NewLine);
+            if (!rawScriptFromFile.Contains("~~QuickScript"))
             {
-                Script = rawScript;
+                Script = rawScriptFromFile;
             }
             else
             {
-                if(rawScript.Contains("~~QuickScriptInput"))
+                if(rawScriptFromFile.Contains("~~QuickScriptInput"))
                 {
                     Input =
-                        rawScript.TokensAfterFirst("~~QuickScriptInputStart:")
+                        rawScriptFromFile.TokensAfterFirst("~~QuickScriptInputStart:")
                                  .TokensBeforeLast("~~QuickScriptInputEnd:");
-                    rawScript = rawScript.TokensAround("~~QuickScriptInputStart:", "~~QuickScriptInputEnd:" + Environment.NewLine);
+                    rawScriptFromFile = rawScriptFromFile.TokensAround("~~QuickScriptInputStart:", "~~QuickScriptInputEnd:" + Environment.NewLine);
                 }
 
                 StringBuilder sb = new StringBuilder();
-                foreach (string line in rawScript.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+                foreach (string line in rawScriptFromFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
                 {
                     if (line.StartsWith("~~QuickScriptDefault:"))
                     {
@@ -115,7 +124,7 @@ namespace MetX.Data
 
         public override string ToString() { return Name; }
 
-        public string ConvertQuickScriptToCSharp()
+        public string ToCSharp()
         {
             string[] scriptLines = Script.Split(new[]{Environment.NewLine}, StringSplitOptions.None);
             for (int i = 0; i < scriptLines.Length; i++)
@@ -147,8 +156,7 @@ namespace MetX.Data
                                 }
                                 else
                                 {
-                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"")
-                                                      + "] + \"";
+                                    resolvedContent = "\" + " + variableName + "[" + variableIndex.Replace("~#~$", "\"") + "] + \"";
                                 }
                             }
                             else
