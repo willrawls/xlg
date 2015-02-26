@@ -52,7 +52,7 @@ namespace MetX.Data
             foreach (string rawScript in rawScripts)
             {
                 XlgQuickScript script = new XlgQuickScript();
-                bool isDefault = script.Parse(rawScript);
+                bool isDefault = script.Load(rawScript);
                 ret.Add(script);
                 if (isDefault) ret.Default = script;
             }

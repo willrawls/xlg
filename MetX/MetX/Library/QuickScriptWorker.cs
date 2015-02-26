@@ -21,7 +21,20 @@ namespace MetX.Library
             }
         }
 
-        public static readonly string FirstScript = "~~:%line.Left(20)%";
+        public static void ViewFileInNotepad(string filePath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
+                Process.Start("notepad", filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public const string FirstScript = "~~:%line.Left(20)%";
 
         public static readonly string ExampleTutorialScript = @"
 // These lines are called for every non blank line in the source/clipboard

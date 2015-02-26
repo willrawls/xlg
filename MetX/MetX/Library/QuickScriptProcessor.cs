@@ -7,15 +7,26 @@ using MetX.Library;
 
 namespace MetX
 {
-    public class QuickScriptProcessor : IProcessLine
+    public class QuickScriptProcessor : BaseLineProcessor
     {
-        public bool ProcessLine(StringBuilder sb, string line, int number, int lineCount, Dictionary<string, string> d)
+//~~ClassMembers~~//
+
+        public override void Start()
+        {
+//~~Start~~//
+        }
+
+        public override bool ProcessLine(string line, int number)
         {
             if (string.IsNullOrEmpty(line) && number > -1) return true;
-
 //~~ProcessLine~~//
-
             return true;
         }
+
+        public override void Finish()
+        {
+//~~Finish~~//
+        }
+
     }
 }

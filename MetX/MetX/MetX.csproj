@@ -149,7 +149,7 @@
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
     <EmbeddedResource Include="Library\QuickScriptProcessor.cs" />
-    <Compile Include="Library\IProcessLine.cs" />
+    <Compile Include="Library\BaseLineProcessor.cs" />
     <Compile Include="Library\QuickScriptWorker.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
     <Compile Include="Library\UI.cs" />

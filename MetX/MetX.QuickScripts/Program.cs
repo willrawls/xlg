@@ -14,15 +14,19 @@ namespace MetX.QuickScripts
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickScripts");
-            Directory.CreateDirectory(path);
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string filePath = Path.Combine(path, "Default.xlgq");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickScripts");
+            Directory.CreateDirectory(path);
+            string filePath = null;
+
+            filePath = (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
+                ? args[0]
+                : Path.Combine(path, "Default.xlgq");
+            //MessageBox.Show(filePath);
             Application.Run(new QuickScriptEditor(filePath));
         }
     }
