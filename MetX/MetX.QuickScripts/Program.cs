@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using XLG.Pipeliner;
 
-namespace MetX.QuickScripts
+namespace XLG.QuickScripts
 {
     static class Program
     {
@@ -21,7 +17,7 @@ namespace MetX.QuickScripts
 
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickScripts");
             Directory.CreateDirectory(path);
-            string filePath = null;
+            string filePath;
 
             filePath = (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
                 ? args[0]

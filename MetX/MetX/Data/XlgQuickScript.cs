@@ -54,7 +54,9 @@ namespace MetX.Data
         [XmlAttribute] public string InputFilePath;
         [XmlAttribute] public string DestinationFilePath;
 
-        public XlgQuickScript(string name = null, string script = "")
+        public XlgQuickScript() {}
+
+        public XlgQuickScript(string name, string script = "")
         {
             Name = name;
             Script = script;
@@ -85,7 +87,7 @@ namespace MetX.Data
             return compilerResults;
         }
 
-        public string ConvertQuickScriptToCSharp()
+        public string ToCSharp()
         {
             string[] scriptLines = Script.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
             string[] fieldLines = {};
@@ -165,10 +167,10 @@ namespace MetX.Data
                 Name = "Unnamed " + Guid.NewGuid();
             }
 
-            rawScriptFromFile = rawScriptFromFile.TokensAfterFirst(Environment.NewLine);
-            if (!rawScriptFromFile.Contains("~~QuickScript"))
+            rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
+            if (!rawScript.Contains("~~QuickScript"))
             {
-                Script = rawScriptFromFile;
+                Script = rawScript;
             }
             else
             {

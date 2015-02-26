@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using MetX.Data;
 using MetX.Library;
 
-namespace XLG.Pipeliner
+namespace XLG.QuickScripts
 {
     public partial class QuickScriptEditor : Form
     {
@@ -148,7 +148,7 @@ namespace XLG.Pipeliner
                     return;
                 }
                 UpdateScriptFromForm();
-                string source = CurrentScript.ConvertQuickScriptToCSharp();
+                string source = CurrentScript.ToCSharp();
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source);

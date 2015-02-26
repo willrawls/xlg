@@ -1,4 +1,4 @@
-﻿namespace XLG.Pipeliner
+﻿namespace XLG.QuickScripts
 {
     partial class QuickScriptEditor
     {
@@ -350,11 +350,6 @@
             this.BrowseInputFilePath.Text = "...";
             this.BrowseInputFilePath.ToolTipText = "Click to browse for an input file";
             this.BrowseInputFilePath.Click += new System.EventHandler(this.BrowseInputFilePath_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripSeparator3
             // 

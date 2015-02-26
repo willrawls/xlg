@@ -1,4 +1,4 @@
-﻿namespace XLG.Pipeliner
+﻿namespace XLG.QuickScripts
 {
     partial class QuickScriptOutput
     {
