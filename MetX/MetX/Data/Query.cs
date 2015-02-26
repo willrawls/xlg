@@ -76,7 +76,7 @@ namespace MetX.Data
         public Aggregate() {  }
         public Aggregate(DataProvider Instance, AggregateFunction agg, string columnName, string alias)
         {
-            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).ToUpper() + "(" + Instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
+            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + Instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
         }
         public static Aggregate New(DataProvider Instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(Instance, agg, columnName, alias); }
     }
@@ -259,7 +259,7 @@ namespace MetX.Data
             {
                 foreach (string CurrValue in (List<string>)Value)
                 {
-                    if (CurrValue != null && CurrValue.Length > 0)
+                    if (!string.IsNullOrEmpty(CurrValue))
                     {
                         if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
                         sValue.Append("'");
@@ -272,7 +272,7 @@ namespace MetX.Data
             {
                 sValue.Append("(");
                 sValue.Append("'");
-                sValue.Append(Value.ToString().Replace("'", "''"));
+                sValue.Append(Value.AsString().Replace("'", "''"));
                 sValue.Append("'");
             }
             sValue.Append(")");
@@ -285,7 +285,7 @@ namespace MetX.Data
     /// </summary>
     public class OrderBy
     {
-        public string OrderString;
+        public readonly string OrderString;
 
         public OrderBy() { }
         public OrderBy(string orderString) { this.OrderString = orderString; }
@@ -402,8 +402,8 @@ TryAgain:
             if (updateSettings == null) updateSettings = new Dictionary<string, object>();
 
             //boolean massage for MySQL
-            if (Worker.AsString(value).ToLower() == "false") value = 0;
-            else if (Worker.AsString(value).ToLower() == "true") value = 1;
+            if (value.AsString().ToLower() == "false") value = 0;
+            else if (value.AsString().ToLower() == "true") value = 1;
 
             if (updateSettings.ContainsKey(columnName)) updateSettings[columnName] = value;
             else                                        updateSettings.Add(columnName, value);

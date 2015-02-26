@@ -179,7 +179,7 @@ namespace MetX.IO
 						binaryData = new Byte[fs.Length];
 						long bytesRead = fs.Read(binaryData, 0, (int)fs.Length);
 						fs.Close();
-						string base64String = System.Convert.ToBase64String(binaryData, 0,binaryData.Length);
+						string base64String = Convert.ToBase64String(binaryData, 0,binaryData.Length);
     						
 						for(int i=0; i< base64String.Length ; )
 						{

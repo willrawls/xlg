@@ -89,7 +89,6 @@
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.toolStrip1.Size = new System.Drawing.Size(769, 31);
             this.toolStrip1.TabIndex = 14;
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // SaveScript
             // 
@@ -194,7 +193,6 @@
             this.toolStrip2.Size = new System.Drawing.Size(769, 25);
             this.toolStrip2.TabIndex = 18;
             this.toolStrip2.Text = "toolStrip2";
-            this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
             // 
             // ViewGeneratedCode
             // 
@@ -317,7 +315,6 @@
             this.FilePathStrip.Size = new System.Drawing.Size(769, 25);
             this.FilePathStrip.TabIndex = 19;
             this.FilePathStrip.Text = "toolStrip3";
-            this.FilePathStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FilePathStrip_ItemClicked);
             // 
             // toolStripLabel6
             // 
@@ -353,6 +350,11 @@
             this.BrowseInputFilePath.Text = "...";
             this.BrowseInputFilePath.ToolTipText = "Click to browse for an input file";
             this.BrowseInputFilePath.Click += new System.EventHandler(this.BrowseInputFilePath_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripSeparator3
             // 

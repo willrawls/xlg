@@ -110,7 +110,7 @@ namespace MetX.Data
         /// <summary>
         /// List of all the C# keywords
         /// </summary>
-        public List<string> CSharpKeywords = new List<string>(new[]
+        public readonly List<string> CSharpKeywords = new List<string>(new[]
         {
             "abstract", "event", "new", "struct", "as", "explicit",
             "null", "switch", "base", "extern", "object", "this",
@@ -133,18 +133,15 @@ namespace MetX.Data
             "enum", "namespace", "string"
         });
 
-        public Form Gui;
+        public readonly Form Gui;
 
         /// <summary>The namespace that should be passed into the XSL</summary>
         public string Namespace = "xlg";
 
         public string OutputFolder;
 
-        /// <summary>Only used for static generation, this is the file that contains the necessary connection string</summary>
-        public string SettingsFilePath;
-
         /// <summary>The class name to contain the Stored Procedures</summary>
-        public string spClassName = "SPs";
+        public const string spClassName = "SPs";
 
         private XmlElement m_StoredProceduresToRender;
         private XmlElement m_TablesToRender;
@@ -182,41 +179,6 @@ namespace MetX.Data
         }
 
         /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
-        /// <param name="virtualxlgFilePath">The virtual path and filename containing the xlg / Data XML</param>
-        public CodeGenerator(string virtualxlgFilePath)
-            : this()
-        {
-            VirtualPath = Path.GetDirectoryName(virtualxlgFilePath).Replace("\\", "/");
-            this.VirtualxlgFilePath = virtualxlgFilePath;
-            xlgFilename = virtualxlgFilePath + ".xsl";
-            xlgDataXml = GetVirtualFile(virtualxlgFilePath);
-
-            Namespace = Path.GetFileNameWithoutExtension(virtualxlgFilePath);
-            if (Namespace.ToUpper().EndsWith(".GLOVE"))
-            {
-                Namespace = Namespace.Substring(0, Namespace.Length - 6);
-            }
-
-            VDirName = StringExtensions.TokenAt(virtualxlgFilePath, 1, "/");
-            if (VDirName.Length == 0)
-            {
-                VDirName = StringExtensions.TokenAt(virtualxlgFilePath, 2, "/");
-            }
-            try
-            {
-                AppDomainAppPath = HttpRuntime.AppDomainAppPath;
-            }
-            catch
-            {
-                AppDomainAppPath = Path.GetDirectoryName(SettingsFilePath);
-            }
-        }
-
-        /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on xlg file name and contents</summary>
-        public CodeGenerator(string gloveFilename, string contents)
-            : this() { Initialize(gloveFilename, contents); }
-
-        /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
         public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, Form gui)
             : this()
         {
@@ -224,63 +186,14 @@ namespace MetX.Data
             Initialize(xlgFilePath, xlgXslFilePath, settingsFilePath);
         }
 
-        public void Initialize(string file, string contents)
-        {
-            VirtualPath = Path.GetDirectoryName(file).Replace("\\", "/");
-            VirtualxlgFilePath = file;
-            SettingsFilePath = "";
-            xlgFilename = file + ".xsl";
-            xlgDataXml = contents;
-
-            Namespace = Path.GetFileNameWithoutExtension(file);
-            if (Namespace.ToUpper().EndsWith(".GLOVE"))
-            {
-                Namespace = Namespace.Substring(0, Namespace.Length - 6);
-            }
-
-            VDirName = Namespace;
-
-            if (file.IndexOf("\\App_Code\\") > -1)
-            {
-                SettingsFilePath = StringExtensions.FirstToken(file, "\\App_Code\\") + "\\web.config";
-            }
-            else
-            {
-                SettingsFilePath = StringExtensions.TokensBefore(file, StringExtensions.TokenCount(file, "\\"), "\\") + "\\app.config";
-            }
-            try
-            {
-                AppDomainAppPath = HttpRuntime.AppDomainAppPath;
-            }
-            catch
-            {
-                if (!string.IsNullOrEmpty(SettingsFilePath))
-                {
-                    AppDomainAppPath = Path.GetDirectoryName(SettingsFilePath);
-                }
-                else
-                {
-                    AppDomainAppPath = Path.GetDirectoryName(xlgFilename);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(SettingsFilePath) && SettingsFilePath.ToLower().Contains(".config"))
-            {
-                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap();
-                configFile.ExeConfigFilename = SettingsFilePath;
-                DataService.ConnectionStrings = ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None).ConnectionStrings.ConnectionStrings;
-            }
-        }
-
         public void Initialize(string xlgFilePath, string xlgXslFilePath, string settingsFilePath)
         {
-            VirtualPath = Path.GetDirectoryName(xlgFilePath).Replace("\\", "/");
+            VirtualPath = Path.GetDirectoryName(xlgFilePath).AsString().Replace("\\", "/");
             VirtualxlgFilePath = xlgFilePath;
-            this.SettingsFilePath = settingsFilePath;
             xlgFilename = xlgXslFilePath;
             xlgDataXml = GetVirtualFile(VirtualxlgFilePath);
 
-            Namespace = Path.GetFileNameWithoutExtension(VirtualxlgFilePath);
+            Namespace = Path.GetFileNameWithoutExtension(VirtualxlgFilePath).AsString();
             if (Namespace.ToUpper().EndsWith(".GLOVE"))
             {
                 Namespace = Namespace.Substring(0, Namespace.Length - 6);
@@ -306,8 +219,7 @@ namespace MetX.Data
 
             if (!string.IsNullOrEmpty(settingsFilePath) && settingsFilePath.ToLower().Contains(".config"))
             {
-                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap();
-                configFile.ExeConfigFilename = settingsFilePath;
+                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap {ExeConfigFilename = settingsFilePath};
                 DataService.ConnectionStrings = ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None).ConnectionStrings.ConnectionStrings;
             }
         }
@@ -326,8 +238,8 @@ namespace MetX.Data
 
         private string Dav(XmlDocument x, string name, string defaultValue)
         {
-            string ret = null;
-            if (x.DocumentElement.Attributes[name] != null)
+            string ret;
+            if (x.DocumentElement != null && x.DocumentElement.Attributes[name] != null)
             {
                 ret = x.DocumentElement.Attributes[name].Value;
                 if (string.IsNullOrEmpty(ret))
@@ -388,19 +300,19 @@ namespace MetX.Data
         private string GetxlgPath(string path)
         {
             return path.Replace("/xsl/", "/").ToLower();
-            ;
         }
 
+        // ReSharper disable once UnusedMethodReturnValue.Local
         private XmlDocument XslXml(XmlDocument xmlDoc)
         {
             string renderPath = m_XslsToRender.GetAttribute("Path");
-            if (renderPath == null || renderPath.Length == 0)
+            if (renderPath.Length == 0)
             {
                 renderPath = "~";
             }
 
             m_UrlExtension = m_XslsToRender.GetAttribute("UrlExtension");
-            if (m_UrlExtension == null || m_UrlExtension.Length == 0)
+            if (string.IsNullOrEmpty(m_UrlExtension))
             {
                 m_UrlExtension = "aspx";
             }
@@ -417,33 +329,38 @@ namespace MetX.Data
             AddAttribute(xmlXsls, "xlgPath", GetxlgPath("/" + VDirName));
             AddAttribute(xmlXsls, "VirtualDir", string.Empty);
             AddAttribute(xmlXsls, "Path", path);
-            AddAttribute(xmlXsls, "Folder", StringExtensions.LastToken(path, @"\"));
+            AddAttribute(xmlXsls, "Folder", path.LastToken(@"\"));
+            // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlXsls);
 
-            foreach (XmlElement currVirtual in m_XslsToRender.SelectNodes("Virtual"))
+            XmlNodeList xmlNodeList = m_XslsToRender.SelectNodes("Virtual");
+            if (xmlNodeList != null)
             {
-                string xslFile = currVirtual.GetAttribute("Name");
-                string classname = xslFile.Replace(" ", "_").Replace("/", ".");
-                XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
-
-                if (CSharpKeywords.Contains(classname))
+                foreach (XmlElement currVirtual in xmlNodeList)
                 {
-                    classname = "_" + classname;
+                    string xslFile = currVirtual.GetAttribute("Name");
+                    string classname = xslFile.Replace(" ", "_").Replace("/", ".");
+                    XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
+
+                    if (CSharpKeywords.Contains(classname))
+                    {
+                        classname = "_" + classname;
+                    }
+
+                    if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
+                        xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
+                    {
+                        classname += "PageHandler";
+                    }
+
+                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + m_UrlExtension));
+                    AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + m_UrlExtension);
+                    AddAttribute(xmlXsl, "ClassName", classname);
+                    AddAttribute(xmlXsl, "Filepart", xslFile);
+                    AddAttribute(xmlXsl, "IsVirtual", "true");
+
+                    xmlXsls.AppendChild(xmlXsl);
                 }
-
-                if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
-                    xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
-                {
-                    classname += "PageHandler";
-                }
-
-                AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + m_UrlExtension));
-                AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + m_UrlExtension);
-                AddAttribute(xmlXsl, "ClassName", classname);
-                AddAttribute(xmlXsl, "Filepart", xslFile);
-                AddAttribute(xmlXsl, "IsVirtual", "true");
-
-                xmlXsls.AppendChild(xmlXsl);
             }
 
             ProcessXslPath(xmlDoc, renderPath, "/" + VDirName.ToLower(), path, xmlXsls);
@@ -455,7 +372,7 @@ namespace MetX.Data
         {
             foreach (string xslFile in Directory.GetFiles(path))
             {
-                if (xslFile != null && xslFile.Length > 0 && Path.GetExtension(xslFile) == ".xsl" && !xslFile.EndsWith(".xlg.xsl") && IsIncluded(m_XslsToRender, xslFile)
+                if (!string.IsNullOrEmpty(xslFile) && Path.GetExtension(xslFile) == ".xsl" && !xslFile.EndsWith(".xlg.xsl") && IsIncluded(m_XslsToRender, xslFile)
                     && IsIncluded(m_XslsToRender, renderPath + "/" + Path.GetFileNameWithoutExtension(xslFile)))
                 {
                     XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
@@ -486,7 +403,7 @@ namespace MetX.Data
             }
             foreach (string xslFolder in Directory.GetDirectories(path))
             {
-                string folderName = StringExtensions.LastToken(xslFolder, @"\");
+                string folderName = xslFolder.LastToken(@"\");
                 if (IsIncluded(m_XslsToRender, folderName) && IsIncluded(m_XslsToRender, renderPath + "/" + folderName))
                 {
                     XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
@@ -519,7 +436,7 @@ namespace MetX.Data
                     continue;
                 }
 
-                TableSchema.Table tbl = null;
+                TableSchema.Table tbl;
                 try
                 {
                     tbl = DataService.Instance.GetTableSchema(table);
@@ -539,7 +456,6 @@ namespace MetX.Data
                                 break;
                             case DialogResult.Cancel:
                                 return null;
-                                break;
                         }
                     }
                     tbl = null;
@@ -652,12 +568,11 @@ namespace MetX.Data
             return xmlDoc;
         }
 
+        // ReSharper disable once UnusedMethodReturnValue.Local
         private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
         {
             //get the SP list from the DB
             string[] sPs = DataService.Instance.GetSPList();
-            IDataReader paramReader = null;
-
             XmlElement root = xmlDoc.DocumentElement;
 
             XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
@@ -677,7 +592,7 @@ namespace MetX.Data
                     AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
                     AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
                     //grab the parameters
-                    paramReader = DataService.Instance.GetSPParams(spName);
+                    IDataReader paramReader = DataService.Instance.GetSPParams(spName);
 
                     XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
                     xmlStoredProcedure.AppendChild(xmlParameters);
@@ -741,7 +656,7 @@ namespace MetX.Data
         {
             if (VirtualPath != null)
             {
-                if (StringExtensions.FirstToken(virtualFilename, ":/") != string.Empty || virtualFilename.Replace("\\", "/").StartsWith(VirtualPath))
+                if (virtualFilename.FirstToken(":/") != string.Empty || virtualFilename.Replace("\\", "/").StartsWith(VirtualPath))
                 {
                     return Helper.GetVirtualFile(virtualFilename);
                 }
@@ -782,42 +697,10 @@ namespace MetX.Data
                     }
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
                 return null;
-            }
-
-            /// <summary>Returns a pysical list of files given a virtual path. Only files that acually exist in the virtual path will be returned. An empty list will be returned if the virtual path could not be mapped physically.</summary>
-            /// <param name="virtualPath">The virtual path to retrieve a physical list of files</param>
-            /// <returns>The physical list of files</returns>
-            public static string[] GetPhysicalFileListFromVirtual(string virtualPath)
-            {
-                try
-                {
-                    if (virtualPath != null)
-                    {
-                        return Directory.GetFiles(VirtualPathToPhysical(virtualPath));
-                    }
-                }
-                catch
-                { }
-                return new string[] { };
-            }
-
-            /// <summary>Returns a pysical list of sub directories physically residing in the physical path equivalent to a given virtual path. Only folders that acually exist in the virtual path will be returned. An empty list will be returned if the virtual path could not be mapped physically.</summary>
-            /// <param name="virtualPath">The virtual path to retrieve a physical list of sub directories</param>
-            /// <returns>The physical list of files</returns>
-            public static string[] GetPhysicalFolderListFromVirtual(string virtualPath)
-            {
-                try
-                {
-                    if (virtualPath != null)
-                    {
-                        return Directory.GetDirectories(VirtualPathToPhysical(virtualPath));
-                    }
-                }
-                catch
-                { }
-                return new string[] { };
             }
 
             /// <summary>Attemptes to convert a virtual path into a physical one. Physical path is not guarenteed to exist.</summary>
@@ -888,6 +771,7 @@ namespace MetX.Data
                     if (toCheck.SelectSingleNode("Include[@Name='" + toFind + "']") != null)
                     {
                         // Specifically included
+                        // ReSharper disable once RedundantAssignment
                         ret = false;
                     }
                     else
@@ -929,7 +813,7 @@ namespace MetX.Data
             foreach (XmlElement includer in xmlNodeList)
             {
                 XmlAttribute name = includer.Attributes["Name"];
-                Regex regex = null;
+                Regex regex;
                 if (!m_Patterns.ContainsKey(name.Value))
                 {
                     string pattern = Worker.ConvertWildcardToRegex(name.Value);
@@ -968,11 +852,7 @@ namespace MetX.Data
 
         private bool IsAuditField(string colName)
         {
-            bool bOut = false;
-            if (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon")
-            {
-                bOut = true;
-            }
+            bool bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
             return bOut;
         }
 
@@ -1036,15 +916,15 @@ namespace MetX.Data
 
                 while (toConvert.IndexOf("_", StringComparison.Ordinal) > -1)
                 {
-                    string af = StringExtensions.TokensAfter(toConvert, 1, "_");
+                    string af = toConvert.TokensAfter(1, "_");
                     if (af.Length > 0)
                     {
                         af = af[0].ToString().ToUpper() + af.Substring(1);
-                        toConvert = StringExtensions.FirstToken(toConvert, "_") + af;
+                        toConvert = toConvert.FirstToken("_") + af;
                     }
                     else
                     {
-                        toConvert = StringExtensions.FirstToken(toConvert, "_");
+                        toConvert = toConvert.FirstToken("_");
                     }
                 }
                 if (toConvert == "Type")
@@ -1065,16 +945,16 @@ namespace MetX.Data
         /// <param name="attributeName">Name of an attribute to add</param>
         /// <param name="attributeValue">Value of the attribute</param>
         /// <returns>The XmlElement added</returns>
-        public XmlElement AddElement(XmlElement target, string elementName, string attributeName, string attributeValue)
+        public void AddElement(XmlElement target, string elementName, string attributeName, string attributeValue)
         {
             if (target == null)
             {
-                return null;
+                return;
             }
+            // ReSharper disable once PossibleNullReferenceException
             XmlElement x = target.OwnerDocument.CreateElement(elementName);
             AddAttribute(x, attributeName, attributeValue);
             target.AppendChild(x);
-            return x;
         }
 
         /// <summary>Simplified way of adding an attribute to a XmlElement</summary>
@@ -1087,17 +967,19 @@ namespace MetX.Data
             {
                 return;
             }
-            XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
-            ret.Value = attributeValue;
-            target.Attributes.Append(ret);
+            if (target.OwnerDocument != null)
+            {
+                XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
+                ret.Value = attributeValue;
+                target.Attributes.Append(ret);
+            }
         }
 
         // Anytime a database column is named any of these words, it causes a code issue. 
         //  Make sure a suffix is added to property names in these cases
-        private static readonly List<string> m_TypeNames = new List<string>(new string[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
+        private static readonly List<string> m_TypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
 
         /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
-        /// <param name="sIn">The string to proper case</param>
         /// <returns>The proper case translation</returns>
         public static string GetProperName(string tableName, string fieldName, string suffix)
         {
@@ -1126,7 +1008,6 @@ namespace MetX.Data
         }
 
         /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
-        /// <param name="sIn">The string to proper case</param>
         /// <returns>The proper case translation</returns>
         public static string GetProperName(string fieldName)
         {

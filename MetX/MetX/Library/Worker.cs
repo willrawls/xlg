@@ -93,8 +93,8 @@ namespace MetX.Library
                         new TimeSpan(1, 7, 11), System.Web.Caching.CacheItemPriority.AboveNormal, null);
                 }
                 sEmail = sEmail.Trim();
-                sEmail = StringExtensions.FirstToken(sEmail, "@").Trim() + "@" + StringExtensions.FirstToken(StringExtensions.TokensAfter(sEmail, 1, "@").ToLower(), "<").Trim();
-                return email.IsMatch(sEmail);
+                sEmail = sEmail.FirstToken("@").Trim() + "@" + sEmail.TokensAfter(1, "@").ToLower().FirstToken("<").Trim();
+                return email != null && email.IsMatch(sEmail);
             }
             return false;
         }
@@ -102,9 +102,9 @@ namespace MetX.Library
         public static string Value(HttpRequest request, System.Web.UI.StateBag viewState, System.Web.SessionState.HttpSessionState session, string key)
         {
             string ret = null;
-            if (session != null) ret = Worker.Value(session, key);
+            if (session != null) ret = Value(session, key);
             if (string.IsNullOrEmpty(ret)) ret = request[key];
-            if (viewState != null && string.IsNullOrEmpty(ret)) ret = Worker.Value(viewState, key);
+            if (viewState != null && string.IsNullOrEmpty(ret)) ret = Value(viewState, key);
             if (string.IsNullOrEmpty(ret)) ret = request.Headers[key];
             if (string.IsNullOrEmpty(ret))
                 if (request.Cookies[key] != null) ret = request.Cookies[key].Value;
@@ -116,7 +116,10 @@ namespace MetX.Library
             string ret = string.Empty;
             if (state != null)
                 try { ret = state[key].ToString(); }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             return ret;
         }
 
@@ -125,7 +128,10 @@ namespace MetX.Library
             string ret = string.Empty;
             if (state != null)
                 try { ret = state[key].ToString(); }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             return ret;
         }
 
@@ -138,7 +144,7 @@ namespace MetX.Library
             if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return defaultValue;
             if (value is Guid)
-                return System.Convert.ToString(value);
+                return Convert.ToString(value);
             return value.ToString().Trim();
         }
 
@@ -168,7 +174,7 @@ namespace MetX.Library
             else 
                 try
                 {
-                    ret = System.Convert.ToDouble(text);
+                    ret = Convert.ToDouble(text);
                 }
                 catch { }
             return ret;

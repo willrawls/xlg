@@ -11,8 +11,8 @@ namespace MetX.Library
 
         public void BeginDoc(TextWriter output, XmlDocument target)
         {
-            output.WriteLine(Xhtml.Declaration);
-            output.WriteLine(Xhtml.TagHtmlBegin);
+            output.WriteLine(Declaration);
+            output.WriteLine(TagHtmlBegin);
             output.WriteLine("<title>Auto Output</title>");
             output.WriteLine("</head>");
             output.WriteLine("<body>");

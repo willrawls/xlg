@@ -112,7 +112,7 @@ namespace MetX.Library
 			}
 			catch (Exception exp)
 			{
-				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + System.Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
+				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
 			}
 			finally
 			{
@@ -174,7 +174,7 @@ namespace MetX.Library
 			}
 			catch (Exception exp)
 			{
-				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + System.Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
+				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
 			}
 			finally
 			{
@@ -265,7 +265,7 @@ namespace MetX.Library
 		public string TransformISO(string xslPath, string xmlDoc) { return TransformISO(xslPath, xmlDoc, "iso-8859-1"); }
 		public string TransformISO(string xslPath, string xmlDoc, string encodingName)
 		{
-			System.IO.StringReader sr = new System.IO.StringReader(xmlDoc);
+			StringReader sr = new StringReader(xmlDoc);
 			XmlTextReader xmlDocument = new XmlTextReader(sr);
 			XslCompiledTransform xslt = new XslCompiledTransform(true);
 			StringWriterWithEncoding sw = new StringWriterWithEncoding(
@@ -275,7 +275,7 @@ namespace MetX.Library
 
 			XsltSettings settings = new XsltSettings(false, true);
 			xslt.Load(xslPath, settings, new XmlUrlResolver());
-			xw = XmlTextWriter.Create(sw, xslt.OutputSettings);
+			xw = XmlWriter.Create(sw, xslt.OutputSettings);
 			XsltArgumentList argsList = new XsltArgumentList();
 			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
 
@@ -286,15 +286,15 @@ namespace MetX.Library
 
 		public string Transform(string xslPath, string xmlDoc)
 		{
-			System.IO.StringReader sr = new System.IO.StringReader(xmlDoc);
+			StringReader sr = new StringReader(xmlDoc);
 			XmlTextReader xmlDocument = new XmlTextReader(sr);
 			XslCompiledTransform xslt = new XslCompiledTransform(true);
-			System.IO.StringWriter sw = new System.IO.StringWriter();
+			StringWriter sw = new StringWriter();
 			XmlWriter xw = null;
 
 			XsltSettings settings = new XsltSettings(false, true);
 			xslt.Load(xslPath, settings, new XmlUrlResolver());
-			xw = XmlTextWriter.Create(sw, xslt.OutputSettings);
+			xw = XmlWriter.Create(sw, xslt.OutputSettings);
 			XsltArgumentList argsList = new XsltArgumentList();
 			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
 			xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xw);

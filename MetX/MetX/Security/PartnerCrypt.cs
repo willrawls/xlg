@@ -45,11 +45,11 @@ namespace MetX.Security
 
         private void InternalSetup()
         {
-            CryptoService.Key = ASCIIEncoding.ASCII.GetBytes(Key);
+            CryptoService.Key = Encoding.ASCII.GetBytes(Key);
             if (Vector.Length > CryptoService.BlockSize / 8)
-                CryptoService.IV = ASCIIEncoding.ASCII.GetBytes(Vector.Substring(0, CryptoService.BlockSize / 8));
+                CryptoService.IV = Encoding.ASCII.GetBytes(Vector.Substring(0, CryptoService.BlockSize / 8));
             else
-                CryptoService.IV = ASCIIEncoding.ASCII.GetBytes(Vector);
+                CryptoService.IV = Encoding.ASCII.GetBytes(Vector);
             byte v = (byte)(Math.Abs(DateTime.UtcNow.DayOfYear - DateTime.UtcNow.Day + (int)DateTime.UtcNow.DayOfWeek) + 1);
             for (int i = 0; i < CryptoService.Key.Length; i++)
                 CryptoService.Key[i] = (byte)((CryptoService.Key[i] + v) % 254);
@@ -64,7 +64,7 @@ namespace MetX.Security
             if (Source == null || Key == null || Source.Length == 0 || Key.Length == 0)
                 return string.Empty;
 
-            byte[] bytIn = System.Text.ASCIIEncoding.ASCII.GetBytes(Source);
+            byte[] bytIn = Encoding.ASCII.GetBytes(Source);
             // create a MemoryStream so that the process can be done without I/O files
             MemoryStream ms = new MemoryStream();
 
@@ -76,7 +76,7 @@ namespace MetX.Security
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            string ReturnValue = System.Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
+            string ReturnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return ReturnValue;
@@ -88,7 +88,7 @@ namespace MetX.Security
                 return string.Empty;
 
             // convert from Base64 to binary
-            byte[] bytIn = System.Convert.FromBase64String(EncryptedSource);
+            byte[] bytIn = Convert.FromBase64String(EncryptedSource);
             // create a MemoryStream with the input
             MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
 
@@ -125,7 +125,7 @@ namespace MetX.Security
             string sItems = FromBase64(EncryptedSource);
             if (sItems != null && sItems.Length > 0)
             {
-                string[] Items = sItems.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                string[] Items = sItems.Split(new[] { "\r\n" }, StringSplitOptions.None);
                 for (int i = 0; i < Items.Length - 1; i += 2)
                     ret.Add(System.Web.HttpUtility.UrlDecode(Items[i]), System.Web.HttpUtility.UrlDecode(Items[i + 1]));
             }

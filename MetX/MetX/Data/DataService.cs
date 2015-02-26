@@ -29,53 +29,49 @@ namespace MetX.Data
 
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
-        private static Dictionary<string, DataService> Services = new Dictionary<string, DataService>();
-        private static Dictionary<string, IProvide> IProviders = new Dictionary<string, IProvide>();
+        private static Dictionary<string, DataService> m_Services = new Dictionary<string, DataService>();
+        private static readonly Dictionary<string, IProvide> m_Providers = new Dictionary<string, IProvide>();
 
-        public static DataProvider GetProvider(string ConnectionStringName)
+        public DataService(ConnectionStringSettings connectionSettings)
         {
-            return GetDataService(ConnectionStringName).Provider;
-        }
-
-        public DataService(ConnectionStringSettings ConnectionSettings)
-        {
-            Settings = ConnectionSettings;
+            Settings = connectionSettings;
             Setup();
         }
 
         public void Setup()
         {
-            IProvide MetXProvider = null;
-            if (!IProviders.ContainsKey(Settings.ProviderName.ToLower()))
+            IProvide metXProvider;
+            if (!m_Providers.ContainsKey(Settings.ProviderName.ToLower()))
             {
                 MetXObjectName = "MetX.Data.Factory." + Settings.ProviderName.Replace(".", "_");
-                Assembly MetXProviderAssembly = Assembly.Load(MetXObjectName);
-                Type MetXProviderType = MetXProviderAssembly.GetType(MetXObjectName, true);
-                MetXProvider = System.Activator.CreateInstance(MetXProviderType, true) as IProvide;
-                IProviders.Add(Settings.ProviderName.ToLower(), MetXProvider);
-                MetXProviderAssemblyString = MetXProvider.ProviderAssemblyString;
-                ProviderAssemblyString = MetXProviderAssembly.FullName;
+                Assembly metXProviderAssembly = Assembly.Load(MetXObjectName);
+                Type metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
+                metXProvider = Activator.CreateInstance(metXProviderType, true) as IProvide;
+                if (metXProvider == null) throw new ProviderException("Unable to instantiate: " + metXProviderType.FullName);
+                m_Providers.Add(Settings.ProviderName.ToLower(), metXProvider);
+                MetXProviderAssemblyString = metXProvider.ProviderAssemblyString;
+                ProviderAssemblyString = metXProviderAssembly.FullName;
             }
             else
-                MetXProvider = IProviders[Settings.ProviderName.ToLower()];
+                metXProvider = m_Providers[Settings.ProviderName.ToLower()];
 
-            ProviderType = MetXProvider.ProviderType;
-            if (MetXProvider.ProviderType == ProviderTypeEnum.Data || MetXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
+            ProviderType = metXProvider.ProviderType;
+            if (metXProvider.ProviderType == ProviderTypeEnum.Data || metXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
             {
-                Provider = MetXProvider.GetNewDataProvider(Settings.ConnectionString);
-                Provider.Initialize(MetXProvider.ProviderName, new System.Collections.Specialized.NameValueCollection());
+                Provider = metXProvider.GetNewDataProvider(Settings.ConnectionString);
+                Provider.Initialize(metXProvider.ProviderName, new System.Collections.Specialized.NameValueCollection());
 
                 if (Provider == null)
                     throw new ProviderException("Unknown provider: " + Settings.ProviderName);
             }
-            if (MetXProvider.ProviderType == ProviderTypeEnum.Gather || MetXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
+            if (metXProvider.ProviderType == ProviderTypeEnum.Gather || metXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
             {
-                Gatherer = MetXProvider.GetNewGatherProvider();
+                Gatherer = metXProvider.GetNewGatherProvider();
                 if (Gatherer == null)
                     throw new ProviderException("Unknown gatherer: " + Settings.ProviderName);
             }
 
-            Services.Add(Settings.Name, this);
+            m_Services.Add(Settings.Name, this);
             if (Instance == null)
                 Instance = this;
 
@@ -102,28 +98,21 @@ namespace MetX.Data
             */
         }
 
-        public static void ClearDataServiceCache()
-        {
-            if (Services == null)
-                Services = new Dictionary<string, DataService>();
-            Services.Clear();
-        }
-
         /// <summary>
         /// Typically called from DAL code.
         /// </summary>
-        /// <param name="ConnectionStringName"></param>
+        /// <param name="connectionStringName"></param>
         /// <returns></returns>
-        public static DataService GetDataService(string ConnectionStringName)
+        public static DataService GetDataService(string connectionStringName)
         {
-            if (Services.ContainsKey(ConnectionStringName))
-                return Services[ConnectionStringName];
+            if (m_Services.ContainsKey(connectionStringName))
+                return m_Services[connectionStringName];
 
             if (ConnectionStrings == null)
                 ConnectionStrings = WebConfigurationManager.ConnectionStrings;
 
             DataService ret = new DataService();
-            ret.Settings = ConnectionStrings[ConnectionStringName];
+            ret.Settings = ConnectionStrings[connectionStringName];
             if (ret.Settings == null) return null;
 
             ret.Setup();
@@ -133,16 +122,16 @@ namespace MetX.Data
         /// <summary>
         /// Typically used to generate code when an app.config or web.config isn't available or desired.
         /// </summary>
-        /// <param name="ConnectionStringName"></param>
-        /// <param name="ConnectionString"></param>
-        /// <param name="ProviderName"></param>
+        /// <param name="connectionStringName"></param>
+        /// <param name="connectionString"></param>
+        /// <param name="providerName"></param>
         /// <returns></returns>
-        public static DataService GetDataServiceManually(string ConnectionStringName, string ConnectionString, string ProviderName)
+        public static DataService GetDataServiceManually(string connectionStringName, string connectionString, string providerName)
         {
-            if (Services.ContainsKey(ConnectionStringName))
-                return Services[ConnectionStringName];
+            if (m_Services.ContainsKey(connectionStringName))
+                return m_Services[connectionStringName];
 
-            return new DataService(new ConnectionStringSettings(ConnectionStringName, ConnectionString, ProviderName));
+            return new DataService(new ConnectionStringSettings(connectionStringName, connectionString, providerName));
         }
 
         public DataService()

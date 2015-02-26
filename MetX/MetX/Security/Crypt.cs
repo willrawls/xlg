@@ -43,12 +43,12 @@ namespace MetX.Security
 
                 CryptoService = new RijndaelManaged();
                 CryptoService.KeySize = 256;
-                Key = ASCIIEncoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Crypt.Key"]);
+                Key = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Crypt.Key"]);
                 string TheVector = ConfigurationManager.AppSettings["Crypt.Vector"];
                 if (TheVector.Length > CryptoService.BlockSize / 8)
-                    Vector = ASCIIEncoding.ASCII.GetBytes(TheVector.Substring(0, CryptoService.BlockSize / 8));
+                    Vector = Encoding.ASCII.GetBytes(TheVector.Substring(0, CryptoService.BlockSize / 8));
                 else
-                    Vector = ASCIIEncoding.ASCII.GetBytes(TheVector);
+                    Vector = Encoding.ASCII.GetBytes(TheVector);
                 InternalSetup(true);
                 InternalSetup(false);
 
@@ -86,7 +86,7 @@ namespace MetX.Security
             if (string.IsNullOrEmpty(Source))
                 return string.Empty;
 
-            byte[] bytIn = ASCIIEncoding.ASCII.GetBytes(Source);
+            byte[] bytIn = Encoding.ASCII.GetBytes(Source);
             // create a MemoryStream so that the process can be done without I/O files
             MemoryStream ms = new MemoryStream();
 
@@ -98,7 +98,7 @@ namespace MetX.Security
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            string ReturnValue = System.Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
+            string ReturnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return ReturnValue;
@@ -111,7 +111,7 @@ namespace MetX.Security
             if (string.IsNullOrEmpty(Source))
                 return string.Empty;
 
-            byte[] bytIn = ASCIIEncoding.ASCII.GetBytes(Source);
+            byte[] bytIn = Encoding.ASCII.GetBytes(Source);
             // create a MemoryStream so that the process can be done without I/O files
             MemoryStream ms = new MemoryStream();
 
@@ -123,7 +123,7 @@ namespace MetX.Security
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            string ReturnValue = System.Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
+            string ReturnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return ReturnValue;
@@ -141,7 +141,7 @@ namespace MetX.Security
             if (EncryptedSource.Contains(" "))
                 EncryptedSource = EncryptedSource.Replace(" ", "+");
 
-            byte[] bytIn = System.Convert.FromBase64String(EncryptedSource);
+            byte[] bytIn = Convert.FromBase64String(EncryptedSource);
             MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
 
             string ReturnValue = null;
@@ -176,7 +176,7 @@ TryAgain:
             if (string.IsNullOrEmpty(EncryptedSource))
                 return string.Empty;
 
-            byte[] bytIn = System.Convert.FromBase64String(EncryptedSource);
+            byte[] bytIn = Convert.FromBase64String(EncryptedSource);
             MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
             string ReturnValue = null;
             try
@@ -204,25 +204,29 @@ TryAgain:
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < NameValuePairs.Count; i++)
             {
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.AsString(NameValuePairs.GetKey(i))));
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode(Worker.AsString(NameValuePairs[i])));
+                sb.AppendLine(HttpUtility.UrlEncode(NameValuePairs.GetKey(i).AsString()));
+                sb.AppendLine(HttpUtility.UrlEncode(NameValuePairs[i].AsString()));
             }
             return ToBase64(sb.ToString());
         }
 
-        public static System.Collections.Specialized.NameValueCollection NameValueFromBase64(string EncryptedSource)
+        public static System.Collections.Specialized.NameValueCollection NameValueFromBase64(string encryptedSource)
         {
+            if (encryptedSource == null)
+            {
+                throw new ArgumentNullException("encryptedSource");
+            }
             if (EncryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
 
             System.Collections.Specialized.NameValueCollection ret = new System.Collections.Specialized.NameValueCollection();
-            if (string.IsNullOrEmpty(EncryptedSource) && EncryptedSource.Length < 1024)
+            if (string.IsNullOrEmpty(encryptedSource) && encryptedSource.Length < 1024)
                 return ret;
-            EncryptedSource = FromBase64(EncryptedSource);
-            if (!string.IsNullOrEmpty(EncryptedSource))
+            encryptedSource = FromBase64(encryptedSource);
+            if (!string.IsNullOrEmpty(encryptedSource))
             {
-                string[] Items = EncryptedSource.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                string[] Items = encryptedSource.Split(new[] { "\r\n" }, StringSplitOptions.None);
                 for (int i = 0; i < Items.Length - 1; i += 2)
-                    ret.Add(System.Web.HttpUtility.UrlDecode(Items[i]), System.Web.HttpUtility.UrlDecode(Items[i + 1]));
+                    ret.Add(HttpUtility.UrlDecode(Items[i]), HttpUtility.UrlDecode(Items[i + 1]));
             }
             return ret;
         }

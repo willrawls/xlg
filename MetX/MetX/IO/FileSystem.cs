@@ -26,115 +26,115 @@ namespace MetX.IO
 	{
 		
 		/// <summary>Deletes all files in a folder older than a certain number of minutes.</summary>
-		/// <param name="Minutes">The number of minutes ago the file must be created to be deleted. (So 5 means it must be at least 5 minutes old to be deleted).</param>
+		/// <param name="minutes">The number of minutes ago the file must be created to be deleted. (So 5 means it must be at least 5 minutes old to be deleted).</param>
 		/// <param name="sPath">The folder to delete files from</param>
-		public static void CleanFilesOlderThan(int Minutes, string sPath)
+		public static void CleanFilesOlderThan(int minutes, string sPath)
 		{
-			string[] Files = Directory.GetFiles(sPath);
-			foreach (string CurrFile in Files)
-                if(DateTime.Now.Subtract(File.GetCreationTime(CurrFile)).TotalMinutes > Minutes)
-					File.Delete(CurrFile);
+			string[] files = Directory.GetFiles(sPath);
+			foreach (string currFile in files)
+                if(DateTime.Now.Subtract(File.GetCreationTime(currFile)).TotalMinutes > minutes)
+					File.Delete(currFile);
 		}
 
         
         /// <summary>Deletes all sub folders older than a certain number of minutes.</summary>
-        /// <param name="Minutes">The number of minutes ago a folder must be created to be deleted (So 5 means it must be at least 5 minutes old to be deleted)</param>
+        /// <param name="minutes">The number of minutes ago a folder must be created to be deleted (So 5 means it must be at least 5 minutes old to be deleted)</param>
         /// <param name="sPath">The path to retrieve delete sub folders for. NOTE: The path itself will not be removed. So passing "C:\X\Y" would delete "C:\X\Y\Z" (if it's more than 5 minutes old) but not "C:\X\Y" (no matter how old it is)</param>
-        public static void CleanFoldersOlderThan(int Minutes, string sPath)
+        public static void CleanFoldersOlderThan(int minutes, string sPath)
         {
-            string[] Dirs = Directory.GetDirectories(sPath);
-            foreach (string CurrDir in Dirs)
-                if (DateTime.Now.Subtract(File.GetCreationTime(CurrDir)).TotalMinutes > Minutes)
-                    Directory.Delete(CurrDir, true);
+            string[] dirs = Directory.GetDirectories(sPath);
+            foreach (string currDir in dirs)
+                if (DateTime.Now.Subtract(File.GetCreationTime(currDir)).TotalMinutes > minutes)
+                    Directory.Delete(currDir, true);
         }
 
         
         /// <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
-        /// <param name="Source">The path from which files and subfolders should be copied</param>
-        /// <param name="Dest">The path to which those files and folders should be copied</param>
+        /// <param name="source">The path from which files and subfolders should be copied</param>
+        /// <param name="dest">The path to which those files and folders should be copied</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static bool DeepCopy(DirectoryInfo Source, DirectoryInfo Dest)
+        public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest)
 		{
-			FileSystemInfo[] SourceContents = Source.GetFileSystemInfos();
-			FileInfo CurrSourceFile;
+			FileSystemInfo[] sourceContents = source.GetFileSystemInfos();
+			FileInfo currSourceFile;
 
-			foreach (FileSystemInfo CurrSource in SourceContents)
+			foreach (FileSystemInfo currSource in sourceContents)
 			{
-				if (CurrSource.Attributes ==  FileAttributes.Directory)
-					DeepCopy((DirectoryInfo)CurrSource, Dest.CreateSubdirectory(CurrSource.Name));
+				if (currSource.Attributes ==  FileAttributes.Directory)
+					DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name));
 				else
 				{
-					CurrSourceFile = (FileInfo)CurrSource;
-					CurrSourceFile.CopyTo(Dest.FullName + @"\" + CurrSourceFile.Name);
+					currSourceFile = (FileInfo)currSource;
+					currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);
 				}
 			}
 			return true;
 		}
 
         /// <summary>Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along the way</summary>
-        /// <param name="Source">The path from which files and subfolders to iterate</param>
+        /// <param name="source">The path from which files and subfolders to iterate</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static xlgFolder DeepContents(DirectoryInfo Source)
+        public static xlgFolder DeepContents(DirectoryInfo source)
         {
-            xlgFolder ret = new xlgFolder(Source.FullName, Source.Name, Source.CreationTime, Source.LastWriteTime);
-            return DeepContents(ret, Source);
+            xlgFolder ret = new xlgFolder(source.FullName, source.Name, source.CreationTime, source.LastWriteTime);
+            return DeepContents(ret, source);
         }
 
         /// <summary>Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along the way</summary>
-        /// <param name="Source">The path from which files and subfolders to iterate</param>
+        /// <param name="source">The path from which files and subfolders to iterate</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static xlgFolder DeepContents(xlgFolder Target, DirectoryInfo Source)
+        public static xlgFolder DeepContents(xlgFolder target, DirectoryInfo source)
         {
-            FileSystemInfo[] SourceContents = Source.GetFileSystemInfos();
-            FileInfo CurrSourceFile;
+            FileSystemInfo[] sourceContents = source.GetFileSystemInfos();
+            FileInfo currSourceFile;
 
-            foreach (FileSystemInfo CurrSource in SourceContents)
+            foreach (FileSystemInfo currSource in sourceContents)
             {
-                if ((CurrSource.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                if ((currSource.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                 {
-                    Target.Folders.Add(
+                    target.Folders.Add(
                         DeepContents(
-                            new xlgFolder(CurrSource.FullName, CurrSource.Name, CurrSource.CreationTime, CurrSource.LastWriteTime), 
-                            (DirectoryInfo) CurrSource));
+                            new xlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime, currSource.LastWriteTime), 
+                            (DirectoryInfo) currSource));
                 }
                 else
                 {
-                    FileInfo fi = (FileInfo) CurrSource;
-                    Target.Files.Add(
+                    FileInfo fi = (FileInfo) currSource;
+                    target.Files.Add(
                         new xlgFile(fi.FullName, fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
                 }
             }
-            return Target;
+            return target;
         }
 
         /// <summary>Reads the entire contents of a file and returns it as a string</summary>
-        /// <param name="Filename">The path and filename to read</param>
+        /// <param name="filename">The path and filename to read</param>
         /// <returns>The contents of the file or a blank string if the file does not exist.</returns>
-        public static string FileToString(string Filename)
+        public static string FileToString(string filename)
 		{
-			string ReturnValue;
+			string returnValue;
 
-			if (File.Exists(Filename))
+			if (File.Exists(filename))
 			{
-				FileStream St = File.Open(Filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-				StreamReader Sr = new StreamReader(St);
-				ReturnValue = Sr.ReadToEnd();
-				Sr.Close();
-				St.Close();
+				FileStream st = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+				StreamReader sr = new StreamReader(st);
+				returnValue = sr.ReadToEnd();
+				sr.Close();
+				st.Close();
 			}
 			else
-				ReturnValue = string.Empty;
+				returnValue = string.Empty;
 
-			return ReturnValue;
+			return returnValue;
 		}
 
         
         /// <summary>Writes a string to a file. If the file already exists, it will be deleted first (effectively overwriting the file)</summary>
-        /// <param name="Filename">The path and filename of the file to overwrite</param>
-        /// <param name="FileContents">The contents of the file to write</param>
-        public static void StringToFile(string Filename, string FileContents)
+        /// <param name="filename">The path and filename of the file to overwrite</param>
+        /// <param name="fileContents">The contents of the file to write</param>
+        public static void StringToFile(string filename, string fileContents)
 		{
-            File.WriteAllText(Filename, FileContents, Encoding.Unicode);
+            File.WriteAllText(filename, fileContents, Encoding.Unicode);
             //StreamWriter Sw = File.CreateText(Filename);
             //Sw.NewLine = "";
             //Sw.WriteLine(FileContents);
@@ -143,37 +143,33 @@ namespace MetX.IO
 
         
         /// <summary>Given a path, it returns the parent folder (So for "C:\X\Y\Z", "C:\X\Y" would be returned.</summary>
-        /// <param name="Path">The path to find the parent for</param>
+        /// <param name="path">The path to find the parent for</param>
         /// <returns>The path of the parent directory</returns>
-        public static string ParentDir(string Path)
-		{
-			if( Path.Length > 0)
-			{
-				DirectoryInfo dir = new DirectoryInfo(Path);
-				return dir.Parent.ToString();
-			}
-			else 
-				return string.Empty;
-		}
+        public static string ParentDir(string path)
+        {
+            if (path.Length <= 0) return string.Empty;
+            DirectoryInfo dir = new DirectoryInfo(path);
+            return dir.Parent.AsString();
+        }
 
-        public static string InsureFolderExists(string Path, bool StripOffFilename)
+	    public static string InsureFolderExists(string path, bool stripOffFilename)
         {
             string ret = string.Empty;
-            if (!Directory.Exists(Path))
+            if (!Directory.Exists(path))
             {
-                string Folder = (StripOffFilename
-                    ? StringExtensions.TokensBefore(Path, StringExtensions.TokenCount(Path, @"\"), @"\")
-                    : Path);
-                if (!Directory.Exists(Folder))
+                string folder = (stripOffFilename
+                    ? path.TokensBefore(path.TokenCount(@"\"), @"\")
+                    : path);
+                if (!Directory.Exists(folder))
                 {
-                    if (MessageBox.Show("The folder '" + Folder + "' does not exist.\n\n\tCreate it now?", "CREATE FOLDER?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("The folder '" + folder + "' does not exist.\n\n\tCreate it now?", "CREATE FOLDER?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        Directory.CreateDirectory(Folder);
-                        ret = Folder.EndsWith(@"\") ? Folder : Folder + @"\";
+                        Directory.CreateDirectory(folder);
+                        ret = folder.EndsWith(@"\") ? folder : folder + @"\";
                     }
                 }
                 else
-                    ret = Folder.EndsWith(@"\") ? Folder : Folder + @"\";
+                    ret = folder.EndsWith(@"\") ? folder : folder + @"\";
             }
             return ret;
         }
@@ -182,48 +178,48 @@ namespace MetX.IO
         /// <summary>
         /// Runs a command line, waits for it to finish, gathers it's output from strin and returns the output.
         /// </summary>
-        /// <param name="Filename">The filename to execute</param>
-        /// <param name="Arguments">Any (optional) arguments to pass to the executable</param>
-        /// <param name="WorkingFolder">The folder that the executing environment should initially be set to</param>
-        /// <param name="WaitTime">The number of seconds to wait before killing the process. If the value is less than 1, 60 seconds is assumed.</param>
+        /// <param name="filename">The filename to execute</param>
+        /// <param name="arguments">Any (optional) arguments to pass to the executable</param>
+        /// <param name="workingFolder">The folder that the executing environment should initially be set to</param>
+        /// <param name="waitTime">The number of seconds to wait before killing the process. If the value is less than 1, 60 seconds is assumed.</param>
         /// <returns>The strout/strerr output by the executable</returns>
-        public static string GatherOutput(string Filename, string Arguments, string WorkingFolder, int WaitTime)
+        public static string GatherOutput(string filename, string arguments, string workingFolder, int waitTime)
         {
             Process p = new Process();
 
-            p.StartInfo.FileName = Filename;
+            p.StartInfo.FileName = filename;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             p.StartInfo.CreateNoWindow = true;
 
-            if (Arguments.Trim().Length > 0)
+            if (arguments.Trim().Length > 0)
             {
-                p.StartInfo.Arguments = Arguments;
+                p.StartInfo.Arguments = arguments;
             }
-            if (WorkingFolder != null && WorkingFolder.Trim().Length > 0)
+            if (workingFolder != null && workingFolder.Trim().Length > 0)
             {
-                p.StartInfo.WorkingDirectory = WorkingFolder;
+                p.StartInfo.WorkingDirectory = workingFolder;
             }
-            if (WaitTime < 1)
+            if (waitTime < 1)
             {
-                WaitTime = 60;
+                waitTime = 60;
             }
-            WaitTime *= 1000;
+            waitTime *= 1000;
 
             p.Start();
 
             string output = p.StandardOutput.ReadToEnd();
             string sError = p.StandardError.ReadToEnd();
 
-            if (!(p.WaitForExit(WaitTime)))
+            if (!(p.WaitForExit(waitTime)))
             {
                 p.Kill();
             }
             p.Close();
 
-            return (output + System.Environment.NewLine + sError).Replace("\\x000C", string.Empty).Replace(System.Environment.NewLine + System.Environment.NewLine, System.Environment.NewLine).Replace(System.Environment.NewLine + System.Environment.NewLine, System.Environment.NewLine);
+            return (output + Environment.NewLine + sError).Replace("\\x000C", string.Empty).Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine).Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
         }
     }
 }

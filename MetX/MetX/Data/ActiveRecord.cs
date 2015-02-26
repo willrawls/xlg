@@ -24,14 +24,14 @@ namespace MetX.Data
 	public abstract class ActiveRecord
     {
         #region State Properties
-        [XmlIgnore] public bool _IsLoaded;
-        [XmlIgnore] public bool _IsNew;
-        [XmlIgnore] public string _TableName;
-        [XmlIgnore] public object _Tag;
-        [XmlIgnore] public int _RecordHashThen;
+        [XmlIgnore] public bool IsLoaded;
+        [XmlIgnore] public bool IsNew;
+        [XmlIgnore] public string TableName;
+        [XmlIgnore] public object Tag;
+        [XmlIgnore] public int RecordHashThen;
         #endregion
         #region default constructor
-        public ActiveRecord() { _IsNew = true; }
+        public ActiveRecord() { IsNew = true; }
         public ActiveRecord(IDataReader rdr) { Load(rdr); }
         public ActiveRecord(DataRow dr) { Load(dr); }
         #endregion
@@ -48,13 +48,13 @@ namespace MetX.Data
         public abstract void ToXml(XmlWriter xw);
 		public abstract void ToXml(TextWriter xw);
 		public abstract void ToXml(StringBuilder sb);
-		public abstract void ToXml(StringBuilder sb, string OuterTagName);
+		public abstract void ToXml(StringBuilder sb, string outerTagName);
 
 		public abstract QueryCommand GetInsertCommand(string userName);
         public abstract QueryCommand GetUpdateCommand(string userName);
 
         public abstract int RecordHashNow();
-        public bool HasChanged()  { return _IsNew || _RecordHashThen == 0 || _RecordHashThen != RecordHashNow();  }
+        public bool HasChanged()  { return IsNew || RecordHashThen == 0 || RecordHashThen != RecordHashNow();  }
     }
 
     [Serializable]
@@ -62,10 +62,10 @@ namespace MetX.Data
     {
 		public abstract string OuterXml();
 		public abstract string InnerXml();
-		public abstract void ToXml(TextWriter Output);
+		public abstract void ToXml(TextWriter output);
 		public abstract void ToXml(XmlWriter xw);
 		public abstract void ToXml(StringBuilder sb);
-		public abstract void ToXml(StringBuilder sb, string OuterTagName);
+		public abstract void ToXml(StringBuilder sb, string outerTagName);
 	}
 
 }

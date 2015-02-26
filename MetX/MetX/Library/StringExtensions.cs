@@ -296,12 +296,12 @@ namespace MetX.Library
                 tokenNumber -= 1;
             }
             //  Extract the Nth token (Which is the next token at this point)
-            currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+            currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
             if (currTokenLocation > 0)
             {
                 return target.Substring(0, currTokenLocation);
             }
-            return string.Empty;
+            return target; // string.Empty;
         }
 
         /// <summary>Returns the last delimited token from a string</summary>

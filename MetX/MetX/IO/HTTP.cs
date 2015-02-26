@@ -12,7 +12,7 @@ namespace MetX.IO
 	{
         public static class UserAgents
         {
-            public const string IE60XPsp2dotNET2 = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)";
+            public const string IE60XPsp2DotNET2 = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)";
             public const string Firefox2001XP= "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
             public const string Nescape81XPGeckoDotNET = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) Gecko/20060127 Netscape/8.1";
             public const string Opera91XP = "Opera/9.10 (Windows NT 5.1; U; en)";
@@ -23,19 +23,19 @@ namespace MetX.IO
         /// <returns>The response text from the post (ASCII encoded).</returns>
         public static string GetURL(string lcURL, string PostData)
 		{
-			Stream myStream;
             WebRequest myWebRequest = WebRequest.Create(lcURL);
 			byte[] uploadData = Encoding.ASCII.GetBytes(PostData);
 			
 			myWebRequest.Method = "POST";
 			myWebRequest.ContentType = "application/x-www-form-urlencoded";
 			myWebRequest.ContentLength = uploadData.Length;
-			myStream = myWebRequest.GetRequestStream();
+			Stream myStream = myWebRequest.GetRequestStream();
 			myStream.Write(uploadData, 0, uploadData.Length);
 			myStream.Close();
 				
 			WebResponse myWebResponse = myWebRequest.GetResponse();
 			myStream = myWebResponse.GetResponseStream();
+            if (myStream == null) return null;
 			byte[] returnedData = new byte[myWebResponse.ContentLength];
 			myStream.Read(returnedData, 0, (int)myWebResponse.ContentLength);
 
@@ -55,7 +55,7 @@ namespace MetX.IO
 			if (Timeout <  1000)
 				Timeout = Timeout * 1000;
 			loHttp.Timeout = Timeout;
-			loHttp.UserAgent = (UserAgent == null || UserAgent.Length == 0 ? UserAgents.IE60XPsp2dotNET2 : UserAgent);
+			loHttp.UserAgent = (UserAgent == null || UserAgent.Length == 0 ? UserAgents.IE60XPsp2DotNET2 : UserAgent);
 			//  *** Retrieve request info headers
 			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
 			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
@@ -78,7 +78,7 @@ namespace MetX.IO
 			if (Timeout <  1000)
 				Timeout = Timeout * 1000;
 			loHttp.Timeout = Timeout;
-            loHttp.UserAgent = UserAgents.IE60XPsp2dotNET2;
+            loHttp.UserAgent = UserAgents.IE60XPsp2DotNET2;
 			//  *** Retrieve request info headers
 			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
 			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
@@ -102,7 +102,7 @@ namespace MetX.IO
             if (Timeout < 1000)
                 Timeout = Timeout * 1000;
             loHttp.Timeout = Timeout;
-            loHttp.UserAgent = UserAgents.IE60XPsp2dotNET2;
+            loHttp.UserAgent = UserAgents.IE60XPsp2DotNET2;
             //  *** Retrieve request info headers
             HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
             Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
@@ -126,15 +126,21 @@ namespace MetX.IO
 			if (Timeout <  1000)
 				Timeout = Timeout * 1000;
 			loHttp.Timeout = Timeout;
-            loHttp.UserAgent = UserAgents.IE60XPsp2dotNET2;
+            loHttp.UserAgent = UserAgents.IE60XPsp2DotNET2;
 			//  *** Retrieve request info headers
 			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
 			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-			Stream loResponseStream = loWebResponse.GetResponseStream();
-            byte[] ret = new byte[loResponseStream.Length];
-            loResponseStream.Read(ret, 0, (int) loResponseStream.Length);
-			loWebResponse.Close();
-			loResponseStream.Close();
+            byte[] ret = {};
+            using (Stream loResponseStream = loWebResponse.GetResponseStream())
+            {
+                if(loResponseStream != null)
+                {
+                    ret = new byte[loResponseStream.Length];
+                    loResponseStream.Read(ret, 0, (int) loResponseStream.Length);
+                    loResponseStream.Close();        
+                }
+            }
+            loWebResponse.Close();
 			return ret;
 		}
 
@@ -143,7 +149,7 @@ namespace MetX.IO
 		/// <param name="TheResponse">The HttpResponse to write the result to</param>
 		/// <param name="ClearResponse">True if you want TheResponse.Clear() to be called before writing URL response to TheResponse</param>
 		/// <param name="EndResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
-		public static void PullPage(Uri URL, System.Web.HttpResponse TheResponse, bool ClearResponse, bool EndResponse)
+		public static void PullPage(Uri URL, HttpResponse TheResponse, bool ClearResponse, bool EndResponse)
 		{
 			WebRequest Req;
 

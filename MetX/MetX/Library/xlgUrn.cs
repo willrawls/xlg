@@ -65,7 +65,7 @@ namespace MetX.Library
         {
             if (toEncode == null)
                 return string.Empty;
-            return System.Web.HttpUtility.UrlEncode(toEncode);
+            return HttpUtility.UrlEncode(toEncode);
         }
 
         /// <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
@@ -208,7 +208,7 @@ namespace MetX.Library
         {
             relativePathFile = FilePath(relativePathFile);
             if (relativePathFile != "unknown.file")
-                return MetX.IO.FileSystem.FileToString(relativePathFile);
+                return IO.FileSystem.FileToString(relativePathFile);
             return string.Empty;
         }
 
@@ -447,7 +447,7 @@ namespace MetX.Library
             if (ret.Length > 0)
             {
                 ret.Replace("\"", "\\\"");
-                ret.Replace(System.Environment.NewLine, "\\n");
+                ret.Replace(Environment.NewLine, "\\n");
                 ret.Replace("\r", "\\n");
                 ret.Replace("\n", "\\n");
                 ret.Insert(0, "var " + varName + " = \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\" ?>\\n");
@@ -467,8 +467,8 @@ namespace MetX.Library
             {
                 if (sDate2.Length > 0)
                 {
-                    System.DateTime date1 = System.DateTime.Parse(sDate1);
-                    System.DateTime date2 = System.DateTime.Parse(sDate2);
+                    DateTime date1 = DateTime.Parse(sDate1);
+                    DateTime date2 = DateTime.Parse(sDate2);
                     if (date1 > date2)
                         return sDate1;
                     else
@@ -494,9 +494,9 @@ namespace MetX.Library
                 {
                     if (sDateEnd.Length > 0)
                     {
-                        System.DateTime dateToTest = System.DateTime.Parse(sDateToTest);
-                        System.DateTime dateBegin = System.DateTime.Parse(sDateBegin);
-                        System.DateTime dateEnd = System.DateTime.Parse(sDateEnd);
+                        DateTime dateToTest = DateTime.Parse(sDateToTest);
+                        DateTime dateBegin = DateTime.Parse(sDateBegin);
+                        DateTime dateEnd = DateTime.Parse(sDateEnd);
                         if (dateToTest >= dateBegin && dateToTest <= dateEnd)
                         {
                             return true;
@@ -536,7 +536,7 @@ namespace MetX.Library
         {
             if (Microsoft.VisualBasic.Information.IsDate(dateStringToTest))
             {
-                return (System.Convert.ToDateTime(dateStringToTest) >= System.DateTime.Today) & (System.Convert.ToDateTime(dateStringToTest) < System.DateTime.Today.AddDays(1));
+                return (Convert.ToDateTime(dateStringToTest) >= DateTime.Today) & (Convert.ToDateTime(dateStringToTest) < DateTime.Today.AddDays(1));
             }
             else
             {
@@ -573,7 +573,7 @@ namespace MetX.Library
         /// <returns>The current date/time</returns>
         public string Today()
         {
-            return System.DateTime.Now.ToString();
+            return DateTime.Now.ToString();
         }
 
         /// <summary>Returns the double representation of a string</summary>
@@ -636,10 +636,10 @@ namespace MetX.Library
         /// <returns>The number of days old the date is</returns>
         public string SXmlAgeOfDate(string xmlDate)
         {
-            xmlDate = System.Convert.ToString(xmlDate + string.Empty).Trim();
+            xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
             {
-                System.DateTime dt = System.Convert.ToDateTime(xmlDate);
+                DateTime dt = Convert.ToDateTime(xmlDate);
                 dt = dt.AddHours(-dt.Hour).AddMinutes(-dt.Minute);
                 TimeSpan ts = DateTime.Today.Subtract(dt);
                 return ts.Days.ToString();
@@ -687,10 +687,10 @@ namespace MetX.Library
         /// <returns>The javascript date in MMMM, dd YYYY format</returns>
         public string SXmlDateOnlyForJavaScript(string xmlDate, string defaultValue)
         {
-            xmlDate = System.Convert.ToString(xmlDate + string.Empty).Trim();
+            xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0 & Microsoft.VisualBasic.Information.IsDate(xmlDate))
             {
-                return System.Convert.ToDateTime(xmlDate).ToString("MMMM, dd yyyy");
+                return Convert.ToDateTime(xmlDate).ToString("MMMM, dd yyyy");
             }
             return defaultValue;
         }
@@ -701,10 +701,10 @@ namespace MetX.Library
         /// <returns>The displayable date</returns>
         public string SXmlDateOnly(string xmlDate)
         {
-            xmlDate = System.Convert.ToString(xmlDate + string.Empty).Trim();
+            xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0 & Microsoft.VisualBasic.Information.IsDate(xmlDate))
             {
-                return System.Convert.ToDateTime(xmlDate).ToString("MM/dd/yyyy").ToLower().Replace("01/01/1900", string.Empty);
+                return Convert.ToDateTime(xmlDate).ToString("MM/dd/yyyy").ToLower().Replace("01/01/1900", string.Empty);
             }
             return string.Empty;
         }
@@ -715,10 +715,10 @@ namespace MetX.Library
         /// <returns>The displayable date</returns>
         public string sXmlDate(string xmlDate)
         {
-            xmlDate = System.Convert.ToString(xmlDate + string.Empty).Trim();
+            xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
             {
-                return System.Convert.ToDateTime(xmlDate).ToString("MM/dd/yyyy hh:mm tt").ToLower().Replace(" 12:00 am", string.Empty);
+                return Convert.ToDateTime(xmlDate).ToString("MM/dd/yyyy hh:mm tt").ToLower().Replace(" 12:00 am", string.Empty);
             }
             return string.Empty;
         }
@@ -754,10 +754,10 @@ namespace MetX.Library
         /// <returns>The formated date/time string</returns>
         public string sXmlDate(string xmlDate, string sFormat)
         {
-            xmlDate = System.Convert.ToString(xmlDate + string.Empty).Trim();
+            xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
             {
-                return System.Convert.ToDateTime(xmlDate).ToString(sFormat).ToLower();
+                return Convert.ToDateTime(xmlDate).ToString(sFormat).ToLower();
             }
             return string.Empty;
         }

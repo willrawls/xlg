@@ -11,7 +11,7 @@ namespace MetX.Data
 {
 
     
-    public class DataProviderCollection : System.Configuration.Provider.ProviderCollection
+    public class DataProviderCollection : ProviderCollection
     {
         
         public new DataProvider this[string name]

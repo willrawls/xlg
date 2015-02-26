@@ -13,12 +13,12 @@ namespace MetX.Data.Factory
 
         public DataProvider GetNewDataProvider(string ConnectionString)
         {
-            return new MetX.Data.SqlDataProvider(ConnectionString);
+            return new SqlDataProvider(ConnectionString);
         }
 
         public DataService GetNewDataService(string ConnectionName)
         {
-            return MetX.Data.DataService.GetDataService(ConnectionName);
+            return DataService.GetDataService(ConnectionName);
         }
 
         public string ProviderName
@@ -43,7 +43,7 @@ namespace MetX.Data.Factory
 
         public GatherProvider GetNewGatherProvider()
         {
-            return new MetX.Gather.SqlToXml();
+            return new Gather.SqlToXml();
         }
 
         #endregion

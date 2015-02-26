@@ -73,7 +73,7 @@ namespace MetX.Data
             get
             {
                 if (!string.IsNullOrEmpty(OutputFilename))
-                    return StringExtensions.TokensBeforeLast(OutputFilename, @"\") + @"\";
+                    return OutputFilename.TokensBeforeLast(@"\") + @"\";
                 return BasePath + ConnectionName;
             }
         }
@@ -160,7 +160,7 @@ namespace MetX.Data
                             else
                             {
                                 sb = new StringBuilder();
-                                DataService.Instance.Gatherer.GatherNow(sb, new string[] { ConnectionName, ConnectionString, SqlToXml });
+                                DataService.Instance.Gatherer.GatherNow(sb, new[] { ConnectionName, ConnectionString, SqlToXml });
                                 output = sb.ToString();
                                 if (output.StartsWith("<?xml "))
                                 {
@@ -192,7 +192,7 @@ namespace MetX.Data
 
                         case ProviderTypeEnum.Gather:
                             sb = new StringBuilder();
-                            DataService.Instance.Gatherer.GatherNow(sb, new string[] { ConnectionName, ConnectionString, SqlToXml });
+                            DataService.Instance.Gatherer.GatherNow(sb, new[] { ConnectionName, ConnectionString, SqlToXml });
                             output = sb.ToString();
                             if (output.StartsWith("<?xml "))
                             {

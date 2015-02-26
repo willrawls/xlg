@@ -59,7 +59,7 @@ namespace MetX.Data
             Name = name;
             Script = script;
             Id = Guid.NewGuid();
-            Destination = QuickScriptDestination.TextBox;
+            Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
         }
@@ -165,10 +165,10 @@ namespace MetX.Data
                 Name = "Unnamed " + Guid.NewGuid();
             }
 
-            rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
-            if (!rawScript.Contains("~~QuickScript"))
+            rawScriptFromFile = rawScriptFromFile.TokensAfterFirst(Environment.NewLine);
+            if (!rawScriptFromFile.Contains("~~QuickScript"))
             {
-                Script = rawScript;
+                Script = rawScriptFromFile;
             }
             else
             {
@@ -176,7 +176,7 @@ namespace MetX.Data
                 if (rawScript.Contains("~~QuickScriptInput"))
                 {
                     Input =
-                        rawScript.TokensAfterFirst("~~QuickScriptInputStart:")
+                        rawScriptFromFile.TokensAfterFirst("~~QuickScriptInputStart:")
                                  .TokensBeforeLast("~~QuickScriptInputEnd:");
                     rawScript = rawScript.TokensAround("~~QuickScriptInputStart:",
                         "~~QuickScriptInputEnd:" + Environment.NewLine);

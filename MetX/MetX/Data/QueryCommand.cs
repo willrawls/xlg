@@ -54,7 +54,7 @@ namespace MetX.Data
             {
                 if (ParameterValue == null)
                     return "(DbNull.Value)";
-                return Worker.AsString(ParameterValue); 
+                return ParameterValue.AsString(); 
             }
             set
             {
@@ -119,7 +119,7 @@ namespace MetX.Data
             StringBuilder sb = new StringBuilder();
             System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
             settings.OmitXmlDeclaration = true;
-            System.Xml.XmlWriter xw = System.Xml.XmlTextWriter.Create(sb, settings);
+            System.Xml.XmlWriter xw = System.Xml.XmlWriter.Create(sb, settings);
             xs.Serialize(xw, this);
             sb.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" ", string.Empty);
             return sb.ToString();

@@ -7,6 +7,7 @@ using System.Web.Configuration;
 namespace MetX.IO
 {
     /// <summary>Represents the xlg section in a configuration file</summary>
+    // ReSharper disable UnusedMember.Global
     public class xlgDataSection : ConfigurationSection
     {
         /// <summary>Represents a collection of ProviderSettings objects</summary>

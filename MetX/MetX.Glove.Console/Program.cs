@@ -27,9 +27,9 @@ namespace XLG.Pipeliner
                     gloveFilename = args[0];
                     xslFilename = gloveFilename + ".xsl";
                     if (gloveFilename.IndexOf(@"\App_Code\", StringComparison.Ordinal) > -1)
-                        configFilename = StringExtensions.FirstToken(gloveFilename, @"\App_Code\") + "\\web.config";
+                        configFilename = gloveFilename.FirstToken(@"\App_Code\") + "\\web.config";
                     else
-                        configFilename = StringExtensions.TokensBefore(gloveFilename, StringExtensions.TokenCount(gloveFilename, @"\"), @"\") + @"\app.config";
+                        configFilename = gloveFilename.TokensBefore(gloveFilename.TokenCount(@"\"), @"\") + @"\app.config";
                     outputFilename = gloveFilename.Replace(".xlg", ".Glove.cs");
                 }
                 else if (args.Length == 4)
@@ -42,7 +42,7 @@ namespace XLG.Pipeliner
 
                 if (gloveFilename == null || xslFilename == null || configFilename == null || outputFilename == null)
                 {
-                    System.Console.Write("--- FAILURE: Missing one or more arguments.");
+                    Console.Write("--- FAILURE: Missing one or more arguments.");
                     return;
                 }
 
@@ -52,11 +52,11 @@ namespace XLG.Pipeliner
                     string generatedCode = gen.GenerateCode();
                     if (string.IsNullOrEmpty(generatedCode)) return;
                     FileSystem.StringToFile(outputFilename, generatedCode);
-                    System.Console.Write("--- SUCCESS: " + outputFilename);
+                    Console.Write("--- SUCCESS: " + outputFilename);
                 }
                 catch (Exception ex)
                 {
-                    System.Console.WriteLine("--- FAILED: " + ex.ToString());
+                    Console.WriteLine("--- FAILED: " + ex.ToString());
                 }
             }
         }

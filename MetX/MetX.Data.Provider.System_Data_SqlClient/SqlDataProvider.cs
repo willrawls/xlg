@@ -412,7 +412,7 @@ namespace MetX.Data
                     {
                         string raw = rdr["constraint_keys"].ToString();
                         key = new TableSchema.TableKey();
-                        foreach (string currCol in raw.Split(new char[] {','}))
+                        foreach (string currCol in raw.Split(new[] {','}))
                         {
                             if (currCol.Length > 0)
                             {
@@ -421,11 +421,11 @@ namespace MetX.Data
                         }
                         rdr.Read();
                         raw = rdr["constraint_keys"].ToString();
-                        string relatedTableName = StringExtensions.FirstToken(StringExtensions.TokensAfter(raw, 1, "dbo."), "(").Trim();
+                        string relatedTableName = raw.TokensAfter(1, "dbo.").FirstToken("(").Trim();
                         if (tableSchema.Keys.Find(relatedTableName) == null)
                         {
                             key.Name = relatedTableName;
-                            foreach (string currCol in StringExtensions.TokenBetween(raw, "(", ")").Split(new char[] {','}))
+                            foreach (string currCol in raw.TokenBetween("(", ")").Split(new[] {','}))
                             {
                                 if (currCol.Length > 0)
                                 {

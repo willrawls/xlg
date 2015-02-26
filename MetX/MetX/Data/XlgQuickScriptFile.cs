@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Library;
 
 namespace MetX.Data
 {
@@ -35,6 +36,20 @@ namespace MetX.Data
                 content.AppendLine(script.ToFileFormat(script.Id == Default.Id));
             }
             File.WriteAllText(FilePath, content.ToString());
+            string[] history = Directory.GetFiles(FilePath.TokensBeforeLast(@"\"), "*_* *.xlgq");
+            if (history.Length > 4)
+            {
+                Array.Sort(history);
+                for (int i = 4; i < history.Length; i++)
+                {
+                    File.SetAttributes(history[i], FileAttributes.Normal);
+                    try
+                    {
+                        File.Delete(history[i]);
+                    }
+                    catch {  }
+                }
+            }
             return true;
         }
 

@@ -173,7 +173,7 @@ namespace XLG.Pipeliner
                 return null;
             }
             UpdateScriptFromForm();
-            string source = CurrentScript.ConvertQuickScriptToCSharp();
+            string source = CurrentScript.ToCSharp();
             CompilerResults compilerResults = XlgQuickScript.CompileSource(source);
 
             if (compilerResults.Errors.Count <= 0)

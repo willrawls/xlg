@@ -8,78 +8,78 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Web;
 
 namespace MetX.IO
 {
 	
 	/// <summary>Helper functions to simplify working with sql connections</summary>
-	public static class sql
+	public static class Sql
 	{
 		/// <summary>This returns the string representation of a column from a reader. Supports DBNull (default return value), guid, int, and datetime. All other types simply call GetString() on the reader.</summary>
 		/// <param name="rst">The reader</param>
-		/// <param name="Index">The column to retreive as a string</param>
-		/// <param name="DefaultReturnValue">If the column is DBNull, this will be the return value</param>
+		/// <param name="index">The column to retreive as a string</param>
+		/// <param name="defaultReturnValue">If the column is DBNull, this will be the return value</param>
 		/// <returns>String representation of the field</returns>
 		/// 
 		/// <example><c>GetString(reader, 0, "Something");</c>
 		/// Retrieves field 0. If it's DbNull, the string "Something" will be returned. </example>
-		public static string GetString(SqlDataReader rst,  int Index , string DefaultReturnValue )
+		public static string GetString(SqlDataReader rst,  int index , string defaultReturnValue )
 		{
-			if (rst.IsDBNull(Index))
-				return DefaultReturnValue;
-			else if ( rst.GetFieldType(Index).Equals(Guid.Empty.GetType()) ) 
-				return rst.GetGuid(Index).ToString();
-			else if ( rst.GetFieldType(Index).Equals(int.MinValue.GetType()) ) 
-				return rst.GetInt32(Index).ToString();
-			else if ( rst.GetFieldType(Index).Equals(DateTime.MinValue.GetType()) ) 
-				return rst.GetDateTime(Index).ToString();
-			else
-				return rst.GetString(Index);
+		    if (rst.IsDBNull(index))
+				return defaultReturnValue;
+		    if ( rst.GetFieldType(index) == Guid.Empty.GetType() ) 
+		        return rst.GetGuid(index).ToString();
+		    if ( rst.GetFieldType(index) == int.MinValue.GetType() ) 
+		        return rst.GetInt32(index).ToString();
+		    if ( rst.GetFieldType(index) == DateTime.MinValue.GetType() ) 
+		        return rst.GetDateTime(index).ToString(CultureInfo.InvariantCulture);
+		    return rst.GetString(index);
 		}
 
-        /// <summary>This returns the string representation of a column from a reader. Supports DBNull (as an empty string), guid, int, and datetime. All other types simply call GetString() on the reader.</summary>
+	    /// <summary>This returns the string representation of a column from a reader. Supports DBNull (as an empty string), guid, int, and datetime. All other types simply call GetString() on the reader.</summary>
         /// <param name="rst">The reader</param>
-        /// <param name="Index">The column to retreive</param>
+        /// <param name="index">The column to retreive</param>
         /// <returns>String representation of the field</returns>
         /// 
         /// <example><c>GetString(reader, 0);</c>
         /// Retrieves field 0. If it's DbNull, the string "" will be returned. </example>
-        public static string GetString(SqlDataReader rst, int Index)
+        public static string GetString(SqlDataReader rst, int index)
 		{
-            return GetString(rst, Index, string.Empty);
+            return GetString(rst, index, string.Empty);
 		}
 
         /// <summary>This returns the DateTime representation of a column from a reader. Supports DBNull (as an empty string), guid, int, and datetime. All other types simply call GetDateTime() on the reader.</summary>
         /// <param name="rst">The reader</param>
-        /// <param name="Index">The column to retreive</param>
+        /// <param name="index">The column to retreive</param>
         /// <returns>String representation of the field</returns>
         /// 
         /// <example><c>GetDateTime(reader, 0);</c>
         /// Retrieves field 0. If it's DbNull, DateTime.MinValue will be returned. </example>
-        public static DateTime GetDateTime(SqlDataReader rst, int Index)
+        public static DateTime GetDateTime(SqlDataReader rst, int index)
 		{
-			DateTime ReturnValue = new DateTime(0);
+			DateTime returnValue = new DateTime(0);
 
-			if (rst.IsDBNull(Index))
-				return ReturnValue;
-			else if ( rst.GetFieldType(Index).Equals(DateTime.MinValue.GetType()) )
-				ReturnValue = rst.GetDateTime(Index);
+			if (rst.IsDBNull(index))
+				return returnValue;
+            if ( rst.GetFieldType(index) == DateTime.MinValue.GetType() )
+                returnValue = rst.GetDateTime(index);
 
-			return ReturnValue;
+            return returnValue;
 		}
 
 		/// <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, DefaultReturnValue is returned instead.</summary>
-		/// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-		/// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
-		/// <param name="DefaultReturnValue">The value to return when DbNull is encountered.</param>
+		/// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+		/// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+		/// <param name="defaultReturnValue">The value to return when DbNull is encountered.</param>
 		/// <returns>String value of the first column of the first row</returns>
-		public static string RetrieveSingleStringValue(string SQL, string ConnectionName, string DefaultReturnValue)
+		public static string RetrieveSingleStringValue(string sql, string connectionName, string defaultReturnValue)
 		{
             SqlDataReader rst = null;
-			SqlCommand cmd = new SqlCommand(SQL);
-			string ReturnValue;
-            SqlConnection conn = GetConnection(ConnectionName);
+			SqlCommand cmd = new SqlCommand(sql);
+			string returnValue;
+            SqlConnection conn = GetConnection(connectionName);
 
 			try
 			{
@@ -89,18 +89,18 @@ namespace MetX.IO
 				if (rst.Read())
 				{
 					if (rst.IsDBNull(0))
-						ReturnValue = DefaultReturnValue;
-					else if ( rst.GetFieldType(0).Equals(typeof(Guid)) ) 
-						ReturnValue = rst.GetGuid(0).ToString();
+						returnValue = defaultReturnValue;
+					else if ( rst.GetFieldType(0) == typeof(Guid) ) 
+						returnValue = rst.GetGuid(0).ToString();
 					else
-						ReturnValue = GetString(rst, 0);
+						returnValue = GetString(rst, 0);
 				}
 				else
-					ReturnValue = DefaultReturnValue;
+					returnValue = defaultReturnValue;
 			}
-			catch( System.Exception E )
+			catch( Exception e )
 			{
-				throw new Exception("SQL: " + SQL.ToString() +  "\r\n\r\n" + E.ToString() );
+				throw new Exception("SQL: " + sql +  "\r\n\r\n" + e );
 			}
 			finally
 			{
@@ -110,15 +110,15 @@ namespace MetX.IO
 				conn.Close();
 				conn.Dispose();
 			}
-			return ReturnValue;
+			return returnValue;
 		}
 
         /// <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, A blank string is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
         /// <returns>String value of the first column of the first row</returns>
-        public static string RetrieveSingleStringValue(string SQL)
+        public static string RetrieveSingleStringValue(string sql)
         {
-            return RetrieveSingleStringValue(SQL, null);
+            return RetrieveSingleStringValue(sql, null);
         }
 
         public static string RetrieveSingleStringValue(IDataReader idr)
@@ -140,35 +140,34 @@ namespace MetX.IO
         }
 
         /// <summary>Returns the first value of the first row of the passed sql as a string. If DbNull is the value, a blank string is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>String value of the first column of the first row</returns>
-        public static string RetrieveSingleStringValue(string SQL, string ConnectionName)
+        public static string RetrieveSingleStringValue(string sql, string connectionName)
 		{
-            string DefaultReturnValue  = "" ;
 			Guid g = new Guid();
 			SqlDataReader rst = null;
-			string ReturnValue;
-            SqlConnection conn = GetConnection(ConnectionName);
-            SqlCommand cmd = new SqlCommand(SQL, conn);
+			string returnValue;
+            SqlConnection conn = GetConnection(connectionName);
+            SqlCommand cmd = new SqlCommand(sql, conn);
 			try
 			{
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
 				if (rst.Read())
 				{
 					if (rst.IsDBNull(0))
-						ReturnValue = DefaultReturnValue;
-					else if ( rst.GetFieldType(0).Equals( g.GetType()) ) 
-						ReturnValue = rst.GetGuid(0).ToString();
+						returnValue = string.Empty ;
+					else if ( rst.GetFieldType(0) == g.GetType() ) 
+						returnValue = rst.GetGuid(0).ToString();
 					else
-						ReturnValue = GetString(rst, 0);
+						returnValue = GetString(rst, 0);
 				}
 				else
-					ReturnValue = DefaultReturnValue;
+					returnValue = string.Empty ;
 			}
-			catch( System.Exception E )
+			catch( Exception e )
 			{
-				throw new Exception("SQL: " + SQL.ToString() +  "\r\n\r\n" + E.ToString() );
+				throw new Exception("SQL: " + sql +  "\r\n\r\n" + e );
 			}
 			finally
 			{
@@ -178,40 +177,40 @@ namespace MetX.IO
 				conn.Close();
 				conn.Dispose();
 			}
-			return ReturnValue;
+			return returnValue;
 		}
         
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="TagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
-        /// <param name="TagAttributes">The attributes to add to the TagName element</param>
-        /// <param name="SQL">The SQL to convert to an xml string</param>
-        /// <param name="ConnectionName">The Connection from Web.config to use</param>
+        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
+        /// <param name="connectionName">The Connection from Web.config to use</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string TagName, string TagAttributes, string SQL, string ConnectionName)
+        public static string ToXml(string tagName, string tagAttributes, string sql, string connectionName)
         {
-            if(SQL.IndexOf("FOR XML") == -1) SQL += " FOR XML AUTO";
-            StringBuilder ReturnValue = new StringBuilder();
-            System.Data.SqlClient.SqlConnection conn = GetConnection(ConnectionName);
-            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(SQL, conn);
+            if(sql.IndexOf("FOR XML") == -1) sql += " FOR XML AUTO";
+            StringBuilder returnValue = new StringBuilder();
+            SqlConnection conn = GetConnection(connectionName);
+            SqlCommand cmd = new SqlCommand(sql, conn);
             try
             {
-                if (TagName != null && TagName.Length > 0)
-                    if (TagAttributes != null && TagAttributes.Length > 0)
-                        ReturnValue.AppendLine("<" + TagName + " " + TagAttributes + ">");
+                if (tagName != null && tagName.Length > 0)
+                    if (tagAttributes != null && tagAttributes.Length > 0)
+                        returnValue.AppendLine("<" + tagName + " " + tagAttributes + ">");
                     else
-                        ReturnValue.AppendLine("<" + TagName + ">");
-                System.Xml.XmlReader xr = cmd.ExecuteXmlReader();
+                        returnValue.AppendLine("<" + tagName + ">");
+                XmlReader xr = cmd.ExecuteXmlReader();
                 xr.Read();
-                while (xr.ReadState != System.Xml.ReadState.EndOfFile)
-                    ReturnValue.Append(xr.ReadOuterXml());
+                while (xr.ReadState != ReadState.EndOfFile)
+                    returnValue.Append(xr.ReadOuterXml());
                 xr.Close();
-                if (TagName != null && TagName.Length > 0)
-                    ReturnValue.AppendLine("</" + TagName + ">");
+                if (tagName != null && tagName.Length > 0)
+                    returnValue.AppendLine("</" + tagName + ">");
             }
             catch (Exception e)
             {
-                throw new Exception("SQL = " + SQL + "\r\n\r\n" + e.ToString());
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
             }
             finally
             {
@@ -219,54 +218,54 @@ namespace MetX.IO
                 conn.Close();
                 conn.Dispose();
             }
-            return ReturnValue.ToString();
+            return returnValue.ToString();
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="TagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
-        /// <param name="TagAttributes">The attributes to add to the TagName element</param>
-        /// <param name="SQL">The SQL to convert to an xml string</param>
+        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string TagName, string TagAttributes, string SQL)
+        public static string ToXml(string tagName, string tagAttributes, string sql)
 		{
-            return ToXml(TagName, TagAttributes, SQL, null);
+            return ToXml(tagName, tagAttributes, sql, null);
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="SQL">The SQL to convert to an xml string</param>
-        /// <param name="ConnectionName">The Connection from Web.config to use</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
+        /// <param name="connectionName">The Connection from Web.config to use</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string SQL, string ConnectionName)
+        public static string ToXml(string sql, string connectionName)
 		{
-            return ToXml(null, null, SQL, ConnectionName);
+            return ToXml(null, null, sql, connectionName);
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="SQL">The SQL to convert to an xml string</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string SQL)
+        public static string ToXml(string sql)
         {
-            return ToXml(null, null, SQL, null);
+            return ToXml(null, null, sql, null);
         }
         
         /// <summary>Simply runs the SQL statement and returns a DataSet</summary>
-        /// <param name="SQL">The SQL to run</param>
-        /// <param name="ConnectionName">The Connection from Web.config to use</param>
+        /// <param name="sql">The SQL to run</param>
+        /// <param name="connectionName">The Connection from Web.config to use</param>
         /// <returns>A DataSet object with the results</returns>
-        public static DataSet ToDataSet(string SQL, string ConnectionName)
+        public static DataSet ToDataSet(string sql, string connectionName)
 		{
-            SqlConnection conn = GetConnection(ConnectionName);
-			SqlCommand cmd = new SqlCommand(SQL, conn);
-			DataSet ReturnValue = new DataSet();
+            SqlConnection conn = GetConnection(connectionName);
+			SqlCommand cmd = new SqlCommand(sql, conn);
+			DataSet returnValue = new DataSet();
 
 			try
 			{
-				System.Data.SqlClient.SqlDataAdapter RA = new System.Data.SqlClient.SqlDataAdapter(cmd);
-				RA.Fill(ReturnValue);
+				SqlDataAdapter ra = new SqlDataAdapter(cmd);
+				ra.Fill(returnValue);
 			}
-			catch (Exception E)
+			catch (Exception e)
 			{
-				throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString());
+				throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
 			}
 			finally
 			{
@@ -275,27 +274,27 @@ namespace MetX.IO
 				conn.Dispose();
 			}
 
-			return ReturnValue;
+			return returnValue;
 		}
 
         /// <summary>Simply runs the SQL statement and returns a DataSet</summary>
-        /// <param name="SQL">The SQL to run</param>
+        /// <param name="sql">The SQL to run</param>
         /// <returns>A DataSet object with the results</returns>
-        public static DataSet ToDataSet(string SQL)
+        public static DataSet ToDataSet(string sql)
 		{
 			SqlConnection conn = DefaultConnection;
-			SqlCommand cmd = new SqlCommand(SQL);
-			DataSet ReturnValue = new DataSet();
+			SqlCommand cmd = new SqlCommand(sql);
+			DataSet returnValue = new DataSet();
 
 			try
 			{
 				cmd.Connection = conn;
-				System.Data.SqlClient.SqlDataAdapter RA = new System.Data.SqlClient.SqlDataAdapter(cmd);
-				RA.Fill(ReturnValue);
+				SqlDataAdapter ra = new SqlDataAdapter(cmd);
+				ra.Fill(returnValue);
 			}
-			catch (Exception E)
+			catch (Exception e)
 			{
-				throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString());
+				throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
 			}
 			finally
 			{
@@ -304,35 +303,35 @@ namespace MetX.IO
 				conn.Dispose();
 			}
 
-			return ReturnValue;
+			return returnValue;
 		}
 
         /// <summary>Returns the first column as a DateTime value of the first row of the passed sql. If DbNull is the value, DateTime.MinValue is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>DateTime value of the first column of the first row</returns>
-        public static DateTime RetrieveSingleDateValue(string SQL, string ConnectionName)
+        public static DateTime RetrieveSingleDateValue(string sql, string connectionName)
 		{
-            SqlConnection conn = GetConnection(ConnectionName);
-			SqlCommand cmd = new SqlCommand(SQL, conn);
+            SqlConnection conn = GetConnection(connectionName);
+			SqlCommand cmd = new SqlCommand(sql, conn);
 			SqlDataReader rst = null;
-			DateTime ReturnValue;
+			DateTime returnValue;
 			try
 			{
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
 				if (rst.Read())
 				{
 					if (rst.IsDBNull(0))
-						ReturnValue = new DateTime(0);
+						returnValue = new DateTime(0);
 					else
-						ReturnValue = rst.GetDateTime(0);
+						returnValue = rst.GetDateTime(0);
 				}
 				else
-					ReturnValue = new DateTime(0);
+					returnValue = new DateTime(0);
 			}
-			catch( Exception E)
+			catch( Exception e)
 			{
-				throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString());
+				throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
 			}
 			finally
 			{
@@ -342,44 +341,44 @@ namespace MetX.IO
 				conn.Close();
 				conn.Dispose();
 			}
-			return ReturnValue;
+			return returnValue;
 		}
 
         /// <summary>Returns the first column as a DateTime value of the first row of the passed sql. If DbNull is the value, DateTime.MinValue is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
         /// <returns>DateTime value of the first column of the first row</returns>
-        public static DateTime RetrieveSingleDateValue(string SQL)
+        public static DateTime RetrieveSingleDateValue(string sql)
 		{
-            return RetrieveSingleDateValue(SQL, null);
+            return RetrieveSingleDateValue(sql, null);
 		}
 
         /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, DefaultReturnValue is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
-        /// <param name="DefaultReturnValue">The value to return if DbNull is encountered</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="defaultReturnValue">The value to return if DbNull is encountered</param>
         /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string SQL, string ConnectionName, int DefaultReturnValue)
+        public static int RetrieveSingleIntegerValue(string sql, string connectionName, int defaultReturnValue)
 		{
-            SqlConnection conn = GetConnection(ConnectionName);
-			SqlCommand cmd = new SqlCommand(SQL, conn);
+            SqlConnection conn = GetConnection(connectionName);
+			SqlCommand cmd = new SqlCommand(sql, conn);
 			SqlDataReader rst = null;
-			int ReturnValue;
+			int returnValue;
 			try
 			{
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
 				if (rst.Read())
 				{
 					if (rst.IsDBNull(0))
-						ReturnValue = DefaultReturnValue;
+						returnValue = defaultReturnValue;
 					else
-						ReturnValue = rst.GetInt32(0);
+						returnValue = rst.GetInt32(0);
 				}
 				else
-					ReturnValue = DefaultReturnValue;
+					returnValue = defaultReturnValue;
 			}
-			catch( Exception E)
+			catch( Exception e)
 			{
-				throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString() );
+				throw new Exception("SQL = " + sql + "\r\n\r\n" + e );
 			}
 			finally
 			{
@@ -389,75 +388,73 @@ namespace MetX.IO
 				conn.Close();				
 				conn.Dispose();
 			}
-			return ReturnValue;
+			return returnValue;
 		}
 
         /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string SQL, string ConnectionName)
+        public static int RetrieveSingleIntegerValue(string sql, string connectionName)
 		{
-            return RetrieveSingleIntegerValue(SQL, ConnectionName, 0);
+            return RetrieveSingleIntegerValue(sql, connectionName, 0);
 		}
 
         /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
         /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string SQL)
+        public static int RetrieveSingleIntegerValue(string sql)
 		{
-            return RetrieveSingleIntegerValue(SQL, null, 0);
+            return RetrieveSingleIntegerValue(sql, null, 0);
 		}
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>A DataTable object representing the SQL statement or null</returns>
-        public static DataTable ToDataTable(string SQL, string ConnectionName)
+        public static DataTable ToDataTable(string sql, string connectionName)
         {
-            DataSet ds = ToDataSet(SQL, ConnectionName);
+            DataSet ds = ToDataSet(sql, connectionName);
             if (ds.Tables.Count < 1)
                 return null;
-            else if (ds.Tables[0].Rows.Count < 1)
+            if (ds.Tables[0].Rows.Count < 1)
                 return null;
-            else
-                return ds.Tables[0];
+            return ds.Tables[0];
         }
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
         /// <returns>A DataTable object representing the SQL statement or null</returns>
-        public static DataTable ToDataTable(string SQL)
+        public static DataTable ToDataTable(string sql)
         {
-            DataSet ds = ToDataSet(SQL);
+            DataSet ds = ToDataSet(sql);
             if (ds.Tables.Count < 1)
                 return null;
-            else if (ds.Tables[0].Rows.Count < 1)
+            if (ds.Tables[0].Rows.Count < 1)
                 return null;
-            else
-                return ds.Tables[0];
+            return ds.Tables[0];
         }
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
-        /// <param name="ToFill">The DataTable to fill (could be a strongly typed DataTable)</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="toFill">The DataTable to fill (could be a strongly typed DataTable)</param>
         /// <returns>A DataTable object representing the SQL statement or null</returns>
-        public static DataTable ToDataTable(string SQL, string ConnectionName, DataTable ToFill)
+        public static DataTable ToDataTable(string sql, string connectionName, DataTable toFill)
         {
-            SqlConnection conn = GetConnection(ConnectionName);
-            SqlCommand cmd = new SqlCommand(SQL, conn);
-            if (ToFill == null)
-                ToFill = new DataTable();
+            SqlConnection conn = GetConnection(connectionName);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            if (toFill == null)
+                toFill = new DataTable();
             try
             {
-                System.Data.SqlClient.SqlDataAdapter RA = new System.Data.SqlClient.SqlDataAdapter(cmd);
+                SqlDataAdapter ra = new SqlDataAdapter(cmd);
                 
-                RA.Fill(ToFill);
+                ra.Fill(toFill);
             }
-            catch (Exception E)
+            catch (Exception e)
             {
-                throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString());
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
             }
             finally
             {
@@ -466,133 +463,128 @@ namespace MetX.IO
                 conn.Dispose();
             }
 
-            if (ToFill == null)
+            if (toFill == null)
                 return null;
-            else if (ToFill.Rows.Count < 1)
+            if (toFill.Rows.Count < 1)
                 return null;
-            else
-                return ToFill;
+            return toFill;
         }
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ToFill">The DataTable to fill (could be a strongly typed DataTable)</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="toFill">The DataTable to fill (could be a strongly typed DataTable)</param>
         /// <returns>A DataTable object representing the SQL statement or null</returns>
-        public static DataTable ToDataTable(string SQL, DataTable ToFill)
+        public static DataTable ToDataTable(string sql, DataTable toFill)
         {
-            return ToDataTable(SQL, null, ToFill);
+            return ToDataTable(sql, null, toFill);
         }
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataRowCollection inside the first DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>A DataRowCollection object representing the SQL statement or null</returns>
-        public static DataRowCollection ToDataRows(string SQL, string ConnectionName)
+        public static DataRowCollection ToDataRows(string sql, string connectionName)
 		{
-            DataSet ds = ToDataSet(SQL, ConnectionName);
+            DataSet ds = ToDataSet(sql, connectionName);
 			if (ds.Tables.Count <  1)
 				return null;
-			else if (ds.Tables[0].Rows.Count <  1)
-				return null;
-			else
-				return ds.Tables[0].Rows;
+            if (ds.Tables[0].Rows.Count <  1)
+                return null;
+            return ds.Tables[0].Rows;
 		}
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataRowCollection inside the first DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one resultset of values, it is recommended the SQL be tailored to do so.</param>
         /// <returns>A DataRowCollection object representing the SQL statement or null</returns>
-        public static DataRowCollection ToDataRows(string SQL)
+        public static DataRowCollection ToDataRows(string sql)
 		{
-			DataSet ds = ToDataSet(SQL);
+			DataSet ds = ToDataSet(sql);
 			if (ds.Tables.Count <  1)
 				return null;
-			else if (ds.Tables[0].Rows.Count <  1)
-				return null;
-			else
-				return ds.Tables[0].Rows;
+            if (ds.Tables[0].Rows.Count <  1)
+                return null;
+            return ds.Tables[0].Rows;
 		}
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the first DataRow inside the first DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>A DataRow object representing the SQL statement or null</returns>
-        public static DataRow ToDataRow(string SQL, string ConnectionName)
+        public static DataRow ToDataRow(string sql, string connectionName)
 		{
-            DataSet ds = ToDataSet(SQL, ConnectionName);
+            DataSet ds = ToDataSet(sql, connectionName);
 			if (ds.Tables.Count <  1)
 				return null;
-			else if (ds.Tables[0].Rows.Count <  1)
-				return null;
-			else
-				return ds.Tables[0].Rows[0];
+            if (ds.Tables[0].Rows.Count <  1)
+                return null;
+            return ds.Tables[0].Rows[0];
 		}
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the first DataRow inside the first DataTable found, otherwise null is returned.</summary>
-        /// <param name="SQL">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
+        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one DataRow of values, it is recommended the SQL be tailored to do so.</param>
         /// <returns>A DataRow object representing the SQL statement or null</returns>
-        public static DataRow ToDataRow(string SQL)
+        public static DataRow ToDataRow(string sql)
 		{
-			DataSet ds = ToDataSet(SQL);
+			DataSet ds = ToDataSet(sql);
 			if (ds.Tables.Count <  1)
 				return null;
-			else if (ds.Tables[0].Rows.Count <  1)
-				return null;
-			else
-				return ds.Tables[0].Rows[0];
+            if (ds.Tables[0].Rows.Count <  1)
+                return null;
+            return ds.Tables[0].Rows[0];
 		}
 
 		/// <summary>Updates a field in the Notification table for a single NotificationID</summary>
-		/// <param name="NotificationID">The NotificationID to update</param>
-		/// <param name="FieldName">The field to update</param>
-		/// <param name="NewValue">The new value of the field</param>
-		/// <param name="MaxLength">If the field has a maximum length, specify it and this function will insure the field does not exceed that length</param>
+		/// <param name="notificationID">The NotificationID to update</param>
+		/// <param name="fieldName">The field to update</param>
+		/// <param name="newValue">The new value of the field</param>
+		/// <param name="maxLength">If the field has a maximum length, specify it and this function will insure the field does not exceed that length</param>
 		/// <returns>True if the record was updated</returns>
-		public static bool UpdateNotificationField(string NotificationID, string FieldName, string NewValue, int MaxLength)
+		public static bool UpdateNotificationField(string notificationID, string fieldName, string newValue, int maxLength)
 		{
             SqlConnection conn = DefaultConnection;
 			SqlCommand cmd = new SqlCommand("SET ARITHABORT ON", conn);
 			cmd.ExecuteNonQuery();
-			cmd.CommandText = "UPDATE Notification SET " + FieldName + "='" + NewValue.Substring(0, MaxLength) + "' WHERE NotificationID='" + NotificationID + "'";
-			int RecordCount = cmd.ExecuteNonQuery();
+			cmd.CommandText = "UPDATE Notification SET " + fieldName + "='" + newValue.Substring(0, maxLength) + "' WHERE NotificationID='" + notificationID + "'";
+			int recordCount = cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();
 			conn.Dispose();
-			return (RecordCount >  0);
+			return (recordCount >  0);
 		}
 		
         /// <summary>Executes a series of SQL statements on the same connection</summary>
-        /// <param name="SqlArray">The list of SQLs to execute</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
-        public static void Execute(List<string> SqlArray, string ConnectionName)
+        /// <param name="sqlArray">The list of SQLs to execute</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        public static void Execute(List<string> sqlArray, string connectionName)
 		{
-			if (SqlArray.Count >  0)
+			if (sqlArray.Count >  0)
 			{
-                SqlConnection conn = GetConnection(ConnectionName);
+                SqlConnection conn = GetConnection(connectionName);
 				SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-				int ErrorAtSql = - 1;
-				foreach (string SQL in SqlArray)
+				int errorAtSql = - 1;
+				foreach (string sql in sqlArray)
 				{
 					try
 					{
-						ErrorAtSql = 1;
+						errorAtSql = 1;
 						cmd.CommandText = "SET ARITHABORT ON";
 						cmd.ExecuteNonQuery();
-						cmd.CommandText = SQL;
+						cmd.CommandText = sql;
 						cmd.ExecuteNonQuery();
 					}
 					catch (Exception e)
 					{
 						conn.Close();
-						StringBuilder SB = new StringBuilder();
-						int CurrSql;
-						SB.Append("Exception while executing SQL # " + ErrorAtSql + ": " + SQL + "\r\n\r\n" + e.ToString() + "\r\n");
-						SB.Append("\r\n------------------------------------------------------------------------\r\n");
-						for (CurrSql=0; CurrSql <= SqlArray.Count - 1; CurrSql++)
-							SB.Append(CurrSql + ": " + SqlArray[CurrSql] + "\r\n\r\n");
+						StringBuilder sb = new StringBuilder();
+						int currSql;
+						sb.Append("Exception while executing SQL # " + errorAtSql + ": " + sql + "\r\n\r\n" + e + "\r\n");
+						sb.Append("\r\n------------------------------------------------------------------------\r\n");
+						for (currSql=0; currSql <= sqlArray.Count - 1; currSql++)
+							sb.Append(currSql + ": " + sqlArray[currSql] + "\r\n\r\n");
 						cmd.Dispose();
 						conn.Dispose();
-						throw new Exception(SB.ToString());
+						throw new Exception(sb.ToString());
 					}
 				}
 				cmd.Dispose();
@@ -602,32 +594,32 @@ namespace MetX.IO
 		}
 
         /// <summary>Executes a series of SQL statements on the same Default connection</summary>
-        /// <param name="SqlArray">The list of SQLs to execute</param>
-        public static void Execute(List<string> SqlArray)
+        /// <param name="sqlArray">The list of SQLs to execute</param>
+        public static void Execute(List<string> sqlArray)
 		{
-            Execute(SqlArray, DefaultConnectionString);
+            Execute(sqlArray, DefaultConnectionString);
 		}
 
         /// <summary>Executes a SQL statement</summary>
-        /// <param name="SQL">The SQL to execute</param>
-        /// <param name="ConnectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
+        /// <param name="sql">The SQL to execute</param>
+        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>The number of records affected</returns>
-        public static int Execute(string SQL, string ConnectionName)
+        public static int Execute(string sql, string connectionName)
 		{
-			int RecordCount = 0;
-            if (SQL != null && SQL.Length > 0)
+			int recordCount = 0;
+            if (sql != null && sql.Length > 0)
             {
-                SqlConnection conn = GetConnection(ConnectionName);
+                SqlConnection conn = GetConnection(connectionName);
                 SqlCommand cmd = new SqlCommand("SET ARITHABORT ON", conn);
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = SQL;
-                    RecordCount = cmd.ExecuteNonQuery();
+                    cmd.CommandText = sql;
+                    recordCount = cmd.ExecuteNonQuery();
                 }
-                catch (Exception E)
+                catch (Exception e)
                 {
-                    throw new Exception("SQL = " + SQL + "\r\n\r\n" + E.ToString());
+                    throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
                 }
                 finally
                 {
@@ -637,42 +629,42 @@ namespace MetX.IO
                     conn.Dispose();
                 }
             }
-			return RecordCount;
+			return recordCount;
 		}
 
         /// <summary>Executes a SQL statement</summary>
-        /// <param name="SQL">The SQL to execute</param>
+        /// <param name="sql">The SQL to execute</param>
         /// <returns>The number of records affected</returns>
-        public static int Execute(string SQL)
+        public static int Execute(string sql)
 		{
-            return Execute(SQL, DefaultConnectionString);
+            return Execute(sql, DefaultConnectionString);
 		}
 		
 
         /// <summary>Returns a SqlConnection object given the connection name from Web.config. If that entry is blank or missing, Default.SqlClient is used.</summary>
-        /// <param name="ConnectionName">The Web.config key name containing the connection string</param>
+        /// <param name="connectionName">The Web.config key name containing the connection string</param>
         /// <returns>An open SqlConnection object to the appropriate database (remember to close it)</returns>
-        public static SqlConnection GetConnection(string ConnectionName)
+        public static SqlConnection GetConnection(string connectionName)
         {
-            SqlConnection ret = new SqlConnection(GetConnectionString(ConnectionName));
+            SqlConnection ret = new SqlConnection(GetConnectionString(connectionName));
             ret.Open();
             return ret;
         }
 
         /// <summary>Returns the Web.config connection string named. If that entry is blank or missing, Default.SqlClient is returned.</summary>
-        /// <param name="ConnectionName">The Web.config key name</param>
+        /// <param name="connectionName">The Web.config key name</param>
         /// <returns>A connection string</returns>
-        public static string GetConnectionString(string ConnectionName)
+        public static string GetConnectionString(string connectionName)
         {
-            if (ConnectionName == null || ConnectionName.Length == 0)
+            if (connectionName == null || connectionName.Length == 0)
                 return DefaultConnectionString;
-            ConnectionStringSettings Settings = ConfigurationManager.ConnectionStrings[ConnectionName];
-            if (Settings  == null)
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[connectionName];
+            if (settings  == null)
                 return DefaultConnectionString;
-            string ConnectionString = Settings.ConnectionString;
-            if (ConnectionString == null || ConnectionString.Length == 0)
+            string connectionString = settings.ConnectionString;
+            if (connectionString == null || connectionString.Length == 0)
                 return DefaultConnectionString;
-            return ConnectionString;
+            return connectionString;
         }
 
         /// <summary>Returns the value of the Web.config key "Default.SqlClient"</summary>

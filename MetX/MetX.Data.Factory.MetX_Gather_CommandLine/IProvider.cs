@@ -43,7 +43,7 @@ namespace MetX.Data.Factory
 
         public GatherProvider GetNewGatherProvider()
         {
-            return new MetX.Gather.CommandLine();
+            return new Gather.CommandLine();
         }
 
         #endregion
