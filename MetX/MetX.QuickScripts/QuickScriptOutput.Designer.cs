@@ -1,6 +1,6 @@
 ﻿namespace XLG.QuickScripts
 {
-    partial class QuickScriptOutput
+    sealed partial class QuickScriptOutput
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runAgainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.watchForChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +58,9 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
-            this.copyToolStripMenuItem});
+            this.copyToolStripMenuItem,
+            this.runAgainToolStripMenuItem,
+            this.watchForChangesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(746, 24);
@@ -77,6 +81,21 @@
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // runAgainToolStripMenuItem
+            // 
+            this.runAgainToolStripMenuItem.Name = "runAgainToolStripMenuItem";
+            this.runAgainToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.runAgainToolStripMenuItem.Text = "&Run again";
+            this.runAgainToolStripMenuItem.Click += new System.EventHandler(this.runAgainToolStripMenuItem_Click);
+            // 
+            // watchForChangesToolStripMenuItem
+            // 
+            this.watchForChangesToolStripMenuItem.Enabled = false;
+            this.watchForChangesToolStripMenuItem.Name = "watchForChangesToolStripMenuItem";
+            this.watchForChangesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.watchForChangesToolStripMenuItem.Text = "&Watch for changes";
+            this.watchForChangesToolStripMenuItem.Click += new System.EventHandler(this.watchForChangesToolStripMenuItem_Click);
             // 
             // QuickScriptOutput
             // 
@@ -99,10 +118,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox Output;
+        public System.Windows.Forms.TextBox Output;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem runAgainToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem watchForChangesToolStripMenuItem;
     }
 }

@@ -200,6 +200,7 @@ namespace MetX.Library
             }
             //  Find the Nth token
             StringBuilder sReturned = new StringBuilder();
+            bool first = true;
             do
             {
                 int currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1; //  Character position of the first delimiter string
@@ -215,9 +216,10 @@ namespace MetX.Library
                     }
                     return sReturned.ToString();
                 }
-                if (sReturned.Length == 0)
+                if (sReturned.Length == 0 && first)
                 {
                     sReturned.Append(target.Substring(0, currTokenLocation));
+                    first = false;
                 }
                 else
                 {

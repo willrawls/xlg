@@ -56,10 +56,10 @@ namespace MetX.Data
 
         public XlgQuickScript() {}
 
-        public XlgQuickScript(string name, string script = "")
+        public XlgQuickScript(string name, string script = null)
         {
             Name = name;
-            Script = script;
+            Script = script ?? string.Empty;
             Id = Guid.NewGuid();
             Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
@@ -316,5 +316,6 @@ namespace MetX.Data
                                  .Replace("~#~$", "\\\"");
             return currScriptLine;
         }
+
     }
 }
