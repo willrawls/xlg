@@ -2,7 +2,6 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -236,13 +235,17 @@ namespace XLG.QuickScripts
 
         protected bool ScriptIsRunning;
         private readonly object m_ScriptSyncRoot = new object();
+
+        private delegate void d_RunQuickScript(XlgQuickScript scriptToRun, QuickScriptOutput targetOutput);
+
         public void RunQuickScript(XlgQuickScript scriptToRun, QuickScriptOutput targetOutput = null)
         {
             if (InvokeRequired)
             {
-                Invoke(RunQuickScript);
+                Invoke(new d_RunQuickScript(RunQuickScript), scriptToRun, targetOutput);
                 return;
             }
+
             bool lockTaken = false;
             Monitor.TryEnter(m_ScriptSyncRoot, ref lockTaken);
             if (!lockTaken) return;
@@ -295,7 +298,7 @@ namespace XLG.QuickScripts
                 }
 
                 string[] lines = toParse.Replace("\r", string.Empty)
-                                        .Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+                                        .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0)
                 {
                     return;
@@ -308,11 +311,51 @@ namespace XLG.QuickScripts
                 }
 
                 quickScriptProcessor.LineCount = lines.Length;
-                if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(t, index)).Any())
+
+                // Start
+                try
                 {
-                    return;
+                    quickScriptProcessor.Start();
                 }
-                quickScriptProcessor.Finish();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error running Start:" + Environment.NewLine +
+                        ex.ToString());
+                }
+
+                // ProcessLine (each)
+                for (int index = 0; index < lines.Length; index++)
+                {
+                    var currLine = lines[index];
+                    try
+                    {
+                        if (!quickScriptProcessor.ProcessLine(currLine, index))
+                            return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error processing line " + index + ":" + Environment.NewLine +
+                            currLine + Environment.NewLine +
+                            Environment.NewLine +
+                            ex.ToString());
+                    }
+                }
+                /*
+                                if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(t, index)).Any())
+                                {
+                                    return;
+                                }
+                */
+                try
+                {
+                    quickScriptProcessor.Finish();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error running Finish:" + Environment.NewLine +
+                        ex.ToString());
+                }
+
                 if (quickScriptProcessor.Output == null || quickScriptProcessor.Output.Length <= 0)
                 {
                     return;
@@ -501,7 +544,9 @@ namespace XLG.QuickScripts
         }
 
         private void FilePathStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
+
         private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
+
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
 
         private void EditInputFilePath_Click(object sender, EventArgs e)

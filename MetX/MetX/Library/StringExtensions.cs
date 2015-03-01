@@ -21,7 +21,7 @@ namespace MetX.Library
         {
             if (string.IsNullOrEmpty(target)) return string.Empty;
             int leftIndex = target.IndexOf(leftDelimiter, StringComparison.OrdinalIgnoreCase);
-            if(leftIndex > 0)
+            if (leftIndex > 0)
             {
                 int rightIndex = target.IndexOf(rightDelimiter, leftIndex + leftDelimiter.Length, StringComparison.OrdinalIgnoreCase);
                 if (rightIndex > leftIndex)
@@ -56,7 +56,7 @@ namespace MetX.Library
         /// <summary>Returns the number of tokens in a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// int x = Token.Count("this is a test", "is");
@@ -103,7 +103,7 @@ namespace MetX.Library
         /// <param name="target">The string to target</param>
         /// <param name="tokenNumber">The token number to return after</param>
         /// <param name="delimiter">The token delimiter</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.After("this is a test", 2, " ");
@@ -155,7 +155,7 @@ namespace MetX.Library
         /// <summary>Returns all tokens after the indicated " " (space) delimited token</summary>
         /// <param name="target">The string to target</param>
         /// <param name="tokenNumber">The token number to return after</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.After("this is a test", 2);
@@ -167,7 +167,7 @@ namespace MetX.Library
         /// <summary>Returns all tokens after the first " " (space) delimited token</summary>
         /// <param name="target">The string to target</param>
         /// <returns>All tokens after the first</returns>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.After("this is a test");
@@ -180,7 +180,7 @@ namespace MetX.Library
         /// <param name="target">The string to target</param>
         /// <param name="tokenNumber">The token number to return before</param>
         /// <param name="delimiter">The token delimiter</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.Before("this is a test", 3, " ");
@@ -235,7 +235,7 @@ namespace MetX.Library
         /// <summary>Returns all tokens before the indicated " " (space) delimited token.</summary>
         /// <param name="target">The string to target</param>
         /// <param name="tokenNumber">The token number to return before</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.Before("this is a test", 3);
@@ -247,7 +247,7 @@ namespace MetX.Library
         /// <summary>Returns the first delimited token in the indicated string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// string x = Token.First("this is a test", " a ");
@@ -309,16 +309,16 @@ namespace MetX.Library
         /// <summary>Returns the last delimited token from a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
-        public static string LastToken(this string target, string delimiter) { return TokenAt(target, TokenCount(target, delimiter), delimiter); }
+        public static string LastToken(this string target, string delimiter = " ") { return TokenAt(target, TokenCount(target, delimiter), delimiter); }
 
         /// <summary>Returns everything before the last delimited token from a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
-        public static string TokensBeforeLast(this string target, string delimiter) { return TokensBefore(target, TokenCount(target, delimiter), delimiter); }
+        public static string TokensBeforeLast(this string target, string delimiter = " ") { return TokensBefore(target, TokenCount(target, delimiter), delimiter); }
 
         /// <summary>Returns everything after the first delimited token from a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
-        public static string TokensAfterFirst(this string target, string delimiter) { return TokensAfter(target, 1, delimiter); }
+        public static string TokensAfterFirst(this string target, string delimiter = " ") { return TokensAfter(target, 1, delimiter); }
     }
 }
