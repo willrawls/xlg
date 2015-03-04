@@ -64,6 +64,7 @@
             this.BrowseDestinationFilePath = new System.Windows.Forms.ToolStripButton();
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
+            this.ViewIndependectGeneratedCode = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.FilePathStrip.SuspendLayout();
@@ -151,7 +152,7 @@
             // 
             this.QuickScriptList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.QuickScriptList.Name = "QuickScriptList";
-            this.QuickScriptList.Size = new System.Drawing.Size(282, 31);
+            this.QuickScriptList.Size = new System.Drawing.Size(319, 31);
             this.QuickScriptList.SelectedIndexChanged += new System.EventHandler(this.QuickScriptList_SelectedIndexChanged);
             // 
             // QuickScript
@@ -176,15 +177,16 @@
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ViewGeneratedCode,
+            this.ViewIndependectGeneratedCode,
             this.toolStripSeparator6,
             this.toolStripLabel5,
             this.InputList,
             this.toolStripSeparator5,
+            this.toolStripLabel8,
+            this.DestinationList,
             this.toolStripLabel3,
             this.SliceAt,
             this.toolStripSeparator7,
-            this.toolStripLabel8,
-            this.DestinationList,
             this.toolStripLabel4,
             this.DiceAt});
             this.toolStrip2.Location = new System.Drawing.Point(0, 31);
@@ -199,7 +201,7 @@
             this.ViewGeneratedCode.Image = ((System.Drawing.Image)(resources.GetObject("ViewGeneratedCode.Image")));
             this.ViewGeneratedCode.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ViewGeneratedCode.Name = "ViewGeneratedCode";
-            this.ViewGeneratedCode.Size = new System.Drawing.Size(48, 22);
+            this.ViewGeneratedCode.Size = new System.Drawing.Size(48, 24);
             this.ViewGeneratedCode.Text = "Gen";
             this.ViewGeneratedCode.ToolTipText = "Generate the quick script now and open the result in notepad. Errors will not be " +
                 "shown.";
@@ -208,12 +210,12 @@
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripLabel5
             // 
             this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(38, 22);
+            this.toolStripLabel5.Size = new System.Drawing.Size(38, 24);
             this.toolStripLabel5.Text = "Input:";
             // 
             // InputList
@@ -223,17 +225,17 @@
             "Clipboard",
             "File"});
             this.InputList.Name = "InputList";
-            this.InputList.Size = new System.Drawing.Size(146, 25);
+            this.InputList.Size = new System.Drawing.Size(146, 27);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(47, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(47, 24);
             this.toolStripLabel3.Text = "Slice at:";
             // 
             // SliceAt
@@ -247,19 +249,19 @@
             "Pipe",
             "Space"});
             this.SliceAt.Name = "SliceAt";
-            this.SliceAt.Size = new System.Drawing.Size(84, 25);
+            this.SliceAt.Size = new System.Drawing.Size(84, 27);
             this.SliceAt.Tag = "";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(70, 22);
-            this.toolStripLabel8.Text = "&Destination:";
+            this.toolStripLabel8.Size = new System.Drawing.Size(45, 24);
+            this.toolStripLabel8.Text = "&Output";
             // 
             // DestinationList
             // 
@@ -270,13 +272,13 @@
             "Notepad",
             "File"});
             this.DestinationList.Name = "DestinationList";
-            this.DestinationList.Size = new System.Drawing.Size(121, 25);
+            this.DestinationList.Size = new System.Drawing.Size(121, 27);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Enabled = false;
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(46, 22);
+            this.toolStripLabel4.Size = new System.Drawing.Size(46, 24);
             this.toolStripLabel4.Text = "Dice at:";
             this.toolStripLabel4.Visible = false;
             // 
@@ -291,7 +293,7 @@
             "Pipe",
             "End of line"});
             this.DiceAt.Name = "DiceAt";
-            this.DiceAt.Size = new System.Drawing.Size(92, 25);
+            this.DiceAt.Size = new System.Drawing.Size(92, 23);
             this.DiceAt.Visible = false;
             // 
             // FilePathStrip
@@ -395,6 +397,15 @@
             // 
             this.OpenInputFilePathDialog.FileName = "openFileDialog1";
             // 
+            // ViewIndependectGeneratedCode
+            // 
+            this.ViewIndependectGeneratedCode.Image = ((System.Drawing.Image)(resources.GetObject("ViewIndependectGeneratedCode.Image")));
+            this.ViewIndependectGeneratedCode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ViewIndependectGeneratedCode.Name = "ViewIndependectGeneratedCode";
+            this.ViewIndependectGeneratedCode.Size = new System.Drawing.Size(68, 24);
+            this.ViewIndependectGeneratedCode.Text = "Gen &Exe";
+            this.ViewIndependectGeneratedCode.Click += new System.EventHandler(this.ViewIndependectGeneratedCode_Click);
+            // 
             // QuickScriptEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,5 +469,6 @@
         private System.Windows.Forms.ToolStripButton BrowseDestinationFilePath;
         private System.Windows.Forms.OpenFileDialog OpenInputFilePathDialog;
         private System.Windows.Forms.SaveFileDialog SaveDestinationFilePathDialog;
+        private System.Windows.Forms.ToolStripButton ViewIndependectGeneratedCode;
     }
 }

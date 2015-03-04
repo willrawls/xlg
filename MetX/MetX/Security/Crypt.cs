@@ -224,9 +224,9 @@ TryAgain:
             encryptedSource = FromBase64(encryptedSource);
             if (!string.IsNullOrEmpty(encryptedSource))
             {
-                string[] Items = encryptedSource.Split(new[] { "\r\n" }, StringSplitOptions.None);
-                for (int i = 0; i < Items.Length - 1; i += 2)
-                    ret.Add(HttpUtility.UrlDecode(Items[i]), HttpUtility.UrlDecode(Items[i + 1]));
+                string[] items = encryptedSource.Lines();
+                for (int i = 0; i < items.Length - 1; i += 2)
+                    ret.Add(HttpUtility.UrlDecode(items[i]), HttpUtility.UrlDecode(items[i + 1]));
             }
             return ret;
         }

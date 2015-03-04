@@ -120,14 +120,14 @@ namespace MetX.Security
         public System.Collections.Specialized.NameValueCollection NameValueFromBase64(string EncryptedSource)
         {
             System.Collections.Specialized.NameValueCollection ret = new System.Collections.Specialized.NameValueCollection();
-            if (EncryptedSource == null || EncryptedSource.Length == 0)
+            if (string.IsNullOrEmpty(EncryptedSource))
                 return ret;
             string sItems = FromBase64(EncryptedSource);
-            if (sItems != null && sItems.Length > 0)
+            if (!string.IsNullOrEmpty(sItems))
             {
-                string[] Items = sItems.Split(new[] { "\r\n" }, StringSplitOptions.None);
-                for (int i = 0; i < Items.Length - 1; i += 2)
-                    ret.Add(System.Web.HttpUtility.UrlDecode(Items[i]), System.Web.HttpUtility.UrlDecode(Items[i + 1]));
+                string[] items = sItems.Split(new[] { "\r\n" }, StringSplitOptions.None);
+                for (int i = 0; i < items.Length - 1; i += 2)
+                    ret.Add(System.Web.HttpUtility.UrlDecode(items[i]), System.Web.HttpUtility.UrlDecode(items[i + 1]));
             }
             return ret;
         }

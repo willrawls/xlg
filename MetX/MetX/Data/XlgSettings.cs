@@ -40,8 +40,8 @@ namespace MetX.Data
 
         public string OuterXml()
         {
-            var sb = new StringBuilder();
-            using (var sw = new StringWriter(sb))
+            StringBuilder sb = new StringBuilder();
+            using (StringWriter sw = new StringWriter(sb))
                 m_SettingsSerializer.Serialize(sw, this);
             return sb.ToString();
         }
@@ -60,8 +60,8 @@ namespace MetX.Data
 
         public int Generate(Form gui)
         {
-            var genCount = 0;
-            foreach (var currSource in Sources)
+            int genCount = 0;
+            foreach (XlgSource currSource in Sources)
             {
                 if (currSource.Selected)
                 {
@@ -76,12 +76,12 @@ namespace MetX.Data
 
         public int Regenerate(Form gui)
         {
-            var genCount = 0;
-            foreach (var currSource in Sources)
+            int genCount = 0;
+            foreach (XlgSource currSource in Sources)
             {
                 if (currSource.Selected)
                 {
-                    var lastGen = currSource.Regenerate(gui);
+                    int lastGen = currSource.Regenerate(gui);
                     if (lastGen == -1) return -genCount;
                     genCount++;
                 }

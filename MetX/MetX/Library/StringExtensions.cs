@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualBasic;
 
@@ -10,16 +12,63 @@ namespace MetX.Library
     /// </summary>
     public static class StringExtensions
     {
+        public static bool IsNullOrEmpty<T>(this IList<T> target)
+        {
+            return (target == null || target.Count == 0);
+        }
+
+        public static bool IsNullOrEmpty(this string target)
+        {
+            return string.IsNullOrEmpty(target);
+        }
+
+        public static List<string> AsList(this string[] target)
+        {
+            return new List<string>(target);
+        }
+
+        public static string[] Tokens(this string target, string delimiter = " ", StringSplitOptions options = StringSplitOptions.None)
+        {
+            if (string.IsNullOrEmpty(target)) return new[] {string.Empty};
+            return target.Split(new[] {delimiter}, options);
+        }
+
+        public static string[] Slice(this string target) { return target.Lines(StringSplitOptions.RemoveEmptyEntries); }
+        public static string[] Dice(this string target) { return target.Tokens(" ", StringSplitOptions.RemoveEmptyEntries); }
+
+        public static List<string> LineList(this string target, StringSplitOptions options = StringSplitOptions.None)
+        {
+            return target.Lines(options).AsList();
+        }
+
+        public static string[] Lines(this string target, StringSplitOptions options = StringSplitOptions.None)
+        {
+            if (string.IsNullOrEmpty(target)) return new[] { string.Empty };
+            return target.Split(new[] { Environment.NewLine }, options);
+        }
+
+        public static string Flatten<T>(this IList<T> target)
+        {
+            if (target.IsNullOrEmpty()) return string.Empty;
+            return string.Join(Environment.NewLine, target);
+        }
+
+        public static string AsFilename(this string target)
+        {
+            if (target.IsNullOrEmpty()) return string.Empty;
+            return target.Replace(new[] {":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-"}, string.Empty);
+        }
+
         public static string TokenBetween(this string target, string leftDelimiter, string rightDelimiter)
         {
-            return string.IsNullOrEmpty(target)
-                ? string.Empty
+            return String.IsNullOrEmpty(target)
+                ? String.Empty
                 : TokenAt(TokenAt(target, 2, leftDelimiter), 1, rightDelimiter);
         }
 
         public static string TokensAround(this string target, string leftDelimiter, string rightDelimiter)
         {
-            if (string.IsNullOrEmpty(target)) return string.Empty;
+            if (String.IsNullOrEmpty(target)) return String.Empty;
             int leftIndex = target.IndexOf(leftDelimiter, StringComparison.OrdinalIgnoreCase);
             if (leftIndex > 0)
             {
@@ -35,21 +84,21 @@ namespace MetX.Library
 
         public static string Left(this string target, int length)
         {
-            if (string.IsNullOrEmpty(target) || length < 1) return string.Empty;
+            if (String.IsNullOrEmpty(target) || length < 1) return String.Empty;
             if (target.Length <= length) return target;
             return target.Substring(0, length);
         }
 
         public static string Mid(this string target, int startAt, int length)
         {
-            if (string.IsNullOrEmpty(target) || length < 1 || startAt > target.Length || startAt > target.Length) return string.Empty;
+            if (String.IsNullOrEmpty(target) || length < 1 || startAt > target.Length || startAt > target.Length) return String.Empty;
             if (startAt + length > target.Length) return target.Substring(startAt);
             return target.Substring(startAt, length);
         }
 
         public static string Mid(this string target, int startAt)
         {
-            if (string.IsNullOrEmpty(target) || startAt < 1 || startAt > target.Length) return string.Empty;
+            if (String.IsNullOrEmpty(target) || startAt < 1 || startAt > target.Length) return String.Empty;
             return target.Substring(startAt);
         }
 
@@ -83,7 +132,7 @@ namespace MetX.Library
             int tokensSoFar = 0;
             do
             {
-                int currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1; //  Character position of the first delimiter string
+                int currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase); //  Character position of the first delimiter string
                 if (currTokenLocation == -1)
                 {
                     return ++tokensSoFar; // Abs(Len(Target) > 0)
@@ -120,36 +169,36 @@ namespace MetX.Library
             }
             if (tokenNumber == 1) //  Quickly extract the first token
             {
-                currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+                currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
                 if (currTokenLocation > 1)
                 {
                     return target.Substring(currTokenLocation + delimiterLength);
                 }
                 if (currTokenLocation == -1)
                 {
-                    return null;
+                    return String.Empty;
                 }
                 return target.Substring(currTokenLocation + delimiterLength);
             }
             do
             {
-                currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+                currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
                 if (currTokenLocation == -1)
                 {
-                    return null;
+                    return String.Empty;
                 }
                 target = target.Substring(currTokenLocation + delimiterLength);
                 tokenNumber -= 1;
             }
             while (tokenNumber > 1); //  Extract the Nth token (Which is the next token at this point)
 
-            currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+            currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
 
             if (currTokenLocation > 0)
             {
                 return target.Substring(currTokenLocation + delimiterLength);
             }
-            return null;
+            return String.Empty;
         }
 
         /// <summary>Returns all tokens after the indicated " " (space) delimited token</summary>
@@ -203,7 +252,7 @@ namespace MetX.Library
             bool first = true;
             do
             {
-                int currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1; //  Character position of the first delimiter string
+                int currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase); //  Character position of the first delimiter string
                 if (currTokenLocation == -1 || tokenNumber == 1)
                 {
                     if (tokenNumber > 1)
@@ -266,22 +315,22 @@ namespace MetX.Library
             int delimiterLength = delimiter.Length;
 
             //  Negative or zeroth token or empty delimiter strings mean an empty token
-            if (tokenNumber < 1 || delimiterLength < 1 || string.IsNullOrEmpty(target))
+            if (tokenNumber < 1 || delimiterLength < 1 || String.IsNullOrEmpty(target))
             {
-                return string.Empty;
+                return String.Empty;
             }
 
             //  Quickly extract the first token
             if (tokenNumber == 1)
             {
-                currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+                currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
                 if (currTokenLocation > 0)
                 {
                     return target.Substring(0, currTokenLocation);
                 }
                 if (currTokenLocation == 0)
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
                 return target;
             }
@@ -289,10 +338,10 @@ namespace MetX.Library
             while (tokenNumber > 1)
             {
                 currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
-                //currTokenLocation = Strings.InStr(target, delimiter, CompareMethod.Text) - 1;
+                //currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase);
                 if (currTokenLocation == -1)
                 {
-                    return string.Empty;
+                    return String.Empty;
                 }
                 target = target.Substring(currTokenLocation + delimiterLength);
                 tokenNumber -= 1;
@@ -320,5 +369,12 @@ namespace MetX.Library
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
         public static string TokensAfterFirst(this string target, string delimiter = " ") { return TokensAfter(target, 1, delimiter); }
+
+        public static string Replace(this string target, string[] strings, string replacement)
+        {
+            if (String.IsNullOrEmpty(target)) return String.Empty;
+            if (strings == null || strings.Length == 0) return target;
+            return strings.Aggregate(target, (current, s) => current.Replace(s, replacement));
+        }
     }
 }

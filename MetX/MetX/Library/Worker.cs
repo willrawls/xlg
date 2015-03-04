@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -201,11 +202,11 @@ namespace MetX.Library
 			string text = (sOriginalText + "").Trim();
 			string returnValue;
 
-			if (text.IndexOf("@") > 0 )
+			if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
 				text = text.Split('@')[0];
 
 			text = text.Replace(".", " ");
-			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ")).ToLower() + text.Substring(text.IndexOf(" ") + 1,1).ToUpper() + text.Substring(text.IndexOf(" ") + 2).ToLower();
+			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ") + 1,1).ToUpper() + text.Substring(text.IndexOf(" ") + 2).ToLower();
 
 			if( text.Length == 0 )
 				returnValue = defaultName;
@@ -214,7 +215,5 @@ namespace MetX.Library
 
 			return Microsoft.VisualBasic.Strings.StrConv(returnValue, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
 		}
-
-	
-    }
+	}
 }

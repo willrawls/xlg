@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -139,16 +140,13 @@ namespace XLG.QuickScripts
             CurrentScript = selectedScript;
         }
 
-        public void DisplayExpandedQuickScriptSourceInNotepad()
+        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
         {
             try
             {
-                if (CurrentScript == null)
-                {
-                    return;
-                }
+                if (CurrentScript == null) return;
                 UpdateScriptFromForm();
-                string source = CurrentScript.ToCSharp();
+                string source = CurrentScript.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source);
@@ -162,7 +160,7 @@ namespace XLG.QuickScripts
 
         public BaseLineProcessor GenerateQuickScriptLineProcessor(XlgQuickScript scriptToRun)
         {
-            if (string.IsNullOrEmpty(XlgQuickScript.Template))
+            if (string.IsNullOrEmpty(XlgQuickScript.DependentTemplate))
             {
                 MessageBox.Show(this, "Quick script template missing.");
                 return null;
@@ -172,8 +170,8 @@ namespace XLG.QuickScripts
             {
                 return null;
             }
-            string source = scriptToRun.ToCSharp();
-            CompilerResults compilerResults = XlgQuickScript.CompileSource(source);
+            string source = scriptToRun.ToCSharp(false);
+            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, false);
 
             if (compilerResults.Errors.Count <= 0)
             {
@@ -197,6 +195,62 @@ namespace XLG.QuickScripts
             }
             MessageBox.Show(sb.ToString());
             QuickScriptWorker.ViewTextInNotepad(source);
+
+            return null;
+        }
+
+        public string GenerateIndependentQuickScriptExe(XlgQuickScript scriptToRun)
+        {
+            if (InvokeRequired)
+            {
+                return (string) Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
+            }
+            if (string.IsNullOrEmpty(XlgQuickScript.IndependentTemplate))
+            {
+                MessageBox.Show(this, "Independent Quick script template missing.");
+                return null;
+            }
+
+            if (scriptToRun == null)
+            {
+                return null;
+            }
+            string source = scriptToRun.ToCSharp(true);
+            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, true);
+
+            if (compilerResults.Errors.Count <= 0)
+            {
+                Assembly assembly = compilerResults.CompiledAssembly;
+                string parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+                if (!Directory.Exists(parentDestination)) return assembly.Location;
+                string exeFilePath = Path.Combine(parentDestination, (scriptToRun.Name + "_" + DateTime.Now.ToString("G").ToLower()).AsFilename()) + ".exe";
+                string csFilePath = exeFilePath.Replace(".exe", ".cs");
+                File.Copy(assembly.Location, exeFilePath);
+                File.WriteAllText(csFilePath, source);
+                QuickScriptWorker.ViewFileInNotepad(csFilePath);
+                //QuickScriptWorker.ViewTextInNotepad(source);
+                return exeFilePath;
+            }
+
+            StringBuilder sb =
+                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
+                                  + Environment.NewLine);
+            List<string> lines = new List<string>(source.LineList());
+            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            { 
+                string error = compilerResults.Errors[index].ToString();
+                if (error.Contains("(")) error = error.TokensAfterFirst("(").Replace(")", string.Empty);
+                sb.AppendLine((index + 1) + ": Line " + error);
+                sb.AppendLine();
+                if(error.Contains(Environment.NewLine))
+                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                else if(compilerResults.Errors[index].Line == 0)
+                    lines[0] += "\t// " + error;
+                else
+                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error;
+            }
+            MessageBox.Show(sb.ToString());
+            QuickScriptWorker.ViewTextInNotepad(lines.Flatten());
 
             return null;
         }
@@ -237,6 +291,7 @@ namespace XLG.QuickScripts
         private readonly object m_ScriptSyncRoot = new object();
 
         private delegate void d_RunQuickScript(XlgQuickScript scriptToRun, QuickScriptOutput targetOutput);
+        private delegate string d_GenerateExe(XlgQuickScript scriptToRun);
 
         public void RunQuickScript(XlgQuickScript scriptToRun, QuickScriptOutput targetOutput = null)
         {
@@ -297,8 +352,8 @@ namespace XLG.QuickScripts
                     return;
                 }
 
-                string[] lines = toParse.Replace("\r", string.Empty)
-                                        .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                // This way supports both windows and linux line endings
+                string[] lines = toParse.Replace("\r", string.Empty).Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length <= 0)
                 {
                     return;
@@ -334,10 +389,11 @@ namespace XLG.QuickScripts
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error processing line " + index + ":" + Environment.NewLine +
+                        DialogResult answer = MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
                             currLine + Environment.NewLine +
                             Environment.NewLine +
-                            ex.ToString());
+                            ex, "CONTINUE PROCESSING", MessageBoxButtons.YesNo);
+                        if (answer == DialogResult.No) return;
                     }
                 }
                 /*
@@ -480,7 +536,7 @@ namespace XLG.QuickScripts
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
-            DisplayExpandedQuickScriptSourceInNotepad();
+            DisplayExpandedQuickScriptSourceInNotepad(false);
         }
 
         private void QuickScriptEditor_FormClosing(object sender, FormClosingEventArgs e)
@@ -562,11 +618,12 @@ namespace XLG.QuickScripts
         private void BrowseInputFilePath_Click(object sender, EventArgs e)
         {
             OpenInputFilePathDialog.FileName = InputFilePath.Text;
+            OpenInputFilePathDialog.InitialDirectory = InputFilePath.Text.TokensBeforeLast(@"\");
             OpenInputFilePathDialog.AddExtension = true;
             OpenInputFilePathDialog.CheckFileExists = true;
             OpenInputFilePathDialog.CheckPathExists = true;
             //OpenInputFilePathDialog.DefaultExt = "." + ext;
-            OpenInputFilePathDialog.Filter = "*.*|All files (*.*)";
+            OpenInputFilePathDialog.Filter = "All files (*.*)|*.*";
             OpenInputFilePathDialog.Multiselect = false;
             OpenInputFilePathDialog.ShowDialog(this);
             if (OpenInputFilePathDialog.FileName != null)
@@ -578,14 +635,40 @@ namespace XLG.QuickScripts
         private void BrowseDestinationFilePath_Click(object sender, EventArgs e)
         {
             SaveDestinationFilePathDialog.FileName = DestinationFilePath.Text;
+            SaveDestinationFilePathDialog.InitialDirectory = DestinationFilePath.Text.TokensBeforeLast(@"\");
             SaveDestinationFilePathDialog.AddExtension = true;
             SaveDestinationFilePathDialog.CheckPathExists = true;
-            SaveDestinationFilePathDialog.Filter = "*.*|All files (*.*)";
+            SaveDestinationFilePathDialog.Filter = "All files (*.*)|*.*";
             SaveDestinationFilePathDialog.ShowDialog(this);
             if (SaveDestinationFilePathDialog.FileName != null)
             {
                 DestinationFilePath.Text = SaveDestinationFilePathDialog.FileName;
             }
+        }
+
+        private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
+        {
+            //DisplayExpandedQuickScriptSourceInNotepad(true);
+            try
+            {
+                if (CurrentScript == null) return;
+                UpdateScriptFromForm();
+                string location = GenerateIndependentQuickScriptExe(CurrentScript);
+                if (!location.IsNullOrEmpty())
+                {
+                    if(DialogResult.Yes == MessageBox.Show(this, 
+                        "Executable generated successfully at: " + location + Environment.NewLine + 
+                        Environment.NewLine + 
+                        "Would you like to run it now?", "RUN EXE?", MessageBoxButtons.YesNo))
+                        Process.Start("explorer", location);
+                }
+                //RunQuickScript(CurrentScript);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+
         }
     }
 }

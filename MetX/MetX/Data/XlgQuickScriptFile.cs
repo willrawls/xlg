@@ -62,8 +62,7 @@ namespace MetX.Data
             }
             string[] rawScripts = File
                 .ReadAllText(ret.FilePath)
-                .Split(new[] {"~~QuickScriptName:"}, StringSplitOptions
-                .RemoveEmptyEntries);
+                .Split(new[] {"~~QuickScriptName:"}, StringSplitOptions.RemoveEmptyEntries);
             foreach (string rawScript in rawScripts)
             {
                 XlgQuickScript script = new XlgQuickScript();
@@ -71,6 +70,7 @@ namespace MetX.Data
                 ret.Add(script);
                 if (isDefault) ret.Default = script;
             }
+            ret.Sort((script, quickScript) => String.CompareOrdinal(script.Name, quickScript.Name));
             if (ret.Default == null && ret.Count > 0)
             {
                 ret.Default = ret[0];
