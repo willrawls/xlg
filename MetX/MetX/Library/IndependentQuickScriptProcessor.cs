@@ -36,7 +36,7 @@ namespace Processor
 
                 if (!File.Exists(InputFilePath)) Console.WriteLine("Input file missing: " + InputFilePath);
 
-                AllText = File.ReadAllText(InputFilePath);
+                ReadFile();
                 if(string.IsNullOrEmpty(AllText))
                 {
                     Console.WriteLine("Input file empty: " + InputFilePath);
@@ -89,6 +89,53 @@ namespace Processor
         static void Start()
         {
 //~~Start~~//
+        }
+
+        static void ReadFile()
+        {
+            try
+            {
+                switch ((Path.GetExtension(InputFilePath) ?? string.Empty).ToLower())
+                {
+                    case "xls":
+                    case "xlsx":
+                    case ".xls":
+                    case ".xlsx":
+                        string sideFile = null;
+                        FileInfo inputFile = new FileInfo(InputFilePath);
+                        InputFilePath = inputFile.FullName;
+                        Type ExcelType = Type.GetTypeFromProgID("Excel.Application");
+                        dynamic excel = Activator.CreateInstance(ExcelType);
+                        try
+                        {
+                            dynamic workbook = excel.Workbooks.Open(InputFilePath);
+                            sideFile = InputFilePath
+                                .Replace(".xlsx", ".xls")
+                                .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
+                                .Replace(":", "")
+                                .Replace("/", "")
+                                .Replace(":", "") + ".txt");
+                            Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile);
+                            workbook.SaveAs(sideFile, 20); // 20 = text, 6 = csv
+                            workbook.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex);
+                        }
+                        excel.Quit();
+                        AllText = File.ReadAllText(sideFile);
+                        break;
+
+                    default:
+                        AllText = File.ReadAllText(InputFilePath);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         static bool ProcessLine(string line, int number)

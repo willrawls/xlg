@@ -291,7 +291,7 @@ namespace MetX.Data
                 currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
                     .Replace(" + \"\")", ")")
                     .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
-            currScriptLine = (new string(' ', indent + 12)) +
+            currScriptLine = (indent > 0 ? new string(' ', indent + 12) : string.Empty) +
                              currScriptLine
                                  .Replace(" + \"\" + ", String.Empty)
                                  .Replace("\"\" + ", String.Empty)
@@ -349,6 +349,7 @@ namespace MetX.Data
         {
             get
             {
+                string originalArea = string.Empty;
                 foreach (string currScriptLine in m_Quick.Script.Lines())
                 {
                     int indent = currScriptLine.Length - currScriptLine.Trim().Length;
@@ -360,8 +361,51 @@ namespace MetX.Data
                         SetArea("ClassMembers");
                     else if (currScriptLine.Contains("~~ProcessLine:") || currScriptLine.Contains("~~ProcessLines:") || currScriptLine.Contains("~~Body:"))
                         SetArea("ProcessLine");
+                    else if (currScriptLine.Contains("~~BeginString:"))
+                    {
+                        string stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
+                        if (string.IsNullOrEmpty(stringName)) continue;
+                        m_CurrArea.Lines.Add("string " + stringName + " = //~~String " + stringName + "~~//;");
+                        originalArea = m_CurrArea.Name;
+                        SetArea("String " + stringName);
+                    }
+                    else if (currScriptLine.Contains("~~EndString:"))
+                    {
+                        if(m_CurrArea.Lines.IsNullOrEmpty())
+                            m_CurrArea.Lines.Add("string.Empty");
+                        else if (!m_CurrArea.Lines.Any(x => x.Contains("\"")))
+                        {
+                            m_CurrArea.Lines[0] = "@\"" + m_CurrArea.Lines[0];
+                            m_CurrArea.Lines[m_CurrArea.Lines.Count - 1] += "\"";
+                        }
+                        else if (!m_CurrArea.Lines.Any(x => x.Contains("`")))
+                        {
+                            m_CurrArea.Lines.TransformAllNotEmpty((line, index) => line.Replace("\"", "``"));
+                            m_CurrArea.Lines[0] = "@\"" + m_CurrArea.Lines[0];
+                            m_CurrArea.Lines[m_CurrArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                        }
+                        else if (!m_CurrArea.Lines.Any(x => x.Contains("`")))
+                        {
+                            m_CurrArea.Lines.TransformAllNotEmpty((line, index) => "\t\"" + line.Replace("\"", "\\\"") + "\" + Enviornment.NewLine;" + Environment.NewLine);
+                            m_CurrArea.Lines[0] = "@\"" + m_CurrArea.Lines[0];
+                            m_CurrArea.Lines[m_CurrArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                        }
+                        SetArea(originalArea);
+                        originalArea = null;
+                    }
                     else if (currScriptLine.Contains("~~:"))
-                        m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
+                    {
+                        if (originalArea != null)
+                        {
+                            m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
+                        }
+                        else 
+                            m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
+                    }
+                    else if (originalArea != null)
+                    {
+                        m_CurrArea.Lines.Add(currScriptLine);
+                    }
                     else
                         m_CurrArea.Lines.Add((new string(' ', indent + m_CurrArea.Indent)) + currScriptLine);
                 }
@@ -403,6 +447,8 @@ namespace MetX.Data
                 m_CurrArea = area;
                 return;
             }
+            m_CurrArea = new GenArea(areaName);
+            Add(m_CurrArea);
         }
     }
 }

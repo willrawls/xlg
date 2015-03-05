@@ -376,5 +376,28 @@ namespace MetX.Library
             if (strings == null || strings.Length == 0) return target;
             return strings.Aggregate(target, (current, s) => current.Replace(s, replacement));
         }
+
+        public static void TransformAllNotEmpty(this IList<string> target, Func<string, int, string> func)
+        {
+            if (target.IsNullOrEmpty()) return;
+
+            for (int i = 0; i < target.Count; i++)
+            {
+                string s = target[i];
+                if (s.IsNullOrEmpty()) continue;
+                target[i] = func(s, i); 
+            }
+        }
+
+        public static void TransformAllNotEmpty(this IList<string> target, Func<string, string> func)
+        {
+            if (target.IsNullOrEmpty()) return;
+            for (int i = 0; i < target.Count; i++)
+            {
+                string s = target[i];
+                if (s.IsNullOrEmpty()) continue;
+                target[i] = func(s);
+            }
+        }
     }
 }
