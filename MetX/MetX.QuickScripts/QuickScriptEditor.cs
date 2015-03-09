@@ -7,8 +7,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using MetX.Data;
 using MetX.Library;
+using XLG.QuickScripts.TextEditorSample;
 
 namespace XLG.QuickScripts
 {
@@ -22,10 +25,48 @@ namespace XLG.QuickScripts
         public XlgQuickScriptFile Scripts;
         public bool Updating;
 
+        TextArea textArea;
+        CodeCompletionWindow completionWindow;
+
         public QuickScriptEditor(string filePath)
         {
             InitializeComponent();
+
+            textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
+            textArea.KeyEventHandler += ProcessKey;
+            ScriptEditor.SetHighlighting("C#");
+            ScriptEditor.Refresh();
+
             LoadQuickScriptsFile(filePath);
+        }
+
+        private bool ProcessKey(char ch)
+        {
+            if (ch == '.')
+            {
+                ShowCompletionWindow();
+            }
+            return false;
+        }
+
+        private void ShowCompletionWindow()
+        {
+            CompletionDataProvider completionDataProvider = new CompletionDataProvider();
+            completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
+            if (completionWindow != null)
+            {
+                completionWindow.Closed += CompletionWindowClosed;
+            }
+        }
+
+        private void CompletionWindowClosed(object source, EventArgs e)
+        {
+            if (completionWindow != null)
+            {
+                completionWindow.Closed -= CompletionWindowClosed;
+                completionWindow.Dispose();
+                completionWindow = null;
+            }
         }
 
         private void RefreshLists()
@@ -69,7 +110,7 @@ namespace XLG.QuickScripts
                 return;
             }
 
-            CurrentScript.Script = QuickScript.Text;
+            CurrentScript.Script = ScriptEditor.Text;
             Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
             CurrentScript.Input = InputList.Text;
             CurrentScript.SliceAt = SliceAt.Text;
@@ -100,7 +141,7 @@ namespace XLG.QuickScripts
             }
 
             QuickScriptList.Text = selectedScript.Name;
-            QuickScript.Text = selectedScript.Script;
+            ScriptEditor.Text = selectedScript.Script;
 
             DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
                 ? "Text Box"
@@ -134,9 +175,9 @@ namespace XLG.QuickScripts
             InputFilePath.Text = selectedScript.InputFilePath;
             DestinationFilePath.Text = selectedScript.DestinationFilePath;
 
-            QuickScript.Focus();
-            QuickScript.SelectionStart = 0;
-            QuickScript.SelectionLength = 0;
+            ScriptEditor.Focus();
+            //ScriptEditor.SelectionStart = 0;
+            //ScriptEditor.SelectionLength = 0;
             CurrentScript = selectedScript;
         }
 
@@ -203,7 +244,7 @@ namespace XLG.QuickScripts
         {
             if (InvokeRequired)
             {
-                return (string) Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
+                return (string)Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
             }
             if (string.IsNullOrEmpty(XlgQuickScript.IndependentTemplate))
             {
@@ -237,17 +278,17 @@ namespace XLG.QuickScripts
                                   + Environment.NewLine);
             List<string> lines = new List<string>(source.LineList());
             for (int index = 0; index < compilerResults.Errors.Count; index++)
-            { 
+            {
                 string error = compilerResults.Errors[index].ToString();
                 if (error.Contains("(")) error = error.TokensAfterFirst("(").Replace(")", string.Empty);
                 sb.AppendLine((index + 1) + ": Line " + error);
                 sb.AppendLine();
-                if(error.Contains(Environment.NewLine))
-                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                else if(compilerResults.Errors[index].Line == 0)
+                if (error.Contains(Environment.NewLine))
+                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                else if (compilerResults.Errors[index].Line == 0)
                     lines[0] += "\t// " + error;
                 else
-                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error;
+                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error;
             }
             MessageBox.Show(sb.ToString());
             QuickScriptWorker.ViewTextInNotepad(lines.Flatten());
@@ -656,9 +697,9 @@ namespace XLG.QuickScripts
                 string location = GenerateIndependentQuickScriptExe(CurrentScript);
                 if (!location.IsNullOrEmpty())
                 {
-                    if(DialogResult.Yes == MessageBox.Show(this, 
-                        "Executable generated successfully at: " + location + Environment.NewLine + 
-                        Environment.NewLine + 
+                    if (DialogResult.Yes == MessageBox.Show(this,
+                        "Executable generated successfully at: " + location + Environment.NewLine +
+                        Environment.NewLine +
                         "Would you like to run it now?", "RUN EXE?", MessageBoxButtons.YesNo))
                         Process.Start("explorer", location);
                 }
@@ -668,7 +709,12 @@ namespace XLG.QuickScripts
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            using (TextEditorForm textEditor = new TextEditorForm())
+                textEditor.ShowDialog(this);
         }
     }
 }
