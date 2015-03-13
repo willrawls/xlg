@@ -300,6 +300,19 @@ namespace MetX.Data
                                  .Replace("~#~$", "\\\"");
             return currScriptLine;
         }
+
+        public XlgQuickScript Clone(string name)
+        {
+            return new XlgQuickScript(name, Script)
+            {
+                Destination = Destination,
+                DestinationFilePath = DestinationFilePath,
+                DiceAt = DiceAt,
+                Input = Input,
+                InputFilePath = InputFilePath,
+                SliceAt = SliceAt,
+            };
+        }
     }
 
     public class GenArea

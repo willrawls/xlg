@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using MetX.Data;
 using MetX.Library;
@@ -34,7 +35,11 @@ namespace XLG.QuickScripts
 
             textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
             textArea.KeyEventHandler += ProcessKey;
-            ScriptEditor.SetHighlighting("C#");
+
+            FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
+            HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
+            ScriptEditor.SetHighlighting("QuickScript"); // Activate the highlighting, use the name from the SyntaxDefinition node.
+            //ScriptEditor.SetHighlighting("C#");
             ScriptEditor.Refresh();
 
             LoadQuickScriptsFile(filePath);
@@ -51,12 +56,14 @@ namespace XLG.QuickScripts
 
         private void ShowCompletionWindow()
         {
+/*
             CompletionDataProvider completionDataProvider = new CompletionDataProvider();
             completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
             if (completionWindow != null)
             {
                 completionWindow.Closed += CompletionWindowClosed;
             }
+*/
         }
 
         private void CompletionWindowClosed(object source, EventArgs e)
@@ -142,6 +149,7 @@ namespace XLG.QuickScripts
 
             QuickScriptList.Text = selectedScript.Name;
             ScriptEditor.Text = selectedScript.Script;
+            ScriptEditor.Refresh();
 
             DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
                 ? "Text Box"
@@ -173,7 +181,9 @@ namespace XLG.QuickScripts
             }
 
             InputFilePath.Text = selectedScript.InputFilePath;
+            if (InputFilePath.Text.Length > 0) InputFilePath.SelectionStart = InputFilePath.Text.Length;
             DestinationFilePath.Text = selectedScript.DestinationFilePath;
+            if (DestinationFilePath.Text.Length > 0) DestinationFilePath.SelectionStart = DestinationFilePath.Text.Length;
 
             ScriptEditor.Focus();
             //ScriptEditor.SelectionStart = 0;
@@ -268,7 +278,7 @@ namespace XLG.QuickScripts
                 string csFilePath = exeFilePath.Replace(".exe", ".cs");
                 File.Copy(assembly.Location, exeFilePath);
                 File.WriteAllText(csFilePath, source);
-                QuickScriptWorker.ViewFileInNotepad(csFilePath);
+                //QuickScriptWorker.ViewFileInNotepad(csFilePath);
                 //QuickScriptWorker.ViewTextInNotepad(source);
                 return exeFilePath;
             }
@@ -385,6 +395,8 @@ namespace XLG.QuickScripts
                             InputFilePath.Focus();
                             return;
                         }
+
+                   
                         toParse = File.ReadAllText(scriptToRun.InputFilePath);
                         break;
                 }
@@ -543,6 +555,7 @@ namespace XLG.QuickScripts
                 }
 
                 string script = string.Empty;
+                XlgQuickScript newScript = null;
                 if (CurrentScript != null)
                 {
                     answer = MessageBox.Show(this, "Would you like to clone the current script?", "CLONE SCRIPT?",
@@ -553,7 +566,8 @@ namespace XLG.QuickScripts
                             return;
                         case DialogResult.Yes:
                             UpdateScriptFromForm();
-                            script = CurrentScript.Script;
+                            //script = CurrentScript.Script;
+                            newScript = CurrentScript.Clone(name);
                             break;
                     }
                 }
@@ -562,7 +576,8 @@ namespace XLG.QuickScripts
                 Updating = true;
                 try
                 {
-                    XlgQuickScript newScript = new XlgQuickScript(name, script);
+                    if(newScript == null)
+                        newScript = new XlgQuickScript(name, script);
                     Scripts.Add(newScript);
                     QuickScriptList.Items.Add(newScript);
                     QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
@@ -700,8 +715,18 @@ namespace XLG.QuickScripts
                     if (DialogResult.Yes == MessageBox.Show(this,
                         "Executable generated successfully at: " + location + Environment.NewLine +
                         Environment.NewLine +
-                        "Would you like to run it now?", "RUN EXE?", MessageBoxButtons.YesNo))
-                        Process.Start("explorer", location);
+                        "Would you like to run it now? (No will open the generated file).", "RUN EXE?", MessageBoxButtons.YesNo)) 
+                        Process.Start(new ProcessStartInfo(location)
+                        {
+                            UseShellExecute = true,
+                            WorkingDirectory = location.TokensBeforeLast(@"\"),
+                            
+                        });
+                    else
+                    {
+                        QuickScriptWorker.ViewFileInNotepad(location.Replace(".exe", ".cs"));
+                    }
+                        //Process.Start("explorer", location);
                 }
                 //RunQuickScript(CurrentScript);
             }

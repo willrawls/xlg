@@ -9,20 +9,20 @@ namespace XLG.QuickScripts.TextEditorSample
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{
-		ImageList imageList = new ImageList();
-		
-		List<DefaultCompletionData> completionData = new List<DefaultCompletionData>();
+	    readonly ImageList m_ImageList = new ImageList();
+
+	    readonly List<DefaultCompletionData> m_CompletionData = new List<DefaultCompletionData>();
 		
 		public CompletionDataProvider()
 		{
-			completionData.Add(new DefaultCompletionData("Item1", 0));
-			completionData.Add(new DefaultCompletionData("Item2", 0));
-			completionData.Add(new DefaultCompletionData("Item3", 0));
-			completionData.Add(new DefaultCompletionData("Another item", 0));
+			m_CompletionData.Add(new DefaultCompletionData("Item1", 0));
+			m_CompletionData.Add(new DefaultCompletionData("Item2", 0));
+			m_CompletionData.Add(new DefaultCompletionData("Item3", 0));
+			m_CompletionData.Add(new DefaultCompletionData("Another item", 0));
 		}
 		
 		public ImageList ImageList {
-			get { return imageList; }
+			get { return m_ImageList; }
 		}
 		
 		public string PreSelection {
@@ -49,7 +49,7 @@ namespace XLG.QuickScripts.TextEditorSample
 		
 		public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
 		{
-			return completionData.ToArray();
+			return m_CompletionData.ToArray();
 		}
 	}
 }

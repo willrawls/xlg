@@ -38,7 +38,7 @@
             this.RunScript = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.QuickScriptList = new System.Windows.Forms.ToolStripComboBox();
-            this.QuickScript = new System.Windows.Forms.TextBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.ViewGeneratedCode = new System.Windows.Forms.ToolStripButton();
             this.ViewIndependectGeneratedCode = new System.Windows.Forms.ToolStripButton();
@@ -65,7 +65,6 @@
             this.BrowseDestinationFilePath = new System.Windows.Forms.ToolStripButton();
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.ScriptEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -158,19 +157,15 @@
             this.QuickScriptList.Size = new System.Drawing.Size(319, 31);
             this.QuickScriptList.SelectedIndexChanged += new System.EventHandler(this.QuickScriptList_SelectedIndexChanged);
             // 
-            // QuickScript
+            // toolStripButton1
             // 
-            this.QuickScript.AcceptsReturn = true;
-            this.QuickScript.AcceptsTab = true;
-            this.QuickScript.AllowDrop = true;
-            this.QuickScript.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuickScript.Location = new System.Drawing.Point(625, 223);
-            this.QuickScript.Multiline = true;
-            this.QuickScript.Name = "QuickScript";
-            this.QuickScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.QuickScript.Size = new System.Drawing.Size(132, 177);
-            this.QuickScript.TabIndex = 17;
-            this.QuickScript.WordWrap = false;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStrip2
             // 
@@ -206,7 +201,7 @@
             this.ViewGeneratedCode.Size = new System.Drawing.Size(48, 22);
             this.ViewGeneratedCode.Text = "Gen";
             this.ViewGeneratedCode.ToolTipText = "Generate the quick script now and open the result in notepad. Errors will not be " +
-    "shown.";
+                "shown.";
             this.ViewGeneratedCode.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
             // 
             // ViewIndependectGeneratedCode
@@ -408,24 +403,15 @@
             // 
             this.OpenInputFilePathDialog.FileName = "openFileDialog1";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // ScriptEditor
             // 
             this.ScriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ScriptEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ScriptEditor.IsIconBarVisible = true;
             this.ScriptEditor.IsReadOnly = false;
-            this.ScriptEditor.Location = new System.Drawing.Point(0, 84);
+            this.ScriptEditor.Location = new System.Drawing.Point(0, 81);
             this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(619, 324);
+            this.ScriptEditor.Size = new System.Drawing.Size(769, 331);
             this.ScriptEditor.TabIndex = 20;
             // 
             // QuickScriptEditor
@@ -435,7 +421,6 @@
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(769, 412);
             this.Controls.Add(this.ScriptEditor);
-            this.Controls.Add(this.QuickScript);
             this.Controls.Add(this.FilePathStrip);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
@@ -461,7 +446,6 @@
         private System.Windows.Forms.ToolStripButton SaveScript;
         private System.Windows.Forms.ToolStripButton RunScript;
         private System.Windows.Forms.ToolStripButton AddScript;
-        private System.Windows.Forms.TextBox QuickScript;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox QuickScriptList;
         private System.Windows.Forms.ToolStrip toolStrip2;
