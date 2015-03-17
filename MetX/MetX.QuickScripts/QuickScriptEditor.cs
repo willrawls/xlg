@@ -229,12 +229,19 @@ namespace XLG.QuickScripts
                 Assembly assembly = compilerResults.CompiledAssembly;
                 BaseLineProcessor quickScriptProcessor =
                     assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
+
+                if (quickScriptProcessor != null)
+                {
+                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
+                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
+                }
+
                 return quickScriptProcessor;
             }
 
             StringBuilder sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
+                new StringBuilder("Compilation failure. Errors found include:" 
+                    + Environment.NewLine + Environment.NewLine);
             for (int index = 0; index < compilerResults.Errors.Count; index++)
             {
                 sb.AppendLine((index + 1) + ": Line "
@@ -359,8 +366,6 @@ namespace XLG.QuickScripts
             try
             {
                 ScriptIsRunning = true;
-                string toParse = null;
-
                 if (scriptToRun.Destination == QuickScriptDestination.File)
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
@@ -375,66 +380,32 @@ namespace XLG.QuickScripts
                     }
                 }
 
-                switch (scriptToRun.Input.ToLower().Replace(" ", string.Empty))
-                {
-                    case "clipboard":
-                        toParse = Clipboard.GetText();
-                        break;
-
-                    case "file":
-                        if (string.IsNullOrEmpty(scriptToRun.InputFilePath))
-                        {
-                            MessageBox.Show(this, "Please supply an input filename.", "INPUT FILE PATH REQUIRED");
-                            InputFilePath.Focus();
-                            return;
-                        }
-                        if (!File.Exists(scriptToRun.InputFilePath))
-                        {
-                            MessageBox.Show(this, "The supplied input filename does not exist.",
-                                "INPUT FILE DOES NOT EXIST");
-                            InputFilePath.Focus();
-                            return;
-                        }
-
-                   
-                        toParse = File.ReadAllText(scriptToRun.InputFilePath);
-                        break;
-                }
-                if (string.IsNullOrEmpty(toParse))
-                {
-                    return;
-                }
-
-                // This way supports both windows and linux line endings
-                string[] lines = toParse.Replace("\r", string.Empty).Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length <= 0)
-                {
-                    return;
-                }
-
                 BaseLineProcessor quickScriptProcessor = GenerateQuickScriptLineProcessor(scriptToRun);
-                if (quickScriptProcessor == null)
+                bool? inputResult = quickScriptProcessor.ReadInput(scriptToRun.Input);
+                switch(inputResult)
                 {
-                    return;
+                    case null:
+                        InputFilePath.Focus();
+                        return;
+                    case false:
+                        return;
+                    // True keep going
                 }
-
-                quickScriptProcessor.LineCount = lines.Length;
 
                 // Start
                 try
                 {
-                    quickScriptProcessor.Start();
+                    if (!quickScriptProcessor.Start()) return;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error running Start:" + Environment.NewLine +
-                        ex.ToString());
+                    MessageBox.Show("Error running Start:" + Environment.NewLine + ex);
                 }
 
-                // ProcessLine (each)
-                for (int index = 0; index < lines.Length; index++)
+                // Process each line
+                for (int index = 0; index < quickScriptProcessor.Lines.Count; index++)
                 {
-                    var currLine = lines[index];
+                    string currLine = quickScriptProcessor.Lines[index];
                     try
                     {
                         if (!quickScriptProcessor.ProcessLine(currLine, index))
@@ -449,20 +420,13 @@ namespace XLG.QuickScripts
                         if (answer == DialogResult.No) return;
                     }
                 }
-                /*
-                                if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(t, index)).Any())
-                                {
-                                    return;
-                                }
-                */
                 try
                 {
-                    quickScriptProcessor.Finish();
+                    if (!quickScriptProcessor.Finish()) return;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error running Finish:" + Environment.NewLine +
-                        ex.ToString());
+                    MessageBox.Show("Error running Finish:" + Environment.NewLine + ex);
                 }
 
                 if (quickScriptProcessor.Output == null || quickScriptProcessor.Output.Length <= 0)

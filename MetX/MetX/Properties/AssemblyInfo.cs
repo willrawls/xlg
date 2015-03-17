@@ -29,7 +29,7 @@ using System.Runtime.CompilerServices;
 [assembly: AspNetHostingPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: ReflectionPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: SqlClientPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
-[assembly: AllowPartiallyTrustedCallersAttribute()]
+// [assembly: AllowPartiallyTrustedCallersAttribute()]
 [assembly: System.Net.WebPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: PermissionSet(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: AssemblyDescriptionAttribute("XLG Core Functionality Library")]

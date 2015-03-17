@@ -6,6 +6,22 @@ namespace MetX.Library
 {
     public class UI
     {
+        public static string InputBox(string title, string promptText, string defaultValue = "")
+        {
+            string value = defaultValue;
+            return InputBox(title, promptText, ref value) == DialogResult.Cancel
+                ? null
+                : value;
+        }
+
+        public static string InputBox(string promptText, string defaultValue = "")
+        {
+            string value = defaultValue;
+            return InputBox("ENTER VALUE", promptText, ref value) == DialogResult.Cancel
+                ? null
+                : value;
+        }
+
         public static DialogResult InputBox(string title, string promptText, ref string value)
         {
             Form form = new Form();
