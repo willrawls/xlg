@@ -7,8 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using MetX.Data;
 using MetX.Library;
+using XLG.QuickScripts.TextEditorSample;
 
 namespace XLG.QuickScripts
 {
@@ -22,10 +26,54 @@ namespace XLG.QuickScripts
         public XlgQuickScriptFile Scripts;
         public bool Updating;
 
+        TextArea textArea;
+        CodeCompletionWindow completionWindow;
+
         public QuickScriptEditor(string filePath)
         {
             InitializeComponent();
+
+            textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
+            textArea.KeyEventHandler += ProcessKey;
+
+            FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
+            HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
+            ScriptEditor.SetHighlighting("QuickScript"); // Activate the highlighting, use the name from the SyntaxDefinition node.
+            //ScriptEditor.SetHighlighting("C#");
+            ScriptEditor.Refresh();
+
             LoadQuickScriptsFile(filePath);
+        }
+
+        private bool ProcessKey(char ch)
+        {
+            if (ch == '.')
+            {
+                ShowCompletionWindow();
+            }
+            return false;
+        }
+
+        private void ShowCompletionWindow()
+        {
+/*
+            CompletionDataProvider completionDataProvider = new CompletionDataProvider();
+            completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
+            if (completionWindow != null)
+            {
+                completionWindow.Closed += CompletionWindowClosed;
+            }
+*/
+        }
+
+        private void CompletionWindowClosed(object source, EventArgs e)
+        {
+            if (completionWindow != null)
+            {
+                completionWindow.Closed -= CompletionWindowClosed;
+                completionWindow.Dispose();
+                completionWindow = null;
+            }
         }
 
         private void RefreshLists()
@@ -69,7 +117,7 @@ namespace XLG.QuickScripts
                 return;
             }
 
-            CurrentScript.Script = QuickScript.Text;
+            CurrentScript.Script = ScriptEditor.Text;
             Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
             CurrentScript.Input = InputList.Text;
             CurrentScript.SliceAt = SliceAt.Text;
@@ -100,7 +148,8 @@ namespace XLG.QuickScripts
             }
 
             QuickScriptList.Text = selectedScript.Name;
-            QuickScript.Text = selectedScript.Script;
+            ScriptEditor.Text = selectedScript.Script;
+            ScriptEditor.Refresh();
 
             DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
                 ? "Text Box"
@@ -132,11 +181,13 @@ namespace XLG.QuickScripts
             }
 
             InputFilePath.Text = selectedScript.InputFilePath;
+            if (InputFilePath.Text.Length > 0) InputFilePath.SelectionStart = InputFilePath.Text.Length;
             DestinationFilePath.Text = selectedScript.DestinationFilePath;
+            if (DestinationFilePath.Text.Length > 0) DestinationFilePath.SelectionStart = DestinationFilePath.Text.Length;
 
-            QuickScript.Focus();
-            QuickScript.SelectionStart = 0;
-            QuickScript.SelectionLength = 0;
+            ScriptEditor.Focus();
+            //ScriptEditor.SelectionStart = 0;
+            //ScriptEditor.SelectionLength = 0;
             CurrentScript = selectedScript;
         }
 
@@ -178,12 +229,19 @@ namespace XLG.QuickScripts
                 Assembly assembly = compilerResults.CompiledAssembly;
                 BaseLineProcessor quickScriptProcessor =
                     assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
+
+                if (quickScriptProcessor != null)
+                {
+                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
+                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
+                }
+
                 return quickScriptProcessor;
             }
 
             StringBuilder sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
+                new StringBuilder("Compilation failure. Errors found include:" 
+                    + Environment.NewLine + Environment.NewLine);
             for (int index = 0; index < compilerResults.Errors.Count; index++)
             {
                 sb.AppendLine((index + 1) + ": Line "
@@ -203,7 +261,7 @@ namespace XLG.QuickScripts
         {
             if (InvokeRequired)
             {
-                return (string) Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
+                return (string)Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
             }
             if (string.IsNullOrEmpty(XlgQuickScript.IndependentTemplate))
             {
@@ -227,7 +285,7 @@ namespace XLG.QuickScripts
                 string csFilePath = exeFilePath.Replace(".exe", ".cs");
                 File.Copy(assembly.Location, exeFilePath);
                 File.WriteAllText(csFilePath, source);
-                QuickScriptWorker.ViewFileInNotepad(csFilePath);
+                //QuickScriptWorker.ViewFileInNotepad(csFilePath);
                 //QuickScriptWorker.ViewTextInNotepad(source);
                 return exeFilePath;
             }
@@ -237,17 +295,17 @@ namespace XLG.QuickScripts
                                   + Environment.NewLine);
             List<string> lines = new List<string>(source.LineList());
             for (int index = 0; index < compilerResults.Errors.Count; index++)
-            { 
+            {
                 string error = compilerResults.Errors[index].ToString();
                 if (error.Contains("(")) error = error.TokensAfterFirst("(").Replace(")", string.Empty);
                 sb.AppendLine((index + 1) + ": Line " + error);
                 sb.AppendLine();
-                if(error.Contains(Environment.NewLine))
-                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                else if(compilerResults.Errors[index].Line == 0)
+                if (error.Contains(Environment.NewLine))
+                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                else if (compilerResults.Errors[index].Line == 0)
                     lines[0] += "\t// " + error;
                 else
-                    lines[compilerResults.Errors[index].Line-1] += "\t// " + error;
+                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error;
             }
             MessageBox.Show(sb.ToString());
             QuickScriptWorker.ViewTextInNotepad(lines.Flatten());
@@ -308,8 +366,6 @@ namespace XLG.QuickScripts
             try
             {
                 ScriptIsRunning = true;
-                string toParse = null;
-
                 if (scriptToRun.Destination == QuickScriptDestination.File)
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
@@ -324,64 +380,32 @@ namespace XLG.QuickScripts
                     }
                 }
 
-                switch (scriptToRun.Input.ToLower().Replace(" ", string.Empty))
-                {
-                    case "clipboard":
-                        toParse = Clipboard.GetText();
-                        break;
-
-                    case "file":
-                        if (string.IsNullOrEmpty(scriptToRun.InputFilePath))
-                        {
-                            MessageBox.Show(this, "Please supply an input filename.", "INPUT FILE PATH REQUIRED");
-                            InputFilePath.Focus();
-                            return;
-                        }
-                        if (!File.Exists(scriptToRun.InputFilePath))
-                        {
-                            MessageBox.Show(this, "The supplied input filename does not exist.",
-                                "INPUT FILE DOES NOT EXIST");
-                            InputFilePath.Focus();
-                            return;
-                        }
-                        toParse = File.ReadAllText(scriptToRun.InputFilePath);
-                        break;
-                }
-                if (string.IsNullOrEmpty(toParse))
-                {
-                    return;
-                }
-
-                // This way supports both windows and linux line endings
-                string[] lines = toParse.Replace("\r", string.Empty).Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length <= 0)
-                {
-                    return;
-                }
-
                 BaseLineProcessor quickScriptProcessor = GenerateQuickScriptLineProcessor(scriptToRun);
-                if (quickScriptProcessor == null)
+                bool? inputResult = quickScriptProcessor.ReadInput(scriptToRun.Input);
+                switch(inputResult)
                 {
-                    return;
+                    case null:
+                        InputFilePath.Focus();
+                        return;
+                    case false:
+                        return;
+                    // True keep going
                 }
-
-                quickScriptProcessor.LineCount = lines.Length;
 
                 // Start
                 try
                 {
-                    quickScriptProcessor.Start();
+                    if (!quickScriptProcessor.Start()) return;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error running Start:" + Environment.NewLine +
-                        ex.ToString());
+                    MessageBox.Show("Error running Start:" + Environment.NewLine + ex);
                 }
 
-                // ProcessLine (each)
-                for (int index = 0; index < lines.Length; index++)
+                // Process each line
+                for (int index = 0; index < quickScriptProcessor.Lines.Count; index++)
                 {
-                    var currLine = lines[index];
+                    string currLine = quickScriptProcessor.Lines[index];
                     try
                     {
                         if (!quickScriptProcessor.ProcessLine(currLine, index))
@@ -396,20 +420,13 @@ namespace XLG.QuickScripts
                         if (answer == DialogResult.No) return;
                     }
                 }
-                /*
-                                if (lines.Where((t, index) => !quickScriptProcessor.ProcessLine(t, index)).Any())
-                                {
-                                    return;
-                                }
-                */
                 try
                 {
-                    quickScriptProcessor.Finish();
+                    if (!quickScriptProcessor.Finish()) return;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error running Finish:" + Environment.NewLine +
-                        ex.ToString());
+                    MessageBox.Show("Error running Finish:" + Environment.NewLine + ex);
                 }
 
                 if (quickScriptProcessor.Output == null || quickScriptProcessor.Output.Length <= 0)
@@ -502,6 +519,7 @@ namespace XLG.QuickScripts
                 }
 
                 string script = string.Empty;
+                XlgQuickScript newScript = null;
                 if (CurrentScript != null)
                 {
                     answer = MessageBox.Show(this, "Would you like to clone the current script?", "CLONE SCRIPT?",
@@ -512,7 +530,8 @@ namespace XLG.QuickScripts
                             return;
                         case DialogResult.Yes:
                             UpdateScriptFromForm();
-                            script = CurrentScript.Script;
+                            //script = CurrentScript.Script;
+                            newScript = CurrentScript.Clone(name);
                             break;
                     }
                 }
@@ -521,7 +540,8 @@ namespace XLG.QuickScripts
                 Updating = true;
                 try
                 {
-                    XlgQuickScript newScript = new XlgQuickScript(name, script);
+                    if(newScript == null)
+                        newScript = new XlgQuickScript(name, script);
                     Scripts.Add(newScript);
                     QuickScriptList.Items.Add(newScript);
                     QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
@@ -656,11 +676,21 @@ namespace XLG.QuickScripts
                 string location = GenerateIndependentQuickScriptExe(CurrentScript);
                 if (!location.IsNullOrEmpty())
                 {
-                    if(DialogResult.Yes == MessageBox.Show(this, 
-                        "Executable generated successfully at: " + location + Environment.NewLine + 
-                        Environment.NewLine + 
-                        "Would you like to run it now?", "RUN EXE?", MessageBoxButtons.YesNo))
-                        Process.Start("explorer", location);
+                    if (DialogResult.Yes == MessageBox.Show(this,
+                        "Executable generated successfully at: " + location + Environment.NewLine +
+                        Environment.NewLine +
+                        "Would you like to run it now? (No will open the generated file).", "RUN EXE?", MessageBoxButtons.YesNo)) 
+                        Process.Start(new ProcessStartInfo(location)
+                        {
+                            UseShellExecute = true,
+                            WorkingDirectory = location.TokensBeforeLast(@"\"),
+                            
+                        });
+                    else
+                    {
+                        QuickScriptWorker.ViewFileInNotepad(location.Replace(".exe", ".cs"));
+                    }
+                        //Process.Start("explorer", location);
                 }
                 //RunQuickScript(CurrentScript);
             }
@@ -668,7 +698,12 @@ namespace XLG.QuickScripts
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            using (TextEditorForm textEditor = new TextEditorForm())
+                textEditor.ShowDialog(this);
         }
     }
 }

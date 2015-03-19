@@ -6,9 +6,12 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using MetX.Library;
 using Microsoft.CSharp;
+using NArrange.ConsoleApplication;
+using NArrange.Core;
 
 namespace MetX.Data
 {
@@ -129,7 +132,63 @@ namespace MetX.Data
 
         public string ToCSharp(bool independent)
         {
-            return new GenInstance(this, independent).CSharp;
+            string code = new GenInstance(this, independent).CSharp;
+            if (code.IsNullOrEmpty()) return code;
+            return FormatCSharpCode(code);
+        }
+
+
+        public static string FormatCSharpCode(string code)
+        {
+            TestLogger logger = new TestLogger();
+            try
+            {
+                FileArranger fileArranger = new FileArranger(null, logger);
+                string formattedCode = fileArranger.ArrangeSource(code);
+                return formattedCode ?? code;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return code;
+            }
+        }
+
+
+        public static bool Run(ILogger logger, CommandArguments commandArgs)
+        {
+            if (logger == null)
+                throw new ArgumentNullException("logger");
+            if (commandArgs == null)
+                throw new ArgumentNullException("commandArgs");
+            bool flag;
+            if (commandArgs.Restore)
+            {
+                logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object)commandArgs.Input);
+                string fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
+                try
+                {
+                    flag = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, fileNameKey);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogMessage(LogLevel.Warning, ex.Message);
+                    flag = false;
+                }
+                if (flag)
+                    logger.LogMessage(LogLevel.Info, "Restored");
+                else
+                    logger.LogMessage(LogLevel.Error, "Restore failed");
+            }
+            else
+            {
+                flag = new FileArranger(commandArgs.Configuration, logger).Arrange(commandArgs.Input, commandArgs.Output, commandArgs.Backup);
+                if (!flag)
+                    logger.LogMessage(LogLevel.Error, "Unable to arrange {0}.", (object)commandArgs.Input);
+                else
+                    logger.LogMessage(LogLevel.Info, "Arrange successful.");
+            }
+            return flag;
         }
 
         public bool Load(string rawScript)
@@ -300,6 +359,19 @@ namespace MetX.Data
                                  .Replace("~#~$", "\\\"");
             return currScriptLine;
         }
+
+        public XlgQuickScript Clone(string name)
+        {
+            return new XlgQuickScript(name, Script)
+            {
+                Destination = Destination,
+                DestinationFilePath = DestinationFilePath,
+                DiceAt = DiceAt,
+                Input = Input,
+                InputFilePath = InputFilePath,
+                SliceAt = SliceAt,
+            };
+        }
     }
 
     public class GenArea
@@ -342,6 +414,7 @@ namespace MetX.Data
                     new GenArea("ClassMembers", 8),
                     new GenArea("Start"),
                     new GenArea("Finish"),
+                    new GenArea("ReadInput"),
                 });
         }
 
@@ -357,6 +430,8 @@ namespace MetX.Data
                         SetArea("Start");
                     else if (currScriptLine.Contains("~~Finish:") || currScriptLine.Contains("~~Final:") || currScriptLine.Contains("~~End:"))
                         SetArea("Finish");
+                    else if (currScriptLine.Contains("~~ReadInput:") || currScriptLine.Contains("~~Read:") || currScriptLine.Contains("~~Input:"))
+                        SetArea("ReadInput");
                     else if (currScriptLine.Contains("~~ClassMember:") || currScriptLine.Contains("~~ClassMembers:") || currScriptLine.Contains("~~Fields:") || currScriptLine.Contains("~~Field:") || currScriptLine.Contains("~~Members:") || currScriptLine.Contains("~~Member:"))
                         SetArea("ClassMembers");
                     else if (currScriptLine.Contains("~~ProcessLine:") || currScriptLine.Contains("~~ProcessLines:") || currScriptLine.Contains("~~Body:"))
@@ -395,11 +470,11 @@ namespace MetX.Data
                     }
                     else if (currScriptLine.Contains("~~:"))
                     {
-                        if (originalArea != null)
+                        if (m_CurrArea.Name == "ClassMembers")
                         {
                             m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
                         }
-                        else 
+                        else
                             m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
                     }
                     else if (originalArea != null)
@@ -452,3 +527,4 @@ namespace MetX.Data
         }
     }
 }
+

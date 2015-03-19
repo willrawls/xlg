@@ -63,6 +63,28 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\NArrange2010Signed\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.TextEditor">
+      <HintPath>..\packages\ICSharpCode.TextEditor.3.2.1.6466\lib\Net20\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="narrange-console, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\References\NArrange2010Signed\narrange-console.exe</HintPath>
+    </Reference>
+    <Reference Include="NArrange.Core, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\NArrange2010Signed\NArrange.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NArrange.CSharp">
+      <HintPath>..\References\NArrange2010Signed\NArrange.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="NArrange.VisualBasic">
+      <HintPath>..\References\NArrange2010Signed\NArrange.VisualBasic.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +111,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextEditorSample\CompletionDataProvider.cs" />
+    <Compile Include="TextEditorSample\TextEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextEditorSample\TextEditorForm.Designer.cs" />
     <EmbeddedResource Include="QuickScriptEditor.resx">
       <DependentUpon>QuickScriptEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +133,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,6 +143,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="QuickScript.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetX\MetX.csproj">

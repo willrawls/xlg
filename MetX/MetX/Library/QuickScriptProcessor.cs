@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.IO;
 using System.Text;
 using MetX;
@@ -11,9 +12,16 @@ namespace MetX
     {
 //~~ClassMembers~~//
 
-        public override void Start()
+        public override bool? ReadInput(string inputType)
+        {
+//~~ReadInput~~//
+            return base.ReadInput(inputType);
+        }
+
+        public override bool Start()
         {
 //~~Start~~//
+            return true;
         }
 
         public override bool ProcessLine(string line, int number)
@@ -23,10 +31,10 @@ namespace MetX
             return true;
         }
 
-        public override void Finish()
+        public override bool Finish()
         {
 //~~Finish~~//
+            return true;
         }
-
     }
 }
