@@ -1,4 +1,4 @@
-xlg
+XLG - The Xml Library Generator
 ===
 
 XML Library Generator - A XML / XSLT based code generator
@@ -103,8 +103,11 @@ The KeyValuePairs variable can then be used throughout the script.
 
 Here's an example that brings it all together. This script asks the user for an 
 ```
+~~Members:
+	string arrayName;
+
 ~~Start:	
-	string arrayName = Ask("What is the array name?", "myArray");
+	arrayName = Ask("What is the array name?", "myArray");
 	if(string.IsNullOrEmpty(arrayName)) return false;
 	Output.Append("string[] " + arrayName + " = {" + Environment.NewLine + "\t");
 	
@@ -118,6 +121,7 @@ Here's an example that brings it all together. This script asks the user for an
 	
 ~~Finish:
 	Output.AppendLine(Environment.NewLine + "\t};");
+	Output.AppendLine(" // " + arrayName);
 
 ```
 
@@ -167,7 +171,36 @@ an input file and an output file.
 
 I recommend using notepad2 or notepad++. I use notepad2 because it actually replaces the notepad.exe file which I find extremely useful.
 
+```
+  The "New" button creates a new script with the option to clone the current script.
+  "Save" saves all scripts. Closing the window will also save the script file. 
+  "Delete" deletes the current script with confirmation.
+```
 
+XLG QuickScripts: The XLGQ file format
+--------------------------
+NOTE: I'm aware my file format is... unusual. Why didn't I just put it into an XML file like I do with everything
+else... I probably will. I went back and forth and for now the half of my brain that's saying it's a format that 
+is more easily human readable is winning. I will likely support an xml format as well as I love XML (obviously).
+
+With that said, the current file format is itself a QuickScript command marked up list of quick scripts. 
+
+You can associate xlgq with MetX.QuickScripts.exe and any xlgq file you double click on will be opened by the editor.
+
+There is no facility currently to load a different file. That will likely change.
+
+XLG QuickScripts: Script fields
+--------------------------
+```
+  "Script:"   - The name of the script you're editing. There's way to directly rename (yet).
+  "Input:"    - You can set this to Clipboard (the default) or file. If file, you must set "Input File Path"
+  "Output:"   - You can set this to Clipboard, Text box, Notepad or file. If file, you must set "Output File Path"
+  "Slice at:" - Future use. The line processor will soon support different end of line delimiters
+  "Input File Path:" - When "Input" is "File", this is the file where lines are loaded from.
+  "Output File Path:" - When "Output" is "File, this is the file that all output will be written to or overwritten.
+  
+  Next to each file path can click "Edit" to open the file in notpad, or the "..." button to browse for a file.
+```
 
 XLG Pipeliner:
 -----------------
@@ -219,3 +252,4 @@ GUI could probably use a serious overhall... maybe reduce it to a multi pathed w
 Documentation is sorely lacking
 xlg:Urn functions need to be renamed for consistancy and usability
 xlg:Urn functions need to be tested to see if any can be replaced with pure XSLT
+
