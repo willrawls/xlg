@@ -75,6 +75,98 @@ you will likely find the shorthand helpful. For instance, the following two line
 It's up to you which you prefer. Note that if you want to acutally output a % or if you want a complex reference
 inside the %variable%, you may find you can't use the ~~: shorthand on that line.
 
+XLG QuickScripts: Code areas
+--------------------------
+Ther's a number of other QuickScript commands available which include the ability to break out of the single
+line processing method and run code before the first line is processed and after the last line is processed.
+
+You deliniate the areas of code by adding commands.
+```
+~~Start:
+   Any C# lines you put here run befor the first line
+~~Body:
+   Runs for each line in the input
+~~Finish:
+   Runs after the last line
+```
+
+These areas actually expand to functions that return bool. If you return false; at any point, it will cancel the
+quick script execution.
+
+There's actually one more code area which let's you define class variables (Members) as follows:
+```
+~~Members:
+  Dictionary<string, string> KeyValuePairs = new Dictionary<string, string>();
+```
+
+The KeyValuePairs variable can then be used throughout the script.
+
+Here's an example that brings it all together. This script asks the user for an 
+```
+~~Start:	
+	string arrayName = Ask("What is the array name?", "myArray");
+	if(string.IsNullOrEmpty(arrayName)) return false;
+	Output.Append("string[] " + arrayName + " = {" + Environment.NewLine + "\t");
+	
+~~Body:
+	if((number+1) % 50 == 0)
+	{
+		Output.AppendLine();
+		Output.Append("\t");
+	}
+	Output.Append("\"" + line.Trim() + "\", ");
+	
+~~Finish:
+	Output.AppendLine(Environment.NewLine + "\t};");
+
+```
+
+XLG QuickScripts: Ask()
+--------------------------
+You'll notice a call to an Ask() function. This is automatically included in your script. It's defined as:
+````
+  string Ask(string title, string promptText, string defaultValue)
+or
+  string Ask(string promptText, string defaultValue = "")
+```
+
+I decided not to make this a command like ~~Ask: because the syntax just wasn't better but asking you for
+a piece of information is fairly common. 
+
+XLG QuickScripts: Namespaces
+--------------------------
+Scripts have access to the following namespaces:
+```
+  System;
+  System.Collections.Generic;
+  System.Drawing;
+  System.IO;
+  System.Text;
+  System.Windows.Forms;
+```
+
+When the script is run using the "Run" button it also has access to:
+```
+  MetX;
+  MetX.Library;
+```
+
+XLG QuickScripts: GUI Buttons
+--------------------------
+This brings up the point of the buttons that execute the script. "Run" and "Gen Exe". 
+```
+"Run" compiles and executes the script in side the QuickScript GUI. If there are any errors in the code, you'll 
+be given a list of the errors with line numbers and then notepad will open with the complete code. 
+
+"Gen" will generate the same c# code that "Run" would but it only displays the code in notepad.
+
+"Gen Exe" generates and compiles a .cs file into an .exe and then gives you the option of running. You can then 
+use the command line tool to later take file input and output. The exe takes two optional parameters, an input file or
+an input file and an output file.
+```
+
+I recommend using notepad2 or notepad++. I use notepad2 because it actually replaces the notepad.exe file which I find extremely useful.
+
 
 
 XLG Pipeliner:
@@ -127,4 +219,3 @@ GUI could probably use a serious overhall... maybe reduce it to a multi pathed w
 Documentation is sorely lacking
 xlg:Urn functions need to be renamed for consistancy and usability
 xlg:Urn functions need to be tested to see if any can be replaced with pure XSLT
-
