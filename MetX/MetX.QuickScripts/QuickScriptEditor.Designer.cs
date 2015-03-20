@@ -165,6 +165,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
             this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Visible = false;
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStrip2
