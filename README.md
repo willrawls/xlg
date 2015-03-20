@@ -18,15 +18,19 @@ You have one output. A StringBuilder called Output.
 You write just the C# lines that would appear inside such a function.
 
 So to write a line processor that takes something like this:
+```
     public string Fred {get; set;}
     public int George = 0;
-    
+```
+
 And turns it into something like:
+```
     Fred = "SomeValue",
     George = "SomeValue",
+```
 
 We would write a QuickScript that might look something like this:
-
+```
 if(line.Contains("public") || line.Contains("private") || line.Contains("protected") || line.Contains("internal"))
 {
   string[] word = line.Trim().Split(' ');
@@ -36,6 +40,7 @@ if(line.Contains("public") || line.Contains("private") || line.Contains("protect
     Output.WriteLine(word[2] + " = \"SomeValue\"";
   }
 }
+```
 
 XLG QuickScripts: The shorthand command
 --------------------------
@@ -50,26 +55,30 @@ where you would normally have to use the string "\"". It also transforms a varia
 into an actual variable reference outside the generated strings. 
 
 For example, in our previous QuickScript we could have written:
-
+```
     Output.WriteLine("\t\t" + word[2] + " = \"SomeValue\"";
+```
 
 With the shorthand and gotten:
-
+```
     ~~:\t\t%word[2]% = "SomeValue",
-
+```
 For something this simple, you'd probably just go with the normal code, but for very... intense writes 
 you will likely find the shorthand helpful. For instance, the following two lines are equivalent:
 
+```
   Output.AppendLine("\"Example\":\t" + number + " (" + word[0] + "): \"" + line + "\"");
-  
+ 
   ~~:"Example":\t%number% (%word[0]%): "%line%"
-  
+```
+
 It's up to you which you prefer. Note that if you want to acutally output a % or if you want a complex reference
 inside the %variable%, you may find you can't use the ~~: shorthand.
 
 
 
 XLG Pipeliner:
+-----------------
 Generating the metadata XML from a neutral data source
 Generating from XLST + xlg:Urn
 Regenerate
