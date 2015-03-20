@@ -73,35 +73,54 @@ you will likely find the shorthand helpful. For instance, the following two line
 ```
 
 It's up to you which you prefer. Note that if you want to acutally output a % or if you want a complex reference
-inside the %variable%, you may find you can't use the ~~: shorthand.
+inside the %variable%, you may find you can't use the ~~: shorthand on that line.
 
 
 
 XLG Pipeliner:
 -----------------
-Generating the metadata XML from a neutral data source
-Generating from XLST + xlg:Urn
-Regenerate
-Auto-regenerate
+This guy is going to get overhauled. It's a really amazing tool, but the interface is just too clunkly
+and there's some edges that need to be smoothed out. This guy is my pride and joy in many ways as it allows you
+to take a meta data source (such as the structure of a database or the structure of a folder) and turn that into
+a standardized XML file. Then it takes the metadata XML and performs one or more XSLT transformations on that
+metadata. The XSLT engine has been hotwired with the excellent Microsoft EXSLT implementation and further
+enhanced with a URN tied to a custom C# object, MetX.Library.xlgUrn. MetX is my name for the mini framework that
+the XLG tools draw from. More on the library later
+
+One day soon I will be writing documentation and examples for exactly how to use this guy... It makes for some 
+serious time savings when there's several sets of code to be written. 
+
+Some features working well.
+```
+Generating the metadata XML from a neutral data source.
+Generating from XLST + xlg:Urn.
+Regenerate.
+Auto-regenerate.
 
 SQL Server support
 File system support
 xlg:Urn (The new xsl namespace with added xls funtionality)
+```
 
 --------------------------
 What works
 --------------------------
-Plug in support. Although this could be redone with modern IoC and DI. I may refactor the discoverable addins by naming convention as discoverable addins with NinjectModules or some such.
+Plug in support. This could be redone with modern IoC and DI. I may refactor the discoverable 
+addins DLLs by naming convention as discoverable addins with NinjectModules or some such. 
+Or I might eliminate that part all together and bring everything under one roof... Probably not though.
 
+What probably doesn't work
 --------------------------
-What may work
---------------------------
+```
 MySQL support
 SyBase support
 SQL to XML support
+```
+These are guys I had working well but I just don't have a need for. I want to support MySql and Oracle again
+and the SQL to XML support is something I'd like to put some time into as well as it's got some exciting 
+potential.
 
---------------------------
-What doesn't work
+What needs to be reworked (A growing list feel free to send me your thoughts)
 --------------------------
 There are some annoying and some serious GUI flaws that need to be addressed.
 GUI could probably use a serious overhall... maybe reduce it to a multi pathed wizard or some such. My last attempt to do that did not end well but hopefully I can learn from those mistakes.
