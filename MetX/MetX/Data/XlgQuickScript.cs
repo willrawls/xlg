@@ -43,6 +43,8 @@ namespace MetX.Data
         public string Script;
         [XmlAttribute]
         public string SliceAt;
+        [XmlAttribute]
+        public string Template;
 
         public XlgQuickScript()
         {
@@ -56,6 +58,7 @@ namespace MetX.Data
             Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
+            Template = "Single file input";
         }
 
         public static string DependentTemplate
@@ -102,15 +105,15 @@ namespace MetX.Data
             }
         }
 
-        public static CompilerResults CompileSource(string source, bool independent)
+        public static CompilerResults CompileSource(string source, bool asExecutable)
         {
             CompilerParameters compilerParameters = new CompilerParameters
             {
-                GenerateExecutable = independent,
-                GenerateInMemory = !independent,
-                IncludeDebugInformation = independent
+                GenerateExecutable = asExecutable,
+                GenerateInMemory = !asExecutable,
+                IncludeDebugInformation = asExecutable
             };
-            if (independent)
+            if (asExecutable)
             {
                 compilerParameters.MainClass = "Processor.Program";
                 compilerParameters.OutputAssembly =
@@ -196,6 +199,8 @@ namespace MetX.Data
             bool ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
+            Template = "Single file input";
+
             if (String.IsNullOrEmpty(rawScript))
             {
                 throw new ArgumentNullException("rawScript");
@@ -256,6 +261,10 @@ namespace MetX.Data
                     {
                         SliceAt = line.TokensAfterFirst(":");
                     }
+                    else if (line.StartsWith("~~QuickScriptTemplate:"))
+                    {
+                        Template = line.TokensAfterFirst(":");
+                    }
                     else if (line.StartsWith("~~QuickScriptDiceAt:"))
                     {
                         DiceAt = line.TokensAfterFirst(":");
@@ -287,15 +296,12 @@ namespace MetX.Data
                    "~~QuickScriptId:" + Id.AsString() + Environment.NewLine +
                    "~~QuickScriptInputFilePath:" + InputFilePath + Environment.NewLine +
                    "~~QuickScriptDestinationFilePath:" + DestinationFilePath + Environment.NewLine +
+                   "~~QuickScriptSliceAt:" + SliceAt + Environment.NewLine +
+                   "~~QuickScriptDiceAt:" + DiceAt + Environment.NewLine +
+                   "~~QuickScriptTemplate:" + Template + Environment.NewLine +
                    (isDefault
                        ? "~~QuickScriptDefault:" + Environment.NewLine
                        : String.Empty) +
-                /*
-                                (String.IsNullOrEmpty(Input)
-                                    ? String.Empty
-                                    : "~~QuickScriptInputStart:" + Environment.NewLine + Input + "~~QuickScriptInputEnd:"
-                                      + Environment.NewLine) +
-             */
                    Script.AsString();
         }
 
@@ -370,6 +376,7 @@ namespace MetX.Data
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
+                Template = Template,
             };
         }
     }

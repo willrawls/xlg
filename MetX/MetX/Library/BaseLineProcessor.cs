@@ -25,8 +25,22 @@ namespace MetX.Library
         {
             switch (inputType.ToLower().Replace(" ", string.Empty))
             {
+                case "none": // This is the equivalent of reading an empty file
+                    AllText = string.Empty;
+                    Lines = new List<string> {string.Empty};
+                    LineCount = 1;
+                    return true;    
+
                 case "clipboard":
                     AllText = Clipboard.GetText();
+                    break;
+
+                case "databasequery":
+                    throw new NotImplementedException("Database query is not yet implemented.");
+                    break;
+
+                case "webaddress":
+                    AllText = IO.HTTP.GetURL(InputFilePath);
                     break;
 
                 case "file":

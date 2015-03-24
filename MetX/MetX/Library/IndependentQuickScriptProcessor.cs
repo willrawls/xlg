@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Processor 
+namespace Processor
 {
     // //~~NameInstance~~//
     static class Program
@@ -54,6 +54,8 @@ namespace Processor
 
                 if (processor.Output == null || processor.Output.Length == 0) return;
 
+                if (string.IsNullOrEmpty(processor.DestinationFilePath)) 
+                    processor.DestinationFilePath = "Output.txt";
                 File.WriteAllText(processor.DestinationFilePath, processor.Output.ToString());
 
                 if(processor.OpenNotepad)
@@ -76,86 +78,110 @@ namespace Processor
         public string InputFilePath;
         public int LineCount;
         public bool OpenNotepad;
-        
-//~~ClassMembers~~//
+
+        //~~ClassMembers~~//
 
         public bool Start()
         {
-//~~Start~~//
+            //~~Start~~//
             return true;
         }
 
         public bool ProcessLine(string line, int number)
         {
             if (string.IsNullOrEmpty(line) && number > -1) return true;
-//~~ProcessLine~~//
+            //~~ProcessLine~~//
             return true;
         }
 
         public bool Finish()
         {
-//~~Finish~~//
+            //~~Finish~~//
             return true;
         }
 
         public bool ReadInput()
         {
 //~~ReadInput~~//
-            if (!File.Exists(InputFilePath))
-            {
-                Console.WriteLine("Input file missing: " + InputFilePath);
-                return false;
-            }
-
             try
             {
-                switch ((Path.GetExtension(InputFilePath) ?? string.Empty).ToLower())
-                {
-                    case "xls":
-                    case "xlsx":
-                    case ".xls":
-                    case ".xlsx":
-                        string sideFile = null;
-                        FileInfo inputFile = new FileInfo(InputFilePath);
-                        InputFilePath = inputFile.FullName;
-                        Type ExcelType = Type.GetTypeFromProgID("Excel.Application");
-                        dynamic excel = Activator.CreateInstance(ExcelType);
-                        try
-                        {
-                            dynamic workbook = excel.Workbooks.Open(InputFilePath);
-                            sideFile = InputFilePath
-                                .Replace(".xlsx", ".xls")
-                                .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
-                                .Replace(":", "")
-                                .Replace("/", "")
-                                .Replace(":", ""));
-                            Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile + "*.txt");
+                if (string.IsNullOrEmpty(InputFilePath)) InputFilePath = "none";
 
-                            // 20 = text (tab delimited), 6 = csv
-                            int sheetNumber = 0;
-                            foreach (dynamic worksheet in workbook.Sheets)
-                            {
-                                string worksheetFile = sideFile + "_" + ++sheetNumber + ".txt";
-                                Console.WriteLine("Saving Worksheet " + sheetNumber + " as: " + worksheetFile);
-                                worksheet.SaveAs(worksheetFile, 20, Type.Missing, Type.Missing, false, false, 1);
-                                if (sideFile == null) sideFile = worksheetFile;
-                                Files.Add(worksheetFile);
-                            }
-                            workbook.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex);
-                            return false;
-                        }
-                        excel.Quit();
-                        GC.Collect(5);
-                        AllText = File.ReadAllText(Files[0]);
+                Console.WriteLine("Input: " + InputFilePath);
+                switch(InputFilePath.ToLower())
+                {
+                    case "none": // This is the equivalent of reading an empty file
+                        AllText = string.Empty;
+                        Lines = new List<string> {string.Empty};
+                        LineCount = 1;
+                        return true;    
+
+                    case "clipboard":
+                        AllText = Clipboard.GetText();
                         break;
 
                     default:
-                        AllText = File.ReadAllText(InputFilePath);
-                        Files.Add(InputFilePath);
+                        if (InputFilePath.StartsWith("http"))
+                        {
+                            AllText = MetX.IO.HTTP.GetURL(InputFilePath);
+                        }
+                        else if (!File.Exists(InputFilePath))
+                        {
+                            Console.WriteLine("Input file missing: " + InputFilePath);
+                            return false;
+                        }
+                        else
+                        {
+                            switch ((Path.GetExtension(InputFilePath) ?? string.Empty).ToLower())
+                            {
+                                case "xls":
+                                case "xlsx":
+                                case ".xls":
+                                case ".xlsx":
+                                    string sideFile = null;
+                                    FileInfo inputFile = new FileInfo(InputFilePath);
+                                    InputFilePath = inputFile.FullName;
+                                    Type ExcelType = Type.GetTypeFromProgID("Excel.Application");
+                                    dynamic excel = Activator.CreateInstance(ExcelType);
+                                    try
+                                    {
+                                        dynamic workbook = excel.Workbooks.Open(InputFilePath);
+                                        sideFile = InputFilePath
+                                            .Replace(".xlsx", ".xls")
+                                            .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
+                                                                           .Replace(":", "")
+                                                                           .Replace("/", "")
+                                                                           .Replace(":", ""));
+                                        Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile + "*.txt");
+
+                                        // 20 = text (tab delimited), 6 = csv
+                                        int sheetNumber = 0;
+                                        foreach (dynamic worksheet in workbook.Sheets)
+                                        {
+                                            string worksheetFile = sideFile + "_" + ++sheetNumber + ".txt";
+                                            Console.WriteLine("Saving Worksheet " + sheetNumber + " as: " + worksheetFile);
+                                            worksheet.SaveAs(worksheetFile, 20, Type.Missing, Type.Missing, false, false, 1);
+                                            if (sideFile == null) sideFile = worksheetFile;
+                                            Files.Add(worksheetFile);
+                                        }
+                                        workbook.Close();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex);
+                                        return false;
+                                    }
+                                    excel.Quit();
+                                    GC.Collect(5);
+                                    AllText = File.ReadAllText(Files[0]);
+                                    break;
+
+                                default:
+                                    AllText = File.ReadAllText(InputFilePath);
+                                    Files.Add(InputFilePath);
+                                    break;
+                            }
+                        }
                         break;
                 }
             }

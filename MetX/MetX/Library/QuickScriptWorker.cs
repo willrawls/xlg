@@ -7,11 +7,14 @@ namespace MetX.Library
 {
     public class QuickScriptWorker
     {
-        public static void ViewTextInNotepad(string source)
+        public static void ViewTextInNotepad(string source, bool isCSharpCode)
         {
             try
             {
-                string tempFile = Path.GetTempFileName();
+                string tempFile = Path.Combine(Path.GetTempPath(), 
+                    string.Format("qscript{0}{1}", 
+                        Guid.NewGuid().ToString().Substring(1, 6), 
+                        (isCSharpCode ? ".cs": ".txt")));
                 File.WriteAllText(tempFile, source);
                 Process.Start("notepad", tempFile);
             }
