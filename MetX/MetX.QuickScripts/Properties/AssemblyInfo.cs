@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 
 [assembly: AssemblyTitle("XLG Quick Scripts")]
-[assembly: AssemblyDescription("XML Library Generator - Quick Script Editor and Executor")]
+[assembly: AssemblyDescription("XML Library Generator - Quick Script Code Generation Development Environment (GDE)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("William M. Rawls")]
 [assembly: AssemblyProduct("XLG")]

@@ -18,10 +18,13 @@ namespace MetX.Data
 
         public bool Save()
         {
-            if (Count == 0)
+            if (Count == 0 || string.IsNullOrEmpty(FilePath))
             {
                 return true;
             }
+
+            Directory.CreateDirectory(FilePath.TokensBeforeLast(@"\"));
+
             if (File.Exists(FilePath))
             {
                 File.Move(FilePath, 

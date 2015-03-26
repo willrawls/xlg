@@ -1,27 +1,25 @@
-
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace XLG.QuickScripts.TextEditorSample
+namespace XLG.QuickScripts
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{
 	    readonly ImageList m_ImageList = new ImageList();
 
-	    readonly List<DefaultCompletionData> m_CompletionData = new List<DefaultCompletionData>();
+        readonly ICompletionData[] m_CompletionData;
 		
-		public CompletionDataProvider()
+		public CompletionDataProvider(IList<string> items)
 		{
-			m_CompletionData.Add(new DefaultCompletionData("Item1", 0));
-			m_CompletionData.Add(new DefaultCompletionData("Item2", 0));
-			m_CompletionData.Add(new DefaultCompletionData("Item3", 0));
-			m_CompletionData.Add(new DefaultCompletionData("Another item", 0));
+		    m_CompletionData = new ICompletionData[items.Count];
+		    for (int index = 0; index < items.Count; index++) 
+                m_CompletionData[index] = new DefaultCompletionData(items[index], 0);
 		}
-		
-		public ImageList ImageList {
+
+	    public ImageList ImageList {
 			get { return m_ImageList; }
 		}
 		
@@ -49,7 +47,7 @@ namespace XLG.QuickScripts.TextEditorSample
 		
 		public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
 		{
-			return m_CompletionData.ToArray();
+			return m_CompletionData;
 		}
 	}
 }
