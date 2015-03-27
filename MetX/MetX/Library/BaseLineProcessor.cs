@@ -123,6 +123,7 @@ namespace MetX.Library
             return true;
         }
 
+        #region Ask
         public static string Ask(string title, string promptText, string defaultValue)
         {
             string value = defaultValue;
@@ -180,5 +181,6 @@ namespace MetX.Library
             value = textBox.Text;
             return dialogResult;
         }
+        #endregion
     }
 }

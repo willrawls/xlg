@@ -164,14 +164,19 @@
     <Compile Include="Data\TableSchema.cs" />
     <Compile Include="Data\xlgFolder.cs" />
     <Compile Include="Data\XlgQuickScriptFile.cs" />
+    <Compile Include="Data\XlgQuickScriptTemplateList.cs" />
     <Compile Include="Data\XlgSettings.cs" />
     <Compile Include="Data\xlgSource.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
-    <EmbeddedResource Include="Library\QuickScriptProcessor.cs" />
+    <EmbeddedResource Include="Templates\Single file input\Native.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="Library\BaseLineProcessor.cs" />
-    <EmbeddedResource Include="Library\IndependentQuickScriptProcessor.cs" />
+    <EmbeddedResource Include="Templates\Single file input\Exe.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="Library\QuickScriptWorker.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
     <Compile Include="Library\UI.cs" />

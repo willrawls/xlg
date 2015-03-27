@@ -25,7 +25,7 @@ namespace XLG.QuickScripts
         public XlgQuickScript SelectedScript { get { return QuickScriptList.SelectedItem as XlgQuickScript; } }
 
         private readonly object m_ScriptSyncRoot = new object();
-        private readonly TextArea textArea;
+        private TextArea textArea;
         private CodeCompletionWindow completionWindow;
         public XlgQuickScript CurrentScript = null;
         protected bool ScriptIsRunning;
@@ -35,7 +35,12 @@ namespace XLG.QuickScripts
         public QuickScriptEditor(string filePath)
         {
             InitializeComponent();
+            InitializeEditor();
+            LoadQuickScriptsFile(filePath);
+        }
 
+        private void InitializeEditor()
+        {
             textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
             textArea.KeyEventHandler += ProcessKey;
             textArea.KeyUp += TextAreaOnKeyUp;
@@ -43,33 +48,78 @@ namespace XLG.QuickScripts
             FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
             HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
             ScriptEditor.SetHighlighting("QuickScript"); // Activate the highlighting, use the name from the SyntaxDefinition node.
-            //ScriptEditor.SetHighlighting("C#");
             ScriptEditor.Refresh();
-
-            LoadQuickScriptsFile(filePath);
         }
 
         private void TextAreaOnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F5)
+            if (e.Control)
             {
-                e.Handled = true;
-                RunQuickScript_Click(null, null);
+                switch (e.KeyCode)
+                {
+                    case Keys.Space:
+                        ShowThisCodeCompletion();
+                        break;
+                }
+            }
+            else // No modifiers
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F5:
+                        e.Handled = true;
+                        RunQuickScript_Click(null, null);
+                        break;
+                }
             }
         }
 
         private bool ProcessKey(char ch)
         {
-            string[] items = null;
-            if (ch == '.')      items = new[] {"Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask"};
-            else if (ch == '~') items = new[] {"~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:"};
+            switch (ch)
+            {
+                case '.':
+                    if (WordBeforeCaret == "this") ShowThisCodeCompletion();
+                    break;
+                case '~':
+                    ShowScriptCommandCodeCompletion();
+                    break;
+            }
+            return false;
+        }
+
+        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] {"~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:"}); }
+
+        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] {"Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask"}); }
+
+        public void ShowCodeCompletion(string[] items)
+        {
             if (items != null && items.Length > 0)
             {
                 CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
                 completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
-                if (completionWindow != null) completionWindow.Closed += CompletionWindowClosed;
+                if (completionWindow != null)
+                {
+                    completionWindow.Closed += CompletionWindowClosed;
+                }
             }
-            return false;
+        }
+
+        private string WordBeforeCaret
+        {
+            get
+            {
+                if (ScriptEditor.Text.Length == 0 || textArea.Caret.Column == 0) return string.Empty;
+                string[] lines = ScriptEditor.Text.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                string linePart = lines[textArea.Caret.Line].Substring(0, textArea.Caret.Column).LastToken();
+                int i;
+                for (i = linePart.Length - 1; i >= 0; i--)
+                {
+                    if (!char.IsLetterOrDigit(linePart[i])) break;
+                }
+                if (i > 0 && i < linePart.Length) linePart = linePart.Substring(i);
+                return linePart.ToLower().Trim();
+            }
         }
 
         private void CompletionWindowClosed(object source, EventArgs e)
@@ -221,11 +271,15 @@ namespace XLG.QuickScripts
             }
         }
 
+        public XlgQuickScriptTemplateList Templates = new XlgQuickScriptTemplateList();
+
         public BaseLineProcessor GenerateQuickScriptLineProcessor(XlgQuickScript scriptToRun)
         {
-            if (string.IsNullOrEmpty(XlgQuickScript.DependentTemplate))
+            if (Templates.Count == 0 || 
+                Templates.All(template => template.Name != TemplateList.Text.ToLower()) || 
+                string.IsNullOrEmpty(Templates[TemplateList.Text].Views["Native"]))
             {
-                MessageBox.Show(this, "Quick script template missing.");
+                MessageBox.Show(this, "Quick script template 'Native' missing: " + TemplateList.Text);
                 return null;
             }
 
@@ -275,9 +329,11 @@ namespace XLG.QuickScripts
             {
                 return (string) Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
             }
-            if (string.IsNullOrEmpty(XlgQuickScript.IndependentTemplate))
+            if (Templates.Count == 0 ||
+                Templates.All(template => template.Name != TemplateList.Text.ToLower()) ||
+                string.IsNullOrEmpty(Templates[TemplateList.Text].Views["Native"]))
             {
-                MessageBox.Show(this, "Independent Quick script template missing.");
+                MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;
             }
 

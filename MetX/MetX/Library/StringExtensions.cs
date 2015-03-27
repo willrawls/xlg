@@ -360,6 +360,8 @@ namespace MetX.Library
         /// <param name="delimiter">The token delimiter</param>
         public static string LastToken(this string target, string delimiter = " ") { return TokenAt(target, TokenCount(target, delimiter), delimiter); }
 
+        public static string LastPathToken(this string target, string delimiter = @"\") { return TokenAt(target, TokenCount(target, delimiter), delimiter); }
+
         /// <summary>Returns everything before the last delimited token from a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>

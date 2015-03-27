@@ -3,8 +3,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -15,6 +13,36 @@ using NArrange.Core;
 
 namespace MetX.Data
 {
+    public class CaseFreeDictionary : Dictionary<string, string>
+    {
+        public new string this[string name]
+        {
+            get { return base[name.ToLower()]; }
+            set { base[name.ToLower()] = value; }
+        }
+    }
+
+    [Serializable]
+    public class XlgQuickScriptTemplate
+    {
+        public string Name;
+        public string TemplatePath;
+        public CaseFreeDictionary Views = new CaseFreeDictionary();
+
+        public XlgQuickScriptTemplate(string templatePath)
+        {
+            TemplatePath = templatePath;
+            Name = TemplatePath.LastPathToken();
+            if (Directory.Exists(TemplatePath))
+            {
+                foreach (string file in Directory.GetFiles(TemplatePath, "*.cs"))
+                {
+                    Views.Add(file.LastPathToken().ToLower().TokensBeforeLast(".cs"), File.ReadAllText(file));
+                }
+            }
+        }
+    }
+
     /// <summary>
     ///     Represents a clipboard processing script
     /// </summary>
@@ -22,33 +50,19 @@ namespace MetX.Data
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
-        private static string m_Template;
         private static string m_IndependentTemplate;
-
-        [XmlAttribute]
-        public QuickScriptDestination Destination;
-        [XmlAttribute]
-        public string DestinationFilePath;
-        [XmlAttribute]
-        public string DiceAt;
-        [XmlAttribute]
-        public Guid Id;
-        [XmlAttribute]
-        public string Input;
-        [XmlAttribute]
-        public string InputFilePath;
-        [XmlAttribute]
-        public string Name;
-        [XmlAttribute]
-        public string Script;
-        [XmlAttribute]
-        public string SliceAt;
-        [XmlAttribute]
-        public string Template;
-
-        public XlgQuickScript()
-        {
-        }
+        private static string m_Template;
+        [XmlAttribute] public QuickScriptDestination Destination;
+        [XmlAttribute] public string DestinationFilePath;
+        [XmlAttribute] public string DiceAt;
+        [XmlAttribute] public Guid Id;
+        [XmlAttribute] public string Input;
+        [XmlAttribute] public string InputFilePath;
+        [XmlAttribute] public string Name;
+        [XmlAttribute] public string Script;
+        [XmlAttribute] public string SliceAt;
+        [XmlAttribute] public string Template;
+        public XlgQuickScript() { }
 
         public XlgQuickScript(string name, string script = null)
         {
@@ -59,50 +73,6 @@ namespace MetX.Data
             SliceAt = "End of line";
             DiceAt = "Space";
             Template = "Single file input";
-        }
-
-        public static string DependentTemplate
-        {
-            get
-            {
-                if (m_Template != null)
-                {
-                    return m_Template;
-                }
-
-                Assembly assembly = Assembly.GetAssembly(typeof(BaseLineProcessor));
-                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.QuickScriptProcessor.cs"))
-                {
-                    if (stream == null)
-                    {
-                        throw new MissingManifestResourceException("Quick script processor resource missing.");
-                    }
-                    m_Template = new StreamReader(stream).ReadToEnd();
-                }
-                return m_Template;
-            }
-        }
-
-        public static string IndependentTemplate
-        {
-            get
-            {
-                if (m_IndependentTemplate != null)
-                {
-                    return m_IndependentTemplate;
-                }
-
-                Assembly assembly = Assembly.GetAssembly(typeof(BaseLineProcessor));
-                using (Stream stream = assembly.GetManifestResourceStream("MetX.Library.IndependentQuickScriptProcessor.cs"))
-                {
-                    if (stream == null)
-                    {
-                        throw new MissingManifestResourceException("Independent Quick script processor resource missing.");
-                    }
-                    m_IndependentTemplate = new StreamReader(stream).ReadToEnd();
-                }
-                return m_IndependentTemplate;
-            }
         }
 
         public static CompilerResults CompileSource(string source, bool asExecutable)
@@ -117,17 +87,17 @@ namespace MetX.Data
             {
                 compilerParameters.MainClass = "Processor.Program";
                 compilerParameters.OutputAssembly =
-                    Guid.NewGuid().ToString().Replace(new [] {"{","}","-"}, "").ToLower() + ".exe";
+                    Guid.NewGuid().ToString().Replace(new[] {"{", "}", "-"}, "").ToLower() + ".exe";
             }
 
             compilerParameters
                 .ReferencedAssemblies
                 .AddRange(
                     AppDomain.CurrentDomain
-                        .GetAssemblies()
-                        .Where(a => !a.IsDynamic)
-                        .Select(a => a.Location)
-                        .ToArray());
+                             .GetAssemblies()
+                             .Where(a => !a.IsDynamic)
+                             .Select(a => a.Location)
+                             .ToArray());
             CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
                 source);
             return compilerResults;
@@ -136,10 +106,12 @@ namespace MetX.Data
         public string ToCSharp(bool independent)
         {
             string code = new GenInstance(this, independent).CSharp;
-            if (code.IsNullOrEmpty()) return code;
+            if (code.IsNullOrEmpty())
+            {
+                return code;
+            }
             return FormatCSharpCode(code);
         }
-
 
         public static string FormatCSharpCode(string code)
         {
@@ -157,17 +129,20 @@ namespace MetX.Data
             }
         }
 
-
         public static bool Run(ILogger logger, CommandArguments commandArgs)
         {
             if (logger == null)
+            {
                 throw new ArgumentNullException("logger");
+            }
             if (commandArgs == null)
+            {
                 throw new ArgumentNullException("commandArgs");
+            }
             bool flag;
             if (commandArgs.Restore)
             {
-                logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object)commandArgs.Input);
+                logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object) commandArgs.Input);
                 string fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
                 try
                 {
@@ -179,17 +154,25 @@ namespace MetX.Data
                     flag = false;
                 }
                 if (flag)
+                {
                     logger.LogMessage(LogLevel.Info, "Restored");
+                }
                 else
+                {
                     logger.LogMessage(LogLevel.Error, "Restore failed");
+                }
             }
             else
             {
                 flag = new FileArranger(commandArgs.Configuration, logger).Arrange(commandArgs.Input, commandArgs.Output, commandArgs.Backup);
                 if (!flag)
-                    logger.LogMessage(LogLevel.Error, "Unable to arrange {0}.", (object)commandArgs.Input);
+                {
+                    logger.LogMessage(LogLevel.Error, "Unable to arrange {0}.", (object) commandArgs.Input);
+                }
                 else
+                {
                     logger.LogMessage(LogLevel.Info, "Arrange successful.");
+                }
             }
             return flag;
         }
@@ -240,7 +223,9 @@ namespace MetX.Data
                     {
                         Input = line.TokensAfterFirst(":").Trim();
                         if (string.IsNullOrEmpty(Input))
+                        {
                             Input = "Clipboard";
+                        }
                     }
                     else if (line.StartsWith("~~QuickScriptDestination:"))
                     {
@@ -305,10 +290,7 @@ namespace MetX.Data
                    Script.AsString();
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() { return Name; }
 
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
@@ -354,9 +336,11 @@ namespace MetX.Data
             currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
             currScriptLine =
                 currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                    .Replace(" + \"\")", ")")
-                    .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
-            currScriptLine = (indent > 0 ? new string(' ', indent + 12) : string.Empty) +
+                              .Replace(" + \"\")", ")")
+                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
+            currScriptLine = (indent > 0
+                ? new string(' ', indent + 12)
+                : string.Empty) +
                              currScriptLine
                                  .Replace(" + \"\" + ", String.Empty)
                                  .Replace("\"\" + ", String.Empty)
@@ -391,8 +375,10 @@ namespace MetX.Data
         {
             Name = name;
             Indent = indent;
-            if (!string.IsNullOrEmpty(lines)) 
+            if (!string.IsNullOrEmpty(lines))
+            {
                 Lines = lines.LineList();
+            }
         }
 
         public GenArea(string name)
@@ -400,31 +386,11 @@ namespace MetX.Data
             Name = name;
             Indent = 12;
         }
-    
     }
 
     public class GenInstance : List<GenArea>
     {
-        private readonly XlgQuickScript m_Quick;
-        private readonly bool m_Independent;
-        private GenArea m_CurrArea;
-
-        public GenInstance(XlgQuickScript quick, bool independent)
-        {
-            m_Quick = quick;
-            m_Independent = independent;
-            
-            m_CurrArea = new GenArea("ProcessLine");
-            AddRange(new[]
-                {
-                    m_CurrArea,
-                    new GenArea("ClassMembers", 8),
-                    new GenArea("Start"),
-                    new GenArea("Finish"),
-                    new GenArea("ReadInput"),
-                });
-        }
-
+        public XlgQuickScriptTemplate Template;
         public string CSharp
         {
             get
@@ -434,27 +400,43 @@ namespace MetX.Data
                 {
                     int indent = currScriptLine.Length - currScriptLine.Trim().Length;
                     if (currScriptLine.Contains("~~Start:") || currScriptLine.Contains("~~Begin:"))
+                    {
                         SetArea("Start");
+                    }
                     else if (currScriptLine.Contains("~~Finish:") || currScriptLine.Contains("~~Final:") || currScriptLine.Contains("~~End:"))
+                    {
                         SetArea("Finish");
+                    }
                     else if (currScriptLine.Contains("~~ReadInput:") || currScriptLine.Contains("~~Read:") || currScriptLine.Contains("~~Input:"))
+                    {
                         SetArea("ReadInput");
-                    else if (currScriptLine.Contains("~~ClassMember:") || currScriptLine.Contains("~~ClassMembers:") || currScriptLine.Contains("~~Fields:") || currScriptLine.Contains("~~Field:") || currScriptLine.Contains("~~Members:") || currScriptLine.Contains("~~Member:"))
+                    }
+                    else if (currScriptLine.Contains("~~ClassMember:") || currScriptLine.Contains("~~ClassMembers:") || currScriptLine.Contains("~~Fields:") || currScriptLine.Contains("~~Field:")
+                             || currScriptLine.Contains("~~Members:") || currScriptLine.Contains("~~Member:"))
+                    {
                         SetArea("ClassMembers");
+                    }
                     else if (currScriptLine.Contains("~~ProcessLine:") || currScriptLine.Contains("~~ProcessLines:") || currScriptLine.Contains("~~Body:"))
+                    {
                         SetArea("ProcessLine");
+                    }
                     else if (currScriptLine.Contains("~~BeginString:"))
                     {
                         string stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
-                        if (string.IsNullOrEmpty(stringName)) continue;
+                        if (string.IsNullOrEmpty(stringName))
+                        {
+                            continue;
+                        }
                         m_CurrArea.Lines.Add("string " + stringName + " = //~~String " + stringName + "~~//;");
                         originalArea = m_CurrArea.Name;
                         SetArea("String " + stringName);
                     }
                     else if (currScriptLine.Contains("~~EndString:"))
                     {
-                        if(m_CurrArea.Lines.IsNullOrEmpty())
+                        if (m_CurrArea.Lines.IsNullOrEmpty())
+                        {
                             m_CurrArea.Lines.Add("string.Empty");
+                        }
                         else if (!m_CurrArea.Lines.Any(x => x.Contains("\"")))
                         {
                             m_CurrArea.Lines[0] = "@\"" + m_CurrArea.Lines[0];
@@ -482,19 +464,25 @@ namespace MetX.Data
                             m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
                         }
                         else
+                        {
                             m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
+                        }
                     }
                     else if (originalArea != null)
                     {
                         m_CurrArea.Lines.Add(currScriptLine);
                     }
                     else
+                    {
                         m_CurrArea.Lines.Add((new string(' ', indent + m_CurrArea.Indent)) + currScriptLine);
+                    }
                 }
 
-                StringBuilder sb = new StringBuilder(m_Independent ? XlgQuickScript.IndependentTemplate : XlgQuickScript.DependentTemplate);
+                StringBuilder sb = new StringBuilder(Template.Views[m_Independent ? "Exe" : "Native"]);
                 foreach (GenArea area in this)
+                {
                     sb.Replace("//~~" + area.Name + "~~//", String.Join(Environment.NewLine, area.Lines));
+                }
 
                 if (m_Independent)
                 {
@@ -517,9 +505,31 @@ namespace MetX.Data
                 }
 
                 for (int i = 0; i < 10; i++)
+                {
                     sb.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+                }
                 return sb.ToString();
             }
+        }
+
+        private readonly bool m_Independent;
+        private readonly XlgQuickScript m_Quick;
+        private GenArea m_CurrArea;
+
+        public GenInstance(XlgQuickScript quick, bool independent)
+        {
+            m_Quick = quick;
+            m_Independent = independent;
+
+            m_CurrArea = new GenArea("ProcessLine");
+            AddRange(new[]
+            {
+                m_CurrArea,
+                new GenArea("ClassMembers", 8),
+                new GenArea("Start"),
+                new GenArea("Finish"),
+                new GenArea("ReadInput"),
+            });
         }
 
         private void SetArea(string areaName)
@@ -534,4 +544,3 @@ namespace MetX.Data
         }
     }
 }
-
