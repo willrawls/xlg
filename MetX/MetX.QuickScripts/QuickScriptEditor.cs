@@ -3,9 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -88,9 +86,9 @@ namespace XLG.QuickScripts
             return false;
         }
 
-        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] {"~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:"}); }
+        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" }); }
 
-        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] {"Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask"}); }
+        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" }); }
 
         public void ShowCodeCompletion(string[] items)
         {
@@ -110,7 +108,7 @@ namespace XLG.QuickScripts
             get
             {
                 if (ScriptEditor.Text.Length == 0 || textArea.Caret.Column == 0) return string.Empty;
-                string[] lines = ScriptEditor.Text.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                string[] lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
                 string linePart = lines[textArea.Caret.Line].Substring(0, textArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
@@ -259,7 +257,7 @@ namespace XLG.QuickScripts
                     return;
                 }
                 UpdateScriptFromForm();
-                string source = CurrentScript.ToCSharp(independent);
+                string source = CurrentScript.ToCSharp(Templates, independent);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source, true);
@@ -275,9 +273,8 @@ namespace XLG.QuickScripts
 
         public BaseLineProcessor GenerateQuickScriptLineProcessor(XlgQuickScript scriptToRun)
         {
-            if (Templates.Count == 0 || 
-                Templates.All(template => template.Name != TemplateList.Text.ToLower()) || 
-                string.IsNullOrEmpty(Templates[TemplateList.Text].Views["Native"]))
+            if (Templates.Count == 0 ||
+                string.IsNullOrEmpty(Templates[TemplateList.Text].Views.View("Native")))
             {
                 MessageBox.Show(this, "Quick script template 'Native' missing: " + TemplateList.Text);
                 return null;
@@ -287,7 +284,7 @@ namespace XLG.QuickScripts
             {
                 return null;
             }
-            string source = scriptToRun.ToCSharp(false);
+            string source = scriptToRun.ToCSharp(Templates, false);
             CompilerResults compilerResults = XlgQuickScript.CompileSource(source, false);
 
             if (compilerResults.Errors.Count <= 0)
@@ -327,11 +324,10 @@ namespace XLG.QuickScripts
         {
             if (InvokeRequired)
             {
-                return (string) Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
+                return (string)Invoke(new d_GenerateExe(GenerateIndependentQuickScriptExe), scriptToRun);
             }
             if (Templates.Count == 0 ||
-                Templates.All(template => template.Name != TemplateList.Text.ToLower()) ||
-                string.IsNullOrEmpty(Templates[TemplateList.Text].Views["Native"]))
+                string.IsNullOrEmpty(Templates[TemplateList.Text].Views.View("Exe")))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;
@@ -341,7 +337,7 @@ namespace XLG.QuickScripts
             {
                 return null;
             }
-            string source = scriptToRun.ToCSharp(true);
+            string source = scriptToRun.ToCSharp(Templates, true);
             CompilerResults compilerResults = XlgQuickScript.CompileSource(source, true);
 
             if (compilerResults.Errors.Count <= 0)
@@ -349,8 +345,8 @@ namespace XLG.QuickScripts
                 Assembly assembly = compilerResults.CompiledAssembly;
 
                 string parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-                
-                if (string.IsNullOrEmpty(parentDestination) 
+
+                if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
                     && scriptToRun.Input != "Web Address")
                 {
@@ -378,12 +374,12 @@ namespace XLG.QuickScripts
 
                 Directory.CreateDirectory(parentDestination);
 
-                if(File.Exists(exeFilePath))    File.Delete(exeFilePath);
-                if(File.Exists(csFilePath))     File.Delete(csFilePath);
+                if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
+                if (File.Exists(csFilePath)) File.Delete(csFilePath);
 
                 File.Copy(assembly.Location, exeFilePath);
-                if(!File.Exists(metXDllPathDest))
-                    File.Copy(metXDllPathSource, metXDllPathDest );
+                if (!File.Exists(metXDllPathDest))
+                    File.Copy(metXDllPathSource, metXDllPathDest);
                 File.WriteAllText(csFilePath, source);
                 return exeFilePath;
             }
@@ -615,7 +611,7 @@ namespace XLG.QuickScripts
                 if (Scripts != null)
                 {
                     UpdateScriptFromForm();
-                    if( string.IsNullOrEmpty(Scripts.FilePath))
+                    if (string.IsNullOrEmpty(Scripts.FilePath))
                         SaveAs_Click(null, null);
                     else Scripts.Save();
                 }
@@ -743,6 +739,7 @@ namespace XLG.QuickScripts
         }
 
         private void EditInputFilePath_Click(object sender, EventArgs e) { QuickScriptWorker.ViewFileInNotepad(InputParam.Text); }
+
         private void EditDestinationFilePath_Click(object sender, EventArgs e) { QuickScriptWorker.ViewFileInNotepad(DestinationParam.Text); }
 
         private void BrowseInputFilePath_Click(object sender, EventArgs e)
@@ -805,7 +802,6 @@ namespace XLG.QuickScripts
                 {
                     QuickScriptWorker.ViewFileInNotepad(location.Replace(".exe", ".cs"));
                 }
-
             }
             catch (Exception exception)
             {
@@ -864,13 +860,12 @@ namespace XLG.QuickScripts
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void ShowInputOutputOptions_Click(object sender, EventArgs e)
         {
             ShowInputOutputOptions.Checked = !ShowInputOutputOptions.Checked;
-            
+
             InputOptions.Visible = ShowInputOutputOptions.Checked;
             OutputOutputs.Visible = ShowInputOutputOptions.Checked;
         }
@@ -906,7 +901,6 @@ namespace XLG.QuickScripts
                         Text = "Quick Scriptr - " + Scripts.FilePath;
                         UpdateLastKnownPath();
                     }
-
                 }
             }
             catch (Exception exception)
@@ -953,7 +947,7 @@ namespace XLG.QuickScripts
 
         public static RegistryKey AppDataRegistry;
 
-        private void QuickScriptEditor_Load(object sender, EventArgs e) 
+        private void QuickScriptEditor_Load(object sender, EventArgs e)
         {
             UpdateLastKnownPath();
         }

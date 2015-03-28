@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
+    <Compile Include="Data\GenInstance.cs" />
     <Compile Include="Data\QuickScriptDestination.cs" />
     <Compile Include="Data\CodeGenerator.cs" />
     <Compile Include="Data\TestLogger.cs" />
