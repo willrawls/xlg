@@ -1,4 +1,4 @@
-﻿namespace XLG.QuickScripts
+﻿namespace MetX.Controls
 {
     sealed partial class QuickScriptOutput
     {

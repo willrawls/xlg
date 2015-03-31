@@ -146,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
+    <Compile Include="Data\CaseFreeDictionary.cs" />
+    <Compile Include="Data\GenArea.cs" />
     <Compile Include="Data\GenInstance.cs" />
     <Compile Include="Data\QuickScriptDestination.cs" />
     <Compile Include="Data\CodeGenerator.cs" />
@@ -158,7 +160,8 @@
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\DataService.cs" />
     <Compile Include="Data\GatherProvider.cs" />
-    <Compile Include="Data\IProvide.cs" />
+    <Compile Include="Data\XlgQuickScriptTemplate.cs" />
+    <Compile Include="Interfaces\IProvide.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\QueryCommand.cs" />
     <Compile Include="Data\Support.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="Data\XlgQuickScriptTemplateList.cs" />
     <Compile Include="Data\XlgSettings.cs" />
     <Compile Include="Data\xlgSource.cs" />
+    <Compile Include="Interfaces\IShowText.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
@@ -178,7 +182,9 @@
     <EmbeddedResource Include="Templates\Single file input\Exe.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Compile Include="Library\ContextBase.cs" />
     <Compile Include="Library\QuickScriptWorker.cs" />
+    <Compile Include="Library\RunResult.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
     <Compile Include="Library\UI.cs" />
     <Compile Include="Library\Xhtml.cs" />

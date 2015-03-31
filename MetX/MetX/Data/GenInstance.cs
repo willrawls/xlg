@@ -34,10 +34,10 @@ namespace MetX.Data
         {
             get
             {
-                var originalArea = string.Empty;
-                foreach (var currScriptLine in m_Quick.Script.Lines())
+                string originalArea = string.Empty;
+                foreach (string currScriptLine in m_Quick.Script.Lines())
                 {
-                    var indent = currScriptLine.Length - currScriptLine.Trim().Length;
+                    int indent = currScriptLine.Length - currScriptLine.Trim().Length;
                     if (currScriptLine.Contains("~~Start:") || currScriptLine.Contains("~~Begin:"))
                     {
                         SetArea("Start");
@@ -61,7 +61,7 @@ namespace MetX.Data
                     }
                     else if (currScriptLine.Contains("~~BeginString:"))
                     {
-                        var stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
+                        string stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
                         if (string.IsNullOrEmpty(stringName))
                         {
                             continue;
@@ -117,8 +117,8 @@ namespace MetX.Data
                     }
                 }
 
-                var sb = new StringBuilder(Template.Views.View(m_Independent ? "Exe" : "Native"));
-                foreach (var area in this)
+                StringBuilder sb = new StringBuilder(Template.Views[m_Independent ? "Exe" : "Native"]);
+                foreach (GenArea area in this)
                 {
                     sb.Replace("//~~" + area.Name + "~~//", String.Join(Environment.NewLine, area.Lines));
                 }
@@ -143,7 +143,7 @@ namespace MetX.Data
                     }
                 }
 
-                for (var i = 0; i < 10; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     sb.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
                 }
@@ -153,7 +153,7 @@ namespace MetX.Data
 
         private void SetArea(string areaName)
         {
-            foreach (var area in this.Where(area => area.Name == areaName))
+            foreach (GenArea area in this.Where(area => area.Name == areaName))
             {
                 m_CurrArea = area;
                 return;

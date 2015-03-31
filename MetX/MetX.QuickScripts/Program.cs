@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using MetX.Controls;
 
 namespace XLG.QuickScripts
 {
@@ -22,7 +23,7 @@ namespace XLG.QuickScripts
             if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq")) filePath = args[0];
             else
             {
-                filePath = QuickScriptEditor.GetLastKnownPath();
+                filePath = Context.GetLastKnownPath();
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) filePath = Path.Combine(path, "Default.xlgq");
             }
             Application.Run(new QuickScriptEditor(filePath));

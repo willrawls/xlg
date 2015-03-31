@@ -1,7 +1,5 @@
 using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,42 +11,6 @@ using NArrange.Core;
 
 namespace MetX.Data
 {
-    public class CaseFreeDictionary : Dictionary<string, string>
-    {
-        public string this[string name]
-        {
-            get { return base[name.ToLower()]; }
-            set { base[name.ToLower()] = value; }
-        }
-
-        public string View(string name)
-        {
-            name = name.ToLower();
-            return base.ContainsKey(name) ? base[name] : null;
-        }
-    }
-
-    [Serializable]
-    public class XlgQuickScriptTemplate
-    {
-        public string Name;
-        public string TemplatePath;
-        public CaseFreeDictionary Views = new CaseFreeDictionary();
-
-        public XlgQuickScriptTemplate(string templatePath)
-        {
-            TemplatePath = templatePath;
-            Name = TemplatePath.LastPathToken();
-            if (Directory.Exists(TemplatePath))
-            {
-                foreach (string file in Directory.GetFiles(TemplatePath, "*.cs"))
-                {
-                    Views.Add(file.LastPathToken().ToLower().TokensBeforeLast(".cs"), File.ReadAllText(file));
-                }
-            }
-        }
-    }
-
     /// <summary>
     ///     Represents a clipboard processing script
     /// </summary>
@@ -56,8 +18,6 @@ namespace MetX.Data
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
-        private static string m_IndependentTemplate;
-        private static string m_Template;
         [XmlAttribute]
         public QuickScriptDestination Destination;
         [XmlAttribute]
@@ -120,30 +80,36 @@ namespace MetX.Data
             return compilerResults;
         }
 
-        public string ToCSharp(XlgQuickScriptTemplateList templates, bool independent)
+        public string ToCSharp(bool independent)
         {
-            string code = new GenInstance(this, templates[Template], independent).CSharp;
-            if (code.IsNullOrEmpty())
-            {
-                return code;
-            }
-            return FormatCSharpCode(code);
+            string code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
+            return code.IsNullOrEmpty()
+                ? code
+                : FormatCSharpCode(code);
         }
 
         public static string FormatCSharpCode(string code)
         {
             TestLogger logger = new TestLogger();
-            try
+            int attempts = 0;
+            while (++attempts < 2)
             {
-                FileArranger fileArranger = new FileArranger(null, logger);
-                string formattedCode = fileArranger.ArrangeSource(code);
-                return formattedCode ?? code;
+                try
+                {
+                    FileArranger fileArranger = new FileArranger(null, logger);
+                    string formattedCode = fileArranger.ArrangeSource(code);
+                    return formattedCode ?? code;
+                }
+                catch (Exception ex)
+                {
+                    if(attempts == 2)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        return code;
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return code;
-            }
+            return code;
         }
 
         public static bool Run(ILogger logger, CommandArguments commandArgs)
@@ -379,29 +345,6 @@ namespace MetX.Data
                 SliceAt = SliceAt,
                 Template = Template,
             };
-        }
-    }
-
-    public class GenArea
-    {
-        public readonly List<string> Lines = new List<string>();
-        public readonly string Name;
-        public int Indent = 12;
-
-        public GenArea(string name, int indent, string lines = null)
-        {
-            Name = name;
-            Indent = indent;
-            if (!string.IsNullOrEmpty(lines))
-            {
-                Lines = lines.LineList();
-            }
-        }
-
-        public GenArea(string name)
-        {
-            Name = name;
-            Indent = 12;
         }
     }
 }

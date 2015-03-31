@@ -3,26 +3,34 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetX.Data;
+using MetX.Interfaces;
 using MetX.Library;
 
-namespace XLG.QuickScripts
+namespace MetX.Controls
 {
-    public sealed partial class QuickScriptOutput : Form
+    public sealed partial class QuickScriptOutput : ScriptRunningToolWindow, IShowText
     {
         public XlgQuickScript Script;
-        public QuickScriptEditor Parent;
+        public IRunQuickScript Scriptr;
         public FileSystemWatcher Watcher;
 
-        public QuickScriptOutput(QuickScriptEditor parent, string title, string output, XlgQuickScript script)
+        public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output)
         {
             InitializeComponent();
             Text = "QuickScript Output - " + title;
             Output.Text = output;
             Script = script;
-            Parent = parent;
+            Scriptr = scriptr;
 
-            if (!string.IsNullOrEmpty(script.InputFilePath)) watchForChangesToolStripMenuItem.Enabled = true;
+            if (!string.IsNullOrEmpty(script.InputFilePath))
+            {
+                watchForChangesToolStripMenuItem.Enabled = true;
+            }
         }
+
+        public string Title { get { return this.Text; } set { this.Text = value; } }
+
+        public string TextToShow { get { return Output.Text; } set { Output.Text = value; } }
 
         private void QuickScriptOutput_Load(object sender, EventArgs e)
         {
@@ -69,9 +77,11 @@ namespace XLG.QuickScripts
         {
             try
             {
-                Parent.RunQuickScript(Script, this);
-                if (!string.IsNullOrEmpty(Script.InputFilePath)) 
+                Context.RunQuickScript(this, Script, null);
+                if (!string.IsNullOrEmpty(Script.InputFilePath))
+                {
                     watchForChangesToolStripMenuItem.Enabled = true;
+                }
             }
             catch (Exception exception)
             {
@@ -87,13 +97,13 @@ namespace XLG.QuickScripts
                 {
                     StopWatching();
                 }
-                else if(!string.IsNullOrEmpty(Script.InputFilePath) &&  File.Exists(Script.InputFilePath))
+                else if (!string.IsNullOrEmpty(Script.InputFilePath) && File.Exists(Script.InputFilePath))
                 {
                     string path = Script.InputFilePath.TokensBeforeLast(@"\");
                     string file = Script.InputFilePath.LastToken(@"\");
                     Watcher = new FileSystemWatcher(path, file)
                     {
-                        NotifyFilter = (NotifyFilters.LastWrite | NotifyFilters.Size ),
+                        NotifyFilter = (NotifyFilters.LastWrite | NotifyFilters.Size),
                         EnableRaisingEvents = true,
                         IncludeSubdirectories = false,
                     };
@@ -124,7 +134,10 @@ namespace XLG.QuickScripts
         {
             try
             {
-                if (!string.IsNullOrEmpty(Script.InputFilePath)) Parent.RunQuickScript(Script, this);
+                if (!string.IsNullOrEmpty(Script.InputFilePath))
+                {
+                    Scriptr.RunQuickScript(this, Script, this);
+                }
                 else
                 {
                     StopWatching();
