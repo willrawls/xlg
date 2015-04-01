@@ -72,11 +72,11 @@ namespace MetX.Controls
             return null;
         }
 
-        public static void RunQuickScript(ScriptRunningToolWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
+        public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
         {
             if (caller.InvokeRequired)
             {
-                caller.Invoke(new Action<ScriptRunningToolWindow, XlgQuickScript, IShowText>(RunQuickScript), caller, scriptToRun, targetOutput);
+                caller.Invoke(new Action<ScriptRunningWindow, XlgQuickScript, IShowText>(RunQuickScript), caller, scriptToRun, targetOutput);
                 return;
             }
             bool lockTaken = false;
@@ -234,7 +234,7 @@ namespace MetX.Controls
             {
                 result.Error = new Exception("Error running Finish:" + Environment.NewLine + ex);
             }
-            result.KeepGoing = false;
+            result.KeepGoing = true;
             return result;
         }
 

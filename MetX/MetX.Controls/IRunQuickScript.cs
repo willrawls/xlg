@@ -6,7 +6,7 @@ namespace MetX.Controls
 {
     public interface IRunQuickScript
     {
-        void RunQuickScript(ScriptRunningToolWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput);
+        void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput);
         ToolWindow Window { get; set; }
     }
 }

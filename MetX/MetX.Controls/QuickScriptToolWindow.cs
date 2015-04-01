@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,20 +9,18 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using MetX.Controls;
 using MetX.Data;
-using MetX.Interfaces;
 using MetX.Library;
 using Microsoft.Win32;
 
-namespace XLG.QuickScripts
+namespace MetX.Controls
 {
-    public partial class QuickScriptToolWindow : ScriptRunningToolWindow
+    public partial class QuickScriptToolWindow : ScriptRunningWindow
     {
         public static RegistryKey AppDataRegistry;
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
 
-        private string WordBeforeCaret
+        public string WordBeforeCaret
         {
             get
             {
@@ -48,10 +46,8 @@ namespace XLG.QuickScripts
             }
         }
 
-        private readonly object m_ScriptSyncRoot = new object();
-        private CodeCompletionWindow completionWindow;
+        public CodeCompletionWindow completionWindow;
         public XlgQuickScript CurrentScript = null;
-        protected bool ScriptIsRunning;
         private TextArea textArea;
         public bool Updating;
 
@@ -240,7 +236,7 @@ namespace XLG.QuickScripts
         {
             if (InvokeRequired)
             {
-                return (string)Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
+                return (string) Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
             }
             if (Context.Templates.Count == 0 ||
                 string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
@@ -349,7 +345,7 @@ namespace XLG.QuickScripts
                     return;
                 }
                 UpdateScriptFromForm();
-                MetX.Controls.Context.RunQuickScript(this, CurrentScript, null);
+                Context.RunQuickScript(this, CurrentScript, null);
             }
             catch (Exception exception)
             {
@@ -385,12 +381,7 @@ namespace XLG.QuickScripts
         }
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e) { DisplayExpandedQuickScriptSourceInNotepad(false); }
-
-        private void QuickScriptToolWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-            SaveQuickScript_Click(sender, null);
-        }
+        private void QuickScriptToolWindow_FormClosing(object sender, FormClosingEventArgs e) { SaveQuickScript_Click(sender, null); }
 
         private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
         {
@@ -512,7 +503,7 @@ namespace XLG.QuickScripts
             {
                 return null;
             }
-            
+
             AppDataRegistry.Close();
             AppDataRegistry = null;
             return lastKnownPath;

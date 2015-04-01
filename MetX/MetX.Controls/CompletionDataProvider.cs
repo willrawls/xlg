@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace XLG.QuickScripts
+namespace MetX.Controls
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
 namespace MetX.Controls
 {
-    public partial class UserControl1 : UserControl
+    public partial class TechniquesEditor : ToolWindow
     {
-        public UserControl1()
+        public TechniquesEditor()
         {
             InitializeComponent();
         }

@@ -8,7 +8,7 @@ using MetX.Library;
 
 namespace MetX.Controls
 {
-    public sealed partial class QuickScriptOutput : ScriptRunningToolWindow, IShowText
+    public sealed partial class QuickScriptOutput : ScriptRunningWindow, IShowText
     {
         public XlgQuickScript Script;
         public IRunQuickScript Scriptr;

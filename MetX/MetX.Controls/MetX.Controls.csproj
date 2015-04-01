@@ -50,13 +50,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompletionDataProvider.cs" />
     <Compile Include="IRunQuickScript.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="QuickScriptOutput.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="QuickScriptOutput.Designer.cs">
       <DependentUpon>QuickScriptOutput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickScriptToolWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickScriptToolWindow.Designer.cs">
+      <DependentUpon>QuickScriptToolWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScriptRunningWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TechniquesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TechniquesEditor.Designer.cs">
+      <DependentUpon>TechniquesEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolWindow.cs">
       <SubType>Form</SubType>
@@ -64,11 +85,11 @@
     <Compile Include="ToolWindow.Designer.cs">
       <DependentUpon>ToolWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.cs">
+    <Compile Include="QuickScriptControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="QuickScriptControl.Designer.cs">
+      <DependentUpon>QuickScriptControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
@@ -86,11 +107,24 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="QuickScriptOutput.resx">
       <DependentUpon>QuickScriptOutput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="QuickScriptToolWindow.resx">
+      <DependentUpon>QuickScriptToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechniquesEditor.resx">
+      <DependentUpon>TechniquesEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolWindow.resx">
       <DependentUpon>ToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickScriptControl.resx">
+      <DependentUpon>QuickScriptControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

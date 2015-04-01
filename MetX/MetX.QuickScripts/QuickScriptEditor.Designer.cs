@@ -1,4 +1,6 @@
-﻿namespace XLG.QuickScripts
+﻿using MetX.Controls;
+
+namespace XLG.QuickScripts
 {
     partial class QuickScriptEditor
     {
@@ -45,7 +47,7 @@
             this.BrowseDestinationFilePath = new System.Windows.Forms.ToolStripButton();
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
-            this.ScriptEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.ScriptEditor = new QuickScriptControl();
             this.MainStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.QuickScriptList = new System.Windows.Forms.ToolStripComboBox();
@@ -624,7 +626,7 @@
         private System.Windows.Forms.ToolStripButton BrowseDestinationFilePath;
         private System.Windows.Forms.OpenFileDialog OpenInputFilePathDialog;
         private System.Windows.Forms.SaveFileDialog SaveDestinationFilePathDialog;
-        private ICSharpCode.TextEditor.TextEditorControl ScriptEditor;
+        private QuickScriptControl ScriptEditor;
         private System.Windows.Forms.ToolStripLabel InputLabel;
         private System.Windows.Forms.ToolStripComboBox InputList;
         private System.Windows.Forms.ToolStripLabel InputPathLabel;

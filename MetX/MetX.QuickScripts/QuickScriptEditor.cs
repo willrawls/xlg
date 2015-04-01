@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading;
@@ -22,114 +23,16 @@ using XLG.QuickScripts;
 
 namespace XLG.QuickScripts
 {
-    public partial class QuickScriptEditor : ScriptRunningToolWindow //, IRunQuickScript
+    public partial class QuickScriptEditor : ScriptRunningWindow //, IRunQuickScript
     {
-        public XlgQuickScript SelectedScript { get { return this.QuickScriptList.SelectedItem as XlgQuickScript; } }
-
-        private TextArea textArea;
-        private CodeCompletionWindow completionWindow;
-        public XlgQuickScript CurrentScript = null;
-        public bool Updating;
-
         public QuickScriptEditor(string filePath)
         {
             InitializeComponent();
-            InitializeEditor();
             LoadQuickScriptsFile(filePath);
         }
 
-        private void InitializeEditor()
-        {
-            textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
-            textArea.KeyEventHandler += ProcessKey;
-            textArea.KeyUp += TextAreaOnKeyUp;
-
-            FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
-            HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
-            ScriptEditor.SetHighlighting("QuickScript"); // Activate the highlighting, use the name from the SyntaxDefinition node.
-            ScriptEditor.Refresh();
-        }
-
-        private void TextAreaOnKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Control)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Space:
-                        ShowThisCodeCompletion();
-                        break;
-                }
-            }
-            else // No modifiers
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.F5:
-                        e.Handled = true;
-                        RunQuickScript_Click(null, null);
-                        break;
-                }
-            }
-        }
-
-        private bool ProcessKey(char ch)
-        {
-            switch (ch)
-            {
-                case '.':
-                    if (WordBeforeCaret == "this") ShowThisCodeCompletion();
-                    break;
-                case '~':
-                    ShowScriptCommandCodeCompletion();
-                    break;
-            }
-            return false;
-        }
-
-        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" }); }
-
-        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" }); }
-
-        public void ShowCodeCompletion(string[] items)
-        {
-            if (items != null && items.Length > 0)
-            {
-                CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
-                completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
-                if (completionWindow != null)
-                {
-                    completionWindow.Closed += CompletionWindowClosed;
-                }
-            }
-        }
-
-        private string WordBeforeCaret
-        {
-            get
-            {
-                if (ScriptEditor.Text.Length == 0 || textArea.Caret.Column == 0) return string.Empty;
-                string[] lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                string linePart = lines[textArea.Caret.Line].Substring(0, textArea.Caret.Column).LastToken();
-                int i;
-                for (i = linePart.Length - 1; i >= 0; i--)
-                {
-                    if (!char.IsLetterOrDigit(linePart[i])) break;
-                }
-                if (i > 0 && i < linePart.Length) linePart = linePart.Substring(i);
-                return linePart.ToLower().Trim();
-            }
-        }
-
-        private void CompletionWindowClosed(object source, EventArgs e)
-        {
-            if (completionWindow != null)
-            {
-                completionWindow.Closed -= CompletionWindowClosed;
-                completionWindow.Dispose();
-                completionWindow = null;
-            }
-        }
+        public XlgQuickScript SelectedScript { get { return this.QuickScriptList.SelectedItem as XlgQuickScript; } }
+        public bool Updating;
 
         private void RefreshLists()
         {
@@ -159,20 +62,20 @@ namespace XLG.QuickScripts
 
         public void UpdateScriptFromForm()
         {
-            if (CurrentScript == null)
+            if (ScriptEditor.Current == null)
             {
                 return;
             }
 
-            CurrentScript.Script = ScriptEditor.Text;
-            Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out CurrentScript.Destination);
-            CurrentScript.Input = InputList.Text;
-            CurrentScript.SliceAt = SliceAt.Text;
-            CurrentScript.DiceAt = DiceAt.Text;
-            CurrentScript.InputFilePath = InputParam.Text;
-            CurrentScript.DestinationFilePath = DestinationParam.Text;
-            CurrentScript.Template = TemplateList.Text;
-            Context.Scripts.Default = CurrentScript;
+            ScriptEditor.Current.Script = ScriptEditor.Text;
+            Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out ScriptEditor.Current.Destination);
+            ScriptEditor.Current.Input = InputList.Text;
+            ScriptEditor.Current.SliceAt = SliceAt.Text;
+            ScriptEditor.Current.DiceAt = DiceAt.Text;
+            ScriptEditor.Current.InputFilePath = InputParam.Text;
+            ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
+            ScriptEditor.Current.Template = TemplateList.Text;
+            Context.Scripts.Default = ScriptEditor.Current;
         }
 
         private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,19 +141,19 @@ namespace XLG.QuickScripts
             InputList_SelectedIndexChanged(null, null);
 
             ScriptEditor.Focus();
-            CurrentScript = selectedScript;
+            ScriptEditor.Current = selectedScript;
         }
 
         public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
         {
             try
             {
-                if (CurrentScript == null)
+                if (ScriptEditor.Current == null)
                 {
                     return;
                 }
                 UpdateScriptFromForm();
-                string source = CurrentScript.ToCSharp(independent);
+                string source = ScriptEditor.Current.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source, true);
@@ -384,12 +287,12 @@ namespace XLG.QuickScripts
         {
             try
             {
-                if (CurrentScript == null)
+                if (ScriptEditor.Current == null)
                 {
                     return;
                 }
                 UpdateScriptFromForm();
-                RunQuickScript(this, CurrentScript, null);
+                RunQuickScript(this, ScriptEditor.Current, null);
             }
             catch (Exception exception)
             {
@@ -437,7 +340,7 @@ namespace XLG.QuickScripts
 
                 string script = string.Empty;
                 XlgQuickScript newScript = null;
-                if (CurrentScript != null)
+                if (ScriptEditor.Current != null)
                 {
                     answer = MessageBox.Show(this, "Would you like to clone the current script?", "CLONE SCRIPT?",
                         MessageBoxButtons.YesNoCancel);
@@ -447,8 +350,8 @@ namespace XLG.QuickScripts
                             return;
                         case DialogResult.Yes:
                             UpdateScriptFromForm();
-                            //script = CurrentScript.Script;
-                            newScript = CurrentScript.Clone(name);
+                            //script = Current.Script;
+                            newScript = ScriptEditor.Current.Clone(name);
                             break;
                     }
                 }
@@ -499,7 +402,7 @@ namespace XLG.QuickScripts
             {
                 return;
             }
-            if (CurrentScript == null)
+            if (ScriptEditor.Current == null)
             {
                 return;
             }
@@ -510,7 +413,7 @@ namespace XLG.QuickScripts
             if (answer == DialogResult.Yes)
             {
                 Updating = true;
-                XlgQuickScript script = CurrentScript;
+                XlgQuickScript script = ScriptEditor.Current;
                 try
                 {
                     QuickScriptList.Items.Remove(script);
@@ -576,12 +479,12 @@ namespace XLG.QuickScripts
             //DisplayExpandedQuickScriptSourceInNotepad(true);
             try
             {
-                if (CurrentScript == null)
+                if (ScriptEditor.Current == null)
                 {
                     return;
                 }
                 UpdateScriptFromForm();
-                string location = GenerateIndependentQuickScriptExe(CurrentScript);
+                string location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
                 if (location.IsNullOrEmpty()) return;
 
                 if (DialogResult.Yes == MessageBox.Show(this,

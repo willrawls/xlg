@@ -1,4 +1,4 @@
-﻿namespace XLG.QuickScripts
+namespace MetX.Controls
 {
     partial class QuickScriptToolWindow
     {
@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickScriptToolWindow));
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
-            this.ScriptEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.ScriptEditor = new QuickScriptControl();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,7 +118,7 @@
 
         private System.Windows.Forms.OpenFileDialog OpenInputFilePathDialog;
         private System.Windows.Forms.SaveFileDialog SaveDestinationFilePathDialog;
-        private ICSharpCode.TextEditor.TextEditorControl ScriptEditor;
+        private QuickScriptControl ScriptEditor;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;

@@ -1,6 +1,6 @@
 ﻿namespace MetX.Controls
 {
-    partial class UserControl1
+    partial class QuickScriptControl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // QuickScriptControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "QuickScriptControl";
+            this.Size = new System.Drawing.Size(480, 339);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

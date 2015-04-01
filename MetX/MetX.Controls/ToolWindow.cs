@@ -6,8 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MetX.Data;
-using MetX.Interfaces;
 using MetX.Library;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -46,15 +44,5 @@ namespace MetX.Controls
                 // Ignore
             }
         }
-    }
-
-    public class ScriptRunningToolWindow : ToolWindow, IRunQuickScript
-    {
-        public void RunQuickScript(ScriptRunningToolWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
-        {
-            MetX.Controls.Context.RunQuickScript(caller, scriptToRun, targetOutput);
-        }
-
-        public ToolWindow Window { get { return this; } set { } }
     }
 }
