@@ -31,7 +31,24 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TechniquesEditor));
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.newToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.NewTechniquesFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.quickScriptFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.pipelinerFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pipelinerStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addXLGStepSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.addOutputLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addXLGXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.addProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -41,23 +58,6 @@
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.quickScriptFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pipelinerFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pipelinerStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addXLGXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addXLGStepSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.addOutputLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addProviderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
@@ -69,10 +69,49 @@
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.Indent = 12;
             this.treeView1.Location = new System.Drawing.Point(0, 31);
             this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 15;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowRootLines = false;
             this.treeView1.Size = new System.Drawing.Size(283, 516);
             this.treeView1.TabIndex = 0;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "126Edit.ico");
+            this.imageList1.Images.SetKeyName(1, "107259NewContentPage32x32.png");
+            this.imageList1.Images.SetKeyName(2, "1421584661_4.png");
+            this.imageList1.Images.SetKeyName(3, "1421584690_2.png");
+            this.imageList1.Images.SetKeyName(4, "1421584694_2.png");
+            this.imageList1.Images.SetKeyName(5, "1421584753_Cut.png");
+            this.imageList1.Images.SetKeyName(6, "1421584808_Copy.png");
+            this.imageList1.Images.SetKeyName(7, "1421584898_clipboard.png");
+            this.imageList1.Images.SetKeyName(8, "1421584916_Noun_Project_100Icon_10px_grid-06-48.png");
+            this.imageList1.Images.SetKeyName(9, "1421584946_file-48.png");
+            this.imageList1.Images.SetKeyName(10, "add_48.png");
+            this.imageList1.Images.SetKeyName(11, "AnnotateDefault.ico");
+            this.imageList1.Images.SetKeyName(12, "arrow_down_48.png");
+            this.imageList1.Images.SetKeyName(13, "button_play.png");
+            this.imageList1.Images.SetKeyName(14, "cancel_48.png");
+            this.imageList1.Images.SetKeyName(15, "circle_blue.png");
+            this.imageList1.Images.SetKeyName(16, "circle_green.png");
+            this.imageList1.Images.SetKeyName(17, "circle_orange.png");
+            this.imageList1.Images.SetKeyName(18, "console-mock.jpg");
+            this.imageList1.Images.SetKeyName(19, "cross_48.png");
+            this.imageList1.Images.SetKeyName(20, "database_add_48.png");
+            this.imageList1.Images.SetKeyName(21, "database_remove_48.png");
+            this.imageList1.Images.SetKeyName(22, "dragon2.png");
+            this.imageList1.Images.SetKeyName(23, "floppy_disk_48.png");
+            this.imageList1.Images.SetKeyName(24, "folder_48.png");
+            this.imageList1.Images.SetKeyName(25, "hops2.png");
+            this.imageList1.Images.SetKeyName(26, "Long-dragon-running.png");
+            this.imageList1.Images.SetKeyName(27, "refresh_48.png");
             // 
             // toolStrip1
             // 
@@ -94,6 +133,118 @@
             this.toolStrip1.Size = new System.Drawing.Size(283, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // newToolStripButton
+            // 
+            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewTechniquesFileMenuItem,
+            this.toolStripSeparator3,
+            this.quickScriptFileToolStripMenuItem,
+            this.quickScriptToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.pipelinerFileToolStripMenuItem,
+            this.pipelinerStepToolStripMenuItem,
+            this.addXLGStepSettingsToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.addOutputLocationToolStripMenuItem,
+            this.addConnectionToolStripMenuItem,
+            this.addXLGXMLToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.addProviderToolStripMenuItem,
+            this.toolStripMenuItem2});
+            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
+            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripButton.Name = "newToolStripButton";
+            this.newToolStripButton.Size = new System.Drawing.Size(40, 28);
+            this.newToolStripButton.Text = "&New";
+            // 
+            // NewTechniquesFileMenuItem
+            // 
+            this.NewTechniquesFileMenuItem.Name = "NewTechniquesFileMenuItem";
+            this.NewTechniquesFileMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.NewTechniquesFileMenuItem.Text = "New Techniques File";
+            this.NewTechniquesFileMenuItem.Click += new System.EventHandler(this.NewTechniquesFileMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(213, 6);
+            // 
+            // quickScriptFileToolStripMenuItem
+            // 
+            this.quickScriptFileToolStripMenuItem.Name = "quickScriptFileToolStripMenuItem";
+            this.quickScriptFileToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.quickScriptFileToolStripMenuItem.Text = "Add Quick Script Group";
+            // 
+            // quickScriptToolStripMenuItem
+            // 
+            this.quickScriptToolStripMenuItem.Name = "quickScriptToolStripMenuItem";
+            this.quickScriptToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.quickScriptToolStripMenuItem.Text = "Add Quick Script Step";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
+            // 
+            // pipelinerFileToolStripMenuItem
+            // 
+            this.pipelinerFileToolStripMenuItem.Name = "pipelinerFileToolStripMenuItem";
+            this.pipelinerFileToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.pipelinerFileToolStripMenuItem.Text = "Add Pipeline Group";
+            // 
+            // pipelinerStepToolStripMenuItem
+            // 
+            this.pipelinerStepToolStripMenuItem.Name = "pipelinerStepToolStripMenuItem";
+            this.pipelinerStepToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.pipelinerStepToolStripMenuItem.Text = "Add Pipeline Step";
+            // 
+            // addXLGStepSettingsToolStripMenuItem
+            // 
+            this.addXLGStepSettingsToolStripMenuItem.Name = "addXLGStepSettingsToolStripMenuItem";
+            this.addXLGStepSettingsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addXLGStepSettingsToolStripMenuItem.Text = "Add Step Settings";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(213, 6);
+            // 
+            // addOutputLocationToolStripMenuItem
+            // 
+            this.addOutputLocationToolStripMenuItem.Name = "addOutputLocationToolStripMenuItem";
+            this.addOutputLocationToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addOutputLocationToolStripMenuItem.Text = "Add Output Location";
+            // 
+            // addConnectionToolStripMenuItem
+            // 
+            this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
+            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addConnectionToolStripMenuItem.Text = "Add Connection";
+            // 
+            // addXLGXMLToolStripMenuItem
+            // 
+            this.addXLGXMLToolStripMenuItem.Name = "addXLGXMLToolStripMenuItem";
+            this.addXLGXMLToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addXLGXMLToolStripMenuItem.Text = "Add XSL Template";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(213, 6);
+            // 
+            // addProviderToolStripMenuItem
+            // 
+            this.addProviderToolStripMenuItem.Name = "addProviderToolStripMenuItem";
+            this.addProviderToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addProviderToolStripMenuItem.Text = "Add Pipeline Provider";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(216, 22);
+            this.toolStripMenuItem2.Text = "Add Quick Script Template";
             // 
             // openToolStripButton
             // 
@@ -168,123 +319,6 @@
             this.helpToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.helpToolStripButton.Text = "He&lp";
             // 
-            // newToolStripButton
-            // 
-            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripSeparator3,
-            this.quickScriptFileToolStripMenuItem,
-            this.quickScriptToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.pipelinerFileToolStripMenuItem,
-            this.pipelinerStepToolStripMenuItem,
-            this.addXLGStepSettingsToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.addOutputLocationToolStripMenuItem,
-            this.addConnectionToolStripMenuItem,
-            this.addXLGXMLToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.addProviderToolStripMenuItem,
-            this.toolStripMenuItem2});
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
-            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(40, 28);
-            this.newToolStripButton.Text = "&New";
-            // 
-            // quickScriptFileToolStripMenuItem
-            // 
-            this.quickScriptFileToolStripMenuItem.Name = "quickScriptFileToolStripMenuItem";
-            this.quickScriptFileToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.quickScriptFileToolStripMenuItem.Text = "Add Quick Script Group";
-            // 
-            // quickScriptToolStripMenuItem
-            // 
-            this.quickScriptToolStripMenuItem.Name = "quickScriptToolStripMenuItem";
-            this.quickScriptToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.quickScriptToolStripMenuItem.Text = "Add Quick Script Step";
-            // 
-            // pipelinerFileToolStripMenuItem
-            // 
-            this.pipelinerFileToolStripMenuItem.Name = "pipelinerFileToolStripMenuItem";
-            this.pipelinerFileToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.pipelinerFileToolStripMenuItem.Text = "Add Pipeline Group";
-            // 
-            // pipelinerStepToolStripMenuItem
-            // 
-            this.pipelinerStepToolStripMenuItem.Name = "pipelinerStepToolStripMenuItem";
-            this.pipelinerStepToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.pipelinerStepToolStripMenuItem.Text = "Add Pipeline Step";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(213, 6);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 22);
-            this.toolStripMenuItem1.Text = "New Techniques File";
-            // 
-            // addConnectionToolStripMenuItem
-            // 
-            this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.addConnectionToolStripMenuItem.Text = "Add Connection";
-            // 
-            // addXLGXMLToolStripMenuItem
-            // 
-            this.addXLGXMLToolStripMenuItem.Name = "addXLGXMLToolStripMenuItem";
-            this.addXLGXMLToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.addXLGXMLToolStripMenuItem.Text = "Add XSL Template";
-            // 
-            // addXLGStepSettingsToolStripMenuItem
-            // 
-            this.addXLGStepSettingsToolStripMenuItem.Name = "addXLGStepSettingsToolStripMenuItem";
-            this.addXLGStepSettingsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.addXLGStepSettingsToolStripMenuItem.Text = "Add Step Settings";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(213, 6);
-            // 
-            // addOutputLocationToolStripMenuItem
-            // 
-            this.addOutputLocationToolStripMenuItem.Name = "addOutputLocationToolStripMenuItem";
-            this.addOutputLocationToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.addOutputLocationToolStripMenuItem.Text = "Add Output Location";
-            // 
-            // addProviderToolStripMenuItem
-            // 
-            this.addProviderToolStripMenuItem.Name = "addProviderToolStripMenuItem";
-            this.addProviderToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.addProviderToolStripMenuItem.Text = "Add Pipeline Provider";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(213, 6);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(216, 22);
-            this.toolStripMenuItem2.Text = "Add Quick Script Template";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -295,13 +329,7 @@
             this.ClientSize = new System.Drawing.Size(283, 547);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.toolStrip1);
-            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)
-                        | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight)
-                        | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop)
-                        | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)
-                        | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.Name = "TechniquesEditor";
-            this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Unknown;
             this.Text = "Code Techniques";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -315,7 +343,7 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSplitButton newToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem NewTechniquesFileMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem quickScriptFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quickScriptToolStripMenuItem;

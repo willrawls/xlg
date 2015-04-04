@@ -11,10 +11,10 @@ namespace MetX.Library
         {
             try
             {
-                string tempFile = Path.Combine(Path.GetTempPath(), 
-                    string.Format("qscript{0}{1}", 
-                        Guid.NewGuid().ToString().Substring(1, 6), 
-                        (isCSharpCode ? ".cs": ".txt")));
+                string tempFile = Path.Combine(Path.GetTempPath(),
+                    string.Format("qscript{0}{1}",
+                        Guid.NewGuid().ToString().Substring(1, 6),
+                        (isCSharpCode ? ".cs" : ".txt")));
                 File.WriteAllText(tempFile, source);
                 Process.Start("notepad", tempFile);
             }
@@ -45,13 +45,13 @@ else
 ";
 
         public static readonly string ExampleTutorialScript = @"
-~~ClassMembers:
+~~Members:
 Dictionary<string, string> d = new Dictionary<string, string>();
 
 ~~Start:
 // Write a header
 ~~:Lines starting with ~~: Are shorthand for Output.AppendLine(...) with special expansion
-~~:This makes it easier to write when encoding lines of C#.
+~~:This makes it easier to write when encoding lines of C#, VB, java, xml, etc.
 ~~:Example: Line # (First word): Line content
 Output.AppendLine(""Or if you prefer, you can simply write C# code"");" + Environment.NewLine +
 "d[\"previous\"] = \"Ready \"; // sets the \"Previous\" dictionary item to \"Ready \"" + Environment.NewLine + @"
