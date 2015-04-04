@@ -37,7 +37,12 @@ namespace MetX.Library
             }
         }
 
-        public const string FirstScript = "~~:%line.Left(20)%";
+        public const string FirstScript = @"
+if(line.Length < 20)
+	Output.AppendLine(line);
+else
+	Output.AppendLine(line.Substring(0, 20));
+";
 
         public static readonly string ExampleTutorialScript = @"
 ~~ClassMembers:
