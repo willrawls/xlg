@@ -302,7 +302,7 @@
                         | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.Name = "TechniquesEditor";
             this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Unknown;
-            this.Text = "Code TechniquesEditor";
+            this.Text = "Code Techniques";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
