@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using MetX.Data;
+using MetX.Data.Scripts;
 using MetX.Library;
 
 namespace MetX.Controls
@@ -55,7 +49,7 @@ namespace MetX.Controls
                 {
                     case Keys.F5:
                         ScriptRunningWindow form = FindForm() as ScriptRunningWindow;
-                        if(form != null)
+                        if (form != null)
                         {
                             e.Handled = true;
                             form.RunQuickScript(Current);

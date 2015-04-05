@@ -146,31 +146,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
-    <Compile Include="Data\CaseFreeDictionary.cs" />
-    <Compile Include="Data\GenArea.cs" />
-    <Compile Include="Data\GenInstance.cs" />
-    <Compile Include="Data\QuickScriptDestination.cs" />
-    <Compile Include="Data\CodeGenerator.cs" />
-    <Compile Include="Data\TestLogger.cs" />
-    <Compile Include="Data\XlgQuickScript.cs" />
-    <Compile Include="Data\xlgFile.cs" />
-    <Compile Include="Data\DataDefault.GenInclude.cs">
+    <Compile Include="Data\Scripts\CaseFreeDictionary.cs" />
+    <Compile Include="Data\Scripts\GenArea.cs" />
+    <Compile Include="Data\Scripts\GenInstance.cs" />
+    <Compile Include="Data\Scripts\QuickScriptDestination.cs" />
+    <Compile Include="Data\Pipelines\CodeGenerator.cs" />
+    <Compile Include="Data\Scripts\NArrangeTestLogger.cs" />
+    <Compile Include="Data\Scripts\XlgQuickScript.cs" />
+    <Compile Include="Data\Pipelines\xlgFile.cs" />
+    <Compile Include="Data\Pipelines\DataDefault.GenInclude.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\DataService.cs" />
     <Compile Include="Data\GatherProvider.cs" />
-    <Compile Include="Data\XlgQuickScriptTemplate.cs" />
+    <Compile Include="Data\Scripts\XlgQuickScriptTemplate.cs" />
+    <Compile Include="Data\Techniques\CodeTechniques.cs" />
     <Compile Include="Interfaces\IProvide.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\QueryCommand.cs" />
-    <Compile Include="Data\Support.cs" />
+    <Compile Include="Data\StoredProcedureResult.cs" />
     <Compile Include="Data\TableSchema.cs" />
-    <Compile Include="Data\xlgFolder.cs" />
-    <Compile Include="Data\XlgQuickScriptFile.cs" />
-    <Compile Include="Data\XlgQuickScriptTemplateList.cs" />
-    <Compile Include="Data\XlgSettings.cs" />
-    <Compile Include="Data\xlgSource.cs" />
+    <Compile Include="Data\Pipelines\xlgFolder.cs" />
+    <Compile Include="Data\Scripts\XlgQuickScriptFile.cs" />
+    <Compile Include="Data\Scripts\XlgQuickScriptTemplateList.cs" />
+    <Compile Include="Data\Pipelines\XlgSettings.cs" />
+    <Compile Include="Data\Pipelines\xlgSource.cs" />
     <Compile Include="Interfaces\IShowText.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />

@@ -5,9 +5,9 @@ using System.Globalization;
 using System.Text;
 using NArrange.Core;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
-    public class TestLogger : ILogger
+    public class NArrangeTestLogger : ILogger
     {
         #region Fields
 
@@ -37,7 +37,7 @@ namespace MetX.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not messages should be written 
+        /// Gets or sets a value indicating whether or not messages should be written
         /// to the console.
         /// </summary>
         public bool WriteToConsole

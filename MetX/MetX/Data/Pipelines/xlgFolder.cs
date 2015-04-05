@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Pipelines
 {
     /// <summary>
     /// Represents a library to generate
     /// </summary>
-    [Serializable, XmlType(Namespace="",AnonymousType=true)]
+    [Serializable, XmlType(Namespace = "", AnonymousType = true)]
     public class xlgFolder
     {
-        [XmlAttribute] public string Path;
-        [XmlAttribute] public string Name;
-        [XmlAttribute] public DateTime Created;
-        [XmlAttribute] public DateTime Modified;
+        [XmlAttribute]
+        public string Path;
+        [XmlAttribute]
+        public string Name;
+        [XmlAttribute]
+        public DateTime Created;
+        [XmlAttribute]
+        public DateTime Modified;
 
         [XmlArray("Folders", Namespace = "", IsNullable = false), XmlArrayItem("Folder", Namespace = "", IsNullable = false)]
         public List<xlgFolder> Folders = new List<xlgFolder>();

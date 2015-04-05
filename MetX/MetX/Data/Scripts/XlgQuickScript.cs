@@ -9,7 +9,7 @@ using Microsoft.CSharp;
 using NArrange.ConsoleApplication;
 using NArrange.Core;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     /// <summary>
     ///     Represents a clipboard processing script
@@ -90,7 +90,7 @@ namespace MetX.Data
 
         public static string FormatCSharpCode(string code)
         {
-            TestLogger logger = new TestLogger();
+            NArrangeTestLogger logger = new NArrangeTestLogger();
             int attempts = 0;
             while (++attempts < 2)
             {
@@ -102,7 +102,7 @@ namespace MetX.Data
                 }
                 catch (Exception ex)
                 {
-                    if(attempts == 2)
+                    if (attempts == 2)
                     {
                         MessageBox.Show(ex.ToString());
                         return code;

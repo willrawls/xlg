@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using MetX.Data;
+using MetX.Data.Scripts;
 using MetX.Interfaces;
 using MetX.Library;
 using Microsoft.Win32;
@@ -101,7 +102,7 @@ namespace MetX.Controls
                 }
 
                 RunResult runResult = Run(ToolWindow.Context, scriptToRun);
-                if(runResult.InputMissing)
+                if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
                 if (!runResult.KeepGoing || runResult.QuickScriptProcessor.Output == null || runResult.QuickScriptProcessor.Output.Length <= 0)
                 {
@@ -157,7 +158,6 @@ namespace MetX.Controls
                 Monitor.Exit(m_ScriptSyncRoot);
             }
         }
-
 
         private static RunResult Run(ContextBase @base, XlgQuickScript scriptToRun)
         {
@@ -217,7 +217,7 @@ namespace MetX.Controls
                                                           ex, "CONTINUE PROCESSING", MessageBoxButtons.YesNo);
                     if (answer == DialogResult.No)
                     {
-                        result.Error = new Exception("Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine , ex);
+                        result.Error = new Exception("Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine, ex);
                         return result;
                     }
                 }

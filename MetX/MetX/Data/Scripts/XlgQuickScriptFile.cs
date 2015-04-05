@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     [Serializable]
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScriptFile : List<XlgQuickScript>
     {
         public XlgQuickScript Default { get; set; }
+
         public string FilePath { get; set; }
+
         public XlgQuickScriptFile(string filePath) { FilePath = filePath; }
 
         public bool Save()
@@ -27,9 +28,9 @@ namespace MetX.Data
 
             if (File.Exists(FilePath))
             {
-                File.Move(FilePath, 
-                    FilePath + "_" + 
-                    DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ") + 
+                File.Move(FilePath,
+                    FilePath + "_" +
+                    DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ") +
                     ".xlgq"
                     );
             }
@@ -50,7 +51,7 @@ namespace MetX.Data
                     {
                         File.Delete(history[i]);
                     }
-                    catch {  }
+                    catch { }
                 }
             }
             return true;
@@ -65,7 +66,7 @@ namespace MetX.Data
             }
             string[] rawScripts = File
                 .ReadAllText(ret.FilePath)
-                .Split(new[] {"~~QuickScriptName:"}, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { "~~QuickScriptName:" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string rawScript in rawScripts)
             {
                 XlgQuickScript script = new XlgQuickScript();

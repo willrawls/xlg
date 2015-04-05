@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using MetX.Data;
+using MetX.Data.Scripts;
 using MetX.Library;
 using Microsoft.Win32;
 
@@ -28,7 +28,7 @@ namespace MetX.Controls
                 {
                     return string.Empty;
                 }
-                string[] lines = ScriptEditor.Text.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                string[] lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
                 string linePart = lines[textArea.Caret.Line].Substring(0, textArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
@@ -110,8 +110,9 @@ namespace MetX.Controls
             return false;
         }
 
-        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] {"~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:"}); }
-        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] {"Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask"}); }
+        private void ShowScriptCommandCodeCompletion() { ShowCodeCompletion(new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" }); }
+
+        private void ShowThisCodeCompletion() { ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" }); }
 
         public void ShowCodeCompletion(string[] items)
         {
@@ -236,7 +237,7 @@ namespace MetX.Controls
         {
             if (InvokeRequired)
             {
-                return (string) Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
+                return (string)Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
             }
             if (Context.Templates.Count == 0 ||
                 string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
@@ -381,6 +382,7 @@ namespace MetX.Controls
         }
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e) { DisplayExpandedQuickScriptSourceInNotepad(false); }
+
         private void QuickScriptToolWindow_FormClosing(object sender, FormClosingEventArgs e) { SaveQuickScript_Click(sender, null); }
 
         private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)

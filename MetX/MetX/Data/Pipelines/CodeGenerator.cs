@@ -16,7 +16,7 @@ using MetX.Library;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
 
-namespace MetX.Data
+namespace MetX.Data.Pipelines
 {
     /// <summary>Generates Data and xlg specific code</summary>
     public class CodeGenerator
@@ -84,7 +84,7 @@ namespace MetX.Data
                     root.AppendChild(xmlDoc.ImportNode(currChild, true));
                 }
 
-                // AddAttribute(root, "xmlDoc", xmlDoc.InnerXml.Replace("><", ">\n<")); 
+                // AddAttribute(root, "xmlDoc", xmlDoc.InnerXml.Replace("><", ">\n<"));
                 return xmlDoc;
             }
         }
@@ -200,7 +200,6 @@ namespace MetX.Data
             }
             VDirName = Namespace;
 
-            
             try
             {
                 AppDomainAppPath = HttpRuntime.AppDomainAppPath;
@@ -219,7 +218,7 @@ namespace MetX.Data
 
             if (!string.IsNullOrEmpty(settingsFilePath) && settingsFilePath.ToLower().Contains(".config"))
             {
-                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap {ExeConfigFilename = settingsFilePath};
+                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap { ExeConfigFilename = settingsFilePath };
                 DataService.ConnectionStrings = ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None).ConnectionStrings.ConnectionStrings;
             }
         }
@@ -487,7 +486,7 @@ namespace MetX.Data
                     AddAttribute(xmlColumn, "ColumnName", col.ColumnName);
                     AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field"));
                     AddAttribute(xmlColumn, "CSharpVariableType", GetCSharpVariableType(col.DataType));
-                    AddAttribute(xmlColumn, "Location", (index+1).ToString());
+                    AddAttribute(xmlColumn, "Location", (index + 1).ToString());
                     AddAttribute(xmlColumn, "IsDotNetObject", GetIsDotNetObject(col.DataType).ToString());
                     AddAttribute(xmlColumn, "CovertToPart", GetConvertToPart(col.DataType));
                     AddAttribute(xmlColumn, "VBVariableType", GetVbVariableType(col.DataType));
@@ -583,7 +582,7 @@ namespace MetX.Data
             int sprocIndex = 1;
             foreach (string spName in sPs)
             {
-                // Make sure there is a stored proc to process 
+                // Make sure there is a stored proc to process
                 //  (is blank when there are no stored procedures in the database)
                 if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(m_StoredProceduresToRender, spName))
                 {
@@ -746,7 +745,7 @@ namespace MetX.Data
             }
         }
 
-        #endregion
+        #endregion "Helper Functions"
 
         #region "Support Functions"
 
@@ -975,7 +974,7 @@ namespace MetX.Data
             }
         }
 
-        // Anytime a database column is named any of these words, it causes a code issue. 
+        // Anytime a database column is named any of these words, it causes a code issue.
         //  Make sure a suffix is added to property names in these cases
         private static readonly List<string> m_TypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
 
@@ -1248,6 +1247,6 @@ namespace MetX.Data
             }
         }
 
-        #endregion
+        #endregion "Support Functions"
     }
 }

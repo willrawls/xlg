@@ -1,25 +1,16 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor;
-using ICSharpCode.TextEditor.Document;
-using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using MetX.Controls;
 using MetX.Data;
-using MetX.Interfaces;
+using MetX.Data.Scripts;
 using MetX.Library;
 using Microsoft.Win32;
-using WeifenLuo.WinFormsUI.Docking;
-using XLG.QuickScripts;
 
 namespace XLG.QuickScripts
 {
@@ -32,6 +23,7 @@ namespace XLG.QuickScripts
         }
 
         public XlgQuickScript SelectedScript { get { return this.QuickScriptList.SelectedItem as XlgQuickScript; } }
+
         public bool Updating;
 
         private void RefreshLists()
@@ -263,7 +255,7 @@ namespace XLG.QuickScripts
 
         private void LoadQuickScriptsFile(string filePath)
         {
-            if(Context == null)
+            if (Context == null)
                 Context = new Context();
             Context.Scripts = XlgQuickScriptFile.Load(filePath);
 

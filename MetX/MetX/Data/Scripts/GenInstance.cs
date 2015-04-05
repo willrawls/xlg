@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     public class GenInstance : List<GenArea>
     {

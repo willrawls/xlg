@@ -1,17 +1,16 @@
 using System;
 using System.Windows.Forms;
-using MetX.Data;
+using MetX.Data.Pipelines;
 using MetX.IO;
 using MetX.Library;
 
 namespace XLG.Pipeliner
 {
-    class Program
+    internal class Program
     {
         [STAThread()]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-
             if (args.Length == 0)
             {
                 Application.EnableVisualStyles();

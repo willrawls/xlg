@@ -4,24 +4,31 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using MetX.Data.Scripts;
 
-namespace MetX.Data
+namespace MetX.Data.Pipelines
 {
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
     {
-        private static XmlSerializer m_SettingsSerializer = new XmlSerializer(typeof (XlgSettings));
+        private static XmlSerializer m_SettingsSerializer = new XmlSerializer(typeof(XlgSettings));
 
         [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
-         XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)] public List<XlgQuickScript> QuickScripts = new List<XlgQuickScript>();
+         XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)]
+        public List<XlgQuickScript> QuickScripts = new List<XlgQuickScript>();
 
-        [XmlAttribute] public string DefaultConnectionString;
-        [XmlAttribute] public string DefaultProviderName;
-        [XmlAttribute] public string Filename;
-        [XmlIgnore] public Form Gui;
+        [XmlAttribute]
+        public string DefaultConnectionString;
+        [XmlAttribute]
+        public string DefaultProviderName;
+        [XmlAttribute]
+        public string Filename;
+        [XmlIgnore]
+        public Form Gui;
 
         [XmlArray("Sources", Namespace = "", IsNullable = false),
-         XmlArrayItem("Source", Namespace = "", IsNullable = false)] public List<XlgSource> Sources = new List<XlgSource>();
+         XmlArrayItem("Source", Namespace = "", IsNullable = false)]
+        public List<XlgSource> Sources = new List<XlgSource>();
 
         public XlgSettings()
         {
@@ -35,7 +42,7 @@ namespace MetX.Data
 
         public static XlgSettings FromXml(string xmldoc)
         {
-            return (XlgSettings) m_SettingsSerializer.Deserialize(new StringReader(xmldoc));
+            return (XlgSettings)m_SettingsSerializer.Deserialize(new StringReader(xmldoc));
         }
 
         public string OuterXml()

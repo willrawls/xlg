@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     public class GenArea
     {

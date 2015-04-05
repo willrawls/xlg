@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     [Serializable]
     public class XlgQuickScriptTemplate

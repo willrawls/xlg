@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MetX.Data
+namespace MetX.Data.Scripts
 {
     public class CaseFreeDictionary : Dictionary<string, string>
     {
@@ -14,7 +14,7 @@ namespace MetX.Data
             set
             {
                 name = name.ToLower();
-                if(ContainsKey(name))
+                if (ContainsKey(name))
                     base[name.ToLower()] = value;
                 else
                     Add(name, value);

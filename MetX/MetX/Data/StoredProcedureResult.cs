@@ -1,6 +1,4 @@
-using System;
 using System.Data;
-using System.Collections.Generic;
 using System.Text;
 
 namespace MetX.Data
@@ -19,16 +17,16 @@ namespace MetX.Data
         public override string ToString()
         {
             StringBuilder ret = new StringBuilder();
-            while(Reader.Read())
+            while (Reader.Read())
                 ret.Append(Reader[0]);
-                Reader.Close();
-                Reader.Dispose();
+            Reader.Close();
+            Reader.Dispose();
             return ret.ToString();
         }
 
         public void Close()
         {
-            if(Reader != null && !Reader.IsClosed)
+            if (Reader != null && !Reader.IsClosed)
             {
                 Reader.Close();
                 Reader.Dispose();

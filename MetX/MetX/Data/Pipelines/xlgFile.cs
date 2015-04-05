@@ -1,11 +1,7 @@
 using System;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Threading;
 using System.Xml.Serialization;
 
-namespace MetX.Data
+namespace MetX.Data.Pipelines
 {
     /// <summary>
     /// Represents a file

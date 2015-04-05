@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using MetX.Data;
+using MetX.Data.Pipelines;
 using MetX.Library;
 
 namespace XLG.Pipeliner
@@ -26,7 +26,7 @@ namespace XLG.Pipeliner
 
         public void Begin(XlgSettings settings, FileSystemEventHandler onchange, ErrorEventHandler onerror)
         {
-            List<string> directories = new List<string> {GloveMain.AppData.SupportPath};
+            List<string> directories = new List<string> { GloveMain.AppData.SupportPath };
             AddIfDifferent(directories, Path.GetDirectoryName(settings.Filename));
             foreach (XlgSource setting in settings.Sources)
             {

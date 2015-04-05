@@ -1,12 +1,12 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Xml;
 using System.Threading;
+using System.Xml;
 using System.Xml.Serialization;
 using MetX.Library;
 
-namespace MetX.Data
+namespace MetX.Data.Pipelines
 {
     /// <summary>
     /// Represents a library to generate
@@ -82,6 +82,7 @@ namespace MetX.Data
         {
             public int op;
             public System.Windows.Forms.Form Gui;
+
             public OpParams(int op, System.Windows.Forms.Form gui)
             {
                 this.op = op;
@@ -90,8 +91,11 @@ namespace MetX.Data
         }
 
         private void InternalOp(object Params) { OpParams o = (OpParams)Params; if ((int)o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
+
         public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(1, gui)); }
+
         public void GenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(2, gui)); }
+
         public int Regenerate(System.Windows.Forms.Form gui)
         {
             if (m_GenInProgress) return 0;

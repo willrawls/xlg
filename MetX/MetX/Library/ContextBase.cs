@@ -1,9 +1,8 @@
-using System.Windows.Forms;
-using MetX.Data;
+using MetX.Data.Scripts;
 
 namespace MetX.Library
 {
-    public class ContextBase 
+    public class ContextBase
     {
         public static ContextBase Default { get; set; }
 
