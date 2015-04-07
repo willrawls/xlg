@@ -162,6 +162,9 @@
     <Compile Include="Data\GatherProvider.cs" />
     <Compile Include="Data\Scripts\XlgQuickScriptTemplate.cs" />
     <Compile Include="Data\Techniques\CodeTechniques.cs" />
+    <Compile Include="Data\Techniques\Reference.cs" />
+    <Compile Include="Data\Techniques\ParticleList.cs" />
+    <Compile Include="Data\Techniques\ParticleType.cs" />
     <Compile Include="Interfaces\IProvide.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\QueryCommand.cs" />

@@ -1,77 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace MetX.Data.Techniques
 {
     [Serializable]
-    public class CodeTechniques
+    public class CodeTechniques : ParticleList
     {
-        [XmlAttribute]
-        public Guid Id;
-
-        [XmlArray(ElementName = "QuickScriptFiles")]
-        [XmlArrayItem(typeof(Reference), ElementName = "QuickScriptFile")]
-        public List<Reference> QuickScriptFiles;
-
-        [XmlArray(ElementName = "PipelineFiles")]
-        [XmlArrayItem(typeof(Reference), ElementName = "PipelineFile")]
-        public List<Reference> PipelineFiles;
-
         [XmlArray(ElementName = "Connections")]
         [XmlArrayItem(typeof(Reference), ElementName = "Connection")]
-        public List<Reference> Connections;
-
-        [XmlArray(ElementName = "Locations")]
-        [XmlArrayItem(typeof(Reference), ElementName = "Location")]
-        public List<Reference> Locations;
+        public ParticleList Connections;
 
         [XmlArray(ElementName = "Variables")]
         [XmlArrayItem(typeof(Reference), ElementName = "Variable")]
-        public List<Reference> Variables;
-
-        [XmlArray(ElementName = "ScriptTemplates")]
-        [XmlArrayItem(typeof(Reference), ElementName = "ScriptTemplate")]
-        public List<Reference> ScriptTemplates;
-
-        [XmlArray(ElementName = "XslTemplates")]
-        [XmlArrayItem(typeof(Reference), ElementName = "XslTemplate")]
-        public List<Reference> XslTemplates;
-
-        [XmlArray(ElementName = "StepSettingTemplates")]
-        [XmlArrayItem(typeof(Reference), ElementName = "StepSettingTemplate")]
-        public List<Reference> StepSettingTemplates;
+        public ParticleList Variables;
 
         [XmlArray(ElementName = "Providers")]
         [XmlArrayItem(typeof(Reference), ElementName = "Provider")]
-        public List<Reference> Providers;
-    }
+        public ParticleList Providers;
 
-    [Serializable]
-    public class Reference
-    {
-        [XmlAttribute]
-        public int Index;
-        [XmlAttribute]
-        public string Name;
-        //        [XmlAttribute]
-        //        public string Value;
-        [XmlAttribute]
-        public ReferenceType RefType;
-        [XmlAttribute]
-        public string Value;
-        [XmlAttribute]
-        public string Content;
-    }
+        /*
+                [XmlArray(ElementName = "QuickScriptFiles")]
+                [XmlArrayItem(typeof(Reference), ElementName = "QuickScriptFile")]
+                public ParticleList QuickScriptFiles;
 
-    [Serializable]
-    public enum ReferenceType
-    {
-        Unknown,
-        File,
-        Folder,
-        Url,
-        Database,
-        Variable,
+                [XmlArray(ElementName = "PipelineFiles")]
+                [XmlArrayItem(typeof(Reference), ElementName = "PipelineFile")]
+                public ParticleList PipelineFiles;
+        */
+
+        /*
+                [XmlArray(ElementName = "ScriptTemplateFiles")]
+                [XmlArrayItem(typeof(Reference), ElementName = "ScriptTemplateFile")]
+                public ParticleList ScriptTemplateFiles;
+
+                [XmlArray(ElementName = "XslTemplateFiles")]
+                [XmlArrayItem(typeof(Reference), ElementName = "XslTemplateFile")]
+                public ParticleList XslTemplateFiles;
+
+                [XmlArray(ElementName = "StepSettingTemplateFiles")]
+                [XmlArrayItem(typeof(Reference), ElementName = "StepSettingTemplateFile")]
+                public ParticleList StepSettingTemplateFiles;
+        */
+
+        /*
+                [XmlArray(ElementName = "Locations")]
+                [XmlArrayItem(typeof(Reference), ElementName = "Location")]
+                public ParticleList Locations;
+        */
     }
 }
