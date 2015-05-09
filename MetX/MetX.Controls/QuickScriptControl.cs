@@ -3,8 +3,8 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using MetX.Data.Scripts;
 using MetX.Library;
+using MetX.Scripts;
 
 namespace MetX.Controls
 {

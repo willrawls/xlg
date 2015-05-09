@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using MetX.Data.Pipelines;
 using MetX.Library;
+using MetX.Pipelines;
 
 namespace XLG.Pipeliner
 {

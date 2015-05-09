@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualBasic;
 
 namespace MetX.Library
 {
@@ -12,14 +11,19 @@ namespace MetX.Library
     /// </summary>
     public static class StringExtensions
     {
-        public static bool IsNullOrEmpty<T>(this IList<T> target)
+        public static bool IsEmpty<T>(this IList<T> target)
         {
             return (target == null || target.Count == 0);
         }
 
-        public static bool IsNullOrEmpty(this string target)
+        public static bool IsEmpty(this string target)
         {
             return string.IsNullOrEmpty(target);
+        }
+
+        public static bool IsNotEmpty(this string target)
+        {
+            return !string.IsNullOrEmpty(target);
         }
 
         public static List<string> AsList(this string[] target)
@@ -29,11 +33,12 @@ namespace MetX.Library
 
         public static string[] Tokens(this string target, string delimiter = " ", StringSplitOptions options = StringSplitOptions.None)
         {
-            if (string.IsNullOrEmpty(target)) return new[] {string.Empty};
-            return target.Split(new[] {delimiter}, options);
+            if (string.IsNullOrEmpty(target)) return new[] { string.Empty };
+            return target.Split(new[] { delimiter }, options);
         }
 
         public static string[] Slice(this string target) { return target.Lines(StringSplitOptions.RemoveEmptyEntries); }
+
         public static string[] Dice(this string target) { return target.Tokens(" ", StringSplitOptions.RemoveEmptyEntries); }
 
         public static List<string> LineList(this string target, StringSplitOptions options = StringSplitOptions.None)
@@ -49,14 +54,14 @@ namespace MetX.Library
 
         public static string Flatten<T>(this IList<T> target)
         {
-            if (target.IsNullOrEmpty()) return string.Empty;
+            if (target.IsEmpty()) return string.Empty;
             return string.Join(Environment.NewLine, target);
         }
 
         public static string AsFilename(this string target)
         {
-            if (target.IsNullOrEmpty()) return string.Empty;
-            return target.Replace(new[] {":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-"}, string.Empty);
+            if (target.IsEmpty()) return string.Empty;
+            return target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-" }, string.Empty);
         }
 
         public static string TokenBetween(this string target, string leftDelimiter, string rightDelimiter)
@@ -381,23 +386,23 @@ namespace MetX.Library
 
         public static void TransformAllNotEmpty(this IList<string> target, Func<string, int, string> func)
         {
-            if (target.IsNullOrEmpty()) return;
+            if (target.IsEmpty()) return;
 
             for (int i = 0; i < target.Count; i++)
             {
                 string s = target[i];
-                if (s.IsNullOrEmpty()) continue;
-                target[i] = func(s, i); 
+                if (s.IsEmpty()) continue;
+                target[i] = func(s, i);
             }
         }
 
         public static void TransformAllNotEmpty(this IList<string> target, Func<string, string> func)
         {
-            if (target.IsNullOrEmpty()) return;
+            if (target.IsEmpty()) return;
             for (int i = 0; i < target.Count; i++)
             {
                 string s = target[i];
-                if (s.IsNullOrEmpty()) continue;
+                if (s.IsEmpty()) continue;
                 target[i] = func(s);
             }
         }

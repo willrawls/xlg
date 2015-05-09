@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using MetX.Data;
-using MetX.Data.Scripts;
 using MetX.Interfaces;
 using MetX.Library;
+using MetX.Scripts;
 using Microsoft.Win32;
 
 namespace MetX.Controls

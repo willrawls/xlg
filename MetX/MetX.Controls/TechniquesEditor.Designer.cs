@@ -163,7 +163,7 @@
             // 
             this.NewTechniquesFileMenuItem.Name = "NewTechniquesFileMenuItem";
             this.NewTechniquesFileMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.NewTechniquesFileMenuItem.Text = "New Techniques File";
+            this.NewTechniquesFileMenuItem.Text = "New Pattern File";
             this.NewTechniquesFileMenuItem.Click += new System.EventHandler(this.NewTechniquesFileMenuItem_Click);
             // 
             // toolStripSeparator3
@@ -330,7 +330,7 @@
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "TechniquesEditor";
-            this.Text = "Code Techniques";
+            this.Text = "Code Pattern";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

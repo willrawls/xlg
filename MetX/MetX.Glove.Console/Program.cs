@@ -1,8 +1,8 @@
 using System;
 using System.Windows.Forms;
-using MetX.Data.Pipelines;
 using MetX.IO;
 using MetX.Library;
+using MetX.Pipelines;
 
 namespace XLG.Pipeliner
 {

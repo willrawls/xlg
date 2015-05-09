@@ -1,81 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using System.Data.Common;
+using System.Text;
 using System.Xml.Serialization;
-using MetX.Library;
 
 namespace MetX.Data
 {
     [Serializable]
-    public class QueryParameter
-    {
-        [XmlAttribute("Name")] public string ParameterName;
-        [XmlIgnore] public object ParameterValue;
-        [XmlAttribute("Type")] public DbType DataType;
-        [XmlAttribute("Direction")] public ParameterDirection Direction;
-
-        public QueryParameter() { }
-        public QueryParameter(string parameterName, object value)
-        {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.Direction = ParameterDirection.Input;
-        }
-
-        public QueryParameter(string parameterName, object value, DbType dataType)
-        {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.DataType = dataType;
-            this.Direction = ParameterDirection.Input;
-        }
-
-        public QueryParameter(string parameterName, object value, ParameterDirection Direction)
-        {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.Direction = Direction;
-        }
-
-        public QueryParameter(string parameterName, object value, DbType dataType, ParameterDirection Direction)
-        {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.DataType = dataType;
-            this.Direction = Direction;
-        }
-
-        [XmlAttribute]
-        public string Value 
-        { 
-            get 
-            {
-                if (ParameterValue == null)
-                    return "(DbNull.Value)";
-                return ParameterValue.AsString(); 
-            }
-            set
-            {
-                if (value == "(DbNull.Value)")
-                    ParameterValue = null;
-                else
-                    ParameterValue = value;
-            }
-        }
-    }
-
-    public class QueryParameterCollection : List<QueryParameter> { }
-    public class QueryCommandCollection : List<QueryCommand> { }
-
-    [Serializable]
     public class QueryCommand
     {
-        [XmlAttribute] public CommandType CommandType;
-        [XmlAttribute] public string CommandSql;
-        [XmlArray(ElementName="Parameters"), XmlArrayItem(ElementName="Parameter")]
-            public QueryParameterCollection Parameters;
+        [XmlAttribute]
+        public CommandType CommandType;
+        [XmlAttribute]
+        public string CommandSql;
+        [XmlArray(ElementName = "Parameters"), XmlArrayItem(ElementName = "Parameter")]
+        public QueryParameterCollection Parameters;
 
         public QueryCommand() { }
 
@@ -92,6 +30,7 @@ namespace MetX.Data
                 Parameters = new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType, Direction));
         }
+
         public void AddParameter(string parameterName, object parameterValue, ParameterDirection Direction)
         {
             if (Parameters == null)
@@ -105,12 +44,14 @@ namespace MetX.Data
                 Parameters = new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType));
         }
+
         public void AddParameter(string parameterName, object parameterValue)
         {
             if (Parameters == null)
                 Parameters = new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue));
         }
+
         //public IDbCommand ToIDbCommand() { return DataService.Instance.GetIDbCommand(this); }
 
         public string ToXML()

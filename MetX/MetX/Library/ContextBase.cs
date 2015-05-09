@@ -1,4 +1,4 @@
-using MetX.Data.Scripts;
+using MetX.Scripts;
 
 namespace MetX.Library
 {

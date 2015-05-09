@@ -9,8 +9,8 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using MetX.Data.Scripts;
 using MetX.Library;
+using MetX.Scripts;
 using Microsoft.Win32;
 
 namespace MetX.Controls
@@ -396,7 +396,7 @@ namespace MetX.Controls
                 }
                 UpdateScriptFromForm();
                 string location = GenerateIndependentQuickScriptExe(CurrentScript.Template);
-                if (location.IsNullOrEmpty())
+                if (location.IsEmpty())
                 {
                     return;
                 }

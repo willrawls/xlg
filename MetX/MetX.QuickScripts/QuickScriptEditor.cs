@@ -7,9 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using MetX.Controls;
-using MetX.Data;
-using MetX.Data.Scripts;
 using MetX.Library;
+using MetX.Scripts;
 using Microsoft.Win32;
 
 namespace XLG.QuickScripts
@@ -477,7 +476,7 @@ namespace XLG.QuickScripts
                 }
                 UpdateScriptFromForm();
                 string location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
-                if (location.IsNullOrEmpty()) return;
+                if (location.IsEmpty()) return;
 
                 if (DialogResult.Yes == MessageBox.Show(this,
                     "Executable generated successfully at: " + location + Environment.NewLine +

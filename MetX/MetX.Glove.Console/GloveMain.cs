@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using MetX.Data.Pipelines;
 using MetX.IO;
 using MetX.Library;
+using MetX.Pipelines;
 using MetX.Properties;
 
 namespace XLG.Pipeliner

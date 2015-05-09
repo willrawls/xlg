@@ -1,8 +1,8 @@
 using System.Text;
 
 using MetX.Data;
-using MetX.Data.Pipelines;
 using MetX.Library;
+using MetX.Pipelines;
 
 namespace MetX.Gather
 {
