@@ -74,7 +74,7 @@ namespace MetX.Scripts
                 ret.Add(script);
                 if (isDefault) ret.Default = script;
             }
-            ret.Sort((script, quickScript) => String.CompareOrdinal(script.Name, quickScript.Name));
+            ret.Sort((script, quickScript) => string.CompareOrdinal(script.Name, quickScript.Name));
             if (ret.Default == null && ret.Count > 0)
             {
                 ret.Default = ret[0];

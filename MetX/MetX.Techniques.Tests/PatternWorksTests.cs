@@ -2,13 +2,13 @@
 
 namespace MetX.Techniques.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class PatternWorksTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void ToXmlTest()
         {
-            PatternWorks target = new PatternWorks
+            var target = new PatternWorks
             {
                 Techniques = new ParticleList<Technique>
                 {
@@ -20,11 +20,9 @@ namespace MetX.Techniques.Tests
                 {
                 }
             };
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
-            string actual;
-            actual = target.ToXml();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            var actual = target.ToXml();
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Contains("</PatternWorks>"));
         }
     }
 }

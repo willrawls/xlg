@@ -883,9 +883,9 @@ namespace MetX.Library
                 m_RunningTotals = new Dictionary<string, double>();
             if (decimalPlaces > 0)
                 if (m_RunningTotals.ContainsKey(totalName))
-                    return m_RunningTotals[totalName].ToString("0." + new String('0', decimalPlaces));
+                    return m_RunningTotals[totalName].ToString("0." + new string('0', decimalPlaces));
                 else
-                    return "0." + new String('0', decimalPlaces);
+                    return "0." + new string('0', decimalPlaces);
             else if (m_RunningTotals.ContainsKey(totalName))
                 return m_RunningTotals[totalName].ToString();
             return "0";

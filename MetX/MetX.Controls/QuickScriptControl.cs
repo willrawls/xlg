@@ -82,7 +82,7 @@ namespace MetX.Controls
             if (items != null && items.Length > 0)
             {
                 CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
-                completionWindow = CodeCompletionWindow.ShowCompletionWindow(FindForm(), this, String.Empty, completionDataProvider, '.');
+                completionWindow = CodeCompletionWindow.ShowCompletionWindow(FindForm(), this, string.Empty, completionDataProvider, '.');
                 if (completionWindow != null)
                 {
                     completionWindow.Closed += CompletionWindowClosed;

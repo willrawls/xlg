@@ -119,7 +119,7 @@ namespace MetX.Controls
             if (items != null && items.Length > 0)
             {
                 CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
-                completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, String.Empty, completionDataProvider, '.');
+                completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
                 if (completionWindow != null)
                 {
                     completionWindow.Closed += CompletionWindowClosed;
