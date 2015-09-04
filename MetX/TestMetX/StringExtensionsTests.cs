@@ -2,12 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace TestMetX
+namespace MetX.Tests
 {
 
 
-    [TestClass()]
-    public class StringExtensionsTest
+    [TestClass]
+    public class StringExtensionsTests
     {
         public TestContext TestContext { get; set; }
 
@@ -42,7 +42,7 @@ namespace TestMetX
         #endregion
 
 
-        [TestMethod()]
+        [TestMethod]
         public void TokensAroundTest()
         {
             const string target = "aaa((bb))ccc";
@@ -51,7 +51,7 @@ namespace TestMetX
             Assert.AreEqual("aaa()ccc", target.TokensAround("(b", "b)"));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void MidTest()
         {
             const string target = "abcdefg";
@@ -66,7 +66,7 @@ namespace TestMetX
             Assert.AreEqual("abc", actual);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void LeftTest()
         {
             const string target = "abcdefg";

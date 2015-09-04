@@ -176,7 +176,7 @@ namespace MetX.IO
 						sb.Append("Content-Disposition: attachment; filename=" + f.Name + "\r\n");
 						sb.Append("\r\n");
 						FileStream fs = f.OpenRead();
-						binaryData = new Byte[fs.Length];
+						binaryData = new byte[fs.Length];
 						long bytesRead = fs.Read(binaryData, 0, (int)fs.Length);
 						fs.Close();
 						string base64String = Convert.ToBase64String(binaryData, 0,binaryData.Length);

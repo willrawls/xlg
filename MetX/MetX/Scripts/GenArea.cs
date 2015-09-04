@@ -5,7 +5,7 @@ namespace MetX.Scripts
 {
     public class GenArea
     {
-        public readonly List<string> Lines = new List<string>();
+        public readonly IList<string> Lines;
         public readonly string Name;
         public int Indent = 12;
 

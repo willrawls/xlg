@@ -156,6 +156,8 @@
     <Compile Include="Data\QueryParameter.cs" />
     <Compile Include="Data\QueryParameterCollection.cs" />
     <Compile Include="Data\QueryType.cs" />
+    <Compile Include="Library\Fred.cs" />
+    <Compile Include="Library\Tokenizer.cs" />
     <Compile Include="Scripts\CaseFreeDictionary.cs" />
     <Compile Include="Scripts\GenArea.cs" />
     <Compile Include="Scripts\GenInstance.cs" />

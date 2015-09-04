@@ -120,7 +120,7 @@ namespace MetX.Scripts
                 StringBuilder sb = new StringBuilder(Template.Views[m_Independent ? "Exe" : "Native"]);
                 foreach (GenArea area in this)
                 {
-                    sb.Replace("//~~" + area.Name + "~~//", String.Join(Environment.NewLine, area.Lines));
+                    sb.Replace("//~~" + area.Name + "~~//", string.Join(Environment.NewLine, area.Lines));
                 }
 
                 if (m_Independent)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -15,7 +16,7 @@ namespace MetX.Pipelines
 
         [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
          XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)]
-        public List<XlgQuickScript> QuickScripts = new List<XlgQuickScript>();
+        public IList QuickScripts = new List<XlgQuickScript>();
 
         [XmlAttribute]
         public string DefaultConnectionString;

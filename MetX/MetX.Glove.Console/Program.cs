@@ -8,7 +8,7 @@ namespace XLG.Pipeliner
 {
     internal class Program
     {
-        [STAThread()]
+        [STAThread]
         private static void Main(string[] args)
         {
             if (args.Length == 0)

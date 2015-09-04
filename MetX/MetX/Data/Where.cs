@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using MetX.Library;
@@ -181,7 +182,7 @@ namespace MetX.Data
             }
             else if (Value is List<string>)
             {
-                foreach (string CurrValue in (List<string>)Value)
+                foreach (string CurrValue in (IList)Value)
                 {
                     if (!string.IsNullOrEmpty(CurrValue))
                     {

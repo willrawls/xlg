@@ -167,12 +167,12 @@ namespace MetX.Scripts
             DiceAt = "Space";
             Template = "Single file input";
 
-            if (String.IsNullOrEmpty(rawScript))
+            if (string.IsNullOrEmpty(rawScript))
             {
                 throw new ArgumentNullException("rawScript");
             }
             Name = rawScript.FirstToken(Environment.NewLine);
-            if (String.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name))
             {
                 Name = "Unnamed " + Guid.NewGuid();
             }
@@ -269,7 +269,7 @@ namespace MetX.Scripts
                    "~~QuickScriptTemplate:" + Template + Environment.NewLine +
                    (isDefault
                        ? "~~QuickScriptDefault:" + Environment.NewLine
-                       : String.Empty) +
+                       : string.Empty) +
                    Script.AsString();
         }
 
@@ -286,7 +286,7 @@ namespace MetX.Scripts
                    && currScriptLine.TokenCount("%") > 1)
             {
                 string variableContent = currScriptLine.TokenAt(2, "%");
-                string resolvedContent = String.Empty;
+                string resolvedContent = string.Empty;
                 if (variableContent.Length > 0)
                 {
                     if (variableContent.Contains(" "))
@@ -325,9 +325,9 @@ namespace MetX.Scripts
                 ? new string(' ', indent + 12)
                 : string.Empty) +
                              currScriptLine
-                                 .Replace(" + \"\" + ", String.Empty)
-                                 .Replace("\"\" + ", String.Empty)
-                                 .Replace(" + \"\"", String.Empty)
+                                 .Replace(" + \"\" + ", string.Empty)
+                                 .Replace("\"\" + ", string.Empty)
+                                 .Replace(" + \"\"", string.Empty)
                                  .Replace("~$~$", @"%")
                                  .Replace("~#~$", "\\\"");
             return currScriptLine;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,15 +32,9 @@ namespace MetX.Library
             return new List<string>(target);
         }
 
-        public static string[] Tokens(this string target, string delimiter = " ", StringSplitOptions options = StringSplitOptions.None)
-        {
-            if (string.IsNullOrEmpty(target)) return new[] { string.Empty };
-            return target.Split(new[] { delimiter }, options);
-        }
+        public static List<string> Slice(this string target) { return target.LineList(StringSplitOptions.RemoveEmptyEntries); }
 
-        public static string[] Slice(this string target) { return target.Lines(StringSplitOptions.RemoveEmptyEntries); }
-
-        public static string[] Dice(this string target) { return target.Tokens(" ", StringSplitOptions.RemoveEmptyEntries); }
+        public static List<string> Dice(this string target) { return target.AllTokens(" ", StringSplitOptions.RemoveEmptyEntries); }
 
         public static List<string> LineList(this string target, StringSplitOptions options = StringSplitOptions.None)
         {
@@ -64,49 +59,27 @@ namespace MetX.Library
             return target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-" }, string.Empty);
         }
 
-        public static string TokenBetween(this string target, string leftDelimiter, string rightDelimiter)
-        {
-            return String.IsNullOrEmpty(target)
-                ? String.Empty
-                : TokenAt(TokenAt(target, 2, leftDelimiter), 1, rightDelimiter);
-        }
-
-        public static string TokensAround(this string target, string leftDelimiter, string rightDelimiter)
-        {
-            if (String.IsNullOrEmpty(target)) return String.Empty;
-            int leftIndex = target.IndexOf(leftDelimiter, StringComparison.OrdinalIgnoreCase);
-            if (leftIndex > 0)
-            {
-                int rightIndex = target.IndexOf(rightDelimiter, leftIndex + leftDelimiter.Length, StringComparison.OrdinalIgnoreCase);
-                if (rightIndex > leftIndex)
-                {
-                    return target.Left(leftIndex) + target.Substring(rightIndex + rightDelimiter.Length);
-                }
-                return target.Mid(leftIndex + 1 - leftDelimiter.Length);
-            }
-            return TokensBefore(target, 2, leftDelimiter) + TokensAfter(target, 1, rightDelimiter);
-        }
-
         public static string Left(this string target, int length)
         {
-            if (String.IsNullOrEmpty(target) || length < 1) return String.Empty;
+            if (string.IsNullOrEmpty(target) || length < 1) return string.Empty;
             if (target.Length <= length) return target;
             return target.Substring(0, length);
         }
 
         public static string Mid(this string target, int startAt, int length)
         {
-            if (String.IsNullOrEmpty(target) || length < 1 || startAt > target.Length || startAt > target.Length) return String.Empty;
+            if (string.IsNullOrEmpty(target) || length < 1 || startAt > target.Length || startAt > target.Length) return string.Empty;
             if (startAt + length > target.Length) return target.Substring(startAt);
             return target.Substring(startAt, length);
         }
 
         public static string Mid(this string target, int startAt)
         {
-            if (String.IsNullOrEmpty(target) || startAt < 1 || startAt > target.Length) return String.Empty;
+            if (string.IsNullOrEmpty(target) || startAt < 1 || startAt > target.Length) return string.Empty;
             return target.Substring(startAt);
         }
 
+<<<<<<< HEAD
         /// <summary>Returns the number of tokens in a string</summary>
         /// <param name="target">The string to target</param>
         /// <param name="delimiter">The token delimiter</param>
@@ -351,9 +324,11 @@ namespace MetX.Library
         /// <param name="delimiter">The token delimiter</param>
         public static string TokensAfterFirst(this string target, string delimiter = " ") { return TokensAfter(target, 1, delimiter); }
 
+=======
+>>>>>>> origin/Xanadu
         public static string Replace(this string target, string[] strings, string replacement)
         {
-            if (String.IsNullOrEmpty(target)) return String.Empty;
+            if (string.IsNullOrEmpty(target)) return string.Empty;
             if (strings == null || strings.Length == 0) return target;
             return strings.Aggregate(target, (current, s) => current.Replace(s, replacement));
         }

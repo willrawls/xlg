@@ -32,7 +32,7 @@ namespace MetX.Controls
         public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
         {
             if (@base.Templates.Count == 0 ||
-                String.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
+                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
             {
                 MessageBox.Show("Quick script template 'Native' missing: " + scriptToRun.Template);
                 return null;
@@ -65,7 +65,7 @@ namespace MetX.Controls
                               + compilerResults.Errors[index]
                                   .ToString()
                                   .TokensAfterFirst("(")
-                                  .Replace(")", String.Empty));
+                                  .Replace(")", string.Empty));
                 sb.AppendLine();
             }
             MessageBox.Show(sb.ToString());
@@ -90,7 +90,7 @@ namespace MetX.Controls
                 ScriptIsRunning = true;
                 if (scriptToRun.Destination == QuickScriptDestination.File)
                 {
-                    if (String.IsNullOrEmpty(scriptToRun.DestinationFilePath))
+                    if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
                     {
                         MessageBox.Show(caller, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
                         caller.SetFocus("DestinationParam");
