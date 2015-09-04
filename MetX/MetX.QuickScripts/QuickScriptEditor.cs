@@ -21,6 +21,27 @@ namespace XLG.QuickScripts
             LoadQuickScriptsFile(filePath);
         }
 
+        public override void Progress(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<int>(Progress), new[]{ index });
+                return;
+            }
+            if (index >= 0)
+            {
+                RunningLabel.Text = "Script Running...";
+                ProgressLabel.Text = index.ToString("0000000");
+                Update();
+            }
+            else
+            {
+                RunningLabel.Text = "Not running.";
+                ProgressLabel.Text = "0";
+                Update();                
+            }
+        }
+
         public XlgQuickScript SelectedScript { get { return this.QuickScriptList.SelectedItem as XlgQuickScript; } }
 
         public bool Updating;

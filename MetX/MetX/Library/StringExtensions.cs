@@ -230,58 +230,32 @@ namespace MetX.Library
         /// </example>
         public static string TokensAfter(this string target) { return TokensAfter(target, 1, " "); }
 
-        /// <summary>Returns all tokens before the indicated token.</summary>
-        /// <param name="target">The string to target</param>
-        /// <param name="tokenNumber">The token number to return before</param>
-        /// <param name="delimiter">The token delimiter</param>
-        ///
-        /// <example>
-        /// <code>
-        /// string x = Token.Before("this is a test", 3, " ");
-        /// // x = "this is"
-        /// </code>
-        /// </example>
-        public static string TokensBefore(this string target, long tokenNumber, string delimiter)
+        public static string TokensBefore(this string target, int tokenNumber, string delimiter)
         {
             int delimiterLength = delimiter.Length; //  Length of the delimiter string
             if (tokenNumber < 2 || delimiterLength < 1) //  First, Zeroth, or Negative tokens or empty delimiter strings mean an empty string returned
             {
-                return null;
+                return string.Empty ;
             }
             if (tokenNumber == 2)
             {
                 return TokenAt(target, 1, delimiter); //  Quickly extract the first token
             }
+
             //  Find the Nth token
-            StringBuilder sReturned = new StringBuilder();
-            bool first = true;
+            int lastIndex = 0;
+            int tokensLeft = tokenNumber;
             do
             {
-                int currTokenLocation = target.IndexOf(delimiter, StringComparison.OrdinalIgnoreCase); //  Character position of the first delimiter string
-                if (currTokenLocation == -1 || tokenNumber == 1)
+                int currTokenLocation = target.IndexOf(delimiter, lastIndex, StringComparison.OrdinalIgnoreCase); //  Character position of the first delimiter string
+                if (currTokenLocation == -1 || tokensLeft-- == 1)
                 {
-                    if (tokenNumber > 1)
-                    {
-                        if (target.Length > 0)
-                        {
-                            sReturned.Append(delimiter);
-                            sReturned.Append(target);
-                        }
-                    }
-                    return sReturned.ToString();
+                    if (lastIndex < 1) return string.Empty;
+                    if(currTokenLocation > -1)
+                        return target.Substring(0, currTokenLocation);
+                    return target.Substring(0, lastIndex - 1);
                 }
-                if (sReturned.Length == 0 && first)
-                {
-                    sReturned.Append(target.Substring(0, currTokenLocation));
-                    first = false;
-                }
-                else
-                {
-                    sReturned.Append(delimiter);
-                    sReturned.Append(target.Substring(0, currTokenLocation));
-                }
-                target = target.Substring(currTokenLocation + delimiterLength);
-                tokenNumber -= 1;
+                lastIndex = currTokenLocation + delimiterLength;
             }
             while (true);
         }
@@ -296,7 +270,7 @@ namespace MetX.Library
         /// // x = "this is"
         /// </code>
         /// </example>
-        public static string TokensBefore(this string target, long tokenNumber) { return TokensBefore(target, tokenNumber, " "); }
+        public static string TokensBefore(this string target, long tokenNumber) { return TokensBefore(target, (int) tokenNumber, " "); }
 
         /// <summary>Returns the first delimited token in the indicated string</summary>
         /// <param name="target">The string to target</param>
