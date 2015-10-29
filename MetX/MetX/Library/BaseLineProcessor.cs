@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -7,11 +8,12 @@ using System.Windows.Forms;
 
 namespace MetX.Library
 {
+    
     public abstract class BaseLineProcessor
     {
-        public readonly StringBuilder Output = new StringBuilder();
-        //public List<string> Lines = new List<string>();
-        public StreamReader AllTextStream;
+        public StreamBuilder Output;
+        public StreamReader InputStream;
+        
         public string DestinationFilePath;
         public string InputFilePath;
         //public int LineCount;
@@ -27,14 +29,14 @@ namespace MetX.Library
             switch (inputType.ToLower().Replace(" ", string.Empty))
             {
                 case "none": // This is the equivalent of reading an empty file
-                    AllTextStream = StreamReader.Null;
+                    InputStream = StreamReader.Null;
                     //Lines = new List<string> {string.Empty};
                     //LineCount = 1;
                     return true;    
 
                 case "clipboard":
                     byte[] bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
-                    AllTextStream = new StreamReader(new MemoryStream(bytes));
+                    InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
                 case "databasequery":
@@ -43,7 +45,7 @@ namespace MetX.Library
 
                 case "webaddress":
                     bytes = Encoding.UTF8.GetBytes(IO.HTTP.GetURL(InputFilePath));
-                    AllTextStream = new StreamReader(new MemoryStream(bytes));
+                    InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
                 case "file":
@@ -96,16 +98,17 @@ namespace MetX.Library
                             }
                             excel.Quit();
                             if (string.IsNullOrEmpty(sideFile) || !File.Exists(sideFile)) return false;
-                            AllTextStream = new StreamReader(File.OpenRead(sideFile));
+                            InputStream = new StreamReader(File.OpenRead(sideFile));
                             break;
 
                         default:
-                            AllTextStream = new StreamReader(File.OpenRead(InputFilePath));
+                            Output = new StreamBuilder(DestinationFilePath);
+                            InputStream = new StreamReader(File.OpenRead(InputFilePath));
                             break;
                     }
                     break;
             }
-            if (AllTextStream == StreamReader.Null || AllTextStream.BaseStream.Length < 1 || AllTextStream.EndOfStream)
+            if (InputStream == StreamReader.Null || InputStream.BaseStream.Length < 1 || InputStream.EndOfStream)
             {
                 MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;

@@ -137,12 +137,14 @@ namespace MetX.Controls
                             break;
 
                         case QuickScriptDestination.Notepad:
-                            QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
+                            QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            //QuickScriptWorker.ViewFileInNotepad(runResult.QuickScriptProcessor.Output.FilePath);
+                            //QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
                             break;
 
                         case QuickScriptDestination.File:
-                            File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            //File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             break;
                     }
                 }
@@ -206,7 +208,7 @@ namespace MetX.Controls
             int index = 0;
             do
             {
-                string currLine = result.QuickScriptProcessor.AllTextStream.ReadLine();
+                string currLine = result.QuickScriptProcessor.InputStream.ReadLine();
                 if (string.IsNullOrEmpty(currLine))
                 {
                     continue;
@@ -245,7 +247,7 @@ namespace MetX.Controls
                     return result;
                 }
             }
-            while (!result.QuickScriptProcessor.AllTextStream.EndOfStream);
+            while (!result.QuickScriptProcessor.InputStream.EndOfStream);
             
             try
             {
