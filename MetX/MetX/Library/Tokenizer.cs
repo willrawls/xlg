@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,7 @@ namespace MetX.Library
         /// </returns>
         public static List<string> AllTokens(this string target, string delimiter = " ", StringSplitOptions compare = StringSplitOptions.None)
         {
+
             var result = new List<string>();
             if (string.IsNullOrEmpty(target))
                 result.Add(string.Empty);
@@ -160,7 +162,7 @@ namespace MetX.Library
         /// <returns></returns>
         public static string TokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
-            if (string.IsNullOrEmpty(target)) 
+            if (string.IsNullOrEmpty(target))
                 return string.Empty;
             var leftPart = TokenAt(target, 2, leftDelimiter, compare);
             return TokenAt(leftPart, 1, rightDelimiter, compare);
@@ -239,7 +241,7 @@ namespace MetX.Library
                 index = target.IndexOf(delimiter, index + delimiter.Length, compare);
             }
 
-            if (index > -1 && index < target.Length && found <= token) 
+            if (index > -1 && index < target.Length && found <= token)
                 return index + delimiter.Length;
             // Tokens past a string are the last character of the string
             return target.Length;
@@ -267,8 +269,8 @@ namespace MetX.Library
             if (token == 1) //  Quickly extract the first token
             {
                 index = target.IndexOf(delimiter, compare);
-                return index != -1 
-                    ? target.Substring(index + delimiterLength) 
+                return index != -1
+                    ? target.Substring(index + delimiterLength)
                     : string.Empty;
             }
 
@@ -282,15 +284,18 @@ namespace MetX.Library
             } while (token > 1);
 
             index = target.IndexOf(delimiter, compare);
-            return index > 0 
-                ? target.Substring(index + delimiterLength) 
+            return index > 0
+                ? target.Substring(index + delimiterLength)
                 : string.Empty;
         }
 
         /// <summary>Returns everything after the first delimited token from a string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
-        public static string TokensAfterFirst(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        public static string TokensAfterFirst(this string target, 
+            string delimiter = " ", 
+            StringComparison compare = 
+                StringComparison.OrdinalIgnoreCase)
         {
             return TokensAfter(target, 1, delimiter, compare);
         }
@@ -303,11 +308,11 @@ namespace MetX.Library
         /// <returns></returns>
         public static string TokensAround(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
-            if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(leftDelimiter) || string.IsNullOrEmpty(rightDelimiter)) 
+            if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(leftDelimiter) || string.IsNullOrEmpty(rightDelimiter))
                 return string.Empty;
 
             var leftIndex = target.IndexOf(leftDelimiter, compare);
-            if (leftIndex <= 0) 
+            if (leftIndex <= 0)
                 return TokensBefore(target, 2, leftDelimiter) + TokensAfter(target, 1, rightDelimiter);
 
             var rightIndex = target.IndexOf(rightDelimiter, leftIndex + leftDelimiter.Length, compare);
@@ -338,7 +343,7 @@ namespace MetX.Library
             var index = target.TokenIndex(token, delimiter, compare);
             if (index >= target.Length)
                 return target;
-            if (index > 0) 
+            if (index > 0)
                 return target.Substring(0, index - delimiter.Length);
             return string.Empty;
         }

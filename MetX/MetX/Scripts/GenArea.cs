@@ -17,12 +17,17 @@ namespace MetX.Scripts
             {
                 Lines = lines.LineList();
             }
+            else
+            {
+                Lines = new List<string>();
+            }
         }
 
         public GenArea(string name)
         {
             Name = name;
             Indent = 12;
+            Lines = new List<string>();
         }
     }
 }

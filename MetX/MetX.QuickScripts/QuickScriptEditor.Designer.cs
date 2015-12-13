@@ -47,7 +47,7 @@ namespace XLG.QuickScripts
             this.BrowseDestinationFilePath = new System.Windows.Forms.ToolStripButton();
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
-            this.ScriptEditor = new QuickScriptControl();
+            this.ScriptEditor = new MetX.Controls.QuickScriptControl();
             this.MainStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.QuickScriptList = new System.Windows.Forms.ToolStripComboBox();
@@ -454,7 +454,7 @@ namespace XLG.QuickScripts
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(199, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -463,26 +463,26 @@ namespace XLG.QuickScripts
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveQuickScript_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(199, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -531,7 +531,7 @@ namespace XLG.QuickScripts
             // 
             this.BuildExeMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("BuildExeMenuItem.Image")));
             this.BuildExeMenuItem.Name = "BuildExeMenuItem";
-            this.BuildExeMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.BuildExeMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.BuildExeMenuItem.Size = new System.Drawing.Size(289, 30);
             this.BuildExeMenuItem.Text = "Build command line &executable";
             this.BuildExeMenuItem.Click += new System.EventHandler(this.ViewIndependectGeneratedCode_Click);
@@ -545,9 +545,9 @@ namespace XLG.QuickScripts
             // 
             this.DeleteScriptMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("DeleteScriptMenuItem.Image")));
             this.DeleteScriptMenuItem.Name = "DeleteScriptMenuItem";
-            this.DeleteScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
-                        | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.D)));
+            this.DeleteScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
             this.DeleteScriptMenuItem.Size = new System.Drawing.Size(289, 30);
             this.DeleteScriptMenuItem.Text = "Delete current script";
             this.DeleteScriptMenuItem.Click += new System.EventHandler(this.DeleteScript_Click);
