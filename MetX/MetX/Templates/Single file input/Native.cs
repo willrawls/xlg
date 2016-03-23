@@ -34,6 +34,7 @@ namespace MetX
         public override bool Finish()
         {
 //~~Finish~~//
+            Output.Finish();
             return true;
         }
     }

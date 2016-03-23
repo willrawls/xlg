@@ -17,5 +17,6 @@ namespace MetX.Controls
         public ToolWindow Window { get { return this; } set { } }
 
         public void RunQuickScript(XlgQuickScript currentScript) { RunQuickScript(null, currentScript, null); }
+        public virtual void Progress(int index = -1) { }
     }
 }

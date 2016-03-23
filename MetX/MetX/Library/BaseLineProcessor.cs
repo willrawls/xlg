@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -7,14 +8,15 @@ using System.Windows.Forms;
 
 namespace MetX.Library
 {
+    
     public abstract class BaseLineProcessor
     {
-        public readonly StringBuilder Output = new StringBuilder();
-        public List<string> Lines = new List<string>();
-        public string AllText;
+        public StreamBuilder Output;
+        public StreamReader InputStream;
+        
         public string DestinationFilePath;
         public string InputFilePath;
-        public int LineCount;
+        //public int LineCount;
         public bool OpenNotepad;
 
         public abstract bool Start();
@@ -23,16 +25,18 @@ namespace MetX.Library
 
         public virtual bool? ReadInput(string inputType)
         {
+            
             switch (inputType.ToLower().Replace(" ", string.Empty))
             {
                 case "none": // This is the equivalent of reading an empty file
-                    AllText = string.Empty;
-                    Lines = new List<string> {string.Empty};
-                    LineCount = 1;
+                    InputStream = StreamReader.Null;
+                    //Lines = new List<string> {string.Empty};
+                    //LineCount = 1;
                     return true;    
 
                 case "clipboard":
-                    AllText = Clipboard.GetText();
+                    byte[] bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
+                    InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
                 case "databasequery":
@@ -40,7 +44,8 @@ namespace MetX.Library
                     break;
 
                 case "webaddress":
-                    AllText = IO.HTTP.GetURL(InputFilePath);
+                    bytes = Encoding.UTF8.GetBytes(IO.HTTP.GetURL(InputFilePath));
+                    InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
                 case "file":
@@ -93,21 +98,24 @@ namespace MetX.Library
                             }
                             excel.Quit();
                             if (string.IsNullOrEmpty(sideFile) || !File.Exists(sideFile)) return false;
-                            AllText = File.ReadAllText(sideFile);
+                            InputStream = new StreamReader(File.OpenRead(sideFile));
                             break;
 
                         default:
-                            AllText = File.ReadAllText(InputFilePath);
+                            Output = new StreamBuilder(DestinationFilePath);
+                            InputStream = new StreamReader(File.OpenRead(InputFilePath));
                             break;
                     }
                     break;
             }
-            if (string.IsNullOrEmpty(AllText))
+            if (InputStream == StreamReader.Null || InputStream.BaseStream.Length < 1 || InputStream.EndOfStream)
             {
                 MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;
             }
 
+            
+/*
             // This way supports both windows and linux line endings
             Lines = new List<string>(AllText
                 .Replace("\r", string.Empty)
@@ -120,6 +128,7 @@ namespace MetX.Library
                 return false;
             }
             LineCount = Lines.Count;
+*/
             return true;
         }
 

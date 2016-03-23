@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -101,9 +102,11 @@ namespace MetX.Controls
                     }
                 }
 
-                RunResult runResult = Run(ToolWindow.Context, scriptToRun);
+                RunResult runResult = Run(caller, ToolWindow.Context, scriptToRun);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
+                if (runResult.Error != null)
+                    MessageBox.Show(runResult.Error.ToString());
                 if (!runResult.KeepGoing || runResult.QuickScriptProcessor.Output == null || runResult.QuickScriptProcessor.Output.Length <= 0)
                 {
                     return;
@@ -134,12 +137,14 @@ namespace MetX.Controls
                             break;
 
                         case QuickScriptDestination.Notepad:
-                            QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
+                            QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            //QuickScriptWorker.ViewFileInNotepad(runResult.QuickScriptProcessor.Output.FilePath);
+                            //QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
                             break;
 
                         case QuickScriptDestination.File:
-                            File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            //File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             break;
                     }
                 }
@@ -159,7 +164,7 @@ namespace MetX.Controls
             }
         }
 
-        private static RunResult Run(ContextBase @base, XlgQuickScript scriptToRun)
+        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun)
         {
             RunResult result = new RunResult
             {
@@ -187,6 +192,7 @@ namespace MetX.Controls
                 if (!result.QuickScriptProcessor.Start())
                 {
                     result.StartReturnedFalse = true;
+                    caller.Progress(); 
                     return result;
                 }
             }
@@ -194,39 +200,61 @@ namespace MetX.Controls
             {
                 result.Error = new Exception("Error running Start:" + Environment.NewLine + ex);
                 result.KeepGoing = false;
+                caller.Progress(); 
                 return result;
             }
 
             // Process each line
-            for (int index = 0; index < result.QuickScriptProcessor.Lines.Count; index++)
+            int index = 0;
+            do
             {
-                string currLine = result.QuickScriptProcessor.Lines[index];
+                string currLine = result.QuickScriptProcessor.InputStream.ReadLine();
+                if (string.IsNullOrEmpty(currLine))
+                {
+                    continue;
+                }
+
                 try
                 {
-                    if (!result.QuickScriptProcessor.ProcessLine(currLine, index))
+                    if (result.QuickScriptProcessor.ProcessLine(currLine, index))
                     {
-                        result.ProcessLineReturnedFalse = true;
-                        return result;
+                        if (++index % 100 == 0)
+                        {
+                            caller.Progress(index);
+                        }
+                        continue;
                     }
+                    result.ProcessLineReturnedFalse = true;
+                    caller.Progress(); 
+                    return result;
                 }
                 catch (Exception ex)
                 {
-                    DialogResult answer = MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
-                                                          currLine + Environment.NewLine +
-                                                          Environment.NewLine +
-                                                          ex, "CONTINUE PROCESSING", MessageBoxButtons.YesNo);
-                    if (answer == DialogResult.No)
+                    DialogResult answer =
+                        MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
+                                        currLine + Environment.NewLine +
+                                        Environment.NewLine +
+                                        ex, "CONTINUE PROCESSING", MessageBoxButtons.YesNo);
+                    if (answer != DialogResult.No)
                     {
-                        result.Error = new Exception("Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine, ex);
-                        return result;
+                        continue;
                     }
+
+                    result.Error =
+                        new Exception(
+                            "Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine, ex);
+                    caller.Progress(); 
+                    return result;
                 }
             }
+            while (!result.QuickScriptProcessor.InputStream.EndOfStream);
+            
             try
             {
                 if (!result.QuickScriptProcessor.Finish())
                 {
                     result.FinishReturnedFalse = true;
+                    caller.Progress();
                     return result;
                 }
             }
@@ -235,6 +263,7 @@ namespace MetX.Controls
                 result.Error = new Exception("Error running Finish:" + Environment.NewLine + ex);
             }
             result.KeepGoing = true;
+            caller.Progress(); 
             return result;
         }
 
