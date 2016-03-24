@@ -1,27 +1,33 @@
-﻿using System;
+﻿using MetX.Library;
+using System;
 using System.Xml.Serialization;
-using MetX.Library;
+
+#pragma warning disable 1591
 
 namespace MetX.Techniques
 {
     [Serializable]
     public class PatternWorks
     {
-        [XmlArray(ElementName = "Techniques")]
-        [XmlArrayItem(typeof(Technique), ElementName = "Technique")]
-        public ParticleList<Technique> Techniques;
-
         [XmlArray(ElementName = "Connections")]
         [XmlArrayItem(typeof(Connection), ElementName = "Connection")]
-        public ParticleList<Connection> Connections;
-
-        [XmlArray(ElementName = "Variables")]
-        [XmlArrayItem(typeof(Variable), ElementName = "Variable")]
-        public ParticleList<Variable> Variables;
+        public
+            ParticleList<Connection> Connections;
 
         [XmlArray(ElementName = "Providers")]
         [XmlArrayItem(typeof(Provider), ElementName = "Provider")]
-        public ParticleList<Provider> Providers;
+        public
+            ParticleList<Provider> Providers;
+
+        [XmlArray(ElementName = "Techniques")]
+        [XmlArrayItem(typeof(Technique), ElementName = "Technique")]
+        public
+            ParticleList<Technique> Techniques;
+
+        [XmlArray(ElementName = "Variables")]
+        [XmlArrayItem(typeof(Variable), ElementName = "Variable")]
+        public
+            ParticleList<Variable> Variables;
 
         /*
                 [XmlArray(ElementName = "QuickScriptFiles")]

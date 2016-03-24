@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompletionDataProvider.cs" />
+    <Compile Include="MenuActionType.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IRunQuickScript.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -72,6 +74,9 @@
     </Compile>
     <Compile Include="ScriptRunningWindow.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TechniqueEditorToolStripMenuItem.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="TechniquesEditor.cs">
       <SubType>Form</SubType>
