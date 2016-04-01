@@ -1,0 +1,35 @@
+using System;
+using System.IO;
+using System.Security;
+using MetX.Library;
+
+namespace MetX.Techniques
+{
+    public abstract class SerializeToXml<T>
+        where T : SerializeToXml<T>, new()
+    {
+        public static T FromXml(string xml) { return Xml.FromXml<T>(xml); }
+
+        public static T LoadXmlFromFile(string path) { return Xml.LoadFile<T>(path); }
+
+        public virtual void SaveXmlToFile(string path, bool easyToRead)
+        {
+            T t = (T)this;
+            if (easyToRead)
+            {
+                File.WriteAllText(path, Xml.ToXml(t));
+            }
+            else
+            {
+                Xml.SaveFile(path, t);
+            }
+        }
+
+        public virtual string ToXml()
+        {
+            T t = (T)this;
+            return Xml.ToXml(t);
+        }
+
+    }
+}

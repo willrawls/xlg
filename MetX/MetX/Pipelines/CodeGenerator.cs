@@ -22,8 +22,91 @@ namespace MetX.Pipelines
     /// <summary>Generates Data and xlg specific code</summary>
     public class CodeGenerator
     {
+        /// <summary>The class name to contain the Stored Procedures</summary>
+        public const string spClassName = "SPs";
+
         public static string AppDomainAppPath;
+
+        /// <summary>
+        /// List of all the C# keywords
+        /// </summary>
+        public readonly List<string> CSharpKeywords = new List<string>(new[]
+        {
+            "abstract", "event", "new", "struct", "as", "explicit",
+            "null", "switch", "base", "extern", "object", "this",
+            "bool", "false", "operator", "throw",
+            "break", "finally", "out", "true",
+            "byte", "fixed", "override", "try",
+            "case", "float", "params", "typeof",
+            "catch", "for", "private", "uint",
+            "char", "foreach", "protected", "ulong",
+            "checked", "goto", "public", "unchecked",
+            "class", "if", "readonly", "unsafe",
+            "const", "implicit", "ref", "ushort",
+            "continue", "in", "return", "using",
+            "decimal", "int", "sbyte", "virtual",
+            "default", "interface", "sealed", "volatile",
+            "delegate", "internal", "short", "void",
+            "do", "is", "sizeof", "while",
+            "double", "lock", "stackalloc",
+            "else", "long", "static",
+            "enum", "namespace", "string"
+        });
+
+        public readonly Form Gui;
+        public XmlDocument CodeXmlDocument = null;
+
+        /// <summary>The namespace that should be passed into the XSL</summary>
+        public string Namespace = "xlg";
+
+        public string OutputFolder;
+
+        /// <summary>Set internally (overridden externally) indicating the base vitual directory.</summary>
+        public string VDirName;
+
+        /// <summary>Set externally indicating the path/virtual (sub directory) path to any overriding template(s).</summary>
+        public string VirtualPath;
+
+        /// <summary>Set externally indicating the file of any overriding template(s)</summary>
+        public string VirtualxlgFilePath;
+
+        /// <summary>The Data XML file to generate against</summary>
+        public string xlgDataXml = "*";
+
+        /// <summary>The file containing the XSL to render code against.
+        /// <para>NOTE: This file does not have to exist. If it doesn't the internal XSL rendering C# will be used.</para>
+        /// </summary>
+        public string xlgFilename = "app.xlg.xsl";
+
+        public Guid XlgInstanceID;
         private static string m_FullName;
+
+        private XmlElement m_StoredProceduresToRender;
+
+        private XmlElement m_TablesToRender;
+
+        private string m_UrlExtension;
+
+        private XmlDocument m_XlgDataXmlDoc = new XmlDocument();
+
+        private XmlElement m_XslsToRender;
+
+        /// <summary>Default constructor. Does nothing</summary>
+        public CodeGenerator()
+        {
+            if (m_FullName == null)
+            {
+                m_FullName = Assembly.GetExecutingAssembly().FullName;
+            }
+        }
+
+        /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
+        public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, Form gui)
+            : this()
+        {
+            this.Gui = gui;
+            Initialize(xlgFilePath, xlgXslFilePath, settingsFilePath);
+        }
 
         /// <summary>
         /// Returns an XmlDocument containing a xlgData document with the child elements: Tables, StoredProcedures, and Xsls relative to the list indicated by the supplied include/skip lists.
@@ -90,6 +173,8 @@ namespace MetX.Pipelines
             }
         }
 
+        public string MetXAssemblyString { get { return m_FullName; } }
+
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string GenerateCode()
         {
@@ -102,89 +187,6 @@ namespace MetX.Pipelines
             CodeXmlDocument = DataXml;
             if (CodeXmlDocument == null) return null;
             return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
-        }
-
-        public string MetXAssemblyString { get { return m_FullName; } }
-
-        public XmlDocument CodeXmlDocument = null;
-
-        /// <summary>
-        /// List of all the C# keywords
-        /// </summary>
-        public readonly List<string> CSharpKeywords = new List<string>(new[]
-        {
-            "abstract", "event", "new", "struct", "as", "explicit",
-            "null", "switch", "base", "extern", "object", "this",
-            "bool", "false", "operator", "throw",
-            "break", "finally", "out", "true",
-            "byte", "fixed", "override", "try",
-            "case", "float", "params", "typeof",
-            "catch", "for", "private", "uint",
-            "char", "foreach", "protected", "ulong",
-            "checked", "goto", "public", "unchecked",
-            "class", "if", "readonly", "unsafe",
-            "const", "implicit", "ref", "ushort",
-            "continue", "in", "return", "using",
-            "decimal", "int", "sbyte", "virtual",
-            "default", "interface", "sealed", "volatile",
-            "delegate", "internal", "short", "void",
-            "do", "is", "sizeof", "while",
-            "double", "lock", "stackalloc",
-            "else", "long", "static",
-            "enum", "namespace", "string"
-        });
-
-        public readonly Form Gui;
-
-        /// <summary>The namespace that should be passed into the XSL</summary>
-        public string Namespace = "xlg";
-
-        public string OutputFolder;
-
-        /// <summary>The class name to contain the Stored Procedures</summary>
-        public const string spClassName = "SPs";
-
-        private XmlElement m_StoredProceduresToRender;
-        private XmlElement m_TablesToRender;
-        private string m_UrlExtension;
-
-        /// <summary>Set internally (overridden externally) indicating the base vitual directory.</summary>
-        public string VDirName;
-
-        /// <summary>Set externally indicating the path/virtual (sub directory) path to any overriding template(s).</summary>
-        public string VirtualPath;
-
-        /// <summary>Set externally indicating the file of any overriding template(s)</summary>
-        public string VirtualxlgFilePath;
-
-        /// <summary>The Data XML file to generate against</summary>
-        public string xlgDataXml = "*";
-
-        private XmlDocument m_XlgDataXmlDoc = new XmlDocument();
-
-        /// <summary>The file containing the XSL to render code against.
-        /// <para>NOTE: This file does not have to exist. If it doesn't the internal XSL rendering C# will be used.</para>
-        /// </summary>
-        public string xlgFilename = "app.xlg.xsl";
-
-        public Guid XlgInstanceID;
-        private XmlElement m_XslsToRender;
-
-        /// <summary>Default constructor. Does nothing</summary>
-        public CodeGenerator()
-        {
-            if (m_FullName == null)
-            {
-                m_FullName = Assembly.GetExecutingAssembly().FullName;
-            }
-        }
-
-        /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
-        public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, Form gui)
-            : this()
-        {
-            this.Gui = gui;
-            Initialize(xlgFilePath, xlgXslFilePath, settingsFilePath);
         }
 
         public void Initialize(string xlgFilePath, string xlgXslFilePath, string settingsFilePath)
@@ -254,6 +256,11 @@ namespace MetX.Pipelines
             return ret;
         }
 
+        private string GetxlgPath(string path)
+        {
+            return path.Replace("/xsl/", "/").ToLower();
+        }
+
         private void ParseDataXml()
         {
             m_XlgDataXmlDoc = new XmlDocument();
@@ -295,77 +302,6 @@ namespace MetX.Pipelines
 
             AddElement(m_StoredProceduresToRender, "Exclude", "Name", "sp_*");
             AddElement(m_StoredProceduresToRender, "Exclude", "Name", "dt_*");
-        }
-
-        private string GetxlgPath(string path)
-        {
-            return path.Replace("/xsl/", "/").ToLower();
-        }
-
-        // ReSharper disable once UnusedMethodReturnValue.Local
-        private XmlDocument XslXml(XmlDocument xmlDoc)
-        {
-            string renderPath = m_XslsToRender.GetAttribute("Path");
-            if (renderPath.Length == 0)
-            {
-                renderPath = "~";
-            }
-
-            m_UrlExtension = m_XslsToRender.GetAttribute("UrlExtension");
-            if (string.IsNullOrEmpty(m_UrlExtension))
-            {
-                m_UrlExtension = "aspx";
-            }
-            else if (m_UrlExtension.StartsWith("."))
-            {
-                m_UrlExtension = m_UrlExtension.Substring(1);
-            }
-
-            XmlElement root = xmlDoc.DocumentElement;
-            string path = Helper.VirtualPathToPhysical(renderPath);
-
-            XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
-            AddAttribute(xmlXsls, "VirtualPath", renderPath);
-            AddAttribute(xmlXsls, "xlgPath", GetxlgPath("/" + VDirName));
-            AddAttribute(xmlXsls, "VirtualDir", string.Empty);
-            AddAttribute(xmlXsls, "Path", path);
-            AddAttribute(xmlXsls, "Folder", path.LastToken(@"\"));
-            // ReSharper disable once PossibleNullReferenceException
-            root.AppendChild(xmlXsls);
-
-            XmlNodeList xmlNodeList = m_XslsToRender.SelectNodes("Virtual");
-            if (xmlNodeList != null)
-            {
-                foreach (XmlElement currVirtual in xmlNodeList)
-                {
-                    string xslFile = currVirtual.GetAttribute("Name");
-                    string classname = xslFile.Replace(" ", "_").Replace("/", ".");
-                    XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
-
-                    if (CSharpKeywords.Contains(classname))
-                    {
-                        classname = "_" + classname;
-                    }
-
-                    if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
-                        xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
-                    {
-                        classname += "PageHandler";
-                    }
-
-                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + m_UrlExtension));
-                    AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + m_UrlExtension);
-                    AddAttribute(xmlXsl, "ClassName", classname);
-                    AddAttribute(xmlXsl, "Filepart", xslFile);
-                    AddAttribute(xmlXsl, "IsVirtual", "true");
-
-                    xmlXsls.AppendChild(xmlXsl);
-                }
-            }
-
-            ProcessXslPath(xmlDoc, renderPath, "/" + VDirName.ToLower(), path, xmlXsls);
-
-            return xmlDoc;
         }
 
         private void ProcessXslPath(XmlDocument xmlDoc, string renderPath, string xlgPath, string path, XmlElement parent)
@@ -418,6 +354,88 @@ namespace MetX.Pipelines
             }
         }
 
+        // ReSharper disable once UnusedMethodReturnValue.Local
+        private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
+        {
+            //get the SP list from the DB
+            string[] sPs = DataService.Instance.GetSPList();
+            XmlElement root = xmlDoc.DocumentElement;
+
+            XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
+            AddAttribute(xmlStoredProcedures, "ClassName", spClassName);
+            // ReSharper disable once PossibleNullReferenceException
+            root.AppendChild(xmlStoredProcedures);
+
+            int sprocIndex = 1;
+            foreach (string spName in sPs)
+            {
+                // Make sure there is a stored proc to process
+                //  (is blank when there are no stored procedures in the database)
+                if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(m_StoredProceduresToRender, spName))
+                {
+                    XmlElement xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
+                    AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
+                    AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
+                    AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
+                    //grab the parameters
+                    IDataReader paramReader = DataService.Instance.GetSPParams(spName);
+
+                    XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
+                    xmlStoredProcedure.AppendChild(xmlParameters);
+                    int parameterIndex = 1;
+                    while (paramReader.Read())
+                    {
+                        //loop the params, pulling out the names and dataTypes
+                        XmlElement xmlParameter = xmlDoc.CreateElement("Parameter");
+                        DbType dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString().ToLower());
+                        string paramName = paramReader["Name"].ToString();
+
+                        if (CSharpKeywords.Contains(paramName))
+                        {
+                            paramName = "_" + paramName;
+                        }
+
+                        bool isInput = false, isOutput = false;
+                        switch (paramReader["ParamType"].ToString())
+                        {
+                            case "IN":
+                            case "1":
+                                isInput = true;
+                                break;
+
+                            case "OUT":
+                            case "2":
+                                isOutput = true;
+                                break;
+
+                            case "":
+                                isInput = true;
+                                break;
+
+                            default:
+                                isInput = true;
+                                isOutput = true;
+                                break;
+                        }
+                        AddAttribute(xmlParameter, "DataType", dbType.ToString());
+                        AddAttribute(xmlParameter, "CSharpVariableType", GetCSharpVariableType(dbType));
+                        AddAttribute(xmlParameter, "Location", (parameterIndex++).ToString());
+                        AddAttribute(xmlParameter, "CovertToPart", GetConvertToPart(dbType));
+                        AddAttribute(xmlParameter, "VBVariableType", GetVbVariableType(dbType));
+                        AddAttribute(xmlParameter, "IsDotNetObject", GetIsDotNetObject(dbType).ToString());
+                        AddAttribute(xmlParameter, "ParameterName", paramName);
+                        AddAttribute(xmlParameter, "VariableName", GetProperName(paramName.Replace("@", string.Empty).Replace(" ", string.Empty)));
+                        AddAttribute(xmlParameter, "IsInput", isInput.ToString());
+                        AddAttribute(xmlParameter, "IsOutput", isOutput.ToString());
+                        xmlParameters.AppendChild(xmlParameter);
+                    }
+                    paramReader.Close();
+                    xmlStoredProcedures.AppendChild(xmlStoredProcedure);
+                }
+            }
+            return xmlDoc;
+        }
+
         private XmlDocument TablesXml(XmlDocument xmlDoc)
         {
             XmlElement root = xmlDoc.DocumentElement;
@@ -454,6 +472,7 @@ namespace MetX.Pipelines
 
                             case DialogResult.No:
                                 break;
+
                             case DialogResult.Cancel:
                                 return null;
                         }
@@ -485,7 +504,7 @@ namespace MetX.Pipelines
                     TableSchema.TableColumn col = tbl.Columns[index];
                     XmlElement xmlColumn = xmlDoc.CreateElement("Column");
                     AddAttribute(xmlColumn, "ColumnName", col.ColumnName);
-                    AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field"));
+                    AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field", true));
                     AddAttribute(xmlColumn, "CSharpVariableType", GetCSharpVariableType(col.DataType));
                     AddAttribute(xmlColumn, "Location", (index + 1).ToString());
                     AddAttribute(xmlColumn, "IsDotNetObject", GetIsDotNetObject(col.DataType).ToString());
@@ -569,81 +588,68 @@ namespace MetX.Pipelines
         }
 
         // ReSharper disable once UnusedMethodReturnValue.Local
-        private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
+        private XmlDocument XslXml(XmlDocument xmlDoc)
         {
-            //get the SP list from the DB
-            string[] sPs = DataService.Instance.GetSPList();
-            XmlElement root = xmlDoc.DocumentElement;
-
-            XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
-            AddAttribute(xmlStoredProcedures, "ClassName", spClassName);
-            // ReSharper disable once PossibleNullReferenceException
-            root.AppendChild(xmlStoredProcedures);
-
-            int sprocIndex = 1;
-            foreach (string spName in sPs)
+            string renderPath = m_XslsToRender.GetAttribute("Path");
+            if (renderPath.Length == 0)
             {
-                // Make sure there is a stored proc to process
-                //  (is blank when there are no stored procedures in the database)
-                if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(m_StoredProceduresToRender, spName))
+                renderPath = "~";
+            }
+
+            m_UrlExtension = m_XslsToRender.GetAttribute("UrlExtension");
+            if (string.IsNullOrEmpty(m_UrlExtension))
+            {
+                m_UrlExtension = "aspx";
+            }
+            else if (m_UrlExtension.StartsWith("."))
+            {
+                m_UrlExtension = m_UrlExtension.Substring(1);
+            }
+
+            XmlElement root = xmlDoc.DocumentElement;
+            string path = Helper.VirtualPathToPhysical(renderPath);
+
+            XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
+            AddAttribute(xmlXsls, "VirtualPath", renderPath);
+            AddAttribute(xmlXsls, "xlgPath", GetxlgPath("/" + VDirName));
+            AddAttribute(xmlXsls, "VirtualDir", string.Empty);
+            AddAttribute(xmlXsls, "Path", path);
+            AddAttribute(xmlXsls, "Folder", path.LastToken(@"\"));
+            // ReSharper disable once PossibleNullReferenceException
+            root.AppendChild(xmlXsls);
+
+            XmlNodeList xmlNodeList = m_XslsToRender.SelectNodes("Virtual");
+            if (xmlNodeList != null)
+            {
+                foreach (XmlElement currVirtual in xmlNodeList)
                 {
-                    XmlElement xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
-                    AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
-                    AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
-                    AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
-                    //grab the parameters
-                    IDataReader paramReader = DataService.Instance.GetSPParams(spName);
+                    string xslFile = currVirtual.GetAttribute("Name");
+                    string classname = xslFile.Replace(" ", "_").Replace("/", ".");
+                    XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
 
-                    XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
-                    xmlStoredProcedure.AppendChild(xmlParameters);
-                    int parameterIndex = 1;
-                    while (paramReader.Read())
+                    if (CSharpKeywords.Contains(classname))
                     {
-                        //loop the params, pulling out the names and dataTypes
-                        XmlElement xmlParameter = xmlDoc.CreateElement("Parameter");
-                        DbType dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString().ToLower());
-                        string paramName = paramReader["Name"].ToString();
-
-                        if (CSharpKeywords.Contains(paramName))
-                        {
-                            paramName = "_" + paramName;
-                        }
-
-                        bool isInput = false, isOutput = false;
-                        switch (paramReader["ParamType"].ToString())
-                        {
-                            case "IN":
-                            case "1":
-                                isInput = true;
-                                break;
-                            case "OUT":
-                            case "2":
-                                isOutput = true;
-                                break;
-                            case "":
-                                isInput = true;
-                                break;
-                            default:
-                                isInput = true;
-                                isOutput = true;
-                                break;
-                        }
-                        AddAttribute(xmlParameter, "DataType", dbType.ToString());
-                        AddAttribute(xmlParameter, "CSharpVariableType", GetCSharpVariableType(dbType));
-                        AddAttribute(xmlParameter, "Location", (parameterIndex++).ToString());
-                        AddAttribute(xmlParameter, "CovertToPart", GetConvertToPart(dbType));
-                        AddAttribute(xmlParameter, "VBVariableType", GetVbVariableType(dbType));
-                        AddAttribute(xmlParameter, "IsDotNetObject", GetIsDotNetObject(dbType).ToString());
-                        AddAttribute(xmlParameter, "ParameterName", paramName);
-                        AddAttribute(xmlParameter, "VariableName", GetProperName(paramName.Replace("@", string.Empty).Replace(" ", string.Empty)));
-                        AddAttribute(xmlParameter, "IsInput", isInput.ToString());
-                        AddAttribute(xmlParameter, "IsOutput", isOutput.ToString());
-                        xmlParameters.AppendChild(xmlParameter);
+                        classname = "_" + classname;
                     }
-                    paramReader.Close();
-                    xmlStoredProcedures.AppendChild(xmlStoredProcedure);
+
+                    if (xmlDoc.SelectSingleNode("/*/Tables/Table[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null ||
+                        xmlDoc.SelectSingleNode("/*/StoredProcedures[@ClassName=\"" + Xml.AttributeEncode(classname) + "\"]") != null)
+                    {
+                        classname += "PageHandler";
+                    }
+
+                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + m_UrlExtension));
+                    AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + m_UrlExtension);
+                    AddAttribute(xmlXsl, "ClassName", classname);
+                    AddAttribute(xmlXsl, "Filepart", xslFile);
+                    AddAttribute(xmlXsl, "IsVirtual", "true");
+
+                    xmlXsls.AppendChild(xmlXsl);
                 }
             }
+
+            ProcessXslPath(xmlDoc, renderPath, "/" + VDirName.ToLower(), path, xmlXsls);
+
             return xmlDoc;
         }
 
@@ -673,41 +679,6 @@ namespace MetX.Pipelines
         /// </summary>
         public static class Helper
         {
-            /// <summary>Load a file from the virtual file system</summary>
-            /// <param name="virtualFilename">The virtual path and file to load</param>
-            /// <returns>The contents of the virtual file</returns>
-            public static string GetVirtualFile(string virtualFilename)
-            {
-                try
-                {
-                    if (File.Exists(virtualFilename))
-                    {
-                        return FileSystem.FileToString(virtualFilename);
-                    }
-                    else
-                    {
-                        using (Stream inFile = VirtualPathProvider.OpenFile(virtualFilename))
-                        {
-                            StreamReader rdr = new StreamReader(inFile);
-                            string contents = rdr.ReadToEnd();
-                            rdr.Close();
-                            rdr.Dispose();
-                            return contents;
-                        }
-                    }
-                }
-                catch
-                {
-                    // ignored
-                }
-                return null;
-            }
-
-            /// <summary>Attemptes to convert a virtual path into a physical one. Physical path is not guarenteed to exist.</summary>
-            /// <param name="virtualPath">The virtual path to map</param>
-            /// <returns>The physical file system path represented by VirtualPath</returns>
-            public static string VirtualPathToPhysical(string virtualPath) { return virtualPath.Replace("/", @"\").Replace("~", AppDomainAppPath).Replace(@"\\", @"\"); }
-
             /// <summary>Performs a simple XSL transformation on a XmlDocument object</summary>
             /// <param name="xmlDoc">The XmlDocument to convert</param>
             /// <param name="sXsl">The XSLT contents to use in the conversion.</param>
@@ -744,124 +715,52 @@ namespace MetX.Pipelines
                 }
                 return sOut;
             }
+
+            /// <summary>Load a file from the virtual file system</summary>
+            /// <param name="virtualFilename">The virtual path and file to load</param>
+            /// <returns>The contents of the virtual file</returns>
+            public static string GetVirtualFile(string virtualFilename)
+            {
+                try
+                {
+                    if (File.Exists(virtualFilename))
+                    {
+                        return FileSystem.FileToString(virtualFilename);
+                    }
+                    else
+                    {
+                        using (Stream inFile = VirtualPathProvider.OpenFile(virtualFilename))
+                        {
+                            StreamReader rdr = new StreamReader(inFile);
+                            string contents = rdr.ReadToEnd();
+                            rdr.Close();
+                            rdr.Dispose();
+                            return contents;
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignored
+                }
+                return null;
+            }
+
+            /// <summary>Attemptes to convert a virtual path into a physical one. Physical path is not guarenteed to exist.</summary>
+            /// <param name="virtualPath">The virtual path to map</param>
+            /// <returns>The physical file system path represented by VirtualPath</returns>
+            public static string VirtualPathToPhysical(string virtualPath) { return virtualPath.Replace("/", @"\").Replace("~", AppDomainAppPath).Replace(@"\\", @"\"); }
         }
 
         #endregion "Helper Functions"
 
         #region "Support Functions"
 
-        private bool IsInList(string tableName) { return tableName != "dtproperties" && IsIncluded(m_TablesToRender, tableName); }
-
-        private bool IsExcluded(XmlElement toCheck, string toFind)
-        {
-            bool ret = false;
-            if (toCheck != null)
-            {
-                if (toFind.EndsWith("*"))
-                {
-                    toFind = toFind.Substring(0, toFind.Length - 1);
-                    ret = (toCheck.SelectSingleNode(
-                        "Exclude[@Name='*" +
-                        "' or starts-with(@Name,'" + toFind +
-                        "') or starts-with(@Name,'" + Path.GetFileName(toFind) +
-                        "') or starts-with(@Name,'" + Path.GetFileNameWithoutExtension(toFind) + "')]") != null);
-                }
-                else
-                {
-                    if (toCheck.SelectSingleNode("Include[@Name='" + toFind + "']") != null)
-                    {
-                        // Specifically included
-                        // ReSharper disable once RedundantAssignment
-                        ret = false;
-                    }
-                    else
-                    {
-                        ret = (toCheck.SelectSingleNode(
-                            "Exclude[@Name='*" +
-                            "' or @Name='" + toFind +
-                            "' or @Name='" + Path.GetFileName(toFind) +
-                            "' or @Name='" + Path.GetFileNameWithoutExtension(toFind) + "']") != null);
-                    }
-                }
-            }
-            return ret;
-        }
+        // Anytime a database column is named any of these words, it causes a code issue.
+        //  Make sure a suffix is added to property names in these cases
+        private static readonly List<string> m_TypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
 
         private readonly Dictionary<string, Regex> m_Patterns = new Dictionary<string, Regex>();
-
-        private bool IsIncluded(XmlElement toCheck, string toFind)
-        {
-            if (toCheck.ChildNodes.Count == 0)
-            {
-                return true;
-            }
-            if (IsExcluded(toCheck, toFind))
-            {
-                return false;
-            }
-            if (toCheck.SelectSingleNode("Include[@Name=\"*\"]") != null)
-            {
-                return true;
-            }
-
-            XmlNodeList xmlNodeList = toCheck.SelectNodes("Include");
-            if (xmlNodeList == null)
-            {
-                return false;
-            }
-
-            foreach (XmlElement includer in xmlNodeList)
-            {
-                XmlAttribute name = includer.Attributes["Name"];
-                Regex regex;
-                if (!m_Patterns.ContainsKey(name.Value))
-                {
-                    string pattern = Worker.ConvertWildcardToRegex(name.Value);
-                    regex = new Regex(pattern, RegexOptions.Compiled);
-                    m_Patterns.Add(name.Value, regex);
-                }
-                else
-                {
-                    regex = m_Patterns[name.Value];
-                }
-                if (regex != null)
-                {
-                    return regex.IsMatch(toFind);
-                }
-            }
-            return false;
-            //if(ToFind.EndsWith("*"))
-            //    return ToCheck.SelectSingleNode("Include[starts-with(@Name,\"" + ToFind.Substring(0,ToFind.Length - 1) + "\")]") != null;
-            //if (!ToFind.Contains("*"))
-            //    return ToCheck.SelectSingleNode("Include[@Name=\"" + ToFind + "\"]") != null;
-
-            //int starIndex = ToFind.IndexOf("*", StringComparison.Ordinal);
-            //XmlNodeList parts = ToCheck.SelectNodes("Include[starts-with(@Name,\"" + ToFind.Substring(0, starIndex - 1) + "\")]");
-            //if (parts == null || parts.Count == 0)
-            //    return false;
-            //foreach (XmlNode part in parts)
-            //{
-            //    if (part.Attributes == null) { continue; }
-            //    XmlAttribute name = part.Attributes["Name"];
-            //    if (name == null) { continue; }
-            //    if (name.Value.EndsWith(ToFind.Substring(starIndex + 1)))
-            //        return true;
-            //}
-            //return ToCheck.SelectSingleNode("Include[@Name=\"" + ToFind + "\"]") != null;
-        }
-
-        private bool IsAuditField(string colName)
-        {
-            bool bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
-            return bOut;
-        }
-
-        //bool isEnum(string tableName)
-        //{
-        //    if (tableName.ToLower().EndsWith("type") || tableName.ToLower().EndsWith("status"))
-        //        return true;
-        //    return false;
-        //}
 
         /// <summary>Translates a table name into a CLSCompliant class name</summary>
         /// <param name="tableName">The name of the table, stored procedure, etc to translate</param>
@@ -886,200 +785,63 @@ namespace MetX.Pipelines
             return className;
         }
 
-        public static string UnderscoreToCamelcase(string toConvert)
-        {
-            if (toConvert != null && toConvert.Length > 1)
-            {
-                toConvert = toConvert.Replace("$", "_");
-                toConvert = toConvert.Replace("#", "_");
-                toConvert = toConvert.Replace("!", "_");
-                toConvert = toConvert.Replace("@", "_");
-                toConvert = toConvert.Replace("%", "_");
-                toConvert = toConvert.Replace("^", "_");
-                toConvert = toConvert.Replace("&", "_");
-                toConvert = toConvert.Replace("*", "_");
-                toConvert = toConvert.Replace("(", "_");
-                toConvert = toConvert.Replace(")", "_");
-
-                if (toConvert.ToLower().StartsWith("tb"))
-                {
-                    toConvert = toConvert.Substring(2);
-                }
-
-                toConvert = toConvert.Substring(0, 1).ToUpper() + toConvert.Substring(1, toConvert.Length - 1);
-
-                toConvert = toConvert.Replace("____", "_")
-                                     .Replace("___", "_")
-                                     .Replace("__", "_")
-                                     .Replace("__", "_")
-                                     .Replace("__", "_");
-
-                while (toConvert.IndexOf("_", StringComparison.Ordinal) > -1)
-                {
-                    string af = toConvert.TokensAfter(1, "_");
-                    if (af.Length > 0)
-                    {
-                        af = af[0].ToString().ToUpper() + af.Substring(1);
-                        toConvert = toConvert.FirstToken("_") + af;
-                    }
-                    else
-                    {
-                        toConvert = toConvert.FirstToken("_");
-                    }
-                }
-                if (toConvert == "Type")
-                {
-                    toConvert = "TypeTable";
-                }
-                if (toConvert[0] >= '0' && toConvert[0] <= '9')
-                {
-                    toConvert = "_" + toConvert;
-                }
-            }
-            return toConvert;
-        }
-
-        /// <summary>Simplified way of adding an XmlElement to a XmlDocument</summary>
-        /// <param name="target">The XmlDocment to add the Element onto</param>
-        /// <param name="elementName">The node name of the element</param>
-        /// <param name="attributeName">Name of an attribute to add</param>
-        /// <param name="attributeValue">Value of the attribute</param>
-        /// <returns>The XmlElement added</returns>
-        public void AddElement(XmlElement target, string elementName, string attributeName, string attributeValue)
-        {
-            if (target == null)
-            {
-                return;
-            }
-            // ReSharper disable once PossibleNullReferenceException
-            XmlElement x = target.OwnerDocument.CreateElement(elementName);
-            AddAttribute(x, attributeName, attributeValue);
-            target.AppendChild(x);
-        }
-
-        /// <summary>Simplified way of adding an attribute to a XmlElement</summary>
-        /// <param name="target">The XmlElement to add the attribute to</param>
-        /// <param name="attributeName">The name of the attribute to add</param>
-        /// <param name="attributeValue">The value of the attribute to add</param>
-        public void AddAttribute(XmlElement target, string attributeName, string attributeValue)
-        {
-            if (target == null)
-            {
-                return;
-            }
-            if (target.OwnerDocument != null)
-            {
-                XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
-                ret.Value = attributeValue;
-                target.Attributes.Append(ret);
-            }
-        }
-
-        // Anytime a database column is named any of these words, it causes a code issue.
-        //  Make sure a suffix is added to property names in these cases
-        private static readonly List<string> m_TypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
-
-        /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
-        /// <returns>The proper case translation</returns>
-        public static string GetProperName(string tableName, string fieldName, string suffix)
-        {
-            if (fieldName != null && fieldName.Length > 1)
-            {
-                string propertyName = UnderscoreToCamelcase(fieldName);
-                string cleanTableName = UnderscoreToCamelcase(tableName);
-                string classTableName = GetClassName(tableName);
-
-                if (propertyName.EndsWith("TypeCode"))
-                {
-                    propertyName = propertyName.Substring(0, propertyName.Length - 4);
-                }
-                if (tableName == fieldName || tableName == propertyName || cleanTableName == fieldName || cleanTableName == propertyName || propertyName == "TableName"
-                    || m_TypeNames.Contains(propertyName.ToLower()))
-                {
-                    propertyName += suffix;
-                }
-                else if (classTableName == fieldName || classTableName == propertyName || m_TypeNames.Contains(classTableName.ToLower()))
-                {
-                    propertyName += suffix;
-                }
-                return propertyName;
-            }
-            return fieldName;
-        }
-
-        /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
-        /// <returns>The proper case translation</returns>
-        public static string GetProperName(string fieldName)
-        {
-            if (fieldName != null && fieldName.Length > 1)
-            {
-                string propertyName = UnderscoreToCamelcase(fieldName);
-                if (propertyName.EndsWith("TypeCode"))
-                {
-                    propertyName = propertyName.Substring(0, propertyName.Length - 4);
-                }
-                return propertyName;
-            }
-            return fieldName;
-        }
-
-        /// <summary>Translates a DbType into the VB.NET equivalent type (so "Currency" becomes "Decimal")</summary>
+        /// <summary>Translates a DbType into the .net equivalent type to convert another value to (so "Currency" becomes "Convert.ToCurrency")</summary>
         /// <param name="dbType">The DbType to convert</param>
-        /// <returns>The VB.NET type string</returns>
-        public static string GetVbVariableType(DbType dbType)
+        /// <returns>The portion of code necessary to convert another value to the same type as this</returns>
+        public static string GetConvertToPart(DbType dbType)
         {
             switch (dbType)
             {
                 case DbType.AnsiString:
-                    return "String";
+                    return "Worker.AsString";
                 case DbType.AnsiStringFixedLength:
-                    return "String";
+                    return "Worker.AsString";
                 case DbType.Binary:
-                    return "Byte()";
+                    return "Worker.nzByteArray";
                 case DbType.Boolean:
-                    return "Bool";
+                    return "Worker.nzBoolean";
                 case DbType.Byte:
-                    return "Byte";
+                    return "Worker.nzByte";
                 case DbType.Currency:
-                    return "Decimal";
+                    return "Worker.nzDecimal";
                 case DbType.Date:
-                    return "DateTime";
+                    return "Worker.nzDateTime";
                 case DbType.DateTime:
-                    return "DateTime";
+                    return "Worker.nzDateTime";
                 case DbType.Decimal:
-                    return "Decimal";
+                    return "Worker.nzDecimal";
                 case DbType.Double:
-                    return "Double";
+                    return "Worker.nzDouble";
                 case DbType.Guid:
-                    return "Guid";
+                    return "Worker.nzGuid";
                 case DbType.Int16:
-                    return "Short";
+                    return "Worker.nzShort";
                 case DbType.Int32:
-                    return "Int";
+                    return "Worker.nzInteger";
                 case DbType.Int64:
-                    return "Long";
+                    return "Worker.nzLong";
                 case DbType.Object:
-                    return "Object";
+                    return string.Empty;
                 case DbType.SByte:
-                    return "sbyte";
+                    return "Worker.nzSByte";
                 case DbType.Single:
-                    return "Float";
+                    return "Worker.nzFloat";
                 case DbType.String:
-                    return "String";
+                    return "Worker.AsString";
                 case DbType.StringFixedLength:
-                    return "String";
+                    return "Worker.AsString";
                 case DbType.Time:
-                    return "TimeSpan";
+                    return "Worker.nzTimeSpan";
                 case DbType.UInt16:
-                    return "UShort";
+                    return "Worker.nzUShort";
                 case DbType.UInt32:
-                    return "UInt";
+                    return "Worker.nzUInt";
                 case DbType.UInt64:
-                    return "ULong";
+                    return "Worker.nzULong";
                 case DbType.VarNumeric:
-                    return "decimal";
+                    return "Worker.nzDecimal";
                 default:
-                    return "String";
+                    return "Worker.AsString";
             }
         }
 
@@ -1188,64 +950,296 @@ namespace MetX.Pipelines
             return true;
         }
 
-        /// <summary>Translates a DbType into the .net equivalent type to convert another value to (so "Currency" becomes "Convert.ToCurrency")</summary>
+        /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
+        /// <returns>The proper case translation</returns>
+        public static string GetProperName(string tableName, string fieldName, string suffix, bool keepUnderscores = false)
+        {
+            if (fieldName != null && fieldName.Length > 1)
+            {
+                string propertyName = UnderscoreToCamelcase(fieldName, keepUnderscores);
+                string cleanTableName = UnderscoreToCamelcase(tableName, keepUnderscores);
+                string classTableName = GetClassName(tableName);
+
+                if (propertyName.EndsWith("TypeCode"))
+                {
+                    propertyName = propertyName.Substring(0, propertyName.Length - 4);
+                }
+                if (tableName == fieldName || tableName == propertyName || cleanTableName == fieldName || cleanTableName == propertyName || propertyName == "TableName"
+                    || m_TypeNames.Contains(propertyName.ToLower()))
+                {
+                    propertyName += suffix;
+                }
+                else if (classTableName == fieldName || classTableName == propertyName || m_TypeNames.Contains(classTableName.ToLower()))
+                {
+                    propertyName += suffix;
+                }
+                return propertyName;
+            }
+            return fieldName;
+        }
+
+        /// <summary>Generates a proper case representation of a string (so "fred" becomes "Fred")</summary>
+        /// <returns>The proper case translation</returns>
+        public static string GetProperName(string fieldName)
+        {
+            if (fieldName != null && fieldName.Length > 1)
+            {
+                string propertyName = UnderscoreToCamelcase(fieldName);
+                if (propertyName.EndsWith("TypeCode"))
+                {
+                    propertyName = propertyName.Substring(0, propertyName.Length - 4);
+                }
+                return propertyName;
+            }
+            return fieldName;
+        }
+
+        /// <summary>Translates a DbType into the VB.NET equivalent type (so "Currency" becomes "Decimal")</summary>
         /// <param name="dbType">The DbType to convert</param>
-        /// <returns>The portion of code necessary to convert another value to the same type as this</returns>
-        public static string GetConvertToPart(DbType dbType)
+        /// <returns>The VB.NET type string</returns>
+        public static string GetVbVariableType(DbType dbType)
         {
             switch (dbType)
             {
                 case DbType.AnsiString:
-                    return "Worker.AsString";
+                    return "String";
                 case DbType.AnsiStringFixedLength:
-                    return "Worker.AsString";
+                    return "String";
                 case DbType.Binary:
-                    return "Worker.nzByteArray";
+                    return "Byte()";
                 case DbType.Boolean:
-                    return "Worker.nzBoolean";
+                    return "Bool";
                 case DbType.Byte:
-                    return "Worker.nzByte";
+                    return "Byte";
                 case DbType.Currency:
-                    return "Worker.nzDecimal";
+                    return "Decimal";
                 case DbType.Date:
-                    return "Worker.nzDateTime";
+                    return "DateTime";
                 case DbType.DateTime:
-                    return "Worker.nzDateTime";
+                    return "DateTime";
                 case DbType.Decimal:
-                    return "Worker.nzDecimal";
+                    return "Decimal";
                 case DbType.Double:
-                    return "Worker.nzDouble";
+                    return "Double";
                 case DbType.Guid:
-                    return "Worker.nzGuid";
+                    return "Guid";
                 case DbType.Int16:
-                    return "Worker.nzShort";
+                    return "Short";
                 case DbType.Int32:
-                    return "Worker.nzInteger";
+                    return "Int";
                 case DbType.Int64:
-                    return "Worker.nzLong";
+                    return "Long";
                 case DbType.Object:
-                    return string.Empty;
+                    return "Object";
                 case DbType.SByte:
-                    return "Worker.nzSByte";
+                    return "sbyte";
                 case DbType.Single:
-                    return "Worker.nzFloat";
+                    return "Float";
                 case DbType.String:
-                    return "Worker.AsString";
+                    return "String";
                 case DbType.StringFixedLength:
-                    return "Worker.AsString";
+                    return "String";
                 case DbType.Time:
-                    return "Worker.nzTimeSpan";
+                    return "TimeSpan";
                 case DbType.UInt16:
-                    return "Worker.nzUShort";
+                    return "UShort";
                 case DbType.UInt32:
-                    return "Worker.nzUInt";
+                    return "UInt";
                 case DbType.UInt64:
-                    return "Worker.nzULong";
+                    return "ULong";
                 case DbType.VarNumeric:
-                    return "Worker.nzDecimal";
+                    return "decimal";
                 default:
-                    return "Worker.AsString";
+                    return "String";
             }
+        }
+
+        public static string UnderscoreToCamelcase(string toConvert, bool keepUnderscores = false)
+        {
+            if (toConvert != null && toConvert.Length > 1)
+            {
+                if (keepUnderscores)
+                {
+                    toConvert = toConvert.Replace("_", "~~~~");
+                }
+
+                toConvert = toConvert.Replace("$", "_");
+                toConvert = toConvert.Replace("#", "_");
+                toConvert = toConvert.Replace("!", "_");
+                toConvert = toConvert.Replace("@", "_");
+                toConvert = toConvert.Replace("%", "_");
+                toConvert = toConvert.Replace("^", "_");
+                toConvert = toConvert.Replace("&", "_");
+                toConvert = toConvert.Replace("*", "_");
+                toConvert = toConvert.Replace("(", "_");
+                toConvert = toConvert.Replace(")", "_");
+
+                if (toConvert.ToLower().StartsWith("tb"))
+                {
+                    toConvert = toConvert.Substring(2);
+                }
+
+                toConvert = toConvert.Substring(0, 1).ToUpper() + toConvert.Substring(1, toConvert.Length - 1);
+
+                toConvert = toConvert.Replace("____", "_")
+                                     .Replace("___", "_")
+                                     .Replace("__", "_")
+                                     .Replace("__", "_")
+                                     .Replace("__", "_");
+
+                while (toConvert.IndexOf("_", StringComparison.Ordinal) > -1)
+                {
+                    string af = toConvert.TokensAfter(1, "_");
+                    if (af.Length > 0)
+                    {
+                        af = af[0].ToString().ToUpper() + af.Substring(1);
+                        toConvert = toConvert.FirstToken("_") + af;
+                    }
+                    else
+                    {
+                        toConvert = toConvert.FirstToken("_");
+                    }
+                }
+                if (toConvert == "Type")
+                {
+                    toConvert = "TypeTable";
+                }
+                if (toConvert[0] >= '0' && toConvert[0] <= '9')
+                {
+                    toConvert = "_" + toConvert;
+                }
+
+                if (keepUnderscores)
+                {
+                    toConvert = toConvert.Replace("~~~~", "_");
+                }
+            }
+            return toConvert;
+        }
+
+        /// <summary>Simplified way of adding an attribute to a XmlElement</summary>
+        /// <param name="target">The XmlElement to add the attribute to</param>
+        /// <param name="attributeName">The name of the attribute to add</param>
+        /// <param name="attributeValue">The value of the attribute to add</param>
+        public void AddAttribute(XmlElement target, string attributeName, string attributeValue)
+        {
+            if (target == null)
+            {
+                return;
+            }
+            if (target.OwnerDocument != null)
+            {
+                XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
+                ret.Value = attributeValue;
+                target.Attributes.Append(ret);
+            }
+        }
+
+        /// <summary>Simplified way of adding an XmlElement to a XmlDocument</summary>
+        /// <param name="target">The XmlDocment to add the Element onto</param>
+        /// <param name="elementName">The node name of the element</param>
+        /// <param name="attributeName">Name of an attribute to add</param>
+        /// <param name="attributeValue">Value of the attribute</param>
+        /// <returns>The XmlElement added</returns>
+        public void AddElement(XmlElement target, string elementName, string attributeName, string attributeValue)
+        {
+            if (target == null)
+            {
+                return;
+            }
+            // ReSharper disable once PossibleNullReferenceException
+            XmlElement x = target.OwnerDocument.CreateElement(elementName);
+            AddAttribute(x, attributeName, attributeValue);
+            target.AppendChild(x);
+        }
+
+        private bool IsAuditField(string colName)
+        {
+            bool bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
+            return bOut;
+        }
+
+        private bool IsExcluded(XmlElement toCheck, string toFind)
+        {
+            bool ret = false;
+            if (toCheck != null)
+            {
+                if (toFind.EndsWith("*"))
+                {
+                    toFind = toFind.Substring(0, toFind.Length - 1);
+                    ret = (toCheck.SelectSingleNode(
+                        "Exclude[@Name='*" +
+                        "' or starts-with(@Name,'" + toFind +
+                        "') or starts-with(@Name,'" + Path.GetFileName(toFind) +
+                        "') or starts-with(@Name,'" + Path.GetFileNameWithoutExtension(toFind) + "')]") != null);
+                }
+                else
+                {
+                    if (toCheck.SelectSingleNode("Include[@Name='" + toFind + "']") != null)
+                    {
+                        // Specifically included
+                        // ReSharper disable once RedundantAssignment
+                        ret = false;
+                    }
+                    else
+                    {
+                        ret = (toCheck.SelectSingleNode(
+                            "Exclude[@Name='*" +
+                            "' or @Name='" + toFind +
+                            "' or @Name='" + Path.GetFileName(toFind) +
+                            "' or @Name='" + Path.GetFileNameWithoutExtension(toFind) + "']") != null);
+                    }
+                }
+            }
+            return ret;
+        }
+
+        private bool IsIncluded(XmlElement toCheck, string toFind)
+        {
+            if (toCheck.ChildNodes.Count == 0)
+            {
+                return true;
+            }
+            if (IsExcluded(toCheck, toFind))
+            {
+                return false;
+            }
+            if (toCheck.SelectSingleNode("Include[@Name=\"*\"]") != null)
+            {
+                return true;
+            }
+
+            XmlNodeList xmlNodeList = toCheck.SelectNodes("Include");
+            if (xmlNodeList == null)
+            {
+                return false;
+            }
+
+            foreach (XmlElement includer in xmlNodeList)
+            {
+                XmlAttribute name = includer.Attributes["Name"];
+                Regex regex;
+                if (!m_Patterns.ContainsKey(name.Value))
+                {
+                    string pattern = Worker.ConvertWildcardToRegex(name.Value);
+                    regex = new Regex(pattern, RegexOptions.Compiled);
+                    m_Patterns.Add(name.Value, regex);
+                }
+                else
+                {
+                    regex = m_Patterns[name.Value];
+                }
+                if (regex != null)
+                {
+                    return regex.IsMatch(toFind);
+                }
+            }
+            return false;
+        }
+
+        private bool IsInList(string tableName)
+        {
+            return tableName != "dtproperties" && IsIncluded(m_TablesToRender, tableName);
         }
 
         #endregion "Support Functions"

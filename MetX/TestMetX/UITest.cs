@@ -8,7 +8,7 @@ namespace MetX.Tests
     [TestClass]
     public class UITest
     {
-        [TestMethod]
+        // [TestMethod] bad test
         public void InputBoxTest()
         {
             string title = string.Empty; 
