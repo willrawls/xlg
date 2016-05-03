@@ -6,11 +6,20 @@ namespace MetX.Controls
 {
     public static class Extensions
     {
-        public static TreeNode BuildTreeNode(this MenuActionType actionType, string text, TreeNode[] children = null)
+        public static IEnumerable<ToolStripItem> BasicFileActions(this MenuActionType actionType)
         {
-            var ret = children == null ? new TreeNode(text) : new TreeNode(text, children);
-            ret.ContextMenuStrip = BuildContextMenu(actionType, text);
-            return ret;
+            return BuildActionMenuItems(actionType,
+                new[] { "Add new file", "Add existing file", "Duplicate", "Remove" });
+        }
+
+        public static IEnumerable<ToolStripItem> BasicItemActions(this MenuActionType actionType)
+        {
+            return BuildActionMenuItems(actionType, new[] { "New item", "Add", "Copy", "Remove" });
+        }
+
+        public static IEnumerable<ToolStripItem> BuildActionMenuItems(this MenuActionType actionType, string[] names)
+        {
+            return names.Select(item => new TechniqueEditorToolStripMenuItem(actionType, item));
         }
 
         public static ContextMenuStrip BuildContextMenu(this MenuActionType actionType, string name)
@@ -57,20 +66,6 @@ namespace MetX.Controls
             return ret;
         }
 
-        public static IEnumerable<ToolStripItem> BasicFileActions(this MenuActionType actionType)
-            => BuildActionMenuItems(actionType, new[] { "Add new file", "Add existing file", "Duplicate", "Remove" });
-
-        public static IEnumerable<ToolStripItem> BasicItemActions(this MenuActionType actionType)
-            => BuildActionMenuItems(actionType, new[] { "New item", "Add", "Copy", "Remove" });
-
-        public static IEnumerable<ToolStripItem> ProviderActions(this MenuActionType actionType)
-            => BuildActionMenuItems(actionType, new[] { "Add", "Remove", "Test" });
-
-        public static IEnumerable<ToolStripItem> BuildActionMenuItems(this MenuActionType actionType, string[] names)
-        {
-            return names.Select(item => new TechniqueEditorToolStripMenuItem(actionType, item));
-        }
-
         public static ContextMenuStrip BuildContextMenu(string name, List<ToolStripItem> items = null)
         {
             var ret = new ContextMenuStrip
@@ -84,6 +79,18 @@ namespace MetX.Controls
             }
             ret.Items.AddRange(items.ToArray());
             return ret;
+        }
+
+        public static TreeNode BuildTreeNode(this MenuActionType actionType, string text, TreeNode[] children = null)
+        {
+            var ret = children == null ? new TreeNode(text) : new TreeNode(text, children);
+            ret.ContextMenuStrip = BuildContextMenu(actionType, text);
+            return ret;
+        }
+
+        public static IEnumerable<ToolStripItem> ProviderActions(this MenuActionType actionType)
+        {
+            return BuildActionMenuItems(actionType, new[] { "Add", "Remove", "Test" });
         }
     }
 }

@@ -7,7 +7,8 @@ namespace MetX.Controls
     {
         public readonly MenuActionType ActionType;
 
-        public TechniqueEditorToolStripMenuItem(MenuActionType actionType, string text) : base(text)
+        public TechniqueEditorToolStripMenuItem(MenuActionType actionType, string text)
+            : base(text)
         {
             ActionType = actionType;
             Click += OnActionClick;
@@ -15,7 +16,7 @@ namespace MetX.Controls
 
         private void OnActionClick(object sender, EventArgs e)
         {
-            MessageBox.Show($"{ActionType} => {Text}");
+            MessageBox.Show(string.Format("{0} => {1}", ActionType, Text));
         }
     }
 }
