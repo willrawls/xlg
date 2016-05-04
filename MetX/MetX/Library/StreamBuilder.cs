@@ -35,6 +35,8 @@ namespace MetX.Library
         /// </summary>
         public Stream UnderlyingStream { get; private set; }
 
+        public StringBuilder UnderlyingStringBuilder { get; set; }
+
         /// <summary>
         /// Set this to true and a call to Finish() or during disposal will automatically close <see cref="Target"/>.
         /// </summary>
@@ -71,7 +73,7 @@ namespace MetX.Library
         /// <param name="textWriter"></param>
         /// <param name="underlyingStream"></param>
         /// <exception cref="ArgumentException"><paramref name="textWriter" /> is null or not writable. </exception>
-        public StreamBuilder(TextWriter textWriter, Stream underlyingStream = null)
+        public StreamBuilder(TextWriter textWriter, Stream underlyingStream)
         {
             if (textWriter == null)
                 throw new ArgumentException("TextWriter is required", "textWriter");
@@ -82,6 +84,21 @@ namespace MetX.Library
             UnderlyingStream = underlyingStream;
         }
 
+        /// <summary>
+        /// Attaches to an existing TextWriter (or StreamWriter)
+        /// </summary>
+        /// <param name="textWriter"></param>
+        /// <param name="underlyingStream"></param>
+        /// <exception cref="ArgumentException"><paramref name="textWriter" /> is null or not writable. </exception>
+        public StreamBuilder(StringBuilder underlyingStringBuilder)
+        {
+            if (underlyingStringBuilder == null)
+                throw new ArgumentException("StringBuilder is required", "underlyingStringBuilder");
+
+            UnderlyingStream = null;
+            UnderlyingStringBuilder = underlyingStringBuilder;
+            Target = new StringWriter(underlyingStringBuilder);
+        }
         /// <summary>
         /// Attaches to an existing Stream.
         /// </summary>
@@ -239,6 +256,7 @@ namespace MetX.Library
             }
         }
 
+        
         /// <exception cref="IOException">An I/O error has occurred. </exception>
         /// <exception cref="ArgumentException"><see cref="FilePath" /> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by <see cref="F:System.IO.Path.InvalidPathChars" />. </exception>
         /// <exception cref="ArgumentNullException"><see cref="FilePath" /> is null. </exception>
@@ -250,11 +268,32 @@ namespace MetX.Library
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
         public override string ToString()
         {
-            bool closeOnFinish = CloseOnFinish;
-            CloseOnFinish = true;
-            Finish();
-            CloseOnFinish = closeOnFinish;
-            return File.ReadAllText(FilePath);
+            try
+            {
+                if (Target != null)
+                {
+                    Target.Flush();
+                    Target.Close();
+                }
+                if (UnderlyingStream != null)
+                {
+                    UnderlyingStream.Close();
+                }
+
+                if (FilePath.IsEmpty())
+                {
+                    if (UnderlyingStringBuilder == null)
+                        return string.Empty;
+                    return UnderlyingStringBuilder.ToString();
+                }
+                return File.ReadAllText(FilePath);
+            }
+            finally
+            {
+                Target = null;
+                UnderlyingStream = null;
+            }
+
         }
     }
 }

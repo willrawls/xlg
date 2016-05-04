@@ -186,6 +186,8 @@ namespace MetX.Controls
                 // True keep going
             }
 
+            result.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, result.QuickScriptProcessor.DestinationFilePath);
+
             // Start
             try
             {

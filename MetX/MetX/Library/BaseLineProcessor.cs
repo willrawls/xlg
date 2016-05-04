@@ -202,8 +202,7 @@ namespace MetX.Library
                 case QuickScriptDestination.Clipboard:
                 case QuickScriptDestination.TextBox:
                     OutputStringBuilder = new StringBuilder();
-                    TextWriter textWriter = new StringWriter(OutputStringBuilder);
-                    Output = new StreamBuilder(textWriter);
+                    Output = new StreamBuilder(OutputStringBuilder);
                     break;
 
                 case QuickScriptDestination.Notepad:
