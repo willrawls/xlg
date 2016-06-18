@@ -7,11 +7,14 @@ namespace MetX.Library
 {
     public class QuickScriptWorker
     {
-        public static void ViewTextInNotepad(string source)
+        public static void ViewTextInNotepad(string source, bool isCSharpCode)
         {
             try
             {
-                string tempFile = Path.GetTempFileName();
+                string tempFile = Path.Combine(Path.GetTempPath(),
+                    string.Format("qscript{0}{1}",
+                        Guid.NewGuid().ToString().Substring(1, 6),
+                        (isCSharpCode ? ".cs" : ".txt")));
                 File.WriteAllText(tempFile, source);
                 Process.Start("notepad", tempFile);
             }
@@ -34,16 +37,21 @@ namespace MetX.Library
             }
         }
 
-        public const string FirstScript = "~~:%line.Left(20)%";
+        public const string FirstScript = @"
+if(line.Length < 20)
+	Output.AppendLine(line);
+else
+	Output.AppendLine(line.Substring(0, 20));
+";
 
         public static readonly string ExampleTutorialScript = @"
-~~ClassMembers:
+~~Members:
 Dictionary<string, string> d = new Dictionary<string, string>();
 
 ~~Start:
 // Write a header
 ~~:Lines starting with ~~: Are shorthand for Output.AppendLine(...) with special expansion
-~~:This makes it easier to write when encoding lines of C#.
+~~:This makes it easier to write when encoding lines of C#, VB, java, xml, etc.
 ~~:Example: Line # (First word): Line content
 Output.AppendLine(""Or if you prefer, you can simply write C# code"");" + Environment.NewLine +
 "d[\"previous\"] = \"Ready \"; // sets the \"Previous\" dictionary item to \"Ready \"" + Environment.NewLine + @"

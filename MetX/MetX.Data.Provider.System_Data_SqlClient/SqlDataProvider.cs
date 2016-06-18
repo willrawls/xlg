@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml;
@@ -12,140 +14,133 @@ namespace MetX.Data
     /// <summary>C#CD: </summary>
     public class SqlDataProvider : DataProvider
     {
-        public SqlDataProvider(string connectionString) { this.connectionString = connectionString; }
-        public override IDbConnection NewConnection() { return new SqlConnection(connectionString); }
-
-        public override string SelectStatement(string top, int page, QueryType qType)
+        public SqlDataProvider(string connectionString)
         {
-            if (page == 0 || qType != QueryType.Select)
-            {
-                return base.SelectStatement(top, page, qType);
-            }
-            return "SELECT TOP 100 PERCENT ROW_NUMBER() OVER ([orderByClause]) AS Row, ";
+            this.connectionString = connectionString;
         }
 
-        public override string HandlePage(string query, int offset, int limit, QueryType qType)
+        /// <summary>C#CD: </summary>
+        /// <param name="qry">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override int ExecuteQuery(QueryCommand qry)
         {
-            return "WITH U AS (" + query + ") SELECT * FROM U WHERE Row BETWEEN " + offset + " AND " + (offset + limit - 1);
-        }
-
-        /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
-        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
-        /// <param name="sql">The SQL to convert to an xml string</param>
-        /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public override string ToXml(string tagName, string tagAttributes, string sql)
-        {
-            if (!sql.Contains("FOR XML")) sql += " FOR XML AUTO";
-
-            StringBuilder returnValue = new StringBuilder();
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            conn.Open();
-            try
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                if (!string.IsNullOrEmpty(tagName))
-                {
-                    if (!string.IsNullOrEmpty(tagAttributes))
-                    {
-                        returnValue.AppendLine("<" + tagName + " " + tagAttributes + ">");
-                    }
-                    else
-                    {
-                        returnValue.AppendLine("<" + tagName + ">");
-                    }
-                }
-                XmlReader xr = cmd.ExecuteXmlReader();
-                xr.Read();
-                while (xr.ReadState != ReadState.EndOfFile)
-                {
-                    returnValue.Append(xr.ReadOuterXml());
-                }
-                xr.Close();
-                if (!string.IsNullOrEmpty(tagName))
-                {
-                    returnValue.AppendLine("</" + tagName + ">");
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
-            } finally
-            {
-                cmd.Dispose();
+                SqlCommand cmd = new SqlCommand(qry.CommandSql);
+                AddParams(cmd, qry);
+                cmd.Connection = conn;
+                conn.Open();
+                int ret = cmd.ExecuteNonQuery();
                 conn.Close();
                 conn.Dispose();
+                cmd.Dispose();
+                return ret;
             }
-            return returnValue.ToString();
         }
 
-        /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="output">The StringBuilder to output xml into</param>
-        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
-        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
-        /// <param name="sql">The SQL to convert to an xml string</param>
-        /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public void OuterXml(StringBuilder output, string tagName, string tagAttributes, string sql)
+        /// <summary>C#CD: </summary>
+        /// <param name="qry">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override object ExecuteScalar(QueryCommand qry)
         {
-            if (sql.IndexOf("FOR XML", StringComparison.Ordinal) == -1)
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                sql += " FOR XML AUTO";
-            }
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            conn.Open();
-            try
-            {
-                if (!string.IsNullOrEmpty(tagName))
-                {
-                    if (!string.IsNullOrEmpty(tagAttributes))
-                    {
-                        output.AppendLine("<" + tagName + " " + tagAttributes + ">");
-                    }
-                    else
-                    {
-                        output.AppendLine("<" + tagName + ">");
-                    }
-                }
-                XmlReader xr = cmd.ExecuteXmlReader();
-                xr.Read();
-                while (xr.ReadState != ReadState.EndOfFile)
-                {
-                    output.Append(xr.ReadOuterXml());
-                }
-                xr.Close();
-                if (!string.IsNullOrEmpty(tagName))
-                {
-                    output.AppendLine("</" + tagName + ">");
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
-            } finally
-            {
-                cmd.Dispose();
+                SqlCommand cmd = new SqlCommand(qry.CommandSql);
+                AddParams(cmd, qry);
+                cmd.Connection = conn;
+                conn.Open();
+                object ret = cmd.ExecuteScalar();
                 conn.Close();
                 conn.Dispose();
+                cmd.Dispose();
+                return ret;
             }
         }
 
-        private void AddParams(SqlCommand cmd, QueryCommand qry)
+        /// <summary>C#CD: </summary>
+        /// <param name="qry">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override IDbCommand GetCommand(QueryCommand qry)
         {
-            if (qry.Parameters == null)
+            SqlCommand cmd = new SqlCommand(qry.CommandSql);
+            AddParams(cmd, qry);
+            return cmd;
+        }
+
+        /// <summary>C#CD: </summary>
+        /// <param name="sqlType">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override DbType GetDbType(string sqlType)
+        {
+            switch (sqlType)
             {
-                return;
+                case "bigint":
+                    return DbType.Int64;
+                case "binary":
+                    return DbType.Binary;
+                case "bit":
+                    return DbType.Boolean;
+                case "char":
+                    return DbType.AnsiStringFixedLength;
+                case "datetime":
+                    return DbType.DateTime;
+                case "decimal":
+                    return DbType.Decimal;
+                case "float":
+                    return DbType.Decimal;
+                case "image":
+                    return DbType.Binary;
+                case "int":
+                    return DbType.Int32;
+                case "money":
+                    return DbType.Currency;
+                case "nchar":
+                    return DbType.String;
+                case "ntext":
+                    return DbType.String;
+                case "numeric":
+                    return DbType.Decimal;
+                case "nvarchar":
+                    return DbType.String;
+                case "real":
+                    return DbType.Decimal;
+                case "smalldatetime":
+                    return DbType.DateTime;
+                case "smallint":
+                    return DbType.Int16;
+                case "smallmoney":
+                    return DbType.Currency;
+                case "sql_variant":
+                    return DbType.String;
+                case "sysname":
+                    return DbType.String;
+                case "text":
+                    return DbType.String;
+                case "timestamp":
+                    return DbType.Time;
+                case "tinyint":
+                    return DbType.Int16;
+                case "uniqueidentifier":
+                    return DbType.Guid;
+                case "varbinary":
+                    return DbType.Binary;
+                case "varchar":
+                    return DbType.String;
+                default:
+                    return DbType.String;
             }
-            foreach (QueryParameter param in qry.Parameters)
-            {
-                SqlParameter sqlParam = new SqlParameter(param.ParameterName, param.DataType);
-                sqlParam.Direction = param.Direction;
-                if (param.ParameterValue != null)
-                {
-                    sqlParam.Value = param.ParameterValue;
-                }
-                cmd.Parameters.Add(sqlParam);
-            }
+        }
+
+        /// <summary>C#CD: </summary>
+        /// <param name="fkColumnName">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override string GetForeignKeyTableName(string fkColumnName)
+        {
+            QueryCommand cmd = new QueryCommand(GET_TABLE_SQL);
+            cmd.AddParameter("@columnName", fkColumnName);
+
+            object result = ExecuteScalar(cmd);
+            return result.ToString();
         }
 
         /// <summary>C#CD: </summary>
@@ -155,7 +150,7 @@ namespace MetX.Data
         {
             SqlConnection conn = new SqlConnection(connectionString);
             conn.Open();
-            SqlCommand cmd = new SqlCommand(qry.CommandSql, conn) {CommandType = qry.CommandType};
+            SqlCommand cmd = new SqlCommand(qry.CommandSql, conn) { CommandType = qry.CommandType };
             AddParams(cmd, qry);
             IDataReader ret = null;
             try
@@ -167,6 +162,34 @@ namespace MetX.Data
                 throw new Exception(qry.ToXML() + "\r\n\r\n" + ex.ToString());
             }
             return ret;
+        }
+
+        /// <summary>C#CD: </summary>
+        /// <returns>C#CD: </returns>
+        public override string[] GetSPList()
+        {
+            QueryCommand cmd = new QueryCommand(SP_SQL);
+            List<string> list = new List<string>();
+            using (IDataReader rdr = GetReader(cmd))
+            {
+                while (rdr.Read())
+                {
+                    list.Add(rdr[0].AsString());
+                }
+                rdr.Close();
+                rdr.Dispose();
+                return list.ToArray();
+            }
+        }
+
+        /// <summary>C#CD: </summary>
+        /// <param name="spName">C#CD: </param>
+        /// <returns>C#CD: </returns>
+        public override IDataReader GetSPParams(string spName)
+        {
+            QueryCommand cmd = new QueryCommand(SP_PARAM_SQL);
+            cmd.AddParameter("@spName", spName);
+            return GetReader(cmd);
         }
 
         /// <summary>C#CD: </summary>
@@ -197,83 +220,33 @@ namespace MetX.Data
             }
             if (cmd.Parameters.Contains("@ReturnValue") && cmd.Parameters["@ReturnValue"].Value != null)
             {
-                ret.ReturnValue = (int) cmd.Parameters["@ReturnValue"].Value;
+                ret.ReturnValue = (int)cmd.Parameters["@ReturnValue"].Value;
             }
             return ret;
         }
 
         /// <summary>C#CD: </summary>
-        /// <param name="qry">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override DataSet ToDataSet(QueryCommand qry)
+        public override string[] GetTableList()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            QueryCommand cmd = new QueryCommand(TABLE_SQL);
+            string sList = string.Empty;
+            using (IDataReader rdr = GetReader(cmd))
             {
-                using (SqlCommand cmd = new SqlCommand(qry.CommandSql, conn))
+                while (rdr.Read())
                 {
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        AddParams(cmd, qry);
-                        conn.Open();
-                        DataSet ds = new DataSet();
-                        da.Fill(ds);
-                        if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
-                        {
-                            return null;
-                        }
-                        return ds;
-                    }
+                    sList += rdr["Name"].ToString() + "|";
+                }
+                rdr.Close();
+                rdr.Dispose();
+                if (sList.Length > 0)
+                {
+                    sList = sList.Remove(sList.Length - 1, 1);
                 }
             }
-        }
-
-        /// <summary>C#CD: </summary>
-        /// <param name="qry">C#CD: </param>
-        /// <returns>C#CD: </returns>
-        public override object ExecuteScalar(QueryCommand qry)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(qry.CommandSql);
-                AddParams(cmd, qry);
-                cmd.Connection = conn;
-                conn.Open();
-                object ret = cmd.ExecuteScalar();
-                conn.Close();
-                conn.Dispose();
-                cmd.Dispose();
-                return ret;
-            }
-        }
-
-        /// <summary>C#CD: </summary>
-        /// <param name="qry">C#CD: </param>
-        /// <returns>C#CD: </returns>
-        public override int ExecuteQuery(QueryCommand qry)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(qry.CommandSql);
-                AddParams(cmd, qry);
-                cmd.Connection = conn;
-                conn.Open();
-                int ret = cmd.ExecuteNonQuery();
-                conn.Close();
-                conn.Dispose();
-                cmd.Dispose();
-                return ret;
-            }
-        }
-
-        private int ToInt(object target, int defaultValue = -1)
-        {
-            if (target == null || target == DBNull.Value) return defaultValue;
-            if (target is byte) return (byte)target;
-            if (target is int) return (int)target;
-            string s = target.ToString();
-            int result;
-            if (int.TryParse(s, out result)) return result;
-            return defaultValue;
+            string[] ret = sList.Split('|');
+            Array.Sort<string>(ret);
+            return ret;
         }
 
         /// <summary>C#CD: </summary>
@@ -386,7 +359,7 @@ namespace MetX.Data
                 while (rdr.Read())
                 {
                     string constraintType = rdr["constraint_type"].ToString();
-                    if (constraintType.Contains("DEFAULT")){continue;}
+                    if (constraintType.Contains("DEFAULT")) { continue; }
 
                     TableSchema.TableKey key = null;
                     if (constraintType.Contains("PRIMARY"))
@@ -395,233 +368,236 @@ namespace MetX.Data
                         {
                             continue;
                         }
-                        key = new TableSchema.TableKey();
-                        key.Name = "Primary";
-                        key.IsPrimary = true;
-                        foreach (string currCol in Strings.Split(rdr["constraint_keys"].ToString(), ", ", -1, CompareMethod.Text))
+                        string raw = rdr["constraint_keys"].ToString().Replace("(-)", string.Empty);
+                        tableSchema.Keys.Add(new TableSchema.TableKey
                         {
-                            if (currCol.Length > 0)
-                            {
-                                key.Columns.Add(new TableSchema.TableKeyColumn(currCol.Trim(), null));
-                            }
-                        }
-                        tableSchema.Keys.Add(key);
-                        key = null;
+                            Name = "Primary",
+                            IsPrimary = true,
+                            Columns = new List<TableSchema.TableKeyColumn>(Strings
+                                .Split(raw, ", ")
+                                .Where(col => col.Length > 0)
+                                .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))),
+                        });
                     }
                     else if (constraintType.Contains("FOREIGN"))
                     {
                         string raw = rdr["constraint_keys"].ToString();
-                        key = new TableSchema.TableKey();
-                        foreach (string currCol in raw.Split(new[] {','}))
-                        {
-                            if (currCol.Length > 0)
-                            {
-                                key.Columns.Add(new TableSchema.TableKeyColumn(currCol.Trim(), null));
-                            }
-                        }
+                        string name = rdr["constraint_name"].ToString();
+                        key = new TableSchema.TableKey { Name = name, IsForeign = true };
+                        if (key.Name == string.Empty)
+                            key.Name = "Foreign" + (tableSchema.Keys.Count + 1);
+                        key.Columns.AddRange(
+                            raw
+                                .Replace("(-)", string.Empty)
+                                .Split(',')
+                                .Where(col => col.Length > 0)
+                                .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null)));
+                        tableSchema.Keys.Add(key);
+
                         rdr.Read();
                         raw = rdr["constraint_keys"].ToString();
-                        string relatedTableName = raw.TokensAfter(1, "dbo.").FirstToken("(").Trim();
-                        if (tableSchema.Keys.Find(relatedTableName) == null)
+                        string relatedTableName = raw.FirstToken("(").LastToken(".").Trim();
+                        if (relatedTableName == string.Empty)
+                            relatedTableName = "Reference" + (tableSchema.Keys.Count + 1);
+
+                        if (tableSchema.Keys.Find(relatedTableName) != null)
                         {
-                            key.Name = relatedTableName;
-                            foreach (string currCol in raw.TokenBetween("(", ")").Split(new[] {','}))
-                            {
-                                if (currCol.Length > 0)
-                                {
-                                    key.Columns.Add(new TableSchema.TableKeyColumn(currCol.Trim(), null));
-                                }
-                            }
-                            tableSchema.Keys.Add(key);
+                            continue;
                         }
+
+                        tableSchema.Keys.Add(new TableSchema.TableKey
+                        {
+                            Name = relatedTableName,
+                            IsReference = raw.Contains("REFERENCE"),
+                            Columns = new List<TableSchema.TableKeyColumn>(raw.TokensAfterFirst("(")
+                                .Replace("(-)", string.Empty)
+                                .Split(',')
+                                .Where(col => col.Length > 0)
+                                .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))),
+                        });
                     }
                 }
             }
             return tableSchema;
         }
 
-        /// <summary>C#CD: </summary>
-        /// <param name="spName">C#CD: </param>
-        /// <returns>C#CD: </returns>
-        public override IDataReader GetSPParams(string spName)
+        public override string HandlePage(string query, int offset, int limit, QueryType qType)
         {
-            QueryCommand cmd = new QueryCommand(SP_PARAM_SQL);
-            cmd.AddParameter("@spName", spName);
-            return GetReader(cmd);
+            return "WITH U AS (" + query + ") SELECT * FROM U WHERE Row BETWEEN " + offset + " AND " + (offset + limit - 1);
         }
 
-        /// <summary>C#CD: </summary>
-        /// <returns>C#CD: </returns>
-        public override string[] GetSPList()
+        public override IDbConnection NewConnection()
         {
-            QueryCommand cmd = new QueryCommand(SP_SQL);
-            string sList = "";
-            using (IDataReader rdr = GetReader(cmd))
+            return new SqlConnection(connectionString);
+        }
+
+        /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+        /// <param name="output">The StringBuilder to output xml into</param>
+        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
+        /// <returns>The xml string attribute based representation of the SQL statement</returns>
+        public void OuterXml(StringBuilder output, string tagName, string tagAttributes, string sql)
+        {
+            if (sql.IndexOf("FOR XML", StringComparison.Ordinal) == -1)
             {
-                while (rdr.Read())
+                sql += " FOR XML AUTO";
+            }
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            try
+            {
+                if (!string.IsNullOrEmpty(tagName))
                 {
-                    sList += rdr[0].ToString() + "|";
+                    if (!string.IsNullOrEmpty(tagAttributes))
+                    {
+                        output.AppendLine("<" + tagName + " " + tagAttributes + ">");
+                    }
+                    else
+                    {
+                        output.AppendLine("<" + tagName + ">");
+                    }
                 }
-                rdr.Close();
-                rdr.Dispose();
-                if (sList.Length > 0)
+                XmlReader xr = cmd.ExecuteXmlReader();
+                xr.Read();
+                while (xr.ReadState != ReadState.EndOfFile)
                 {
-                    sList = sList.Remove(sList.Length - 1, 1);
+                    output.Append(xr.ReadOuterXml());
                 }
-                return sList.Split('|');
+                xr.Close();
+                if (!string.IsNullOrEmpty(tagName))
+                {
+                    output.AppendLine("</" + tagName + ">");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+                conn.Dispose();
             }
         }
 
-        /// <summary>C#CD: </summary>
-        /// <returns>C#CD: </returns>
-        public override string[] GetTableList()
+        public override string SelectStatement(string top, int page, QueryType qType)
         {
-            QueryCommand cmd = new QueryCommand(TABLE_SQL);
-            string sList = string.Empty;
-            using (IDataReader rdr = GetReader(cmd))
+            if (page == 0 || qType != QueryType.Select)
             {
-                while (rdr.Read())
-                {
-                    sList += rdr["Name"].ToString() + "|";
-                }
-                rdr.Close();
-                rdr.Dispose();
-                if (sList.Length > 0)
-                {
-                    sList = sList.Remove(sList.Length - 1, 1);
-                }
+                return base.SelectStatement(top, page, qType);
             }
-            string[] ret = sList.Split('|');
-            Array.Sort<string>(ret);
-            return ret;
-        }
-
-        /// <summary>C#CD: </summary>
-        /// <param name="fkColumnName">C#CD: </param>
-        /// <returns>C#CD: </returns>
-        public override string GetForeignKeyTableName(string fkColumnName)
-        {
-            QueryCommand cmd = new QueryCommand(GET_TABLE_SQL);
-            cmd.AddParameter("@columnName", fkColumnName);
-
-            object result = ExecuteScalar(cmd);
-            return result.ToString();
-        }
-
-        /// <summary>C#CD: </summary>
-        /// <param name="sqlType">C#CD: </param>
-        /// <returns>C#CD: </returns>
-        public override DbType GetDbType(string sqlType)
-        {
-            switch (sqlType)
-            {
-                case "bigint":
-                    return DbType.Int64;
-                case "binary":
-                    return DbType.Binary;
-                case "bit":
-                    return DbType.Boolean;
-                case "char":
-                    return DbType.AnsiStringFixedLength;
-                case "datetime":
-                    return DbType.DateTime;
-                case "decimal":
-                    return DbType.Decimal;
-                case "float":
-                    return DbType.Decimal;
-                case "image":
-                    return DbType.Binary;
-                case "int":
-                    return DbType.Int32;
-                case "money":
-                    return DbType.Currency;
-                case "nchar":
-                    return DbType.String;
-                case "ntext":
-                    return DbType.String;
-                case "numeric":
-                    return DbType.Decimal;
-                case "nvarchar":
-                    return DbType.String;
-                case "real":
-                    return DbType.Decimal;
-                case "smalldatetime":
-                    return DbType.DateTime;
-                case "smallint":
-                    return DbType.Int16;
-                case "smallmoney":
-                    return DbType.Currency;
-                case "sql_variant":
-                    return DbType.String;
-                case "sysname":
-                    return DbType.String;
-                case "text":
-                    return DbType.String;
-                case "timestamp":
-                    return DbType.Time;
-                case "tinyint":
-                    return DbType.Int16;
-                case "uniqueidentifier":
-                    return DbType.Guid;
-                case "varbinary":
-                    return DbType.Binary;
-                case "varchar":
-                    return DbType.String;
-                default:
-                    return DbType.String;
-            }
+            return "SELECT TOP 100 PERCENT ROW_NUMBER() OVER ([orderByClause]) AS Row, ";
         }
 
         /// <summary>C#CD: </summary>
         /// <param name="qry">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override IDbCommand GetCommand(QueryCommand qry)
+        public override DataSet ToDataSet(QueryCommand qry)
         {
-            SqlCommand cmd = new SqlCommand(qry.CommandSql);
-            AddParams(cmd, qry);
-            return cmd;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(qry.CommandSql, conn))
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        AddParams(cmd, qry);
+                        conn.Open();
+                        DataSet ds = new DataSet();
+                        da.Fill(ds);
+                        if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
+                        {
+                            return null;
+                        }
+                        return ds;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
+        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
+        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
+        /// <param name="sql">The SQL to convert to an xml string</param>
+        /// <returns>The xml string attribute based representation of the SQL statement</returns>
+        public override string ToXml(string tagName, string tagAttributes, string sql)
+        {
+            if (!sql.Contains("FOR XML")) sql += " FOR XML AUTO";
+
+            StringBuilder returnValue = new StringBuilder();
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            try
+            {
+                if (!string.IsNullOrEmpty(tagName))
+                {
+                    if (!string.IsNullOrEmpty(tagAttributes))
+                    {
+                        returnValue.AppendLine("<" + tagName + " " + tagAttributes + ">");
+                    }
+                    else
+                    {
+                        returnValue.AppendLine("<" + tagName + ">");
+                    }
+                }
+                XmlReader xr = cmd.ExecuteXmlReader();
+                xr.Read();
+                while (xr.ReadState != ReadState.EndOfFile)
+                {
+                    returnValue.Append(xr.ReadOuterXml());
+                }
+                xr.Close();
+                if (!string.IsNullOrEmpty(tagName))
+                {
+                    returnValue.AppendLine("</" + tagName + ">");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+            return returnValue.ToString();
+        }
+
+        private void AddParams(SqlCommand cmd, QueryCommand qry)
+        {
+            if (qry.Parameters == null)
+            {
+                return;
+            }
+            foreach (QueryParameter param in qry.Parameters)
+            {
+                SqlParameter sqlParam = new SqlParameter(param.ParameterName, param.DataType);
+                sqlParam.Direction = param.Direction;
+                if (param.ParameterValue != null)
+                {
+                    sqlParam.Value = param.ParameterValue;
+                }
+                cmd.Parameters.Add(sqlParam);
+            }
+        }
+
+        private int ToInt(object target, int defaultValue = -1)
+        {
+            if (target == null || target == DBNull.Value) return defaultValue;
+            if (target is byte) return (byte)target;
+            if (target is int) return (int)target;
+            string s = target.ToString();
+            int result;
+            if (int.TryParse(s, out result)) return result;
+            return defaultValue;
         }
 
         #region Schema Bits
-
-        private const string TABLE_COLUMN_SQL = @"
-SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
- ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName, 
- CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity,
- NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale 
- FROM         INFORMATION_SCHEMA.COLUMNS 
- WHERE     (TABLE_NAME = @tblName) ";
-
-        private const string SP_PARAM_SQL = "SELECT  SPECIFIC_NAME AS SPName, ORDINAL_POSITION AS OrdinalPosition,  " +
-                                            "PARAMETER_MODE AS ParamType, IS_RESULT AS IsResult, PARAMETER_NAME AS Name, DATA_TYPE AS DataType,  " +
-                                            "CHARACTER_MAXIMUM_LENGTH AS DataLength, REPLACE(PARAMETER_NAME, '@', '') AS CleanName " +
-                                            "FROM         INFORMATION_SCHEMA.PARAMETERS " +
-                                            "WHERE SPECIFIC_NAME=@spName";
-
-        private const string SP_SQL = "	SELECT  SPECIFIC_NAME AS SPName, ROUTINE_DEFINITION AS SQL, CREATED AS CreatedOn, " +
-                                      "LAST_ALTERED AS ModifiedOn " +
-                                      "FROM         INFORMATION_SCHEMA.ROUTINES " +
-                                      "WHERE ROUTINE_TYPE='PROCEDURE'";
-
-        private const string TABLE_SQL = "SELECT     TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS Name, TABLE_TYPE " +
-                                         "FROM         INFORMATION_SCHEMA.TABLES " +
-                                         "WHERE     (TABLE_TYPE = 'BASE TABLE') AND (TABLE_NAME <> N'sysdiagrams') " +
-                                         "ORDER BY TABLE_NAME";
-
-        private const string INDEX_SQL = "SELECT " +
-                                         "KCU.TABLE_NAME as TableName, " +
-                                         "KCU.COLUMN_NAME as ColumnName, " +
-                                         "TC.CONSTRAINT_TYPE as ConstraintType " +
-                                         "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU " +
-                                         "JOIN  INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC " +
-                                         "ON KCU.CONSTRAINT_NAME=TC.CONSTRAINT_NAME " +
-                                         "WHERE KCU.TABLE_NAME=@tblName";
-
-        private const string GET_TABLE_SQL = "SELECT KCU.TABLE_NAME as TableName " +
-                                             "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU  " +
-                                             "JOIN  INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC  " +
-                                             "ON KCU.CONSTRAINT_NAME=TC.CONSTRAINT_NAME " +
-                                             "WHERE KCU.COLUMN_NAME=@columnName AND TC.CONSTRAINT_TYPE='PRIMARY KEY' ";
 
         private const string COMPLETE_INDEX_INFO_SQL =
             "SELECT " +
@@ -640,6 +616,43 @@ SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableNa
             "AND object_name(i.id)=@tblName " +
             "ORDER BY [table], [isclustered] DESC, i.name, ik.keyno ";
 
-        #endregion
+        private const string GET_TABLE_SQL = "SELECT KCU.TABLE_NAME as TableName " +
+                                             "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU  " +
+                                             "JOIN  INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC  " +
+                                             "ON KCU.CONSTRAINT_NAME=TC.CONSTRAINT_NAME " +
+                                             "WHERE KCU.COLUMN_NAME=@columnName AND TC.CONSTRAINT_TYPE='PRIMARY KEY' ";
+
+        private const string INDEX_SQL = "SELECT " +
+                                         "KCU.TABLE_NAME as TableName, " +
+                                         "KCU.COLUMN_NAME as ColumnName, " +
+                                         "TC.CONSTRAINT_TYPE as ConstraintType " +
+                                         "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU " +
+                                         "JOIN  INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC " +
+                                         "ON KCU.CONSTRAINT_NAME=TC.CONSTRAINT_NAME " +
+                                         "WHERE KCU.TABLE_NAME=@tblName";
+
+        private const string SP_PARAM_SQL = "SELECT  SPECIFIC_NAME AS SPName, ORDINAL_POSITION AS OrdinalPosition,  " +
+                                            "PARAMETER_MODE AS ParamType, IS_RESULT AS IsResult, PARAMETER_NAME AS Name, DATA_TYPE AS DataType,  " +
+                                            "CHARACTER_MAXIMUM_LENGTH AS DataLength, REPLACE(PARAMETER_NAME, '@', '') AS CleanName " +
+                                            "FROM         INFORMATION_SCHEMA.PARAMETERS " +
+                                            "WHERE SPECIFIC_NAME=@spName";
+
+        private const string SP_SQL = " SELECT name FROM dbo.sysobjects WHERE (type = 'P')";
+        // private const string SP_SQL = " SELECT SPECIFIC_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE='PROCEDURE'";
+
+        private const string TABLE_COLUMN_SQL = @"
+SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
+ ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName,
+ CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity,
+ NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale
+ FROM         INFORMATION_SCHEMA.COLUMNS
+ WHERE     (TABLE_NAME = @tblName) ";
+
+        private const string TABLE_SQL = "SELECT     TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS Name, TABLE_TYPE " +
+                                         "FROM         INFORMATION_SCHEMA.TABLES " +
+                                         "WHERE     (TABLE_TYPE = 'BASE TABLE') AND (TABLE_NAME <> N'sysdiagrams') " +
+                                         "ORDER BY TABLE_NAME";
+
+        #endregion Schema Bits
     }
 }

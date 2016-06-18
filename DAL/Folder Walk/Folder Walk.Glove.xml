@@ -1,0 +1,212 @@
+<xlgFolder Path="c:\data\code\xlg\MetX\MetX\" Name="MetX" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:35:41.5496006+00:00">
+  <Folders>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Data\" Name="Data" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:48.705152+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\ActiveList.cs\" Name="ActiveList.cs" Extension=".cs" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:08.4141489+00:00" Size="1243" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\ActiveRecord.cs\" Name="ActiveRecord.cs" Extension=".cs" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:08.4141489+00:00" Size="2457" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\CaseFreeDictionary.cs\" Name="CaseFreeDictionary.cs" Extension=".cs" Created="2015-04-04T04:10:48.703152+00:00" Modified="2015-04-04T04:10:48.703152+00:00" Size="597" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\CodeGenerator.cs\" Name="CodeGenerator.cs" Extension=".cs" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:08.4141489+00:00" Size="56662" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\DataDefault.GenInclude.cs\" Name="DataDefault.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:08.4231511+00:00" Size="684" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\DataDefault.xml\" Name="DataDefault.xml" Extension=".xml" Created="2015-04-04T04:10:08.4231511+00:00" Modified="2015-04-04T04:10:08.4231511+00:00" Size="318" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\DataProvider.cs\" Name="DataProvider.cs" Extension=".cs" Created="2015-04-04T04:10:08.4241539+00:00" Modified="2015-04-04T04:10:08.4241539+00:00" Size="5657" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\DataService.cs\" Name="DataService.cs" Extension=".cs" Created="2015-04-04T04:10:08.4241539+00:00" Modified="2015-04-04T04:10:08.4241539+00:00" Size="9882" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\FWTClient.cs\" Name="FWTClient.cs" Extension=".cs" Created="2015-04-04T04:10:08.4241539+00:00" Modified="2015-04-04T04:10:08.4241539+00:00" Size="134" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\FWTConnection.cs\" Name="FWTConnection.cs" Extension=".cs" Created="2015-04-04T04:10:08.4241539+00:00" Modified="2015-04-04T04:10:08.4241539+00:00" Size="6254" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\FWTDataProvider.cs\" Name="FWTDataProvider.cs" Extension=".cs" Created="2015-04-04T04:10:08.425152+00:00" Modified="2015-04-04T04:10:08.425152+00:00" Size="19057" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\FWTDataReader.cs\" Name="FWTDataReader.cs" Extension=".cs" Created="2015-04-04T04:10:08.425152+00:00" Modified="2015-04-04T04:10:08.425152+00:00" Size="5814" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\GatherProvider.cs\" Name="GatherProvider.cs" Extension=".cs" Created="2015-04-04T04:10:08.4491519+00:00" Modified="2015-04-04T04:10:08.4491519+00:00" Size="228" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\GenArea.cs\" Name="GenArea.cs" Extension=".cs" Created="2015-04-04T04:10:48.703152+00:00" Modified="2015-04-04T04:10:48.703152+00:00" Size="643" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\GenInstance.cs\" Name="GenInstance.cs" Extension=".cs" Created="2015-04-04T04:10:48.703152+00:00" Modified="2015-04-04T04:10:48.703152+00:00" Size="7628" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\Query.cs\" Name="Query.cs" Extension=".cs" Created="2015-04-04T04:10:08.4501517+00:00" Modified="2015-04-04T04:10:08.4501517+00:00" Size="39117" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\QueryCommand.cs\" Name="QueryCommand.cs" Extension=".cs" Created="2015-04-04T04:10:08.4531659+00:00" Modified="2015-04-04T04:10:08.4531659+00:00" Size="5044" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\QuickScriptDestination.cs\" Name="QuickScriptDestination.cs" Extension=".cs" Created="2015-04-04T04:10:08.4531659+00:00" Modified="2015-04-04T04:10:08.4531659+00:00" Size="167" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\Support.cs\" Name="Support.cs" Extension=".cs" Created="2015-04-04T04:10:08.4531659+00:00" Modified="2015-04-04T04:10:08.4531659+00:00" Size="1014" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\TableSchema.cs\" Name="TableSchema.cs" Extension=".cs" Created="2015-04-04T04:10:08.4541515+00:00" Modified="2015-04-04T04:10:08.4541515+00:00" Size="11867" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\TestLogger.cs\" Name="TestLogger.cs" Extension=".cs" Created="2015-04-04T04:10:08.4571512+00:00" Modified="2015-04-04T04:10:08.4571512+00:00" Size="5564" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\xlgBuildProvider.cs\" Name="xlgBuildProvider.cs" Extension=".cs" Created="2015-04-04T04:10:08.4731526+00:00" Modified="2015-04-04T04:10:08.4731526+00:00" Size="1272" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\xlgFile.cs\" Name="xlgFile.cs" Extension=".cs" Created="2015-04-04T04:10:08.4731526+00:00" Modified="2015-04-04T04:10:08.4741102+00:00" Size="1182" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\xlgFolder.cs\" Name="xlgFolder.cs" Extension=".cs" Created="2015-04-04T04:10:08.4741102+00:00" Modified="2015-04-04T04:10:08.4741102+00:00" Size="1831" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\XlgQuickScript.cs\" Name="XlgQuickScript.cs" Extension=".cs" Created="2015-04-04T04:10:08.4571512+00:00" Modified="2015-04-04T04:10:48.7041521+00:00" Size="13848" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\XlgQuickScriptFile.cs\" Name="XlgQuickScriptFile.cs" Extension=".cs" Created="2015-04-04T04:10:08.4731526+00:00" Modified="2015-04-04T04:10:48.7041521+00:00" Size="2914" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\XlgQuickScriptTemplate.cs\" Name="XlgQuickScriptTemplate.cs" Extension=".cs" Created="2015-04-04T04:10:48.7041521+00:00" Modified="2015-04-04T04:10:48.7041521+00:00" Size="779" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\XlgQuickScriptTemplateList.cs\" Name="XlgQuickScriptTemplateList.cs" Extension=".cs" Created="2015-04-04T04:10:48.705152+00:00" Modified="2015-04-04T04:10:48.705152+00:00" Size="1141" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\XlgSettings.cs\" Name="XlgSettings.cs" Extension=".cs" Created="2015-04-04T04:10:08.4731526+00:00" Modified="2015-04-04T04:10:08.4731526+00:00" Size="2942" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Data\xlgSource.cs\" Name="xlgSource.cs" Extension=".cs" Created="2015-04-04T04:10:08.4741102+00:00" Modified="2015-04-04T04:10:08.4741102+00:00" Size="12048" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Interfaces\" Name="Interfaces" Created="2015-04-04T04:10:48.705152+00:00" Modified="2015-04-04T04:10:48.705152+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Interfaces\IProvide.cs\" Name="IProvide.cs" Extension=".cs" Created="2015-04-04T04:10:48.705152+00:00" Modified="2015-04-04T04:10:48.705152+00:00" Size="617" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Interfaces\IShowText.cs\" Name="IShowText.cs" Extension=".cs" Created="2015-04-04T04:10:48.705152+00:00" Modified="2015-04-04T04:10:48.7061531+00:00" Size="157" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\IO\" Name="IO" Created="2015-04-04T04:10:08.4741102+00:00" Modified="2015-04-04T04:10:48.705152+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\DatabaseUpdates.cs\" Name="DatabaseUpdates.cs" Extension=".cs" Created="2015-04-04T04:10:08.4741102+00:00" Modified="2015-04-04T04:10:08.4741102+00:00" Size="5067" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\Element.cs\" Name="Element.cs" Extension=".cs" Created="2015-04-04T04:10:08.4741102+00:00" Modified="2015-04-04T04:10:08.4741102+00:00" Size="12752" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\Email.cs\" Name="Email.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="2068" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\FileSystem.cs\" Name="FileSystem.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="9936" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\HTTP.cs\" Name="HTTP.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:48.705152+00:00" Size="8385" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\SmtpMail.cs\" Name="SmtpMail.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="8280" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\sql.cs\" Name="sql.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="31653" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\StateCollection.cs\" Name="StateCollection.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="6894" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\xlgDataSection.cs\" Name="xlgDataSection.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="1285" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\xlgThemeResolver.cs\" Name="xlgThemeResolver.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="4970" />
+        <File Path="c:\data\code\xlg\MetX\MetX\IO\xlgUrnResolver.cs\" Name="xlgUrnResolver.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:08.4791514+00:00" Size="2381" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Library\" Name="Library" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:48.7071521+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\BaseLineProcessor.cs\" Name="BaseLineProcessor.cs" Extension=".cs" Created="2015-04-04T04:10:08.4791514+00:00" Modified="2015-04-04T04:10:48.7061531+00:00" Size="7935" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\ContextBase.cs\" Name="ContextBase.cs" Extension=".cs" Created="2015-04-04T04:10:48.7061531+00:00" Modified="2015-04-04T04:10:48.7061531+00:00" Size="420" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\ExampleXslUrn.cs\" Name="ExampleXslUrn.cs" Extension=".cs" Created="2015-04-04T04:10:08.4871513+00:00" Modified="2015-04-04T04:10:08.4871513+00:00" Size="472" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\QuickScriptWorker.cs\" Name="QuickScriptWorker.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:48.7061531+00:00" Size="2978" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\RunResult.cs\" Name="RunResult.cs" Extension=".cs" Created="2015-04-04T04:10:48.7071521+00:00" Modified="2015-04-04T04:10:48.7071521+00:00" Size="388" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\SortedStringList.cs\" Name="SortedStringList.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:08.4902398+00:00" Size="1881" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\StringExtensions.cs\" Name="StringExtensions.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:48.7071521+00:00" Size="17932" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\StringWriterWithEncoding.cs\" Name="StringWriterWithEncoding.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:08.4902398+00:00" Size="472" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\UI.cs\" Name="UI.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:08.4902398+00:00" Size="2489" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\Worker.cs\" Name="Worker.cs" Extension=".cs" Created="2015-04-04T04:10:08.4902398+00:00" Modified="2015-04-04T04:10:08.492018+00:00" Size="9176" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\Xhtml.cs\" Name="Xhtml.cs" Extension=".cs" Created="2015-04-04T04:10:08.4921508+00:00" Modified="2015-04-04T04:10:08.4921508+00:00" Size="1274" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\xlgUrn.cs\" Name="xlgUrn.cs" Extension=".cs" Created="2015-04-04T04:10:08.4921508+00:00" Modified="2015-04-04T04:10:08.4931505+00:00" Size="42786" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\XML.cs\" Name="XML.cs" Extension=".cs" Created="2015-04-04T04:10:08.4921508+00:00" Modified="2015-04-04T04:10:08.4921508+00:00" Size="15280" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Library\xsl.cs\" Name="xsl.cs" Extension=".cs" Created="2015-04-04T04:10:08.4931505+00:00" Modified="2015-04-04T04:10:08.4931505+00:00" Size="11926" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\obj\" Name="obj" Created="2015-04-04T04:35:41.5496006+00:00" Modified="2015-04-04T04:35:41.5496006+00:00">
+      <Folders>
+        <Folder Path="c:\data\code\xlg\MetX\MetX\obj\Debug\" Name="Debug" Created="2015-04-04T04:35:41.5496006+00:00" Modified="2015-04-04T04:39:33.3931714+00:00">
+          <Folders>
+            <Folder Path="c:\data\code\xlg\MetX\MetX\obj\Debug\TempPE\" Name="TempPE" Created="2015-04-04T04:35:41.5516006+00:00" Modified="2015-04-04T04:35:41.5516006+00:00">
+              <Folders />
+              <Files />
+            </Folder>
+          </Folders>
+          <Files>
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache\" Name="DesignTimeResolveAssemblyReferencesInput.cache" Extension=".cache" Created="2015-04-04T04:35:43.4805997+00:00" Modified="2015-04-04T04:35:43.4816002+00:00" Size="8449" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.csproj.FileListAbsolute.txt\" Name="MetX.csproj.FileListAbsolute.txt" Extension=".txt" Created="2015-04-04T04:39:33.3931714+00:00" Modified="2015-04-04T04:39:33.3957208+00:00" Size="486" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.csproj.GenerateResource.Cache\" Name="MetX.csproj.GenerateResource.Cache" Extension=".Cache" Created="2015-04-04T04:39:32.3676016+00:00" Modified="2015-04-04T04:39:32.3696807+00:00" Size="1627" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.csprojResolveAssemblyReference.cache\" Name="MetX.csprojResolveAssemblyReference.cache" Extension=".cache" Created="2015-04-04T04:39:07.0745768+00:00" Modified="2015-04-04T04:39:07.0756008+00:00" Size="21652" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.dll\" Name="MetX.dll" Extension=".dll" Created="2015-04-04T04:39:33.2846889+00:00" Modified="2015-04-04T04:41:11.812+00:00" Size="319488" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.pdb\" Name="MetX.pdb" Extension=".pdb" Created="2015-04-04T04:39:32.662668+00:00" Modified="2015-04-04T04:41:11.7925974+00:00" Size="392704" />
+            <File Path="c:\data\code\xlg\MetX\MetX\obj\Debug\MetX.Properties.Resources.resources\" Name="MetX.Properties.Resources.resources" Extension=".resources" Created="2015-04-04T04:39:32.3215996+00:00" Modified="2015-04-04T04:39:32.3615999+00:00" Size="115821" />
+          </Files>
+        </Folder>
+      </Folders>
+      <Files />
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Properties\" Name="Properties" Created="2015-04-04T04:10:08.4996834+00:00" Modified="2015-04-04T04:10:08.5191522+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584661_4.png\" Name="1421584661_4.png" Extension=".png" Created="2015-04-04T04:10:08.4996834+00:00" Modified="2015-04-04T04:10:08.4996834+00:00" Size="15655" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584690_2.png\" Name="1421584690_2.png" Extension=".png" Created="2015-04-04T04:10:08.4996834+00:00" Modified="2015-04-04T04:10:08.5001516+00:00" Size="14809" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584694_2.png\" Name="1421584694_2.png" Extension=".png" Created="2015-04-04T04:10:08.5001516+00:00" Modified="2015-04-04T04:10:08.5051511+00:00" Size="2065" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584753_Cut.png\" Name="1421584753_Cut.png" Extension=".png" Created="2015-04-04T04:10:08.5051511+00:00" Modified="2015-04-04T04:10:08.5051511+00:00" Size="2413" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584808_Copy.png\" Name="1421584808_Copy.png" Extension=".png" Created="2015-04-04T04:10:08.5061491+00:00" Modified="2015-04-04T04:10:08.5061491+00:00" Size="898" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584898_clipboard.png\" Name="1421584898_clipboard.png" Extension=".png" Created="2015-04-04T04:10:08.5071362+00:00" Modified="2015-04-04T04:10:08.5071362+00:00" Size="7090" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png\" Name="1421584916_Noun_Project_100Icon_10px_grid-06-48.png" Extension=".png" Created="2015-04-04T04:10:08.5071362+00:00" Modified="2015-04-04T04:10:08.5071362+00:00" Size="914" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\1421584946_file-48.png\" Name="1421584946_file-48.png" Extension=".png" Created="2015-04-04T04:10:08.5071362+00:00" Modified="2015-04-04T04:10:08.5071362+00:00" Size="532" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\add_48.png\" Name="add_48.png" Extension=".png" Created="2015-04-04T04:10:08.5081521+00:00" Modified="2015-04-04T04:10:08.5081521+00:00" Size="5071" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\arrow_down_48.png\" Name="arrow_down_48.png" Extension=".png" Created="2015-04-04T04:10:08.5081521+00:00" Modified="2015-04-04T04:10:08.5081521+00:00" Size="4602" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\AssemblyInfo.cs\" Name="AssemblyInfo.cs" Extension=".cs" Created="2015-04-04T04:10:08.5071362+00:00" Modified="2015-04-04T04:10:08.5071362+00:00" Size="1638" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\cancel_48.png\" Name="cancel_48.png" Extension=".png" Created="2015-04-04T04:10:08.5081521+00:00" Modified="2015-04-04T04:10:08.5081521+00:00" Size="5316" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\circle_blue.png\" Name="circle_blue.png" Extension=".png" Created="2015-04-04T04:10:08.5091513+00:00" Modified="2015-04-04T04:10:08.5091513+00:00" Size="5096" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\circle_green.png\" Name="circle_green.png" Extension=".png" Created="2015-04-04T04:10:08.5091513+00:00" Modified="2015-04-04T04:10:08.5091513+00:00" Size="5002" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\circle_orange.png\" Name="circle_orange.png" Extension=".png" Created="2015-04-04T04:10:08.5091513+00:00" Modified="2015-04-04T04:10:08.5091513+00:00" Size="5089" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\cross_48.png\" Name="cross_48.png" Extension=".png" Created="2015-04-04T04:10:08.5091513+00:00" Modified="2015-04-04T04:10:08.5091513+00:00" Size="4842" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\database_add_48.png\" Name="database_add_48.png" Extension=".png" Created="2015-04-04T04:10:08.5091513+00:00" Modified="2015-04-04T04:10:08.5181495+00:00" Size="5217" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\database_remove_48.png\" Name="database_remove_48.png" Extension=".png" Created="2015-04-04T04:10:08.5181495+00:00" Modified="2015-04-04T04:10:08.5181495+00:00" Size="5241" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\floppy_disk_48.png\" Name="floppy_disk_48.png" Extension=".png" Created="2015-04-04T04:10:08.5181495+00:00" Modified="2015-04-04T04:10:08.5181495+00:00" Size="4435" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\folder_48.png\" Name="folder_48.png" Extension=".png" Created="2015-04-04T04:10:08.5181495+00:00" Modified="2015-04-04T04:10:08.5181495+00:00" Size="4612" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\refresh_48.png\" Name="refresh_48.png" Extension=".png" Created="2015-04-04T04:10:08.5191522+00:00" Modified="2015-04-04T04:10:08.5191522+00:00" Size="5137" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\Resources.Designer.cs\" Name="Resources.Designer.cs" Extension=".cs" Created="2015-04-04T04:10:08.5081521+00:00" Modified="2015-04-04T04:10:08.5081521+00:00" Size="10620" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Properties\Resources.resx\" Name="Resources.resx" Extension=".resx" Created="2015-04-04T04:10:08.5081521+00:00" Modified="2015-04-04T04:10:08.5081521+00:00" Size="10881" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Resources\" Name="Resources" Created="2015-04-04T04:35:41.543599+00:00" Modified="2015-04-04T04:35:41.543599+00:00">
+      <Folders />
+      <Files />
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Security\" Name="Security" Created="2015-04-04T04:10:08.5191522+00:00" Modified="2015-04-04T04:10:08.5191522+00:00">
+      <Folders />
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Security\Crypt.cs\" Name="Crypt.cs" Extension=".cs" Created="2015-04-04T04:10:08.5191522+00:00" Modified="2015-04-04T04:10:08.5191522+00:00" Size="10064" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Security\PartnerCrypt.cs\" Name="PartnerCrypt.cs" Extension=".cs" Created="2015-04-04T04:10:08.5191522+00:00" Modified="2015-04-04T04:10:08.5201505+00:00" Size="5570" />
+      </Files>
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Templates\" Name="Templates" Created="2015-04-04T04:10:48.7081522+00:00" Modified="2015-04-04T04:10:48.7081522+00:00">
+      <Folders>
+        <Folder Path="c:\data\code\xlg\MetX\MetX\Templates\Single file input\" Name="Single file input" Created="2015-04-04T04:10:48.7081522+00:00" Modified="2015-04-04T04:10:48.7081522+00:00">
+          <Folders />
+          <Files>
+            <File Path="c:\data\code\xlg\MetX\MetX\Templates\Single file input\Exe.cs\" Name="Exe.cs" Extension=".cs" Created="2015-04-04T04:10:48.7081522+00:00" Modified="2015-04-04T04:10:48.7081522+00:00" Size="10942" />
+            <File Path="c:\data\code\xlg\MetX\MetX\Templates\Single file input\Native.cs\" Name="Native.cs" Extension=".cs" Created="2015-04-04T04:10:48.7081522+00:00" Modified="2015-04-04T04:10:48.7081522+00:00" Size="839" />
+          </Files>
+        </Folder>
+      </Folders>
+      <Files />
+    </Folder>
+    <Folder Path="c:\data\code\xlg\MetX\MetX\Web\" Name="Web" Created="2015-04-04T04:10:08.5201505+00:00" Modified="2015-04-04T04:10:08.5341512+00:00">
+      <Folders>
+        <Folder Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\" Name="Virtual" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5231514+00:00">
+          <Folders>
+            <Folder Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\" Name="xsl" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5341512+00:00">
+              <Folders />
+              <Files>
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\applications.GenInclude.cs\" Name="applications.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5241509+00:00" Modified="2015-04-04T04:10:08.5251515+00:00" Size="1727" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\applications.xsl\" Name="applications.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5261516+00:00" Modified="2015-04-04T04:10:08.5261516+00:00" Size="1016" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editApplication.GenInclude.cs\" Name="editApplication.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5261516+00:00" Modified="2015-04-04T04:10:08.5261516+00:00" Size="4641" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editApplication.xsl\" Name="editApplication.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5261516+00:00" Modified="2015-04-04T04:10:08.5261516+00:00" Size="3690" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editCookie.GenInclude.cs\" Name="editCookie.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5261516+00:00" Modified="2015-04-04T04:10:08.5261516+00:00" Size="4398" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editCookie.xsl\" Name="editCookie.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5261516+00:00" Modified="2015-04-04T04:10:08.5271518+00:00" Size="3527" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMembers.GenInclude.cs\" Name="editMembers.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5271518+00:00" Modified="2015-04-04T04:10:08.5271518+00:00" Size="7723" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMembers.xsl\" Name="editMembers.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5271518+00:00" Modified="2015-04-04T04:10:08.5271518+00:00" Size="6618" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMenuUrl.GenInclude.cs\" Name="editMenuUrl.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5271518+00:00" Modified="2015-04-04T04:10:08.5301512+00:00" Size="6428" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMenuUrl.xsl\" Name="editMenuUrl.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5301512+00:00" Modified="2015-04-04T04:10:08.5301512+00:00" Size="5393" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMindset.GenInclude.cs\" Name="editMindset.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5301512+00:00" Modified="2015-04-04T04:10:08.5301512+00:00" Size="6185" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editMindset.xsl\" Name="editMindset.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5301512+00:00" Modified="2015-04-04T04:10:08.5301512+00:00" Size="5174" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editPermissions.GenInclude.cs\" Name="editPermissions.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5301512+00:00" Modified="2015-04-04T04:10:08.5321516+00:00" Size="9711" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\editPermissions.xsl\" Name="editPermissions.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5321516+00:00" Modified="2015-04-04T04:10:08.5331487+00:00" Size="8480" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\mindsets.GenInclude.cs\" Name="mindsets.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5331487+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="2328" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\mindsets.xsl\" Name="mindsets.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="1579" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\Resource.cs\" Name="Resource.cs" Extension=".cs" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5231514+00:00" Size="991" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\XmlToJson.GenInclude.cs\" Name="XmlToJson.GenInclude.cs" Extension=".cs" Created="2015-04-04T04:10:08.5241509+00:00" Modified="2015-04-04T04:10:08.5241509+00:00" Size="5692" />
+                <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\xsl\XmlToJson.xsl\" Name="XmlToJson.xsl" Extension=".xsl" Created="2015-04-04T04:10:08.5241509+00:00" Modified="2015-04-04T04:10:08.5241509+00:00" Size="4647" />
+              </Files>
+            </Folder>
+          </Folders>
+          <Files>
+            <File Path="c:\data\code\xlg\MetX\MetX\Web\Virtual\viewtempdatafile.cs\" Name="viewtempdatafile.cs" Extension=".cs" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5231514+00:00" Size="1670" />
+          </Files>
+        </Folder>
+      </Folders>
+      <Files>
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\Attachments.cs\" Name="Attachments.cs" Extension=".cs" Created="2015-04-04T04:10:08.5201505+00:00" Modified="2015-04-04T04:10:08.5201505+00:00" Size="2518" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\HttpAppErrHandler.cs\" Name="HttpAppErrHandler.cs" Extension=".cs" Created="2015-04-04T04:10:08.5201505+00:00" Modified="2015-04-04T04:10:08.5201505+00:00" Size="11983" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\SecureHandler.cs\" Name="SecureHandler.cs" Extension=".cs" Created="2015-04-04T04:10:08.5201505+00:00" Modified="2015-04-04T04:10:08.5201505+00:00" Size="5377" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\SecurePage.cs\" Name="SecurePage.cs" Extension=".cs" Created="2015-04-04T04:10:08.5211517+00:00" Modified="2015-04-04T04:10:08.522611+00:00" Size="1460" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\SecureXslHandler.cs\" Name="SecureXslHandler.cs" Extension=".cs" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5231514+00:00" Size="20879" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\SecureXslPage.cs\" Name="SecureXslPage.cs" Extension=".cs" Created="2015-04-04T04:10:08.5231514+00:00" Modified="2015-04-04T04:10:08.5231514+00:00" Size="11287" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgHandler.cs\" Name="xlgHandler.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="3517" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgHandlerFactory.cs\" Name="xlgHandlerFactory.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="3761" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgPage.cs\" Name="xlgPage.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="1664" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgPathProvider.cs\" Name="xlgPathProvider.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="3177" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgVirtualDirectory.cs\" Name="xlgVirtualDirectory.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="1903" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\xlgVirtualFile.cs\" Name="xlgVirtualFile.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="2324" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\XslHandler.cs\" Name="XslHandler.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="16048" />
+        <File Path="c:\data\code\xlg\MetX\MetX\Web\XslPage.cs\" Name="XslPage.cs" Extension=".cs" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="4843" />
+      </Files>
+    </Folder>
+  </Folders>
+  <Files>
+    <File Path="c:\data\code\xlg\MetX\MetX\AssemblyInfo.cs\" Name="AssemblyInfo.cs" Extension=".cs" Created="2015-04-04T04:10:08.4141489+00:00" Modified="2015-04-04T04:10:08.4141489+00:00" Size="0" />
+    <File Path="c:\data\code\xlg\MetX\MetX\batfile.ico\" Name="batfile.ico" Extension=".ico" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="25214" />
+    <File Path="c:\data\code\xlg\MetX\MetX\MetX.csproj\" Name="MetX.csproj" Extension=".csproj" Created="2015-04-04T04:10:08.4931505+00:00" Modified="2015-04-04T04:10:48.7071521+00:00" Size="12504" />
+    <File Path="c:\data\code\xlg\MetX\MetX\MetX.xml\" Name="MetX.xml" Extension=".xml" Created="2015-04-04T04:10:08.4931505+00:00" Modified="2015-04-04T04:10:08.4931505+00:00" Size="124889" />
+    <File Path="c:\data\code\xlg\MetX\MetX\XLG.snk\" Name="XLG.snk" Extension=".snk" Created="2015-04-04T04:10:08.5341512+00:00" Modified="2015-04-04T04:10:08.5341512+00:00" Size="596" />
+  </Files>
+</xlgFolder>

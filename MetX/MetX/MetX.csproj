@@ -65,8 +65,7 @@
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
+    <NoWarn>1591</NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -146,33 +145,78 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ActiveRecord.cs" />
-    <Compile Include="Data\QuickScriptDestination.cs" />
-    <Compile Include="Data\CodeGenerator.cs" />
-    <Compile Include="Data\TestLogger.cs" />
-    <Compile Include="Data\XlgQuickScript.cs" />
-    <Compile Include="Data\xlgFile.cs" />
-    <Compile Include="Data\DataDefault.GenInclude.cs">
+    <Compile Include="Data\Aggregate.cs" />
+    <Compile Include="Data\AggregateFunction.cs" />
+    <Compile Include="Data\Comparison.cs" />
+    <Compile Include="Data\DataProviderCollection.cs" />
+    <Compile Include="Data\Join.cs" />
+    <Compile Include="Data\OrderBy.cs" />
+    <Compile Include="Data\QueryCommandCollection.cs" />
+    <Compile Include="Data\QueryParameter.cs" />
+    <Compile Include="Data\QueryParameterCollection.cs" />
+    <Compile Include="Data\QueryType.cs" />
+    <Compile Include="Library\AskForStringDialog.cs" />
+    <Compile Include="Library\BaseRuntimeFunctions.cs" />
+    <Compile Include="Library\ChooseManyDialog.cs" />
+    <Compile Include="Library\ChooseOneDialog.cs" />
+    <Compile Include="Library\Fred.cs" />
+    <Compile Include="Library\GeneralQuestionDialog.cs" />
+    <Compile Include="Library\StreamBuilder.cs" />
+    <Compile Include="Library\Tokenizer.cs" />
+    <Compile Include="Scripts\CaseFreeDictionary.cs" />
+    <Compile Include="Scripts\GenArea.cs" />
+    <Compile Include="Scripts\GenInstance.cs" />
+    <Compile Include="Scripts\QuickScriptDestination.cs" />
+    <Compile Include="Pipelines\CodeGenerator.cs" />
+    <Compile Include="Scripts\NArrangeTestLogger.cs" />
+    <Compile Include="Scripts\XlgQuickScript.cs" />
+    <Compile Include="Pipelines\xlgFile.cs" />
+    <Compile Include="Pipelines\DefaultXlg.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Data\DataService.cs" />
     <Compile Include="Data\GatherProvider.cs" />
-    <Compile Include="Data\IProvide.cs" />
+    <Compile Include="Scripts\XlgQuickScriptTemplate.cs" />
+    <Compile Include="Techniques\NodeParticle.cs" />
+    <Compile Include="Techniques\PatternWorks.cs" />
+    <Compile Include="Techniques\Connection.cs" />
+    <Compile Include="Techniques\FileParticle.cs" />
+    <Compile Include="Techniques\FolderParticle.cs" />
+    <Compile Include="Techniques\Particle.cs" />
+    <Compile Include="Techniques\Provider.cs" />
+    <Compile Include="Techniques\Reference.cs" />
+    <Compile Include="Techniques\ParticleList.cs" />
+    <Compile Include="Techniques\ParticleType.cs" />
+    <Compile Include="Techniques\Technique.cs" />
+    <Compile Include="Techniques\Variable.cs" />
+    <Compile Include="Data\Where.cs" />
+    <Compile Include="Data\WhereOptions.cs" />
+    <Compile Include="Interfaces\IProvide.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\QueryCommand.cs" />
-    <Compile Include="Data\Support.cs" />
+    <Compile Include="Data\StoredProcedureResult.cs" />
     <Compile Include="Data\TableSchema.cs" />
-    <Compile Include="Data\xlgFolder.cs" />
-    <Compile Include="Data\XlgQuickScriptFile.cs" />
-    <Compile Include="Data\XlgSettings.cs" />
-    <Compile Include="Data\xlgSource.cs" />
+    <Compile Include="Pipelines\xlgFolder.cs" />
+    <Compile Include="Scripts\XlgQuickScriptFile.cs" />
+    <Compile Include="Scripts\XlgQuickScriptTemplateList.cs" />
+    <Compile Include="Pipelines\XlgSettings.cs" />
+    <Compile Include="Pipelines\xlgSource.cs" />
+    <Compile Include="Interfaces\IShowText.cs" />
+    <Compile Include="Interfaces\ProviderTypeEnum.cs" />
     <Compile Include="IO\xlgThemeResolver.cs" />
     <Compile Include="IO\xlgUrnResolver.cs" />
     <Compile Include="IO\StateCollection.cs" />
-    <EmbeddedResource Include="Library\QuickScriptProcessor.cs" />
+    <EmbeddedResource Include="Templates\Single file input\Native.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="Library\BaseLineProcessor.cs" />
-    <EmbeddedResource Include="Library\IndependentQuickScriptProcessor.cs" />
+    <EmbeddedResource Include="Templates\Single file input\Exe.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Library\ContextBase.cs" />
     <Compile Include="Library\QuickScriptWorker.cs" />
+    <Compile Include="Library\RunResult.cs" />
     <Compile Include="Library\StringWriterWithEncoding.cs" />
     <Compile Include="Library\UI.cs" />
     <Compile Include="Library\Xhtml.cs" />

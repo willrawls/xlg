@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using MetX.Data;
 using MetX.IO;
 using MetX.Library;
+using MetX.Pipelines;
 using MetX.Properties;
 
 namespace XLG.Pipeliner
@@ -189,8 +189,7 @@ namespace XLG.Pipeliner
                     MetadataSources.Items.Clear();
                     foreach (XlgSource currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName)
-                        {Tag = currSource, Checked = currSource.Selected};
+                        ListViewItem lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
                         MetadataSources.Items.Add(lvi);
                     }
                 }
@@ -202,8 +201,7 @@ namespace XLG.Pipeliner
                     MetadataSources.Items.Clear();
                     foreach (XlgSource currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName)
-                        {Tag = currSource, Checked = currSource.Selected};
+                        ListViewItem lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
                         MetadataSources.Items.Add(lvi);
                     }
                     if (Settings.Filename != AppData.LastXlgsFile)
@@ -305,7 +303,7 @@ namespace XLG.Pipeliner
 
         private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            ((XlgSource) e.Item.Tag).Selected = e.Item.Checked;
+            ((XlgSource)e.Item.Tag).Selected = e.Item.Checked;
         }
 
         private void MetadataSources_SelectedIndexChanged(object sender, EventArgs e)
@@ -317,7 +315,7 @@ namespace XLG.Pipeliner
                 {
                     return;
                 }
-                m_CurrSource = (XlgSource) MetadataSources.SelectedItems[0].Tag;
+                m_CurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
                 textAppXlgXsl.Text = m_CurrSource.XslFilename;
                 textOutput.Text = m_CurrSource.OutputFilename;
                 textOutputXml.Text = m_CurrSource.OutputXml;
@@ -353,10 +351,10 @@ namespace XLG.Pipeliner
             m_CurrSource.ConnectionName = textConnectionStringName.Text;
             m_CurrSource.ConnectionString = textConnectionString.Text;
             m_CurrSource.RegenerateOnly = checkRegenerateOnly.Checked;
-//            m_CurrSource.SqlToXml = textSqlToXml.Text;
+            //            m_CurrSource.SqlToXml = textSqlToXml.Text;
             if (comboProviderName.SelectedIndex > -1)
             {
-                m_CurrSource.ProviderName = (string) comboProviderName.SelectedItem;
+                m_CurrSource.ProviderName = (string)comboProviderName.SelectedItem;
             }
         }
 
@@ -673,6 +671,7 @@ namespace XLG.Pipeliner
         }
 
         private void generateSelectedToolStripMenuItem_Click(object sender, EventArgs e) { }
+
         private void regenerateSelectedToolStripMenuItem_Click(object sender, EventArgs e) { }
 
         private void buttonEditConnectionString_Click(object sender, EventArgs e)
@@ -697,7 +696,7 @@ namespace XLG.Pipeliner
             {
                 MessageBox.Show(ex.ToString());
             }
-            
+
             DataConnectionDialog dcd = null;
             try
             {

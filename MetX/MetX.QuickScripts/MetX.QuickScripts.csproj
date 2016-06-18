@@ -43,9 +43,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\..\bin\xlgQuickScripts.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\xlgQuickScripts.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -95,6 +95,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="QuickScriptEditor.cs">
@@ -103,24 +106,10 @@
     <Compile Include="QuickScriptEditor.Designer.cs">
       <DependentUpon>QuickScriptEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuickScriptOutput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QuickScriptOutput.Designer.cs">
-      <DependentUpon>QuickScriptOutput.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextEditorSample\CompletionDataProvider.cs" />
-    <Compile Include="TextEditorSample\TextEditorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TextEditorSample\TextEditorForm.Designer.cs" />
     <EmbeddedResource Include="QuickScriptEditor.resx">
       <DependentUpon>QuickScriptEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QuickScriptOutput.resx">
-      <DependentUpon>QuickScriptOutput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -148,12 +137,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
+      <Project>{1E449E05-F155-4952-BF75-F8268E8695CF}</Project>
+      <Name>MetX.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetX\MetX.csproj">
       <Project>{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}</Project>
       <Name>MetX</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="license.txt" />
     <Content Include="Settings.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

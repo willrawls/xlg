@@ -1,299 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Data.Common;
 using System.Data;
-using System.Collections;
 using MetX.Library;
 
 namespace MetX.Data
 {
     #region enums
-    /// <summary>
-    /// Enum for General SQL Functions
-    /// </summary>
-    public enum AggregateFunction
-    {
-        None,
-        Count,
-        Sum,
-        Avg,
-        Min,
-        Max,
-        StdDev,
-        Var
-    }
 
-    public enum WhereOptions
-    {
-        And,
-        AndWithBeginParen,
-        //AndWithEndParen,
-        Or,
-        OrWithBeginParen,
-        //OrWithEndParen,
-		BeginParen,
-		EndParen,
-        None
-    }
-
-    /// <summary>
-    /// SQL Comparison Operators
-    /// </summary>
-    public enum Comparison
-    {
-        Equals,
-        NotEquals,
-        Like,
-        NotLike,
-        GreaterThan,
-        GreaterOrEquals,
-        LessThan,
-        LessOrEquals,
-        Blank,
-        Is,
-        IsNot,
-        In,
-        NotIn
-    }
-    #endregion
+    #endregion enums
 
     #region Support Classes
-    public class Join
-    {
-        public string FromColumn;
-        public string ToColumn;
-        public string JoinTable;
-        public string JoinType = "INNER JOIN";
-    }
 
-    /// <summary>
-    /// Creates an aggregate function call for ANSI SQL
-    /// </summary>
-    public class Aggregate
-    {
-        public string AggregateString = string.Empty;
-        public Aggregate() {  }
-        public Aggregate(DataProvider Instance, AggregateFunction agg, string columnName, string alias)
-        {
-            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + Instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
-        }
-        public static Aggregate New(DataProvider Instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(Instance, agg, columnName, alias); }
-    }
-
-    /// <summary>
-    /// Creates a WHERE clause for a SQL Statement
-    /// </summary>
-    public class Where
-    {
-        public string TableName;
-        public string ColumnName;
-        public Comparison Comparison;
-        public string ParameterName;
-        public WhereOptions Options;
-
-        private object m_ParameterValue;
-
-        public Where() { }
-
-        public Where(string tableName, string ColumnName, Comparison Comparison, object Value)
-        {
-            this.TableName = tableName;
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-        }
-
-        public Where(string ColumnName, Comparison Comparison, object Value)
-        {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-        }
-
-        public Where(string ColumnName, object Value)
-        {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison.Equals;
-            this.m_ParameterValue = Value;
-        }
-
-        public Where(string tableName, string ColumnName, Comparison Comparison, object Value, WhereOptions Options)
-        {
-            this.TableName = tableName;
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
-        }
-
-		public Where(WhereOptions Options)
-		{
-			this.Options = Options;
-		}
-
-		public Where(string ColumnName, Comparison Comparison, object Value, WhereOptions Options)
-        {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
-        }
-
-        public Where(string ColumnName, object Value, WhereOptions Options)
-        {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison.Equals;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
-        }
-
-        public object ParameterValue
-        {
-            get
-            {
-                if (Comparison != Comparison.In && Comparison != Comparison.NotIn)
-                    return m_ParameterValue;
-                else
-                    return InPhrase(m_ParameterValue);
-            }
-        }
-
-        public void AddValue(string ValueToAddToInClause)
-        {
-            List<string> pv;
-            if (m_ParameterValue is Array)
-            {
-                Array t = (Array)m_ParameterValue;
-                pv = new List<string>();
-                m_ParameterValue = pv;
-                foreach (object CurrValue in t)
-                    pv.Add(CurrValue.ToString());
-            }
-            else
-                pv = (List<string>)m_ParameterValue;
-            pv.Add(ValueToAddToInClause);
-        }
-
-        public void AddRangeOfValues(IEnumerable<string> ValuesToAddToInClause)
-        {
-            List<string> pv;
-            if (m_ParameterValue is Array)
-            {
-                Array t = (Array)m_ParameterValue;
-                pv = new List<string>();
-                m_ParameterValue = pv;
-                foreach (object CurrValue in t)
-                    pv.Add(CurrValue.ToString());
-            }
-            else
-                pv = (List<string>)m_ParameterValue;
-            pv.AddRange(ValuesToAddToInClause);
-        }
-
-        private string InPhrase(object Value)
-        {
-            StringBuilder sValue = new StringBuilder();
-            if (Value == null)
-                sValue.Append("(NULL");
-            if (Value is string)
-            {
-                if (((string)Value).StartsWith("("))
-                    return (string)Value;
-                else
-                {
-                    sValue.Append("(");
-                    if (!((string)Value).StartsWith("'"))
-                    {
-                        sValue.Append("'");
-                        sValue.Append(((string)Value).Replace("'", "''"));
-                        sValue.Append("'");
-                    }
-                    else
-                        sValue.Append((string)Value);
-                }
-            }
-            else if (Value is string[])
-            {
-                foreach (string CurrValue in (string[])Value)
-                {
-                    if (CurrValue != null && CurrValue.Length > 0)
-                    {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                        sValue.Append("'");
-                        sValue.Append(CurrValue.Replace("'", "''"));
-                        sValue.Append("'");
-                    }
-                }
-            }
-            else if (Value is int[])
-            {
-                foreach (int CurrValue in (int[])Value)
-                {
-                    if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                    sValue.Append(CurrValue.ToString());
-                }
-            }
-            else if (Value is double[])
-            {
-                foreach (double CurrValue in (double[])Value)
-                {
-                    if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                    sValue.Append(CurrValue.ToString());
-                }
-            }
-            else if (Value is Array)
-            {
-                foreach (object CurrValue in (Array)Value)
-                {
-                    if (CurrValue != null)
-                    {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                        sValue.Append("'");
-                        sValue.Append(CurrValue.ToString().Replace("'", "''"));
-                        sValue.Append("'");
-                    }
-                }
-            }
-            else if (Value is List<string>)
-            {
-                foreach (string CurrValue in (List<string>)Value)
-                {
-                    if (!string.IsNullOrEmpty(CurrValue))
-                    {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                        sValue.Append("'");
-                        sValue.Append(CurrValue.Replace("'", "''"));
-                        sValue.Append("'");
-                    }
-                }
-            }
-            else
-            {
-                sValue.Append("(");
-                sValue.Append("'");
-                sValue.Append(Value.AsString().Replace("'", "''"));
-                sValue.Append("'");
-            }
-            sValue.Append(")");
-            return sValue.ToString();
-        }
-    }
-
-    /// <summary>
-    /// Creates an ORDER BY statement for ANSI SQL
-    /// </summary>
-    public class OrderBy
-    {
-        public readonly string OrderString;
-
-        public OrderBy() { }
-        public OrderBy(string orderString) { this.OrderString = orderString; }
-        public static OrderBy Desc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.ValidIdentifier(columnName) + " DESC"); }
-        public static OrderBy Asc(DataProvider Instance, string columnName) { return new OrderBy(" ORDER BY " + Instance.ValidIdentifier(columnName)); }
-        public static OrderBy Any(DataProvider Instance, string orderString) { return new OrderBy(orderString); }
-    }
-    #endregion
+    #endregion Support Classes
 
     /// <summary>
     /// Creates a SQL Statement and SQL Commands
@@ -301,11 +19,11 @@ namespace MetX.Data
     public class Query
     {
         /// <summary>
-        /// Takes the enum value and returns the proper SQL 
+        /// Takes the enum value and returns the proper SQL
         /// </summary>
         /// <param name="comp"></param>
         /// <returns></returns>
-        string GetComparisonOperator(Comparison comp)
+        private string GetComparisonOperator(Comparison comp)
         {
             string sOut = "=";
             switch (comp)
@@ -364,20 +82,22 @@ namespace MetX.Data
         public List<Join> joins;
         public DataProvider Instance;
         protected WhereOptions LastOption = WhereOptions.None;
-		//protected int ParenStack;
+        //protected int ParenStack;
         //protected int ParenOpen;
         protected int Page;
-        #endregion
+
+        #endregion props
 
         #region .ctors
+
         public Query(TableSchema.Table tbl)
         {
             table = tbl;
             bool TriedAgain = false;
-TryAgain:
+        TryAgain:
             if (table.Instance != null)
                 Instance = table.Instance;
-            else if(!TriedAgain)
+            else if (!TriedAgain)
             {
                 TriedAgain = true;
                 System.Threading.Thread.Sleep(50);
@@ -385,7 +105,9 @@ TryAgain:
             }
             SelectList = tbl.FIELD_LIST;
         }
-        public Query(TableSchema.Table tbl, Where[] whereClauses) : this(tbl)
+
+        public Query(TableSchema.Table tbl, Where[] whereClauses)
+            : this(tbl)
         {
             foreach (Where CurrWhere in whereClauses)
             {
@@ -393,10 +115,13 @@ TryAgain:
                 AddWhere(CurrWhere);
             }
         }
-        #endregion
+
+        #endregion .ctors
 
         #region Add Methods for adding WHERE, Aggregates, and Joins
+
         Dictionary<string, object> updateSettings;
+
         public void AddUpdateColumn(string columnName, object value)
         {
             if (updateSettings == null) updateSettings = new Dictionary<string, object>();
@@ -406,9 +131,10 @@ TryAgain:
             else if (value.AsString().ToLower() == "true") value = 1;
 
             if (updateSettings.ContainsKey(columnName)) updateSettings[columnName] = value;
-            else                                        updateSettings.Add(columnName, value);
+            else updateSettings.Add(columnName, value);
             QueryType = QueryType.Update;
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="ToTableName">C#CD: </param>
         /// <param name="FromColumnName">C#CD: </param>
@@ -423,6 +149,7 @@ TryAgain:
             j.FromColumn = FromColumnName;
             joins.Add(j);
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="ToTableName">C#CD: </param>
         public void AddInnerJoin(string ToTableName)
@@ -436,6 +163,7 @@ TryAgain:
 
             joins.Add(j);
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="columnName">C#CD: </param>
         /// <param name="func">C#CD: </param>
@@ -445,6 +173,7 @@ TryAgain:
             Aggregate agg = Aggregate.New(Instance, func, columnName, alias);
             AddAggregate(agg);
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="agg">C#CD: </param>
         public void AddAggregate(Aggregate agg)
@@ -453,61 +182,62 @@ TryAgain:
             aggregates.Add(agg);
         }
 
-		/// <summary>C#CD: </summary>
-		public void BeginParen()
-		{
-			switch (LastOption)
-			{
-				case WhereOptions.And:
-					wheres.Add(new Where(WhereOptions.AndWithBeginParen));
-					break;
-				case WhereOptions.Or:
-					wheres.Add(new Where(WhereOptions.OrWithBeginParen));
-					break;
-				default:
-					wheres.Add(new Where(WhereOptions.BeginParen));
-					break;
-			}
-		}
+        /// <summary>C#CD: </summary>
+        public void BeginParen()
+        {
+            switch (LastOption)
+            {
+                case WhereOptions.And:
+                    wheres.Add(new Where(WhereOptions.AndWithBeginParen));
+                    break;
+                case WhereOptions.Or:
+                    wheres.Add(new Where(WhereOptions.OrWithBeginParen));
+                    break;
+                default:
+                    wheres.Add(new Where(WhereOptions.BeginParen));
+                    break;
+            }
+        }
 
-		/// <summary>C#CD: </summary>
-		public void EndParen()
-		{
-			wheres.Add(new Where(WhereOptions.EndParen));
-			//switch (LastOption)
-			//{
-			//    case WhereOptions.And:
-			//        wheres.Add(new Where(WhereOptions.AndWithEndParen));
-			//        break;
-			//    case WhereOptions.Or:
-			//        wheres.Add(new Where(WhereOptions.OrWithEndParen));
-			//        break;
-			//    default:
-			//        wheres.Add(new Where(WhereOptions.EndParen));
-			//        break;
-			//}
-		}
+        /// <summary>C#CD: </summary>
+        public void EndParen()
+        {
+            wheres.Add(new Where(WhereOptions.EndParen));
+            //switch (LastOption)
+            //{
+            //    case WhereOptions.And:
+            //        wheres.Add(new Where(WhereOptions.AndWithEndParen));
+            //        break;
+            //    case WhereOptions.Or:
+            //        wheres.Add(new Where(WhereOptions.OrWithEndParen));
+            //        break;
+            //    default:
+            //        wheres.Add(new Where(WhereOptions.EndParen));
+            //        break;
+            //}
+        }
 
         /// <summary>C#CD: </summary>
         /// <param name="where">C#CD: </param>
         public void AddWhere(Where where)
         {
             if (wheres == null) wheres = new List<Where>();
-			if (LastOption != WhereOptions.None)
-			{
-				where.Options = LastOption;
-				LastOption = WhereOptions.None;
-			}
+            if (LastOption != WhereOptions.None)
+            {
+                where.Options = LastOption;
+                LastOption = WhereOptions.None;
+            }
             wheres.Add(where);
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="columnName">C#CD: </param>
         /// <param name="paramValue">C#CD: </param>
         public void AddWhere(string columnName, object paramValue)
         {
             AddWhere(table.Name, columnName, Comparison.Equals, paramValue);
-
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="tableName">C#CD: </param>
         /// <param name="columnName">C#CD: </param>
@@ -515,8 +245,8 @@ TryAgain:
         public void AddWhere(string tableName, string columnName, object paramValue)
         {
             AddWhere(tableName, columnName, Comparison.Equals, paramValue);
-
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="columnName">C#CD: </param>
         /// <param name="comp">C#CD: </param>
@@ -524,8 +254,8 @@ TryAgain:
         public void AddWhere(string columnName, Comparison comp, object paramValue)
         {
             AddWhere(table.Name, columnName, comp, paramValue);
-
         }
+
         /// <summary>C#CD: </summary>
         /// <param name="tableName">C#CD: </param>
         /// <param name="columnName">C#CD: </param>
@@ -535,12 +265,14 @@ TryAgain:
         {
             AddWhere(new Where(tableName, columnName, comp, paramValue));
         }
-        #endregion
+
+        #endregion Add Methods for adding WHERE, Aggregates, and Joins
 
         #region Command Builders
+
         public static DbType ConvertToDbType(Type t)
         {
-            switch(t.Name)
+            switch (t.Name)
             {
                 case "Boolean": return DbType.Boolean;
                 case "Int16": return DbType.Int16;
@@ -566,10 +298,10 @@ TryAgain:
         public QueryCommand BuildSelectCommand()
         {
             QueryCommand cmd = new QueryCommand(GetSelectSql());
-            if(wheres != null)
+            if (wheres != null)
                 foreach (Where where in wheres)
-                    if(where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
-                        if(where.ParameterValue != null)
+                    if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
+                        if (where.ParameterValue != null)
                             cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue, ConvertToDbType(where.ParameterValue.GetType()));
             return cmd;
         }
@@ -579,41 +311,41 @@ TryAgain:
             if (wheres != null && wheres.Count > 0)
             {
                 int i = 1;
-				bool NeedAHinge = false;
-				foreach (Where where in wheres)
-				{
-					//Append the SQL
-					if (i == 1)
-					{
-						sql += " WHERE ";
-						NeedAHinge = false;
-					}
-					switch (where.Options)
-					{
-						case WhereOptions.And: if(NeedAHinge) sql += " AND "; break;
-						case WhereOptions.Or: if (NeedAHinge) sql += " OR "; break;
-						case WhereOptions.AndWithBeginParen: sql += " AND ("; NeedAHinge = false;  break;
-						case WhereOptions.OrWithBeginParen: sql += " OR ("; NeedAHinge = false; break;
-						case WhereOptions.BeginParen: sql += "("; NeedAHinge = false; break;
-						case WhereOptions.EndParen: sql += ")"; NeedAHinge = true; break;
-						default: if (NeedAHinge) { sql += " AND "; NeedAHinge = false; } break;
-					}
-					//}
-					if (where.ColumnName != null)
-					{
-						where.ParameterName = where.ColumnName + i.ToString();
+                bool NeedAHinge = false;
+                foreach (Where where in wheres)
+                {
+                    //Append the SQL
+                    if (i == 1)
+                    {
+                        sql += " WHERE ";
+                        NeedAHinge = false;
+                    }
+                    switch (where.Options)
+                    {
+                        case WhereOptions.And: if (NeedAHinge) sql += " AND "; break;
+                        case WhereOptions.Or: if (NeedAHinge) sql += " OR "; break;
+                        case WhereOptions.AndWithBeginParen: sql += " AND ("; NeedAHinge = false; break;
+                        case WhereOptions.OrWithBeginParen: sql += " OR ("; NeedAHinge = false; break;
+                        case WhereOptions.BeginParen: sql += "("; NeedAHinge = false; break;
+                        case WhereOptions.EndParen: sql += ")"; NeedAHinge = true; break;
+                        default: if (NeedAHinge) { sql += " AND "; NeedAHinge = false; } break;
+                    }
+                    //}
+                    if (where.ColumnName != null)
+                    {
+                        where.ParameterName = where.ColumnName + i.ToString();
 
-						if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
-							sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + (where.ParameterValue == null || where.ParameterValue == DBNull.Value ? "NULL" : " @_" + where.ParameterName);
-						else
-							sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + " " + (string)where.ParameterValue;
+                        if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
+                            sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + (where.ParameterValue == null || where.ParameterValue == DBNull.Value ? "NULL" : " @_" + where.ParameterName);
+                        else
+                            sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + " " + (string)where.ParameterValue;
 
-						if (cmd != null)
-							cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue);
-						NeedAHinge = true; 
-					}
-					i++;
-				}
+                        if (cmd != null)
+                            cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue);
+                        NeedAHinge = true;
+                    }
+                    i++;
+                }
             }
         }
 
@@ -665,7 +397,6 @@ TryAgain:
             //trim the comma
             sql = sql.Remove(sql.Length - 1, 1);
 
-
             //string whereClause = " WHERE ";
             if (wheres != null && wheres.Count > 0)
                 AddWherePhraseToSql(ref sql, cmd);
@@ -684,13 +415,15 @@ TryAgain:
             cmd.CommandSql = sql;
             return cmd;
         }
-        #endregion
+
+        #endregion Command Builders
 
         #region SQL Builders
+
         //this is only used with the SQL constructors below
         //it's not used in the command builders above, which need to set the parameters
         //right at the time of the command build
-        string BuildWhere()
+        private string BuildWhere()
         {
             string sql = string.Empty;
             if (wheres != null && wheres.Count > 0)
@@ -707,17 +440,17 @@ TryAgain:
                         {
                             case WhereOptions.And: sql += " AND "; break;
                             case WhereOptions.Or: sql += " OR "; break;
-							case WhereOptions.BeginParen: sql += "("; break;
-							case WhereOptions.EndParen: sql += ")"; break;
+                            case WhereOptions.BeginParen: sql += "("; break;
+                            case WhereOptions.EndParen: sql += ")"; break;
                             //case WhereOptions.AndWithBeginParen: sql += " AND ("; break;
                             //case WhereOptions.AndWithEndParen: sql += " AND "; break;
                             //case WhereOptions.OrWithBeginParen: sql += " OR ("; break;
                             //case WhereOptions.OrWithEndParen: sql += " OR "; break;
                         }
                     }
-					if(where.ColumnName != null)
-						sql += where.ColumnName + " " + GetComparisonOperator(where.Comparison) + " @_" + where.ColumnName + i.ToString();
-					i++;
+                    if (where.ColumnName != null)
+                        sql += where.ColumnName + " " + GetComparisonOperator(where.Comparison) + " @_" + where.ColumnName + i.ToString();
+                    i++;
                     //switch (where.Options)
                     //{
                     //    case WhereOptions.AndWithEndParen: sql += ") "; break;
@@ -727,17 +460,17 @@ TryAgain:
             }
             return sql;
         }
+
         /// <summary>
         /// Creates a SELECT statement based on the Query object settings
         /// </summary>
         /// <returns>C#CD: </returns>
         public string GetSelectSql()
         {
-
             string client = Instance.GetType().Name;
             //different rules for how to do TOP
             string topStatement = Instance.TopStatement;
-            string select = Instance.SelectStatement( Top, Page, QueryType);
+            string select = Instance.SelectStatement(Top, Page, QueryType);
             string groupBy = string.Empty;
             string where = string.Empty;
             string order = string.Empty;
@@ -784,7 +517,7 @@ TryAgain:
                     //needs to be in the GROUP BY. Same for HAVING
                     //if there is a term in HAVING, then it needs to be in the GROUP BY
 
-                    //can't have aliases in the GROUP BY 
+                    //can't have aliases in the GROUP BY
                     if (SelectList.ToLower().Contains(" as "))
                     {
                         //first, split the SelectList by commas
@@ -799,13 +532,11 @@ TryAgain:
 
                                 //remove the trailing comma
                                 groupBy = groupBy.Remove(groupBy.Length - 1, 1);
-
                             }
                         }
                     }
                     else
                         groupBy += SelectList;
-
 
                     //if there are columns in the where list, append on a comma
                     if (wheres != null && wheres.Count > 0 && groupBy.Trim() != "GROUP BY")
@@ -840,38 +571,36 @@ TryAgain:
                 if (Distinct)
                     select += " DISTINCT ";
 
-				switch (QueryType)
-				{
-					case QueryType.Count:
-						if (SelectList.IndexOf(",") == -1)
-							select += "COUNT(" + SelectList.Trim() + ")";
-						else
-							select += "COUNT(*)";
-						break;
-					case QueryType.Max:
-						if (SelectList.IndexOf(",") == -1)
-							select += "MAX(" + SelectList.Trim() + ")";
-						else
-							select += "MAX(*)";
-						break;
-					case QueryType.Min:
-						if (SelectList.IndexOf(",") == -1)
-							select += "MIN(" + SelectList.Trim() + ")";
-						else 
-							select += "MIN(*)";
-						break;
-					default:
-						select += SelectList; 
-						break;
-				}
-                    
+                switch (QueryType)
+                {
+                    case QueryType.Count:
+                        if (SelectList.IndexOf(",") == -1)
+                            select += "COUNT(" + SelectList.Trim() + ")";
+                        else
+                            select += "COUNT(*)";
+                        break;
+                    case QueryType.Max:
+                        if (SelectList.IndexOf(",") == -1)
+                            select += "MAX(" + SelectList.Trim() + ")";
+                        else
+                            select += "MAX(*)";
+                        break;
+                    case QueryType.Min:
+                        if (SelectList.IndexOf(",") == -1)
+                            select += "MIN(" + SelectList.Trim() + ")";
+                        else
+                            select += "MIN(*)";
+                        break;
+                    default:
+                        select += SelectList;
+                        break;
+                }
             }
 
             //append on the SelectList, which is a property that can be set
             //and is "*" by default
 
             select += " FROM " + Instance.ValidIdentifier(table.Name) + " ";
-
 
             //joins
             if (joins != null && joins.Count > 0)
@@ -885,11 +614,11 @@ TryAgain:
             if (wheres != null)
                 AddWherePhraseToSql(ref where, null);
 
-            //Finally, do the orderby 
-			if (OrderBy != null && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
+            //Finally, do the orderby
+            if (OrderBy != null && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
                 order = OrderBy.OrderString;
 
-            if(Page == 0)
+            if (Page == 0)
                 query = select + join + groupBy + where + order;
             else
                 query = select.Replace("[orderByClause]", order) + join + groupBy + where + order;
@@ -899,7 +628,7 @@ TryAgain:
                     query += " LIMIT " + Top;
 
             int PageSize;
-			if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out PageSize) && PageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
+            if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out PageSize) && PageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
                 query = Instance.HandlePage(query, ((Page - 1) * PageSize) + 1, PageSize, QueryType);
 
             if (QueryType == QueryType.Exists)
@@ -922,7 +651,7 @@ TryAgain:
                     cols += col.ColumnName + "=@" + col.ColumnName + ",";
             }
             cols = cols.Remove(cols.Length - 1, 1);
-            
+
             updateSQL += cols;
 
             if (wheres == null || wheres.Count == 0)
@@ -931,6 +660,7 @@ TryAgain:
                 updateSQL += BuildWhere();
             return updateSQL;
         }
+
         /// <summary>
         /// Loops the TableColums[] array for the object, creating a SQL string
         /// for use as an INSERT statement
@@ -938,7 +668,6 @@ TryAgain:
         /// <returns>C#CD: </returns>
         public string GetInsertSql()
         {
-
             //split the TablNames and loop out the SQL
             string insertSQL = "INSERT INTO " + Instance.ValidIdentifier(table.Name) + " ";
 
@@ -958,19 +687,16 @@ TryAgain:
             pars = pars.Remove(pars.Length - 1, 1);
             insertSQL += "(" + cols + ") ";
 
-
-
             insertSQL += "VALUES(" + pars + ");";
 
             //the default convention is that every table has a unique, auto-increment key
-            //this is for setting the PK after save. @@IDENTITY or IDENTITY_SCOPE can 
+            //this is for setting the PK after save. @@IDENTITY or IDENTITY_SCOPE can
             //be used, but don't translate to other DBs. MAX does so it's used here
-            if ( table.PrimaryKey != null && table.PrimaryKey.DataType != DbType.Guid)
+            if (table.PrimaryKey != null && table.PrimaryKey.DataType != DbType.Guid)
                 insertSQL += " SELECT MAX(" + Instance.ValidIdentifier(table.PrimaryKey.ColumnName) + ") FROM " + Instance.ValidIdentifier(table.Name) + " as newID";
 
             return insertSQL;
         }
-
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
@@ -982,9 +708,9 @@ TryAgain:
             else
                 sql += BuildWhere();
             return sql;
-
         }
-        #endregion
+
+        #endregion SQL Builders
 
         #region Execution
 
@@ -1004,8 +730,8 @@ TryAgain:
         public DataSet ExecuteDataSet()
         {
             return Instance.ToDataSet(GetCommand());
-
         }
+
         /// <summary>
         /// Returns a scalar object based on the passed-in command
         /// </summary>
@@ -1014,6 +740,7 @@ TryAgain:
         {
             return Instance.ExecuteScalar(GetCommand());
         }
+
         /// <summary>
         /// Executes a pass-through query on the DB
         /// </summary>
@@ -1022,7 +749,7 @@ TryAgain:
             Instance.ExecuteQuery(GetCommand());
         }
 
-        QueryCommand GetCommand()
+        private QueryCommand GetCommand()
         {
             QueryCommand cmd = null;
             switch (QueryType)
@@ -1030,8 +757,8 @@ TryAgain:
                 case QueryType.Select:
                 case QueryType.Exists:
                 case QueryType.Count:
-				case QueryType.Min:
-				case QueryType.Max:
+                case QueryType.Min:
+                case QueryType.Max:
                     cmd = BuildSelectCommand();
                     break;
                 case QueryType.Update:
@@ -1046,29 +773,7 @@ TryAgain:
             }
             return cmd;
         }
-        #endregion
 
-
-    }
-    /// <summary>C#CD: </summary>
-    public enum QueryType
-    {
-        /// <summary>SELECT FROM query</summary>
-        Select,
-        /// <summary>UPDATE query</summary>
-        Update,
-        /// <summary>INSERT INTO query</summary>
-        Insert,
-        /// <summary>DELETE FROM query</summary>
-        Delete,
-        /// <summary>IF EXISTS(query) SELECT 1 ELSE SELECT 0</summary>
-        Exists,
-        /// <summary>SELECT COUNT(*) FROM query</summary>
-        Count,
-		/// <summary>SELECT MAX(*) FROM query</summary>
-		Max,
-		/// <summary>SELECT MIN(*) FROM query</summary>
-		Min
-
+        #endregion Execution
     }
 }

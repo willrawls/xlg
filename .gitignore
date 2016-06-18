@@ -220,3 +220,9 @@ pip-log.txt
 xDebug/MetX.dll
 xDebug/MetX.XML
 xDebug/nxslt2.exe
+MetX/MetX.Data.Provider.System_Data_SqlClient/Obsolete/2016-03-31/SqlDataProvider.cs
+MetX/MetX/Library/Obsolete/2016-03-31/XML.cs
+MetX_LocalFracturedBackup.7z
+MetX/MetX/Data/Obsolete/2016-03-31/TableSchema.cs
+MetX/MetX/Pipelines/Obsolete/2016-03-31/CodeGenerator.cs
+MetX/MetX/Library/Obsolete/2016-03-31/BaseLineProcessor.cs

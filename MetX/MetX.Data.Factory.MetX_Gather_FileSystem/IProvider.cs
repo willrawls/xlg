@@ -4,6 +4,7 @@ using System.Text;
 
 using MetX;
 using MetX.Data;
+using MetX.Interfaces;
 
 namespace MetX.Data.Factory
 {

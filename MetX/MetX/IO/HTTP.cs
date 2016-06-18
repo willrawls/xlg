@@ -94,23 +94,28 @@ namespace MetX.IO
         /// <returns>The response text from the post (Windows default code page encoded).</returns>
         public static string GetURL(string lcURL)
         {
-            int Timeout = 30;
+            int timeout = 30;
 
             //  *** Establish the request
             HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(lcURL);
             //  *** Set properties
-            if (Timeout < 1000)
-                Timeout = Timeout * 1000;
-            loHttp.Timeout = Timeout;
+            if (timeout < 1000)
+                timeout = timeout * 1000;
+            loHttp.Timeout = timeout;
             loHttp.UserAgent = UserAgents.IE60XPsp2DotNET2;
             //  *** Retrieve request info headers
             HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
             Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-            StreamReader loResponseStream = new StreamReader(loWebResponse.GetResponseStream(), enc);
-            string lcHtml = loResponseStream.ReadToEnd();
-            loWebResponse.Close();
-            loResponseStream.Close();
-            return lcHtml;
+            Stream responseStream = loWebResponse.GetResponseStream();
+            if (responseStream != null)
+            {
+                StreamReader loResponseStream = new StreamReader(responseStream, enc);
+                string lcHtml = loResponseStream.ReadToEnd();
+                loWebResponse.Close();
+                loResponseStream.Close();
+                return lcHtml;
+            }
+            return null;
         }
 
         /// <summary>Makes an HTTP POST call returning the response (no headers)</summary>
@@ -145,35 +150,37 @@ namespace MetX.IO
 		}
 
 		/// <summary>Pulls the contents of URL to the Response object. NOTE: Response is cleared before the URL's response is written to TheResponse</summary>
-		/// <param name="URL">The URL to pull</param>
-		/// <param name="TheResponse">The HttpResponse to write the result to</param>
-		/// <param name="ClearResponse">True if you want TheResponse.Clear() to be called before writing URL response to TheResponse</param>
-		/// <param name="EndResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
-		public static void PullPage(Uri URL, HttpResponse TheResponse, bool ClearResponse, bool EndResponse)
+		/// <param name="url">The URL to pull</param>
+		/// <param name="theResponse">The HttpResponse to write the result to</param>
+		/// <param name="clearResponse">True if you want TheResponse.Clear() to be called before writing URL response to TheResponse</param>
+		/// <param name="endResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
+		public static void PullPage(Uri url, HttpResponse theResponse, bool clearResponse, bool endResponse)
 		{
-			WebRequest Req;
-
-			Req = WebRequest.Create(URL);
-			WebResponse Resp;
+		    WebRequest req = WebRequest.Create(url);
+			WebResponse resp;
 			try
 			{
-				Resp = Req.GetResponse();
+				resp = req.GetResponse();
 			}
 			catch (Exception exc)
 			{
-                if(ClearResponse)
-				    TheResponse.Clear();
-				TheResponse.Write(exc.Message);
-                if (EndResponse)
-                    TheResponse.End();
+                if(clearResponse)
+				    theResponse.Clear();
+				theResponse.Write(exc.Message);
+                if (endResponse)
+                    theResponse.End();
 				return ;
 			}
 
-			StreamReader netStream = new StreamReader(Resp.GetResponseStream());
-			TheResponse.Clear();
-			TheResponse.Write(netStream.ReadToEnd());
-            if(EndResponse)
-			    TheResponse.End();
+			theResponse.Clear();
+            Stream responseStream = resp.GetResponseStream();
+            if(responseStream != null)
+            {
+                StreamReader netStream = new StreamReader(responseStream);
+                theResponse.Write(netStream.ReadToEnd());
+            }
+            if(endResponse)
+			    theResponse.End();
 		}
 	}
 }

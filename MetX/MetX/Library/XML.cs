@@ -312,7 +312,7 @@ namespace MetX.Library
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
 		/// <param name="toSerialize">The object to serialize</param>
 		/// <returns></returns>
-		public static string ToXml<T>(T toSerialize, bool removeNamespaces)
+		public static string ToXml<T>(T toSerialize, bool removeNamespaces = true)
 		{
 			StringBuilder sb = new StringBuilder();
 			using (XmlWriter xw = Writer(sb))
