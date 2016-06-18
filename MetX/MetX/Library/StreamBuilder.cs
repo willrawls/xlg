@@ -1,42 +1,17 @@
-﻿using System;
-using System.Diagnostics.PerformanceData;
-using System.IO;
-using System.Security;
-using System.Text;
-using MetX.Library;
-
-namespace MetX.Library
+﻿namespace MetX.Library
 {
+    using System;
+    using System.IO;
+    using System.Security;
+    using System.Text;
+
     /// <summary>
     /// Duck type (ish) interface similar to StringBuilder only write operations go directly to a stream.
-    /// While several of the functions from StringBuilder are supported, some are not implemented 
+    /// While several of the functions from StringBuilder are supported, some are not implemented
     /// due to the fact that said functions would be far less efficient than in memory operations.
     /// </summary>
     public class StreamBuilder
     {
-        /// <summary>
-        /// The number of bytes written so far. Note: This may not be the same as the length of the file.
-        /// </summary>
-        public long Length { get; private set; }
-
-
-        /// <summary>
-        /// The stream stream to write to
-        /// </summary>
-        public TextWriter Target { get; private set; }
-
-        /// <summary>
-        /// The path and filename being written to. NULL if a stream was passed in.
-        /// </summary>
-        public string FilePath { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Stream UnderlyingStream { get; private set; }
-
-        public StringBuilder UnderlyingStringBuilder { get; set; }
-
         /// <summary>
         /// Set this to true and a call to Finish() or during disposal will automatically close <see cref="Target"/>.
         /// </summary>
@@ -62,6 +37,7 @@ namespace MetX.Library
             {
                 throw new ArgumentNullException("filePath");
             }
+
             FilePath = filePath;
             UnderlyingStream = File.Open(FilePath, append ? FileMode.Append : FileMode.Create, FileAccess.Write);
             Target = new StreamWriter(UnderlyingStream);
@@ -77,7 +53,7 @@ namespace MetX.Library
         {
             if (textWriter == null)
                 throw new ArgumentException("TextWriter is required", "textWriter");
-            if (underlyingStream != null && !underlyingStream.CanWrite)
+            if ((underlyingStream != null) && !underlyingStream.CanWrite)
                 throw new ArgumentException("You must supply a writable stream", "underlyingStream");
 
             Target = textWriter;
@@ -99,6 +75,7 @@ namespace MetX.Library
             UnderlyingStringBuilder = underlyingStringBuilder;
             Target = new StringWriter(underlyingStringBuilder);
         }
+
         /// <summary>
         /// Attaches to an existing Stream.
         /// </summary>
@@ -107,8 +84,8 @@ namespace MetX.Library
         /// <exception cref="ArgumentNullException"><paramref name="stream" /> is null. </exception>
         public StreamBuilder(Stream stream)
         {
-            if (stream == null || !stream.CanWrite)
-                throw new ArgumentException("You must supply a writable stream","stream");
+            if ((stream == null) || !stream.CanWrite)
+                throw new ArgumentException("You must supply a writable stream", "stream");
             Target = new StreamWriter(stream);
             UnderlyingStream = stream;
         }
@@ -117,6 +94,28 @@ namespace MetX.Library
         {
             Finish();
         }
+
+        /// <summary>
+        /// The path and filename being written to. NULL if a stream was passed in.
+        /// </summary>
+        public string FilePath { get; private set; }
+
+        /// <summary>
+        /// The number of bytes written so far. Note: This may not be the same as the length of the file.
+        /// </summary>
+        public long Length { get; private set; }
+
+        /// <summary>
+        /// The stream stream to write to
+        /// </summary>
+        public TextWriter Target { get; private set; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public Stream UnderlyingStream { get; private set; }
+
+        public StringBuilder UnderlyingStringBuilder { get; set; }
 
         /// <summary>
         /// Appends a string to the stream
@@ -130,6 +129,7 @@ namespace MetX.Library
             {
                 return;
             }
+
             Target.Write(value);
             Length += value.Length;
             Target.Flush();
@@ -150,52 +150,13 @@ namespace MetX.Library
             {
                 return;
             }
+
             string value = string.Format(format, args);
             Target.Write(value);
             Length += value.Length;
             Target.Flush();
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="value"></param>
-        /// <param name="count"></param>
-        /// <param name="returnToOriginalPosition">True to restore the seek location after writing.</param>
-        /// <exception cref="InvalidOperationException">UnderlyingStream must not be null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">index</exception>
-        /// <exception cref="IOException">An I/O error occurs. </exception>
-        /// <exception cref="NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output. </exception>
-        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
-        public void Overwrite(int index, string value, int count = -1, bool returnToOriginalPosition = false)
-        {
-            if (UnderlyingStream == null || !UnderlyingStream.CanSeek)
-                throw new InvalidOperationException("UnderlyingStream must not be null and seekable.");
-            if(index < 0)
-                throw new ArgumentOutOfRangeException("index", "Can't seek to a negative index");
-            if (value == null)
-                return;
-            if (count == 0)
-                return;
-
-            long position = UnderlyingStream.Position;
-            UnderlyingStream.Seek(index, SeekOrigin.Begin);
-
-            if(count == -1 || count >= value.Length)
-            {
-                Append(value);
-            }
-            else
-            {
-                Append(value.Left(count));
-            }
-
-            if (returnToOriginalPosition)
-            {
-                UnderlyingStream.Seek(position, SeekOrigin.Begin);
-            }
-        }
-        
         /// <summary>
         /// Appends a string to the stream followed by a new line.
         /// </summary>
@@ -209,6 +170,7 @@ namespace MetX.Library
                 Target.Write(value);
                 Length += value.Length;
             }
+
             Target.Write(Environment.NewLine);
             Length += Environment.NewLine.Length;
             Target.Flush();
@@ -227,7 +189,7 @@ namespace MetX.Library
         }
 
         /// <summary>
-        /// Flushes and closes the stream. 
+        /// Flushes and closes the stream.
         /// NOTE: Occurs automatically when the object is disposed.
         /// </summary>
         public void Finish()
@@ -241,13 +203,30 @@ namespace MetX.Library
 
                 Target.Flush();
 
-                if (!CloseOnFinish) return;
+                if (!CloseOnFinish)
+                    return;
 
                 Target.Close();
                 if (UnderlyingStream != null)
                 {
                     UnderlyingStream.Close();
                 }
+            }
+            catch (ObjectDisposedException odex)
+            {
+                try
+                {
+                    if (UnderlyingStream != null)
+                    {
+                        UnderlyingStream.Close();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                // Safe to ignore
             }
             finally
             {
@@ -256,7 +235,46 @@ namespace MetX.Library
             }
         }
 
-        
+        /// <summary>
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <param name="count"></param>
+        /// <param name="returnToOriginalPosition">True to restore the seek location after writing.</param>
+        /// <exception cref="InvalidOperationException">UnderlyingStream must not be null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">index</exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        /// <exception cref="NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output. </exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
+        public void Overwrite(int index, string value, int count = -1, bool returnToOriginalPosition = false)
+        {
+            if ((this.UnderlyingStream == null) || !UnderlyingStream.CanSeek)
+                throw new InvalidOperationException("UnderlyingStream must not be null and seekable.");
+            if (index < 0)
+                throw new ArgumentOutOfRangeException("index", "Can't seek to a negative index");
+            if (value == null)
+                return;
+            if (count == 0)
+                return;
+
+            long position = UnderlyingStream.Position;
+            UnderlyingStream.Seek(index, SeekOrigin.Begin);
+
+            if ((count == -1) || (count >= value.Length))
+            {
+                Append(value);
+            }
+            else
+            {
+                Append(value.Left(count));
+            }
+
+            if (returnToOriginalPosition)
+            {
+                UnderlyingStream.Seek(position, SeekOrigin.Begin);
+            }
+        }
+
         /// <exception cref="IOException">An I/O error has occurred. </exception>
         /// <exception cref="ArgumentException"><see cref="FilePath" /> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by <see cref="F:System.IO.Path.InvalidPathChars" />. </exception>
         /// <exception cref="ArgumentNullException"><see cref="FilePath" /> is null. </exception>
@@ -275,6 +293,7 @@ namespace MetX.Library
                     Target.Flush();
                     Target.Close();
                 }
+
                 if (UnderlyingStream != null)
                 {
                     UnderlyingStream.Close();
@@ -286,6 +305,7 @@ namespace MetX.Library
                         return string.Empty;
                     return UnderlyingStringBuilder.ToString();
                 }
+
                 return File.ReadAllText(FilePath);
             }
             finally
@@ -293,7 +313,6 @@ namespace MetX.Library
                 Target = null;
                 UnderlyingStream = null;
             }
-
         }
     }
 }
