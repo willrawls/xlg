@@ -1,16 +1,21 @@
-using System;
-using System.CodeDom.Compiler;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using MetX.Library;
-using Microsoft.CSharp;
-using NArrange.ConsoleApplication;
-using NArrange.Core;
-
 namespace MetX.Scripts
 {
+    using System;
+    using System.CodeDom.Compiler;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Windows.Forms;
+    using System.Xml.Serialization;
+
+    using MetX.Library;
+
+    using Microsoft.CSharp;
+
+    using NArrange.ConsoleApplication;
+    using NArrange.Core;
+
     /// <summary>
     ///     Represents a clipboard processing script
     /// </summary>
@@ -20,26 +25,37 @@ namespace MetX.Scripts
     {
         [XmlAttribute]
         public QuickScriptDestination Destination;
+
         [XmlAttribute]
         public string DestinationFilePath;
+
         [XmlAttribute]
         public string DiceAt;
+
         [XmlAttribute]
         public Guid Id;
+
         [XmlAttribute]
         public string Input;
+
         [XmlAttribute]
         public string InputFilePath;
+
         [XmlAttribute]
         public string Name;
+
         [XmlAttribute]
         public string Script;
+
         [XmlAttribute]
         public string SliceAt;
+
         [XmlAttribute]
         public string Template;
 
-        public XlgQuickScript() { }
+        public XlgQuickScript()
+        {
+        }
 
         public XlgQuickScript(string name, string script = null)
         {
@@ -52,7 +68,7 @@ namespace MetX.Scripts
             Template = "Single file input";
         }
 
-        public static CompilerResults CompileSource(string source, bool asExecutable)
+        public static CompilerResults CompileSource(string source, bool asExecutable, List<Assembly> additionalReferences)
         {
             CompilerParameters compilerParameters = new CompilerParameters
             {
@@ -64,7 +80,7 @@ namespace MetX.Scripts
             {
                 compilerParameters.MainClass = "Processor.Program";
                 compilerParameters.OutputAssembly =
-                    Guid.NewGuid().ToString().Replace(new[] { "{", "}", "-" }, "").ToLower() + ".exe";
+                    Guid.NewGuid().ToString().Replace(new[] { "{", "}", "-" }, string.Empty).ToLower() + ".exe";
             }
 
             compilerParameters
@@ -75,17 +91,77 @@ namespace MetX.Scripts
                              .Where(a => !a.IsDynamic)
                              .Select(a => a.Location)
                              .ToArray());
+            if ((additionalReferences != null) && (additionalReferences.Count > 0))
+            {
+                compilerParameters.ReferencedAssemblies.AddRange(
+                    additionalReferences
+                        .Select(a => a.Location)
+                        .ToArray());
+            }
+
             CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
                 source);
             return compilerResults;
         }
 
-        public string ToCSharp(bool independent)
+        public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
-            string code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
-            return code.IsEmpty()
-                ? code
-                : FormatCSharpCode(code);
+            // backslash percent will translate to % after parsing
+            currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
+
+            bool keepGoing = true;
+            int iterations = 0;
+            while (keepGoing && (++iterations < 1000) && currScriptLine.Contains("%")
+                   && (currScriptLine.TokenCount("%") > 1))
+            {
+                string variableContent = currScriptLine.TokenAt(2, "%");
+                string resolvedContent = string.Empty;
+                if (variableContent.Length > 0)
+                {
+                    if (variableContent.Contains(" "))
+                    {
+                        string variableName = variableContent.FirstToken();
+                        string variableIndex = variableContent.TokensAfterFirst();
+                        int actualIndex;
+                        if (int.TryParse(variableIndex, out actualIndex))
+                        {
+                            // Array index
+                            resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
+                                              + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
+                        }
+                        else
+                        {
+                            resolvedContent = "\" + " + variableName + "[\"" + variableIndex + "\"] + \"";
+                        }
+                    }
+                    else
+                    {
+                        resolvedContent = "\" + " + variableContent + " + \"";
+                    }
+                }
+                else
+                {
+                    keepGoing = false;
+                }
+
+                currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
+            }
+
+            currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
+            currScriptLine =
+                currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
+                              .Replace(" + \"\")", ")")
+                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
+            currScriptLine = (indent > 0
+                ? new string(' ', indent + 12)
+                : string.Empty) +
+                             currScriptLine
+                                 .Replace(" + \"\" + ", string.Empty)
+                                 .Replace("\"\" + ", string.Empty)
+                                 .Replace(" + \"\"", string.Empty)
+                                 .Replace("~$~$", @"%")
+                                 .Replace("~#~$", "\\\"");
+            return currScriptLine;
         }
 
         public static string FormatCSharpCode(string code)
@@ -109,6 +185,7 @@ namespace MetX.Scripts
                     }
                 }
             }
+
             return code;
         }
 
@@ -118,10 +195,12 @@ namespace MetX.Scripts
             {
                 throw new ArgumentNullException("logger");
             }
+
             if (commandArgs == null)
             {
                 throw new ArgumentNullException("commandArgs");
             }
+
             bool flag;
             if (commandArgs.Restore)
             {
@@ -136,6 +215,7 @@ namespace MetX.Scripts
                     logger.LogMessage(LogLevel.Warning, ex.Message);
                     flag = false;
                 }
+
                 if (flag)
                 {
                     logger.LogMessage(LogLevel.Info, "Restored");
@@ -157,7 +237,22 @@ namespace MetX.Scripts
                     logger.LogMessage(LogLevel.Info, "Arrange successful.");
                 }
             }
+
             return flag;
+        }
+
+        public XlgQuickScript Clone(string name)
+        {
+            return new XlgQuickScript(name, Script)
+            {
+                Destination = Destination,
+                DestinationFilePath = DestinationFilePath,
+                DiceAt = DiceAt,
+                Input = Input,
+                InputFilePath = InputFilePath,
+                SliceAt = SliceAt,
+                Template = Template
+            };
         }
 
         public bool Load(string rawScript)
@@ -171,6 +266,7 @@ namespace MetX.Scripts
             {
                 throw new ArgumentNullException("rawScript");
             }
+
             Name = rawScript.FirstToken(Environment.NewLine);
             if (string.IsNullOrEmpty(Name))
             {
@@ -194,7 +290,6 @@ namespace MetX.Scripts
                                         "~~QuickScriptInputEnd:" + Environment.NewLine);
                                 }
                 */
-
                 StringBuilder sb = new StringBuilder();
                 foreach (string line in rawScript.Lines())
                 {
@@ -250,10 +345,19 @@ namespace MetX.Scripts
                         sb.AppendLine(line);
                     }
                 }
+
                 Script = sb.ToString();
             }
 
             return ret;
+        }
+
+        public string ToCSharp(bool independent)
+        {
+            string code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
+            return code.IsEmpty()
+                ? code
+                : FormatCSharpCode(code);
         }
 
         public string ToFileFormat(bool isDefault)
@@ -273,78 +377,9 @@ namespace MetX.Scripts
                    Script.AsString();
         }
 
-        public override string ToString() { return Name; }
-
-        public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
+        public override string ToString()
         {
-            // backslash percent will translate to % after parsing
-            currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
-
-            bool keepGoing = true;
-            int iterations = 0;
-            while (keepGoing && ++iterations < 1000 && currScriptLine.Contains("%")
-                   && currScriptLine.TokenCount("%") > 1)
-            {
-                string variableContent = currScriptLine.TokenAt(2, "%");
-                string resolvedContent = string.Empty;
-                if (variableContent.Length > 0)
-                {
-                    if (variableContent.Contains(" "))
-                    {
-                        string variableName = variableContent.FirstToken();
-                        string variableIndex = variableContent.TokensAfterFirst();
-                        int actualIndex;
-                        if (int.TryParse(variableIndex, out actualIndex))
-                        {
-                            // Array index
-                            resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
-                                              + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
-                        }
-                        else
-                        {
-                            resolvedContent = "\" + " + variableName + "[\"" + variableIndex + "\"] + \"";
-                        }
-                    }
-                    else
-                    {
-                        resolvedContent = "\" + " + variableContent + " + \"";
-                    }
-                }
-                else
-                {
-                    keepGoing = false;
-                }
-                currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
-            }
-            currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
-            currScriptLine =
-                currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                              .Replace(" + \"\")", ")")
-                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
-            currScriptLine = (indent > 0
-                ? new string(' ', indent + 12)
-                : string.Empty) +
-                             currScriptLine
-                                 .Replace(" + \"\" + ", string.Empty)
-                                 .Replace("\"\" + ", string.Empty)
-                                 .Replace(" + \"\"", string.Empty)
-                                 .Replace("~$~$", @"%")
-                                 .Replace("~#~$", "\\\"");
-            return currScriptLine;
-        }
-
-        public XlgQuickScript Clone(string name)
-        {
-            return new XlgQuickScript(name, Script)
-            {
-                Destination = Destination,
-                DestinationFilePath = DestinationFilePath,
-                DiceAt = DiceAt,
-                Input = Input,
-                InputFilePath = InputFilePath,
-                SliceAt = SliceAt,
-                Template = Template,
-            };
+            return Name;
         }
     }
 }

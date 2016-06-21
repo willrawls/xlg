@@ -86,6 +86,7 @@ namespace XLG.QuickScripts
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ScriptEditor = new MetX.Controls.QuickScriptControl();
+            this.testFuncToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputOptions.SuspendLayout();
             this.OutputOutputs.SuspendLayout();
             this.MainStrip.SuspendLayout();
@@ -135,7 +136,7 @@ namespace XLG.QuickScripts
             "Web Address",
             "None"});
             this.InputList.Name = "InputList";
-            this.InputList.Size = new System.Drawing.Size(126, 25);
+            this.InputList.Size = new System.Drawing.Size(126, 23);
             this.InputList.SelectedIndexChanged += new System.EventHandler(this.InputList_SelectedIndexChanged);
             // 
             // InputPathLabel
@@ -220,7 +221,7 @@ namespace XLG.QuickScripts
             "Text Box",
             "Notepad"});
             this.DestinationList.Name = "DestinationList";
-            this.DestinationList.Size = new System.Drawing.Size(126, 25);
+            this.DestinationList.Size = new System.Drawing.Size(126, 23);
             this.DestinationList.SelectedIndexChanged += new System.EventHandler(this.DestinationList_SelectedIndexChanged);
             // 
             // OutputPathLabel
@@ -418,7 +419,8 @@ namespace XLG.QuickScripts
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
+            this.toolStripMenuItem5,
+            this.testFuncToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(769, 32);
@@ -514,7 +516,7 @@ namespace XLG.QuickScripts
             this.NewScriptMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("NewScriptMenuItem.Image")));
             this.NewScriptMenuItem.Name = "NewScriptMenuItem";
             this.NewScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewScriptMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.NewScriptMenuItem.Size = new System.Drawing.Size(277, 22);
             this.NewScriptMenuItem.Text = "Add &new script";
             this.NewScriptMenuItem.Click += new System.EventHandler(this.NewQuickScript_Click);
             // 
@@ -523,7 +525,7 @@ namespace XLG.QuickScripts
             this.ViewCodeMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ViewCodeMenuItem.Image")));
             this.ViewCodeMenuItem.Name = "ViewCodeMenuItem";
             this.ViewCodeMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.ViewCodeMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.ViewCodeMenuItem.Size = new System.Drawing.Size(277, 22);
             this.ViewCodeMenuItem.Text = "&View generated code";
             this.ViewCodeMenuItem.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
             // 
@@ -531,8 +533,8 @@ namespace XLG.QuickScripts
             // 
             this.RunScriptMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RunScriptMenuItem.Image")));
             this.RunScriptMenuItem.Name = "RunScriptMenuItem";
-            this.RunScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.RunScriptMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.RunScriptMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.RunScriptMenuItem.Size = new System.Drawing.Size(277, 22);
             this.RunScriptMenuItem.Text = "&Run current script";
             this.RunScriptMenuItem.Click += new System.EventHandler(this.RunQuickScript_Click);
             // 
@@ -540,15 +542,15 @@ namespace XLG.QuickScripts
             // 
             this.BuildExeMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("BuildExeMenuItem.Image")));
             this.BuildExeMenuItem.Name = "BuildExeMenuItem";
-            this.BuildExeMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.BuildExeMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.BuildExeMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.BuildExeMenuItem.Size = new System.Drawing.Size(277, 22);
             this.BuildExeMenuItem.Text = "Build command line &executable";
             this.BuildExeMenuItem.Click += new System.EventHandler(this.ViewIndependectGeneratedCode_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(278, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(274, 6);
             // 
             // DeleteScriptMenuItem
             // 
@@ -557,7 +559,7 @@ namespace XLG.QuickScripts
             this.DeleteScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D)));
-            this.DeleteScriptMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.DeleteScriptMenuItem.Size = new System.Drawing.Size(277, 22);
             this.DeleteScriptMenuItem.Text = "Delete current script";
             this.DeleteScriptMenuItem.Click += new System.EventHandler(this.DeleteScript_Click);
             // 
@@ -600,7 +602,7 @@ namespace XLG.QuickScripts
             this.RunningLabel,
             this.toolStripStatusLabel2,
             this.ProgressLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 390);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 624);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(769, 22);
             this.statusStrip1.TabIndex = 23;
@@ -632,15 +634,22 @@ namespace XLG.QuickScripts
             this.ScriptEditor.IsReadOnly = false;
             this.ScriptEditor.Location = new System.Drawing.Point(0, 116);
             this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(769, 296);
+            this.ScriptEditor.Size = new System.Drawing.Size(769, 530);
             this.ScriptEditor.TabIndex = 0;
+            // 
+            // testFuncToolStripMenuItem
+            // 
+            this.testFuncToolStripMenuItem.Name = "testFuncToolStripMenuItem";
+            this.testFuncToolStripMenuItem.Size = new System.Drawing.Size(68, 28);
+            this.testFuncToolStripMenuItem.Text = "Test func";
+            this.testFuncToolStripMenuItem.Click += new System.EventHandler(this.testFuncToolStripMenuItem_Click);
             // 
             // QuickScriptEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(769, 412);
+            this.ClientSize = new System.Drawing.Size(769, 646);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ScriptEditor);
             this.Controls.Add(this.OutputOutputs);
@@ -727,5 +736,6 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel ProgressLabel;
         private QuickScriptControl ScriptEditor;
+        private System.Windows.Forms.ToolStripMenuItem testFuncToolStripMenuItem;
     }
 }

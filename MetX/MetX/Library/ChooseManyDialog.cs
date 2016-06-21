@@ -15,7 +15,7 @@ namespace MetX.Library
         {
             get
             {
-                if ((this.Result == DialogResult.Cancel))
+                if (this.Result == DialogResult.Cancel)
                 {
                     return this.ValueToReturnOnCancel;
                 }
@@ -44,7 +44,7 @@ namespace MetX.Library
         public int[] Ask(
             string[] choices,
             string promptText = "Please select one from the list",
-            string title = "CHOOSE ONE",
+            string title = "MULTIPLE CHOICE",
             int[] initiallySelectedIndexes = null)
         {
             this.Items = choices;
@@ -53,11 +53,10 @@ namespace MetX.Library
 
         public override void SetupEntryArea()
         {
-            this.EntryArea.Items.Clear();
-
             EntryArea.SelectionMode = SelectionMode.MultiSimple;
             this.EntryArea.SetBounds(12, 106, 372, 280);
 
+            this.EntryArea.Items.Clear();
             if (this.Items.IsEmpty())
             {
                 return;

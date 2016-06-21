@@ -7,7 +7,6 @@ namespace MetX.Library
         public string[] Choices;
 
         public ChooseOneDialog()
-            : base()
         {
             this.ValueToReturnOnCancel = -1;
         }
@@ -27,7 +26,7 @@ namespace MetX.Library
             int defaultValue = 0)
         {
             this.Choices = choices;
-            return base.Ask(promptText, title, defaultValue);
+            return this.Ask(promptText, title, defaultValue);
         }
 
         public override void SetupEntryArea()
@@ -40,7 +39,7 @@ namespace MetX.Library
 
             foreach (string choice in this.Choices)
             {
-                this.EntryArea.Items.Add(choice);
+                this.EntryArea.Items.Add(choice.AsString());
             }
 
             if ((this.DefaultValue >= 0) && (this.DefaultValue < this.Choices.Length))

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.IO;
     using System.Text;
     using System.Windows.Forms;
@@ -165,7 +164,7 @@
             return true;
         }
 
-        public virtual bool SetupOutput(QuickScriptDestination destination, string location)
+        public virtual bool SetupOutput(QuickScriptDestination destination, ref string location)
         {
             switch (destination)
             {
@@ -176,6 +175,13 @@
                     break;
 
                 case QuickScriptDestination.Notepad:
+                    if (location.IsEmpty())
+                    {
+                        location = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString().Left(13) + ".txt");
+                    }
+                    Output = new StreamBuilder(location);
+                    break;
+
                 case QuickScriptDestination.File:
                     Output = new StreamBuilder(location);
                     break;

@@ -117,23 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-    <data name="StringToInsertOnTripleTilde" xml:space="preserve">
-    <value>Members:
-    List&lt;string&gt; Items = new List&lt;string&gt;();
-    string toFind;
-    
-~~Start:
-    toFind = Ask("What to find?", "something");
-    
-~~Body:
-    if(line.Contains(toFind))
-    {
-        ~~:line # %number% contains "%toFind%"
-        Items.Add(line);
-    }
-    
-~~Finish:
-    ~~: %Items.Count% items found
-</value>
-  </data>
 </root>

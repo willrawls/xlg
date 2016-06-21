@@ -8,10 +8,10 @@ namespace MetX.Scripts
 {
     public class GenInstance : List<GenArea>
     {
+        public XlgQuickScriptTemplate Template;
         private readonly bool m_Independent;
         private readonly XlgQuickScript m_Quick;
         private GenArea m_CurrArea;
-        public XlgQuickScriptTemplate Template;
 
         public GenInstance(XlgQuickScript quick, XlgQuickScriptTemplate template, bool independent)
         {
@@ -134,7 +134,7 @@ namespace MetX.Scripts
                         case QuickScriptDestination.TextBox:
                         case QuickScriptDestination.Clipboard:
                         case QuickScriptDestination.Notepad:
-                            sb.Replace("//~~DestinationFilePath~~//", "Path.GetTempFileName()");
+                            sb.Replace("//~~DestinationFilePath~~//", "Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString().Left(13) + \".txt\")");
                             break;
 
                         case QuickScriptDestination.File:
