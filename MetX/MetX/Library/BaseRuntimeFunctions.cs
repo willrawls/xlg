@@ -70,6 +70,15 @@ namespace MetX.Library
             return dialog.Ask(choices, promptText, title, defaultValue);
         }
 
+        // public static int ChooseOrder(
+        // string[] choices,
+        // string[] defaultValues,
+        // string promptText = "Please select from the list. Reorder as needed.",
+        // string title = "CHOOSE LIST ORDER")
+        // {
+        // ChooseOrderDialog dialog = new ChooseOrderDialog();
+        // return dialog.Ask(choices, promptText, title, defaultValues);
+        // }
         public static int[] MultipleChoice(
             string[] choices,
             int[] initiallySelectedIndexes = null,

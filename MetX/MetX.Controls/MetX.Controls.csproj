@@ -55,6 +55,13 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IRunQuickScript.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="ChooseOrderDialog.cs" />
+    <Compile Include="OrderedSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderedSelector.Designer.cs">
+      <DependentUpon>OrderedSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,6 +119,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="OrderedSelector.resx">
+      <DependentUpon>OrderedSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
