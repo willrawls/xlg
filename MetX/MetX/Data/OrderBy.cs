@@ -5,7 +5,7 @@ namespace MetX.Data
     /// </summary>
     public class OrderBy
     {
-        public readonly string OrderString;
+        public string OrderString;
 
         public OrderBy() { }
         public OrderBy(string orderString) { this.OrderString = orderString; }
