@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Scroll Snap Points Module Level 1
+W3C First Public Working Draft, 26 March 2015
+http://www.w3.org/TR/2015/WD-css-snappoints-1-20150326/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="scroll-snap-type" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-type" applies="scroll containers" initial="none" inherited="no" percentage="n/a" media="interactive" animatable="no" caniuse-ids="css-snappoints">
+    <group type="or">
+      <name value="none" tooltip="The visual viewport of this scroll container must ignore snap points, if any, when scrolled." />
+      <name value="mandatory" tooltip="The visual viewport of this scroll container is guaranteed to rest on a snap point when there are no active scrolling operations. That is, it must come to rest on a snap point at the termination of a scroll, if possible. If the content changes such that the visual viewport would no longer rest on a snap point (e.g. content is added, moved, deleted, resized), the scroll offset must be modified to maintain this guarantee." />
+      <name value="proximity" tooltip="The visual viewport of this scroll container may come to rest on a snap point at the termination of a scroll at the discretion of the UA given the parameters of the scroll. If the content changes such that the visual viewport would no longer rest on a snap point (e.g. content is added, moved, deleted, resized), the scroll offset may be modified to maintain this guarantee." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="repeat" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-points">
+    <group>
+      <length min-value="0" allow-zero="no" />
+    </group>
+  </function>
+  <property id="scroll-snap-points-x" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-points-x" applies="scroll containers" initial="none" inherited="no" percentage="relative to same axis of the padding-box of the scroll container" media="interactive" animatable="no">
+    <group type="or">
+      <name value="none" tooltip="No snap points are defined by this scroll container. Contained elements may still define snap points on this scroll container’s behalf." />
+      <invoke id="repeat" tooltip="Defines an interval at which snap points are defined, starting from the container’s relevant start edge. Only positive lengths are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scroll-snap-points-y" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-points-y" applies="scroll containers" initial="none" inherited="no" percentage="relative to same axis of the padding-box of the scroll container" media="interactive" animatable="no">
+    <group type="or">
+      <name value="none" tooltip="No snap points are defined by this scroll container. Contained elements may still define snap points on this scroll container’s behalf." />
+      <invoke id="repeat" tooltip="Defines an interval at which snap points are defined, starting from the container’s relevant start edge. Only positive lengths are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scroll-snap-destination" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-destination" applies="scroll containers" initial="0px 0px" inherited="no" percentage="relative to width and height of the padding-box of the scroll container" media="interactive" animatable="yes">
+    <group type="or">
+      <position tooltip="Specifies the offset of the snap destination from the start edge of the scroll container’s visual viewport. The first value gives the x coordinate of the snap destination, the second value its y coordinate." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scroll-snap-coordinate" declared-in="3.0" url="http://www.w3.org/TR/css-snappoints-1/#propdef-scroll-snap-coordinate" applies="all elements" initial="none" inherited="no" percentage="refer to the element’s border box" media="interactive" animatable="yes">
+    <group type="or">
+      <name value="none" tooltip="Specifies that this element does not contribute a snap point." />
+      <position comma-separated="yes" tooltip="Specifies the offset of the snap coordinates from the start edge of the element’s border box. For each pairing, the first value gives the x coordinate of the snap coordinate, the second value its y coordinate." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="scroll-snap-type" prefix="webkit" browsers="S9.0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW28" />
+  <prefixed-property id="scroll-snap-points-x" prefix="webkit" browsers="S9.0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW28" />
+  <prefixed-property id="scroll-snap-points-y" prefix="webkit" browsers="S9.0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW28" />
+  <prefixed-property id="scroll-snap-destination" prefix="webkit" browsers="S9.0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW28" />
+  <prefixed-property id="scroll-snap-coordinate" prefix="webkit" browsers="S9.0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW28" />
+</definitions>

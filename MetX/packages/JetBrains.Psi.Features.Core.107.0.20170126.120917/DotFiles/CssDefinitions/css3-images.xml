@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+CSS Image Values and Replaced Content Module Level 3
+W3C Candidate Recommendation 17 April 2012
+http://www.w3.org/TR/2012/CR-css3-images-20120417/ 
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="image" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#image-type" caniuse-ids="css-gradients,object-fit">
+    <group type="or">
+      <invoke id="image" />
+      <invoke id="url" />
+      <inline id="gradient" />
+    </group>
+  </named-value>
+  <named-value id="side-or-corner" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#side-or-corner" caniuse-ids="css-gradients,object-fit">
+    <group type="any">
+      <group type="or">
+        <name value="left" />
+        <name value="right" />
+      </group>
+      <group type="or">
+        <name value="top" />
+        <name value="bottom" />
+      </group>
+    </group>
+  </named-value>
+  <named-value id="color-stop" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#color-stop-syntax" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      Color-stops are points placed along the line defined by the gradient line at the beginning of the rule.
+      Color-stops must be specified in order. Percentages refer to the length of the gradient line, with 0%
+      being at the starting point and 100% being at the ending point.
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="color" />
+        <group type="or" min="0">
+          <percentage />
+          <length />
+        </group>
+      </group>
+      <invoke id="color-stop" />
+    </group>
+  </named-value>
+  <named-value id="extent-keyword" declared-in="3.0">
+    <group type="or">
+      <name value="closest-side" />
+      <name value="farthest-side" />
+      <name value="closest-corner" />
+      <name value="farthest-corner" />
+    </group>
+  </named-value>
+  <function id="image" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#image-list-type" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      <p>The <b>image()</b> function allows an author to:</p>
+      <ul>
+        <li>use media fragments to clip out a portion of an image</li>
+        <li>specify fallback images in case the preferred image can't be decoded or is a type that the browser doesn't recognize</li>
+        <li>use a solid color as an image</li>
+        <li>automatically respect the image orientation specified in the image's metadata</li>
+      </ul>
+      ]]></description>
+    <group>
+      <group min="0" max="-1">
+        <group type="or">
+          <uri />
+          <string />
+        </group>
+        <text value="," />
+      </group>
+      <group type="or">
+        <uri />
+        <string />
+        <!--fallback color-->
+        <inline id="color" />
+      </group>
+    </group>
+  </function>
+  <named-value id="linear-gradient-parameters" declared-in="3.0">
+    <group>
+      <group min="0">
+        <group type="or">
+          <angle />
+          <group>
+            <text value="to" min="0" browsers="FF16,C26,IE10,O12.10" />
+            <inline id="side-or-corner" />
+          </group>
+        </group>
+        <text value="," />
+      </group>
+      <inline id="color-stop" />
+      <group max="-1">
+        <text value="," />
+        <inline id="color-stop" />
+      </group>
+    </group>
+  </named-value>
+  <named-value id="radial-gradient-parameters" declared-in="3.0">
+    <group type="or">
+      <group>
+        <group type="or" min="0">
+          <group>
+            <group type="any">
+              <name value="circle" />
+              <length />
+            </group>
+            <group min="0">
+              <name value="at" />
+              <inline id="bg-position" />
+            </group>
+            <text value="," />
+          </group>
+          <group>
+            <group type="any">
+              <name value="ellipse" />
+              <group type="or" min="2" max="2">
+                <length />
+                <percentage />
+              </group>
+            </group>
+            <group min="0">
+              <name value="at" />
+              <inline id="bg-position" />
+            </group>
+            <text value="," />
+          </group>
+          <group>
+            <group type="any">
+              <group type="or">
+                <name value="circle" />
+                <name value="ellipse" />
+              </group>
+              <inline id="extent-keyword" />
+            </group>
+            <group min="0">
+              <name value="at" />
+              <inline id="bg-position" />
+            </group>
+            <text value="," />
+          </group>
+          <group>
+            <name value="at" />
+            <inline id="bg-position" />
+            <text value="," />
+          </group>
+        </group>
+        <inline id="color-stop" />
+        <group max="-1">
+          <text value="," />
+          <inline id="color-stop" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </named-value>
+  <named-value id="gradient" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#gradients" caniuse-ids="css-gradients,object-fit">
+    <group type="or">
+      <invoke id="linear-gradient" />
+      <invoke id="-webkit-linear-gradient" />
+      <invoke id="-o-linear-gradient" />
+      <invoke id="-moz-linear-gradient" />
+      <invoke id="-ms-linear-gradient" />
+      <invoke id="-webkit-gradient" />
+      <invoke id="radial-gradient" />
+      <invoke id="-webkit-radial-gradient" />
+      <invoke id="-o-radial-gradient" />
+      <invoke id="-ms-radial-gradient" />
+      <invoke id="-moz-radial-gradient" />
+      <invoke id="repeating-linear-gradient" />
+      <invoke id="-webkit-repeating-linear-gradient" />
+      <invoke id="-o-repeating-linear-gradient" />
+      <invoke id="-ms-repeating-linear-gradient" />
+      <invoke id="-moz-repeating-linear-gradient" />
+      <invoke id="repeating-radial-gradient" />
+      <invoke id="-webkit-repeating-radial-gradient" />
+      <invoke id="-moz-repeating-radial-gradient" />
+      <invoke id="-ms-repeating-radial-gradient" />
+      <invoke id="-o-repeating-radial-gradient" />
+    </group>
+  </named-value>
+  <function id="linear-gradient" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#linear-gradients" browsers="FF16,C26,IE10,O12.10" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      <p>A linear gradient is created by specifying a gradient line and then several colors placed along that line. The image is constructed
+        by creating an infinite canvas and painting it with lines perpendicular to the gradient line, with the color of the painted line
+        being the color of the gradient line where the two intersect. This produces a smooth fade from each color to the next, progressing
+        in the specified direction.</p>
+
+      <p>The first argument to the function specifies the <dfn id="gradient-line">gradient line</dfn>, which gives the gradient a direction
+        and determines how color-stops are positioned. It may be omitted; if so,
+        it defaults to ‘<code>to bottom</code>’.</p>
+
+      <p>The <i title="gradient line">gradient line's</i> direction may be specified in two ways:</p>
+      <dl>
+        <dt>using angles</dt>
+        <dd>For the purpose of this argument, ‘<code class="css">0deg</code>’
+          points upward, and positive angles represent clockwise rotation, so
+          ‘<code class="css">90deg</code>’ point toward the right.
+        </dd>
+        <dt>using keywords</dt>
+        <dd>
+          <p>If the argument is ‘<code class="css">to top</code>’, ‘<code class="css">to right</code>’, ‘<code class="css">to bottom</code>’,
+            or
+            ‘<code class="css">to left</code>’, the angle of the <i>gradient line</i> is ‘<code class="css">0deg</code>’,
+            ‘<code class="css">90deg</code>’, ‘<code class="css">180deg</code>’, or ‘<code class="css">270deg</code>’,
+            respectively.</p>
+
+          <p> If the argument instead specifies a corner of the box such as
+            ‘<code class="css">to top left</code>’, the <i>gradient line</i> must be angled such that
+            it points into the same quadrant as the specified corner, and is
+            perpendicular to a line intersectingd the two neighboring corners of the
+            <i>gradient box</i>. <span class="note">This causes a color-stop at 50% to intersect the two neighboring corners.</span>
+          </p></dd>
+      </dl>
+      <p>Starting from the center of the <i>gradient box</i>, extend a line at the specified angle in both directions. The
+        ending point is the point on the <i>gradient line</i> where a line drawn perpendicular to the <i>gradient line</i> would intersect
+        the corner
+        of the <i>gradient box</i> in the specified direction. The starting point is determined identically, but in the
+        opposite direction.</p>
+      ]]></description>
+    <inline id="linear-gradient-parameters" inline="yes" />
+  </function>
+  <function id="radial-gradient" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#radial-gradients" browsers="FF16,O12.5,IE10" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      <p>In a radial gradient, rather than colors smoothly fading from one side
+        of the <i>gradient box</i> to the other as
+        with linear gradients, they instead emerge from a single point and
+        smoothly spread outward in a circular or elliptical shape.</p>
+      <p>A radial gradient is specified by indicating the center of the gradient
+        (where the 0% ellipse will be) and the size and shape of the <dfn id="ending-shape">ending shape</dfn> (the 100% ellipse). Color
+        stops are
+        given as a list, just as for ‘<code class="css">linear-gradient()</code>’. Starting from the <i>center</i> and
+        progressing towards (and potentially beyond) the <i>ending shape</i> uniformly-scaled concentric
+        ellipses are drawn and colored according to the specified color stops.</p>
+      ]]></description>
+    <inline id="radial-gradient-parameters" inline="yes" />
+  </function>
+  <function id="repeating-linear-gradient" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#repeating-gradients" browsers="FF16,O12.5,IE10" caniuse-ids="css-gradients,object-fit,css-repeating-gradients">
+    <description><![CDATA[
+      <p>In addition to &lt;linear-gradient&gt; and &lt;radial-gradient&gt;, the specification defines
+        &lt;repeating-linear-gradient&gt; and &lt;repeating-radial-gradient&gt; values. These two notations take the same values and are
+        interpreted the same as their respective
+        non-repeating siblings defined previously.</p>
+
+      <p>When rendered, however, the color-stops are repeated infinitely in both directions, with their positions shifted by multiples
+        of the difference between the last specified color-stop's position and the first specified color-stop's position. For example,
+        ‘repeating-linear-gradient(red 10px, blue 50px)’ is equivalent to ‘linear-gradient(..., red -30px, blue 10px, red 10px, blue
+        50px, red 50px, blue 90px, ...)’. Note that the last color-stop and first color-stop will always coincide at the boundaries of
+        each group, which will produce sharp transitions if the gradient does not start and end with the same color.</p>
+      ]]></description>
+    <inline id="linear-gradient-parameters" inline="yes" />
+  </function>
+  <function id="repeating-radial-gradient" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#repeating-gradients" caniuse-ids="css-gradients,object-fit,css-repeating-gradients">
+    <description><![CDATA[
+      <p>In addition to &lt;linear-gradient&gt; and &lt;radial-gradient&gt;, the specification defines
+        &lt;repeating-linear-gradient&gt; and &lt;repeating-radial-gradient&gt; values. These two notations take the same values and are
+        interpreted the same as their respective
+        non-repeating siblings defined previously.</p>
+
+      <p>When rendered, however, the color-stops are repeated infinitely in both directions, with their positions shifted by multiples
+        of the difference between the last specified color-stop's position and the first specified color-stop's position. For example,
+        ‘repeating-linear-gradient(red 10px, blue 50px)’ is equivalent to ‘linear-gradient(..., red -30px, blue 10px, red 10px, blue
+        50px, red 50px, blue 90px, ...)’. Note that the last color-stop and first color-stop will always coincide at the boundaries of
+        each group, which will produce sharp transitions if the gradient does not start and end with the same color.</p>
+      ]]></description>
+    <inline id="radial-gradient-parameters" inline="yes" />
+  </function>
+  <property id="object-fit" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#object-fit" initial="fill" applies="replaced elements" inherited="no" percentage="N/A" media="visual" browsers="C32" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      <p>The ‘<code class="property">object-fit</code>’ property specifies how the
+        contents of a replaced element should be fitted to the box established by
+        its used height and width.</p>
+      <dl>
+        <dt>‘<code class="css">fill</code>’</dt>
+        <dd>The replaced content is sized to fill the element's content box: the
+          object's <i>concrete object size</i>
+          is the element's used width and height.
+        </dd>
+        <dt>‘<code class="css">contain</code>’</dt>
+        <dd>The replaced content is sized to maintain its aspect ratio while
+          fitting within the element's content box: its <i>concrete object size</i> is resolved
+          as a <i>contain constraint</i> against
+          the element's used width and height.
+
+        </dd>
+        <dt>‘<code class="css">cover</code>’</dt>
+        <dd>The replaced content is sized to maintain its aspect ratio while
+          filling the element's entire content box: its <i>concrete object size</i> is resolved
+          as a <i>cover constraint</i> against the
+          element's used width and height.
+
+        </dd>
+        <dt>‘<code class="css">none</code>’</dt>
+        <dd>The replaced content is not resized to fit inside the element's
+          content box: determine the object's <i>concrete object size</i> using the <i>default sizing algorithm</i> with
+          no specified size, and a <i>default object size</i> equal to the replaced element's used width and height.
+
+        </dd>
+        <dt>‘<code class="css">scale-down</code>’</dt>
+        <dd>
+          <p>Size the content as if ‘<code class="css">none</code>’ or ‘<code class="css">contain</code>’ were specified, whichever would
+            result in a smaller <i>concrete object size</i>.</p>
+
+          <p class="note">Note that both ‘<code class="css">none</code>’ and ‘<code class="css">contain</code>’ respect the content's
+            intrinsic aspect ratio, so the concept of "smaller" is well-defined.
+          </p></dd>
+      </dl>
+      ]]></description>
+    <group type="or">
+      <name value="contain" />
+      <name value="cover" />
+      <name value="fill" />
+      <name value="none" />
+      <name value="scale-down" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="object-position" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#object-position" initial="50% 50%" applies="replaced elements" inherited="no" percentage="refer to width and height of box itself" media="visual" browsers="C32" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      The ‘object-position’ property determines the alignment of the replaced element inside its box. The
+      &lt;position&gt; value type is also used for ‘background-position’ and is resolved using the concrete
+      object size as the object area and the content box as the positioning area.
+      ]]></description>
+    <property id="background-position" name="position" />
+  </property>
+  <property id="image-resolution" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#image-resolution" initial="1dppx" applies="all elements" inherited="yes" media="visual" browsers="FF16" caniuse-ids="css-gradients,object-fit">
+    <description><![CDATA[
+      <p>The ‘<code class="property">image-resolution</code>’ property specifies the <i>intrinsic resolution</i> of all raster
+        images used in or on the element. It affects both content images (e.g.
+        replaced elements and generated content) and decorative images (such as
+        ‘<code class="property">background-image</code>’). The <dfn id="intrinsic-resolution">intrinsic resolution</dfn> of an image is used
+        to
+        determine the image's <i>intrinsic dimensions</i>. Values have the following meanings:
+      </p>
+      <dl>
+        <dt>‘<code class="css">&lt;resolution&gt;</code>’</dt>
+        <dd>Specifies the intrinsic resolution explicitly. A "dot" in this case corresponds to a single image pixel.</dd>
+        <dt>‘<code class="css">from-image</code>’
+
+        </dt>
+        <dd>The image's intrinsic resolution is taken as that specified by the
+          image format. If the image does not specify its own resolution, the
+          explicitly specified resolution is used (if given), else it defaults to
+          ‘<code class="css">1dppx</code>’.
+        </dd>
+        <dt>‘<code class="css">snap</code>’</dt>
+        <dd>If the "snap" keyword is provided, the computed ‘<code class="css">&lt;resolution&gt;</code>’ (if any) is the specified
+          resolution rounded to the nearest value that would
+          map one image pixel to an integer number of device pixels. If the
+          resolution is taken from the image, then the used intrinsic resolution is
+          the image's native resolution similarly adjusted.
+        </dd>
+      </dl>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <group type="and">
+        <group type="any">
+          <name value="from-image" />
+          <resolution />
+        </group>
+        <name value="snap" min="0" max="1" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="image-orientation" declared-in="3.0" url="http://www.w3.org/TR/css3-images/#image-orientation" initial="0deg" applies="all elements" media="visual" browsers="FF16" caniuse-ids="css-gradients,object-fit,css-image-orientation">
+    <description><![CDATA[
+      <p>This property specifies an orthogonal rotation to be applied to an image before it is laid out. It applies only to content images
+        (e.g. replaced elements and generated content), not decorative images (such as ‘background-image’). CSS layout processing applies to
+        the image after rotation. This implies, for example:</p>
+      <ul>
+        <li>aThe intrinsic height and width are derived from the rotated rather than the original image dimensions.</li>
+        <li>aThe height (width) property applies to the vertical (horizontal) dimension of the image, after rotation.</li>
+      </ul>
+      ]]></description>
+    <group type="or">
+      <name value="flip" browsers="FF16" />
+      <name value="from-image" browsers="FF16" />
+      <angle />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- OPERA SPECIFIC -->
+  <prefixed-function id="linear-gradient" prefix="o" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="O11.10" />
+  <prefixed-function id="repeating-linear-gradient" prefix="o" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="O11.10" />
+  <prefixed-function id="radial-gradient" prefix="o" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="O12" />
+  <prefixed-function id="repeating-radial-gradient" prefix="o" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="O12" />
+  <prefixed-property id="object-fit" prefix="o" url="http://dev.opera.com/articles/css3-object-fit-object-position/" browsers="O18" />
+  <prefixed-property id="object-position" prefix="o" url="http://dev.opera.com/articles/css3-object-fit-object-position/" browsers="O18" />
+  <!-- FF SPECIFIC -->
+  <prefixed-function id="linear-gradient" prefix="moz" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="FF1.6" />
+  <prefixed-function id="repeating-linear-gradient" prefix="moz" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="FF1.6" />
+  <prefixed-function id="radial-gradient" prefix="moz" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="FF10" />
+  <prefixed-function id="repeating-radial-gradient" prefix="moz" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="FF10" />
+  <!-- WEBKIT SPECIFIC -->
+  <prefixed-function id="linear-gradient" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="C10,S5.1" />
+  <prefixed-function id="repeating-linear-gradient" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="C10,S5.1" />
+  <prefixed-function id="radial-gradient" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="C10,S5.1" />
+  <prefixed-function id="repeating-radial-gradient" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="C10,S5.1" />
+  <named-value id="webkit-point" declared-in="3.0">
+    <group>
+      <group type="or">
+        <integer />
+        <percentage />
+        <name value="top" />
+        <name value="bottom" />
+        <name value="left" />
+        <name value="right" />
+      </group>
+      <group type="or">
+        <integer />
+        <percentage />
+        <name value="top" />
+        <name value="bottom" />
+        <name value="left" />
+        <name value="right" />
+      </group>
+    </group>
+  </named-value>
+  <function id="-webkit-gradient" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="C3,S4.0">
+    <group>
+      <group type="or">
+        <name value="linear" />
+        <name value="radial" />
+      </group>
+      <text value="," />
+      <inline id="webkit-point" name="point" />
+      <text value="," />
+      <group min="0">
+        <integer name="radius" />
+        <text value="," />
+      </group>
+      <inline id="webkit-point" name="point" />
+      <group min="0">
+        <text value="," />
+        <integer name="radius" />
+      </group>
+      <group min="0" max="-1">
+        <text value="," />
+        <group type="or">
+          <invoke id="color-stop" />
+          <invoke id="to" />
+          <invoke id="from" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="color-stop" declared-in="0" browsers="C3,S4.0" url="https://www.webkit.org/blog/175/introducing-css-gradients/">
+    <group type="and">
+      <separator>
+        <text value="," min="0" />
+      </separator>
+      <group type="or">
+        <number />
+        <percentage />
+      </group>
+      <inline id="color" />
+    </group>
+  </function>
+  <function id="from" declared-in="3.0">
+    <inline id="color" />
+  </function>
+  <function id="to" declared-in="3.0">
+    <inline id="color" />
+  </function>
+  <!-- IE SPECIFIC -->
+  <prefixed-function id="linear-gradient" prefix="ms" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="IE10" />
+  <prefixed-function id="repeating-linear-gradient" prefix="ms" url="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient" browsers="IE10" />
+  <prefixed-function id="radial-gradient" prefix="ms" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="IE10" />
+  <prefixed-function id="repeating-radial-gradient" prefix="ms" url="https://developer.mozilla.org/en-US/docs/Web/CSS/radial-gradient" browsers="IE10" />
+</definitions>

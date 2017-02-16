@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Image Values and Replaced Content Module Level 4
+W3C Working Draft 11 September 2012
+http://www.w3.org/TR/2012/WD-css4-images-20120911/
+ -->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="image" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#image-type">
+    <group type="or">
+      <invoke id="image" />
+      <invoke id="image-set" />
+      <invoke id="url" />
+      <invoke id="element" />
+      <!--https://developer.mozilla.org/en-US/docs/Web/CSS/element-->
+      <invoke id="-moz-element" />
+      <!--https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-image-rect-->
+      <invoke id="-moz-image-rect" />
+      <invoke id="cross-fade" />
+      <inline id="gradient" />
+    </group>
+  </named-value>
+  <named-value id="gradient" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#gradients">
+    <group type="or">
+      <invoke id="linear-gradient" />
+      <invoke id="-webkit-linear-gradient" />
+      <invoke id="-o-linear-gradient" />
+      <invoke id="-moz-linear-gradient" />
+      <invoke id="-ms-linear-gradient" />
+      <invoke id="-webkit-gradient" />
+      <invoke id="radial-gradient" />
+      <invoke id="repeating-linear-gradient" />
+      <invoke id="repeating-radial-gradient" />
+      <invoke id="conic-gradient" />
+      <invoke id="repeating-conic-gradient" />
+    </group>
+  </named-value>
+  <named-value id="angular-color-stop" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#angular-color-stop-type">
+    <group>
+      <inline id="color" />
+      <group type="or" min="0">
+        <percentage />
+        <angle />
+      </group>
+    </group>
+  </named-value>
+  <function id="conic-gradient" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#conic-gradient-type">
+    <description><![CDATA[
+      <p>A conic gradient starts by specifying the center of a circle, similar to radial gradients, except that conic gradient color-stops
+        are placed around the circumference of the circle, rather than on a line emerging from the center, causing the color to smoothly
+        transition as you spin around the center, rather than as you progress outward from the center.</p>
+      <p>A conic gradient is specified by indicating the center of the gradient, and then specifying a list of color-stops. Unlike linear
+        and radial gradients, whose color-stops are placed by specifying a
+        &lt;length&gt;, the color-stops of a conic gradient are specified with an
+        &lt;angle&gt;. Rays are then drawn emerging from the center and pointing in all directions, with the color of each ray equal to the
+        color of the gradient-line where they intersect it.
+      </p>
+      ]]></description>
+    <group>
+      <group min="0">
+        <name value="at" />
+        <property id="background-position" name="position" />
+        <text value="," />
+      </group>
+      <inline id="angular-color-stop" />
+      <group min="1" max="-1">
+        <text value="," />
+        <inline id="angular-color-stop" />
+      </group>
+    </group>
+  </function>
+  <function id="image-set" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#image-set-type">
+    <group>
+      <group>
+        <group type="or">
+          <inline id="image" />
+          <string />
+        </group>
+        <resolution />
+      </group>
+      <group min="0" max="-1">
+        <text value="," />
+        <group>
+          <group type="or">
+            <inline id="image" />
+            <string />
+          </group>
+          <resolution />
+        </group>
+      </group>
+      <!--fallback color-->
+      <group min="0">
+        <text value="," />
+        <inline id="color" />
+      </group>
+    </group>
+  </function>
+  <function id="element" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#element-notation" browsers="" caniuse-ids="css-element-function">
+    <description><![CDATA[
+      <p>The <b>element()</b> CSS function defines an &lt;image&gt; value generated from an arbitrary HTML element.
+        This image is live, meaning that if the HTML element is changed, the CSS
+        properties using the resulting value are automatically updated.</p>
+
+      <p>A particularly useful scenario for using this would be to render an image in an HTML
+        &lt;canvas&gt; element, then use that as a background.</p>
+      ]]></description>
+    <selector />
+  </function>
+  <function id="-moz-element" declared-in="4.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/element" browsers="FF4.0">
+    <description><![CDATA[
+      <p>The <b>element()</b> CSS function defines an &lt;image&gt; value generated from an arbitrary HTML element.
+        This image is live, meaning that if the HTML element is changed, the CSS
+        properties using the resulting value are automatically updated.</p>
+
+      <p>A particularly useful scenario for using this would be to render an image in an HTML
+        &lt;canvas&gt; element, then use that as a background.</p>
+      ]]></description>
+    <selector />
+  </function>
+  <function id="-moz-image-rect" declared-in="4.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-image-rect" browsers="FF4.0">
+    <description><![CDATA[
+      <p>This value for CSS background-image lets you use a portion of a larger image as a background. This allows you to, for example, use
+        different parts of one larger image as backgrounds in different parts of your content.</p>
+      <p>This works very similarly to the <see cref="P:-moz-image-region property"/>, which is used with the <see
+          cref="P:list-style-image"/> property to use parts of an
+        image as the bullets in lists. However, this can be used for any CSS background.</p>
+      <p>The syntax for the rectangle is similar to the <see cref="F:rect()"/> function generating a
+        &lt;shape&gt; CSS type. All four values are relative to the upper left corner of the image.
+      </p>
+      ]]></description>
+    <group>
+      <uri tooltip="The URI of the image from which to take the sub-image." />
+      <text value="," />
+      <group type="or" name="top" tooltip="The top edge, specified as a &lt;length&gt;, of the sub-image within the specified image.">
+        <length />
+        <percentage />
+      </group>
+      <text value="," />
+      <group type="or" name="right" tooltip="The right edge, specified as a &lt;length&gt;, of the sub-image within the specified image.">
+        <length />
+        <percentage />
+      </group>
+      <text value="," />
+      <group type="or" name="bottom" tooltip="The bottom edge, specified as a &lt;length&gt;, of the sub-image within the specified image.">
+        <length />
+        <percentage />
+      </group>
+      <text value="," />
+      <group type="or" name="left" tooltip="The left edge, specified as a &lt;length&gt;, of the sub-image within the specified image.">
+        <length />
+        <percentage />
+      </group>
+    </group>
+  </function>
+  <function id="cross-fade" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#cross-fade-function">
+    <description><![CDATA[
+      When transitioning between images, CSS requires a way to explicitly refer to the intermediate image that is a combination of the start
+      and end images.
+      This is accomplished with the <b>cross-fade()</b> function, which indicates the two images to be combined and how far along in the
+      transition the combination is.
+      ]]></description>
+    <group>
+      <percentage min="0" />
+      <inline id="image" />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <inline id="image" />
+          <inline id="color" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="image" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#image-list-type">
+    <description><![CDATA[
+      <p>The <b>image()</b> function allows an author to:</p>
+      <ul>
+        <li>use media fragments to clip out a portion of an image</li>
+        <li>specify fallback images in case the preferred image can't be decoded or is a type that the browser doesn't recognize</li>
+        <li>use a solid color as an image</li>
+      </ul>
+      ]]></description>
+    <group>
+      <group type="or" min="0">
+        <name value="ltr" />
+        <name value="rtl" />
+      </group>
+      <group min="0" max="-1">
+        <group type="or">
+          <uri />
+          <string />
+        </group>
+        <text value="," />
+      </group>
+      <group type="or">
+        <uri />
+        <string />
+        <!--fallback color-->
+        <inline id="color" />
+      </group>
+    </group>
+  </function>
+  <property id="image-rendering" declared-in="4.0" url="http://www.w3.org/TR/css4-images/#image-rendering" initial="auto" applies="all elements" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>The <b>image-rendering</b> property provides a hint to the user-agent about what aspects of an image are most important to preserve
+        when the image is scaled, to aid the user-agent in the choice of an appropriate scaling algorithm. When specified on an element,
+        it applies to all images given in properties for the element, such as background images, list-style images, or the content of
+        replaced
+        elements when they represent an image that must be scaled. The values of the <b>image-rendering</b> property are interpreted as
+        follows:</p>
+
+      <ul>
+        <li><b>auto</b>
+
+          <p>The image should be scaled with an algorithm that maximizes the appearance of the image. In particular, scaling algorithms that
+            "smooth" colors are acceptable, such as bilinear interpolation. This is intended for images such as photos.</p>
+        </li>
+        <li><b>crisp-edges</b>
+
+          <p>The image must be scaled with an algorithm that preserves contrast and edges in the image, and which does not smooth colors or
+            introduce blur to the image in the process. This is intended for images such as pixel art.</p>
+        </li>
+        <li><b>pixelated</b>
+
+          <p>When scaling the image up, the "nearest neighbor" or similar algorithm must be used, so that the image appears to be simply
+            composed of very large pixels. When scaling down, this is the same as <b>auto</b>.</p>
+        </li>
+      </ul>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <name value="crisp-edges" />
+      <name value="pixelated" />
+      <name value="-moz-crisp-edges" />
+      <name value="-o-crisp-edges" />
+      <name value="-webkit-crisp-edges" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

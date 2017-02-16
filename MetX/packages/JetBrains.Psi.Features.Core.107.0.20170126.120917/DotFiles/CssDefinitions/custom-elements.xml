@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Custom Elements
+W3C Last Call Working Draft 24 October 2013
+http://www.w3.org/TR/2013/WD-custom-elements-20131024/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <pseudo-class id="unresolved" declared-in="3.0" url="http://www.w3.org/TR/custom-elements/#unresolved-element-pseudoclass">
+    <description><![CDATA[
+      <p>Matches all custom elements whose created callback has not yet been invoked</p>
+      ]]></description>
+  </pseudo-class>
+</definitions>

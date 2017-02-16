@@ -1,0 +1,1001 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="mozilla-color" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions#Xref_csscolorvalue()">
+    <group type="or">
+      <name value="-moz-activehyperlinktext" browsers="FF1.0" />
+      <name value="-moz-hyperlinktext" browsers="FF1.0" />
+      <name value="-moz-visitedhyperlinktext" browsers="FF1.0" />
+      <name value="-moz-buttondefault" browsers="FF1.0" />
+      <name value="-moz-buttonhoverface" browsers="FF1.0" />
+      <name value="-moz-buttonhovertext" browsers="FF1.0" />
+      <name value="-moz-default-background-color" browsers="FF1.0" />
+      <name value="-moz-default-color" browsers="FF1.0" />
+      <name value="-moz-cellhighlight" browsers="FF1.0" />
+      <name value="-moz-cellhighlighttext" browsers="FF1.0" />
+      <name value="-moz-field" browsers="FF1.0" />
+      <name value="-moz-fieldtext" browsers="FF1.0" />
+      <name value="-moz-dialog" browsers="FF1.0" />
+      <name value="-moz-dialogtext" browsers="FF1.0" />
+      <name value="-moz-dragtargetzone" browsers="FF1.0" />
+      <name value="-moz-mac-accentdarkestshadow" browsers="FF1.0" />
+      <name value="-moz-mac-accentdarkshadow" browsers="FF1.0" />
+      <name value="-moz-mac-accentface" browsers="FF1.0" />
+      <name value="-moz-mac-accentlightesthighlight" browsers="FF1.0" />
+      <name value="-moz-mac-accentlightshadow" browsers="FF1.0" />
+      <name value="-moz-mac-accentregularhighlight" browsers="FF1.0" />
+      <name value="-moz-mac-accentregularshadow" browsers="FF1.0" />
+      <name value="-moz-mac-chrome-active" browsers="FF1.0" />
+      <name value="-moz-mac-chrome-inactive" browsers="FF1.0" />
+      <name value="-moz-mac-focusring" browsers="FF1.0" />
+      <name value="-moz-mac-menuselect" browsers="FF1.0" />
+      <name value="-moz-mac-menushadow" browsers="FF1.0" />
+      <name value="-moz-mac-menutextselect" browsers="FF1.0" />
+      <name value="-moz-menuhover" browsers="FF1.0" />
+      <name value="-moz-menuhovertext" browsers="FF1.0" />
+      <name value="-moz-win-communicationstext" browsers="FF1.0" />
+      <name value="-moz-win-mediatext" browsers="FF1.0" />
+      <name value="-moz-nativehyperlinktext" browsers="FF1.0" />
+    </group>
+  </named-value>
+  <named-value id="mozilla-display-values" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions">
+    <group type="or">
+      <name value="-moz-box" />
+      <name value="-moz-inline-block" />
+      <name value="-moz-inline-box" />
+      <name value="-moz-inline-grid" />
+      <name value="-moz-inline-stack" />
+      <name value="-moz-inline-table" />
+      <name value="-moz-grid" />
+      <name value="-moz-grid-group" />
+      <name value="-moz-grid-line" />
+      <name value="-moz-groupbox" />
+      <name value="-moz-deck" />
+      <name value="-moz-popup" />
+      <name value="-moz-stack" />
+      <name value="-moz-marker" />
+    </group>
+  </named-value>
+  <named-value id="moz-system-font" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font">
+    <group type="or">
+      <name value="-moz-window" />
+      <name value="-moz-document" />
+      <name value="-moz-desktop" />
+      <name value="-moz-info" />
+      <name value="-moz-dialog" />
+      <name value="-moz-button" />
+      <name value="-moz-pull-down-menu" />
+      <name value="-moz-list" />
+      <name value="-moz-field" />
+    </group>
+  </named-value>
+  <!-- CSS properties -->
+  <property id="-moz-opacity" declared-in="0" url="http://developer.mozilla.org/en/CSS/opacity" initial="1" applies="all elements" inherited="no" media="visual">
+    <property id="opacity" />
+  </property>
+  <property id="-moz-appearance" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-appearance" initial="none" applies="all elements" inherited="no" media="visual" browsers="FF1.0">
+    <description><![CDATA[
+      <p>The -moz-appearance CSS property is used in Gecko (Firefox) to display an element using a platform-native styling based on the
+        operating system's theme.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <name value="button" tooltip="The element is drawn like a button." />
+      <name value="button-arrow-down" />
+      <name value="button-arrow-next" />
+      <name value="button-arrow-previous" />
+      <name value="button-arrow-up" />
+      <name value="button-bevel" />
+      <name value="button-focus" />
+      <name value="caret" />
+      <name value="checkbox" tooltip="The element is drawn like a checkbox, including only the actual &quot;checkbox&quot; portion." />
+      <name value="checkbox-container" tooltip="The element is drawn like a container for a checkbox, which may include a prelighting background effect under certain platforms. Normally a would contain a label and a checkbox." />
+      <name value="checkbox-label" />
+      <name value="checkmenuitem" />
+      <name value="dualbutton" />
+      <name value="groupbox" />
+      <name value="listbox" />
+      <name value="listitem" />
+      <name value="menuarrow" />
+      <name value="menubar" />
+      <name value="menucheckbox" />
+      <name value="menuimage" />
+      <name value="menuitem" tooltip="The element is styled as menu item, item is highlighted when hovered." />
+      <name value="menuitemtext" />
+      <name value="menulist" />
+      <name value="menulist-button" tooltip="The element is styled as a button that would indicate a menulist can be opened." />
+      <name value="menulist-text" />
+      <name value="menulist-textfield" tooltip="The element is styled as the text field for a menulist. (Not implemented for the Windows platform)" />
+      <name value="menupopup" />
+      <name value="menuradio" />
+      <name value="menuseparator" />
+      <name value="meterbar" tooltip="New in Fx 16." />
+      <name value="meterchunk" tooltip="New in Fx 16" />
+      <name value="progressbar" tooltip="The element is styled like a progress bar." />
+      <name value="progressbar-vertical" />
+      <name value="progresschunk" />
+      <name value="progresschunk-vertical" />
+      <name value="radio" tooltip="The element is drawn like a radio button, including only the actual &quot;radio button&quot; portion." />
+      <name value="radio-container" tooltip="The element is drawn like a container for a radio button, which may include a prelighting background effect under certain platforms. Normally would contain a label and a radio button." />
+      <name value="radio-label" />
+      <name value="radiomenuitem" />
+      <name value="resizer" />
+      <name value="resizerpanel" />
+      <name value="scale-horizontal" />
+      <name value="scalethumbend" />
+      <name value="scalethumb-horizontal" />
+      <name value="scalethumbstart" />
+      <name value="scalethumbtick" />
+      <name value="scalethumb-vertical" />
+      <name value="scale-vertical" />
+      <name value="scrollbarbutton-down" />
+      <name value="scrollbarbutton-left" />
+      <name value="scrollbarbutton-right" />
+      <name value="scrollbarbutton-up" />
+      <name value="scrollbarthumb-horizontal" />
+      <name value="scrollbarthumb-vertical" />
+      <name value="scrollbartrack-horizontal" />
+      <name value="scrollbartrack-vertical" />
+      <name value="searchfield" />
+      <name value="separator" />
+      <name value="sheet" />
+      <name value="spinner" />
+      <name value="spinner-downbutton" />
+      <name value="spinner-textfield" />
+      <name value="spinner-upbutton" />
+      <name value="splitter" />
+      <name value="statusbar" />
+      <name value="statusbarpanel" />
+      <name value="tab" />
+      <name value="tabpanel" />
+      <name value="tabpanels" />
+      <name value="tab-scroll-arrow-back" />
+      <name value="tab-scroll-arrow-forward" />
+      <name value="textfield" />
+      <name value="textfield-multiline" />
+      <name value="toolbar" />
+      <name value="toolbarbutton" />
+      <name value="toolbarbutton-dropdown" />
+      <name value="toolbargripper" />
+      <name value="toolbox" />
+      <name value="tooltip" />
+      <name value="treeheader" />
+      <name value="treeheadercell" />
+      <name value="treeheadersortarrow" />
+      <name value="treeitem" />
+      <name value="treeline" />
+      <name value="treetwisty" />
+      <name value="treetwistyopen" />
+      <name value="treeview" />
+      <name value="-moz-mac-unified-toolbar" tooltip="Mac OS X only. This causes the toolbar and title bar to render using the unified toolbar style common to Mac OS X 10.4 and later applications." />
+      <name value="-moz-win-borderless-glass" tooltip="Windows Vista and later only. This style applies the Aero Glass effect -- but without a border -- to the element." />
+      <name value="-moz-win-browsertabbar-toolbox" tooltip="Windows Vista and later only. This toolbox style is meant to be used for the tab bar in a browser." />
+      <name value="-moz-win-communicationstext" />
+      <name value="-moz-win-communications-toolbox" tooltip="Windows Vista and later only. This toolbox style is meant to be used in communications and productivity applications. Corresponding foreground color is -moz-win-communicationstext." />
+      <name value="-moz-win-exclude-glass" tooltip="Windows Vista and later only. This styles is used to exclude the Aero Glass effect on the element." />
+      <name value="-moz-win-glass" tooltip="Windows Vista and later only. This style applies the Aero Glass effect to the element." />
+      <name value="-moz-win-mediatext" />
+      <name value="-moz-win-media-toolbox" tooltip="Windows Vista and later only. This toolbox style is meant to be used in applications that manage media objects. Corresponding foreground color is -moz-win-mediatext." />
+      <name value="-moz-window-button-box" />
+      <name value="-moz-window-button-box-maximized" />
+      <name value="-moz-window-button-close" />
+      <name value="-moz-window-button-maximize" />
+      <name value="-moz-window-button-minimize" />
+      <name value="-moz-window-button-restore" />
+      <name value="-moz-window-frame-bottom" />
+      <name value="-moz-window-frame-left" />
+      <name value="-moz-window-frame-right" />
+      <name value="-moz-window-titlebar" />
+      <name value="-moz-window-titlebar-maximized" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-top-colors" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-border-top-colors" initial="none" applies="all elements" inherited="no">
+    <description><![CDATA[
+      <p>-moz-border-*-colors CSS property sets a list of colors for the corresponding border.
+
+        When an element has a border that is larger than a single CSS pixel, each line of pixels uses the next color specified in this
+        property, from the outside in. This eliminates the need for nested boxes. If the border is wider than the number of specified
+        colors, the remaining part of the border is the innermost color specified.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default, no colors are drawn or border-color is used, if specified." />
+      <inline id="color" max="-1" tooltip="Specifies the color of a line of pixels in the bottom border. transparent is valid." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-left-colors" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-border-left-colors" initial="none" applies="all elements" inherited="no">
+    <description><![CDATA[
+      <p>-moz-border-*-colors CSS property sets a list of colors for the corresponding border.
+
+        When an element has a border that is larger than a single CSS pixel, each line of pixels uses the next color specified in this
+        property, from the outside in. This eliminates the need for nested boxes. If the border is wider than the number of specified
+        colors, the remaining part of the border is the innermost color specified.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default, no colors are drawn or border-color is used, if specified." />
+      <inline id="color" max="-1" tooltip="Specifies the color of a line of pixels in the bottom border. transparent is valid." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-bottom-colors" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-border-top-colors" initial="none" applies="all elements" inherited="no">
+    <description><![CDATA[
+      <p>-moz-border-*-colors CSS property sets a list of colors for the corresponding border.
+
+        When an element has a border that is larger than a single CSS pixel, each line of pixels uses the next color specified in this
+        property, from the outside in. This eliminates the need for nested boxes. If the border is wider than the number of specified
+        colors, the remaining part of the border is the innermost color specified.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default, no colors are drawn or border-color is used, if specified." />
+      <inline id="color" max="-1" tooltip="Specifies the color of a line of pixels in the bottom border. transparent is valid." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-right-colors" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-border-right-colors" initial="none" applies="all elements" inherited="no">
+    <description><![CDATA[
+      <p>-moz-border-*-colors CSS property sets a list of colors for the corresponding border.
+
+        When an element has a border that is larger than a single CSS pixel, each line of pixels uses the next color specified in this
+        property, from the outside in. This eliminates the need for nested boxes. If the border is wider than the number of specified
+        colors, the remaining part of the border is the innermost color specified.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default, no colors are drawn or border-color is used, if specified." />
+      <inline id="color" max="-1" tooltip="Specifies the color of a line of pixels in the bottom border. transparent is valid." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-align" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/box-align" initial="stretch" applies="elements with a CSS display value of box or inline-box" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The CSS box-align property specifies how an element aligns its contents across (perpendicular to) the direction of its layout. The
+        effect of this is only visible if there is extra space in the box.</p>
+      ]]></description>
+    <group type="or">
+      <name value="baseline" tooltip="Elements are aligned with the baseline of the box." />
+      <name value="center" tooltip="Elements are aligned with the center of the box." />
+      <name value="end" tooltip="Elements are aligned with the end of the box." />
+      <name value="start" tooltip="Elements are aligned with the start of the box." />
+      <name value="stretch" tooltip="Elements are stretched to fill the box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-direction" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/box-direction" initial="normal" media="visual" inherited="no" percentage="N/A" applies="elements with CSS display value of box or inline-box">
+    <description><![CDATA[
+      <p>Specifies the direction in which child elements of a flexible box element are laid out.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Elements are laid out in the default direction." />
+      <name value="reverse" tooltip="Elements are laid out in the reverse direction." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-flex" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-box-flex" initial="0" inherited="no" percentage="N/A" applies="elements that are direct children of an element with a CSS display value of -moz-box or -moz-inline-box or -webkit-box or -webkit-inline-box">
+    <description><![CDATA[
+      <p>Specifies an element’s flexibility.</p>
+      <p>Flexible elements can stretch or shrink to fit the size of the bounding box of their parent element. The amount of stretching or
+        shrinkage of an element is determined by its flex value relative to the flex values of other elements within the same parent
+        element.</p>
+      ]]></description>
+    <group type="or">
+      <number tooltip="Floating-point number. The flexibility of the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-ordinal-group" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-box-ordinal-group" initial="1">
+    <description><![CDATA[
+      <p>Specifies a rough ordering of elements in a flexible box.</p>
+      <p>Elements with lower ordinal group values are displayed first.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" tooltip="The ordinal group number of the element. Integer, nonnegative value." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-orient" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/box-orient" initial="horizontal" inherited="no" percentage="N/A" media="visual" applies="elements with a CSS display value of box or inline-box">
+    <description><![CDATA[
+      <p>Specifies the layout of elements nested within a flexible box element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="block-axis" tooltip="Elements are oriented along the box's axis." />
+      <name value="horizontal" tooltip="Elements are oriented horizontally." />
+      <name value="inline-axis" tooltip="Elements are oriented along the inline axis." />
+      <name value="vertical" tooltip="Elements are oriented vertically." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-box-pack" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-box-pack" initial="start" inherited="no" percentage="N/A" media="visual" applies="elements with a CSS display value of -moz-box or -moz-inline-box or -webkit-box or -webkit-inline-box">
+    <description><![CDATA[
+      <p>The CSS -moz-box-pack and -webkit-box-pack properties specify how a -moz-box or -webkit-box packs its contents in the direction of its layout. The effect of this is only visible if there is extra space in the box. See Flexbox for more about the properties of flexbox elements.</p>
+      ]]></description>
+    <group type="or">
+      <name value="start" tooltip="The box packs contents at the start, leaving any extra space at the end." />
+      <name value="center" tooltip="The box packs contents in the center, dividing any extra space equally between the start and the end." />
+      <name value="end" tooltip="The box packs contents at the end, leaving any extra space at the start." />
+      <name value="justify" tooltip="The space is divided evenly in-between each child, with none of the extra space placed before the first child or after the last child. If there is only one child, treat the pack value as if it were start." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-margin-start" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-margin-start" initial="0" applies="all elements except those with table display types other than table-caption, table, and inline-table" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C1.0,S3.0">
+    <description><![CDATA[
+      <p>Provides the width of the starting margin.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The margin is automatically determined." />
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-orient" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-orient" initial="auto" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The <b>-moz-orient</b> CSS property specifies the orientation of the element to which it's applied.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <name value="horizontal" />
+      <name value="vertical" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="outline-radius-value" declared-in="0">
+    <group type="or">
+      <length />
+      <percentage />
+    </group>
+  </named-value>
+  <!--todo: shorthand-->
+  <property id="-moz-outline-radius" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius" initial="0" inherited="no" percentage="yes" applies="all elements" media="visual" browsers="FF1.5">
+    <description><![CDATA[
+      <p>In Mozilla applications like Firefox, the -moz-outline-radius CSS property can be used to give outlines rounded corners. An outline
+        is a line that is drawn around elements, outside the border edge, to make the element stand out.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="outline-radius-value" min="1" max="4" />
+        <group min="0">
+          <text value="/" />
+          <inline id="outline-radius-value" min="1" max="4" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-outline-radius-topright" declared-in="0" browsers="FF1.5" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-topright" initial="0" inherited="no" percentage="yes" applies="all elements" media="visual">
+    <description><![CDATA[
+      <p>In Mozilla applications, -moz-outline-radius-topright sets the rounding of the top-right corner of the outline.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="outline-radius-value" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-outline-radius-topleft" declared-in="0" browsers="FF1.5" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-topleft" initial="0" inherited="no" percentage="yes" applies="all elements" media="visual">
+    <description><![CDATA[
+      <p>In Mozilla applications, -moz-outline-radius-topleft sets the rounding of the top-left corner of the outline.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="outline-radius-value" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-outline-radius-bottomleft" declared-in="0" browsers="FF1.5" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-bottomleft" initial="0" inherited="no" percentage="yes" applies="all elements" media="visual">
+    <description><![CDATA[
+      <p>In Mozilla applications, -moz-outline-radius-bottomleft sets the rounding of the bottom-left corner of the outline.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="outline-radius-value" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-outline-radius-bottomright" declared-in="0" browsers="FF1.5" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-bottomright" initial="0" inherited="no" percentage="yes" applies="all elements" media="visual">
+    <description><![CDATA[
+      <p>In Mozilla applications, -moz-outline-radius-bottomright sets the rounding of the bottom-right corner of the outline.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="outline-radius-value" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-padding-end" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-padding-end" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="FF3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <description><![CDATA[
+      <p>Specifies the logical end padding for an element.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-padding-start" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-padding-start" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="FF3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <description><![CDATA[
+      <p>Specifies the logical start padding for an element.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-stack-sizing" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-stack-sizing" initial="stretch-to-fit" applies="all elements" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>-moz-stack-sizing is an extended CSS property. Normally, a stack will change its size so that all of its child elements are
+        completely visible. For example, moving a child of the stack far to the right will widen the stack so the child remains visible.</p>
+      ]]></description>
+    <group type="or">
+      <name value="ignore" tooltip="The stack won't consider this child when calculating the its size." />
+      <name value="stretch-to-fit" tooltip="The child will influence the stack's size." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-user-focus" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-user-focus">
+    <description><![CDATA[
+      <p>Used to indicate whether the element can have the focus. By setting this to 'ignore', you can disable focusing the element, which
+        means that the user will not be able to activate the element. The element will be skipped in the tab sequence. A similar property
+        'user-focus' was proposed in early drafts of a predecessor of css3-ui but was rejected by the working group.</p>
+      ]]></description>
+    <group type="or">
+      <name value="ignore" tooltip="The element does not accept the keyboard focus and will be skipped in the tab order." />
+      <name value="normal" tooltip="The element can accept the keyboard focus." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-user-input" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-user-input" initial="none" inherited="yes" applies="all elements" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>In Mozilla applications, -moz-user-input determines if an element will accept user input. A similar property 'user-focus' was
+        proposed in early drafts of a predecessor of css3-ui but was rejected by the working group.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <name value="enabled" />
+      <name value="disabled" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-user-modify" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-user-modify" initial="read-only" applies="all elements" inherited="yes" percentage="N/A" media="interactive" browsers="FF1.0">
+    <description><![CDATA[
+      <p>Determines whether a user can edit the content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="read-only" tooltip="The content is read-only." />
+      <name value="read-write" tooltip="The content can be read and written." />
+      <name value="read-write-plaintext-only" tooltip="The content can be read and written, but any rich formatting of pasted text is lost." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-window-shadow" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-window-shadow" initial="default" applies="all elements that create native windows" inherited="no" percentage="N/A" media="visual" browsers="FF3.5">
+    <description><![CDATA[
+      <p>-moz-window-shadow specifies whether a window will have a shadow. Currently it only works on Mac OS X.</p>
+      ]]></description>
+    <group type="or">
+      <name value="default" tooltip="The window will have a shadow with the default window shadow style." />
+      <name value="menu" tooltip="The window will have the shadow style that's appropriate for menus." />
+      <name value="tooltip" tooltip="The window will have the shadow style that's appropriate for tooltips." />
+      <name value="sheet" tooltip="The window will have the shadow style that's appropriate for sheet windows." />
+      <name value="none" tooltip="The window won't have a shadow." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-radius-topleft" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-left-radius" applies="all elements (but see prose)" rules="noname,@page,page-margin" browsers="FF1.0" initial="0" inherited="no" percentage="Refer to corresponding dimension of the border box." media="visual" animatable="yes">
+    <group type="or">
+      <group type="or" min="1" max="2">
+        <length />
+        <percentage />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-radius-topright" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-right-radius" applies="all elements (but see prose)" rules="noname,@page,page-margin" browsers="FF1.0" initial="0" inherited="no" percentage="Refer to corresponding dimension of the border box." media="visual" animatable="yes">
+    <group type="or">
+      <group type="or" min="1" max="2">
+        <length />
+        <percentage />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-radius-bottomleft" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-left-radius" rules="noname,@page,page-margin" browsers="FF1.0" initial="0" inherited="no" percentage="Refer to corresponding dimension of the border box." media="visual" animatable="yes">
+    <group type="or">
+      <group type="or" min="1" max="2">
+        <length />
+        <percentage />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-border-radius-bottomright" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius" applies="all elements (but see prose)" rules="noname,@page,page-margin" browsers="FF1.0" initial="0" inherited="no" percentage="Refer to corresponding dimension of the border box." media="visual" animatable="yes">
+    <group type="or">
+      <group type="or" min="1" max="2">
+        <length />
+        <percentage />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-background-clip" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip" rules="noname,@page,page-margin" applies="all elements" initial="border-box" inherited="no" percentage="N/A" media="visual" browsers="FF1.0" animatable="no">
+    <description><![CDATA[
+      <p>Determines the <dfn id="background-painting-area">background painting area</dfn>, which determines the area within which the
+        background is painted.</p>
+      ]]></description>
+    <group type="or">
+      <name value="padding" />
+      <name value="border" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-background-origin" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin" rules="noname,@page,page-margin" applies="all elements" initial="padding-box" inherited="no" percentage="N/A" media="visual" browsers="FF1.0">
+    <description><![CDATA[
+      <p>For elements rendered as a single box, specifies the <dfn id="background-positioning-area">background positioning area</dfn>. For
+        elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages), specifies which boxes <see
+            cref="P:box-decoration-break"/> operates on to determine the background positioning area(s). </p>
+      ]]></description>
+    <group type="or">
+      <name value="padding" />
+      <name value="border" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-osx-font-smoothing" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth" browsers="FF25.0">
+    <group type="or">
+      <name value="auto" tooltip="Allow the browser to select an optimization for font smoothing, typically grayscale." />
+      <name value="grayscale" tooltip="Render text with grayscale antialiasing, as opposed to the subpixel. Switching from subpixel rendering to antialiasing for light text on dark backgrounds makes it look lighter." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-moz-text-size-adjust" declared-in="0" url="http://dbaron.org/log/20111126-font-inflation(v=vs.105).aspx" applies="all elements" initial="auto" inherited="yes" percentage="see below" media="visual" browsers="FF11.0">
+    <description><![CDATA[
+      <p>Specifies a size adjustment for displaying text content in FireFox on smartphones.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Is a keyword preventing the usage of the inflation algorithm on the element. Basically, this means that the element will be displayed without its font inflated. On desktop Webkit-based browsers, this will only prevent any zoom on the whole page." />
+      <name value="auto" tooltip="Is a keyword allowing the usage of the inflation algorithm on the element. Browsers are not forced to use it and they won't do it on desktops and on some tablets. Its main use is to cancel a none value previously set." />
+      <percentage tooltip="A percentage value is a synonym of the auto keyword, with the additional information that the percentage value is the increase rate to be applied to the font size when the inflation algorithm is applied." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- CSS media features -->
+  <media-feature id="-moz-images-in-menus" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-images-in-menus">
+    <description><![CDATA[
+      <p>If the device allows images to appear in menus, this is 1; otherwise, the value is 0. This corresponds to the
+        <see cref="PC:-moz-system-metric"/>(images-in-menus) CSS pseudo-class.
+      </p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-mac-graphite-theme" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-mac-graphite-theme">
+    <description><![CDATA[
+      <p>If the user has configured their device to use the "Graphite" appearance on Mac OS X, this is 1. If the user is using the standard
+        blue appearance, or is not on Mac OS X, this is 0.
+        This corresponds to the <see cref="PC:-moz-system-metric"/>(mac-graphite-theme) CSS pseudo-class.
+      </p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-maemo-classic" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-maemo-classic">
+    <description><![CDATA[
+      <p>If the user is using Maemo with the original theme, this is 1; if it's using the newer Fremantle theme, this is 0.
+        This corresponds to the <see cref="PC:-moz-system-metric"/>(maemo-classic) CSS pseudo-class.
+      </p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-device-pixel-ratio" min-max="yes" declared-in="0" browsers="FF4.0" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-device-pixel-ratio">
+    <description><![CDATA[<p>Gives the number of device pixels per CSS pixel.</p>]]></description>
+    <number />
+  </media-feature>
+  <media-feature id="-moz-os-version" min-max="no" declared-in="0" browsers="FF4.0" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-os-version">
+    <description><![CDATA[
+      <p>Indicates which operating system version is currently being used. Currently only implemented on Windows.</p>
+      ]]></description>
+    <group type="or">
+      <name value="windows-xp" />
+      <name value="windows-vista" />
+      <name value="windows-win7" />
+      <name value="windows-win8" />
+    </group>
+  </media-feature>
+  <media-feature id="-moz-scrollbar-end-backward" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-scrollbar-end-backward">
+    <description><![CDATA[
+      <p>If the device's user interface displays a backward arrow button at the end of scrollbars, this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(scrollbar-end-backward) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-scrollbar-end-forward" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-scrollbar-end-forward">
+    <description><![CDATA[
+      <p>If the device's user interface displays a forward arrow button at the end of scrollbars, this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(scrollbar-end-forward) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-scrollbar-start-backward" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-scrollbar-start-backward">
+    <description><![CDATA[
+      <p>If the device's user interface displays a backward arrow button at the start of scrollbars, this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(scrollbar-start-backward) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-scrollbar-start-forward" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-scrollbar-start-forward">
+    <description><![CDATA[
+      <p>If the device's user interface displays a forward arrow button at the start of scrollbars, this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(scrollbar-start-forward) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-scrollbar-thumb-proportional" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-scrollbar-thumb-proportional">
+    <description><![CDATA[
+      <p>If the device's user interface displays the thumb of scrollbars proportionally (that is, sized based on the percentage of the 
+        document that is visible), this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(scrollbar-thumb-proportional) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-touch-enabled" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-touch-enabled">
+    <description><![CDATA[
+      <p>If the device supports touch events (for a touch screen), this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(touch-enabled) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-windows-classic" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-windows-classic">
+    <description><![CDATA[
+      <p>If the user is using Windows unthemed (in classic mode instead of using uxtheme), this is 1; otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(windows-classic) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-windows-compositor" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-windows-compositor">
+    <description><![CDATA[
+      <p>If the user is using Windows with the DWM compositor, this is 1; otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(windows-compositor) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-windows-default-theme" min-max="no" declared-in="0" browsers="FF3.6" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-windows-default-theme">
+    <description><![CDATA[
+      <p>If the user is currently using one of the default Windows themes (Luna, Royale, Zune, or Aero (including Vista Basic, Vista
+        Advanced, and Aero Glass), this is 1. Otherwise it's 0.</p>
+      <p>This corresponds to the <see cref="PC:-moz-system-metric"/>(windows-default-theme) CSS pseudo-class.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-windows-glass" min-max="no" declared-in="0" browsers="FF21" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-windows-glass">
+    <description><![CDATA[
+      <p>If the user is using Windows Glass theme, this is 1; otherwise it's 0. Note that this only exists for Windows 7 and earlier.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="-moz-windows-theme" min-max="no" declared-in="0" browsers="FF4" media="visual" url="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries#-moz-windows-theme">
+    <description><![CDATA[
+      <p>Indicates which Windows theme is currently being used. Only available on Windows. </p>
+      ]]></description>
+    <group type="or">
+      <name value="aero" />
+      <name value="luna-blue" />
+      <name value="luna-olive" />
+      <name value="luna-silver" />
+      <name value="royale" />
+      <name value="generic" />
+      <name value="zune" />
+    </group>
+  </media-feature>
+  <!-- CSS pseudo elements :: -->
+  <pseudo-element id="-moz-selection" declared-in="0" url="https://developer.mozilla.org/en-US/docs/CSS/::selection" tooltip="Applies rules to the portion of a document that has been highlighted (e.g., selected with the mouse or another pointing device) by the user." browsers="FF1.0" />
+  <pseudo-element id="-moz-focus-inner" declared-in="0" />
+  <pseudo-class id="-moz-any" declared-in="0" browsers="FF4.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:any">
+    <description><![CDATA[
+      <p>The <b>:any()</b> pseudo-class lets you quickly construct sets of similar selectors by establishing groups from which any of the
+        included
+        items will match. This is an alternative to having to repeat the entire selector for the one item that varies.</p>
+      ]]></description>
+    <selector comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-broken" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-broken">
+    <description><![CDATA[
+      <p><b>:-moz-broken</b> matches elements representing broken image links.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-drag-over" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-drag-over">
+    <description><![CDATA[
+      <p>The <b>:-moz-drag-over</b> pseudo-class is used to edit an element when a drag-over event is called on it.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-first-node" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-first-node">
+    <description><![CDATA[
+      <p>The <b>:-moz-first-node</b> pseudo-class represents any element that is the first child node of some other element. It differs from
+        :<see cref="PC:first-child"/> because it does not match a first child element with (non-whitespace) text before it.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-last-node" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-last-node">
+    <description><![CDATA[
+      <p>The <b>:-moz-last-node</b> pseudo-class matches an element that is the last child node of some other element. It differs from
+        :<see cref="PC:last-child"/> because it does not match a last child element with (non-whitespace) text after it.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-focusring" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring">
+    <description><![CDATA[
+      <p>The <b>:-moz-focusring</b> CSS pseudo-class is similar to the :<see cref="PC:focus"/> pseudo-class, but it only matches an element
+        if the
+        element is currently focused AND the user-agent has focus ring drawing enabled. If :-moz-focusring matches then :focus also matches,
+        but the converse is not always true - it depends on whether the user-agent has focus ring drawing enabled. Whether the user-agent
+        has focus ring drawing enabled can depend on things like the settings of the operating system the user is using, so the precise
+        behavior of this pseudo-class can vary from platform to platform depending on each platforms' particular focus best practices
+        (defaults) or user modified settings.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-full-screen" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:fullscreen" browsers="FF9.0">
+    <description><![CDATA[
+      <p>The <b>:fullscreen</b> CSS pseudo-class applies to any element that's currently being displayed in full-screen mode.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-full-screen-ancestor" declared-in="0" browsers="FF10.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-full-screen-ancestor">
+    <description><![CDATA[
+      <p>The <b>:-moz-full-screen-ancestor</b> CSS pseudo-class applies to all ancestors of the full-screen element, except containing
+        frames in
+        parent documents, which are the full-screen element in their own documents. However, those elements' ancestors have this class
+        applied to them.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-handler-blocked" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-handler-blocked">
+    <description><![CDATA[
+      <p><b>:-moz-handler-blocked</b> matches elements that cannot be displayed because their handlers have been blocked.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-handler-crashed" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-handler-crashed">
+    <description><![CDATA[
+      <p><b>:-moz-handler-crashed</b> matches elements that cannot be displayed because the plugin responsible for drawing them has crashed.
+      </p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-handler-disabled" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-handler-disabled">
+    <description><![CDATA[
+      <p><b>:-moz-handler-disabled</b> matches elements that cannot be displayed because their handlers have been disabled by the user.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-element id="-moz-list-bullet" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-list-bullet">
+    <description><![CDATA[
+      <p>The <b>::-moz-list-bullet</b> pseudo-element is used to edit the bullet of a list element.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-moz-list-number" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-list-number">
+    <description><![CDATA[
+      <p>The <b>::-moz-list-number</b> pseudo-class lets you customize the appearance of numbers on list items (&lt;li&gt;) occurring in
+        ordered
+        lists (&lt;ol&gt;).</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-class id="-moz-loading" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-loading">
+    <description><![CDATA[
+      <p><b>:-moz-loading</b> matches elements none of which can be displayed because they have not started loading, such as images that
+        haven't
+        started to arrive yet. Note that images that are in the process of loading are not matched by this pseudo-class.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-locale-dir" declared-in="0" url="">
+    <description><![CDATA[
+      <p><b>:-moz-locale-dir(&lt;direction&gt;)</b> matches an element if the user interface is being displayed in given direction (ltr or
+        rtl).
+        This is determined by the preference intl.uidirection.locale (where locale is the current locale) being set to "ltr" or "rtl".</p>
+      <p>This selector does not work properly from HTML; it always matches, no matter whether the UI locale is left-to-right or
+        right-to-left.</p>
+      ]]></description>
+    <group type="or">
+      <name value="rtl" />
+      <name value="ltr" />
+    </group>
+  </pseudo-class>
+  <pseudo-class id="-moz-lwtheme" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-lwtheme">
+    <description><![CDATA[
+      <p>The <b>:-moz-lwtheme</b> pseudo-class matches in chrome documents when the root element's lightweightthemes attribute is true and a
+        theme
+        is selected.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-lwtheme-brighttext" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-lwtheme-brighttext">
+    <description><![CDATA[
+      <p>The <b>:-moz-lwtheme-brighttext</b> pseudo-class matches in chrome documents when :-moz-lwtheme is true and a lightweight theme
+        with a
+        bright text color is selected.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-lwtheme-darktext" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-lwtheme-darktext">
+    <description><![CDATA[
+      <p>The <b>:-moz-lwtheme-darktext</b> pseudo-class matches in chrome documents when :-moz-lwtheme is true and a lightweight theme with
+        a dark
+        text color is selected.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-only-whitespace" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-only-whitespace">
+    <description><![CDATA[
+      <p>The <b>:-moz-only-whitespace</b> pseudo-class matches an element that has no child nodes at all or empty text nodes or text nodes
+        that
+        have only white-space in them. Only when there are element nodes or text nodes with one or more characters inside the element, the
+        element doesn't match this pseudo-class anymore.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-element id="-moz-page" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-page">
+    <description><![CDATA[
+      <p>The <b>::-moz-page</b> CSS pseudo-element applies to an individual page in print/print preview.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-moz-page-sequence" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-page-sequence">
+    <description><![CDATA[
+      <p>The <b>::-moz-page-sequence</b> CSS pseudo-element represents the background of the print preview.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-moz-scrolled-page-sequence" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-scrolled-page-sequence">
+    <description><![CDATA[
+      <p>The <b>::-moz-scrolled-page-sequence</b> CSS pseudo-element represents the background of the print preview.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-class id="-moz-placeholder" browsers="FF18" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-placeholder" tooltip="represents any form element displaying placeholder text">
+    <description><![CDATA[
+      The <b>:-moz-placeholder</b> pseudo-class represents any form element displaying
+      placeholder text. This allows web developers and theme designers to customize the appearance of placeholder text,
+      which is a light grey color by default.
+      This may not work well if you've changed the background color of your form fields to be a similar color,
+      for example, so you can use this pseudo-class to change the placeholder text color.
+      <br/><br/>See also  ::<see cref="PE:-moz-placeholder"/>, :<see cref="PC:-ms-input-placeholder"/>, ::<see
+          cref="PE:-webkit-input-placeholder"/>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-element id="-moz-placeholder" browsers="FF19" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-placeholder" tooltip="represents any form element displaying placeholder text">
+    <description><![CDATA[
+      The <b>::-moz-placeholder</b> pseudo-element represents any form element displaying
+      placeholder text. This allows web developers and theme designers to customize the appearance of placeholder text,
+      which is a light grey color by default.
+      This may not work well if you've changed the background color of your form fields to be a similar color,
+      for example, so you can use this pseudo-element to change the placeholder text color.
+      <br/><br/>See also  :<see cref="PC:-moz-placeholder"/>, :<see cref="PC:-ms-input-placeholder"/>, ::<see
+          cref="PE:-webkit-input-placeholder"/>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-moz-progress-bar" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-progress-bar">
+    <description><![CDATA[
+      <p>The <b>::-moz-progress-bar</b> pseudo-element applies to the area of an HTML
+        &lt;progress&gt; element that represents the amount of progress that has happened so far. This lets you, for example, change the
+        color of
+        progress bars.
+      </p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-moz-range-progress" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-range-progress">
+    <description><![CDATA[
+      <p>The <b>::--moz-range-progress</b> represents the portion of the "track" (the groove in which the indicator aka thumb slides) of 
+        an &lt;input&gt; of type="range", which corresponds to values lower than the value currently selected by the thumb.
+      </p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-class id="-moz-suppressed" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-suppressed">
+    <description><![CDATA[
+      <p><b>:-moz-suppressed</b> matches elements representing images that were not loaded because loading images from that site has been
+        blocked.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-submit-invalid" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-submit-invalid" browsers="FF4.0">
+    <description><![CDATA[
+      <p>The <b>:-moz-submit-invalid</b> CSS pseudo-class represents any submit button on forms whose contents aren't valid based on their
+        validation constraints.</p>
+      <p>By default, no style is applied. You can use this style to customize the appearance of the submit button when there are invalid
+        form fields.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-system-metric" declared-in="0">
+    <group type="or">
+      <name value="mac-graphite-theme" tooltip="will match an element if the user has chosen the &quot;Graphite&quot; appearance in the &quot;Appearance&quot; prefpane of the Mac OS X System Preferences." />
+      <name value="images-in-menus" tooltip="will match an element if the computer's user interface supports images in menus." />
+      <name value="scrollbar-end-backward" tooltip="will match an element if the computer's user interface includes a backward arrow button at the end of scrollbars." />
+      <name value="scrollbar-end-forward" tooltip="will match an element if the computer's user interface includes a forward arrow button at the end of scrollbars." />
+      <name value="scrollbar-start-backward" tooltip="will match an element if the computer's user interface includes a backward arrow button at the start of scrollbars." />
+      <name value="scrollbar-start-forward" tooltip="will match an element if the computer's user interface includes a forward arrow button at the start of scrollbars." />
+      <name value="scrollbar-thumb-proportional" tooltip="will match an element if the computer's user interface uses proportional scrollbar thumbs; that is, the draggable thumb on the scrollbar resizes to indicate the relative size of the visible area of the document." />
+      <name value="touch-enabled" tooltip="will match an element if the device on which the content is being rendered offers a supported touch-screen interface." />
+      <name value="windows-default-theme" tooltip="will match an element if the user is currently using one of the following themes in Windows: Luna, Royale, Zune, or Aero (i.e., Vista Basic, Vista Standard, or Aero Glass). This will exclude Windows Classic themes as well as third-party themes." />
+    </group>
+  </pseudo-class>
+  <pseudo-class id="-moz-ui-invalid" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-ui-invalid" browsers="FF4.0">
+    <description><![CDATA[
+      <p>The :-moz-ui-invalid CSS pseudo-class represents any validated form element whose value isn't valid based on their validation
+        constraints, in certain circumstances. This pseudo-class is applied according to the following rules:</p>
+
+      <ul>
+        <li>If the control does not have focus, and the value is invalid, apply this pseudo-class.</li>
+        <li>If the control has focus, and the value was valid (including empty) when it gained focus, do not apply the pseudo-class.</li>
+        <li>If the control has focus, and the value was invalid when it gained focus, re-validate on every keystroke.</li>
+        <li>If the element is required, the preceding rules apply only if the user has changed the value or attempted to submit the form.
+        </li>
+      </ul>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-ui-valid" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-ui-valid" browsers="FF4.0">
+    <description><![CDATA[
+      <p>The :-moz-ui-valid CSS pseudo-class represents any validated form element whose value validates correctly based on its validation
+        constraints.</p>
+      <p>This pseudo-class is applied according to the following rules:
+      <ul>
+        <li>If the control does not have focus, and the value is valid, apply this pseudo-class.</li>
+        <li>If the control has focus, and the value was valid (including empty) when it gained focus, apply this pseudo-class.</li>
+        <li>If the control has focus, and the value was invalid when it gained focus, re-validate on every keystroke.</li>
+        <li>If the element is required, the preceding rules apply only if the user has changed the value or attempted to submit the form.
+        </li>
+      </ul></p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-user-disabled" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-user-disabled">
+    <description><![CDATA[
+      <p>:-moz-user-disabled matches elements representing images that were not loaded because images have been entirely disabled by the
+        user's preferences.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-window-inactive" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-window-inactive">
+    <description><![CDATA[
+      <p>The :-moz-window-inactive pseudo-class matches any element while it's in an inactive window.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-checkbox" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-cell" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-cell-text" declared-in="0">
+    <group type="or">
+      <name value="hover" />
+      <any min="0" max="-1" comma-separated="yes" />
+    </group>
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-column" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-drop-feedback" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-image" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-indentation" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-line" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-progressmeter" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-row" declared-in="0">
+    <group type="or">
+      <name value="hover" />
+      <any min="0" max="-1" comma-separated="yes" />
+    </group>
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-separator" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-moz-tree-twisty" declared-in="0">
+    <any min="0" max="-1" comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-element id="-moz-pagebreak" declared-in="0" />
+  <pseudo-element id="-moz-pagecontent" declared-in="0" />
+  <pseudo-class id="-moz-any-link" declared-in="0" />
+  <pseudo-class id="-moz-bound-element" declared-in="0" />
+  <pseudo-class id="-moz-read-only" declared-in="0" />
+  <pseudo-class id="-moz-read-write" declared-in="0" />
+  <pseudo-class id="-moz-native-anonymous" declared-in="0" browsers="FF36" />
+  <pseudo-element id="-moz-range-thumb" declared-in="0" />
+  <pseudo-element id="-moz-range-track" declared-in="0" />
+  <pseudo-element id="-moz-focus-outer" declared-in="0" />
+  <pseudo-element id="-moz-scrolled-canvas" declared-in="0" />
+  <pseudo-element id="-moz-scrolled-content" declared-in="0" />
+  <pseudo-element id="-moz-svg-foreign-content" declared-in="0" />
+  <pseudo-element id="-moz-table" declared-in="0" />
+  <pseudo-element id="-moz-table-cell" declared-in="0" />
+  <pseudo-element id="-moz-table-column" declared-in="0" />
+  <pseudo-element id="-moz-table-column-group" declared-in="0" />
+  <pseudo-element id="-moz-table-outer" declared-in="0" />
+  <pseudo-element id="-moz-table-row" declared-in="0" />
+  <pseudo-element id="-moz-table-row-group" declared-in="0" />
+  <pseudo-element id="-moz-viewport" declared-in="0" />
+  <pseudo-element id="-moz-viewport-scroll" declared-in="0" />
+  <pseudo-element id="-moz-xul-anonymous-block" declared-in="0" />
+  <pseudo-element id="-moz-anonymous-block" declared-in="0" />
+  <pseudo-element id="-moz-anonymous-positioned-block" declared-in="0" />
+  <pseudo-element id="-moz-canvas" declared-in="0" />
+  <pseudo-element id="-moz-cell-content" declared-in="0" />
+  <pseudo-element id="-moz-inline-table" declared-in="0" />
+</definitions>

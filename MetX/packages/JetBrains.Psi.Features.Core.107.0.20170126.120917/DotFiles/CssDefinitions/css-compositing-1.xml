@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Compositing and Blending Level 1
+W3C Candidate Recommendation 20 February 2014
+http://www.w3.org/TR/2014/CR-compositing-1-20140220/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="blend-mode" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-compositing-1-20140220/#ltblendmodegt" caniuse-ids="css-mixblendmode">
+    <group type="or">
+      <name value="normal" tooltip="This is the default attribute which specifies no blending. The blending formula simply selects the source color." />
+      <name value="multiply" tooltip="The source color is multiplied by the destination color and replaces the destination." />
+      <name value="screen" tooltip="Multiplies the complements of the backdrop and source color values, then complements the result." />
+      <name value="overlay" tooltip="Multiplies or screens the colors, depending on the backdrop color value." />
+      <name value="darken" tooltip="Selects the darker of the backdrop and source colors." />
+      <name value="lighten" tooltip="Selects the lighter of the backdrop and source colors." />
+      <name value="color-dodge" tooltip="Brightens the backdrop color to reflect the source color. Painting with black produces no changes." />
+      <name value="color-burn" tooltip="Darkens the backdrop color to reflect the source color. Painting with white produces no change." />
+      <name value="hard-light" tooltip="Multiplies or screens the colors, depending on the source color value. The effect is similar to shining a harsh spotlight on the backdrop." />
+      <name value="soft-light" tooltip="Darkens or lightens the colors, depending on the source color value. The effect is similar to shining a diffused spotlight on the backdrop." />
+      <name value="difference" tooltip="Subtracts the darker of the two constituent colors from the lighter color." />
+      <name value="exclusion" tooltip="Produces an effect similar to that of the Difference mode but lower in contrast. Painting with white inverts the backdrop color; painting with black produces no change." />
+      <name value="hue" tooltip="Creates a color with the hue of the source color and the saturation and luminosity of the backdrop color." />
+      <name value="saturation" tooltip="Creates a color with the saturation of the source color and the hue and luminosity of the backdrop color. Painting with this mode in an area of the backdrop that is a pure gray (no saturation) produces no change." />
+      <name value="color" tooltip="Creates a color with the hue and saturation of the source color and the luminosity of the backdrop color. This preserves the gray levels of the backdrop and is useful for coloring monochrome images or tinting color images." />
+      <name value="luminosity" tooltip="Creates a color with the luminosity of the source color and the hue and saturation of the backdrop color. This produces an inverse effect to that of the Color mode." />
+    </group>
+  </named-value>
+  <property id="mix-blend-mode" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-compositing-1-20140220/#mix-blend-mode" animatable="no" applies="All elements. In SVG, it applies to container elements, graphics elements and graphics referencing elements." initial="normal" inherited="no" percentage="N/A" media="visual" browsers="C33,S8" caniuse-ids="css-mixblendmode">
+    <description><![CDATA[
+      <p>The blend mode defines the formula that must be used to mix the colors with the backdrop.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="blend-mode" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="isolation" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-compositing-1-20140220/#isolation" animatable="no" applies="All elements. In SVG, it applies to container elements, graphics elements and graphics referencing elements." initial="auto" inherited="no" percentage="N/A" media="visual" browsers="FF36">
+    <description><![CDATA[
+      <p>In SVG, this defines whether an element is isolated or not.</p>
+      <p>For CSS, setting ‘isolation’ to ‘isolate’ will turn the element into a stacking context.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <name value="isolate" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="background-blend-mode" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-compositing-1-20140220/#mix-blend-mode" animatable="no" applies="All HTML elements" browsers="C35,FF30,IE22,S7.1" initial="normal" inherited="no" percentage="N/A" media="visual" caniuse-ids="css-mixblendmode">
+    <description><![CDATA[
+      <p>Defines the blending mode of each background layer.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="blend-mode" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

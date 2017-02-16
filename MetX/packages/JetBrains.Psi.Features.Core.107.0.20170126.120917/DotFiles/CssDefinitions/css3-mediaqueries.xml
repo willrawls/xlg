@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+Media Queries
+W3C Recommendation 19 June 2012
+http://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="ratio" declared-in="3.0">
+    <group>
+      <integer />
+      <text value="/" />
+      <integer />
+    </group>
+  </named-value>
+  <media-feature id="width" declared-in="3.0" min-max="yes" applies="visual and tactile media types" tooltip="Width of the rendering surface." url="http://www.w3.org/TR/css3-mediaqueries/#width" media="visual tactile" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>width</b> media feature describes the width of the targeted display area of the output device. For continuous media, this
+        is the width of the viewport including the size of a rendered scroll bar (if any). For paged media, this is the width of the page
+        box.</p>
+      <br/><p>A specified &lt;length&gt; cannot be negative.</p>
+      ]]></description>
+    <length />
+  </media-feature>
+  <media-feature id="height" declared-in="3.0" min-max="yes" applies="visual and tactile media types" tooltip="Height of the rendering surface." url="http://www.w3.org/TR/css3-mediaqueries/#height" media="visual tactile" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>height</b> media feature describes the height of the targeted display area of the output device. For continuous media, this
+        is the height of the viewport including the size of a rendered scroll bar (if any). For paged media, this is the height of the page
+        box.</p>
+      <br/><p>A specified &lt;length&gt; cannot be negative.</p>
+      ]]></description>
+    <length />
+  </media-feature>
+  <media-feature id="device-width" declared-in="3.0" min-max="yes" applies="visual and tactile media types" tooltip="Width of the output device." url="http://www.w3.org/TR/css3-mediaqueries/#device-width" media="visual tactile" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>device-width</b> media feature describes the width of the rendering surface of the output device. For continuous media, this
+        is the width of the screen. For paged media, this is the width of the page sheet size.</p>
+      <br/><p>A specified &lt;length&gt; cannot be negative.</p>
+      ]]></description>
+    <length />
+  </media-feature>
+  <media-feature id="device-height" declared-in="3.0" min-max="yes" applies="visual and tactile media types" tooltip="Height of the output device." url="http://www.w3.org/TR/css3-mediaqueries/#device-height" media="visual tactile" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>device-height</b> media feature describes the height of the rendering surface of the output device. For continuous media,
+        this is the height of the screen. For paged media, this is the height of the page sheet size.</p>
+      <br/><p>A specified &lt;length&gt; cannot be negative.</p>
+      ]]></description>
+    <length />
+  </media-feature>
+  <media-feature id="orientation" declared-in="3.0" min-max="no" applies="bitmap media types" tooltip="Display orientation." url="http://www.w3.org/TR/css3-mediaqueries/#orientation" media="bitmap" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      The <b>orientation</b> media feature is <b>portrait</b> when the value of the
+      <see cref="MF:height"/> media feature is greater than or equal to the value of the
+      <see cref="MF:width"/> media feature. Otherwise <b>orientation</b> is <b>landscape</b>.
+      ]]></description>
+    <group type="or">
+      <name value="portrait" />
+      <name value="landscape" />
+    </group>
+  </media-feature>
+  <media-feature id="aspect-ratio" declared-in="3.0" min-max="yes" applies="bitmap media types" tooltip="The ‘aspect-ratio’ media feature is defined as the ratio of the value of the ‘width’ media feature to the value of the ‘height’ media feature." url="http://www.w3.org/TR/css3-mediaqueries/#aspect-ratio" media="bitmap" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      The <b>aspect-ratio</b> media feature is defined as the ratio of the value of the
+      <see cref="MF:width"/> media feature to the value of the
+      <see cref="MF:height"/> media feature.
+      ]]></description>
+    <inline id="ratio" />
+  </media-feature>
+  <media-feature id="device-aspect-ratio" declared-in="3.0" applies="bitmap media types" tooltip="The ‘device-aspect-ratio’ media feature is defined as the ratio of the value of the ‘device-width’ media feature to the value of the ‘device-height’ media feature." min-max="yes" url="http://www.w3.org/TR/css3-mediaqueries/#device-aspect-ratio" media="bitmap" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      The <b>device-aspect-ratio</b> media feature is defined as the ratio of the value of the
+      <see cref="MF:device-width"/> media feature to the value of the
+      <see cref="MF:device-height"/> media feature.
+      ]]></description>
+    <inline id="ratio" />
+  </media-feature>
+  <media-feature id="color" declared-in="3.0" min-max="yes" applies="visual media types" tooltip="Number of bits per color component." url="http://www.w3.org/TR/css3-mediaqueries/#color" media="visual" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>color</b> media feature describes the number of bits per color component of the output device. If the device is not a color
+        device, the value is zero.</p><br/>
+      <p>A specified &lt;integer&gt; cannot be negative.</p><br/>
+      <p>If different color components are represented by different number of bits, the smallest number is used.</p><br/>
+      <p>In a device with indexed colors, the minimum number of bits per color component in the lookup table is used.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="color-index" declared-in="3.0" min-max="yes" applies="visual media types" media="visual" tooltip="Number of entries in the color lookup table." url="http://www.w3.org/TR/css3-mediaqueries/#color-index" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>color-index</b> media feature describes the number of entries in the color lookup table of the output device. If the device
+        does
+        not use a color lookup table, the value is zero.</p>
+      <br/><p>A specified &lt;integer&gt; cannot be negative.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="monochrome" declared-in="3.0" min-max="yes" applies="visual media types" media="visual" tooltip="Number of bits per pixel in a monochrome frame buffer." url="http://www.w3.org/TR/css3-mediaqueries/#monochrome" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>monochrome</b> media feature describes the number of bits per pixel in a monochrome frame buffer. If the device is not a
+        monochrome device, the output device value will be 0.</p>
+      <br/><p>A specified &lt;integer&gt; cannot be negative.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="resolution" declared-in="3.0" min-max="yes" applies="bitmap media types" tooltip="Resolution of the output device." url="http://www.w3.org/TR/css3-mediaqueries/#resolution" media="bitmap" caniuse-ids="css-mediaqueries,css-media-resolution">
+    <description><![CDATA[
+      <p>The <b>resolution</b> media feature describes the resolution of the output device, i.e. the density of the pixels. When querying
+        devices with non-square pixels, in <b>min-resolution</b> queries the least-dense dimension must be compared to the specified value
+        and in
+        <b>max-resolution</b> queries the most-dense dimensions must be compared instead. A <b>resolution</b> (without a "min-" or "max-"
+        prefix)
+        query never matches a device with non-square pixels.
+      </p>
+      <p>For printers, this corresponds to the screening resolution (the resolution for printing dots of arbitrary color).</p>
+      ]]></description>
+    <resolution />
+  </media-feature>
+  <media-feature id="scan" declared-in="3.0" min-max="no" applies="&quot;TV&quot; media types" tooltip="Scanning process of &quot;TV&quot; output devices." url="http://www.w3.org/TR/css3-mediaqueries/#scan" media="tv" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>scan</b> media feature describes the scanning process of "tv" output devices.</p>
+      ]]></description>
+    <group type="or">
+      <name value="progressive" />
+      <name value="interlace" />
+    </group>
+  </media-feature>
+  <media-feature id="grid" declared-in="3.0" min-max="no" applies="visual and tactile media types" tooltip="The ‘grid’ media feature is used to query whether the output device is grid or bitmap." url="http://www.w3.org/TR/css3-mediaqueries/#grid" media="visual tactile" caniuse-ids="css-mediaqueries">
+    <description><![CDATA[
+      <p>The <b>grid</b> media feature is used to query whether the output device is grid or bitmap. If the output device is grid-based (e.g., a
+        "tty" terminal, or a phone display with only one fixed font), the value will be 1. Otherwise, the value will be 0.</p>
+      <p>Only 0 and 1 are valid values. (This includes -0.) Thus everything else creates a malformed media query.</p>
+      ]]></description>
+    <integer />
+  </media-feature>
+  <media-feature id="device-pixel-ratio" min-max="yes" declared-in="2.0" media="visual tactile bitmap">
+    <description><![CDATA[<p>Gives the number of device pixels per CSS pixel.</p>]]></description>
+    <number />
+  </media-feature>
+</definitions>

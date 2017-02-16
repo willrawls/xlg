@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Will Change Module Level 1
+Editor’s Draft, 25 October 2015
+http://dev.w3.org/csswg/css-will-change/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="will-change" declared-in="0" url="http://www.w3.org/TR/css-will-change/#propdef-will-change" applies="all elements" initial="auto" inherited="no" percentage="n/a" media="all" animatable="no" browsers="C36,FF36,O24,S9.1" caniuse-ids="will-change">
+    <group type="or">
+      <name value="auto" tooltip="Expresses no particular intent; the user agent should apply whatever heuristics and optimizations it normally does." />
+      <group type="or" comma-separated="yes">
+        <name value="scroll-position" tooltip="Indicates that the author expects to animate or change the scroll position of the element in the near future." />
+        <name value="contents" tooltip="Indicates that the author expects to animate or change something about the element’s contents in the near future." />
+        <inline id="custom-ident" tooltip="Indicates that the author expects to animate or change the property with the given name on the element in the near future. If the property given is a shorthand, it indicates the expectation for all the longhands the shorthand expands to." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

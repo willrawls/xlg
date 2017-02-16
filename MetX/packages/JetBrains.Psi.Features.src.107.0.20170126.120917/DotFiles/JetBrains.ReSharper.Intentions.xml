@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.Intentions</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.ReSharper.Intentions.ContextActions.Inject.InjectionHandlerBase.Do">
+            <summary>
+            Invoked from action, so threading model already validate
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.ContextActions.Inject.InjectionHandlerBase.Undo">
+            <summary>
+            Invoked from VS, use IThreading
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.ContextActions.Inject.InjectionHandlerBase.Redo">
+            <summary>
+            Invoked from VS, use IThreading
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Intentions.Options.ContextActionsPageView">
+            <summary>
+            ContextActionsPageView
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Options.ContextActionsPageView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Bulbs.IBulbItemsProvider.PreExecute(JetBrains.TextControl.ITextControl)">
+            <summary>
+            Executed synchronously in UI thread without interruption. All documents are commited
+            </summary>
+            <param name="textControl">Current text control</param>
+            <returns>Pre-calculated data, that will be used in <see cref="M:JetBrains.ReSharper.Intentions.Bulbs.IBulbItemsProvider.CollectActions(JetBrains.ReSharper.Intentions.Bulbs.IntentionsBulbItems,JetBrains.ReSharper.Intentions.Bulbs.BulbItemsCache,JetBrains.TextControl.ITextControl,JetBrains.DataFlow.Lifetime,JetBrains.ReSharper.Psi.IPsiSourceFile,System.Object)"/> method call</returns>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Bulbs.IBulbItemsProvider.CollectActions(JetBrains.ReSharper.Intentions.Bulbs.IntentionsBulbItems,JetBrains.ReSharper.Intentions.Bulbs.BulbItemsCache,JetBrains.TextControl.ITextControl,JetBrains.DataFlow.Lifetime,JetBrains.ReSharper.Psi.IPsiSourceFile,System.Object)">
+            <summary>
+            Executed under interruptable read activity to produce bulb items.
+            Use <see cref="M:JetBrains.Application.InterruptableActivityCookie.CheckAndThrow(JetBrains.Application.Progress.IProgressIndicator)"/> in implementation. 
+            </summary>
+            <param name="intentionsBulbItems">Bulb items collection</param>
+            <param name="bulbItemsCache">Bulb context</param>
+            <param name="textControl">Current text control</param>
+            <param name="caretPositionLifetime">Lifetime is alive until caret remains at the same position</param>
+            <param name="psiSourceFile">Current source file</param>
+            <param name="precalculatedData">Data calculated while <see cref="M:JetBrains.ReSharper.Intentions.Bulbs.IBulbItemsProvider.PreExecute(JetBrains.TextControl.ITextControl)"/></param>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Bulbs.IntentionsBulbItems.AddItemsNoRepost(System.Collections.Generic.IEnumerable{JetBrains.UI.BulbMenu.BulbMenuItem})">
+            <summary>
+            Use the method if and only if <see cref="!:item"/> is already present in the menu. I.e. unit test items from gutter menu.
+            Normally <see cref="M:JetBrains.ReSharper.Intentions.Bulbs.IntentionsBulbItems.AddItems(System.Collections.Generic.IEnumerable{JetBrains.UI.BulbMenu.BulbMenuItem})"/> should be used.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Intentions.Formatting.ConfigureFormatDialog">
+            <summary>
+            ConfigureFormatDialog
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Formatting.ConfigureFormatDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.CreateFromUsage.ICreateFromUsageAction.GetBulbItem">
+            <summary>
+            
+            </summary>
+            <returns>null if item is not available</returns>
+        </member>
+        <member name="T:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator">
+            <summary>
+              The bulb indicator.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.ArrowGap">
+            <summary>Width of gap between indicator image and down arrow</summary>
+        </member>
+        <member name="F:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.ShadowExtentBottom">
+            <summary>Extra space required for image shadow frame</summary>
+        </member>
+        <member name="F:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.ourArrowDefaultSize">
+            <summary>Size of down arrow</summary>
+        </member>
+        <member name="F:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.ourBorderWidth">
+            <summary>width of indicator border (hot mode)</summary>
+        </member>
+        <member name="F:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.ourIndicatorPadding">
+            <summary>Padding around indicator including border. Used also as a distance from base point to image.</summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.GetImageSize">
+            <summary>
+              Gets the image size, or the default 16?16 size if it has not been specified yet.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Intentions.Bulbs.BulbIndicator.MouseOver">
+            <summary>
+              Gets or sets the “hot” control state.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Intentions.Bulbs.PopupIndicator">
+            <summary>
+            The blueish popup indicator with icon and text, eg, the “Import Namespace” popup.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Bulbs.PopupIndicator.PaintImpl(System.Drawing.Graphics)">
+            <summary>
+            Does the rendering.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Intentions.Explanatory.CodeInspectionWikiProvider">
+            <summary>
+            Provides bulb items that offer to explain why ReSharper is
+            issuing a particular warning or suggestion.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Util.ContextActionUtils.ApplyCodeStyleRecursiveAndFormat(JetBrains.ReSharper.Psi.Tree.ITreeNode)">
+            <summary>
+            Applies code style recursively to provided node (and all descendants) and reformats code.
+            </summary>
+            <param name="root">The <see cref="T:JetBrains.ReSharper.Psi.Tree.ITreeNode"/> to apply code style and format.</param>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Util.ContextActionUtils.ApplyCodeStyleAndFormat(JetBrains.ReSharper.Psi.Tree.ITreeNode)">
+            <summary>
+            Applies code style to provided node (only) and reformats code.
+            </summary>
+            <param name="root">The <see cref="T:JetBrains.ReSharper.Psi.Tree.ITreeNode"/> to apply code style and format.</param>
+        </member>
+        <member name="M:JetBrains.ReSharper.Intentions.Util.ContextActionUtils.ApplyCodeStyleAndFormat``1(JetBrains.ReSharper.Psi.Tree.ITreeNode)">
+            <summary>
+            Applies specified code styles to provided node (only) and reformats code.
+            </summary>
+            <typeparam name="TCodeStyleSuggestion">The code style suggestion type that determines specific code style(s) to be applied to provided node.</typeparam>
+            <param name="root">The <see cref="T:JetBrains.ReSharper.Psi.Tree.ITreeNode"/> to apply code style and format.</param>    
+        </member>
+    </members>
+</doc>

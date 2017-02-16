@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="name" rules="@color-profile" declared-in="3.0" url="http://www.w3.org/TR/SVG/color.html#ColorProfileNameProperty">
+    <name />
+  </property>
+  <property id="src" rules="@color-profile" declared-in="3.0" url="http://www.w3.org/TR/SVG/color.html#ColorProfileSrcProperty">
+    <group type="or">
+      <name value="sRGB" />
+      <invoke id="local" name="&lt;local-profile&gt;" />
+      <invoke id="url" name="&lt;iri&gt;" />
+      <group type="all">
+        <invoke id="local" name="&lt;local-profile&gt;" />
+        <invoke id="url" name="&lt;iri&gt;" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="rendering-intent" rules="@color-profile" declared-in="3.0" initial="auto" media="visual" url="http://www.w3.org/TR/SVG/color.html#RenderingIntentProperty">
+    <group type="or">
+      <name value="auto" />
+      <name value="perceptual" />
+      <name value="relative-colorimetric" />
+      <name value="saturation" />
+      <name value="absolute-colorimetric" />
+    </group>
+  </property>
+  <property id="color-profile" rules="noname" initial="auto" inherited="yes" media="visual" applies="‘image’ elements that refer to raster images" declared-in="3.0" url="http://www.w3.org/TR/SVG/color.html#ColorProfileProperty">
+    <group type="or">
+      <name value="auto" tooltip="his is the default behavior." />
+      <name value="sRGB" tooltip="The source profile is assumed to be sRGB." />
+      <name tooltip="A name corresponding to a defined color profile that is in the user agent's color profile description database." />
+      <invoke id="url" tooltip="A IRI reference to the source color profile. The referenced color profile overrides an embedded profile inside the image." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="clip-path" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="clip-rule" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="color-interpolation" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="color-interpolation-filters" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="color-rendering" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="enable-background" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="flood-opacity" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="fill-rule" declared-in="2.0" url="http://www.w3.org/TR/SVG/painting.html#FillRuleProperty">
+    <description><![CDATA[
+      <p>The ‘fill-rule’ property indicates the algorithm which is to be used to determine what parts of the canvas are included inside the
+        shape. For a simple, non-intersecting path, it is intuitively clear what region lies "inside"; however, for a more complex path,
+        such as a path that intersects itself or where one subpath encloses another, the interpretation of "inside" is not so obvious.</p>
+      ]]></description>
+    <group type="or">
+      <name value="nonzero" />
+      <name value="evenodd" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="fill-opacity" declared-in="2.0" url="http://www.w3.org/TR/SVG/painting.html#FillOpacityProperty">
+    <description><![CDATA[
+      <p>‘fill-opacity’ specifies the opacity of the painting operation used to paint the interior the current object.</p>
+      ]]></description>
+    <group type="or">
+      <number name="opacity-value" tooltip="The opacity of the painting operation used to fill the current object, as a &lt;number&gt;. Any values outside the range 0.0 (fully transparent) to 1.0 (fully opaque) will be clamped to this range." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="image-rendering" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="mask" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stop-opacity" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="kerning" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="marker" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="marker-start" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="marker-end" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="marker-mid" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="shape-rendering" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="text-anchor" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-linejoin" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-linecap" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-miterlimit" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-opacity" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-width" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-dashoffset" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke-dasharray" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stop-color" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="lighting-color" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="flood-color" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="stroke" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="fill" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="solid-color" declared-in="2.0">
+    <any max="-1" />
+  </property>
+  <property id="solid-opacity" declared-in="2.0">
+    <any max="-1" />
+  </property>
+</definitions>

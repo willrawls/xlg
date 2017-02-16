@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Box Alignment Module Level 3
+W3C Working Draft, 19 May 2016
+http://www.w3.org/TR/2016/WD-css-align-3-20160519/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="baseline-position" declared-in="3.0" url="http://www.w3.org/TR/2016/WD-css-align-3-20160519/#typedef-baseline-position">
+    <group type="or">
+      <name value="baseline" tooltip="Indicates first-baseline alignment: aligns one of the box’s first baselines with the corresponding first baselines of all the boxes in its baseline-sharing group." />
+      <name value="last-baseline" tooltip="Indicates last-baseline alignment: aligns one of the box’s last baselines with the corresponding last baselines of all the boxes in its baseline-sharing group." />
+    </group>
+  </named-value>
+  <named-value id="overflow-position" declared-in="3.0" url="http://www.w3.org/TR/2016/WD-css-align-3-20160519/#typedef-overflow-position">
+    <group type="or">
+      <name value="safe" tooltip="If the size of the alignment subject overflows the alignment container, the alignment subject is instead aligned as if the alignment mode were start." />
+      <name value="unsafe" tooltip="Regardless of the relative sizes of the alignment subject and alignment container, the given alignment value is honored." />
+    </group>
+  </named-value>
+  <named-value id="self-position" declared-in="3.0" url="http://www.w3.org/TR/2016/WD-css-align-3-20160519/#typedef-self-position">
+    <group type="or">
+      <name value="center" tooltip="Centers the alignment subject within its alignment container." />
+      <name value="start" tooltip="Aligns the alignment subject to be flush with the alignment container’s start edge." />
+      <name value="end" tooltip="Aligns the alignment subject to be flush with the alignment container’s end edge." />
+      <name value="self-start" tooltip="Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the alignment subject’s start side." />
+      <name value="self-end" tooltip="Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the alignment subject’s end side." />
+      <name value="flex-start" tooltip="Only used in flex layout. Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the flex container’s main-start or cross-start side, as appropriate. When used in layout modes other than Flexbox, this value computes to start." />
+      <name value="flex-end" tooltip="Only used in flex layout. Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the flex container’s main-end or cross-end side, as appropriate. When used in layout modes other than Flexbox, this value computes to end." />
+      <name value="left" tooltip="Aligns the alignment subject to be flush with the alignment container’s line-left edge. If the property’s axis is not parallel with the inline axis, this value computes to start." />
+      <name value="right" tooltip="Aligns the alignment subject to be flush with the alignment container’s line-left edge. If the property’s axis is not parallel with the inline axis, this value computes to start." />
+    </group>
+  </named-value>
+  <named-value id="content-position" declared-in="3.0" url="http://www.w3.org/TR/2016/WD-css-align-3-20160519/#typedef-content-position">
+    <group type="or">
+      <name value="center" tooltip="Centers the alignment subject within its alignment container." />
+      <name value="start" tooltip="Aligns the alignment subject to be flush with the alignment container’s start edge." />
+      <name value="end" tooltip="Aligns the alignment subject to be flush with the alignment container’s end edge." />
+      <name value="flex-start" tooltip="Only used in flex layout. Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the flex container’s main-start or cross-start side, as appropriate. When used in layout modes other than Flexbox, this value computes to start." />
+      <name value="flex-end" tooltip="Only used in flex layout. Aligns the alignment subject to be flush with the edge of the alignment container corresponding to the flex container’s main-end or cross-end side, as appropriate. When used in layout modes other than Flexbox, this value computes to end." />
+      <name value="left" tooltip="Aligns the alignment subject to be flush with the alignment container’s line-left edge. If the property’s axis is not parallel with the inline axis, this value computes to start." />
+      <name value="right" tooltip="Aligns the alignment subject to be flush with the alignment container’s line-left edge. If the property’s axis is not parallel with the inline axis, this value computes to start." />
+    </group>
+  </named-value>
+  <named-value id="content-distribution" declared-in="3.0" url="http://www.w3.org/TR/2016/WD-css-align-3-20160519/#typedef-content-distribution">
+    <group type="or">
+      <name value="space-between" tooltip="The alignment subjects are evenly distributed in the alignment container. The first alignment subject is placed flush with the start edge of the alignment container, the last alignment subject is placed flush with the end edge of the alignment container, and the remaining alignment subjects are distributed so that the spacing between any two adjacent alignment subjects is the same. Unless otherwise specified, this value falls back to start." />
+      <name value="space-around" tooltip="The alignment subjects are evenly distributed in the alignment container, with a half-size space on either end. The alignment subjects are distributed so that the spacing between any two adjacent alignment subjects is the same, and the spacing before the first and after the last alignment subject is half the size of the other spacing. Unless otherwise specified, this value falls back to center." />
+      <name value="space-evenly" tooltip="The alignment subjects are evenly distributed in the alignment container, with a full-size space on either end. The alignment subjects are distributed so that the spacing between any two adjacent alignment subjects, before the first alignment subject, and after the last alignment subject is the same. Unless otherwise specified, this value falls back to center." />
+      <name value="stretch" tooltip="If the combined size of the alignment subjects is less than the size of the alignment container, any 'auto'-sized alignment subjects have their size increased equally (not proportionally), while still respecting the constraints imposed by max-height/max-width, so that the combined size exactly fills the alignment container." />
+    </group>
+  </named-value>
+  <property id="justify-content" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-justify-content" applies="block containers, flex containers, and grid containers" initial="normal" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Aligns the contents of the box as a whole. Values other than <dfn class="dfn-paneled css">normal</dfn> are defined
+        in &sect;3 Alignment Values, above. If both a &lt;content-distribution&gt; and &lt;content-position&gt; are given, the &lt;content-position&gt;
+        provides an explicit fallback alignment.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <inline id="baseline-position" />
+      <group type="any">
+        <inline id="content-distribution" />
+        <group type="and">
+          <inline id="overflow-position" min="0" />
+          <inline id="content-position" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="align-content" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-align-content" applies="block containers, flex containers, and grid containers" initial="normal" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Aligns the contents of the box as a whole. Values other than <dfn class="dfn-paneled css">normal</dfn> are defined
+        in &sect;3 Alignment Values, above. If both a &lt;content-distribution&gt; and &lt;content-position&gt; are given, the &lt;content-position&gt;
+        provides an explicit fallback alignment.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <inline id="baseline-position" />
+      <group type="any">
+        <inline id="content-distribution" />
+        <group type="and">
+          <inline id="overflow-position" min="0" />
+          <inline id="content-position" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="justify-self" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-justify-self" applies="block-level boxes, absolutely-positioned boxes, and grid items" initial="auto" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Justifies the box within its containing block along the inline/row/main axis: the box’s outer edges are aligned within its
+        alignment container as described by its alignment value.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="If the inherited value of justify-items includes the legacy keyword, auto computes to the inherited value. Otherwise, auto computes to normal." />
+      <name value="normal" />
+      <name value="stretch" tooltip="If the combined size of the alignment subjects is less than the size of the alignment container, any auto-sized alignment subjects have their size increased equally (not proportionally), while still respecting the constraints imposed by max-height/max-width (or equivalent functionality), so that the combined size exactly fills the alignment container. Unless otherwise specified, this value falls back to flex-start. (For layout modes other than flex layout, flex-start is identical to start.)" />
+      <inline id="baseline-position" />
+      <group type="and">
+        <inline id="overflow-position" min="0" />
+        <inline id="self-position" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="align-self" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-align-self" applies="flex items, grid items, and absolutely-positioned boxes" initial="auto" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Aligns the box within its containing block along the block/column/cross axis: the box’s outer edges are aligned within its
+        alignment container as described by its alignment value.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="If the inherited value of justify-items includes the legacy keyword, auto computes to the inherited value. Otherwise, auto computes to normal." />
+      <name value="normal" tooltip="Represents the &quot;default&quot; alignment for the layout mode" />
+      <name value="stretch" tooltip="If the combined size of the alignment subjects is less than the size of the alignment container, any auto-sized alignment subjects have their size increased equally (not proportionally), while still respecting the constraints imposed by max-height/max-width (or equivalent functionality), so that the combined size exactly fills the alignment container. Unless otherwise specified, this value falls back to flex-start. (For layout modes other than flex layout, flex-start is identical to start.)" />
+      <inline id="baseline-position" />
+      <group type="and">
+        <inline id="overflow-position" min="0" />
+        <inline id="self-position" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="justify-items" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-justify-items" applies="block containers and grid containers" initial="auto" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property specifies the default
+        <see cref="P:justify-self"/> for all of the boxes (including anonymous boxes) participating in this box’s formatting context. Values
+        have the following meanings:</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="If the inherited value of justify-items includes the legacy keyword, auto computes to the inherited value. Otherwise, auto computes to normal." />
+      <name value="normal" tooltip="Represents the &quot;default&quot; alignment for the layout mode" />
+      <name value="stretch" />
+      <inline id="baseline-position" />
+      <group type="and">
+        <inline id="overflow-position" min="0" />
+        <inline id="self-position" />
+      </group>
+      <group type="and">
+        <name value="legacy" tooltip="This keyword causes the value to effectively inherit into descendants. It can only be combined with the center, left, and right positions. When justify-self:auto retrieves the value of justify-items, only the alignment keyword, not the legacy keyword, is passed to it. It exists to implement the legacy alignment behavior of HTML’s &lt;center&gt; element and align attribute." />
+        <group type="or">
+          <name value="left" />
+          <name value="right" />
+          <name value="center" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="align-items" declared-in="3.0" url="https://www.w3.org/TR/2016/WD-css-align-3-20160519/#propdef-align-items" applies="block-level elements" initial="normal" inherited="no" percentage="n/a" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property specifies the default <see cref="P:align-self"/> for all of the boxes (including anonymous boxes) participating in
+        this box’s formatting context.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <name value="stretch" />
+      <inline id="baseline-position" />
+      <group type="and">
+        <inline id="overflow-position" min="0" />
+        <inline id="self-position" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

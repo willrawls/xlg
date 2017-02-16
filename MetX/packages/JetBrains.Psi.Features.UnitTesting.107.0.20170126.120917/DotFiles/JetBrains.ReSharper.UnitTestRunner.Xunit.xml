@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.UnitTestRunner.Xunit</name>
+    </assembly>
+    <members>
+        <member name="P:JetBrains.ReSharper.UnitTestRunner.Xunit.Tasks.DynamicElementXunitTaskBase.UncollapsedParentTaskId">
+            <summary>
+              The ID of the parent task. Unreliable!
+            </summary>
+            <remarks>
+              Required in order to find the parent element of a newly created task.
+              Should really only be set when sending from the runner to the provider,
+              not when creating tasks in <see cref="!:IUnitTestElement.GetTaskSequence"/>.
+              The problem is that the tasks returned from <see cref="!:IUnitTestElement.GetTaskSequence"/>
+              are collapsed based on equality, and each task would have a different
+              parent task ID. Also, we'll end up with tasks in the runner that have
+              a parent task ID that's doesn't match any of the tasks it knows about.
+              <para>
+                So, just like <see cref="P:JetBrains.ReSharper.TaskRunnerFramework.RemoteTask.Id"/>, this property should not be
+                included in the equality comparers.
+              </para>
+            </remarks>
+        </member>
+    </members>
+</doc>

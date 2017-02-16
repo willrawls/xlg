@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Device Adaptation Module Level 1
+W3C Working Draft, 26 November 2015
+http://www.w3.org/TR/2015/WD-css-device-adapt-1-20151126/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="viewport-length" declared-in="3.0" url="http://www.w3.org/TR/css-device-adapt-1/#typedef-viewport-length" caniuse-ids="css-deviceadaptation">
+    <group type="or">
+      <length tooltip="A non-negative absolute or relative length." min-value="0" />
+      <percentage min-value="0" tooltip="A percentage value relative to the width or height of the initial viewport at zoom factor 1.0, for horizontal and vertical lengths respectively. Must be non-negative." />
+      <name value="auto" tooltip="The used value is calculated from the other property values according to the constraining procedure." />
+    </group>
+  </named-value>
+  <property id="min-width" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-min-width" initial="auto" percentage="Refer to the width of the initial viewport" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the minimum width of the viewport that is used to set the size of the initial containing block</p>
+      ]]></description>
+    <inline id="viewport-length" />
+  </property>
+  <property id="max-width" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-max-width" initial="auto" percentage="Refer to the width of the initial viewport" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the maximum width of the viewport that is used to set the size of the initial containing block.</p>
+      ]]></description>
+    <inline id="viewport-length" />
+  </property>
+  <!-- todo: shorthand-->
+  <property id="width" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-width" initial="auto" percentage="See individual descriptors" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>This is a shorthand property for setting both min-width and max-width. One &lt;viewport-length&gt; value will set both min-width
+        and max-width to that value. Two &lt;viewport-length&gt; values will set min-width to the first and max-width to the second.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="viewport-length" name="all" />
+      <group>
+        <property id="min-width" />
+        <property id="max-width" />
+      </group>
+    </group>
+  </property>
+  <property id="min-height" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-min-height" initial="auto" percentage="Refer to the height of the initial viewport" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the minimum height of the viewport that is used to set the size of the initial containing block</p>
+      ]]></description>
+    <inline id="viewport-length" />
+  </property>
+  <property id="max-height" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-max-height" initial="auto" percentage="Refer to the height of the initial viewport" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the maximum height of the viewport that is used to set the size of the initial containing block.</p>
+      ]]></description>
+    <inline id="viewport-length" />
+  </property>
+  <!--todo: shorthand-->
+  <property id="height" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-height" initial="auto" percentage="Refer to the height of the initial viewport" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>This is a shorthand property for setting both min-height and max-height. One &lt;viewport-length&gt; value will set both min-height
+        and max-height to that value. Two &lt;viewport-length&gt; values will set min-height to the first and max-height to the second.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="viewport-length" name="all" />
+      <group>
+        <property id="min-height" />
+        <property id="max-height" />
+      </group>
+    </group>
+  </property>
+  <property id="zoom" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-zoom" initial="auto" percentage="The zoom factor itself" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the initial zoom factor for the window or viewing area. This is a magnifying glass type of zoom. Interactively changing
+        the zoom factor from the initial zoom factor does not affect the size of the initial or the actual viewport.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The zoom factor is UA-dependent. The UA may use the size of the area of the canvas on which the document is rendered to find that initial zoom factor. See this section for a proposed way of handling auto values for zoom." />
+      <number min-value="0" tooltip="A non-negative number used as a zoom factor. A factor of 1.0 means that no zooming is done. Values larger than 1.0 gives a zoomed-in effect and values smaller than 1.0 a zoomed-out effect." />
+      <percentage min-value="0" tooltip="A non-negative percentage value used as a zoom factor. A factor of 100% means that no zooming is done. Values larger than 100% gives a zoomed-in effect and values smaller than 100% a zoomed-out effect." />
+    </group>
+  </property>
+  <property id="min-zoom" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-min-zoom" initial="auto" percentage="The zoom factor itself" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the smallest allowed zoom factor. It is used as input to the constraining procedure to constrain non-‘auto’ ‘zoom’
+        values, but also to limit the allowed zoom factor that can be set through user interaction. The UA should also use this value as a
+        constraint when choosing an actual zoom factor when the used value of ‘zoom’ is ‘auto’.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The lower limit on zoom factor is UA dependant. There will be no minimum value constraint on the zoom descriptor used in the constraining procedure" />
+      <number min-value="0" tooltip="A non-negative number limiting the minimum value of the zoom factor." />
+      <percentage min-value="0" tooltip="A non-negative percentage limiting the minimum value of the zoom factor." />
+    </group>
+  </property>
+  <property id="max-zoom" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-max-zoom" initial="auto" percentage="The zoom factor itself" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies the largest allowed zoom factor. It is used as input to the constraining procedure to constrain non-‘auto’ ‘zoom’ values,
+        but also to limit the allowed zoom factor that can be set through user interaction. The UA should also use this value as a
+        constraint when choosing an actual zoom factor when the used value of ‘zoom’ is ‘auto’.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The upper limit on zoom factor is UA dependant. There will be no maximum value constraint on the zoom descriptor used in the constraining procedure" />
+      <number min-value="0" tooltip="A non-negative number limiting the maximum value of the zoom factor." />
+      <percentage min-value="0" tooltip="A non-negative percentage limiting the maximum value of the zoom factor." />
+    </group>
+  </property>
+  <property id="user-zoom" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-user-zoom" initial="zoom" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>Specifies if the zoom factor can be changed by user interaction or not.</p>
+      ]]></description>
+    <group type="or">
+      <name value="zoom" tooltip="The user can interactively change the zoom factor." />
+      <name value="fixed" tooltip="The user cannot interactively change the zoom factor." />
+    </group>
+  </property>
+  <property id="orientation" declared-in="3.0" rules="@viewport" url="http://www.w3.org/TR/css-device-adapt-1/#descdef-viewport-orientation" initial="auto" media="visual continuous" caniuse-ids="css-deviceadaptation">
+    <description><![CDATA[
+      <p>This property is used to request that a document is displayed in portrait or landscape mode. For a UA/device where the orientation is changed upon tilting the device, an author can use this property to inhibit the orientation change.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The UA automatically chooses the orientation based on the device’s normal mode of operation. The UA may choose to change the orientation of the presentation when the device is tilted." />
+      <name value="portrait" tooltip="The document should be locked to portrait presentation." />
+      <name value="landscape" tooltip="The document should be locked to landscape presentation." />
+    </group>
+  </property>
+</definitions>

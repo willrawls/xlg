@@ -7,6 +7,7 @@ using MetX.IO;
 using MetX.Library;
 using MetX.Pipelines;
 using MetX.Properties;
+using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner
 {

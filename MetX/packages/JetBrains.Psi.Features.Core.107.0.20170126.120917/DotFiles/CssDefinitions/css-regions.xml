@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Regions Module Level 1
+W3C Working Draft 18 February 2014
+http://www.w3.org/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="flow-from" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css3-regions-20140218/#flow-from" applies="Non-replaced block containers. This might be expanded in future versions of the specification to allow other types of containers to receive flow content." initial="none" inherited="no" percentage="N/A" media="visual" caniuse-ids="css-regions">
+    <description><![CDATA[
+      <p>The ‘flow-from’ property makes a block container a region and associates it with a named flow.</p>
+      ]]></description>
+    <group type="or">
+      <name tooltip="The block container becomes a CSS Region (except as detailed in the text below), and is ordered in a region chain according to its document order. The content from the flow with the &lt;ident&gt; name will be broken into fragments and visually formatted in the principal boxes of the regions in the region chain. If there is no flow with name &lt;ident&gt;, then the block container does not format any content visually." />
+      <name value="none" tooltip="The block container is not a CSS Region." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="flow-into" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css3-regions-20140218/#flow-into" applies="All elements, but not pseudo-elements such as ::first-line, ::first-letter, ::before or ::after." initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The ‘flow-into’ property can place an element or its contents into a named flow. Content that belongs to the same flow is laid out
+        in the region chain associated with that flow.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The element is not moved to a named flow and normal CSS processing takes place." />
+      <group>
+        <name tooltip="If the keyword ‘element’ is present or neither keyword is present, then the element is taken out of its parent's flow and placed into the flow with the name ‘&lt;ident&gt;’. If the keyword ‘content’ is present, then only the element's contents are placed into the named flow. The element or content is said to have a specified flow. The values ‘none’, ‘inherit’, ‘default’, ‘auto’ and ‘initial’ are invalid flow names." />
+        <group type="or" min="0">
+          <name value="element" />
+          <name value="content" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="region-fragment" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css3-regions-20140218/#region-fragment" applies="CSS Regions" initial="auto" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The ‘region-fragment’ property controls the behavior of the <em id="last-region">last region</em> associated with a named flow.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Content flows as it would in a regular content box. If the content exceeds the container box, it is subject to the overflow property's computed value on the CSS Region. Region breaks must be ignored on the last region." />
+      <name value="break" tooltip="If the content fits within the CSS Region, then this property has no effect. If the content does not fit within the CSS Region, the content breaks as if flow was going to continue in a subsequent region. See the breaking rules section. A forced region break takes precedence over a natural break point. Flow content that follows the last break in the last region is not rendered." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="region-fragment" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Webkit_Extensions" />
+</definitions>

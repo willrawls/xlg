@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Flexible Box Layout Module Level 1
+W3C Candidate Recommendation, 1 March 2016
+http://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="display" declared-in="3.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-flexbox-1/#flex-containers" initial="inline" applies="all" media="visual">
+    <group type="or">
+      <name value="flex" browsers="FF18.0,O12.50,S9.0" tooltip="This value causes an element to generate a block-level flex container box." />
+      <name value="inline-flex" browsers="FF18.0,O12.50,S9.0" tooltip="This value causes an element to generate an inline-level flex container box." />
+    </group>
+  </property>
+  <property id="flex-direction" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-direction" applies="flex containers" initial="row" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,IE11,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[
+      <p>The CSS flex-direction property specifies how flex items are placed in the flex container defining the main axis and the direction
+        (normal or reversed).</p>
+      ]]></description>
+    <group type="or">
+      <name value="row" tooltip="The flex container’s main axis has the same orientation as the inline axis of the current writing mode. The main-start and main-end directions are equivalent to the inline-start and inline-end directions, respectively, of the current writing mode." />
+      <name value="row-reverse" tooltip="Same as row, except the main-start and main-end directions are swapped." />
+      <name value="column" tooltip="The flex container’s main axis has the same orientation as the block axis of the current writing mode. The main-start and main-end directions are equivalent to the block-start and block-end directions, respectively, of the current writing mode." />
+      <name value="column-reverse" tooltip="Same as column, except the main-start and main-end directions are swapped." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-direction" prefix="webkit" browsers="C21.0" />
+  <prefixed-property id="flex-direction" prefix="ms" browsers="IE11.0" url="http://msdn.microsoft.com/en-us/library/ie/jj127299(v=vs.85).aspx" />
+  <property id="flex-wrap" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-wrap" applies="flex containers" initial="nowrap" inherited="no" percentage="n/a" media="visual" browsers="FF28.0,O12.10,IE11.0,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The flex-wrap property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in.</p>]]></description>
+    <group type="or">
+      <name value="nowrap" tooltip="The flex container is single-line. The cross-start direction is equivalent to either the inline-start or block-start direction of the current writing mode, whichever is in the cross axis, and the cross-end direction is the opposite direction of cross-start." />
+      <name value="wrap" tooltip="The flex container is multi-line. The cross-start direction is equivalent to either the inline-start or block-start direction of the current writing mode, whichever is in the cross axis, and the cross-end direction is the opposite direction of cross-start." />
+      <name value="wrap-reverse" tooltip="Same as wrap, except the cross-start and cross-end directions are swapped." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-wrap" prefix="webkit" browsers="C21.0,S6.1" />
+  <prefixed-property id="flex-wrap" prefix="ms" browsers="IE10.0" />
+  <!-- todo: shorthand -->
+  <property id="flex-flow" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-flow" applies="flex containers" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" browsers="FF28.0,IE11,O12.10,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The flex-flow property is a shorthand for setting the <see cref="P:flex-direction"/> and 
+ <see cref="P:flex-wrap" /> properties, which together define the flex container’s main and cross axes.</p>]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="flex-direction" />
+        <property id="flex-wrap" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-flow" prefix="webkit" browsers="C21.0" />
+  <property id="order" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-order" applies="flex items and absolutely-positioned children of flex containers" initial="0" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,S9.0" animatable="yes" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The order property controls the order in which children of a flex container appear within the flex container, by assigning them to ordinal groups. It takes a single <dfn class="css" data-dfn-for="order" data-dfn-type="value" data-export="" id="valdef-order-integer">&lt;integer&gt;</dfn> value, which specifies which ordinal group the flex item belongs to.</p>]]></description>
+    <group type="or">
+      <integer />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="flex" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex" applies="flex items" initial="see individual properties" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,C29.0,IE11.0,O12.10,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The flex property specifies the components of a <dfn data-dfn-type="dfn" data-noexport="" id="flexible-length">flexible length</dfn>: the flex grow factor and flex shrink factor, and the flex basis. When a box is a flex item, flex is consulted <em>instead of</em> the main size property to determine the main size of the box. If a box is not a flex item, flex has no effect.</p>]]></description>
+    <group type="or">
+      <name value="none" tooltip="The keyword none expands to 0 0 auto." />
+      <group type="any">
+        <group>
+          <property id="flex-grow" />
+          <property id="flex-shrink" min="0" />
+        </group>
+        <property id="flex-basis" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex" prefix="webkit" browsers="C21.0,S6.1" />
+  <prefixed-property id="flex" prefix="ms" browsers="IE10.0" />
+  <property id="flex-grow" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-grow" applies="flex items" initial="0" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,S9.0" animatable="yes" caniuse-ids="flexbox">
+    <description><![CDATA[
+      <p>The flex-grow property sets the flex grow factor to the provided <dfn class="css-code" id="valuedef-number0">
+        &lt;number&gt;</dfn>. Negative numbers are invalid.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-grow" prefix="webkit" browsers="C21.0" />
+  <property id="flex-shrink" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-shrink" applies="flex items" initial="1" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,S9.0" animatable="yes" caniuse-ids="flexbox">
+    <description><![CDATA[
+      <p>The flex-shrink property sets the flex shrink factor to the provided <dfn class="css-code" id="valuedef-number">
+        &lt;number&gt;</dfn>. Negative numbers are invalid.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-shrink" prefix="webkit" browsers="C21.0" />
+  <property id="flex-basis" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-flex-basis" applies="flex items" initial="auto" inherited="no" percentage="relative to the flex container’s inner  main size" media="visual" browsers="FF20.0,O12.10,IE11.0,S9.0" animatable="yes" caniuse-ids="flexbox">
+    <description><![CDATA[
+      <p>The CSS flex-basis property specifies the flex basis which is the initial main size of a flex item.</p>
+      ]]></description>
+    <group type="or">
+      <name value="content" tooltip="Indicates automatic sizing, based on the flex item’s content. Note: This value was not present in the initial release of Flexible Box Layout, and thus some older implementations will not support it. The equivalent effect can be achieved by using auto together with a main size (width or height) of auto." />
+      <property id="width" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="flex-basis" prefix="webkit" browsers="C21.0" />
+  <property id="justify-content" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-justify-content" applies="flex containers" initial="flex-start" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The justify-content property aligns flex items along the main axis of the current line of the flex container. This is done <em>after</em> any flexible lengths and any auto margins have been resolved. Typically it helps distribute extra free space leftover when either all the flex items on a line are inflexible, or are flexible but have reached their maximum size. It also exerts some control over the alignment of items when they overflow the line.</p>]]></description>
+    <group type="or">
+      <name value="flex-start" tooltip="Flex items are packed toward the start of the line. The main-start margin edge of the first flex item on the line is placed flush with the main-start edge of the line, and each subsequent flex item is placed flush with the preceding item." />
+      <name value="flex-end" tooltip="Flex items are packed toward the end of the line. The main-end margin edge of the last flex item is placed flush with the main-end edge of the line, and each preceding flex item is placed flush with the subsequent item." />
+      <name value="center" tooltip="Flex items are packed toward the center of the line. The flex items on the line are placed flush with each other and aligned in the center of the line, with equal amounts of space between the main-start edge of the line and the first item on the line and between the main-end edge of the line and the last item on the line. (If the leftover free-space is negative, the flex items will overflow equally in both directions.)" />
+      <name value="space-between" tooltip="Flex items are evenly distributed in the line. If the leftover free-space is negative or there is only a single flex item on the line, this value is identical to flex-start. Otherwise, the main-start margin edge of the first flex item on the line is placed flush with the main-start edge of the line, the main-end margin edge of the last flex item on the line is placed flush with the main-end edge of the line, and the remaining flex items on the line are distributed so that the spacing between any two adjacent items is the same." />
+      <name value="space-around" tooltip="Flex items are evenly distributed in the line, with half-size spaces on either end. If the leftover free-space is negative or there is only a single flex item on the line, this value is identical to center. Otherwise, the flex items on the line are distributed such that the spacing between any two adjacent flex items on the line is the same, and the spacing between the first/last flex items and the flex container edges is half the size of the spacing between flex items." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="justify-content" prefix="webkit" browsers="C21.0" />
+  <property id="align-items" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-align-items" applies="flex containers" initial="stretch" inherited="no" percentage="n/a" media="visual" browsers="FF20.0,O12.10,IE11.0,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[
+<p>The CSS align-items property aligns flex items of the current flex line the same way as justify-content but in the perpendicular direction.</p>
+]]></description>
+    <group type="or">
+      <name value="flex-start" tooltip="The cross-start margin edge of the flex item is placed flush with the cross-start edge of the line." />
+      <name value="flex-end" tooltip="The cross-end margin edge of the flex item is placed flush with the cross-end edge of the line." />
+      <name value="center" tooltip="The flex item’s margin box is centered in the cross axis within the line. (If the cross size of the flex line is less than that of the flex item, it will overflow equally in both directions.)" />
+      <name value="baseline" tooltip="If the flex item’s inline axis is the same as the cross axis, this value is identical to flex-start. Otherwise, it participates in baseline alignment: all participating flex items on the line are aligned such that their baselines align, and the item with the largest distance between its baseline and its cross-start margin edge is placed flush against the cross-start edge of the line." />
+      <name value="stretch" tooltip="If the cross size property of the flex item computes to auto, and neither of the cross-axis margins are auto, the flex item is stretched. Its used value is the length necessary to make the cross size of the item’s margin box as close to the same size as the line as possible, while still respecting the constraints imposed by min-height/min-width/max-height/max-width. Note: If the flex container’s height is constrained this value may cause the contents of the flex item to overflow the item. The cross-start margin edge of the flex item is placed flush with the cross-start edge of the line." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="align-items" prefix="webkit" browsers="C21.0,S7.0" />
+  <property id="align-self" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-align-self" applies="flex items" initial="auto" inherited="no" percentage="n/a" media="visual" browsers="C36.0,FF20.0,O12.10,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>Flex items can be aligned in the cross axis of the current line of the flex container, similar to 
+ <see cref="P:justify-content" /> but in the perpendicular direction. 
+ <see cref="P:align-items" /> sets the default alignment for all of the flex container’s items, including anonymous flex items. align-self allows this default alignment to be overridden for individual flex items. (For anonymous flex items, align-self always matches the value of 
+ <see cref="P:align-items" /> on their associated flex container.)</p>]]></description>
+    <group type="or">
+      <name value="auto" tooltip="When used as the value of a flex item’s min main size property, this keyword indicates a minimum of the min-content size, to help ensure that the item is large enough to fit its contents. It is intended that this will compute to the min-content keyword when the specification defining it ([CSS3-SIZING]) is sufficiently mature. On a flex item whose overflow is not visible, this keyword specifies as the minimum size the smaller of: the min-content size, or the computed width/height, if that value is definite." />
+      <name value="flex-start" tooltip="Lines are packed toward the start of the flex container. The cross-start edge of the first line in the flex container is placed flush with the cross-start edge of the flex container, and each subsequent line is placed flush with the preceding line." />
+      <name value="flex-end" tooltip="Lines are packed toward the end of the flex container. The cross-end edge of the last line is placed flush with the cross-end edge of the flex container, and each preceding line is placed flush with the subsequent line." />
+      <name value="center" tooltip="Lines are packed toward the center of the flex container. The lines in the flex container are placed flush with each other and aligned in the center of the flex container, with equal amounts of space between the cross-start content edge of the flex container and the first line in the flex container, and between the cross-end content edge of the flex container and the last line in the flex container. (If the leftover free-space is negative, the lines will overflow equally in both directions.)" />
+      <name value="baseline" tooltip="If the flex item’s inline axis is the same as the cross axis, this value is identical to flex-start. Otherwise, it participates in baseline alignment: all participating flex items on the line are aligned such that their baselines align, and the item with the largest distance between its baseline and its cross-start margin edge is placed flush against the cross-start edge of the line." />
+      <name value="stretch" tooltip="If the cross size property of the flex item is computes to auto, its used value is …" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="align-self" prefix="webkit" browsers="C21.0" />
+  <property id="align-content" declared-in="3.0" url="http://www.w3.org/TR/css-flexbox-1/#propdef-align-content" applies="multi-line flex containers" initial="stretch" inherited="no" percentage="n/a" media="visual" browsers="FF28.0,O12.10,S9.0" caniuse-ids="flexbox">
+    <description><![CDATA[<p>The align-content property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how 
+ <see cref="P:justify-content" /> aligns individual items within the main-axis. Note, this property has no effect on a single-line flex container. Values have the following meanings:</p>]]></description>
+    <group type="or">
+      <name value="flex-start" tooltip="Lines are packed toward the start of the flex container. The cross-start edge of the first line in the flex container is placed flush with the cross-start edge of the flex container, and each subsequent line is placed flush with the preceding line." />
+      <name value="flex-end" tooltip="Lines are packed toward the end of the flex container. The cross-end edge of the last line is placed flush with the cross-end edge of the flex container, and each preceding line is placed flush with the subsequent line." />
+      <name value="center" tooltip="Lines are packed toward the center of the flex container. The lines in the flex container are placed flush with each other and aligned in the center of the flex container, with equal amounts of space between the cross-start content edge of the flex container and the first line in the flex container, and between the cross-end content edge of the flex container and the last line in the flex container. (If the leftover free-space is negative, the lines will overflow equally in both directions.)" />
+      <name value="space-between" tooltip="Lines are evenly distributed in the flex container. If the leftover free-space is negative this value is identical to flex-start. Otherwise, the cross-start edge of the first line in the flex container is placed flush with the cross-start content edge of the flex container, the cross-end edge of the last line in the flex container is placed flush with the cross-end content edge of the flex container, and the remaining lines in the flex container are distributed so that the spacing between any two adjacent lines is the same." />
+      <name value="space-around" tooltip="Lines are evenly distributed in the flex container, with half-size spaces on either end. If the leftover free-space is negative this value is identical to center. Otherwise, the lines in the flex container are distributed such that the spacing between any two adjacent lines is the same, and the spacing between the first/last lines and the flex container edges is half the size of the spacing between flex lines." />
+      <name value="stretch" tooltip="Lines stretch to take up the remaining space. If the leftover free-space is negative, this value is identical to flex-start. Otherwise, the free-space is split equally between all of the lines, increasing their cross size." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="align-content" prefix="webkit" browsers="C21.0" />
+</definitions>

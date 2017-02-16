@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Presentation Levels Module
+W3C Working Group Note 14 October 2014
+http://www.w3.org/TR/2014/NOTE-css3-preslev-20141014/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="presentation-level" declared-in="3.0" url="http://www.w3.org/TR/2014/NOTE-css3-preslev-20141014/#presentation-level" initial="0" applies="all elements" inherited="yes" media="all">
+    <group type="or">
+      <name value="same" tooltip="A value of ‘same’ computes to the same value as the previous element's (in document order) presentation level. For the root element, ‘same’ computes to zero." />
+      <name value="increment" tooltip="A value of ‘increment’ computes to a value one more than the previous (in document order) element's presentation level." />
+      <integer min-value="0" tooltip="An integer value sets the presentation level explicitly." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <pseudo-class id="below-level" declared-in="3.0" url="http://www.w3.org/TR/2014/NOTE-css3-preslev-20141014/#presentation-level" />
+  <pseudo-class id="at-level" declared-in="3.0" url="http://www.w3.org/TR/2014/NOTE-css3-preslev-20141014/#presentation-level" />
+  <pseudo-class id="above-level" declared-in="3.0" url="http://www.w3.org/TR/2014/NOTE-css3-preslev-20141014/#presentation-level" />
+</definitions>

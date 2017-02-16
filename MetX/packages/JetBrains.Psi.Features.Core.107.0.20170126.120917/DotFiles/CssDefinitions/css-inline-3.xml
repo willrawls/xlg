@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Inline Layout Module Level 3
+W3C Working Draft, 17 September 2015
+http://www.w3.org/TR/2015/WD-css-inline-3-20150917/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="dominant-baseline" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-dominant-baseline" applies="block containers and inline boxes" initial="normal" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <group type="or">
+      <name value="auto" tooltip="Equivalent to alphabetic in horizontal writing modes and in vertical writing modes when text-orientation is sideways, sideways-right, or sideways-left. equivalent to central in vertical writing modes when text-orientation is mixed or upright." />
+      <name value="text-bottom" tooltip="Use the bottom of the em box as the baseline." />
+      <name value="alphabetic" tooltip="Use the alphabetic baseline." />
+      <name value="central" tooltip="Use the central baseline (halfway between the ascent and descent)." />
+      <name value="mathematical" tooltip="Use the mathematical baseline." />
+      <name value="hanging" tooltip="Use the hanging baseline." />
+      <name value="text-top" tooltip="Use the top of the em box as the baseline." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="vertical-align" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-vertical-align" rules="noname,page-margin" browsers="C1.0,FF1.0,IE4.0,O4.0,S1.0" applies="inline-level boxes" initial="baseline" inherited="no" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This shorthand property specifies how an inline-level box is aligned within the line. Values are the same as for its longhand
+        properties, see below. </p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="baseline-shift" />
+        <property id="alignment-baseline" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="alignment-baseline" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-alignment-baseline" applies="inline-level boxes" initial="baseline" inherited="no" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Specifies what point of an inline-level box is aligned to what point in the parent. Values are defined below: </p>
+      ]]></description>
+    <group type="or">
+      <name value="baseline" tooltip="Use the dominant baseline choice of the parent. Match the box’s corresponding baseline to that of its parent." />
+      <name value="text-bottom" tooltip="Match the bottom of the box to the bottom of the parent’s content area." />
+      <name value="alphabetic" tooltip="Use the alphabetic and cap-height baselines of the surrounding text to align the initial letter." />
+      <name value="middle" tooltip="Align the vertical midpoint of the box with the baseline of the parent box plus half the x-height of the parent." />
+      <name value="central" tooltip="Match the box’s central baseline to the central baseline of its parent." />
+      <name value="mathematical" tooltip="Match the box’s mathematical baseline to that of its parent." />
+      <name value="text-top" tooltip="Match the top of the box to the top of the parent’s content area." />
+      <name value="bottom" tooltip="Align the bottom of the aligned subtree with the bottom of the line box." />
+      <name value="center" tooltip="Align the center of the aligned subtree with the center of the line box." />
+      <name value="top" tooltip="Align the top of the aligned subtree with the top of the line box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="baseline-shift" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-baseline-shift" applies="inline-level boxes" initial="0" inherited="no" percentage="refer to the used value of line-height" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property specifies by how much the box is shifted up from its alignment point. It does not apply when
+        <see cref="P:alignment-baseline"/> is top or bottom.</p>
+      ]]></description>
+    <group type="or">
+      <length tooltip="Raise (positive value) or lower (negative value) by the specified length." />
+      <percentage tooltip="Raise (positive value) or lower (negative value) by the specified percentage of the line-height." />
+      <name value="sub" tooltip="Lower by the offset appropriate for subscripts of the parent’s box. (The UA should use the parent’s font data to find this offset whenever possible.)" />
+      <name value="super" tooltip="Raise by the offset appropriate for superscripts of the parent’s box. (The UA should use the parent’s font data to find this offset whenever possible.)" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="initial-letter" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-initial-letter" applies="::first-letter pseudo-elements and inline-level first child of a block container" initial="normal" inherited="no" percentage="N/A" media="visual" animatable="no" browsers="S9.0">
+    <group type="or">
+      <name value="normal" tooltip="No special initial-letter effect. Text behaves as normal." />
+      <group>
+        <number min-value="0" tooltip="This first argument defines the size of the initial letter, in terms of how many lines it occupies. Negative values are not allowed." />
+        <integer min-value="0" allow-zero="no" tooltip="This optional second argument argument defines the number of lines the initial letter should sink. Values must be greater than zero. If omitted, it duplicates the first argument, floored to the nearest positive whole number." min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="initial-letter-align" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-initial-letter-align" applies="::first-letter pseudo elements and inline level first child of a block container" initial="alphabetic" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property specifies the alignment points used to size and position an initial letter. Two sets of alignment points are
+        necessary: the over and under alignment points of the initial letter are matched to corresponding over and under points of the
+        surrounding text.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <name value="border-box" tooltip="Uses the initial letter box’s line-over and line-under border edges as the over and under alignment points, respectively." min="0" />
+        <group type="or">
+          <name value="alphabetic" tooltip="Use the alphabetic and cap-height baselines of the surrounding text to align the initial letter." />
+          <name value="ideographic" tooltip="Use the ideographic character face bottom and top edge baselines of the surrounding text to align the initial letter." />
+          <name value="hebrew" tooltip="Use the alphabetic and (as yet theoretical) hebrew hanging baseline of the surrounding text to align the initial letter." />
+          <name value="hanging" tooltip="Use the alphabetic and hanging baselines of the surrounding text to align the initial letter." />
+        </group>
+      </group>
+      <name value="border-box" tooltip="Uses the initial letter box’s line-over and line-under border edges as the over and under alignment points, respectively." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="initial-letter-wrap" declared-in="3.0" url="http://www.w3.org/TR/css-inline-3/#propdef-initial-letter-wrap" applies="::first-letter pseudo-elements and inline-level first child of a block container" initial="none" inherited="yes" percentage="relative to logical width of (last fragment of) initial letter" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property specifies whether lines impacted by an initial letter are shortened to fit the rectangular shape of the initial
+        letter box or follow the contour of its end-edge glyph outline.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No contour-fitting is performed: each impacted line is aligned flush to the end margin edge of the initial letter." />
+      <name value="first" tooltip="Behaves as none if the first typographic character unit after the initial letter belongs to Unicode General Category Zs. Otherwise behaves as for all on the first line of the block containing the initial letter and as none on the rest." />
+      <name value="all" tooltip="For each line of text impacted by the initial letter, the line box adjacent to the intial letter starts at the start-most point that touches the ink of the initial letter, plus the amount of the initial letter’s end-side border+padding+margin. Note: This value is at-risk." />
+      <name value="grid" tooltip="This value is the same as none, except that the exclusion area of the impacted lines is increased as necessary for its end-edge to land on the character grid. The justify-self property can then be used to align the initial letter box within the exclusion area." />
+      <length tooltip="This value behaves the same as first except that the adjustment to the first line is given explicitly instead of being inferred from the glyph shape." />
+      <percentage tooltip="This value behaves the same as first except that the adjustment to the first line is given explicitly instead of being inferred from the glyph shape." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

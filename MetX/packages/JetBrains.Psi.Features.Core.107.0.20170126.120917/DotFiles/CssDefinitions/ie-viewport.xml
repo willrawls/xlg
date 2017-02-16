@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="height" url="https://msdn.microsoft.com/en-us/library/hh869615(v=vs.85).aspx#height" tooltip="Indicates the preferred viewport height used in determining the size of the initial containing block." declared-in="0" browsers="IE10" rules="@viewport">
+    <inline id="ms-viewport-length" name="&lt;height&gt;" />
+  </property>
+  <property id="width" url="https://msdn.microsoft.com/en-us/library/hh869615(v=vs.85).aspx#width" tooltip="Indicates the preferred viewport width used in determining the size of the initial containing block." declared-in="0" browsers="IE10" rules="@viewport">
+    <inline id="ms-viewport-length" name="&lt;width&gt;" />
+  </property>
+
+  <named-value id="ms-viewport-length" declared-in="0" rules="@viewport">
+    <group type="or">
+      <name value="auto" tooltip="The value is calculated based on the display device's normal mode of operation."/>
+      <name value="device-width" browsers="IE10" tooltip="The width of the screen in CSS pixels at a zoom factor of 100%."/>
+      <name value="device-height" browsers="IE10" tooltip="The height of the screen in CSS pixels at a zoom factor of 100%."/>
+      <length tooltip="A positive absolute or relative length."/>
+      <percentage tooltip="A positive percentage value relative to the width or height of the initial viewport at a zoom factor of 100%, for horizontal and vertical lengths respectively."/>
+    </group>
+  </named-value>
+</definitions>

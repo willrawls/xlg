@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <!-- Media features -->
+  <media-feature id="-o-min-device-pixel-ratio" min-max="no" declared-in="0" browsers="O11.6" media="visual tactile bitmap" url="http://www.opera.com/docs/specs/presto28/css/o-vendor/">
+    <description><![CDATA[
+      <p>Gives the number of device pixels per CSS pixel.</p>
+      ]]></description>
+    <group>
+      <number name="horizontal-pixels" />
+      <text value="/" />
+      <number name="vertical-pixels" />
+    </group>
+  </media-feature>
+  <!-- Pseudo-selectors -->
+  <pseudo-class id="-o-prefocus" declared-in="0" url="http://www.opera.com/docs/specs/presto2.12/css/o-vendor/" browsers="O9.5">
+    <description><![CDATA[
+      <p>-o-prefocus is a pseudo-class introduced in Opera 9.5 that allows styles to be targeted for Opera only.</p>
+      ]]></description>
+  </pseudo-class>
+</definitions>

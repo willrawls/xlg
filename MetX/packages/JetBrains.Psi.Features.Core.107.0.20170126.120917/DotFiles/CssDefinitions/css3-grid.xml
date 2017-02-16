@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Grid Layout Module Level 1
+W3C Working Draft, 17 March 2015
+http://www.w3.org/TR/2015/WD-css-grid-1-20150317/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="track-list" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-track-list" caniuse-ids="css-grid">
+    <group>
+      <group min="1" max="-1">
+        <inline id="line-names" min="0" />
+        <group type="or">
+          <inline id="track-size" />
+          <invoke id="repeat" />
+        </group>
+      </group>
+      <inline id="line-names" min="0" />
+    </group>
+  </named-value>
+  <function id="minmax" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-track-size" caniuse-ids="css-grid">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <inline id="track-breadth" />
+      <inline id="track-breadth" />
+    </group>
+  </function>
+  <named-value id="track-size" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-track-size" caniuse-ids="css-grid">
+    <group type="or">
+      <invoke id="minmax" />
+      <name value="auto" tooltip="As a maximum, identical to max-content. As a minimum, represents the largest minimum size (as specified by min-width/min-height) of the grid items occupying the grid track." />
+      <inline id="track-breadth" />
+    </group>
+  </named-value>
+  <named-value id="track-breadth" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-track-breadth" caniuse-ids="css-grid">
+    <group type="or">
+      <length min-value="0" />
+      <percentage min-value="0" />
+      <name value="max-content" tooltip="Represents the largest max-content contribution of the grid items occupying the grid track." />
+      <name value="min-content" tooltip="Represents the largest min-content contribution of the grid items occupying the grid track." />
+    </group>
+  </named-value>
+  <named-value id="line-names" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-line-names" caniuse-ids="css-grid">
+    <group>
+      <text value="(" />
+      <inline id="custom-ident" min="0" max="-1" />
+      <text value=")" />
+    </group>
+  </named-value>
+  <function id="repeat" declared-in="3.0">
+    <group type="or">
+      <group>
+        <integer min-value="1" />
+        <text value="," />
+        <group max="-1">
+          <inline id="line-names" min="0" />
+          <inline id="track-size" />
+        </group>
+        <inline id="line-names" min="0" />
+      </group>
+      <group>
+        <name value="auto" />
+        <text value="," />
+        <group max="-1">
+          <inline id="line-names" min="0" />
+          <group type="or">
+            <length />
+            <percentage />
+          </group>
+        </group>
+        <inline id="line-names" min="0" />
+      </group>
+    </group>
+  </function>
+  <named-value id="line-name-list" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-line-name-list">
+    <group type="or" max="-1">
+      <inline id="line-names" />
+      <invoke id="repeat" />
+    </group>
+  </named-value>
+  <named-value id="grid-line" declared-in="3.0" url="http://www.w3.org/TR/css3-grid/#typedef-grid-line">
+    <group type="or">
+      <name value="auto" tooltip="The property contributes nothing to the grid item’s placement, indicating auto-placement, an automatic span, or a default span of one." />
+      <inline id="custom-ident" tooltip="if there is a named line with the name &quot;&lt;custom-ident&gt;-start (for grid-*-start) / &lt;custom-ident&gt;-end&quot; (for grid-*-end), contributes the first such line to the grid item’s placement." />
+      <group type="and">
+        <integer allow-zero="no" name="line number" />
+        <inline id="custom-ident" min="0" />
+      </group>
+      <group>
+        <group type="and">
+          <name value="span" />
+          <group type="any">
+            <integer min-value="1" />
+            <inline id="custom-ident" />
+          </group>
+        </group>
+      </group>
+    </group>
+  </named-value>
+  <property id="grid-template-columns" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-template-columns" applies="grid containers" initial="none" inherited="no" percentage="refer to corresponding dimension of the content area" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> These properties specify, as a space-separated <dfn id="track-list">track list</dfn>, the line
+        names and track sizing functions of the grid. Each <dfn id="track-sizing-function"
+                                                                title="track sizing function|sizing function">track sizing function</dfn>
+        can be specified as a length, a percentage of the grid container’s size, a measurement of the contents occupying the column or row,
+        or a fraction of the free space in the grid. It can also be specified as a range using the minmax() notation, which can combine any
+        of the previously mentioned mechanisms to specify separate min and max track sizing functions for the column or row.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The none value indicates that there is no explicit grid; any rows/columns will be implicitly generated, and their size will be determined by the grid-auto-rows and grid-auto-columns properties." />
+      <inline id="track-list" />
+      <group>
+        <name value="subgrid" tooltip="The subgrid value indicates that the grid will align to its parent grid in that axis. Rather than specifying the sizes of rows/columns explicitly, they’ll be taken from the parent grid’s definition." />
+        <inline id="line-name-list" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-template-rows" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-template-rows" applies="grid containers" initial="none" inherited="no" percentage="refer to corresponding dimension of the content area" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> These properties specify, as a space-separated <dfn id="track-list">track list</dfn>, the line
+        names and track sizing functions of the grid. Each <dfn id="track-sizing-function"
+                                                                title="track sizing function|sizing function">track sizing function</dfn>
+        can be specified as a length, a percentage of the grid container’s size, a measurement of the contents occupying the column or row,
+        or a fraction of the free space in the grid. It can also be specified as a range using the minmax() notation, which can combine any
+        of the previously mentioned mechanisms to specify separate min and max track sizing functions for the column or row. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The none value indicates that there is no explicit grid; any rows/columns will be implicitly generated, and their size will be determined by the grid-auto-rows and grid-auto-columns properties." />
+      <inline id="track-list" />
+      <group>
+        <name value="subgrid" tooltip="The subgrid value indicates that the grid will align to its parent grid in that axis. Rather than specifying the sizes of rows/columns explicitly, they’ll be taken from the parent grid’s definition." />
+        <inline id="line-name-list" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-template-areas" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-template-areas" applies="grid containers" initial="none" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> This property specifies <dfn id="named-grid-area" title="named grid area">named grid
+        areas</dfn>, which are not associated with any particular grid item, but can be referenced from the grid-placement properties. The
+        syntax of the grid-template-areas property also provides a visualization of the structure of the grid, making the overall layout of
+        the grid container easier to understand. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The grid container doesn't define any named grid areas." />
+      <string max="-1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="grid-template" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-template" applies="grid containers" initial="see individual properties" percentage="see individual properties" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> The grid-template property is a shorthand for setting <see cref="P:grid-template-columns"/>, <see cref="P:grid-template-rows"/>,
+        and <see cref="P:grid-template-areas"/> in a single declaration.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Sets all three properties to their initial values (none)." />
+      <name value="subgrid" tooltip="Sets grid-template-rows and grid-template-columns to subgrid, and grid-template-areas to its initial value." />
+      <group>
+        <property id="grid-template-columns" tooltip="Sets grid-template-rows to the specified values and sets grid-template-areas to none." />
+        <text value="/" />
+        <property id="grid-template-rows" tooltip="Sets grid-template-rows to the specified values and sets grid-template-areas to none." />
+      </group>
+      <group tooltip="Sets grid-template-columns to the track listing specified before the slash (or none, if not specified). Sets grid-template-areas to the strings listed after the slash. Sets grid-template-rows to the &lt;track-size&gt;s following each string (filling in auto for any missing sizes), and splicing in the named lines defined before/after each size. This syntax allows the author to align track names and sizes inline with their respective grid areas.">
+        <group min="0">
+          <inline id="track-list" />
+          <text value="/" />
+        </group>
+        <group max="-1">
+          <inline id="line-names" min="0" />
+          <string />
+          <inline id="track-size" min="0" />
+          <inline id="line-names" min="0" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-auto-columns" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-auto-columns" applies="grid containers" initial="auto" inherited="no" percentage="refer to corresponding dimension of the content area" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> If a grid item is positioned into a row or column that is not explicitly sized by <see cref="P:grid-template-rows"/>
+        or <see cref="P:grid-template-columns"/>, <dfn id="implicit-grid-track"
+                                                       title="implicit grid track|implicit grid row|implicit grid column">implicit grid
+          tracks</dfn> are created to hold it. This
+        can happen either by explicitly positioning into a row or column that is out of range, or by the auto-placement algorithm creating
+        additional rows or columns. The grid-auto-columns and <see cref="P:grid-auto-rows"/> properties specify the size of such
+        implicitly-created tracks.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="track-size" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-auto-rows" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-auto-rows" applies="grid containers" initial="auto" inherited="no" percentage="refer to corresponding dimension of the content area" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> If a grid item is positioned into a row or column that is not explicitly sized by <see cref="P:grid-template-rows"/>
+        or <see cref="P:grid-template-columns"/>, <dfn id="implicit-grid-track"
+                                                       title="implicit grid track|implicit grid row|implicit grid column">implicit grid
+          tracks</dfn> are created to hold it. This can happen either by explicitly positioning into a row or column that is out of range,
+        or by the auto-placement algorithm creating additional rows or columns. The grid-auto-columns and <see cref="P:grid-auto-rows"/>
+        properties specify the size of such implicitly-created tracks.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="track-size" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-auto-flow" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-auto-flow" applies="grid containers" initial="row" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p> Grid items that aren't explicitly placed are automatically placed into an unoccupied space in the grid container. The
+        grid-auto-flow property controls the direction in which the search for unoccupied space takes place, and whether rows or columns are
+        added as needed to accommodate the content.</p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <group type="or">
+          <name value="row" tooltip="The auto-placement algorithm places items by filling each row in turn, adding new rows as necessary." />
+          <name value="column" tooltip="The auto-placement algorithm places items by filling each column in turn, adding new columns as necessary." />
+        </group>
+        <name value="dense" min="0" tooltip="If specified, the auto-placement algorithm uses a &quot;dense&quot; packing algorithm, which attempts to fill in holes in the grid if smaller items come up later. (By default, the auto-placement algorithm is &quot;sparse&quot;, permanently skipping spaces that it can’t fill with the current grid item.) Note: This may cause items to appear out-of-order." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="grid" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid" applies="grid containers" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid property is a shorthand that sets all of the explicit grid properties (<see cref="P:grid-template-rows"/>,
+        <see cref="P:grid-template-columns"/>, and <see cref="P:grid-template-areas"/>) as well as all the implicit grid
+        properties (<see cref="P:grid-auto-rows"/>, <see cref="P:grid-auto-columns"/>, and <see cref="P:grid-auto-flow"/>) in a single
+        declaration. If <see cref="P:grid-auto-rows"/> value is omitted, it is set to the value specified for
+        <see cref="P:grid-auto-columns"/>. Other omitted values are set to their initial values.</p>
+      ]]></description>
+    <group type="or">
+      <property id="grid-template" />
+      <group>
+        <property id="grid-auto-flow" />
+        <group min="0">
+          <property id="grid-auto-columns" />
+          <group min="0">
+            <text value="/" />
+            <property id="grid-auto-rows" />
+          </group>
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-row-start" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-row-start" applies="grid items" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-row-start property determines a grid item’s size and location within the grid by contributing a line, a span, or nothing
+        (automatic) to its grid placement, thereby specifying the inline-start edge of its grid. area.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="grid-line" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-column-start" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-column-start" applies="grid items" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-column-start property determines a grid item’s size and location within the grid by contributing a line, a span, or
+        nothing (automatic) to its grid placement, thereby specifying the block-start edge of its grid. area.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="grid-line" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-row-end" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-row-end" applies="grid items" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-row-end property determines a grid item’s size and location within the grid by contributing a line, a span, or nothing
+        (automatic) to its grid placement, thereby specifying the inline-end edge of its grid. area.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="grid-line" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-column-end" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-column-end" applies="grid items" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-column-end property determines a grid item’s size and location within the grid by contributing a line, a span, or nothing
+        (automatic) to its grid placement, thereby specifying the block-end edge of its grid. area.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="grid-line" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand 
+  The grid-row and grid-column properties are shorthands for grid-row-start/grid-row-end and grid-column-start/grid-column-end, respectively.
+  -->
+  <property id="grid-row" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-row" applies="grid items" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-row property are shorthand for and <see cref="P:grid-row-start"/>/<see cref="P:grid-row-end"/>.</p>
+      <p>If two &lt;grid-line&gt; values are specified, the <see cref="P:grid-row-start"/> longhand is set to the value before the slash,
+        and the <see cref="P:grid-row-end"/> longhand is set to the value after the slash.</p>
+      <p>When the second value is omitted, if the first value is a &lt;custom-ident&gt;, the <see cref="P:grid-row-end"/> longhand is
+        also set to that &lt;custom-ident&gt;; otherwise, it is set to auto.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="grid-line" />
+        <group min="0">
+          <text value="/" />
+          <inline id="grid-line" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand 
+  The grid-row and grid-column properties are shorthands for grid-row-start/grid-row-end and grid-column-start/grid-column-end, respectively.
+  -->
+  <property id="grid-column" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-column" applies="grid items" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>The grid-column property are shorthand for and <see cref="P:grid-column-start"/>/<see cref="P:grid-column-end"/>.</p>
+      <p>If two &lt;grid-line&gt; values are specified, the <see cref="P:grid-column-start"/> longhand is set to the value before the slash,
+        and the <see cref="P:grid-column-end"/> longhand is set to the value after the slash.</p>
+      <p>When the second value is omitted, if the first value is a &lt;custom-ident&gt;, the <see cref="P:grid-column-end"/> longhand is
+        also set to that &lt;custom-ident&gt;; otherwise, it is set to auto.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="grid-line" />
+        <group min="0">
+          <text value="/" />
+          <inline id="grid-line" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="grid-area" declared-in="0" url="http://www.w3.org/TR/css-grid-1/#propdef-grid-area" applies="grid items" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" caniuse-ids="css-grid">
+    <description><![CDATA[
+      <p>If four &lt;grid-line&gt; values are specified, <see cref="P:grid-row-start"/> is set to the first value, <see
+          cref="P:grid-column-start"/> is set to the second value, <see cref="P:grid-row-end"/> is set to the third value, and <see
+          cref="P:grid-column-end"/> is set to the fourth value.</p>
+      <p>When <see cref="P:grid-column-end"/> is omitted, if <see cref="P:grid-column-start"/> is a &lt;custom-ident&gt;, <see
+          cref="P:grid-column-end"/> is set to that &lt;custom-ident&gt;; otherwise, it is set to auto.</p>
+      <p>When <see cref="P:grid-row-end"/> is omitted, if <see cref="P:grid-row-start"/> is a &lt;custom-ident&gt;, <see
+          cref="P:grid-row-end"/> is set to that &lt;custom-ident&gt;; otherwise, it is set to auto.</p>
+      <p>When <see cref="P:grid-column-start"/> is omitted, if <see cref="P:grid-row-start"/> is a &lt;custom-ident&gt;, all four longhands
+        are set to that value. Otherwise, it is set to auto.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="grid-line" />
+        <group min="0" max="3">
+          <text value="/" />
+          <inline id="grid-line" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

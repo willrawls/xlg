@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.Daemon</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.ReSharper.Daemon.Impl.SlowTooltipProvider">
+            Calculates tooltip inside ShouldShowToolTip method which is called in UI thread. 
+            Use this provider only when there is no other way to calculate if a tooltip should be shown
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.OptionPages.Inspections.CodeInspectionSettingsPage">
+            <summary>
+              Main settings for the code inspection.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeInspectionSeverityView">
+            <summary>
+            CodeInspectionSeverityView
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeInspectionSeverityView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.AnnotationNamespaceView">
+            <summary>
+            AnnotationNamespaceView
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.AnnotationNamespaceView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeAnnotationsPageView">
+            <summary>
+            CodeAnnotationsPageView
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeAnnotationsPageView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeInspectionGeneratedView">
+            <summary>
+            CodeInspectionGeneratedView
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.OptionPages.Inspections.View.CodeInspectionGeneratedView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.Impl.DaemonEnablePolicy.IsDaemonEnabled(JetBrains.DocumentModel.IDocument)">
+            <summary>Primary filter for daemon</summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.CaretDependentFeatures.MatchingBraceContextHighlighterBase.IsValidNode(JetBrains.ReSharper.Psi.Tree.ITokenNode)">
+            <summary>
+            Checks if the node is valid (that is, may be highlighted)
+            In C++, currentNode may come from a macro substitution and therefore may have invalid document range
+            so we should find its prototype node
+            </summary>
+            <param name="currentToken">currentToken is a matched parenthesis/bracket/brace</param>
+            <returns>true if the token or its prototype can be highlighted</returns>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.CaretDependentFeatures.MatchingBraceContextHighlighterBase.GetActualToken(JetBrains.ReSharper.Psi.Tree.ITokenNode)">
+            <summary>
+            Returns the token itself or its prototype macro call
+            (should be overloaded in C++ to support macros)
+            </summary>
+            <param name="currentToken">currentToken is a matched parenthesis/bracket/brace</param>
+            <returns>corresponding visible token in the document</returns>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.DaemonBase">
+            <summary>
+            Class managing background code analysis
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Daemon.DaemonBase.IsSuspended">
+            <summary>
+            Suspend/resume error highlighting &amp; quickfixes activity
+            </summary>
+        </member>
+        <member name="E:JetBrains.ReSharper.Daemon.DaemonBase.DaemonStateChanged">
+            <summary>
+            Raised when DaemonState of any document is changed
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.SolutionAnalysisConfiguration.Pause(JetBrains.DataFlow.Lifetime,System.String)">
+            <summary>
+            Temporary pauses the SWEA.
+            </summary>
+            <param name="pauseLifetime">pause interval</param>
+            <param name="reason">reason or caller of pause</param>
+        </member>
+        <member name="P:JetBrains.ReSharper.Daemon.SolutionAnalysisConfiguration.PausedByUser">
+            <summary>
+            Whether the user has explicitly paused solution analysis in UI
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Daemon.SolutionAnalysisConfiguration.Paused">
+            <summary>
+            Whether SWEA is paused by any reason. Use <see cref="M:JetBrains.ReSharper.Daemon.SolutionAnalysisConfiguration.Pause(JetBrains.DataFlow.Lifetime,System.String)"/> method to suspend the analysis temporary.
+            Will be set on UI thread
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.Impl.DaemonImpl.OnPsiModulesChange(JetBrains.ReSharper.Psi.Modules.PsiModuleChange)">
+            <summary>
+            remove invalidated daemons
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.Impl.DaemonStageManager">
+            <summary>
+            Suports stages in topologically sorted state and manages states lifetime. 
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Daemon.SolutionAnalysisService">
+            <summary>
+            Interface which is used by daemon to interact with SWEA
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Daemon.Impl.VisibleDocumentDaemonProcess.Committer.DaemonResultCommitter.Step">
+            <summary>
+            Returns <c>true</c> when this Committer is done
+            </summary>
+        </member>
+    </members>
+</doc>

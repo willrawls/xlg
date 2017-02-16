@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Paged Media Module Level 3
+W3C Working Draft 14 March 2013
+http://www.w3.org/TR/2013/WD-css3-page-20130314/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="page-size" declared-in="3.0" url="http://www.w3.org/TR/css3-page/#page-size-prop">
+    <group type="or">
+      <name value="A5" tooltip="The page box should be set to the size of ISO A5 media: 148mm wide and 210 mm high." />
+      <name value="A4" tooltip="The page box should be set to the size of IS0 A4 media: 210 mm wide and 297 mm high." />
+      <name value="A3" tooltip="The page box should be set to the size of ISO A3 media: 297mm wide and 420mm high." />
+      <name value="B5" tooltip="The page box should be set to the size of ISO B3 media: 176mm wide by 250mm high." />
+      <name value="B4" tooltip="The page box should be set to the size of ISO B4 media: 250mm wide by 353mm high." />
+      <name value="letter" tooltip="The page box should be set to the size of North American letter media: 8.5 inches wide and 11 inches high" />
+      <name value="legal" tooltip="The page box should be set to the size of North American legal: 8.5 inches wide by 14 inches high." />
+      <name value="ledger" tooltip="The page box should be set to the size of North American ledger: 11 inches wide by 17 inches high." />
+    </group>
+  </named-value>
+  <property id="page" declared-in="3.0" url="http://www.w3.org/TR/css3-page/#using-named-pages" initial="auto" inherited="yes" applies="block-level elements" media="paged">
+    <group type="or">
+      <name value="auto" />
+      <name />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="size" declared-in="3.0" rules="noname,@page" url="http://www.w3.org/TR/css3-page/#page-size-prop" initial="auto" inherited="no" applies="paged context" media="paged">
+    <group type="or">
+      <name value="auto" tooltip="The page box will be set to a size and orientation chosen by the UA. In the usual case, the page box size and orientation is chosen to match the target media sheet." />
+      <length min="1" max="2" />
+      <group type="any">
+        <inline id="page-size" />
+        <group type="or">
+          <name value="portrait" tooltip="Specifies that the page's content be printed in portrait orientation. The shorter sides of the page box are horizontal. If a ‘&lt;page-size&gt;’ is not specified, the size of the page sheet is chosen by the UA." />
+          <name value="landscape" tooltip="Specifies that the page's content be printed in landscape orientation. The longer sides of the page box are horizontal. If a ‘&lt;page-size&gt;’ is not specified, the size of the page sheet is chosen by the UA." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="counter" declared-in="3.0" url="http://www.w3.org/TR/css3-page/#page-based-counters" rules="@page,page-margin" media="paged">
+    <group>
+      <name />
+    </group>
+  </function>
+  <function id="counters" declared-in="3.0" url="http://www.w3.org/TR/css3-page/#page-based-counters" rules="@page,page-margin" media="paged">
+    <group>
+      <name />
+      <text value="," />
+      <string />
+    </group>
+  </function>
+  <pseudo-class id="blank" declared-in="3.0" rules="@page" tooltip="Matches content-empty pages that appear as a result of forced page breaks." url="http://www.w3.org/TR/css3-page/#blank" />
+  <pseudo-class id="left" declared-in="3.0" browsers="IE8,O9.2" rules="@page" tooltip="Matches any left page when printing a page." url="http://www.w3.org/TR/css3-page/#left" />
+  <pseudo-class id="right" declared-in="3.0" browsers="IE8,O9.2" rules="@page" tooltip="Matches any right page when printing a page." url="http://www.w3.org/TR/css3-page/#right" />
+  <pseudo-class id="first" declared-in="3.0" browsers="IE8,O9.2" rules="@page" tooltip="Matches the first printed page of a document." url="http://www.w3.org/TR/css3-page/#first" />
+</definitions>

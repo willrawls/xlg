@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Positioned Layout Module Level 3
+W3C Working Draft 03 February 2015
+http://www.w3.org/TR/2015/WD-css3-positioning-20150203/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="position" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-position" animatable="no" applies="all elements except table-column-group and table-column" initial="static" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.0,IE4.0,O4.0,S1.0">
+    <group type="or">
+      <name value="static" tooltip="The box is a normal box, laid out according to the normal flow. The top, right, bottom, and left properties do not apply." />
+      <name value="relative" tooltip="The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position and in all cases, including table elements, does not affect the position of any following boxes. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. The effect of position: relative on table elements is defined as follows: table-row-group, table-header-group, table-footer-group and table-row offset relative to its normal position within the table. If table-cells span multiple rows, only the cells originating in the relative positioned row is offset. table-column-group, table-column do not offset the respective column and has no visual affect when position: relative is applied. table-caption and table-cell offset relative to its normal position within the table. If a table cell spans multiple columns or rows the full spanned cell is offset." />
+      <name value="absolute" tooltip="The box's position (and possibly size) is specified with the top, right, bottom, and left properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Though absolutely positioned boxes may have margins, those margins do not collapse with any other margins." />
+      <name value="sticky" browsers="FF32" tooltip="The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its flow root and containing block and in all cases, including table elements, does not affect the position of any following boxes. When a box B is stickily positioned, the position of the following box is calculated as though B were not offset. The effect of position: sticky on table elements is the same as for position: relative" />
+      <name value="-webkit-sticky" browsers="S6.1" tooltip="The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its flow root and containing block and in all cases, including table elements, does not affect the position of any following boxes. When a box B is stickily positioned, the position of the following box is calculated as though B were not offset. The effect of position: sticky on table elements is the same as for position: relative" />
+      <name value="center" tooltip="The box's position (and possibly size) is specified with the top, right, bottom, and left properties. The box is vertically and horizontally centered within its containing block and these properties specify offsets with respect to the box's centered position within its containing block. Center positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Though center positioned boxes may have margins, those margins do not collapse with any other margins." />
+      <name value="page" tooltip="The box's position is calculated according to the &quot;absolute&quot; model. In the case of paged media or when inside a region box the box's containing block is always the initial containing block. Otherwise, the containing block is determined per the &quot;absolute&quot; model. As with the &quot;absolute&quot; model, the box's margins do not collapse with any other margins. In the case of the print media type, the box is rendered only on the initial page or region where the page positioned element originated. User agents may paginate the content of paged boxes. Note, that CSS Regions are also initial containing blocks, in accordance with flow-into property of the CSS Regions Module [CSS3-REGIONS]." />
+      <name value="fixed" browsers="C1.0,FF1.0,IE7.0,O4.0,S1.0" tooltip="The box's position is calculated according to the &quot;absolute&quot; model, but in addition, the box is fixed with respect to some reference. As with the &quot;absolute&quot; model, the box's margins do not collapse with any other margins. In the case of handheld, projection, screen, tty, and tv media types, the box is fixed with respect to the viewport and does not move when scrolled. In the case of the print media type, the box is rendered on every page, and is fixed with respect to the page box, even if the page is seen through a viewport (in the case of a print-preview, for example). For other media types, the presentation is undefined. Authors may wish to specify fixed in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="top" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-top" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>This property specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing
+        block.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="right" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-right" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to <see cref="P:top"/>, but specifies how far a box's right margin edge is offset to the left of the right edge of the
+        box's containing block.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="bottom" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-bottom" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to <see cref="P:top"/>, but specifies how far a box's bottom margin edge is offset above the bottom edge of the box's
+        containing block.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="left" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-left" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to <see cref="P:top"/>, but specifies how far a box's left margin edge is offset to the right of the left edge of the box's
+        containing block.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="offset-before" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-offset-before" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>For an absolutely positioned box this property specifies how far the coresponding margin edge is offset from the coresponding
+        physical reference edge of the box's containing block.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="offset-end" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-offset-end" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to
+        <see cref="P:offset-before"/> but refer to the table, &quot;Figure 1&quot;, for the coresponding physical reference edge that is
+        used for offseting based on <see cref="P:writing-mode"/> and <see cref="P:direction"/>.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="offset-after" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-offset-after" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to
+        <see cref="P:offset-before"/> but refer to the table, &quot;Figure 1&quot;, for the coresponding physical reference edge that is
+        used for offseting based on <see cref="P:writing-mode"/> and <see cref="P:direction"/>.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="offset-start" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-offset-start" applies="positioned elements" initial="auto" inherited="no" percentage="refer to height of containing block" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>Similar to <see cref="P:offset-before"/> but refer to the table, &quot;Figure 1&quot;, for the coresponding physical reference edge
+        that is used for offseting based on <see cref="P:writing-mode"/> and <see cref="P:direction"/>.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For non-replaced elements, the effect of this value depends on which of related properties have the value auto as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. For replaced elements, the effect of this value depends only on the intrinsic dimensions of the replaced content. See the sections on the width and height of absolutely positioned, replaced elements for details." />
+      <length tooltip="The offset is a fixed distance from the reference edge. Negative values are allowed." />
+      <percentage tooltip="The offset is a percentage of the containing block's width (for left or right) or height (for top and bottom). For stickily positioned elements, the offset is a percentage of the flow root’s width (for left or right) or height (for top or bottom). Negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="z-index" declared-in="3.0" url="http://www.w3.org/TR/css3-positioning/#propdef-z-index" applies="positioned elements" initial="auto" inherited="no" percentage="N/A" media="visual" rules="noname,page-margin" animatable="yes">
+    <description><![CDATA[
+      <p>For a positioned box, the z-index property specifies stack level of the generated box in the current stacking context.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The stack level of the generated box in the current stacking context is 0. The box does not establish a new stacking context unless it is the root element." />
+      <integer tooltip="This integer is the stack level of the generated box in the current stacking context. The box also establishes a new stacking context." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

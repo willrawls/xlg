@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Shapes Module Level 1
+W3C Candidate Recommendation, 20 March 2014
+http://www.w3.org/TR/2014/CR-css-shapes-1-20140320/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <function id="inset" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#funcdef-inset" caniuse-ids="css-shapes">
+    <group>
+      <inline id="shape-arg" min="1" max="4" />
+      <group min="0">
+        <name value="round" />
+        <property id="border-radius" />
+      </group>
+    </group>
+  </function>
+  <function id="circle" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#funcdef-circle" caniuse-ids="css-shapes">
+    <group>
+      <inline id="shape-radius" min="0" />
+      <group min="0">
+        <name value="at" />
+        <position />
+      </group>
+    </group>
+  </function>
+  <function id="ellipse" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#funcdef-ellipse" caniuse-ids="css-shapes">
+    <group>
+      <group min="0">
+        <inline id="shape-radius" min="2" />
+      </group>
+      <group min="0">
+        <name value="at" />
+        <position />
+      </group>
+    </group>
+  </function>
+  <function id="polygon" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#funcdef-polygon" caniuse-ids="css-shapes">
+    <group>
+      <group min="0">
+        <property id="fill-rule" />
+        <text value="," />
+      </group>
+      <group comma-separated="yes">
+        <inline id="shape-arg" />
+        <inline id="shape-arg" />
+      </group>
+    </group>
+  </function>
+  <named-value id="fill-rule" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#typedef-fill-rule" caniuse-ids="css-shapes">
+    <group type="or">
+      <name value="nonzero" />
+      <name value="evenodd" />
+    </group>
+  </named-value>
+  <named-value id="shape-arg" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#typedef-shape-arg" caniuse-ids="css-shapes">
+    <group type="or">
+      <length />
+      <percentage />
+    </group>
+  </named-value>
+  <named-value id="shape-radius" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#typedef-shape-radius" caniuse-ids="css-shapes">
+    <group type="or">
+      <length />
+      <percentage />
+      <name value="closest-side" tooltip=" uses the length from the center of the shape to the closest side of the reference box. For circles, this is the closest side in any dimension. For ellipses, this is the closest side in the radius dimension." />
+      <name value="farthest-side" tooltip="farthest-side uses the length from the center of the shape to the farthest side of the reference box. For circles, this is the farthest side in any dimension. For ellipses, this is the farthest side in the radius dimension." />
+    </group>
+  </named-value>
+  <named-value id="basic-shape" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#typedef-basic-shape" caniuse-ids="css-shapes">
+    <group type="or">
+      <invoke id="inset" />
+      <invoke id="circle" />
+      <invoke id="ellipse" />
+      <invoke id="polygon" />
+    </group>
+  </named-value>
+  <named-value id="shape-box" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#typedef-shape-box" caniuse-ids="css-shapes">
+    <group type="or">
+      <inline id="box" />
+      <name value="margin-box" tooltip="The margin-box value defines the shape enclosed by the outside margin edge. The corner radii of this shape are determined by the corresponding border-radius and margin values." />
+    </group>
+  </named-value>
+  <property id="shape-outside" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#shape-outside" applies="floats" initial="none" inherited="no" percentage="" media="visual" browsers="C1.0" animatable="yes">
+    <group type="or">
+      <name value="none" tooltip="The float area is unaffected." />
+      <group type="any">
+        <inline id="basic-shape" tooltip="The shape is computed based on the values of one of inset(), circle(), ellipse() or polygon(). If a &lt;shape-box&gt; is also supplied, this defines the reference box for the &lt;basic-shape&gt; function. If &lt;shape-box&gt; is not supplied, then the reference box defaults to margin-box." />
+        <inline id="shape-box" tooltip="If one of these values is specified by itself the shape is computed based on one of margin-box, border-box, padding-box or content-box which use their respective boxes including curvature from border-radius, similar to background-clip [CSS3BG]." />
+      </group>
+      <inline id="image" tooltip="The shape is extracted and computed based on the alpha channel of the specified &lt;image&gt; as defined by shape-image-threshold. User agents must use the potentially CORS-enabled fetch method defined by the [HTML5] specification for all URLs in a shape-outside value. When fetching, user agents must use &quot;Anonymous&quot; mode, set the referrer source to the stylesheet’s URL and set the origin to the URL of the containing document. If this results in network errors such that there is no valid fallback image, the effect is as if the value none had been specified." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="shape-outside" prefix="webkit" browsers="S7.0" />
+  <property id="shape-image-threshold" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#shape-image-threshold" applies="floats" initial="0.0" inherited="no" percentage="" media="visual" browsers="C1.0" animatable="yes">
+    <description><![CDATA[
+      <p>The shape-image-threshold defines the alpha channel threshold used to extract the shape using an image. A value of 0.5 means that
+        the shape will enclose all the pixels that are more than 50% opaque.</p>
+      ]]></description>
+    <group type="or">
+      <number tooltip="Sets the threshold used for extracting a shape from an image. The shape is defined by the pixels whose alpha value is greater than the threshold. A threshold value outside the range 0.0 (fully transparent) to 1.0 (fully opaque) will be clamped to this range." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="shape-image-threshold" prefix="webkit" browsers="S7.0" />
+  <property id="shape-margin" declared-in="3.0" url="http://www.w3.org/TR/css-shapes-1/#shape-margin" applies="floats" initial="0" inherited="no" percentage="" media="visual" browsers="C1.0" animatable="yes">
+    <description><![CDATA[
+      The shape-margin property adds a margin to a <see
+          cref="P:shape-outside"/>.
+      This defines a new shape that is the smallest contour (in the shrink-wrap sense) that includes all the points that are 
+      the shape-margin distance outward in the perpendicular direction from a point on the underlying shape. Note that at points where 
+      a perpendicular is not defined (e.g. sharp points) take all points on the circle centered at the point and with a radius 
+      of shape-margin. This property takes only non-negative values.
+      ]]></description>
+    <group type="or">
+      <length tooltip="Sets the margin of the shape to the &lt;length&gt;." />
+      <percentage tooltip="Sets the margin of the shape to a percentage of the width of the element’s containing block." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="shape-margin" prefix="webkit" browsers="S7.0" />
+</definitions>

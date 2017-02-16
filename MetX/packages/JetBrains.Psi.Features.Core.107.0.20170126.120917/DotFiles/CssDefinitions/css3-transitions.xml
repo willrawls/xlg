@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Transitions
+W3C Working Draft 19 November 2013
+http://www.w3.org/TR/2013/WD-css3-transitions-20131119/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="single-transition-property" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#single-transition-property" caniuse-ids="css-transitions">
+    <group type="or">
+      <name value="all" />
+      <name />
+      <!--for completion-->
+      <name value="background-color" />
+      <name value="background-position" />
+      <name value="border-bottom-color" />
+      <name value="border-bottom-width" />
+      <name value="border-left-color" />
+      <name value="border-left-width" />
+      <name value="border-right-color" />
+      <name value="border-right-width" />
+      <name value="border-spacing" />
+      <name value="border-top-color" />
+      <name value="border-top-width" />
+      <name value="bottom" />
+      <name value="clip" />
+      <name value="color" />
+      <name value="font-size" />
+      <name value="font-weight" />
+      <name value="height" />
+      <name value="left" />
+      <name value="letter-spacing" />
+      <name value="line-height" />
+      <name value="margin-bottom" />
+      <name value="margin-left" />
+      <name value="margin-right" />
+      <name value="margin-top" />
+      <name value="max-height" />
+      <name value="max-width" />
+      <name value="min-height" />
+      <name value="min-width" />
+      <name value="opacity" />
+      <name value="outline-color" />
+      <name value="outline-width" />
+      <name value="padding-bottom" />
+      <name value="padding-left" />
+      <name value="padding-right" />
+      <name value="padding-top" />
+      <name value="right" />
+      <name value="text-indent" />
+      <name value="text-shadow" />
+      <name value="top" />
+      <name value="vertical-align" />
+      <name value="visibility" />
+      <name value="width" />
+      <name value="word-spacing" />
+      <name value="z-index" />
+    </group>
+  </named-value>
+  <property id="transition-property" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition-property" initial="all" applies="all elements, :before and :after pseudo elements" inherited="no" animatable="no" media="visual" browsers="C26,FF16,IE10,O12.10,S5.1" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>The <b>transition-property</b> property specifies the name of the CSS property to which the transition is applied.</p>
+
+      <p>A value of <b>none</b> means that no property will transition. Otherwise, a list of properties to be transitioned, or the keyword
+        <b>all</b> which indicates that all properties are to be transitioned, is given.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <group>
+        <inline id="single-transition-property" />
+        <group min="0" max="-1">
+          <text value="," />
+          <inline id="single-transition-property" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="transition-duration" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition-duration" initial="0" applies="all elements, :before and :after pseudo elements" inherited="no" animatable="no" media="interactive" browsers="FF16,IE10,O12.10,S9.0" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>This property specifies how long the transition from the old value to the new value should take. By default the value is ‘0s’,
+        meaning that the transition is immediate (i.e. there will be no animation). A negative value for <b>transition-duration</b> renders
+        the
+        declaration invalid.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <time />
+        <group min="0" max="-1">
+          <text value="," />
+          <time />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="steps" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition-timing-function" browsers="FF2.0,C8.0,IE10,O12.1,S5.1" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>Specifies a stepping function, described above, taking two parameters. The first parameter specifies the number of intervals in the
+        function. It must be a positive integer (greater than 0). The second parameter, which is optional, is either the value <b>start</b>
+        or <b>end</b>, and specifies the point at which the change of values occur within the interval. If the second parameter is omitted,
+        it is given the value <b>end</b>.</p>
+      ]]></description>
+    <group>
+      <integer />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <name value="start" />
+          <name value="end" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <named-value id="single-transition-timing-function" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#single-transition-timing-function" caniuse-ids="css-transitions">
+    <group type="or">
+      <name value="ease" tooltip="The ease function is equivalent to cubic-bezier(0.25, 0.1, 0.25, 1)." />
+      <name value="linear" tooltip="The linear function is equivalent to cubic-bezier(0, 0, 1, 1)." />
+      <name value="ease-in" tooltip="The ease-in function is equivalent to cubic-bezier(0.42, 0, 1, 1)." />
+      <name value="ease-out" tooltip="The ease-out function is equivalent to cubic-bezier(0, 0, 0.58, 1)." />
+      <name value="ease-in-out" tooltip="The ease-in-out function is equivalent to cubic-bezier(0.42, 0, 0.58, 1)" />
+      <name value="step-start" tooltip="The step-start function is equivalent to steps(1, start)." />
+      <name value="step-end" tooltip="The step-end function is equivalent to steps(1, end)." />
+      <invoke id="steps" />
+      <invoke id="cubic-bezier" />
+    </group>
+  </named-value>
+  <function id="cubic-bezier" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#animation-timing-function" browsers="FF2.0,C16.0,IE10,O12.1,S5.1" caniuse-ids="css-animation">
+    <description><![CDATA[
+      <p>Specifies a <a href="http://en.wikipedia.org/wiki/Bézier_curve">cubic-bezier curve</a>. The four values specify points P1 and P2 of
+        the curve as (x1, y1, x2, y2). Both x values must be in
+        the range [0, 1] or the definition is invalid. The y values can exceed this range.</p>
+      ]]></description>
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number name="x1" />
+      <number name="y1" />
+      <number name="x2" />
+      <number name="y2" />
+    </group>
+  </function>
+  <property id="transition-timing-function" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition-timing-function" animatable="no" initial="ease" applies="all elements, :before and :after pseudo elements" inherited="no" media="interactive" browsers="C26,FF16,IE10,O12.10,S5.1" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>The <b>transition-timing-function</b> property describes how the intermediate values used during a transition will be calculated.
+        It
+        allows for a transition to change speed over its duration. These effects are commonly called easing functions. In either case, a
+        mathematical function that provides a smooth curve is used.</p>
+      <p>
+        The timing functions have the following definitions.
+      <p><b>ease</b><br/>
+        The ease function is equivalent to
+        <see cref="F:cubic-bezier"/>(0.25, 0.1, 0.25, 1).
+      </p>
+      <p><b>linear</b><br/>
+        The linear function is equivalent to
+        <see cref="F:cubic-bezier"/>(0, 0, 1, 1).
+      </p>
+      <p><b>ease-in</b><br/>
+        The ease-in function is equivalent to
+        <see cref="F:cubic-bezier"/>(0.42, 0, 1, 1).
+      </p>
+      <p><b>ease-out</b><br/>
+        The ease-out function is equivalent to
+        <see cref="F:cubic-bezier"/>(0, 0, 0.58, 1).
+      </p>
+      <p><b>ease-in-out</b><br/>
+        The ease-in-out function is equivalent to
+        <see cref="F:cubic-bezier"/>(0.42, 0, 0.58, 1)
+      </p>
+      <p><b>step-start</b><br/>
+        The step-start function is equivalent to
+        <see cref="F:steps"/>(1, start).
+      </p>
+      <p><b>step-end</b><br/>
+        The step-end function is equivalent to
+        <see cref="F:steps"/>(1, end).
+      </p></p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="single-transition-timing-function" inline="yes" />
+        <group min="0" max="-1">
+          <text value="," />
+          <inline id="single-transition-timing-function" inline="yes" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="transition-delay" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition-delay" initial="0s" animatable="no" applies="all elements, :before and :after pseudo elements" inherited="no" media="interactive" browsers="FF16,IE10,O12.10,S9.0" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>The <b>transition-delay</b> property defines when the transition will start. It allows a transition to begin execution some some
+        period of time from when it is applied. A <b>transition-delay</b> value of <b>0s</b> means the transition will execute as soon as
+        the property is changed. Otherwise, the value specifies an offset from the moment the property is changed, and the transition will
+        delay execution by that offset.</p>
+      <p>If the value for <b>transition-delay</b> is a negative time offset then the transition will execute the moment the property is
+        changed, but will appear to have begun execution at the specified offset. That is, the transition will appear to begin part-way
+        through its play cycle. In the case where a transition has implied starting values and a negative <b>transition-delay</b>, the
+        starting values are taken from the moment the property is changed.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <time />
+        <group min="0" max="-1">
+          <text value="," />
+          <time />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="transition" declared-in="3.0" url="http://www.w3.org/TR/css3-transitions/#transition" initial="see individual properties" animatable="no" applies="all elements, :before and :after pseudo elements" inherited="no" media="interactive" browsers="C26,FF16,IE10,O12.10,S9.0" caniuse-ids="css-transitions">
+    <description><![CDATA[
+      <p>The <b>transition</b> shorthand property combines the four properties described above into a single property.</p>
+      ]]></description>
+    <group>
+      <group type="any">
+        <property id="transition-property" />
+        <property id="transition-duration" />
+        <property id="transition-timing-function" />
+        <property id="transition-delay" />
+      </group>
+      <group min="0" max="-1">
+        <text value="," />
+        <group type="any">
+          <property id="transition-property" />
+          <property id="transition-duration" />
+          <property id="transition-timing-function" />
+          <property id="transition-delay" />
+        </group>
+      </group>
+    </group>
+  </property>
+  <prefixed-property id="transition" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="transition" prefix="moz" browsers="FF4.0" />
+  <prefixed-property id="transition" prefix="o" browsers="O11.6" />
+  <prefixed-property id="transition-delay" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="transition-delay" prefix="moz" browsers="FF4.0" />
+  <prefixed-property id="transition-delay" prefix="o" browsers="O11.6" />
+  <prefixed-property id="transition-duration" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="transition-duration" prefix="moz" browsers="FF4.0" />
+  <prefixed-property id="transition-duration" prefix="o" browsers="O11.6" />
+  <prefixed-property id="transition-property" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="transition-property" prefix="moz" browsers="FF4.0" />
+  <prefixed-property id="transition-property" prefix="o" browsers="O11.6" />
+  <prefixed-property id="transition-timing-function" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="transition-timing-function" prefix="moz" browsers="FF4.0" />
+  <prefixed-property id="transition-timing-function" prefix="o" browsers="O11.6" />
+</definitions>

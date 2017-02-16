@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Filter Effects Module Level 1
+W3C Working Draft, 25 November 2014
+http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <function id="blur" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-blur" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Applies a Gaussian blur to the input image. The passed parameter (the radius) defines the value of the standard deviation to the
+        Gaussian function. The parameter is specified a CSS length, but does not accept percentage values.</p>
+      ]]></description>
+    <length min-value="0" />
+  </function>
+  <function id="brightness" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-brightness" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Applies a linear multiplier to input image, making it appear more or less bright. A value of 0% will create an image that is
+        completely black. A value of 100% leaves the input unchanged. Other values are linear multipliers on the effect. Values of amount
+        over 100% are allowed, providing brighter results.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="contrast" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-contrast" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Adjusts the contrast of the input. A value of 0% will create an image that is completely gray. A value of 100% leaves the input
+        unchanged. Values of amount over 100% are allowed, providing results with more contrast.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="drop-shadow" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-drop" declared-in="3.0">
+    <description><![CDATA[
+      <p>Applies a drop shadow effect to the input image. A drop shadow is effectively a blurred, offset version of the input image’s alpha
+        mask drawn in a particular color, composited below the image. Values are interpreted as for <see cref="P:box-shadow"/>.</p>
+      ]]></description>
+    <group>
+      <length min="2" max="3" />
+      <inline id="color" min="0" />
+    </group>
+  </function>
+  <function id="grayscale" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-grayscale" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Converts the input image to grayscale. The passed parameter defines the proportion of the conversion. A value of 100% is completely
+        grayscale. A value of 0% leaves the input unchanged. Values between 0% and 100% are linear multipliers on the effect. Values of
+        amount over 100% are allowed but UAs must clamp the values to 1.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="hue-rotate" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-hue" declared-in="3.0">
+    <description><![CDATA[
+      <p>Applies a hue rotation on the input image. The passed parameter defines the number of degrees around the color circle the input
+        samples will be adjusted. A value of 0deg leaves the input unchanged. Implementations must not normalize this value in order to
+        allow animations beyond 360deg.</p>
+      ]]></description>
+    <angle />
+  </function>
+  <function id="invert" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-invert" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Inverts the samples in the input image. The passed parameter defines the proportion of the conversion. A value of 100% is
+        completely inverted. A value of 0% leaves the input unchanged. Values between 0% and 100% are linear multipliers on the effect.
+        Values of amount over 100% are allowed but UAs must clamp the values to 1.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="opacity" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-opacity" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Applies transparency to the samples in the input image. The passed parameter defines the proportion of the conversion. A value of
+        0% is completely transparent. A value of 100% leaves the input unchanged. Values between 0% and 100% are linear multipliers on the
+        effect. This is equivalent to multiplying the input image samples by amount. Values of amount over 100% are allowed but UAs must
+        clamp the values to 1.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="sepia" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-sepia" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Converts the input image to sepia. The passed parameter defines the proportion of the conversion. A value of 100% is completely
+        sepia. A value of 0% leaves the input unchanged. Values between 0% and 100% are linear multipliers on the effect. Values of amount
+        over 100% are allowed but UAs must clamp the values to 1.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <function id="saturate" url="http://www.w3.org/TR/2014/WD-filter-effects-1-20141125/#funcdef-saturate" declared-in="3.0" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>Saturates the input image. The passed parameter defines the proportion of the conversion. A value of 0% is completely un-saturated.
+        A value of 100% leaves the input unchanged. Other values are linear multipliers on the effect. Values of amount over 100% are
+        allowed, providing super-saturated results.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" />
+      <percentage min-value="0" />
+    </group>
+  </function>
+  <named-value id="filter-function-list" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#typedef-filter-function-list" caniuse-ids="css-filters">
+    <group type="or" min="1" max="-1">
+      <uri tooltip="A filter reference to a &lt;filter&gt; element. For example url(commonfilters.svg#filter)." />
+      <invoke id="blur" />
+      <invoke id="brightness" />
+      <invoke id="contrast" />
+      <invoke id="drop-shadow" />
+      <invoke id="grayscale" />
+      <invoke id="hue-rotate" />
+      <invoke id="invert" />
+      <invoke id="opacity" />
+      <invoke id="sepia" />
+      <invoke id="saturate" />
+    </group>
+  </named-value>
+  <property id="filter" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#propdef-filter" applies="All elements. In SVG, it applies to container elements without the &lt;defs&gt; element and all graphics elements" initial="none" inherited="no" percentage="n/a" media="visual" browsers="S9.1,FF35" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>If the value of the filter property is <span class="css">none</span> then there is no filter effect applied. Otherwise, the list of
+        functions are applied in the order provided.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No filter effect applied" />
+      <inline id="filter-function-list" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="filter" prefix="webkit" browsers="C18.0,O15.0,S6.0" url="https://developer.mozilla.org/en/docs/Web/CSS/filter" />
+  <property id="flood-color" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#propdef-flood-color" applies="feFlood and feDropShadow elements" initial="black" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>The flood-color property indicates what color to used to flood the current filter primitive subregion.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="flood-opacity" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#propdef-flood-opacity" applies="feFlood and feDropShadow elements" initial="1" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>The flood-opacity property defines the opacity value to use across the entire filter primitive subregion. If the
+        <see cref="P:flood-color"/> value includes an alpha channel, the alpha channel gets multiplied with the computed value of the
+        flood-opacity property.</p>
+      ]]></description>
+    <group type="or">
+      <number min-value="0" max-value="1" />
+      <percentage min-value="0" max-value="100" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="color-interpolation-filters" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#propdef-color-interpolation-filters" applies="All filter primitives" initial="auto" inherited="yes" percentage="n/a" media="visual" caniuse-ids="css-filters">
+    <group type="or">
+      <name value="auto" tooltip="Indicates that the user agent can choose either the sRGB or linearRGB spaces for filter effects color operations. This option indicates that the author doesn’t require that color operations occur in a particular color space." />
+      <name value="sRGB" tooltip="Indicates that filter effects color operations should occur in the sRGB color space." />
+      <name value="linearRGB" tooltip="Indicates that filter effects color operations should occur in the linearized RGB color space." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="lighting-color" declared-in="3.0" url="http://www.w3.org/TR/filter-effects-1/#propdef-lighting-color" applies="feDiffuseLighting and feSpecularLighting elements" initial="white" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-filters">
+    <description><![CDATA[
+      <p>The lighting-color property defines the color of the light source for filter primitives feDiffuseLighting and
+        feSpecularLighting.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

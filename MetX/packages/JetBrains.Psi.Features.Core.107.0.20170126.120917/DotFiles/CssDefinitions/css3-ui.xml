@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Basic User Interface Module Level 3 (CSS3 UI)
+W3C Working Draft 17 January 2012
+http://www.w3.org/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="box-sizing" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#box-sizing" applies="all elements that accept width or height" initial="content-box" inherited="no" percentage="N/A" media="visual" browsers="C10.0,FF29.0,IE8.0,O7.0,S5.1" caniuse-ids="css3-boxsizing">
+    <group type="or">
+      <name value="content-box" tooltip="This is the behavior of width and height as specified by CSS2.1. The specified width and height (and respective min/max properties) apply to the width and height respectively of the content box of the element. The padding and border of the element are laid out and drawn outside the specified width and height." />
+      <name value="padding-box" browsers="FF1.0" tooltip="The specified width and height (and respective min/max properties) on this element determine the padding box of the element. That is, any padding specified on the element is laid out and drawn inside this specified width and height. The content width and height are calculated by subtracting the padding widths of the respective sides from the specified ‘width’ and ‘height’ properties. As the content width and height cannot be negative ([CSS21], section 10.2), this computation is floored at 0." />
+      <name value="border-box" tooltip="The specified width and height (and respective min/max properties) on this element determine the border box of the element. That is, any padding or border specified on the element is laid out and drawn inside this specified width and height. The content width and height are calculated by subtracting the border and padding widths of the respective sides from the specified ‘width’ and ‘height’ properties. As the content width and height cannot be negative ([CSS21], section 10.2), this computation is floored at 0. Note. This is the behavior of width and height as commonly implemented by legacy HTML user agents for replaced elements and input elements." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="box-sizing" prefix="webkit" browsers="C1.0,S3.0" />
+  <prefixed-property id="box-sizing" prefix="moz" browsers="FF1.0" />
+  <property id="content" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#content" rules="noname,page-margin" initial="normal" applies=":before and :after pseudo-elements" browsers="C1.0,FF1.0,IE8.0,O4.0,S1.0">
+    <description><![CDATA[
+      <p>The content CSS property is used with the <see cref="PE:before"/> and <see cref="PE:after"/> pseudo-elements to generate content in
+        an element. Objects inserted using the content property are anonymous replaced elements.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The pseudo-element is not generated." />
+      <name value="normal" tooltip="Computes to none for the :before and :after pseudo-elements." />
+      <group type="or" min="1" max="-1">
+        <string tooltip="Text content." />
+        <invoke id="url" browsers="C1.0,FF1.0,IE8.0,O7.0,S1.0" />
+        <inline id="counter" tooltip="Counters may be specified with two different functions: 'counter()' or 'counters()'. The former has two forms: 'counter(name)' or 'counter(name, style)'. The generated text is the value of the innermost counter of the given name in scope at this pseudo-element; it is formatted in the indicated style ('decimal' by default). The latter function also has two forms: 'counters(name, string)' or 'counters(name, string, style)'. The generated text is the value of all counters with the given name in scope at this pseudo-element, from outermost to innermost separated by the specified string. The counters are rendered in the indicated style ('decimal' by default). See the section on automatic counters and numbering for more information. The name must not be 'none', 'inherit' or 'initial'. Such a name causes the declaration to be ignored." />
+        <invoke id="attr" tooltip="Returns the value of the element's attribute X as a string. If there is no attribute X, an empty string is returned. The case-sensitivity of attribute names depends on the document language." />
+        <name value="open-quote" tooltip="These values are replaced by the appropriate string from the quotes property." />
+        <name value="close-quote" tooltip="These values are replaced by the appropriate string from the quotes property." />
+        <name value="no-open-quote" tooltip="Introduces no content, but increments (decrements) the level of nesting for quotes." />
+        <name value="no-close-quote" tooltip="Introduces no content, but increments (decrements) the level of nesting for quotes." />
+        <inline id="css3-gcpm-content-values" inline="yes" />
+      </group>
+      <name value="icon" tooltip="The (pseudo-)element is replaced in its entirety by the resource referenced by its ‘icon’ property, and treated as a replaced element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="cursor" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#cursor" applies="all elements" initial="auto" inherited="yes" percentage="N/A" media="visual interactive" caniuse-ids="css3-cursors,css3-cursors-newer">
+    <description><![CDATA[
+      <p>This property specifies the type of cursor to be displayed for the pointing device when over the element's border, padding, and
+        content.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group min="0" max="-1">
+          <inline id="uri" browsers="C1.0,FF1.0,IE4.0,O7.0,S1.2" tooltip="The user agent retrieves the cursor from the resource designated by the URI. If the user agent cannot handle the first cursor of a list of cursors, it must attempt to handle the second, etc. If the user agent cannot handle any user-defined cursor, it must use the cursor keyword at the end of the list. The optional &lt;x&gt; and &lt;y&gt; coordinates identify the exact position within the image which is the pointer position (i.e., the hotspot)." />
+          <group min="0">
+            <number name="x" tooltip="Optional x-coordinate. Unit-less non-negative number less than 32." />
+            <number name="y" tooltip="Optional y-coordinate. Unit-less non-negative number less than 32." />
+          </group>
+          <text value="," />
+        </group>
+        <group type="or">
+          <name value="auto" tooltip="The UA determines the cursor to display based on the current context." />
+          <name value="default" tooltip="The platform-dependent default cursor. Often rendered as an arrow." />
+          <name value="none" tooltip="No cursor is rendered for the element." />
+          <name value="context-menu" tooltip="A context menu is available for the object under the cursor. Often rendered as an arrow with a small menu-like graphic next to it." />
+          <name value="help" tooltip="Help is available for the object under the cursor. Often rendered as a question mark or a balloon." />
+          <name value="pointer" tooltip="The cursor is a pointer that indicates a link." />
+          <name value="progress" tooltip="A progress indicator. The program is performing some processing, but is different from ‘wait’ in that the user may still interact with the program. Often rendered as a spinning beach ball, or an arrow with a watch or hourglass." />
+          <name value="wait" tooltip="Indicates that the program is busy and the user should wait. Often rendered as a watch or hourglass." />
+          <name value="cell" tooltip="Indicates that a cell or set of cells may be selected. Often rendered as a thick plus-sign with a dot in the middle." />
+          <name value="crosshair" tooltip="A simple crosshair (e.g., short line segments resembling a &quot;+&quot; sign). Often used to indicate a two dimensional bitmap selection mode." />
+          <name value="text" tooltip="Indicates text that may be selected. Often rendered as a vertical I-beam. User agents may automatically display a horizontal I-beam/cursor (e.g. same as the ‘vertical-text’ keyword) for vertical text, or for that matter, any angle of I-beam/cursor for text that is rendered at any particular angle." />
+          <name value="vertical-text" tooltip="Indicates vertical-text that may be selected. Often rendered as a horizontal I-beam." />
+          <name value="alias" tooltip="Indicates an alias of/shortcut to something is to be created. Often rendered as an arrow with a small curved arrow next to it." />
+          <name value="copy" tooltip="Indicates something is to be copied. Often rendered as an arrow with a small plus sign next to it." />
+          <name value="move" tooltip="Indicates something is to be moved." />
+          <name value="no-drop" tooltip="Indicates that the dragged item cannot be dropped at the current cursor location. Often rendered as a hand or pointer with a small circle with a line through it." />
+          <name value="not-allowed" tooltip="Indicates that the requested action will not be carried out. Often rendered as a circle with a line through it." />
+          <name value="e-resize" />
+          <name value="n-resize" />
+          <name value="ne-resize" />
+          <name value="nw-resize" />
+          <name value="s-resize" />
+          <name value="se-resize" />
+          <name value="sw-resize" />
+          <name value="w-resize" />
+          <name value="ew-resize" />
+          <name value="ns-resize" />
+          <name value="nesw-resize" />
+          <name value="nwse-resize" />
+          <name value="col-resize" tooltip="Indicates that the item/column can be resized horizontally. Often rendered as arrows pointing left and right with a vertical bar separating them." />
+          <name value="row-resize" tooltip="Indicates that the item/row can be resized vertically. Often rendered as arrows pointing up and down with a horizontal bar separating them." />
+          <name value="all-scroll" tooltip="Indicates that the something can be scrolled in any direction. Often rendered as arrows pointing up, down, left, and right with a dot in the middle." />
+          <name value="zoom-in" browsers="FF27.0,O11.6,S9.0" />
+          <name value="-webkit-zoom-in" browsers="C1.0,S3.0" />
+          <name value="-moz-zoom-in" browsers="FF1.4" />
+          <name value="zoom-out" browsers="FF27.0,O11.6,S9.0" />
+          <name value="-webkit-zoom-out" browsers="C1.0,S3.0" />
+          <name value="-moz-zoom-out" browsers="FF1.4" />
+          <name value="grab" browsers="FF27.0" />
+          <name value="-webkit-grab" browsers="C1.0,S4.0" />
+          <name value="-moz-grab" browsers="FF1.5" />
+          <name value="grabbing" browsers="FF27.0" />
+          <name value="-webkit-grabbing" browsers="C1.0,S4.0" />
+          <name value="-moz-grabbing" browsers="FF1.5" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="icon" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#icon" applies="all elements" initial="auto" inherited="no" percentage="N/A" media="all">
+    <group type="or">
+      <name value="auto" tooltip="Use a default generic icon provided by the user agent." />
+      <group>
+        <inline id="uri" tooltip="URIs (see [URI], [RFC1738] and [RFC1808]) provide a way of identifying resources. The &lt;uri&gt; value(s) in this property refer to one or more icons in a comma delimited list. The user agent loads the referenced icons one by one until it finds one that it is able to render. This permits the usage of multiple different icon formats for various platforms, and various media for that matter." />
+        <group min="0" max="-1">
+          <text value="," />
+          <inline id="uri" tooltip="URIs (see [URI], [RFC1738] and [RFC1808]) provide a way of identifying resources. The &lt;uri&gt; value(s) in this property refer to one or more icons in a comma delimited list. The user agent loads the referenced icons one by one until it finds one that it is able to render. This permits the usage of multiple different icon formats for various platforms, and various media for that matter." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="ime-mode" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#ime-mode" applies="text fields" initial="auto" inherited="no" percentage="N/A" media="interactive" browsers="FF3.0,IE5.0">
+    <description><![CDATA[
+      <p> The ‘ime-mode’ CSS property controls the state of the input method editor for text fields. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="No change is made to the current input method editor state. This is the default." />
+      <name value="normal" tooltip="The IME state should be normal; this value can be used in a user style sheet to override the page setting." />
+      <name value="active" tooltip="The input method editor is initially active; text entry is performed using it unless the user specifically dismisses it." />
+      <name value="inactive" tooltip="The input method editor is initially inactive, but the user may activate it if they wish." />
+      <name value="disabled" tooltip="The input method editor is disabled and may not be activated by the user." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="id" declared-in="3.0">
+    <group ignoreWhitespaces="no">
+      <text value="#" />
+      <name />
+    </group>
+  </named-value>
+  <property id="nav-index" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#nav-index" applies="all enabled elements" initial="auto" inherited="no" percentage="n/a" media="interactive">
+    <description><![CDATA[
+      <p>The ‘nav-index’ property is an input-method-neutral way of specifying the sequential navigation order (also known as "tabbing
+        order").</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The element's sequential navigation order is assigned automatically by the user agent." />
+      <number tooltip="The number (which is non-zero and positive) indicates the sequential navigation order for the element. ‘1’ means first. Elements with the same nav-index value are navigated in document order when that nav-index value is being navigated." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="nav-up" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#nav-up" applies="all enabled elements" initial="auto" inherited="no" percentage="N/A" media="interactive">
+    <group type="or">
+      <name value="auto" tooltip="The user agent automatically determines which element to navigate the focus to in response to directional navigational input." />
+      <group>
+        <inline id="id" name="id" tooltip="The &lt;id&gt; value consists of a ‘#’ character followed by an identifier, similar to a fragment identifier in a URL. It indicates the element to which the focus is navigated to in response to directional navigation input respective to the specific property. If the &lt;id&gt;&gt; refers to the currently focused element, the directional navigation input respective to the nav- property is ignored — there is no need to refocus the same element." />
+        <group type="or" min="0">
+          <name value="current" />
+          <name value="root" />
+          <inline id="target-name" tooltip="The &lt;target-name&gt; parameter indicates the target frame for the focus navigation. It is a string and it cannot start with the underscore &quot;_&quot; character. If the specified target frame does not exist, the parameter will be treated as the keyword ‘current’, which means to simply use the frame that the element is in. The keyword ‘root’ indicates that the user agent should target the full window." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="nav-right" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#nav-right" applies="all enabled elements" initial="auto" inherited="no" percentage="N/A" media="interactive">
+    <group type="or">
+      <name value="auto" tooltip="The user agent automatically determines which element to navigate the focus to in response to directional navigational input." />
+      <group>
+        <inline id="id" name="id" tooltip="The &lt;id&gt; value consists of a ‘#’ character followed by an identifier, similar to a fragment identifier in a URL. It indicates the element to which the focus is navigated to in response to directional navigation input respective to the specific property. If the &lt;id&gt;&gt; refers to the currently focused element, the directional navigation input respective to the nav- property is ignored — there is no need to refocus the same element." />
+        <group type="or" min="0">
+          <name value="current" />
+          <name value="root" />
+          <inline id="target-name" tooltip="The &lt;target-name&gt; parameter indicates the target frame for the focus navigation. It is a string and it cannot start with the underscore &quot;_&quot; character. If the specified target frame does not exist, the parameter will be treated as the keyword ‘current’, which means to simply use the frame that the element is in. The keyword ‘root’ indicates that the user agent should target the full window." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="nav-down" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#nav-down" applies="all enabled elements" initial="auto" inherited="no" percentage="N/A" media="interactive">
+    <group type="or">
+      <name value="auto" tooltip="The user agent automatically determines which element to navigate the focus to in response to directional navigational input." />
+      <group>
+        <inline id="id" name="id" tooltip="The &lt;id&gt; value consists of a ‘#’ character followed by an identifier, similar to a fragment identifier in a URL. It indicates the element to which the focus is navigated to in response to directional navigation input respective to the specific property. If the &lt;id&gt;&gt; refers to the currently focused element, the directional navigation input respective to the nav- property is ignored — there is no need to refocus the same element." />
+        <group type="or" min="0">
+          <name value="current" />
+          <name value="root" />
+          <inline id="target-name" tooltip="The &lt;target-name&gt; parameter indicates the target frame for the focus navigation. It is a string and it cannot start with the underscore &quot;_&quot; character. If the specified target frame does not exist, the parameter will be treated as the keyword ‘current’, which means to simply use the frame that the element is in. The keyword ‘root’ indicates that the user agent should target the full window." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="nav-left" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#nav-left" applies="all enabled elements" initial="auto" inherited="no" percentage="N/A" media="interactive">
+    <group type="or">
+      <name value="auto" tooltip="The user agent automatically determines which element to navigate the focus to in response to directional navigational input." />
+      <group>
+        <inline id="id" name="id" tooltip="The &lt;id&gt; value consists of a ‘#’ character followed by an identifier, similar to a fragment identifier in a URL. It indicates the element to which the focus is navigated to in response to directional navigation input respective to the specific property. If the &lt;id&gt;&gt; refers to the currently focused element, the directional navigation input respective to the nav- property is ignored — there is no need to refocus the same element." />
+        <group type="or" min="0">
+          <name value="current" />
+          <name value="root" />
+          <inline id="target-name" tooltip="The &lt;target-name&gt; parameter indicates the target frame for the focus navigation. It is a string and it cannot start with the underscore &quot;_&quot; character. If the specified target frame does not exist, the parameter will be treated as the keyword ‘current’, which means to simply use the frame that the element is in. The keyword ‘root’ indicates that the user agent should target the full window." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="outline" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#outline" applies="all elements" rules="noname,@page,page-margin" initial="see individual properties" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.5,IE8.0,O7.0,S1.2">
+    <group type="or">
+      <group type="any">
+        <property id="outline-color" />
+        <property id="outline-style" />
+        <property id="outline-width" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="outline-color" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#outline-color" applies="all elements" rules="noname,@page,page-margin" initial="invert" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.5,IE8.0,O7.0,S1.2">
+    <description><![CDATA[
+      <p>The outline created with the outline properties is drawn &quot;over&quot; a box, i.e., the outline is always on top, and doesn't
+        influence the position or size of the box, or of any other boxes. Therefore, displaying or suppressing outlines does not cause
+        reflow. </p>
+      ]]></description>
+    <group type="or">
+      <property id="border-color" />
+      <name value="invert" browsers="IE8.0,O7.0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="outline-color" prefix="moz" browsers="FF1.0" />
+  <property id="outline-offset" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#outline-offset" applies="all elements" rules="noname,@page,page-margin" initial="0" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.5,O9.5,S1.2">
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="outline-style" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#outline-style" applies="all elements" rules="noname,@page,page-margin" initial="none" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.5,IE8.0,O7.0,S1.2">
+    <description><![CDATA[
+      <p>If the computed value of ‘outline-offset’ is anything other than 0, then the outline is outset from the border edge by that
+        amount.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <inline id="border-style" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="outline-width" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#outline-width" applies="all elements" rules="noname,@page,page-margin" initial="medium" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF1.5,IE8.0,O7.0,S1.2">
+    <group type="or">
+      <inline id="border-width" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="resize" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#resize" applies="elements with ‘overflow’ other than visible" initial="none" inherited="no" percentage="N/A" media="visual" browsers="C4.0,FF5.0,S4.0" caniuse-ids="css-resize">
+    <description><![CDATA[
+      <p>Currently it is possible to control the appearance of the scrolling mechanism (if any) on an element using the <see
+          cref="P:overflow"/> property (e.g. ‘overflow: scroll’ vs. ‘overflow: hidden’ etc.). The purpose of the ‘resize’ property is to
+        also allow control over the appearance and function of the resizing mechanism (e.g. a resize box or widget) on the element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The UA does not present a resizing mechanism on the element, and the user is given no direct manipulation mechanism to resize the element." />
+      <name value="both" tooltip="The UA presents a bidirectional resizing mechanism to allow the user to adjust both the height and the width of the element." />
+      <name value="horizontal" tooltip="The UA presents a unidirectional horizontal resizing mechanism to allow the user to adjust only the width of the element." />
+      <name value="vertical" tooltip="The UA presents a unidirectional vertical resizing mechanism to allow the user to adjust only the height of the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-overflow" declared-in="3.0" url="http://www.w3.org/TR/2012/WD-css3-ui-20120117/#text-overflow" applies="block containers" initial="clip" inherited="no" percentage="N/A" media="visual" browsers="C1.0,FF7.0,IE6.0,O11.0,S1.3" caniuse-ids="text-overflow">
+    <description><![CDATA[
+      <p>This property specifies rendering when inline content overflows its block container element (&quot;the block&quot;) in its inline
+        progression direction that has <see cref="P:overflow"/> other than <span
+            class="value">‘<code class="property">visible</code>’</span>. Text can overflow for example when it is prevented from wrapping
+        (e.g. due to ‘<code class="css"><code>white-space:nowrap</code></code>’ or a single word is too long to fit).</p>
+      ]]></description>
+    <group type="or">
+      <group min="1" max="2" type="or">
+        <name value="clip" tooltip="Clip inline content that overflows. Characters may be only partially rendered." />
+        <name value="ellipsis" tooltip="Render an ellipsis character (U+2026) to represent clipped inline content. Implementations may substitute a more language/script-appropriate ellipsis character, or three dots &quot;...&quot; if the ellipsis character is unavailable." />
+        <string tooltip="Render the given string to represent clipped inline content. The given string is treated as an independent paragraph for bidi purposes." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-overflow" prefix="o" browsers="O9.0" />
+  <property id="user-select" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select">
+    <description><![CDATA[
+<p>Controls the actual Selection operation. This doesn't have any effect on content loaded as chrome, except in textboxes.</p>
+]]></description>
+    <group type="or">
+      <name value="none" browsers="FF21.0,C6.0,O15.0,S3.1" tooltip="The text of the element and sub-elements will not be able to be selected." />
+      <name value="-moz-none" browsers="FF1.0" tooltip="The text of the element and sub-elements will not be able to be selected." />
+      <name value="text" browsers="C6.0,O15.0,S3.1" tooltip="The text can be selected by the user." />
+      <name value="all" browsers="C6.0,O15.0,S3.1" tooltip="In an HTML editor, if a double-click or context-click occurred in sub-elements, the highest ancestor with this value will be selected." />
+      <name value="-moz-all" browsers="FF1.0" tooltip="In an HTML editor, if a double-click or context-click occurred in sub-elements, the highest ancestor with this value will be selected." />
+      <name value="element" browsers="IE10,FF1.0" tooltip="Supported only in Internet Explorer. Enables selection to start within the element; however, the selection will be contained by the bounds of that element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="user-select" prefix="moz" browsers="FF1.0" />
+  <prefixed-property id="user-select" prefix="ms" browsers="IE10" />
+  <!-- Pseudo selectors -->
+  <pseudo-class id="default" url="http://www.w3.org/TR/css3-ui/#pseudo-default" declared-in="3.0" tooltip="Represents any user interface element that is the default among a group of similar elements." browsers="C10.0,FF4.0,O10.0,S5.0">
+    <description><![CDATA[
+      <p>The <b>:default</b> CSS pseudo-class represents any user interface element that is the default among a group of similar elements.
+      </p>
+      <p>For example, the default button in a set of buttons could be selected using this pseudo-class.</p>
+      <p>User interface elements that permit multiple selections may have multiple defaults set in order to initially appear with multiple
+        items selected. In that case all defaults can be represented using the <b>:default</b> pseudo-class.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="valid" url="http://www.w3.org/TR/css3-ui/#pseudo-valid" declared-in="3.0" tooltip="Represents any &lt;input&gt; or &lt;form&gt; element whose content validates correctly according to the input's type setting." browsers="C10.0,FF4.0,IE10,O10.0,S5.0" />
+  <pseudo-class id="invalid" url="http://www.w3.org/TR/css3-ui/#pseudo-invalid" declared-in="3.0" tooltip="Represents any &lt;input&gt; or &lt;form&gt; element whose content fails to validate according to the input's type setting." browsers="C10.0,FF4.0,IE10,O10.0,S5.0" />
+  <pseudo-class id="in-range" url="http://www.w3.org/TR/css3-ui/#pseudo-in-range" declared-in="3.0">
+    <description><![CDATA[
+      <p>The <b>:in-range</b> and :<see cref="PC:out-of-range"/> pseudo-classes apply only to elements that have range limitations.</p>
+      <p>An element is <b>:in-range</b> or :<see cref="PC:out-of-range"/> when the value that the element is bound to is in range or out of
+        range of the presentation
+        (e.g. visual or spoken representation) of the element respectively. An element that lacks data range limits or is not a form control
+        is neither <b>:in-range</b> nor :<see cref="PC:out-of-range"/>.</p>
+      <p>E.g. a slider element with a value of 11 presented as a slider control that only represents the values from 1-10 is :<see
+          cref="PC:out-of-range"/>.
+      <p>Another example is a menu element with a value of "E" that happens to be presented as a popup menu that only has choices "A", "B"
+        and "C".</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="out-of-range" url="http://www.w3.org/TR/css3-ui/#pseudo-out-of-range" declared-in="3.0">
+    <description><![CDATA[
+      <p>The :<see cref="PC:in-range"/> and <b>:out-of-range</b> pseudo-classes apply only to elements that have range limitations.</p>
+      <p>An element is :<see cref="PC:in-range"/> or <b>:out-of-range</b> when the value that the element is bound to is in range or out of
+        range of the presentation
+        (e.g. visual or spoken representation) of the element respectively. An element that lacks data range limits or is not a form control
+        is neither :<see cref="PC:in-range"/> nor <b>:out-of-range</b>.</p>
+      <p>E.g. a slider element with a value of 11 presented as a slider control that only represents the values from 1-10 is :out-of-range.
+      <p>Another example is a menu element with a value of "E" that happens to be presented as a popup menu that only has choices "A", "B"
+        and "C".</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="required" url="http://www.w3.org/TR/css3-ui/#pseudo-required" declared-in="3.0" browsers="C10.0,FF4.0,IE10,O10.0,S5.0" tooltip="Represents any &lt;input&gt; element that has the required attribute set on it." />
+  <pseudo-class id="optional" url="http://www.w3.org/TR/css3-ui/#pseudo-optional" declared-in="3.0" browsers="C10.0,FF4.0,IE10,O10.0,S5.0" tooltip="Represents any &lt;input&gt; element that does not have the required attribute set on it." />
+  <pseudo-class id="read-only" url="http://www.w3.org/TR/css3-ui/#pseudo-read-only" declared-in="3.0" tooltip="Represents an element whose contents are not user-alterable." />
+  <pseudo-class id="read-write" url="http://www.w3.org/TR/css3-ui/#pseudo-read-write" declared-in="3.0" tooltip="Represents an element is editable by user like text input element." />
+  <pseudo-element id="value" declared-in="3.0" url="http://www.w3.org/TR/css3-ui/#pseudo-value">
+    <description><![CDATA[
+      A form element may contain both a label for its data value,
+      and the data value itself. For such elements, the <b>::value</b> pseudo-element selects the representation of just the
+      data value itself, in order to style its appearance.
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="choices" declared-in="3.0" url="http://www.w3.org/TR/css3-ui/#pseudo-choices">
+    <description><![CDATA[
+      Similarly, a form element which represents a list of options may contain both a label for the list,
+      and the list of choices itself. For such elements, the <b>::choices</b> pseudo-element selects the representation of just the list
+      of choices themselves, in order to style their appearance.
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="repeat-item" declared-in="3.0" url="http://www.w3.org/TR/css3-ui/#pseudo-repeat-item">
+    <description><![CDATA[
+      The <b>::repeat-item</b> pseudo-element represents a single item from a repeating sequence.
+      It is generated as a parent to all the elements in a single repeating item. Each <b>::repeat-item</b> is associated with a particular
+      instance data node, and is affected by the model item properties (e.g. ‘relevant’) found there, as the related style properties will
+      cascade to the child elements.
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="repeat-index" declared-in="3.0" url="http://www.w3.org/TR/css3-ui/#pseudo-repeat-index">
+    <description><![CDATA[
+      The ::repeat-index pseudo-element represents the current item of a repeating sequence. It takes the place of the
+      ::<see cref="PE:repeat-item"/> as a parent of all the elements in the index repeating item.
+      ]]></description>
+  </pseudo-element>
+</definitions>

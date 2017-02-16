@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Text Module Level 3
+Editor</b>s Draft, 24 July 2014
+http://dev.w3.org/csswg/css-text-3/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="text-transform" declared-in="3.0" browsers="C1.0,FF1.0,IE4.0,O7.0,S1.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#text-transform" initial="none" applies="all elements" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property transforms text for styling purposes. It has no effect on the underlying content.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No effects" />
+      <name value="capitalize" tooltip="Puts the first typographic letter unit of each word in titlecase; other characters are unaffected" />
+      <name value="uppercase" tooltip="Puts all letters in uppercase" />
+      <name value="lowercase" tooltip="Puts all letters in lowercase" />
+      <name value="full-width" browsers="FF14" tooltip="Puts all typographic character units in fullwidth form. If a character does not have a corresponding fullwidth form, it is left as is. This value is typically used to typeset Latin letters and digits as if they were ideographic characters." />
+      <name value="full-size-kana" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="white-space" declared-in="3.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#white-space" initial="not defined for shorthand properties" applies="all elements" browsers="C1.0,IE5.5,FF1.0,O4.0,S1.0" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property specifies two things:</p>
+      <ul>
+        <li>whether and how white space inside the element is collapsed</li>
+        <li>whether lines may wrap at unforced soft wrap opportunities</li>
+      </ul>
+      ]]></description>
+    <group type="or">
+      <name value="pre" browsers="C1.0,FF1.0,IE6.0,O4.0,S1.0" tooltip="This value prevents user agents from collapsing sequences of white space. Segment breaks such as line feeds and carriage returns are preserved as forced line breaks. Lines only break at forced line breaks; content that does not fit within the block container overflows it." />
+      <name value="normal" browsers="C1.0,FF1.0,IE5.5,O4.0,S1.0" tooltip="This value directs user agents to collapse sequences of white space into a single character (or in some cases, no character). Lines may wrap at allowed soft wrap opportunities, as determined by the line-breaking rules in effect, in order to minimize inline-axis overflow." />
+      <name value="nowrap" browsers="C1.0,FF1.0,IE5.5,O4.0,S1.0" tooltip="Like 'normal', this value collapses white space; but like 'pre', it does not allow wrapping." />
+      <name value="pre-wrap" browsers="C1.0,FF3.0,IE8.0,O8.0,S1.0" tooltip="Like 'pre', this value preserves white space; but like 'normal', it allows wrapping." />
+      <name value="-moz-pre-wrap" browsers="FF1.0" tooltip="Like 'pre', this value preserves white space; but like 'normal', it allows wrapping." />
+      <name value="-o-pre-wrap" browsers="O4.0" tooltip="Like 'pre', this value preserves white space; but like 'normal', it allows wrapping." />
+      <name value="pre-line" browsers="C1.0,FF3.5,IE8.0,O9.5,S1.0" tooltip="Like 'normal', this value collapses consecutive spaces and allows wrapping, but preserves segment breaks in the source as forced line breaks." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="tab-size" declared-in="3.0" browsers="C21,O10.60,S8" url="http://www.w3.org/TR/css3-text/#tab-size" initial="8" applies="block containers" inherited="yes" media="visual" caniuse-ids="css3-tabsize">
+    <description><![CDATA[
+      <p>This property determines the tab size used to render preserved tab characters (U+0009). Integers represent the measure as multiples
+        of the space character's advance width (U+0020). Negative values are not allowed.</p>
+      ]]></description>
+    <group type="or">
+      <integer />
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="tab-size" prefix="moz" browsers="FF4.0" />
+  <property id="line-break" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#line-break" browsers="C1.0,IE5.5,O1.0,S1.0" initial="auto" applies="all elements" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property specifies the strictness of line-breaking rules applied within an element: particularly how wrapping interacts with
+        punctuation and symbols.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The UA determines the set of line-breaking restrictions to use, and it may vary the restrictions based on the length of the line; e.g., use a less restrictive set of line-break rules for short lines." />
+      <name value="loose" tooltip="Breaks text using the least restrictive set of line-breaking rules. Typically used for short lines, such as in newspapers." />
+      <name value="normal" tooltip="Breaks text using the most common set of line-breaking rules." />
+      <name value="strict" tooltip="Breaks text using the most stringent set of line-breaking rules." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="word-break" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#word-break" initial="normal" applies="all elements" browsers="C1.0,FF15.0,IE5.5,S1.0" inherited="yes" media="visual" caniuse-ids="word-break">
+    <description><![CDATA[
+      <p>This property specifies soft wrap opportunities between letters, i.e. where it is "normal" and permissible to break lines of
+        text.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Use the default line break rule." />
+      <name value="break-all" tooltip="Word breaks may be inserted between any character for non-CJK (Chinese/Japanese/Korean) text." />
+      <name value="keep-all" tooltip="Don't allow word breaks for CJK text.  Non-CJK text behavior is same as normal." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="hyphens" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#hyphens" initial="manual" applies="all elements" inherited="yes" media="visual" caniuse-ids="css-hyphens">
+    <group type="or">
+      <name value="none" tooltip="Words are not broken at line breaks, even if characters inside the words suggest line break points. Lines will only wrap at whitespace." />
+      <name value="manual" tooltip="Words are broken for line-wrapping only where characters inside the word suggest line break opportunities." />
+      <name value="auto" tooltip="The browser is free to automatically break words at appropriate hyphenation points, following whatever rules it chooses to use. Suggested line break opportunities should be preferred over automatically selecting break points whenever possible." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="hyphens" prefix="webkit" browsers="C13,S5.1" />
+  <prefixed-property id="hyphens" prefix="moz" browsers="FF6.0" />
+  <prefixed-property id="hyphens" prefix="ms" browsers="IE10.0" />
+  <property id="word-wrap" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#word-wrap" initial="normal" applies="all elements" browsers="FF3.5,C1.0,IE5.5,O10.5,S1.0" inherited="yes" media="visual" caniuse-ids="css-hyphens">
+    <group type="or">
+      <name value="normal" tooltip="Indicates that lines may only break at normal word break points." />
+      <name value="break-word" tooltip="Indicates that normally unbreakable words may be broken at arbitrary points if there are no otherwise acceptable break points in the line." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="word-wrap" prefix="ms" browsers="IE8.0" />
+  <property id="overflow-wrap" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#word-wrap" initial="normal" applies="all elements" rules="noname,page-margin" browsers="FF3.5,C1.0,IE5.5,O10.5,S1.0" inherited="yes" media="visual" caniuse-ids="css-hyphens">
+    <group type="or">
+      <name value="normal" tooltip="Indicates that lines may only break at normal word break points." />
+      <name value="break-word" tooltip="Indicates that normally unbreakable words may be broken at arbitrary points if there are no otherwise acceptable break points in the line." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-align" declared-in="3.0" browsers="C1.0,FF1.0,IE3.0,O3.5,S1.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#text-align" initial="start" applies="block containers" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This shorthand property sets the
+        <see cref="P:text-align-all"/>
+        and
+        <see cref="P:text-align-last"/>
+        properties and describes how the inline-level content of a
+        block is aligned along the inline axis if the content does not completely fill the line box.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="start" browsers="C1.0,FF1.0,S1.0" tooltip="Inline-level content is aligned to the start edge of the line box." />
+      <name value="end" browsers="C1.0,FF3.6,S3.1" tooltip="The same as right if direction is left-to-right and left if direction is right-to-left." />
+      <name value="left" tooltip="The inline contents are aligned to the left edge of the line box." />
+      <name value="right" tooltip="The inline contents are aligned to the right edge of the line box." />
+      <name value="center" tooltip="The inline contents are centered within the line box." />
+      <name value="justify" tooltip="The text is justified. Text should line up their left and right edges to the left and right content edges of the paragraph." />
+      <name value="justify-all" tooltip="Same as justify, except text-align-last is also set to justify, forcing the last line to justify as well." />
+      <name value="match-parent" browsers="C16" tooltip="Similar to inherit with the difference that the value start and end are calculated according the parent's direction and are replaced by the adequate left or right value." />
+      <name value="-moz-center" />
+      <name value="-moz-left" />
+      <name value="-moz-right" />
+      <name value="-webkit-center" />
+      <name value="-webkit-left" />
+      <name value="-webkit-right" />
+      <name value="-webkit-match-parent" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-align-all" declared-in="3.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#text-align-all" initial="start" applies="block containers" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This longhand of the
+        <see cref="P:text-align"/>
+        shorthand property specifies the inline alignment of all lines of inline content in the block
+        container, except for last lines overridden by a non-auto value of
+        <see cref="P:text-align-last"/>.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="start" browsers="C1.0,FF1.0,S1.0" tooltip="Inline-level content is aligned to the start edge of the line box." />
+      <name value="end" browsers="C1.0,FF3.6,S3.1" tooltip="The same as right if direction is left-to-right and left if direction is right-to-left." />
+      <name value="left" tooltip="The inline contents are aligned to the left edge of the line box." />
+      <name value="right" tooltip="The inline contents are aligned to the right edge of the line box." />
+      <name value="center" tooltip="The inline contents are centered within the line box." />
+      <name value="justify" tooltip="The text is justified. Text should line up their left and right edges to the left and right content edges of the paragraph." />
+      <name value="match-parent" browsers="C16" tooltip="Similar to inherit with the difference that the value start and end are calculated according the parent's direction and are replaced by the adequate left or right value." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-align-last" declared-in="3.0" browsers="C35,IE5.5" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#text-align-last" initial="auto" applies="block containers" inherited="yes" media="visual" caniuse-ids="css-text-align-last">
+    <description><![CDATA[
+      <p>This property describes how the last line of a block or a line right before a forced line break is aligned. If a line is also the
+        first line of the block or the first line after a forced line break,
+        <see cref="P:text-align-last"/>
+        takes precedence over
+        <see cref="P:text-align-all"/>.
+      </p>
+
+      <p>If <b>auto</b> is specified, content on the affected line is aligned per
+        <see cref="P:text-align"/>
+        unless
+        <see cref="P:text-align"/>
+        is set to <b>justify</b>. In this case, content is justified if text-justify is
+        distribute and start-aligned otherwise.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Similar to inherit with the difference that the value start and end are calculated according the parent's direction and are replaced by the adequate left or right value." />
+      <name value="start" browsers="C1.0,FF1.0,S1.0" tooltip="Inline-level content is aligned to the start edge of the line box." />
+      <name value="end" browsers="C1.0,FF3.6,S3.1" tooltip="The same as right if direction is left-to-right and left if direction is right-to-left." />
+      <name value="left" tooltip="The inline contents are aligned to the left edge of the line box." />
+      <name value="right" tooltip="The inline contents are aligned to the right edge of the line box." />
+      <name value="center" tooltip="The inline contents are centered within the line box." />
+      <name value="justify" tooltip="The text is justified. Text should line up their left and right edges to the left and right content edges of the paragraph." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-align-last" prefix="moz" browsers="FF12.0" />
+  <prefixed-property id="text-align-last" prefix="ms" browsers="IE9.0" url="http://msdn.microsoft.com/en-us/library/ie/ms531163(v=vs.85).aspx" />
+  <property id="text-justify" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#text-justify" initial="auto" applies="block containers and, optionally, inline elements" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property selects the justification method used when a line’s alignment is set to justify (see
+        <see cref="P:text-align"/>). The property applies to block containers, but the UA may (but is not required to) also support it on inline elements.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Justification is disabled: there are no justification opportunities within the text." />
+      <name value="auto" tooltip="The UA determines the justification algorithm to follow, based on a balance between performance and adequate presentation quality. Since justification rules vary by writing system and language, UAs should, where possible, use a justification algorithm appropriate to the text." />
+      <name value="inter-word" tooltip="Justification adjusts spacing at word separators only (effectively varying the used word-spacing on the line). This behavior is typical for languages that separate words using spaces, like English or Korean." />
+      <name value="distribute" tooltip="Justification adjusts spacing between each pair of adjacent typographic character units (effectively varying the used letter-spacing on the line). This value is sometimes used in East Asian systems such as Japanese." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="spacing-limit" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#spacing-limit">
+    <group type="or">
+      <name value="normal" tooltip="No additional spacing is applied. Computes to zero." />
+      <length tooltip="Specifies extra spacing in addition to the intrinsic inter-word spacing defined by the font." />
+      <percentage tooltip="Specifies the additional spacing as a percentage of the affected character’s advance width." />
+    </group>
+  </named-value>
+  <property id="word-spacing" declared-in="3.0" browsers="C1.0,FF1.0,IE6.0,O3.5,S1.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#word-spacing" initial="normal" applies="all elements" inherited="yes" percentage="refers to width of space (U+0020) glyph" media="visual">
+    <description><![CDATA[
+      <p>This property specifies additional spacing between “words”. Missing values are assumed to be word-spacing:normal.</p>
+]]></description>
+    <group type="or">
+      <name value="normal" tooltip="No additional spacing is applied. Computes to zero." />
+      <length tooltip="Specifies extra spacing in addition to the intrinsic inter-word spacing defined by the font." />
+      <percentage tooltip="Specifies the additional spacing as a percentage of the affected character’s advance width." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="letter-spacing" declared-in="3.0" browsers="C1.0,FF1.0,IE4.0,O3.5,S1.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#letter-spacing" initial="normal" applies="all elements" inherited="yes" percentage="refers to width of space (U+0020) glyph" media="visual">
+    <description><![CDATA[
+      <p>This property specifies additional spacing (commonly called tracking) between adjacent typographic character units. Letter-spacing
+        is applied after bidi reordering and is in addition to any word-spacing. Depending on the justification rules in effect, user agents
+        may further increase or decrease the space between typographic character units in order to justify text.</p>
+]]></description>
+    <group type="or">
+      <name value="normal" tooltip="No additional spacing is applied. Computes to zero." />
+      <length tooltip="Specifies additional spacing between typographic character units. Values may be negative, but there may be implementation-dependent limits." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-indent" declared-in="3.0" browsers="C1.0,FF1.0,IE3.0,O3.5,S1.0" rules="noname,@page,page-margin" url="http://www.w3.org/TR/css3-text/#text-indent" initial="0" applies="block containers" inherited="yes" percentage="refers to width of containing block" media="visual">
+    <description><![CDATA[
+      <p>This property specifies the indentation applied to lines of inline content in a block. The indent is treated as a margin applied
+        to the start edge of the line box.</p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Gives the amount of the indent as an absolute length." />
+          <percentage tooltip="Gives the amount of the indent as a percentage of the containing block’s logical width." />
+        </group>
+        <name value="hanging" min="0" tooltip="Inverts which lines are affected." />
+        <name value="each-line" min="0" tooltip="Indentation affects the first line of each block container and each line after a forced line break (but not lines after a soft wrap break)." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="hanging-punctuation" declared-in="3.0" url="http://www.w3.org/TR/css3-text/#hanging-punctuation" initial="none" applies="inline elements" inherited="yes" media="visual">
+    <description><![CDATA[
+      p This property determines whether a punctuation mark, if one is present, hangs and may be placed outside the line box (or in the indent) at the start or at the end of a line of text.
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No character hangs." />
+      <group type="any">
+        <name value="first" tooltip="An opening bracket or quote at the start of the first formatted line of an element hangs. This applies to all characters in the Unicode categories Ps, Pf, Pi." />
+        <group type="or">
+          <name value="force-end" tooltip="A stop or comma at the end of a line hangs." />
+          <name value="allow-end" tooltip="A stop or comma at the end of a line hangs if it does not otherwise fit prior to justification." />
+        </group>
+        <name value="last" tooltip="A closing bracket or quote at the end of the last formatted line of an element hangs. This applies to all characters in the Unicode categories Pe, Pf, Pi." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

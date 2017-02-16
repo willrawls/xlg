@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Lists and Counters Module Level 3
+W3C Working Draft, 20 March 2014
+http://www.w3.org/TR/2014/WD-css-lists-3-20140320/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="list-style-image" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#list-style-image" applies="list items" initial="none" inherited="yes" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p> The list-style-image property specifies an image that will be used as the list marker’s default contents.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="image" tooltip="If the &lt;image&gt; is not an invalid image, the image is the default contents of the list item’s marker. Otherwise, the default contents are given by list-style-type instead." />
+      <name value="none" tooltip="The default contents of the of the list item’s marker are given by list-style-type instead." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="list-style-type" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#list-style-type" applies="list items" initial="disc" inherited="yes" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p> When the value of
+        <see cref="P:list-style-image"/> is none or an invalid image, the list-style-type property is used to construct the default contents
+        of a list item’s marker; otherwise, list-style-type is ignored.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="counter-style" tooltip="The list item’s marker’s default contents are that counter style." />
+      <string tooltip="The &lt;string&gt; is used as the list item’s marker’s default contents." />
+      <name value="none" tooltip="The list item’s marker’s default contents are none." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="list-style-position" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#list-style-position" applies="list items" initial="outside" inherited="yes" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p> This property helps control the position of the ::marker pseudo-element in the list item.</p>
+      ]]></description>
+    <group type="or">
+      <name value="inside" tooltip="The ::marker pseudo-element is an inline element placed immediately before where the ::before pseudo-element would be placed in the list item." />
+      <name value="outside" tooltip="As inside, plus the position property on the marker computes to marker. Additionally, the base directionality of the marker (used as an input to the bidi resolution algorithm) must be taken from the marker’s marker positioning reference element. If the list item is display: inline-list-item, this value computes to inside." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="list-style" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#list-style" applies="list items" initial="see individual properties" inherited="yes" percentage="see individual properties" media="visual">
+    <description><![CDATA[
+      <p> The list-style property is a shorthand notation for setting the three properties
+        <see cref="P:list-style-type"/>,
+        <see cref="P:list-style-image"/>, and
+        <see cref="P:list-style-position"/> at the same place in the style sheet. </p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="list-style-type" />
+        <property id="list-style-position" />
+        <property id="list-style-image" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="marker-side" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#marker-side" applies="list items" initial="list-item" inherited="yes" percentage="n/a" media="visual">
+    <group type="or">
+      <name value="list-item" tooltip="Any markers associated with the list item base their positioning off of the directionality of the list item." />
+      <name value="list-container" tooltip="The associated markers instead base their positioning off of the directionality of the list item’s parent element. The normative meaning of this is specified in the section defining position:marker." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="counter-reset" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#counter-reset" applies="all elements" initial="none" rules="noname,@page,page-margin" inherited="no" percentage="n/a" media="all">
+    <description><![CDATA[
+      <p> The counter-reset property creates new counters on an element.</p>
+      ]]></description>
+    <group type="or">
+      <group tooltip="The element creates one or more new counters. Each &lt;custom-ident&gt; names a new counter to be created. If an &lt;integer&gt; is provided after an &lt;custom-ident&gt;, the starting value of the new counter is that integer. Otherwise, the starting value of the new counter is 0. Implementations may have implementation-specific limits on the maximum or minimum value of a counter. If an increment would push the counter’s value beyond these limits, the increment must be ignored, and the counter’s value remain unchanged." max="-1">
+        <inline id="custom-ident" />
+        <integer min="0" />
+      </group>
+      <name value="none" tooltip="This element does not create any new counters." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="counter-set" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#counter-set" applies="all elements" initial="none" inherited="no" percentage="n/a" media="all">
+    <description><![CDATA[
+      <p> The
+        <see cref="P:counter-set"/> and counter-increment properties manipulate the value of existing counters. They only create new
+        counters if there is no counter of the given name on the element yet.</p>
+      ]]></description>
+    <group type="or">
+      <group tooltip="The element alters the value of one or more counters on it. If there is not currently a counter of the given name on the element, the element creates a new counter of the given name with a starting value of 0 (though it may then immediately set or increment that value to something different). If an &lt;integer&gt; is provided after an &lt;custom-ident&gt;, it sets the innermost counter of the given name’s value to that integer (for counter-set) or increments the value of the innermost counter of the given name by that integer (for counter-increment). Otherwise, the innermost counter of the given name’s value is set to 0 (for counter-set) or incremented by 1 (for counter-increment)." max="-1">
+        <inline id="custom-ident" />
+        <integer min="0" />
+      </group>
+      <name value="none" tooltip="This element does not alter the value of any counters." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="counter-increment" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#counter-increment" applies="all elements" rules="noname,@page,page-margin" initial="none" inherited="no" percentage="n/a" media="all">
+    <description><![CDATA[
+      <p>The <see cref="P:counter-set"/> and counter-increment properties manipulate the value of existing counters. They only create new
+        counters if there is no counter of the given name on the element yet.</p>
+      ]]></description>
+    <group type="or">
+      <group tooltip="The element alters the value of one or more counters on it. If there is not currently a counter of the given name on the element, the element creates a new counter of the given name with a starting value of 0 (though it may then immediately set or increment that value to something different). If an &lt;integer&gt; is provided after an &lt;custom-ident&gt;, it sets the innermost counter of the given name’s value to that integer (for counter-set) or increments the value of the innermost counter of the given name by that integer (for counter-increment). Otherwise, the innermost counter of the given name’s value is set to 0 (for counter-set) or incremented by 1 (for counter-increment)." max="-1">
+        <inline id="custom-ident" />
+        <integer min="0" />
+      </group>
+      <name value="none" tooltip="This element does not alter the value of any counters." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- Pseudo selectors -->
+  <pseudo-element id="marker" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#selectordef-marker">
+    <description><![CDATA[
+      <p>This specification defines a new type of pseudo-element, the <b>::marker</b> pseudo-element, which is generated by list items to
+        represent the item’s marker (the bullet or number identifying each item).</p>
+      ]]></description>
+  </pseudo-element>
+  <!-- Functions -->
+  <function id="counter" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#counter-functions">
+    <group>
+      <name />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <property id="list-style-type" min="0" />
+          <name value="none" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="counters" declared-in="3.0" url="http://www.w3.org/TR/css-lists-3/#counter-functions">
+    <group>
+      <name />
+      <text value="," />
+      <string />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <property id="list-style-type" min="0" />
+          <name value="none" />
+        </group>
+      </group>
+    </group>
+  </function>
+</definitions>

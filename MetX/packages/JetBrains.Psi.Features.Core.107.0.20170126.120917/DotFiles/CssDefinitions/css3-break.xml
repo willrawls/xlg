@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Fragmentation Module Level 3
+W3C Candidate Recommendation, 14 January 2016
+http://www.w3.org/TR/2016/CR-css-break-3-20160114/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="break-before" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-break-before" applies="block-level elements, table row groups, table rows (but see prose)" initial="auto" inherited="no" percentage="N/A" media="visual" browsers="IE10,O11.10,S9.0">
+    <description><![CDATA[
+      <p> These properties specify page/column/region break behavior before/after the generated box.
+        The <dfn id="forced-break-values">forced break values</dfn> left, right, recto, verso, page,
+        column and region create a forced break in the flow while the <dfn id="avoid-break-values">avoid
+          break values</dfn> avoid, avoid-page, avoid-column and avoid-region indicate that content should be kept together. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Neither force nor forbid a break before/after the principal box." />
+      <name value="avoid" tooltip="Avoid a break before/after the principal box." />
+      <name value="avoid-page" tooltip="Avoid a page break before/after the principal box." />
+      <name value="page" tooltip="Always force a page break before/after the principal box." />
+      <name value="left" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a left page." />
+      <name value="right" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a right page." />
+      <name value="recto" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as either a left page or a right page, whichever is second (according to the page progression) in a page spread. " />
+      <name value="verso" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as either a left page or a right page, whichever is first (according to the page progression) in a page spread." />
+      <name value="avoid-column" tooltip="Avoid a column break before/after the principal box." />
+      <name value="column" tooltip="Always force a column break before/after the principal box." />
+      <name value="avoid-region" tooltip="Avoid a region break before/after the principal box." />
+      <name value="region" tooltip="Always force a region break before/after the principal box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="break-after" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-break-after" applies="block-level elements, table row groups, table rows (but see prose)" initial="auto" inherited="no" percentage="N/A" media="visual" browsers="IE10,O11.10,S9.0">
+    <description><![CDATA[
+      <p> These properties specify page/column/region break behavior before/after the generated box. The <dfn id="forced-break-values">forced
+        break values</dfn> left, right, recto, verso, page, column and region create a forced break in the flow while the <dfn
+          id="avoid-break-values">avoid break values</dfn> avoid, avoid-page, avoid-column and avoid-region indicate that content should be
+        kept together. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Neither force nor forbid a break before/after the principal box." />
+      <name value="avoid" tooltip="Avoid a break before/after the principal box." />
+      <name value="avoid-page" tooltip="Avoid a page break before/after the principal box." />
+      <name value="page" tooltip="Always force a page break before/after the principal box." />
+      <name value="left" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a left page." />
+      <name value="right" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a right page." />
+      <name value="recto" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as either a left page or a right page, whichever is second (according to the page progression) in a page spread. " />
+      <name value="verso" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as either a left page or a right page, whichever is first (according to the page progression) in a page spread." />
+      <name value="avoid-column" tooltip="Avoid a column break before/after the principal box." />
+      <name value="column" tooltip="Always force a column break before/after the principal box." />
+      <name value="avoid-region" tooltip="Avoid a region break before/after the principal box." />
+      <name value="region" tooltip="Always force a region break before/after the principal box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="break-inside" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-break-inside" applies="elements in the normal flow that establish formatting contexts, or that are block containers, table row groups, or table rows" initial="auto" inherited="no" percentage="N/A" media="visual" browsers="S9.0">
+    <description><![CDATA[
+      <p>This property specifies page/column/region break behavior within the element's principal box.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Impose no additional breaking constraints within the box." />
+      <name value="avoid" tooltip="Avoid breaks within the box." />
+      <name value="avoid-page" tooltip="Avoid a page break within the box." />
+      <name value="avoid-column" tooltip="Avoid a column break within the box." />
+      <name value="avoid-region" tooltip="Avoid a region break within the box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="orphans" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-orphans" applies="block containers" initial="2" inherited="yes" percentage="N/A" media="visual" browsers="C25,IE8.0,O9.2" caniuse-ids="css-widows-orphans">
+    <description><![CDATA[
+      <p> The ‘orphans’ property specifies the minimum number of line boxes in a block container that must be left in a fragment before a
+        fragment break.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" allow-zero="no" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="widows" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-widows" applies="block containers" initial="2" inherited="yes" percentage="N/A" media="visual" browsers="C25,IE8.0,O9.2" caniuse-ids="css-widows-orphans">
+    <description><![CDATA[
+      <p>The ‘widows’ property specifies the minimum number of line boxes of a block container that must be left in a
+        fragment after a break.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" allow-zero="no" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="box-decoration-break" declared-in="3.0" url="http://www.w3.org/TR/css-break-3/#propdef-box-decoration-break" applies="all elements" initial="slice" inherited="no" percentage="N/A" media="visual" browsers="FF32.0" caniuse-ids="css-boxdecorationbreak">
+    <description><![CDATA[
+      <p>When a break (page/column/region/line) splits a box, the ‘box-decoration-break’ property controls</p>
+      <p>
+      <ul>
+        <li>whether the box's margins, borders, padding, and other decorations wrap the broken edges of the box fragments</li>
+        <li>how the background positioning area is derived from the box fragments and how the element's background is drawn within them.
+        </li>
+      </ul></p>
+      ]]></description>
+    <group type="or">
+      <name value="slice" tooltip="The effect is as though the element were rendered with no breaks present, and then sliced by the breaks afterward: no border and no padding are inserted at a break; no box-shadow is drawn at a broken edge; and backgrounds, border-radius, and the border-image are applied to the geometry of the whole box as if it were unbroken." />
+      <name value="clone" tooltip="Each box fragment is independently wrapped with the border, padding, and margin. The border-radius and border-image and box-shadow, if any, are applied to each fragment independently. The background is drawn independently in each fragment of the element. A no-repeat background image will thus be rendered once in each fragment of the element. Note: Cloned margins are truncated on block-level boxes." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="box-decoration-break" prefix="webkit" />
+  <prefixed-property id="box-decoration-break" prefix="ms" />
+  <prefixed-property id="box-decoration-break" prefix="o" />
+  <property id="page-break-before" declared-in="3.0" rules="noname,@page,page-margin" url="https://www.w3.org/TR/css-break-3/#page-break-properties" initial="auto" applies="block-level elements" inherited="no" media="paged" browsers="C1.0,FF1.0,IE4.0,O7.0,S1.2">
+    <group type="or">
+      <name value="auto" tooltip="Neither force nor forbid a break before/after the principal box." />
+      <name value="left" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a left page." />
+      <name value="right" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a right page." />
+      <name value="avoid" tooltip="Avoid a break before/after the principal box." />
+      <name value="always" tooltip="Always force a page break before/after the principal box. Corresponds to `page` value of `break-before`/`break-after` property" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="page-break-after" declared-in="3.0" rules="noname,@page,page-margin" url="https://www.w3.org/TR/css-break-3/#page-break-properties" initial="auto" applies="block-level elements" inherited="no" media="paged" browsers="C1.0,FF19,IE8.0,O7.0,S1.3">
+    <group type="or">
+      <name value="auto" tooltip="Neither force nor forbid a break before/after the principal box." />
+      <name value="left" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a left page." />
+      <name value="right" tooltip="Force one or two page breaks before/after the principal box so that the next page is formatted as a right page." />
+      <name value="avoid" tooltip="Avoid a break before/after the principal box." />
+      <name value="always" tooltip="Always force a page break before/after the principal box. Corresponds to `page` value of `break-before`/`break-after` property" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="page-break-inside" declared-in="3.0" rules="noname,@page,page-margin" url="https://www.w3.org/TR/css-break-3/#page-break-properties" initial="auto" applies="block-level elements" inherited="no" media="paged" browsers="C1.0,FF1.0,IE4.0,O7.0,S1.2">
+    <group type="or">
+      <name value="auto" tooltip="Neither force nor forbid a break before/after the principal box." />
+      <name value="avoid" tooltip="Avoid a break before/after the principal box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

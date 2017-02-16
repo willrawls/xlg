@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Scoping Module Level 1
+W3C First Public Working Draft, 3 April 2014
+http://www.w3.org/TR/2014/WD-css-scoping-1-20140403/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <pseudo-class id="host" declared-in="3.0" url="http://www.w3.org/TR/css-scoping-1/#selectordef-host0" tooltip="The :host pseudo-class, when evaluated in the context of a shadow tree, matches the shadow tree’s host element. In any other context, it matches nothing.">
+    <selector />
+  </pseudo-class>
+  <pseudo-class id="host-context" declared-in="3.0" url="http://www.w3.org/TR/css-scoping-1/#selectordef-host0" tooltip="The :host-context() functional pseudo-class tests whether there is an ancestor, outside the shadow tree, which matches a particular selector.">
+    <selector />
+  </pseudo-class>
+  <pseudo-element id="shadow" declared-in="3.0" url="http://www.w3.org/TR/css-scoping-1/#selectordef-shadow" tooltip="If an element has at least one shadow tree, the ::shadow pseudo-element matches the shadow roots themselves. In HTML, the shadow root is represented by ShadowRoot objects." />
+  <pseudo-element id="content" declared-in="3.0" url="http://www.w3.org/TR/css-scoping-1/#selectordef-content" tooltip="The ::content pseudo-element matches the distribution list itself, on elements that have one." />
+  <pseudo-element id="region" declared-in="3.0" url="http://www.w3.org/TR/css-scoping-1/#the-region-pseudo-element" tooltip="A ::region pseudo-element represents a relationship between a selector that matches a CSS Region, and a relative selector that matches some named flow content. This allows style declarations to be applied to fragments of named flow content flowing into particular regions." />
+</definitions>

@@ -1,0 +1,1597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="ms-display-values" declared-in="0">
+    <group type="or">
+      <name value="-ms-flexbox" browsers="IE11" />
+      <name value="-ms-inline-flexbox" browsers="IE10" />
+      <name value="-ms-grid" browsers="IE10.0" tooltip="Internet Explorer 10. Specifies a block-level Grid element. For more information on grid layout, see Grid Layout." />
+      <name value="-ms-inline-grid" browsers="IE10.0" tooltip="Internet Explorer 10. Specifies an inline-level Grid element. For more information on grid layout, see Grid Layout." />
+    </group>
+  </named-value>
+  <!-- CSS properties -->
+  <property id="-ms-wrap-flow" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772045(v=vs.85).aspx" applies="block-level elements" initial="auto" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies how exclusions impact inline content within block-level elements.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="For floated elements, an exclusion is created; for all other elements, an exclusion is not created." />
+      <name value="both" tooltip="Inline flow content can flow on all sides of the exclusion." />
+      <name value="start" tooltip="Inline flow content can wrap on the start edge of the exclusion area but must leave the area after the end edge of the exclusion area empty." />
+      <name value="end" tooltip="Inline flow content can wrap after the end edge of the exclusion area but must leave the area before the start edge of the exclusion area empty." />
+      <name value="maximum" tooltip="Inline flow content can wrap on the side of the exclusion with the largest available space for the given line, and must leave the other side of the exclusion empty." />
+      <name value="clear" tooltip="Inline flow content can only wrap on top and bottom of the exclusion and must leave the areas to the start and end edges of the exclusion box empty." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-wrap-margin" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772042(v=vs.85).aspx" applies="exclusion elements" initial="0" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that is used to offset the inner wrap shape from other shapes.</p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-wrap-through" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771900(v=vs.85).aspx" applies="block-level elements" initial="wrap" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies how content should wrap around an exclusion element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="wrap" tooltip="The exclusion element inherits its parent node's wrapping context. Its descendant inline content wraps around exclusions defined outside the element." />
+      <name value="none" tooltip="The exclusion element does not inherit its parent node's wrapping context. Its descendants are only subject to exclusion shapes defined inside the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-writing-mode" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531187(v=vs.85).aspx" applies="All elements" initial="lr-tb" inherited="yes" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies the direction and flow of the content in the object.</p>
+      ]]></description>
+    <group type="or">
+      <name value="lr-tb" tooltip="Initial value. Content flows horizontally from left to right, top to bottom. The next horizontal line is positioned underneath the previous line. All glyphs are positioned upright. This layout is used by most writing systems." />
+      <name value="rl-tb" tooltip="Content flows horizontally from right to left, top to bottom. The next horizontal line is positioned underneath the previous line. All glyphs are positioned upright. This layout is used with right-to-left scripts like Arabic, Hebrew, Thaana, and Syriac." />
+      <name value="tb-rl" tooltip="Content flows vertically from top to bottom, right to left. The next vertical line is positioned to the left of the previous line. Wide-cell glyphs are positioned upright; nonwide-cell glyphs (also known as narrow Latin or narrow Kana glyphs) are rotated 90° clockwise. This layout is used in East Asian typography." />
+      <name value="bt-rl" tooltip="Content flows vertically from bottom to top, right to left. The next vertical line is positioned to the left of the previous line. Wide-cell glyphs are positioned upright; nonwide-cell glyphs (also known as narrow Latin or narrow Kana glyphs) are rotated 90° clockwise. This layout is used for right-to-left script blocks used in vertical East Asian typography." />
+      <name value="tb-lr" tooltip="Internet Explorer 8. Content flows vertically from top to bottom, left to right. The next vertical line is positioned to the right of the previous line." />
+      <name value="bt-lr" tooltip="Internet Explorer 8. Content flows vertically from bottom to top, left to right." />
+      <name value="lr-bt" tooltip="Internet Explorer 8. Content flows horizontally from bottom to top, left to right. The next horizontal line is positioned above the previous line." />
+      <name value="rl-bt" tooltip="Internet Explorer 8. Content flows horizontally from bottom to top, right to left." />
+      <name value="lr" tooltip="Internet Explorer 9. For use on SVG and HTML elements. Equivalent to lr-tb." />
+      <name value="rl" tooltip="Internet Explorer 9. For use on SVG and HTML elements. Equivalent to rl-tb." />
+      <name value="tb" tooltip="Internet Explorer 9. For use on SVG and HTML elements. Equivalent to tb-rl." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="background-position-x" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530719(v=vs.85).aspx" applies="All elements" initial="0%" inherited="no" percentage="N/A" media="visual" browsers="IE8.0">
+    <description><![CDATA[
+      <p>Specifies the <em>x</em>-coordinate of the background-position property. </p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <percentage />
+      <name value="left" tooltip="Horizontal alignment is to the left." />
+      <name value="center" tooltip="Horizontal alignment is centered." />
+      <name value="right" tooltip="Horizontal alignment is to the right." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="background-position-x" prefix="ms" />
+  <property id="background-position-y" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530720(v=vs.85).aspx" applies="All elements" initial="0%" inherited="no" percentage="N/A" media="visual" browsers="IE8.0">
+    <description><![CDATA[
+      <p>Specifies the <em>y</em>-coordinate of the background-position property. </p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <percentage />
+      <name value="top" tooltip="Vertical alignment is at the top." />
+      <name value="center" tooltip="Vertical alignment is centered." />
+      <name value="bottom" tooltip="Vertical alignment is at the bottom." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="background-position-y" prefix="ms" />
+  <property id="-ms-block-progression" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/dd229917(v=vs.85).aspx" applies="All elements" initial="tb" inherited="no" percentage="N/A" media="visual" browsers="IE8.0">
+    <description><![CDATA[
+      <p>Specifies the block progression and layout orientation.</p>
+      ]]></description>
+    <group type="or">
+      <name value="tb" tooltip="Default. Top-to-bottom block flow. Layout is horizontal." />
+      <name value="rl" tooltip="Right-to-left block flow. Layout is vertical." />
+      <name value="bt" tooltip="Bottom-to-top block flow. Layout is horizontal." />
+      <name value="lr" tooltip="Left-to-right block flow. Layout is vertical." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zoom-chaining" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771889(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="none" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the zoom behavior that occurs when a user hits the zoom limit during a manipulation.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Initial value. A bounce effect is shown when the user hits a zoom limit during a manipulation." />
+      <name value="chained" tooltip="The nearest zoomable parent element begins zooming when the user hits a zoom limit during a manipulation. No bounce effect is shown." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zooming" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771891(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" browsers="IE10.0" initial="zoom for the top level element, none for all other elements" inherited="no" percentage="N/A" media="interactive">
+    <description><![CDATA[
+      <p>Specifies whether zooming is enabled.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Initial value (all elements except top-level). The element is not zoomable." />
+      <name value="zoom" tooltip="Initial value (top-level element only). The element is zoomable." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!--todo: shorthand-->
+  <property id="-ms-content-zoom-limit" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127330(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="(see individual properties)" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies values for the -ms-content-zoom-limit-min and the -ms-content-zoom-limit-max properties.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-ms-content-zoom-limit-min" tooltip="Value of the -ms-content-zoom-limit-min property." />
+        <property id="-ms-content-zoom-limit-max" tooltip="Value of the -ms-content-zoom-limit-max property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zoom-limit-max" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127331(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="400%" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the maximum zoom factor.</p>
+      ]]></description>
+    <group type="or">
+      <percentage />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zoom-limit-min" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127332(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="100%" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the minimum zoom factor.</p>
+      ]]></description>
+    <group type="or">
+      <percentage />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zoom-snap" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771893(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="(see individual properties)" inherited="no" percentage="N/A" media="interactive">
+    <description><![CDATA[
+      <p>Specifies values for the -ms-content-zoom-snap-type and the -ms-content-zoom-snap-points properties.</p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <name value="-ms-content-zoom-snap-type" tooltip="Value of the -ms-content-zoom-snap-type property." />
+        <name value="-ms-content-zoom-snap-points" tooltip="Value of the -ms-content-zoom-snap-points property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="snapInterval" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771895(v=vs.85).aspx" browsers="IE10.0" tooltip="Specifies where the snap-points will be placed.">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <group type="or" name="start" tooltip="specifies where the first snap-point will be placed.">
+        <percentage />
+        <length />
+      </group>
+      <group type="or" name="stop" tooltip="specifies the distance between subsequent snap-points.">
+        <percentage />
+        <length />
+      </group>
+    </group>
+  </function>
+  <function id="snapList" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771895(v=vs.85).aspx" browsers="IE10.0" tooltip="Specifies the position of individual snap-points as a comma-separated list of zoom factors (expressed as a number followed by a percent sign (%)).">
+    <group type="or" name="zoomfactor" comma-separated="yes" tooltip="specifies where the first snap-point will be placed. This value is a number followed by a percent sign (%).">
+      <percentage />
+      <length />
+    </group>
+  </function>
+  <property id="-ms-content-zoom-snap-points" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771895(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="none" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Defines where zoom snap-points are located.</p>
+      ]]></description>
+    <group type="or">
+      <invoke id="snapInterval" />
+      <invoke id="snapList" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-content-zoom-snap-type" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771896(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="none" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies how zooming is affected by defined snap-points.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Initial value. Indicates that zooming is unaffected by any defined snap-points. After the contact is picked up, the content will continue to move with inertia." />
+      <name value="proximity" tooltip="Indicates that the motion of the content after the contact is picked up may be adjusted if the content would normally stop &quot;close enough&quot; to a snap-point. This implies that it is possible for the content zoom factor to end up between snap-points." />
+      <name value="mandatory" tooltip="Indicates that the motion of the content after the contact is picked up is always adjusted so that it lands on a snap-point. The snap-point that is selected is the one that is closest to where the content zoom factor would normally stop." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-flow-from" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771897(v=vs.85).aspx" applies="non-replaced elements" initial="none" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that identifies a region container in the document that accepts the content flow from the data source.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <name value="none" tooltip="Default. No container has been specified." />
+        <name tooltip="The name of the region container." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-flow-into" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771899(v=vs.85).aspx" applies="iframe elements" initial="none" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that identifies an <strong>iframe</strong> container in the document that serves as the region's data source.
+      </p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <name value="none" tooltip="Default. No container has been specified." />
+        <name tooltip="The name of the region container." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-column" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772242(v=vs.85).aspx" applies="grid item elements" initial="1" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies in which column of the grid to place the object. </p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-column-align" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772245(v=vs.85).aspx" applies="grid item elements" initial="stretch" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies the horizontal alignment of the object within the grid column. </p>
+      ]]></description>
+    <group type="or">
+      <name value="start" tooltip="The object is left justified in a left-to-right layout or right justified in a right-to-left layout." />
+      <name value="end" tooltip="The object is right justified in a left-to-right layout or left justified in a right-to-left layout." />
+      <name value="center" tooltip="The object is centered within the column." />
+      <name value="stretch" tooltip="Initial value. The object is stretched to completely fill the width that is available in the column." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="minmax" declared-in="0" browsers="IE10.0" url="http://msdn.microsoft.com/en-us/library/ie/hh772246(v=vs.85).aspx">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <group type="or" name="min">
+        <group type="or" name="width" tooltip="The width of each column specified as one of the following values: A length consisting of an integer number, followed by an absolute units designator (&quot;cm&quot;, &quot;mm&quot;, &quot;in&quot;, &quot;pt&quot;, or &quot;pc&quot;) or a relative units designator (&quot;em&quot;, &quot;ex&quot;, or &quot;px&quot;). A percentage of the object width. A proportion of the remaining horizontal space (that is, the object width, less the combined widths of other tracks), consisting of an integer number followed by a fractional designator (&quot;fr&quot;). For example, if &quot;200px 1fr 2fr&quot; is specified, the first column is allocated 200 pixels, and the second and third columns are allocated 1/3 and 2/3 of the remaining width, respectively.">
+          <length />
+          <percentage />
+        </group>
+        <name value="min-content" tooltip="The minimum width of any child elements is used as the width of the column." />
+        <name value="max-content" tooltip="The maximum width of any child elements is used as the width of the column." />
+        <invoke id="minmax" />
+      </group>
+      <group type="or" name="max">
+        <group type="or" name="width" tooltip="The width of each column specified as one of the following values: A length consisting of an integer number, followed by an absolute units designator (&quot;cm&quot;, &quot;mm&quot;, &quot;in&quot;, &quot;pt&quot;, or &quot;pc&quot;) or a relative units designator (&quot;em&quot;, &quot;ex&quot;, or &quot;px&quot;). A percentage of the object width. A proportion of the remaining horizontal space (that is, the object width, less the combined widths of other tracks), consisting of an integer number followed by a fractional designator (&quot;fr&quot;). For example, if &quot;200px 1fr 2fr&quot; is specified, the first column is allocated 200 pixels, and the second and third columns are allocated 1/3 and 2/3 of the remaining width, respectively.">
+          <length />
+          <percentage />
+        </group>
+        <name value="min-content" tooltip="The minimum width of any child elements is used as the width of the column." />
+        <name value="max-content" tooltip="The maximum width of any child elements is used as the width of the column." />
+        <invoke id="minmax" />
+      </group>
+    </group>
+  </function>
+  <property id="-ms-grid-columns" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772246(v=vs.85).aspx" applies="non-replaced block elements" initial="auto" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets one or more values that specify the width of each grid column within the object. </p>
+      ]]></description>
+    <group type="or">
+      <group type="or" max="-1">
+        <name value="auto" tooltip="The width of a column is computed based on the widest child element in that column. This keyword is equivalent to minmax(min-content, max-content)." />
+        <group type="or" name="width" tooltip="The width of each column specified as one of the following values: A length consisting of an integer number, followed by an absolute units designator (&quot;cm&quot;, &quot;mm&quot;, &quot;in&quot;, &quot;pt&quot;, or &quot;pc&quot;) or a relative units designator (&quot;em&quot;, &quot;ex&quot;, or &quot;px&quot;). A percentage of the object width. A proportion of the remaining horizontal space (that is, the object width, less the combined widths of other tracks), consisting of an integer number followed by a fractional designator (&quot;fr&quot;). For example, if &quot;200px 1fr 2fr&quot; is specified, the first column is allocated 200 pixels, and the second and third columns are allocated 1/3 and 2/3 of the remaining width, respectively.">
+          <length />
+          <percentage />
+        </group>
+        <name value="min-content" tooltip="The minimum width of any child elements is used as the width of the column." />
+        <name value="max-content" tooltip="The maximum width of any child elements is used as the width of the column." />
+        <invoke id="minmax" />
+      </group>
+      <name value="none" tooltip="Initial value. The object has no specified columns. Implicit, auto-sized columns will still be created based on the grid position(s) of the child element(s)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-column-span" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772248(v=vs.85).aspx" applies="grid item elements" initial="1" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies the number of columns of the grid that the object spans. </p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-row" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772254(v=vs.85).aspx" browsers="IE10.0" applies="grid item elements" initial="1" inherited="no" percentage="N/A" media="visual paged">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies in which row of the grid to place the object. </p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-row-align" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772256(v=vs.85).aspx" applies="grid item elements" initial="stretch" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies the vertical alignment of the object within the grid row. </p>
+      ]]></description>
+    <group type="or">
+      <name value="start" tooltip="The object is placed at the top of the row." />
+      <name value="end" tooltip="The object is placed at the bottom of the row." />
+      <name value="center" tooltip="The object is centered within the row." />
+      <name value="stretch" tooltip="Initial value. The object is stretched to completely fill the height that is available in the row." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-rows" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772258(v=vs.85).aspx" applies="non-replaced block elements" initial="auto" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets one or more values that specify the height of each grid row within the object. </p>
+      ]]></description>
+    <group type="or">
+      <group type="or" max="-1">
+        <name value="auto" tooltip="The height of a row is computed based on the tallest child element in that column. This keyword is equivalent to minmax(min-content, max-content)." />
+        <group type="or" name="height" tooltip="The height of each row specified as one of the following values: A length consisting of an integer number, followed by an absolute units designator (&quot;cm&quot;, &quot;mm&quot;, &quot;in&quot;, &quot;pt&quot;, or &quot;pc&quot;) or a relative units designator (&quot;em&quot;, &quot;ex&quot;, or &quot;px&quot;). A percentage of the object height. A proportion of the remaining vertical space (that is, the object height, less the combined heights of other tracks), consisting of an integer number followed by a fractional designator (&quot;fr&quot;). For example, if &quot;200px 1fr 2fr&quot; is specified, the first row is allocated 200 pixels, and the second and third rows are allocated 1/3 and 2/3 of the remaining height, respectively.">
+          <length />
+          <percentage />
+        </group>
+        <name value="min-content" tooltip="The minimum height of any child elements is used as the height of the row." />
+        <name value="max-content" tooltip="The maximum height of any child elements is used as the height of the row." />
+        <invoke id="minmax" />
+      </group>
+      <name value="none" tooltip="Initial value. The object has no specified rows. Implicit, auto-sized rows will still be created based on the grid position(s) of the child element(s)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-grid-row-span" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772260(v=vs.85).aspx" applies="grid item elements" initial="1" inherited="no" percentage="N/A" media="visual paged" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that specifies the number of rows of the grid that the object spans. </p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-high-contrast-adjust" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771863(v=vs.85).aspx" applies="All elements" initial="auto" inherited="yes" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that indicates whether to override any Cascading Style Sheets (CSS) properties that would have been set in
+        high contrast mode.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Indicates the applicable CSS properties will be adjusted as expected when the system is in high contrast mode." />
+      <name value="none" tooltip="Indicates the applicable CSS properties will not be adjusted when the system is in high contrast mode." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-hyphenate-limit-chars" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771865(v=vs.85).aspx" applies="All elements" initial="auto" inherited="yes" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies one to three values that indicates the minimum number of characters in a hyphenated word. If the word does not meet the
+        required minimum number of characters in the word, before the hyphen, or after the hyphen, then the word is not hyphenated.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Corresponds to a value of 5 2 2, indicating a 5-character word limit, 2 characters required before a hyphenation break, and 2 characters required following a hyphenation break." />
+      <integer max="3" min-value="0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-hyphenate-limit-lines" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771867(v=vs.85).aspx" applies="block containers" initial="no-limit" inherited="yes" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies a value that indicates the maximum number of consecutive lines in an element that may be ended with a hyphenated
+        word.</p>
+      ]]></description>
+    <group type="or">
+      <name value="no-limit" tooltip="Indicates that hyphenation is not limited based on the number of consecutive hyphenated lines. In the flow above the consecutive hyphenated lines limit would be an infinitely large positive number." />
+      <integer min-value="0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-hyphenate-limit-zone" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771869(v=vs.85).aspx" applies="block containers" initial="0" inherited="yes" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies a value that defines the width of the hyphenation zone.</p>
+      ]]></description>
+    <group type="or">
+      <percentage min-value="0" />
+      <length min-value="0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-layout-flow" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530770(v=vs.85).aspx" applies="All elements" initial="horizontal" inherited="yes" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies the direction and flow of the content in the object.</p>
+      ]]></description>
+    <group type="or">
+      <name value="horizontal" tooltip="Default. Content in the object flows from left to right, and the next horizontal line is positioned underneath the previous line. This layout is used in most Roman-based documents." />
+      <name value="vertical-ideographic" tooltip="Content in the object flows from top to bottom, and the next vertical line appears to the left of the previous one. This layout is used in East Asian typography." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="-ms-layout-grid" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530771(v=vs.85).aspx" applies="All elements" initial="both loose none none" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Specifies the composite document grid properties that specify the layout of text characters.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-ms-layout-grid-mode" tooltip="Any of the range of mode values available to the -ms-layout-grid-mode property." />
+        <property id="-ms-layout-grid-type" tooltip="Any of the range of type values available to the -ms-layout-grid-type property." />
+        <property id="-ms-layout-grid-line" tooltip="Any of the range of line values available to the -ms-layout-grid-line property." />
+        <property id="-ms-layout-grid-char" tooltip="Any of the range of character values available to the -ms-layout-grid-char property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-layout-grid-char" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530772(v=vs.85).aspx" applies="All elements" initial="none" inherited="no" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies the size of the character grid used for rendering the text content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default. No character grid is set." />
+      <name value="auto" tooltip="Largest character in the font of the element is used to set the character grid." />
+      <length />
+      <percentage />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-layout-grid-line" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530773(v=vs.85).aspx" applies="All elements" initial="none" inherited="no" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies the gridline value used for rendering the text content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Default. No grid line is set." />
+      <name value="auto" tooltip="Largest character in the font of the element is used to set the character grid." />
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-layout-grid-mode" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530774(v=vs.85).aspx" applies="All elements" initial="both" inherited="yes" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies whether the text layout grid uses two dimensions.</p>
+      ]]></description>
+    <group type="or">
+      <name value="both" tooltip="Default. Both the char and line grid modes are enabled. This setting is necessary to fully enable the layout grid on an element." />
+      <name value="none" tooltip="No grid is used." />
+      <name value="line" tooltip="Only a line grid is used. This is recommended for use with inline elements, such as a span, to disable the horizontal grid on runs of text that act as a single entity in the grid layout." />
+      <name value="char" tooltip="Only a character grid is used. This is recommended for use with block-level elements, such as a blockquote, where the line grid is intended to be disabled." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-layout-grid-type" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530775(v=vs.85).aspx" applies="All elements" initial="loose" inherited="yes" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Specifies the type of grid used for rendering the text content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="loose" tooltip="Default. Grid used for Japanese and Korean characters. In this mode, a constant width increment is applied to characters as follows: Wide characters and narrow kana characters are incremented to obtain an exact grid fit, as specified by the -ms-layout-grid-char property. Other narrow characters, except connected and cursive characters, are incremented by half of the increment amount applied to wide characters. Other characters, including connected and cursive characters, are not incremented, and behave as if no character grid is set." />
+      <name value="strict" tooltip="Grid used for Chinese, as well as Japanese (Genko) and Korean characters. Only the ideographs, kanas, and wide characters are snapped to the grid. Other characters are rendered as usual, as though the -ms-layout-grid-mode attribute is set to none or line for text spans containing these characters. This mode also disables special text justification and character width adjustments normally applied to the element. Finally, if there is no line-break opportunity in a text span that exceeds the line boundary, the text is pushed to the next line and the last part of the previous line is left blank." />
+      <name value="fixed" tooltip="Grid used for monospaced layout. The layout rules are as follows: All noncursive characters are treated as equal; every character is centered within a single grid space by default. Runs of cursive characters are treated as strips the same as in a strict grid. Justification or any other character-width changing behaviors are disabled." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-overflow-style" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh771902(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="auto" inherited="yes" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Gets or sets the scrolling behavior for elements that overflow. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Initial value. Indicates the element inherits its -ms-overflow-style from its parent element. In Internet Explorer for the desktop, on the root element, auto behaves like scrollbar. In Internet Explorer in the Windows UI, on the root element, auto behaves like -ms-autohiding-scrollbar." />
+      <name value="none" tooltip="Indicates the element does not display scrollbars or panning indicators, even when its content overflows. Unlike overflow: hidden, elements with -ms-overflow-style: none can still be scrolled via touch panning, keyboard, or mouse wheel." />
+      <name value="scrollbar" tooltip="Indicates the element displays a classic scrollbar-type control when its content overflows. Unlike -ms-autohiding-scrollbar, scrollbars on elements with the -ms-overflow-style property set to scrollbar always appear on the screen and do not fade out when the element is inactive. Scrollbars do not overlay content, and therefore take up extra layout space along the edges of the element where they appear." />
+      <name value="-ms-autohiding-scrollbar" tooltip="Indicates the element displays auto-hiding scrollbars during mouse interactions and panning indicators during touch and keyboard interactions. Auto-hiding scrollbars overlay content, and therefore do not require extra layout space." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-progress-appearance" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh781491(v=vs.85).aspx" applies="" initial="bar" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property is obsolete. Use animation-name instead.</p>
+      ]]></description>
+    <group type="or">
+      <name value="bar" tooltip="Default. The progress control appears as a progress bar. Use this style for determinate tasks and for indeterminate, non-modal tasks." />
+      <name value="ring" tooltip="The progress control appears as a progress ring. Use this style for indeterminate, modal tasks." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="ruby-overhang" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531151(v=vs.85).aspx" applies="All elements" initial="auto" inherited="no" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Gets or sets a value that indicates whether, and on which side, ruby text is allowed to partially overhang any adjacent text in
+        addition to its own base, when the ruby text is wider than the ruby base.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Default. Ruby text overhangs any other text adjacent to the base text." />
+      <name value="whitespace" tooltip="Ruby text overhangs only white-space characters." />
+      <name value="none" tooltip="Ruby text overhangs only text adjacent to its base." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-chaining" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772034(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="chained" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the scrolling behavior that occurs when a user hits the scroll limit during a manipulation.</p>
+      ]]></description>
+    <group type="or">
+      <name value="chained" tooltip="Initial value. The nearest scrollable parent element begins scrolling when the user hits a scroll limit during a manipulation. No bounce effect is shown." />
+      <name value="none" tooltip="A bounce effect is shown when the user hits a scroll limit during a manipulation." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="-ms-scroll-limit" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127336(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="(see individual properties)" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies values for the -ms-scroll-limit-x-min, -ms-scroll-limit-y-min, -ms-scroll-limit-x-max, and -ms-scroll-limit-y-max
+        properties.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-ms-scroll-limit-x-min" tooltip="Value of the -ms-scroll-limit-x-min property." />
+        <property id="-ms-scroll-limit-y-min" tooltip="Value of the -ms-scroll-limit-y-min property." />
+        <property id="-ms-scroll-limit-x-max" tooltip="Value of the -ms-scroll-limit-x-max property." />
+        <property id="-ms-scroll-limit-y-max" tooltip="Value of the -ms-scroll-limit-y-max property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-limit-x-max" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127337(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="0" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the maximum value for the scrollLeft property.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The maximum value for the scrollLeft property is equal to scrollWidth." />
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-limit-x-min" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127338(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="0" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the minimum value for the scrollLeft property. This property has no effect on non-scrollable elements.</p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-limit-y-max" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127339(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="0" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the maximum value for the scrollTop property.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The maximum value for the scrollTop property is equal to scrollHeight." />
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-limit-y-min" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127340(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="none" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies the minimum value for the scrollTop property. This property has no effect on non-scrollable elements.</p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-rails" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772035(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="railed" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies whether scrolling locks to the primary axis of motion.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Content moves exactly with the user's finger. This value allows free-form panning." />
+      <name value="railed" tooltip="Initial value. Panning locks to the primary axis of motion." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-snap-points-x" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772036(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="snapInterval(0px, 100%);" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Defines where snap-points will be located along the <em>x</em>-axis.</p>
+      ]]></description>
+    <group type="or">
+      <invoke id="snapInterval" />
+      <invoke id="snapList" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-snap-points-y" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772037(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="snapInterval(0px, 100%);" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Defines where snap-points will be located along the <em>y</em>-axis.</p>
+      ]]></description>
+    <group type="or">
+      <invoke id="snapInterval" />
+      <invoke id="snapList" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-snap-type" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772038(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="none" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies what type of snap-point should be used for the current element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Initial value. Panning and scrolling are unaffected by any defined snap-points. Touch flicks will result in normal inertia." />
+      <name value="proximity" tooltip="When normal inertia would leave content near a snap point, inertia is adjusted to land exactly on the snap point. However, it is still possible to land between snap points." />
+      <name value="mandatory" tooltip="Inertia is adjusted to ensure content always lands on a snap point." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="-ms-scroll-snap-x" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772039(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="(see individual properties)" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies values for the -ms-scroll-snap-type and -ms-scroll-snap-points-x properties.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-ms-scroll-snap-type" tooltip="Value of the -ms-scroll-snap-type property." />
+        <property id="-ms-scroll-snap-points-x" tooltip="Value of the -ms-scroll-snap-points-x property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- todo: shorthand -->
+  <property id="-ms-scroll-snap-y" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772040(v=vs.85).aspx" applies="non-replaced block-level elements and non-replaced inline-block elements" initial="(see individual properties)" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies values for the -ms-scroll-snap-type and -ms-scroll-snap-points-y properties.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-ms-scroll-snap-type" tooltip="Value of the -ms-scroll-snap-type property." />
+        <property id="-ms-scroll-snap-points-y" tooltip="Value of the -ms-scroll-snap-points-y property." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scroll-translation" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh973361(v=vs.85).aspx" applies="All elements" initial="inherit" inherited="yes" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies whether vertical-to-horizontal scroll wheel translation occurs on the specified element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="vertical-to-horizontal" tooltip="Vertical to horizontal translation, as described in Remarks, will take place when appropriate." />
+      <name value="none" tooltip="No scroll wheel translation takes place." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-combine-horizontal" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/dn337005(v=vs.85).aspx" applies="non-replaced inline elements" initial="none" inherited="yes" percentage="N/A" media="visual" browsers="IE11.0">
+    <description><![CDATA[
+      <p>Allows for the combination of multiple characters into the space of a single character in vertical writing modes.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Initial value. No special processing requested." />
+      <name value="all" tooltip="Within a vertical writing mode, attempt to display the entire contents of an inline element horizontally within the vertical line box." />
+      <group>
+        <name value="digits" tooltip="Each sequence of consecutive ASCII digits (U+0030–U+0039) with equal or fewer characters as the specified integer value will be treated within the element like an anonymous inline box with 'text-combine-horizontal: all'. If no integer is specified, 2 is used." />
+        <integer min="0" min-value="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-kashida-space" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531173(v=vs.85).aspx" applies="All elements" initial="0%" inherited="yes" percentage="N/A" media="visual" browsers="IE9.0">
+    <description><![CDATA[
+      <p>Deprecated. Specifies the ratio of kashida expansion to white space expansion when justifying lines of text in the object.</p>
+      ]]></description>
+    <group type="or">
+      <percentage min-value="0" max-value="100" tooltip="An integer, followed by a %. The value is the ratio of kashida expansion to white space expansion. 100% specifies kashida expansion only, and 0% specifies white space expansion only" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-underline-position" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531176(v=vs.85).aspx" applies="All elements" initial="auto" inherited="yes" percentage="N/A" media="visual" browsers="IE6.0">
+    <description><![CDATA[
+      <p>Specifies the position of the underline decoration that is set through the text-decoration property of the object.</p>
+      ]]></description>
+    <group type="or">
+      <name value="above" tooltip="Decoration appears above the text." />
+      <name value="below" tooltip="Decoration appears below the text." />
+      <name value="auto" tooltip="Default. Internet Explorer 6 and later. Decoration appears above the text if the LANG attribute is set to ja, which is the language code abbreviation for the Japanese language, and the -ms-writing-mode attribute is set to tb-rl, which causes vertical inline text progression. If not, the decoration appears below the text." />
+      <name value="auto-pos" tooltip="Internet Explorer 6 and later. Identical to auto." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-underline-position" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531176(v=vs.85).aspx" applies="All elements" initial="auto" inherited="yes" percentage="N/A" media="visual" browsers="IE8.0">
+    <group type="or">
+      <property id="-ms-text-underline-position" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="ms-touch-action-value" declared-in="0">
+    <group type="or">
+      <name value="auto" tooltip="Initial value. Indicates the browser will determine the permitted touch behaviors for the element." />
+      <name value="none" tooltip="The element permits no default touch behaviors." />
+      <group type="any">
+        <group type="or">
+          <group type="any">
+            <group type="or">
+              <name value="pan-x" tooltip="The element permits touch-driven panning on the horizontal axis. The touch pan is performed on the nearest ancestor with horizontally scrollable content." />
+              <name value="cross-slide-x" tooltip="The element permits cross-sliding along the horizontal axis." />
+            </group>
+            <group type="or">
+              <name value="pan-y" tooltip="The element permits touch-driven panning on the vertical axis. The touch pan is performed on the nearest ancestor with vertically scrollable content." />
+              <name value="cross-slide-y" tooltip="The element permits cross-sliding along the vertical axis." />
+            </group>
+            <name value="pinch-zoom" tooltip="The element permits pinch-zooming. The pinch-zoom is performed on the nearest ancestor with zoomable content. For more information about specifying content as zoomable, see the -ms-content-zooming property." min="0" />
+          </group>
+          <name value="manipulation" tooltip="The element permits touch-driven panning and pinch-zooming. This is the shorthand equivalent of &quot;pan-x pan-y pinch-zoom&quot;." />
+        </group>
+        <name value="double-tap-zoom" min="0" tooltip="The element permits double-tap-zooming. The double-tap-zoom is performed on the full page. Double-tap-zoom is not available in Windows Store apps using JavaScript." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </named-value>
+  <property id="touch-action" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772044(v=vs.85).aspx" applies="All elements" initial="auto" inherited="no" percentage="N/A" media="interactive" browsers="IE11.0">
+    <description><![CDATA[
+      <p>Specifies whether and how a given region can be manipulated by the user (for instance, by panning or zooming).</p>
+      ]]></description>
+    <inline id="ms-touch-action-value" inline="yes" />
+  </property>
+  <property id="-ms-touch-action" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772044(v=vs.85).aspx" applies="All elements" initial="auto" inherited="no" percentage="N/A" media="interactive" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Specifies whether and how a given region can be manipulated by the user (for instance, by panning or zooming).</p>
+      ]]></description>
+    <inline id="ms-touch-action-value" inline="yes" />
+  </property>
+  <property id="position" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531140(v=vs.85).aspx" applies="All elements" initial="static" inherited="no" percentage="N/A" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>Sets or retrieves the type of positioning used for the object. </p>
+      ]]></description>
+    <group type="or">
+      <name value="static" tooltip="Default. Object has no special positioning; it follows the layout rules of HTML." />
+      <name value="relative" tooltip="Object is positioned according to the normal flow, and then offset by the top and left properties." />
+      <name value="absolute" tooltip="Object is positioned relative to parent element's position—or to the body object if its parent element is not positioned—using the top and left properties." />
+      <name value="fixed" browsers="IE7" tooltip="Starting in Internet Explorer 7. Object is positioned relative to the layout viewport containing the content. Its positioning and display are unaffected by user panning, but affected by user zooming actions." />
+      <name value="page" browsers="IE10.0" tooltip="Internet Explorer 10. Object is positioned relative to the nearest initial containing block. This may be the viewport or a content container such as an iframe. The positioning properties are used to position the element relative to the boundaries of the viewport area. For more information, see Section 6.4 &quot;Page positioning&quot; of the &quot;W3C CSS Positioned Layout Module Level 3&quot; specification." />
+      <name value="-ms-device-fixed" browsers="IE11" tooltip="IE11. Object is positioned relative to the visual viewport containing the content. Its positioning and display are unaffected by user panning actions as well as user zooming actions." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-ime-mode" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530767(v=vs.85).aspx" applies="All elements" initial="auto" inherited="yes" percentage="N/A" media="visual" browsers="IE5.0">
+    <description><![CDATA[
+      <p>Specifies the state of an Input Method Editor (IME).</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Default. IME is not affected. This is the same as not specifying the -ms-ime-mode attribute." />
+      <name value="active" tooltip="All characters are entered through the IME. Users can still deactivate the IME." />
+      <name value="inactive" tooltip="All characters are entered without IME. Users can still activate the IME." />
+      <name value="disabled" tooltip="IME is completely disabled. Users cannot activate the IME if the control has focus." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="accelerator" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530713(v=vs.85).aspx" inherited="no" applies="All elements" media="visual" browsers="IE11">
+    <description><![CDATA[
+      <p>Sets or retrieves a string that indicates whether the object represents a keyboard shortcut.</p>
+      ]]></description>
+    <group type="or">
+      <name value="false" />
+      <name value="true" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="accelerator" prefix="ms" browsers="IE11" />
+  <property id="-ms-box-ordinal-group" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-box-ordinal-group" initial="1">
+    <description><![CDATA[
+      <p>Specifies a rough ordering of elements in a flexible box.</p>
+      <p>Elements with lower ordinal group values are displayed first.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" tooltip="The ordinal group number of the element. Integer, nonnegative value." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-ime-align" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/dn433242(v=vs.85).aspx" inherited="no" initial="auto" media="visual">
+    <group type="or">
+      <name value="auto" tooltip="Initial value. The IME may align the candidate window in any manner." />
+      <name value="after" tooltip="The IME should attempt to align the candidate window below the element (in left-to-right and right-to-left layouts)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property declared-in="0" id="-ms-flex-order" applies="flex items and absolutely-positioned children of flex containers" initial="0" inherited="no" percentage="" media="visual" browsers="IE10.0">
+    <description><![CDATA[
+      <p>The order property controls the order in which flex items appear within their flex container, by assigning them to ordinal groups.
+        It takes a single <dfn class="css-code" id="valuedef-integer">&lt;integer&gt;</dfn>
+        value, which specifies which ordinal group the flex item belongs to.</p>
+      ]]></description>
+    <group type="or">
+      <integer />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-flex-align" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj127298(v=vs.85).aspx" browsers="IE10.0" applies="flex containers" media="visual" inherited="no" initial="stretch">
+    <description><![CDATA[
+      <p>Specifies the alignment value (perpendicular to the layout axis defined by the flex-direction property) of flex items in the flex
+        container. Replaced with flex-align since IE 11.0.</p>
+      ]]></description>
+    <group type="or">
+      <name value="stretch" />
+      <name value="start" />
+      <name value="end" />
+      <name value="center" />
+      <name value="baseline" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-flex-pack" declared-in="0" browsers="IE10.0">
+    <description><![CDATA[
+<p>Replaced with <see cref="P:justify-content"/>.</p>
+]]></description>
+    <group type="or">
+      <name value="end" />
+      <name value="start" />
+      <name value="justify" />
+      <name value="center" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-transform" declared-in="0">
+    <group type="or">
+      <name value="none" />
+      <inline id="transform-function" min="1" max="-1" />
+    </group>
+  </property>
+  <property id="scrollbar-3dlight-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531153(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-3dlight-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-3dlight-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531153(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-arrow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531154(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-arrow-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-arrow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531154(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-base-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531155(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-base-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-base-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531155(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-darkshadow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531156(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-darkshadow-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-darkshadow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531156(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-face-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531157(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-face-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-face-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531157(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-highlight-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531158(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-highlight-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-highlight-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531158(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-shadow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531159(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-shadow-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-shadow-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531159(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="scrollbar-track-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531160(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-scrollbar-track-color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-scrollbar-track-color" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531160(VS.85).aspx" media="visual">
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-autospace" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531164(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-text-autospace" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-autospace" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531164(VS.85).aspx" media="visual">
+    <group type="or">
+      <name value="none" tooltip="Default. No effect takes place—that is, no extra space is added." />
+      <name value="ideograph-alpha" tooltip="Creates extra spacing between runs of ideographic and non-ideographic text, such as Latin-based, Cyrillic, Greek, Arabic, or Hebrew text." />
+      <name value="ideograph-numeric" tooltip="Creates extra spacing between runs of ideographic text and numeric characters." />
+      <name value="ideograph-parenthesis" tooltip="Creates extra spacing between a normal (non-wide) parenthesis and an ideograph." />
+      <name value="ideograph-space" tooltip="Extends the width of the space character when it is adjacent to ideographs." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-overflow" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531174(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-text-overflow" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-overflow" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531174(VS.85).aspx" media="visual">
+    <group type="or">
+      <name value="clip" tooltip="Default. Simply clip the content and do not display ellipses for text overflow." />
+      <name value="ellipsis" tooltip="Display ellipses(...) for text overflow." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="behavior" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530723(v=vs.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-behavior" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-behavior" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms530723(v=vs.85).aspx" applies="All elements" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Sets or retrieves the location of the Dynamic HTML (DHTML) behaviorDHTML Behaviors.</p>
+      ]]></description>
+    <group type="or">
+      <invoke id="url" min="1" max="-1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="zoom" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531189(VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-zoom" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-zoom" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531189(v=vs.85).aspx" applies="All elements" initial="normal" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Specifies the magnification scale of the object.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Default. Magnification scale is normal. The object renders normal size." />
+      <number tooltip="Floating-point number that specifies the magnification scale, where 1.0 is normal." />
+      <percentage tooltip="Integer, followed by a %. The value is a percentage of the magnification scale, where 100% is normal." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="filter" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms530752(v=VS.85).aspx" media="visual">
+    <group type="or">
+      <property id="-ms-filter" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-filter" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532967(VS.85).aspx" media="visual">
+    <group type="or">
+      <group>
+        <group type="or">
+          <name value="none" />
+          <string />
+          <inline id="procedural-surface" />
+          <inline id="static-filter" />
+          <inline id="transition" />
+        </group>
+        <group min="0" max="-1">
+          <text value="," min="0" />
+          <group type="or">
+            <name value="none" />
+            <string />
+            <inline id="procedural-surface" />
+            <inline id="static-filter" />
+            <inline id="transition" />
+          </group>
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-text-size-adjust" declared-in="0" url="https://msdn.microsoft.com/library/windows/apps/ff462082(v=vs.105).aspx" applies="all elements" initial="auto" inherited="yes" percentage="see below" media="visual" browsers="IE11">
+    <description><![CDATA[
+      <p>Internet Explorer for Windows Phone gives developers the option to control the webpage text size by setting the 
+      –ms-text-size-adjust CSS property. When the user double-taps a page element, Internet Explorer for Windows Phone scales the viewport 
+      to position the double-tapped element within the visible area of the screen. The corresponding text also is scaled to a legible size. 
+      Developers may choose to either control the adjusted text size or turn it off.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Is a keyword preventing the usage of the inflation algorithm on the element. Basically, this means that the element will be displayed without its font inflated. On desktop Webkit-based browsers, this will only prevent any zoom on the whole page." />
+      <name value="auto" tooltip="Is a keyword allowing the usage of the inflation algorithm on the element. Browsers are not forced to use it and they won't do it on desktops and on some tablets. Its main use is to cancel a none value previously set." />
+      <percentage tooltip="A percentage value is a synonym of the auto keyword, with the additional information that the percentage value is the increase rate to be applied to the font size when the inflation algorithm is applied." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="ms-text-justify-values" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms531172(VS.85).aspx">
+    <description>Specifies the type of alignment used to justify text in the object.</description>
+    <group type="or">
+      <name value="auto" tooltip="Default. Allows the browser to determine which justification algorithm to apply." />
+      <name value="distribute" tooltip="Handles spacing much like the newspaper value. This form of justification is optimized for documents in Asian languages, such as Thai." />
+      <name value="distribute-all-lines" tooltip="Justifies lines of text in the same way as the distribute value, except that it also justifies the last line of the paragraph. This form of justification is intended for ideographic text." />
+      <name value="distribute-center-last" tooltip="Not implemented." />
+      <name value="inter-cluster" tooltip="Justifies lines of text that contain no inter-word spacing. This form of justification is optimized for documents in Asian languages." />
+      <name value="inter-ideograph" tooltip="Justifies lines of ideographic text, and increases or decreases both inter-ideograph and inter-word spacing." />
+      <name value="inter-word" tooltip="Aligns text by increasing the space between words. This value's spacing behavior is the fastest way to make all lines of text equal in length. Its justification behavior does not affect the last line of the paragraph." />
+      <name value="kashida" tooltip="Justifies lines of text by elongating characters at chosen points. This form of justification is intended for Arabic script languages. Supported starting in Internet Explorer 5.5." />
+      <name value="newspaper" tooltip="Increases or decreases the spacing between letters and between words. It is the most sophisticated form of justification for Latin alphabets." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </named-value>
+  <property id="-ms-text-justify" declared-in="0" browsers="IE8" url="http://msdn.microsoft.com/en-us/library/ms531172(VS.85).aspx" media="visual" inherited="yes" initial="auto">
+    <inline id="ms-text-justify-values" inline="yes" />
+  </property>
+  <property id="text-justify" declared-in="0" browsers="IE9" url="http://msdn.microsoft.com/en-us/library/ms531172(VS.85).aspx" media="visual" inherited="yes" initial="auto">
+    <inline id="ms-text-justify-values" inline="yes" />
+  </property>
+  <property id="-ms-underline-position" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/ms531176%28v=vs.85%29.aspx" media="visual" initial="auto" inherited="yes" applies="all elements">
+    <group type="or">
+      <name value="above" tooltip="Decoration appears above the text." />
+      <name value="below" tooltip="Decoration appears below the text." />
+      <name value="auto" tooltip="Default. Internet Explorer 6 and later. " />
+      <name value="auto-pos" tooltip="Internet Explorer 6 and later. Identical to auto." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-ms-interpolation-mode" declared-in="2.1" url="http://msdn.microsoft.com/en-us/library/ms530822(VS.85).aspx" media="visual">
+    <group type="or">
+      <name value="bicubic" tooltip="Always use high-quality bicubic interpolation mode." />
+      <name value="nearest-neighbor" tooltip="Always use nearest neighbor interpolation mode." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="animation-name" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh466317.aspx" browsers="E20" applies="block-level and inline-level elements" initial="none" inherited="no" percentage="N/A" media="visual">
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <inline id="single-animation-name" />
+        <name value="-ms-bar" tooltip="Windows Store app using JavaScript only. Changes the appearance of the indeterminate progress control to a bar." />
+        <name value="-ms-ring" tooltip="Windows Store app using JavaScript only. Changes the appearance of the indeterminate progress control to a ring." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- CSS functions -->
+  <function id="expression" declared-in="0" dynamic="yes">
+    <javaScript />
+  </function>
+  <function id="alphaImageLoader" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532969(VS.85).aspx" tooltip="Displays an image within the boundaries of the object and between the object background and content, with options to clip or resize the image.">
+    <description><![CDATA[
+      <p>When loading a Portable Network Graphics (PNG) image, tranparency from zero to 100 percent is supported.The <b>src</b> property has
+        no default and must be defined for this filter to affect the object's display.</p>
+      ]]></description>
+    <group type="any">
+      <separator>
+        <text value="," />
+      </separator>
+      <group>
+        <name value="src" tooltip="Sets the URL of an image that the 'alphaImageLoader' filter loads." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or" name="&lt;uri&gt;">
+          <string />
+          <any max="-1">
+            <exclusion>
+              <text value="," />
+            </exclusion>
+          </any>
+        </group>
+      </group>
+      <group>
+        <name value="sizingMethod" tooltip="Sets the manner in which to display an image within the boundary of the object that the 'alphaImageLoader' filter is applied to." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or">
+          <text value="crop" tooltip="Clips the image to fit the dimensions of the object." />
+          <text value="image" tooltip="Default. Enlarges or reduces the border of the object to fit the dimensions of the image." />
+          <text value="scale" tooltip="Stretches or shrinks the image to fill the borders of the object." />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="gradient" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532997(VS.85).aspx" tooltip="Displays a color gradient between the object's background and content.">
+    <group type="any">
+      <separator>
+        <text value="," />
+      </separator>
+      <group>
+        <name value="Enabled" tooltip="Indicates whether the filter is enabled" />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or">
+          <text value="true" tooltip="Default. Filter is enabled." />
+          <text value="false" tooltip="Filter is disabled." />
+        </group>
+      </group>
+      <group>
+        <name value="EndColor" tooltip="The final opaque color for a gradient surface." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="EndColorStr" tooltip="The final opaque color for a gradient surface." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or" name="color">
+          <color />
+          <inline id="named-color" />
+          <string name="'#rgb'" />
+        </group>
+      </group>
+      <group>
+        <name value="StartColor" tooltip="the initial opaque color for a gradient surface." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="StartColorStr" tooltip="the initial opaque color for a gradient surface." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or" name="color">
+          <string name="'#rgb'" />
+          <color />
+          <inline id="named-color" />
+        </group>
+      </group>
+      <group>
+        <name value="GradientType" tooltip="Orientation of the gradient." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or">
+          <text value="0" tooltip="Default. Displays a vertical gradient." />
+          <text value="1" tooltip="Displays a horizontal gradient." />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="alpha" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532967(VS.85).aspx" tooltip="Adjusts the opacity of the content of the object.">
+    <group type="any">
+      <separator>
+        <text value="," />
+      </separator>
+      <group>
+        <name value="opacity" tooltip="Sets the opacity level at the beginning of the gradient applied with the 'alpha' filter." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="finishOpacity" tooltip="Sets the opacity level at the end of the gradient applied with the 'alpha' filter." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="finishX" tooltip="Sets the horizontal position at which the opacity gradient ends." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="finishY" tooltip="Sets the vertical position at which the opacity gradient ends." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="startX" tooltip="Sets the horizontal position at which the opacity gradient starts." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="startY" tooltip="Sets the vertical position at which the opacity gradient starts." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <integer />
+      </group>
+      <group>
+        <name value="style" tooltip="Sets the shape characteristics of the opacity gradient." />
+        <group type="or" name="=">
+          <text value="=" />
+          <text value=":" />
+        </group>
+        <group type="or">
+          <text value="0" tooltip="Default. Uniform opacity gradient." />
+          <text value="1" tooltip="Linear opacity gradient." />
+          <text value="2" tooltip="Radial opacity gradient." />
+          <text value="3" tooltip="Rectangular opacity gradient." />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="basicImage" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="blendTrans" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532974(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="blur" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="chroma" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="compositor" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="dropShadow" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="emboss" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="engrave" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="flipH" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="flipV" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="glow" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532995(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="gray" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533003(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="iCMFilter" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="invert" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533008(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="light" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="mask" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533013(VS.85).aspx">
+    <group min="0">
+      <name value="color" />
+      <group type="or">
+        <text value="=" />
+        <text value=":" />
+      </group>
+      <group type="or" name="color">
+        <string name="'#rgb'" />
+        <color />
+        <inline id="named-color" />
+      </group>
+    </group>
+  </function>
+  <function id="maskFilter" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533013(VS.85).aspx">
+    <group min="0">
+      <name value="color" />
+      <group type="or">
+        <text value="=" />
+        <text value=":" />
+      </group>
+      <group type="or" name="color">
+        <string name="'#rgb'" />
+        <color />
+        <inline id="named-color" />
+      </group>
+    </group>
+  </function>
+  <function id="matrix" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="motionBlur" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="redirect" declared-in="0" obsolete-in="1.0" obsolete-tooltip="Not currently supported." url="http://msdn.microsoft.com/en-us/library/ms533084(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="revealTrans" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533085(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="shadow" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="wave" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="xray" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms533093(VS.85).aspx">
+    <any min="0" max="-1" />
+  </function>
+  <function id="barn" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="blinds" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="checkerBoard" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="fade" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="gradientWipe" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="inset" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="iris" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="pixelate" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="radialWipe" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="randomBars" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="randomDissolve" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="slide" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="spiral" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="stretch" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="strips" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="wheel" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <function id="zigzag" declared-in="0">
+    <any min="0" max="-1" />
+  </function>
+  <named-value id="procedural-surface" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532853(VS.85).aspx">
+    <group>
+      <group ignoreWhitespaces="no" min="0">
+        <name value="progid" />
+        <text value=":" />
+        <name value="DXImageTransform" />
+        <text value="." />
+        <name value="Microsoft" />
+        <text value="." />
+      </group>
+      <group type="or">
+        <invoke id="alphaImageLoader" />
+        <invoke id="gradient" />
+      </group>
+    </group>
+  </named-value>
+  <named-value id="static-filter" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532853(VS.85).aspx">
+    <group type="or">
+      <group>
+        <group ignoreWhitespaces="no" min="0">
+          <name value="progid" />
+          <text value=":" />
+          <name value="DXImageTransform" />
+          <text value="." />
+          <name value="Microsoft" />
+          <text value="." />
+        </group>
+        <group type="or">
+          <invoke id="alpha" />
+          <invoke id="basicImage" />
+          <invoke id="blendTrans" />
+          <invoke id="blur" />
+          <invoke id="chroma" />
+          <invoke id="compositor" />
+          <invoke id="dropShadow" />
+          <invoke id="emboss" />
+          <invoke id="engrave" />
+          <invoke id="flipH" />
+          <invoke id="flipV" />
+          <invoke id="glow" />
+          <invoke id="gray" />
+          <invoke id="iCMFilter" />
+          <invoke id="invert" />
+          <invoke id="light" />
+          <invoke id="mask" />
+          <invoke id="maskFilter" />
+          <invoke id="matrix" />
+          <invoke id="motionBlur" />
+          <invoke id="redirect" />
+          <invoke id="revealTrans" />
+          <invoke id="shadow" />
+          <invoke id="wave" />
+          <invoke id="xray" />
+        </group>
+      </group>
+    </group>
+  </named-value>
+  <named-value id="transition" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ms532853(VS.85).aspx">
+    <group>
+      <group ignoreWhitespaces="no" min="0">
+        <name value="progid" />
+        <text value=":" />
+        <name value="DXImageTransform" />
+        <text value="." />
+        <name value="Microsoft" />
+        <text value="." />
+      </group>
+      <group type="or">
+        <invoke id="barn" />
+        <invoke id="blinds" />
+        <invoke id="checkerBoard" />
+        <invoke id="fade" />
+        <invoke id="gradientWipe" />
+        <invoke id="inset" />
+        <invoke id="iris" />
+        <invoke id="pixelate" />
+        <invoke id="radialWipe" />
+        <invoke id="randomBars" />
+        <invoke id="randomDissolve" />
+        <invoke id="slide" />
+        <invoke id="spiral" />
+        <invoke id="stretch" />
+        <invoke id="strips" />
+        <invoke id="wheel" />
+        <invoke id="zigzag" />
+      </group>
+    </group>
+  </named-value>
+  <pseudo-class id="-ms-input-placeholder" browsers="IE10.0" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/hh772745.aspx" tooltip="represents any form element displaying placeholder text">
+    <description><![CDATA[
+      The <b>:-ms-input-placeholde</b> pseudo-class represents any form element displaying
+      placeholder text. This allows web developers and theme designers to customize the appearance of placeholder text,
+      which is a light grey color by default.
+      This may not work well if you've changed the background color of your form fields to be a similar color,
+      for example, so you can use this pseudo-class to change the placeholder text color.
+      <br/><br/>See also :<see cref="PC:-moz-placeholder"/>, ::<see cref="PE:-moz-placeholder"/>, ::<see
+          cref="PE:-webkit-input-placeholder"/>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-ms-keyboard-active" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/jj244638.aspx">
+    <description><![CDATA[
+      <p>Applies one or more styles to an element when it has focus and the user presses the space bar. This pseudo-class is available to
+        the button, input type=button, input type=checkbox, input type=reset, input type=radio, and input type=submit elements.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="-ms-fullscreen" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/dn312073(v=vs.85).aspx" browsers="IE11.0">
+    <description><![CDATA[
+      <p>Sets specific CSS properties for an element in full-screen mode.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-element id="-ms-backdrop" declared-in="0" url="http://msdn.microsoft.com/en-us/library/ie/dn312072(v=vs.85).aspx">
+    <description><![CDATA[
+      <p>Sets the background style for elements displayed in full-screen mode.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-browse" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh779844.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the browse button of an input type=file control.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-check" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465739.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the check of a checkbox or radio button input control.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-clear" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465740.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the clear button of a text input control. The clear button is shown only when the text input control
+        has focus and is not empty.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-expand" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465742.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the drop-down button of a select control.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-fill" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465757.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the progress control. All styles are applied to the bar portion of the determinate progress bar,
+        except for the <see cref="P:animation-name"/> style property, which controls the animation of the indeterminate progress control.
+      </p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-fill-lower" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465745.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to portion of the track of a input type=range control (also known as a slider control). The styles are
+        applied to the control's track from its smallest value up to the value currently selected by the thumb. In a left-to-right layout,
+        this is the portion of the track to the left of the thumb.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-fill-upper" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465748.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to portion of the track of a input type=range control (also known as a slider control). The styles are
+        applied to the control's track from the value currently selected by the thumb up to the slider's largest value. In a left-to-right
+        layout, this is the portion of the track to the right of the thumb.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-reveal" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465773.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the password reveal button of an input type=password control.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-thumb" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465780.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to portion of the input type=range control (also known as a slider control) that the user drags.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-ticks-after" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465789.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the tick marks after the slider track of an input type=range (also known as a slider) control. In a
+        left-to-right layout, these are the ticks below the track. In a top-to-bottom layout, these are the ticks to the right of a
+        track.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-ticks-before" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465796.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the tick marks before the slider track of an input type=range control (also known as a slider
+        control). In a left-to-right layout, these are the ticks above the track. In a top-to-bottom layout, these are the ticks to the left
+        of a track.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-tooltip" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465805.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the tooltip of a slider (input type=range). Note that only display and visibility style properties
+        are applicable for an -ms-tooltip.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-track" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465813.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the track of an input type=range control (also known as a slider control).</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="-ms-value" declared-in="0" url="https://msdn.microsoft.com/en-us/library/windows/apps/hh465820.aspx" browsers="E20">
+    <description><![CDATA[
+      <p>Applies one or more styles to the content of a text or password input control, or a select control.</p>
+      ]]></description>
+  </pseudo-element>
+  <media-feature id="-ms-high-contrast" min-max="no" declared-in="0" media="bitmap" url="http://msdn.microsoft.com/en-us/library/ie/hh771830(v=vs.85).aspx">
+    <group type="or">
+      <name value="active" tooltip="Indicates that the subsequent styling rules will be applied when the system is placed in high contrast mode with any color variation." />
+      <name value="black-on-white" tooltip="Indicates that the subsequent styling rules will be applied when the system is placed in high contrast mode with a black-on-white color variation." />
+      <name value="white-on-black" tooltip="Indicates that the subsequent styling rules will be applied when the system is placed in high contrast mode with a white-on-black color variation." />
+      <name value="none" tooltip="Indicates that the subsequent styling rules will be applied when the system is not in high contrast mode." />
+    </group>
+  </media-feature>
+</definitions>

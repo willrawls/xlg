@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Transforms Module Level 1
+W3C Working Draft, 26 November 2013
+http://www.w3.org/TR/2013/WD-css-transforms-1-20131126/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="transform-function" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#typedef-transform-function" caniuse-ids="transforms2d,transforms3d">
+    <group type="or">
+      <invoke id="matrix" />
+      <invoke id="matrix3d" />
+      <invoke id="translate" />
+      <invoke id="translate3d" />
+      <invoke id="translateX" />
+      <invoke id="translateY" />
+      <invoke id="translateZ" />
+      <invoke id="scale" />
+      <invoke id="scale3d" />
+      <invoke id="scaleX" />
+      <invoke id="scaleY" />
+      <invoke id="scaleZ" />
+      <invoke id="rotate" />
+      <invoke id="rotateX" />
+      <invoke id="rotateY" />
+      <invoke id="rotateZ" />
+      <invoke id="rotate3d" />
+      <invoke id="skew" />
+      <invoke id="skewX" />
+      <invoke id="skewY" />
+      <invoke id="perspective" />
+    </group>
+  </named-value>
+  <named-value id="translation-value" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#typedef-translation-value" caniuse-ids="transforms2d,transforms3d">
+    <description><![CDATA[
+      <p>A &lt;translation-value&gt; or &lt;length&gt; can be a &lt;number&gt; without an unit identifier. In this case the number gets
+        interpreted as "user unit". A user unit in the the initial coordinate system is equivalent to the parent environment’s notion of a
+        pixel unit.</p>
+      ]]></description>
+    <group type="or">
+      <number />
+      <length />
+      <percentage />
+    </group>
+  </named-value>
+  <!-- 2D functions -->
+  <function id="matrix" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-matrix" tooltip="specifies a 2D transformation in the form of a transformation matrix of six values. matrix(a,b,c,d,e,f) is equivalent to applying the transformation matrix [a b c d e f]." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+    </group>
+  </function>
+  <function id="translate" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-translate" tooltip="specifies a 2D translation by the vector [tx, ty], where tx is the first translation-value parameter and ty is the optional second translation-value parameter. If ty is not provided, ty has zero as a value." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <inline id="translation-value" />
+      <inline id="translation-value" min="0" />
+    </group>
+  </function>
+  <function id="translateX" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#typedef-translation-value" tooltip="specifies a translation by the given amount in the X direction." caniuse-ids="transforms2d,transforms3d">
+    <inline id="translation-value" />
+  </function>
+  <function id="translateY" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#typedef-translation-value" tooltip="specifies a translation by the given amount in the Y direction." caniuse-ids="transforms2d,transforms3d">
+    <inline id="translation-value" />
+  </function>
+  <function id="scale" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#typedef-translation-value" tooltip="specifies a 2D scale operation by the [sx,sy] scaling vector described by the 2 parameters. If the second parameter is not provided, it is takes a value equal to the first." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number />
+      <number min="0" />
+    </group>
+  </function>
+  <function id="scaleX" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scalex" tooltip="specifies a scale operation using the [sx,1] scaling vector, where sx is given as the parameter." caniuse-ids="transforms2d,transforms3d">
+    <number />
+  </function>
+  <function id="scaleY" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scaley" tooltip="specifies a scale operation using the [1,sy] scaling vector, where sy is given as the parameter." caniuse-ids="transforms2d,transforms3d">
+    <number />
+  </function>
+  <function id="rotate" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-rotate" tooltip="specifies a 2D rotation by the angle specified in the parameter about the origin of the element, as defined by the transform-origin property." caniuse-ids="transforms2d,transforms3d">
+    <angle />
+  </function>
+  <function id="skew" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scew" tooltip="specifies a skew transformation along the X and Y axes. The first angle parameter specifies the skew on the X axis. The second angle parameter specifies the skew on the Y axis. If the second parameter is not given then a value of 0 is used for the Y angle (ie. no skew on the Y axis).">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <angle />
+      <angle min="0" />
+    </group>
+  </function>
+  <function id="skewX" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scewx" tooltip="specifies a skew transformation along the X axis by the given angle.">
+    <angle />
+  </function>
+  <function id="skewY" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scewy" tooltip="specifies a skew transformation along the Y axis by the given angle.">
+    <angle />
+  </function>
+  <!-- 3D functions -->
+  <function id="matrix3d" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-matrix3d" tooltip="specifies a 3D transformation as a 4x4 homogeneous matrix of 16 values in column-major order." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+      <number />
+    </group>
+  </function>
+  <function id="translate3d" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-translate3d" tooltip="specifies a 3D translation by the vector [tx,ty,tz], with tx, ty and tz being the first, second and third translation-value parameters respectively." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <inline id="translation-value" />
+      <inline id="translation-value" />
+      <length />
+    </group>
+  </function>
+  <function id="translateZ" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-translatez" tooltip="specifies a translation by the given amount in the Z direction. Note that percentage values are not allowed in the translateZ translation-value, and if present are evaluated as 0." caniuse-ids="transforms2d,transforms3d">
+    <length />
+  </function>
+  <function id="scale3d" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scale3d" tooltip="specifies a 3D scale operation by the [sx,sy,sz] scaling vector described by the 3 parameters." caniuse-ids="transforms2d,transforms3d">
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number />
+      <number />
+      <number />
+    </group>
+  </function>
+  <function id="scaleZ" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-scalez" tooltip="specifies a scale operation using the [1,1,sz] scaling vector, where sz is given as the parameter." caniuse-ids="transforms2d,transforms3d">
+    <number />
+  </function>
+  <function id="rotate3d" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#funcdef-rotate3d" tooltip="specifies a clockwise 3D rotation by the angle specified in last parameter about the [x,y,z] direction vector described by the first 3 parameters." caniuse-ids="transforms2d,transforms3d">
+    <description><![CDATA[
+      <p>Specifies a 3D rotation by the angle specified in last parameter about the [x,y,z] direction vector described by the first three
+        parameters. A direction vector that cannot be normalized, such as [0,0,0], will cause the rotation to not be applied.</p>
+      <p>If the direction vector is not of unit length, it will be normalized. A direction vector that cannot be normalized, such as [0, 0,
+        0], will cause the rotation to not be applied. This function is equivalent to matrix3d(1 + (1-cos(angle))*(x*x-1),
+        -z*sin(angle)+(1-cos(angle))*x*y, y*sin(angle)+(1-cos(angle))*x*z, 0, z*sin(angle)+(1-cos(angle))*x*y, 1 + (1-cos(angle))*(y*y-1),
+        -x*sin(angle)+(1-cos(angle))*y*z, 0, -y*sin(angle)+(1-cos(angle))*x*z, x*sin(angle)+(1-cos(angle))*y*z, 1 + (1-cos(angle))*(z*z-1),
+        0, 0, 0, 0, 1).</p>
+      ]]></description>
+    <group>
+      <separator>
+        <text value="," />
+      </separator>
+      <number />
+      <number />
+      <number />
+      <angle />
+    </group>
+  </function>
+  <function id="rotateX" declared-in="3.0" url="http://www.w3.org/TR/css3-3d-transforms/#transform-functions" tooltip="specifies a clockwise rotation by the given angle about the X axis. Same as rotate3d(1, 0, 0, &lt;angle&gt;&gt;." caniuse-ids="transforms2d,transforms3d">
+    <angle />
+  </function>
+  <function id="rotateY" declared-in="3.0" url="http://www.w3.org/TR/css3-3d-transforms/#transform-functions" tooltip="specifies a clockwise rotation by the given angle about the Y axis. Same as rotate3d(0, 1, 0, &lt;angle&gt;&gt;)." caniuse-ids="transforms2d,transforms3d">
+    <angle />
+  </function>
+  <function id="rotateZ" declared-in="3.0" url="http://www.w3.org/TR/css3-3d-transforms/#transform-functions" tooltip="specifies a clockwise rotation by the given angle about the Z axis. Same as rotate3d(0, 0, 1, &lt;angle&gt;&gt;)." caniuse-ids="transforms2d,transforms3d">
+    <angle />
+  </function>
+  <function id="perspective" declared-in="3.0" url="http://www.w3.org/TR/css3-3d-transforms/#transform-functions" tooltip="specifies a perspective projection matrix." caniuse-ids="transforms2d,transforms3d">
+    <description><![CDATA[
+      <p>specifies a perspective projection matrix. This matrix scales points in X and Y based on their Z value, scaling points with
+        positive Z values away from the origin, and those with negative Z values towards the origin. Points on the z=0 plane are unchanged.
+        The parameter represents the distance of the z=0 plane from the viewer. Lower values give a more flattened pyramid and therefore a
+        more pronounced perspective effect. For example, a value of 1000px gives a moderate amount of foreshortening and a value of 200px
+        gives an extreme amount. The value for depth must be greater than zero, otherwise the function is invalid.</p>
+      ]]></description>
+    <length />
+  </function>
+  <property id="transform" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#transform" applies="transformable elements" initial="none" inherited="no" percentage="refer to the size of bounding box" media="visual" browsers="IE10,FF16.0,S9.0">
+    <description><![CDATA[
+      <p>Any computed value other than none for the transform results in the creation of both a stacking context and a containing block. The
+        object acts as a containing block for fixed positioned descendants. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <inline id="transform-function" min="1" max="-1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="transform" prefix="webkit" browsers="C12.0,S4.0,O15.0" />
+  <prefixed-property id="transform" prefix="moz" browsers="FF10.0" />
+  <prefixed-property id="transform" prefix="ms" browsers="IE9.0" />
+  <prefixed-property id="transform" prefix="o" browsers="O10.5" />
+  <property id="transform-origin" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#transform-origin" browsers="IE10.0,O12.10,FF16.0,S9.0" applies="transformable elements" initial="50% 50%" inherited="no" percentage="refer to the size of bounding box" media="visual">
+    <description><![CDATA[
+      <p>The transform-origin CSS property lets you modify the origin for transformations of an element. For example, the transform-origin
+        of the <see cref="F:rotate"/>() function is the centre of rotation. (This property is applied by first translating the element by
+        the negated value of the property, then applying the element's transform, then translating by the property value.)
+      </p>
+      ]]></description>
+    <group type="or">
+      <group type="or">
+        <name value="left" tooltip="Computes to 0% for the horizontal position." />
+        <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+        <name value="right" tooltip="Computes to 100% for the horizontal position." />
+        <name value="top" tooltip="Computes to 0% for the vertical position." />
+        <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+        <percentage tooltip="A percentage for the horizontal offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+        <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box. For SVG elements without an associated CSS layout box the horizontal and vertical offset represent an offset from the point of origin of the element’s local coordinate space." />
+      </group>
+      <group>
+        <group type="or">
+          <name value="left" tooltip="Computes to 0% for the horizontal position." />
+          <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+          <name value="right" tooltip="Computes to 100% for the horizontal position." />
+          <percentage tooltip="A percentage for the horizontal offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+          <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box. For SVG elements without an associated CSS layout box the horizontal and vertical offset represent an offset from the point of origin of the element’s local coordinate space." />
+        </group>
+        <group type="or">
+          <name value="top" tooltip="Computes to 0% for the vertical position." />
+          <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+          <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+          <percentage tooltip="A percentage for the horizontal offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+          <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box. For SVG elements without an associated CSS layout box the horizontal and vertical offset represent an offset from the point of origin of the element’s local coordinate space." />
+        </group>
+        <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box. For SVG elements without an associated CSS layout box the horizontal and vertical offset represent an offset from the point of origin of the element’s local coordinate space." min="0" />
+      </group>
+      <group>
+        <group type="and">
+          <group>
+            <group type="or">
+              <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+              <name value="left" tooltip="Computes to 0% for the horizontal position." />
+              <name value="right" tooltip="Computes to 100% for the horizontal position." />
+            </group>
+          </group>
+          <group>
+            <group type="or">
+              <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+              <name value="top" tooltip="Computes to 0% for the vertical position." />
+              <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+            </group>
+          </group>
+        </group>
+        <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box. For SVG elements without an associated CSS layout box the horizontal and vertical offset represent an offset from the point of origin of the element’s local coordinate space." min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="transform-origin" prefix="webkit" browsers="C1.0,S3.1" />
+  <prefixed-property id="transform-origin" prefix="moz" browsers="FF3.5" />
+  <prefixed-property id="transform-origin" prefix="ms" browsers="IE9.0" />
+  <prefixed-property id="transform-origin" prefix="o" browsers="O10.5" />
+  <property id="transform-style" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#transform-style" applies="transformable elements" initial="flat" inherited="no" percentage="N/A" media="visual" browsers="IE11,FF16,S9.0">
+    <description><![CDATA[
+      <p>The transform-style CSS property determines if the children of the element are positioned in the 3D-space or are flattened in the
+        plane of the element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="flat" tooltip="Indicates that the children of the element are lying in the plane of the element itself." />
+      <name value="preserve-3d" tooltip="Indicates that the children of the element should be positioned in the 3D-space." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="transform-style" prefix="webkit" browsers="C12.0,S3.1,O15" />
+  <prefixed-property id="transform-origin" prefix="moz" browsers="FF10" />
+  <property id="perspective" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#perspective" applies="transformable elements" initial="none" inherited="no" percentage="N/A" media="visual" browsers="FF16.0,IE10.0,S9.0">
+    <description><![CDATA[
+      <p>The perspective CSS property determines the distance between the z=0 plane and the user in order to give to the 3D-positioned
+        element some perspective. Each 3D element with z&gt;0 becomes larger; each 3D-element with z&lt;0 becomes smaller. The strength of the
+        effect is determined by the value of this property.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No perspective transform is applied. The effect is mathematically similar to an infinite &lt;length&gt; value. All objects appear to be flat on the canvas." />
+      <length tooltip="Distance to the center of projection. Verify that projection is the distance to the center of projection." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="perspective" prefix="webkit" browsers="C12,O15,S3.1" />
+  <prefixed-property id="perspective" prefix="moz" browsers="FF10.0" />
+  <property id="perspective-origin" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#perspective-origin" applies="transformable elements" initial="50% 50%" inherited="no" percentage="refer to the size of the bounding box" media="visual" browsers="FF16,IE10.0,O15,S9.0">
+    <description><![CDATA[
+      <p>The values of the <see cref="P:perspective"/> and perspective-origin properties are used to compute the perspective matrix, as
+        described above.
+      </p>
+      ]]></description>
+    <group type="or">
+      <group type="or">
+        <name value="left" tooltip="Computes to 0% for the horizontal position." />
+        <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+        <name value="right" tooltip="Computes to 100% for the horizontal position." />
+        <name value="top" tooltip="Computes to 0% for the vertical position." />
+        <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+        <percentage tooltip="A percentage for the horizontal perspctive offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+        <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+      </group>
+      <group>
+        <group type="or">
+          <name value="left" tooltip="Computes to 0% for the horizontal position." />
+          <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+          <name value="right" tooltip="Computes to 100% for the horizontal position." />
+          <percentage tooltip="A percentage for the horizontal perspctive offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+          <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+        </group>
+        <group type="or">
+          <name value="top" tooltip="Computes to 0% for the vertical position." />
+          <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+          <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+          <percentage tooltip="A percentage for the horizontal perspctive offset is relative to the width of the bounding box. A percentage for the vertical offset is relative to height of the bounding box. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+          <length tooltip="A length value gives a fixed length as the offset. The value for the horizontal and vertical offset represent an offset from the top left corner of the bounding box." />
+        </group>
+      </group>
+      <group type="and">
+        <group>
+          <group type="or">
+            <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+            <group type="or">
+              <name value="left" tooltip="Computes to 0% for the horizontal position." />
+              <name value="right" tooltip="Computes to 100% for the horizontal position." />
+            </group>
+          </group>
+        </group>
+        <group type="or">
+          <name value="center" tooltip="Computes to 50% (left 50%) for the horizontal position if the horizontal position is not otherwise specified, or 50% (top 50%) for the vertical position if it is." />
+          <group type="or">
+            <name value="top" tooltip="Computes to 0% for the vertical position." />
+            <name value="bottom" tooltip="Computes to 100% for the vertical position." />
+          </group>
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="perspective-origin" prefix="webkit" browsers="C12,S3.1" />
+  <prefixed-property id="perspective-origin" prefix="moz" browsers="FF10.0" />
+  <property id="backface-visibility" declared-in="3.0" url="http://www.w3.org/TR/css-transforms-1/#backface-visibility" applies="transformable elements" initial="visible" inherited="no" percentage="N/A" media="visual" browsers="FF16,IE10.0">
+    <description><![CDATA[
+      <p>The CSS backface-visibility property determines whether or not the back face of the element is visible when facing the user. The
+        back face of an element always is a transparent background, letting, when visible, a mirror image of the front face be
+        displayed.</p>
+      ]]></description>
+    <group type="or">
+      <name value="visible" tooltip="the back face is visible, allowing the front face to be displayed mirrored." />
+      <name value="hidden" tooltip="the back face is not visible, hiding the front face." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="backface-visibility" prefix="webkit" browsers="C12,O15,S3.1" />
+  <prefixed-property id="backface-visibility" prefix="moz" browsers="FF10" />
+</definitions>
