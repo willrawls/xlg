@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26127.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13E1113F-0A23-47AC-9D31-FAD9B743A644}"
 	ProjectSection(SolutionItems) = preProject
@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gath
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Data.Factory.MetX_Gather_FileSystem", "MetX.Data.Factory.MetX_Gather_FileSystem\MetX.Data.Factory.MetX_Gather_FileSystem.csproj", "{A1888B4D-18C3-4D35-B746-83965069A30A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMetX", "TestMetX\TestMetX.csproj", "{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Tests", "TestMetX\MetX.Tests.csproj", "{43E35F6D-BCEF-483B-BEA3-2E68DBACCBA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.QuickScripts", "MetX.QuickScripts\MetX.QuickScripts.csproj", "{D554998C-4943-4167-8D2C-A7320A9E5A2F}"
 EndProject
@@ -42,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.SliceAndDice", "MetX.SliceAndDice\MetX.SliceAndDice.csproj", "{1DFD6561-E30C-4D90-B0D2-E4EB1C821858}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.SliceAndDice.Tests", "MetX.SliceAndDice.Tests\MetX.SliceAndDice.Tests.csproj", "{E5CB1F06-DD25-45F5-933E-7C2EAC98D81B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G13ProfileEditor", "G13ProfileEditor\G13ProfileEditor.csproj", "{E93054A4-3C42-4106-8FFF-46B2B5F0C990}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +193,18 @@ Global
 		{E5CB1F06-DD25-45F5-933E-7C2EAC98D81B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E5CB1F06-DD25-45F5-933E-7C2EAC98D81B}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5CB1F06-DD25-45F5-933E-7C2EAC98D81B}.Release|x86.Build.0 = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Debug|x86.Build.0 = Debug|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|x86.ActiveCfg = Release|Any CPU
+		{E93054A4-3C42-4106-8FFF-46B2B5F0C990}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
