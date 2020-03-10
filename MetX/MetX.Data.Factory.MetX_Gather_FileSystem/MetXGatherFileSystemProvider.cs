@@ -8,7 +8,7 @@ using MetX.Interfaces;
 
 namespace MetX.Data.Factory
 {
-    public class MetX_Gather_FileSystem : IProvide
+    public class MetXGatherFileSystemProvider : IProvide
     {
         #region IProvide Members
 

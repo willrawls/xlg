@@ -77,10 +77,6 @@
     <Compile Include="UITest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\G13ProfileEditor\G13ProfileEditor.csproj">
-      <Project>{E93054A4-3C42-4106-8FFF-46B2B5F0C990}</Project>
-      <Name>G13ProfileEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MetX\MetX.csproj">
       <Project>{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}</Project>
       <Name>MetX</Name>
@@ -91,7 +87,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

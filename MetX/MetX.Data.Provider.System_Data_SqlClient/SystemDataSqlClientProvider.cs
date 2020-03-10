@@ -8,7 +8,7 @@ using MetX.Interfaces;
 
 namespace MetX.Data.Factory
 {
-    public class System_Data_SqlClient : IProvide
+    public class SystemDataSqlClientProvider : IProvide
     {
         #region IProvide Members
 

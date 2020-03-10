@@ -8,7 +8,7 @@ using MetX.Interfaces;
 
 namespace MetX.Data.Factory
 {
-    public class IProvider : IProvide 
+    public class MetXGatherPowershellProvider : IProvide 
     {
         #region IProvide Members
 
@@ -44,7 +44,7 @@ namespace MetX.Data.Factory
 
         public GatherProvider GetNewGatherProvider()
         {
-            return new Gather.PowerShell();
+            return new Gather.PowerShellProvider();
         }
 
         #endregion

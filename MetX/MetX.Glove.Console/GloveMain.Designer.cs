@@ -610,9 +610,9 @@ namespace XLG.Pipeliner
             "System.Data.SqlClient",
             "Sybase.Data.AseClient",
             "MySql.Data.MySqlClient",
-            "MetX.Gather.CommandLine",
-            "MetX.Gather.PowerShell",
-            "MetX.Gather.FileSystem"});
+            "MetX.Data.Factory.CommandLineProvider",
+            "MetX.Data.Factory.PowerShellProvider",
+            "MetX.Data.Factory.FileSystemProvider"});
             this.comboProviderName.Location = new System.Drawing.Point(130, 218);
             this.comboProviderName.Name = "comboProviderName";
             this.comboProviderName.Size = new System.Drawing.Size(231, 21);

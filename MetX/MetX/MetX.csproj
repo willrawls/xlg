@@ -151,6 +151,15 @@
     <Compile Include="Data\AggregateFunction.cs" />
     <Compile Include="Data\Comparison.cs" />
     <Compile Include="Data\DataProviderCollection.cs" />
+    <Compile Include="Data\Factory\CommandLineGatherer.cs" />
+    <Compile Include="Data\Factory\FileSystemGatherer.cs" />
+    <Compile Include="Data\Factory\CommandLineProvider.cs" />
+    <Compile Include="Data\Factory\FileSystemProvider.cs" />
+    <Compile Include="Data\Factory\PowershellProvider.cs" />
+    <Compile Include="Data\Factory\PowerShellGatherer.cs" />
+    <Compile Include="Data\Factory\SqlDataProvider.cs" />
+    <Compile Include="Data\Factory\SqlToXmlGatherer.cs" />
+    <Compile Include="Data\Factory\SystemDataSqlClientProvider.cs" />
     <Compile Include="Data\Join.cs" />
     <Compile Include="Data\OrderBy.cs" />
     <Compile Include="Data\QueryCommandCollection.cs" />

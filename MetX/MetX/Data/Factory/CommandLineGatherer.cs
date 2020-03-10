@@ -6,9 +6,9 @@ using MetX;
 using MetX.IO;
 using MetX.Data;
 
-namespace MetX.Gather
+namespace MetX.Data.Factory
 {
-    public class PowerShell : GatherProvider
+    public class CommandLineGatherer : GatherProvider
     {
         public override int GatherNow(StringBuilder sb, string[] args)
         {
