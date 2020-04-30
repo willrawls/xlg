@@ -23,10 +23,11 @@ namespace MetX.Scripts
             AddRange(new[]
             {
                 m_CurrArea,
+                new GenArea("Usings"),
                 new GenArea("ClassMembers", 8),
                 new GenArea("Start"),
                 new GenArea("Finish"),
-                new GenArea("ReadInput")
+                new GenArea("ReadInput"),
             });
         }
 
@@ -50,12 +51,18 @@ namespace MetX.Scripts
                     {
                         SetArea("ReadInput");
                     }
+                    else if (currScriptLine.Contains("~~Using:") || currScriptLine.Contains("~~Usings:"))
+                    {
+                        SetArea("Usings");
+                    }
                     else if (currScriptLine.Contains("~~ClassMember:") || currScriptLine.Contains("~~ClassMembers:") || currScriptLine.Contains("~~Fields:") || currScriptLine.Contains("~~Field:")
                              || currScriptLine.Contains("~~Members:") || currScriptLine.Contains("~~Member:"))
                     {
                         SetArea("ClassMembers");
                     }
-                    else if (currScriptLine.Contains("~~ProcessLine:") || currScriptLine.Contains("~~ProcessLines:") || currScriptLine.Contains("~~Body:"))
+                    else if (currScriptLine.Contains("~~ProcessLine:") || currScriptLine.Contains("~~ProcessLines:") 
+                                                                       || currScriptLine.Contains("~~Line:")
+                                                                       || currScriptLine.Contains("~~Body:"))
                     {
                         SetArea("ProcessLine");
                     }
@@ -98,7 +105,11 @@ namespace MetX.Scripts
                     }
                     else if (currScriptLine.Contains("~~:"))
                     {
-                        if (m_CurrArea.Name == "ClassMembers")
+                        if (m_CurrArea.Name == "Using" || m_CurrArea.Name == "Usings")
+                        {
+                            m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
+                        }
+                        else if (m_CurrArea.Name == "ClassMembers")
                         {
                             m_CurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
                         }

@@ -1,4 +1,6 @@
-﻿namespace MetX.Library
+﻿using System.CodeDom.Compiler;
+
+namespace MetX.Library
 {
     using System;
     using System.Collections.Generic;
@@ -190,6 +192,11 @@
                     throw new ArgumentOutOfRangeException("destination", destination, null);
             }
 
+            if (Output.UnderlyingStream == null || Output.Target == null)
+            {
+                MessageBox.Show("Couldn't create/open the output file");
+                return false;
+            }
             return true;
         }
 
