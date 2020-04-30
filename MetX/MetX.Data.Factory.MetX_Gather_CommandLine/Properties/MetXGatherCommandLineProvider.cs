@@ -8,7 +8,7 @@ using MetX.Interfaces;
 
 namespace MetX.Data.Factory
 {
-    public class MetX_Gather_CommandLine : IProvide 
+    public class MetXGatherCommandLineProvider : IProvide 
     {
         #region IProvide Members
 

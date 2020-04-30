@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystem.cs" />
-    <Compile Include="IProvider.cs" />
+    <Compile Include="MetXGatherFileSystemProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

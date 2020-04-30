@@ -638,7 +638,7 @@
                     SaveDestinationFilePathDialog.AddExtension = true;
                     SaveDestinationFilePathDialog.CheckPathExists = true;
                     SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
-                    SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq;All files (*.*)|*.*";
+                    SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
                     SaveDestinationFilePathDialog.ShowDialog(this);
                     if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                     {
