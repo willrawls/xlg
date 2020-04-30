@@ -44,10 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetX.SliceAndDice\MetX.SliceAndDice.csproj">
-      <Project>{1dfd6561-e30c-4d90-b0d2-e4eb1c821858}</Project>
-      <Name>MetX.SliceAndDice</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MetX\MetX.csproj">
       <Project>{ff6ec6b3-5aa7-4cd6-b7c1-b4c2bcbe7051}</Project>
       <Name>MetX</Name>
