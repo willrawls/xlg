@@ -1,0 +1,1154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="webkit-color" declared-in="0">
+    <group type="or">
+      <name value="-webkit-activelink" tooltip="The default color of a hyperlink that is being clicked." browsers="C5.0,S4" />
+      <name value="-webkit-focus-ring-color" tooltip="The color that surrounds a UI element, such as a text field, that has focus." browsers="C5.0,S4" />
+      <name value="-webkit-link" tooltip="The default color of a hyperlink that has been visited." browsers="C5.0,S4" />
+      <name value="-webkit-text" tooltip="The default text color." browsers="C5.0,S4" />
+    </group>
+  </named-value>
+  <named-value id="webkit-display-values" declared-in="0">
+    <group type="or">
+      <name value="-webkit-flex" browsers="C21.0" tooltip="This value causes an element to generate a block-level flex container box." />
+      <name value="-webkit-inline-flex" browsers="C21.0" tooltip="This value causes an element to generate an inline-level flex container box." />
+      <name value="-webkit-box" />
+    </group>
+  </named-value>
+  <named-value id="apple-system-font" declared-in="0" url="https://developer.apple.com/library/prerelease/mac/releasenotes/General/WhatsNewInSafari/Articles/Safari_9.html#//apple_ref/doc/uid/TP40014305-CH9-SW31">
+    <group type="or">
+      <name value="-apple-system-body" browsers="S9.0" />
+      <name value="-apple-system-headline" browsers="S9.0" />
+      <name value="-apple-system-subheadline" browsers="S9.0" />
+      <name value="-apple-system-caption1" browsers="S9.0" />
+      <name value="-apple-system-caption2" browsers="S9.0" />
+      <name value="-apple-system-footnote" browsers="S9.0" />
+      <name value="-apple-system-short-body" browsers="S9.0" />
+      <name value="-apple-system-short-headline" browsers="S9.0" />
+      <name value="-apple-system-short-subheadline" browsers="S9.0" />
+      <name value="-apple-system-short-caption1" browsers="S9.0" />
+      <name value="-apple-system-short-footnote" browsers="S9.0" />
+      <name value="-apple-system-tall-body" browsers="S9.0" />
+    </group>
+  </named-value>
+  <!-- CSS properties -->
+  <property id="-webkit-backdrop-filter" declared-in="0" url="https://drafts.fxtf.org/filters-2/#propdef-backdrop-filter" applies="All elements. In SVG, it applies to container elements without the defs element and all graphics elements" inherited="no" percentage="n/a" media="visual" animatable="yes" browsers="S9.0" initial="none" caniuse-ids="css-backdrop-filter">
+    <description><![CDATA[
+      <p>If the value of the backdrop-filter property is <b>none</b> then there is no filter effect applied. Otherwise, the list of 
+        functions are applied in the order provided.</p>
+      <p>The first filter function or filter reference in the list takes the element’s BackgroundImage as the input image. Subsequent
+        operations take the output from the previous filter function or filter reference as the input image. filter element reference
+        functions can specify an alternate input, but still uses the previous output as its SourceGraphic.</p>
+      <p>Filter functions must operate in the sRGB color space.</p>
+      <p>A computed value of other than none results in the creation of a stacking context the same way that CSS <see cref="P:opacity"/> 
+        does. All the elements descendants are rendered together as a group with the filter effect applied to the group as a whole.</p>
+      <p>The result of the backdrop-filter is rendered before the other painting operations for the element. That is, behind any background
+        of the element.</p>
+      <p>If the filter functions would have produced a result that extended beyond the bounds of the input, it is clipped to the original
+        bounds.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No filter effect applied" />
+      <inline id="filter-function-list" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-background-clip" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip" rules="noname,@page,page-margin" applies="all elements" initial="border-box" inherited="no" percentage="N/A" media="visual" browsers="C1.0,S3.0" animatable="no">
+    <description><![CDATA[
+      <p>Determines the <dfn id="background-painting-area">background painting area</dfn>, which determines the area within which the
+        background is painted.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <inline id="box" />
+        <name value="padding" />
+        <name value="border" />
+        <name value="content" />
+        <name value="text" />
+        <!--https://www.webkit.org/blog/164/background-clip-text/-->
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-background-origin" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin" rules="noname,@page,page-margin" applies="all elements" initial="padding-box" inherited="no" percentage="N/A" media="visual" browsers="C1.0,S3.0">
+    <description><![CDATA[
+      <p>For elements rendered as a single box, specifies the <dfn id="background-positioning-area">background positioning area</dfn>. For
+        elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages), specifies which boxes
+        <see cref="P:box-decoration-break"/> operates on to determine the background positioning area(s).
+      </p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <inline id="box" />
+        <name value="padding" />
+        <name value="border" />
+        <name value="content" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-appearance" declared-in="0" url="http://css-infos.net/property/-webkit-appearance" initial="none" applies="all elements" inherited="no" media="visual" browsers="C1.0,S3.0">
+    <description><![CDATA[
+      <p>Changes the appearance of buttons and other controls to resemble native controls.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <!--https://trac.webkit.org/wiki/Styling%20Form%20Controls-->
+      <name value="continuous-capacity-level-indicator" />
+      <name value="discrete-capacity-level-indicator" />
+      <name value="relevancy-level-indicator" />
+      <name value="rating-level-indicator" />
+      <name value="inner-spin-button" />
+      <name value="meter" />
+      <name value="progress-bar" />
+      <name value="caps-lock-indicator" tooltip="The indicator that appears in a password field when Caps Lock is active. Available in Safari 4.0 and later. Available in iOS 2.0 and later." />
+      <name value="button" />
+      <name value="button-bevel" />
+      <name value="caret" />
+      <name value="checkbox" />
+      <name value="default-button" />
+      <name value="listbox" />
+      <name value="listitem" />
+      <name value="media-fullscreen-button" />
+      <name value="media-mute-button" />
+      <name value="media-play-button" />
+      <name value="media-seek-back-button" />
+      <name value="media-seek-forward-button" />
+      <name value="media-slider" />
+      <name value="media-sliderthumb" />
+      <name value="menulist" />
+      <name value="menulist-button" />
+      <name value="menulist-text" />
+      <name value="menulist-textfield" />
+      <name value="none" />
+      <name value="push-button" />
+      <name value="radio" />
+      <name value="searchfield" />
+      <name value="searchfield-cancel-button" />
+      <name value="searchfield-decoration" />
+      <name value="searchfield-results-button" />
+      <name value="searchfield-results-decoration" />
+      <name value="slider-horizontal" />
+      <name value="slider-vertical" />
+      <name value="sliderthumb-horizontal" />
+      <name value="sliderthumb-vertical" />
+      <name value="square-button" />
+      <name value="textarea" />
+      <name value="textfield" />
+      <name value="scrollbarbutton-down" />
+      <name value="scrollbarbutton-left" />
+      <name value="scrollbarbutton-right" />
+      <name value="scrollbarbutton-up" />
+      <name value="scrollbargripper-horizontal" />
+      <name value="scrollbargripper-vertical" />
+      <name value="scrollbarthumb-horizontal" />
+      <name value="scrollbarthumb-vertical" />
+      <name value="scrollbartrack-horizontal" />
+      <name value="scrollbartrack-vertical" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-rtl-ordering" declared-in="0" url="http://css-infos.net/property/-webkit-rtl-ordering">
+    <description><![CDATA[
+      <p>Overrides ordering defaults for right-to-left content.</p>
+      ]]></description>
+    <group type="or">
+      <name value="logical" tooltip="Raw content is in mixed order (requiring a bidirectional renderer)." />
+      <name value="visual" tooltip="Right-to-left content is encoded in reverse order so an entire line of text can be rendered from left to right in a unidirectional fashion." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-nbsp-mode" declared-in="0" url="http://css-infos.net/property/-webkit-nbsp-mode" initial="normal">
+    <description><![CDATA[
+      <p>Defines the behavior of nonbreaking spaces within text.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Raw content is in mixed order (requiring a bidirectional renderer)." />
+      <name value="space" tooltip="Nonbreaking spaces are treated like standard spaces." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-security" declared-in="0" url="http://css-infos.net/property/-webkit-text-security" initial="none">
+    <description><![CDATA[
+      <p>Specifies the shape to use in place of letters in a password input field.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No shape is used." />
+      <name value="circle" tooltip="A circle shape" />
+      <name value="disc" tooltip="A disc shape" />
+      <name value="square" tooltip="A square shape" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-background-composite" declared-in="0" url="http://css-infos.net/property/-webkit-background-composite">
+    <description><![CDATA[
+      <p>Sets a compositing style for background images and colors.</p>
+      ]]></description>
+    <group type="or">
+      <name value="border" tooltip="The background extends into the border area" />
+      <name value="padding" tooltip="The background extends only into the padding area enclosed by the border" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-size-adjust" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust" applies="all elements" initial="auto" inherited="yes" percentage="see below" media="visual" browsers="IE11.0,S8.0">
+    <description><![CDATA[
+      <p>Specifies a size adjustment for displaying text content in Safari on iPhone.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Is a keyword preventing the usage of the inflation algorithm on the element. Basically, this means that the element will be displayed without its font inflated. On desktop Webkit-based browsers, this will only prevent any zoom on the whole page." />
+      <name value="auto" tooltip="Is a keyword allowing the usage of the inflation algorithm on the element. Browsers are not forced to use it and they won't do it on desktops and on some tablets. Its main use is to cancel a none value previously set." />
+      <percentage tooltip="A percentage value is a synonym of the auto keyword, with the additional information that the percentage value is the increase rate to be applied to the font size when the inflation algorithm is applied." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-tap-highlight-color" declared-in="0" url="http://css-infos.net/property/-webkit-tap-highlight-color">
+    <description><![CDATA[
+      <p>Overrides the highlight color shown when the user taps a link or a JavaScript clickable element in Safari on iPhone.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" tooltip="The tapped link color." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-border-horizontal-spacing" declared-in="0" url="http://css-infos.net/property/-webkit-border-horizontal-spacing">
+    <description><![CDATA[
+      <p>Defines the spacing between the horizontal portion of an element’s border and the content within.</p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-border-vertical-spacing" declared-in="0" url="http://css-infos.net/property/-webkit-border-vertical-spacing">
+    <description><![CDATA[
+      <p>Defines the spacing between the vertical portion of an element’s border and the content within.</p>
+      ]]></description>
+    <group type="or">
+      <length />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-align" declared-in="0" url="http://css-infos.net/property/-webkit-box-align" initial="stretch" media="visual" inherited="no" percentage="N/A" applies="elements with CSS display value of box or inline-box">
+    <description><![CDATA[
+      <p>Specifies the alignment of nested elements within an outer flexible box element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="baseline" tooltip="Elements are aligned with the baseline of the box." />
+      <name value="center" tooltip="Elements are aligned with the center of the box." />
+      <name value="end" tooltip="Elements are aligned with the end of the box." />
+      <name value="start" tooltip="Elements are aligned with the start of the box." />
+      <name value="stretch" tooltip="Elements are stretched to fill the box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-direction" declared-in="0" url="http://css-infos.net/property/-webkit-box-direction" initial="normal" media="visual" inherited="no" percentage="N/A" applies="elements with CSS display value of box or inline-box">
+    <description><![CDATA[
+      <p>Specifies the direction in which child elements of a flexible box element are laid out.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Elements are laid out in the default direction." />
+      <name value="reverse" tooltip="Elements are laid out in the reverse direction." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-flex" declared-in="0" url="http://css-infos.net/property/-webkit-box-flex" initial="0" inherited="no" percentage="N/A" applies="elements that are direct children of an element with a CSS display value of -moz-box or -moz-inline-box or -webkit-box or -webkit-inline-box">
+    <description><![CDATA[
+      <p>Specifies an element’s flexibility.</p>
+      <p>Flexible elements can stretch or shrink to fit the size of the bounding box of their parent element. The amount of stretching or
+        shrinkage of an element is determined by its flex value relative to the flex values of other elements within the same parent
+        element.</p>
+      ]]></description>
+    <group type="or">
+      <number tooltip="Floating-point number. The flexibility of the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-flex-group" declared-in="0" url="http://css-infos.net/property/-webkit-box-flex-group">
+    <description><![CDATA[
+      <p>Specifies groups of dynamically resizing elements that are adjusted to be the same size.</p>
+      <p>During size adjustment of flex boxes, any boxes with the same group number are adjusted to be the same size.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" tooltip="The group number of the flexible element. Integer, nonnegative value." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-lines" declared-in="0" url="http://css-infos.net/property/-webkit-box-lines">
+    <description><![CDATA[
+      <p>Specifies whether a flexible box should contain multiple lines of content.</p>
+      ]]></description>
+    <group type="or">
+      <name value="multiple" tooltip="The box can contain multiple lines of content." />
+      <name value="single" tooltip="The box can contain only one line of content." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-ordinal-group" declared-in="0" url="http://css-infos.net/property/-webkit-box-ordinal-group" initial="1">
+    <description><![CDATA[
+      <p>Specifies a rough ordering of elements in a flexible box.</p>
+      <p>Elements with lower ordinal group values are displayed first.</p>
+      ]]></description>
+    <group type="or">
+      <integer min-value="0" tooltip="The ordinal group number of the element. Integer, nonnegative value." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-orient" declared-in="0" url="http://css-infos.net/property/-webkit-box-orient" initial="horizontal" inherited="no" percentage="N/A" media="visual" applies="elements with a CSS display value of box or inline-box">
+    <description><![CDATA[
+      <p>Specifies the layout of elements nested within a flexible box element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="block-axis" tooltip="Elements are oriented along the box's axis." />
+      <name value="horizontal" tooltip="Elements are oriented horizontally." />
+      <name value="inline-axis" tooltip="Elements are oriented along the inline axis." />
+      <name value="vertical" tooltip="Elements are oriented vertically." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-pack" declared-in="0" url="http://css-infos.net/property/-webkit-box-pack" initial="start" inherited="no" percentage="N/A" media="visual" applies="elements with a CSS display value of -moz-box or -moz-inline-box or -webkit-box or -webkit-inline-box">
+    <description><![CDATA[
+      <p>Specifies alignment of child elements within the current element in the direction of orientation.</p>
+      <p>For elements whose children are aligned horizontally, a packing value of start indicates left alignment with extra space towards
+        the right side, a value of end indicates right alignment with extra space to the left, a value of center indicates center alignment
+        with extra space split evenly on either side, and a value of justify indicates that the outer elements should be aligned on the left
+        and right, with space added evenly between the elements.</p>
+      <p>Similarly, for elements whose children are aligned vertically, a value of start indicates that the elements should be aligned to
+        the top, a value of end indicates that the elements should be aligned to the bottom, and so on.</p>
+      ]]></description>
+    <group type="or">
+      <name value="center" tooltip="Child elements are aligned to the center of the element." />
+      <name value="end" tooltip="Child elements are aligned to the end of the element." />
+      <name value="justify" tooltip="Child elements are justified with both the start and end of the element." />
+      <name value="start" tooltip="Child elements are aligned to the start of the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-column-break-after" declared-in="0" url="http://css-infos.net/property/-webkit-column-break-after" initial="auto">
+    <description><![CDATA[
+      <p>Determines whether a column break can and should occur after an element in a multicolumn flow layout.</p>
+      ]]></description>
+    <group type="or">
+      <name value="always" tooltip="A column break is always inserted after the element." />
+      <name value="auto" tooltip="A right column break is inserted after the element where appropriate." />
+      <name value="avoid" tooltip="Column breaks are avoided after the element." />
+      <name value="left" tooltip="A left column break is inserted after the element." />
+      <name value="right" tooltip="A right column break is inserted after the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-column-break-before" declared-in="0" url="http://css-infos.net/property/-webkit-column-break-before" initial="auto">
+    <description><![CDATA[
+      <p>Determines whether a column break can and should occur before an element in a multicolumn flow layout.</p>
+      ]]></description>
+    <group type="or">
+      <name value="always" tooltip="A column break is always inserted before the element." />
+      <name value="auto" tooltip="A right column break is inserted before the element where appropriate." />
+      <name value="avoid" tooltip="Column breaks are avoided before the element." />
+      <name value="left" tooltip="A left column break is inserted before the element." />
+      <name value="right" tooltip="A right column break is inserted before the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-column-break-inside" declared-in="0" url="http://css-infos.net/property/-webkit-column-break-inside" initial="auto">
+    <description><![CDATA[
+      <p>Determines whether a column break can and should occur before an element in a multicolumn flow layout.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="A right column break is inserted within the element where appropriate." />
+      <name value="avoid" tooltip="Column breaks are avoided within the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-dashboard-region" declared-in="0" url="http://css-infos.net/property/-webkit-dashboard-region" initial="none">
+    <description><![CDATA[
+      <p>Specifies the behavior of regions in a Dashboard widget.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No behavior is specified." />
+      <invoke id="dashboard-region" max="-1" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <function id="dashboard-region" declared-in="0" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Conceptual/Dashboard_ProgTopics/Articles/ControlRegions.html">
+    <group>
+      <name value="control" name="label" tooltip="Required. Specifies the type of region being defined; control is the only possible value." />
+      <group type="or" name="geometry-type" tooltip="Required. Specifies the shape of the region, either circle or rectangle.">
+        <name value="circle" />
+        <name value="rectangle" />
+      </group>
+      <length min="0" name="offset-top" min-value="0" tooltip="Optional. Specifies the offset from the top of the wrapped area from where the defined region should begin. Negative values not allowed." />
+      <length min="0" name="offset-right" min-value="0" tooltip="Optional. Specifies the offset from the right of the wrapped area from where the defined region should begin. Negative values not allowed." />
+      <length min="0" name="offset-bottom" min-value="0" tooltip="Optional. Specifies the offset from the bottom of the wrapped area from where the defined region should begin. Negative values not allowed." />
+      <length min="0" name="offset-left" min-value="0" tooltip="Optional. Specifies the offset from the left of the wrapped area from where the defined region should begin. Negative values not allowed." />
+    </group>
+  </function>
+  <property id="-webkit-line-break" declared-in="0" url="http://css-infos.net/property/-webkit-line-break" initial="normal">
+    <description><![CDATA[
+      <p>Specifies line-breaking rules for CJK (Chinese, Japanese, and Korean) text.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="A standard line-breaking rule." />
+      <name value="after-white-space" tooltip="The line breaks after white space." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-collapse" declared-in="0" url="http://css-infos.net/property/-webkit-margin-collapse">
+    <description><![CDATA[
+      <p>Specifies the behavior of an element’s vertical margins if it is adjacent to an element with a margin. Elements can maintain their
+        respective margins or share a single margin between them.</p>
+      ]]></description>
+    <group type="or">
+      <name value="collapse" tooltip="Two adjacent margins are collapsed into a single margin." />
+      <name value="discard" tooltip="The element’s margin is discarded if it is adjacent to another element with a margin." />
+      <name value="separate" tooltip="Two adjacent margins remain separate." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-top-collapse" declared-in="0" url="http://css-infos.net/property/-webkit-margin-top-collapse">
+    <description><![CDATA[
+      <p>Specifies the behavior of an element’s top margin if it is adjacent to an element with a margin. Elements can maintain their
+        respective margins or share a single margin between them.</p>
+      ]]></description>
+    <group type="or">
+      <name value="collapse" tooltip="Two adjacent margins are collapsed into a single margin." />
+      <name value="discard" tooltip="The element’s margin is discarded if it is adjacent to another element with a margin." />
+      <name value="separate" tooltip="Two adjacent margins remain separate." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-bottom-collapse" declared-in="0" url="http://css-infos.net/property/-webkit-margin-bottom-collapse">
+    <description><![CDATA[
+      <p>Specifies the behavior of an element’s bottom margin if it is adjacent to an element with a margin. Elements can maintain their
+        respective margins or share a single margin between them.</p>
+      ]]></description>
+    <group type="or">
+      <name value="collapse" tooltip="Two adjacent margins are collapsed into a single margin." />
+      <name value="discard" tooltip="The element’s margin is discarded if it is adjacent to another element with a margin." />
+      <name value="separate" tooltip="Two adjacent margins remain separate." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-before" declared-in="0" url="http://css-infos.net/property/-webkit-margin-before" initial="0" applies="all elements except those with table display types other than table-caption, table, and inline-table" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C1.0,S3.0">
+    <group type="or">
+      <name value="auto" tooltip="The margin is automatically determined." />
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-after" declared-in="0" url="http://css-infos.net/property/-webkit-margin-after" initial="0" applies="all elements except those with table display types other than table-caption, table, and inline-table" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C1.0,S3.0">
+    <group type="or">
+      <name value="auto" tooltip="The margin is automatically determined." />
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-start" declared-in="0" url="http://css-infos.net/property/-webkit-margin-start" initial="0" applies="all elements except those with table display types other than table-caption, table, and inline-table" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C1.0,S3.0">
+    <description><![CDATA[
+      <p>Provides the width of the starting margin.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The margin is automatically determined." />
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-margin-end" declared-in="0" url="http://css-infos.net/property/-webkit-margin-end" initial="0" applies="all elements except those with table display types other than table-caption, table, and inline-table" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C1.0,S3.0">
+    <description><![CDATA[
+      <p>Provides the width of the ending margin.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The margin is automatically determined." />
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-padding-after" declared-in="0" url="http://css-infos.net/property/-webkit-padding-after" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C2.0,S3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-padding-before" declared-in="0" url="http://css-infos.net/property/-webkit-padding-before" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C2.0,S3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-padding-end" declared-in="0" url="http://css-infos.net/property/-webkit-padding-end" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C2.0,S3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <description><![CDATA[
+      <p>Specifies the logical end padding for an element.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-padding-start" declared-in="0" url="http://css-infos.net/property/-webkit-padding-start" initial="0" inherited="no" percentage="refer to width of closest block-level ancestor" media="visual" browsers="C2.0,S3.0" applies="all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column">
+    <description><![CDATA[
+      <p>Specifies the logical start padding for an element.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee-direction" declared-in="0" url="http://css-infos.net/property/-webkit-marquee-direction" initial="auto">
+    <description><![CDATA[
+      <p>Specifies the direction of motion for a marquee box.</p>
+      ]]></description>
+    <group type="or">
+      <name value="ahead" tooltip="The marquee moves from bottom to top." />
+      <name value="auto" tooltip="The marquee moves in the default direction." />
+      <name value="backwards" tooltip="The marquee moves from right to left." />
+      <name value="down" tooltip="The marquee moves from bottom to top." />
+      <name value="forwards" tooltip="The marquee moves from left to right." />
+      <name value="left" tooltip="The marquee moves from right to left." />
+      <name value="reverse" tooltip="The marquee moves from top to bottom." />
+      <name value="right" tooltip="The marquee moves from left to right." />
+      <name value="up" tooltip="The marquee moves from bottom to top." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee-increment" declared-in="0" url="http://css-infos.net/property/-webkit-marquee-increment">
+    <description><![CDATA[
+      <p>Defines the distance the marquee moves in each increment.</p>
+      ]]></description>
+    <group type="or">
+      <name value="large" tooltip="The marquee moves a large amount in each increment." />
+      <name value="medium" tooltip="The marquee moves a medium amount in each increment." />
+      <name value="small" tooltip="The marquee moves a small amount in each increment." />
+      <group type="or" name="distance" tooltip="Number as a percentage, length unit">
+        <percentage min-value="0" />
+        <length min-value="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee-repetition" declared-in="0" url="http://css-infos.net/property/-webkit-marquee-repetition" initial="infinite">
+    <description><![CDATA[
+      <p>Specifies the number of times a marquee box repeats (or infinite).</p>
+      ]]></description>
+    <group type="or">
+      <name value="infinite" tooltip="The marquee repeats infinitely." />
+      <integer min-value="0" name="iterations" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee-speed" declared-in="0" url="http://css-infos.net/property/-webkit-marquee-speed" initial="normal">
+    <description><![CDATA[
+      <p>Defines the scroll or slide speed of a marquee box.</p>
+      <p>This property can either take one speed parameter (slow, for example) or a measure of distance and a measure of time separated by a
+        slash (/).</p>
+      ]]></description>
+    <group type="or">
+      <group type="or">
+        <name value="fast" tooltip="The marquee moves at a fast speed." />
+        <name value="normal" tooltip="The marquee moves at a normal speed." />
+        <name value="slow" tooltip="The marquee moves at a slow speed." />
+      </group>
+      <group>
+        <group type="or" name="distance" tooltip="Number as a percentage, length unit">
+          <percentage min-value="0" />
+          <length min-value="0" />
+        </group>
+        <text value="/" />
+        <time min-value="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee-style" declared-in="0" url="http://css-infos.net/property/-webkit-marquee-style">
+    <description><![CDATA[
+      <p>Specifies the style of marquee motion.</p>
+      <p>The values scroll and slide both cause the content to start outside the box and move into the box, but if the value scroll is
+        specified, the content stops moving once the last content is visible. The value alternate causes the content to shift back and forth
+        within the box in the specified direction.</p>
+      ]]></description>
+    <group type="or">
+      <name value="alternate" tooltip="The marquee shifts back and forth." />
+      <name value="none" tooltip="The marquee does not move." />
+      <name value="scroll" tooltip="The marquee loops in its specified direction." />
+      <name value="slide" tooltip="The marquee moves in its specified direction, but stops either when the entirety of its content has been displayed or the content reaches the opposite border of its box, whichever comes second." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-marquee" declared-in="0" url="http://css-infos.net/property/-webkit-marquee">
+    <description><![CDATA[
+      <p>Defines properties for showing content as though displayed on an electronic marquee sign.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-webkit-marquee-direction" name="direction" />
+        <property id="-webkit-marquee-increment" name="increment" />
+        <property id="-webkit-marquee-repetition" name="repetition" />
+        <property id="-webkit-marquee-style" name="style" />
+        <property id="-webkit-marquee-speed" name="speed" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-stroke" declared-in="0" url="http://css-infos.net/property/-webkit-text-stroke">
+    <description><![CDATA[
+      <p>Specifies the width and color of the outline (stroke) of text.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="-webkit-text-stroke-width" />
+        <property id="-webkit-text-stroke-color" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-stroke-width" declared-in="0" url="http://css-infos.net/property/-webkit-text-stroke-width">
+    <description><![CDATA[
+      <p>Specifies the width of the outline (stroke) of text.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="border-width" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-stroke-color" declared-in="0" url="http://css-infos.net/property/-webkit-text-stroke-color">
+    <description><![CDATA[
+      <p>Specifies the color of the outline (stroke) of text.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-touch-callout" declared-in="0" url="http://css-infos.net/property/-webkit-touch-callout">
+    <description><![CDATA[
+      <p>Disables the default callout shown when you touch and hold a touch target.</p>
+      ]]></description>
+    <group type="or">
+      <name value="default" tooltip="Restore the default callout." />
+      <name value="none" tooltip="The callout is disabled." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-user-select" declared-in="0" url="http://css-infos.net/property/-webkit-user-select" browsers="C6.0,O15.0,S3.1">
+    <description><![CDATA[
+      <p>Determines whether a user can select the content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The user can select content in the element." />
+      <name value="none" tooltip="The user cannot select any content." />
+      <name value="text" tooltip="The user can select text in the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-user-drag" declared-in="0" url="http://css-infos.net/property/-webkit-user-drag" initial="auto">
+    <description><![CDATA[
+      <p>Specifies that an entire element should be draggable instead of its contents.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The default dragging behavior is used." />
+      <name value="element" tooltip="The entire element is draggable instead of its contents." />
+      <name value="none" tooltip="The element cannot be dragged at all." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-user-modify" declared-in="0" url="http://css-infos.net/property/-webkit-user-modify" initial="read-only" applies="all elements" inherited="yes" percentage="N/A" media="interactive" browsers="S3.0">
+    <description><![CDATA[
+      <p>Determines whether a user can edit the content of an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="read-only" tooltip="The content is read-only." />
+      <name value="read-write" tooltip="The content can be read and written." />
+      <name value="read-write-plaintext-only" tooltip="The content can be read and written, but any rich formatting of pasted text is lost." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-text-fill-color" declared-in="0" url="http://css-infos.net/property/-webkit-text-fill-color">
+    <description><![CDATA[
+      <p>Specifies a fill color for text.</p>
+      <p>If not specified, the color specified by the color property is used. -webkit-fill-color is commonly used in combination with
+        -webkit-text-stroke. Changes to this property can be animated.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="-webkit-mask-image-value" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-image">
+    <group type="or">
+      <uri tooltip="The location of the image resource to be used as a mask image." />
+      <invoke id="-webkit-gradient" tooltip="A -webkit-gradient function to be used as a mask image." />
+      <name value="none" tooltip="Used to specify that an element is to have no mask image." />
+    </group>
+  </named-value>
+  <named-value id="-webkit-mask-attachment-value" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-attachment">
+    <group type="or">
+      <name value="scroll" tooltip="If scroll is specified, the mask image scrolls within the viewport along with the block that contains the mask image." />
+      <name value="fixed" tooltip="If fixed is specified, the mask image does not scroll with its containing element, instead remaining stationary within the viewport." />
+    </group>
+  </named-value>
+  <named-value id="-webkit-mask-position-value" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-position">
+    <group type="any">
+      <group type="or">
+        <percentage />
+        <length />
+        <name value="left" />
+        <name value="center" />
+        <name value="right" />
+      </group>
+      <group type="or" min="0">
+        <percentage />
+        <length />
+        <name value="top" />
+        <name value="center" />
+        <name value="bottom" />
+      </group>
+    </group>
+  </named-value>
+  <named-value id="-webkit-mask-origin-value" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-origin">
+    <group type="or">
+      <name value="padding" tooltip="Default value. The mask image position is relative to the padding. (For single boxes &quot;0 0&quot; is the upper left corner of the padding edge, &quot;100% 100%&quot; is the lower right corner.)" />
+      <name value="border" tooltip="The mask image position is relative to the border." />
+      <name value="content" tooltip="The mask image is relative to the content." />
+    </group>
+  </named-value>
+  <named-value id="-webkit-mask-clip-value" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-clip">
+    <group type="or">
+      <name value="border" tooltip="If border is specified, the mask image extends to the border of the element." />
+      <name value="padding" tooltip="If padding is specified, the mask image extends to the padding of the element." />
+      <name value="content" tooltip="If content is specified, the mask image clips to the content of the element." />
+      <name value="text" tooltip="If text is specified, the mask image clips to the text of the element." />
+    </group>
+  </named-value>
+  <property id="-webkit-mask-box-image" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-box-image" initial="none" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>-webkit-mask-box-image sets the mask image for an element's border box.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="-webkit-mask-image-value" inline="yes" />
+        <group min="0">
+          <group type="or" name="top">
+            <number />
+            <length />
+            <percentage />
+          </group>
+          <group type="or" name="right">
+            <number />
+            <length />
+            <percentage />
+          </group>
+          <group type="or" name="bottom">
+            <number />
+            <length />
+            <percentage />
+          </group>
+          <group type="or" name="left">
+            <number />
+            <length />
+            <percentage />
+          </group>
+          <group type="or" name="x-repeat">
+            <name value="repeat" tooltip="The mask image is repeated as many times as is necessary to span the border box. May include a partial image if the mask image does not divide evenly into the border box." />
+            <name value="stretch" tooltip=" The mask image is stretched to contain the border box exactly." />
+            <name value="round" tooltip=" The mask image is stretched somewhat and repeated such that there is no partial mask image at the end of the border box." />
+          </group>
+          <group type="or" name="y-repeat">
+            <name value="repeat" tooltip="The mask image is repeated as many times as is necessary to span the border box. May include a partial image if the mask image does not divide evenly into the border box." />
+            <name value="stretch" tooltip=" The mask image is stretched to contain the border box exactly." />
+            <name value="round" tooltip=" The mask image is stretched somewhat and repeated such that there is no partial mask image at the end of the border box." />
+          </group>
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-box-reflect" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-box-reflect" initial="0" applies="all elements" inherited="no" media="visual" browsers="C4.0,S4.0,O15.0">
+    <description><![CDATA[
+      <p>The -webkit-box-reflect CSS property lets you reflect the content of an element in one specific direction.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group type="or" min="0">
+          <name value="above" />
+          <name value="below" />
+          <name value="right" />
+          <name value="left" />
+        </group>
+        <length min="0" />
+        <property id="-webkit-mask-box-image" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-print-color-adjust" declared-in="0" inherited="yes" initial="economy" applies="all elements" media="visual" browsers="C1.0,S6.0">
+    <description><![CDATA[
+      <p>The -webkit-print-color-adjust property is a non-standard CSS extension that can be used to force printing of background colors and
+        images in browsers based on the WebKit engine.</p>
+      ]]></description>
+    <group type="or">
+      <name value="economy" tooltip="Normal behavior.  Background colors and images are only printed if the user explicitly allows it in their browser's print settings dialog." />
+      <name value="exact" tooltip="Background colors and images of the element to which this rule is applied are always printed, user's print settings are overridden." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask" browsers="C1.0,S4.0" percentage="N/A" applies="all elements" inherited="no" media="visual">
+    <group type="or">
+      <group>
+        <inline id="-webkit-mask-image-value" inline="yes" />
+        <group type="any" min="0" max="-1">
+          <inline id="repeat-style" />
+          <inline id="-webkit-mask-attachment-value" />
+          <inline id="-webkit-mask-position-value" />
+          <inline id="-webkit-mask-origin-value" />
+          <inline id="-webkit-mask-clip-value" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-image" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-image" initial="none" percentage="N/A" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Sets the mask image for an element. A mask image clips the visible portion of an element according to the mask image's
+        transparency.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="-webkit-mask-image-value" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-repeat" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-repeat" initial="repeat" percentage="N/A" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The -webkit-mask-repeat property specifies whether a mask image is repeated (tiled), and how.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="repeat-style" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-attachment" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-attachment" initial="scroll" percentage="N/A" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>If a
+        <see cref="P:-webkit-mask-image"/>
+        is specified, -webkit-mask-attachment determines whether the mask image's position is fixed
+        within the viewport, or scrolls along with its containing block.
+      </p>
+      ]]></description>
+    <group type="or">
+      <inline id="-webkit-mask-attachment-value" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-position" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-position" initial="50% 50%" percentage="refer to the size of the box itself" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The -webkit-mask-position property sets the initial position of a mask image.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="-webkit-mask-position-value" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-position-x" declared-in="0" url="http://css-infos.net/property/-webkit-mask-position-x" initial="50%" percentage="refer to the size of the box itself" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Defines the x-coordinate of the position of a mask.</p>
+      ]]></description>
+    <group type="or">
+      <percentage />
+      <length />
+      <name value="left" />
+      <name value="center" />
+      <name value="right" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-position-y" declared-in="0" url="http://css-infos.net/property/-webkit-mask-position-y" initial="50%" percentage="refer to the size of the box itself" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Defines the y-coordinate of the position of a mask.</p>
+      ]]></description>
+    <group type="or">
+      <percentage />
+      <length />
+      <name value="left" />
+      <name value="center" />
+      <name value="right" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-origin" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-origin" initial="padding" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The -webkit-mask-origin CSS property determines the origin of a mask image. The value of the
+        <see
+            cref="P:-webkit-mask-position property"/>
+        is interpreted relative to the value of this property.
+        This property does not apply when
+        <see cref="P:-webkit-mask-attachment"/>
+        is fixed.
+      </p>
+      ]]></description>
+    <group type="or">
+      <inline id="-webkit-mask-origin-value" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-clip" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-clip" initial="border" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <group type="or">
+      <inline id="-webkit-mask-clip-value" inline="yes" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-composite" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-mask-composite" initial="source-over" applies="all elements" inherited="no" media="visual" browsers="C1.0,S4.0">
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <name value="clear" tooltip="Overlapping pixels in the source mask image and the destination mask image are cleared." />
+        <name value="copy" tooltip="The source mask image replaces the destination mask image." />
+        <name value="source-over" tooltip="The source mask image is rendered over the destination mask image." />
+        <name value="source-in" tooltip="Overlapping pixels in the source mask image and the destination mask image are replaced by the pixels of the source mask image; all other pixels are cleared." />
+        <name value="source-out" tooltip="Overlapping pixels in the source mask image and the destination mask image are cleared; all remaining pixels of the source mask image are rendered." />
+        <name value="source-atop" tooltip="The pixels of the destination mask image are rendered. The pixels of the source mask image are rendered only if they overlap a nontransparent portion of the destination mask image. This causes the source mask image to have no effect." />
+        <name value="destination-over" tooltip="The destination mask image is rendered over the source mask image." />
+        <name value="destination-in" tooltip="Overlapping pixels in the source mask image and the destination mask image remain the pixels of the destination mask image; all other pixels are cleared." />
+        <name value="destination-out" tooltip="Overlapping pixels in the source mask image and the destination mask image are cleared; all remaining pixels of the source mask image are rendered." />
+        <name value="destination-atop" tooltip="The pixels of the source mask image are rendered. The pixels of the destination mask image are rendered only if they overlap a nontransparent portion of the destination mask image. This causes the destination mask image to have no effect." />
+        <name value="xor" tooltip="Overlapping pixels in the source mask image and the destination mask image become fully transparent if they are both fully opaque." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-mask-size" declared-in="0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-size" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The clipping path restricts the region to which paint can be applied, the so-called <dfn
+          id="clipping-region">clipping region</dfn>.
+        Conceptually, any parts of the drawing that lie outside of this region are not drawn. This includes any content, background,
+        borders, text decoration, outline and visible scrolling mechanism of the element to which the clipping path is applied, and those of
+        its descendants.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="bg-size" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-overflow-scrolling" declared-in="0" tooltip="Controls whether or not touch devices use momentum-based scrolling for the given element." browsers="S8.0" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266-SW26">
+    <group type="or">
+      <name value="auto" tooltip="One finger scrolling without momentum." />
+      <name value="touch" tooltip="Native-style scrolling. Specifying this style has the effect of creating a stacking context (like opacity, masks, and transforms)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="-webkit-font-smoothing" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth" browsers="C5.0,S4.0" media="visual">
+    <group type="or">
+      <name value="none" tooltip="turn font smoothing off, show the text with jagged sharp edges" />
+      <name value="antialiased" tooltip="smooth the font on the level of the pixel, as opposed to the subpixel. Switching from subpixel rendering to antialiasing for light text on dark backgrounds makes it look lighter" />
+      <name value="subpixel-antialiased" tooltip="on most non-retina displays this will give the sharpest text" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- Media features -->
+  <media-feature id="-webkit-device-pixel-ratio" min-max="no" declared-in="0" browsers="C1.0,S1.0" media="visual tactile bitmap" url="https://compat.spec.whatwg.org/#css-media-queries-webkit-device-pixel-ratio">
+    <description><![CDATA[
+      <p>Gives the number of device pixels per CSS pixel.</p>
+      ]]></description>
+    <number />
+  </media-feature>
+  <media-feature id="-webkit-min-device-pixel-ratio" min-max="no" declared-in="0" browsers="C1.0,S1.0" media="visual tactile bitmap" url="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio">
+    <description><![CDATA[
+      <p>Gives the number of device pixels per CSS pixel.</p>
+      ]]></description>
+    <number />
+  </media-feature>
+  <media-feature id="-webkit-max-device-pixel-ratio" min-max="no" declared-in="0" browsers="C1.0,S1.0" media="visual tactile bitmap" url="https://compat.spec.whatwg.org/#css-media-queries-webkit-device-pixel-ratio">
+    <description><![CDATA[
+      <p>Gives the number of device pixels per CSS pixel.</p>
+      ]]></description>
+    <number />
+  </media-feature>
+  <media-feature id="animation" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support animations specified with -webkit-animation.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="-webkit-animation" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support animations specified with -webkit-animation.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="transform-3d" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support 3D transformations specified with -webkit-transform.</p>
+      ]]></description>
+    <number />
+  </media-feature>
+  <media-feature id="-webkit-transform-3d" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support 3D transformations specified with transform.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="transform-2d" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support 2D transformations specified with -webkit-transform.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="-webkit-transform-2d" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support 2D transformations specified with -webkit-transform.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="transition" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support transitions specified with -webkit-transition.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <media-feature id="-webkit-transition" min-max="no" declared-in="0" browsers="S4.0" media="visual tactile bitmap" url="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariCSSRef/Articles/OtherStandardCSS3Features.html#//apple_ref/doc/uid/TP40007601-SW3">
+    <description><![CDATA[
+      <p>Applies only to browsers that support transitions specified with -webkit-transition.</p>
+      ]]></description>
+    <any />
+  </media-feature>
+  <!-- Pseudo selectors -->
+  <pseudo-element id="-webkit-input-placeholder" browsers="C11,S5" declared-in="0" tooltip="represents any form element displaying placeholder text">
+    <description><![CDATA[
+      The <b>::-webkit-input-placeholder</b> pseudo-element represents any form element displaying
+      placeholder text. This allows web developers and theme designers to customize the appearance of placeholder text,
+      which is a light grey color by default.
+      This may not work well if you've changed the background color of your form fields to be a similar color,
+      for example, so you can use this pseudo-element to change the placeholder text color.
+      <br/><br/>See also  :
+      <see cref="PC:-moz-placeholder"/>, ::
+      <see cref="PE:-moz-placeholder"/>, :
+      <see cref="PC:-ms-input-placeholder"/>
+      ]]></description>
+  </pseudo-element>
+  <!--Styling elements-->
+  <!--https://trac.webkit.org/wiki/Styling%20Form%20Controls-->
+  <pseudo-element id="-webkit-progress-bar" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-progress-value" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-progress-inner-element" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-meter-bar" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-meter-optimum-value" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-meter-suboptimum-value" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-meter-inner-element" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-meter-even-less-good-value" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-inner-spin-button" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-outer-spin-button" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-calendar-picker-indicator" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-top-outer-arrow" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-top-inner-arrow" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-message" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-arrow-clipper" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-arrow" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-text-block" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-element id="-webkit-validation-bubble-heading" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls" />
+  <pseudo-class id="-webkit-autofill" declared-in="0" url="https://trac.webkit.org/wiki/Styling%20Form%20Controls">
+    <description><![CDATA[
+      <p>The :-webkit-autofill CSS pseudo-class matches when an &lt;input&gt; element has its value autofilled by the browser.
+        The user-agent stylesheets of many browsers use !important in their :-webkit-autofill style declarations, making them
+        non-overrideable by webpages without resorting to JavaScript hacks.</p>
+      ]]></description>
+  </pseudo-class>
+  <!-- Custom Scrollbars -->
+  <!--https://www.webkit.org/blog/363/styling-scrollbars/-->
+  <pseudo-element id="-webkit-scrollbar" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-scrollbar-button" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-scrollbar-track" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-scrollbar-track-piece" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-scrollbar-thumb" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-scrollbar-corner" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-element id="-webkit-resizer" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" />
+  <pseudo-class id="horizontal" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The horizontal pseudo-class applies to any scrollbar pieces that have a horizontal orientation.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="vertical" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The vertical pseudo-class applies to any scrollbar pieces that have a vertical orientation.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="decrement" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The decrement pseudo-class applies to buttons and track pieces. It indicates whether or not the button or track piece will
+        decrement the view’s position when used (e.g., up on a vertical scrollbar, left on a horizontal scrollbar).</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="increment" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The increment pseudo-class applies to buttons and track pieces. It indicates whether or not a button or track piece will increment
+        the view’s position when used (e.g., down on a vertical scrollbar, right on a horizontal scrollbar).</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="start" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The start pseudo-class applies to buttons and track pieces. It indicates whether the object is placed before the thumb.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="end" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The end pseudo-class applies to buttons and track pieces. It indicates whether the object is placed after the thumb.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="double-button" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The double-button pseudo-class applies to buttons and track pieces. It is used to detect whether a button is part of a pair of
+        buttons that are together at the same end of a scrollbar. For track pieces it indicates whether the track piece abuts a pair of
+        buttons.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="single-button" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>The single-button pseudo-class applies to buttons and track pieces. It is used to detect whether a button is by itself at the end
+        of a scrollbar. For track pieces it indicates whether the track piece abuts a singleton button.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="no-button" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Applies to track pieces and indicates whether or not the track piece runs to the edge of the scrollbar, i.e., there is no button at
+        that end of the track.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="corner-present" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Applies to all scrollbar pieces and indicates whether or not a scrollbar corner is present.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-class id="window-inactive" declared-in="0" url="https://www.webkit.org/blog/363/styling-scrollbars/" browsers="C1.0,S4.0">
+    <description><![CDATA[
+      <p>Applies to all scrollbar pieces and indicates whether or not the window containing the scrollbar is currently active. (In recent
+        nightlies, this pseudo-class now applies to ::selection as well. We plan to extend it to work with any content and to propose it as
+        a new standard pseudo-class.)</p>
+      ]]></description>
+  </pseudo-class>
+  <!-- other -->
+  <pseudo-class id="-webkit-any" declared-in="0" browsers="C12.0,S5.1.3" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:any">
+    <description><![CDATA[
+      <p>The :any() pseudo-class lets you quickly construct sets of similar selectors by establishing groups from which any of the included
+        items will match. This is an alternative to having to repeat the entire selector for the one item that varies.</p>
+      ]]></description>
+    <selector comma-separated="yes" />
+  </pseudo-class>
+  <pseudo-class id="-webkit-full-screen" declared-in="0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/:fullscreen" browsers="C15.0,S6.0">
+    <description><![CDATA[
+      <p>The :fullscreen CSS pseudo-class applies to any element that's currently being displayed in full-screen mode.</p>
+      ]]></description>
+  </pseudo-class>
+  <pseudo-element id="-webkit-textfield-decoration-container" declared-in="0" />
+  <pseudo-element id="-webkit-clear-button" declared-in="0" />
+  <pseudo-element id="-webkit-search-cancel-button" declared-in="0" />
+  <pseudo-element id="-webkit-search-decoration" declared-in="0" />
+  <pseudo-element id="-webkit-search-results-decoration" declared-in="0" />
+  <pseudo-element id="-webkit-search-results-button" declared-in="0" />
+  <pseudo-element id="-webkit-date-and-time-value" declared-in="0" />
+  <pseudo-element id="-webkit-keygen-select" declared-in="0" />
+  <pseudo-element id="-webkit-file-upload-button" declared-in="0" />
+  <pseudo-element id="-webkit-slider-container" declared-in="0" />
+  <pseudo-element id="-webkit-media-slider-container" declared-in="0" />
+  <pseudo-element id="-webkit-slider-runnable-track" declared-in="0" />
+  <pseudo-element id="-webkit-slider-thumb" declared-in="0" />
+  <pseudo-element id="-webkit-media-slider-thumb" declared-in="0" />
+  <pseudo-element id="-webkit-color-swatch-wrapper" declared-in="0" />
+  <pseudo-element id="-webkit-color-swatch" declared-in="0" />
+  <pseudo-element id="-webkit-details-marker" declared-in="0" />
+  <pseudo-class id="-webkit-any-link" declared-in="0" />
+</definitions>

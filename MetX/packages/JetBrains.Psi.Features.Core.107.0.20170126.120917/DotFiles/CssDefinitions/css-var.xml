@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <function id="var" declared-in="1.0" browsers="FF31,C49,S9.1,O36" dynamic="yes" url="https://www.w3.org/TR/css-variables/#funcdef-var" caniuse-ids="css-variables">
+    <group>
+      <variable />
+      <group min="0" max="-1">
+        <text value="," />
+        <any max="-1" />
+      </group>
+    </group>
+  </function>
+</definitions>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.UnitTestRunner.nUnit</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.ReSharper.UnitTestRunner.nUnit.DebugUtil.OutputDebugStringW(System.String)">
+            <summary>
+            The OutputDebugString function sends a string to the debugger for display.
+            </summary>
+            <param name="lpOutputString">[in] Pointer to the null-terminated string to be displayed.</param>
+        </member>
+    </members>
+</doc>

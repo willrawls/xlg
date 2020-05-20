@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Platform.RdFramework</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.Platform.RdFramework.ExternalProcessModel.ProtocolModelExternalProcess`1.CreateModel(JetBrains.DataFlow.Lifetime,JetBrains.Platform.RdFramework.IProtocol,System.Action)">
+            <summary>
+            Create your model here. Don't forget to advise on your own Initialized property of your model and call <paramref name="initializedCallback"/> from it. If callback was not called in specified timeout so <see cref="M:JetBrains.Platform.RdFramework.ExternalProcessModel.ProtocolModelExternalProcess`1.Run"/> method will throw an exception
+            <para>
+            DON'T USE RdSignal for this purpose because it isn't fired on initial value!!!
+            </para>
+            </summary>
+            <param name="processLifetime">lifetime of process</param>
+            <param name="protocol">your protocol</param>
+            <param name="initializedCallback">callback that must be called after your model counter part is initialized</param>
+            <returns></returns>
+        </member>
+        <member name="T:JetBrains.Platform.RdFramework.Impl.SimpleInpaceExecutingScheduler">
+            <summary>
+            Executes the given action just in the current thread in Queue method
+            </summary>
+        </member>
+        <member name="M:JetBrains.Platform.RdFramework.Text.RdTextBuffer.#ctor(System.String,JetBrains.Platform.RdFramework.OriginKind)">
+            <summary>
+            Slave of the text buffer supports a list of changes that were introduced locally and can be rolled back when master buffer reports incompatible change
+            </summary>
+        </member>
+    </members>
+</doc>

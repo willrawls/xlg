@@ -183,6 +183,8 @@
                             break;
 
                         case QuickScriptDestination.File:
+                            runResult.QuickScriptProcessor.Output?.Finish();
+                            runResult.QuickScriptProcessor.Output = null;
                             QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
 
                             // File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
@@ -230,7 +232,13 @@
                 // True keep going
             }
 
-            result.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, ref result.QuickScriptProcessor.DestinationFilePath);
+            var outputSetupCorrectly = result.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, ref result.QuickScriptProcessor.DestinationFilePath);
+            if (!outputSetupCorrectly)
+            {
+                if(result.Error == null) 
+                    result.Error = new Exception("Output could not be set up correctly. Locked file?");
+                return result;
+            }
 
             // Start
             try
@@ -264,7 +272,7 @@
                 {
                     if (result.QuickScriptProcessor.ProcessLine(currLine, index))
                     {
-                        if (++index % 100 == 0)
+                        if (++index % 10 == 0 || index < 10)
                         {
                             caller.Progress(index);
                         }

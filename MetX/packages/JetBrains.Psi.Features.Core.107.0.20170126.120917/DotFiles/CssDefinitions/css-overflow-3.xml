@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Overflow Module Level 3
+W3C First Public Working Draft 18 April 2013
+http://www.w3.org/TR/css-overflow-3
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="max-lines" declared-in="3.0" url="http://www.w3.org/TR/2013/WD-css-overflow-3-20130418/#max-lines0" applies="fragment boxes" initial="none" inherited="no" percentage="N/A" media="visual">
+    <group type="or">
+      <name value="none" tooltip="Breaks occur only as specified elsewhere." />
+      <integer tooltip="In addition to any breaks specified elsewhere, a break is forced before any line that would exceed the given number of lines being placed inside the element (excluding lines that are in a different block formatting context from the block formatting context to which an unstyled child of the element would belong). If there are multiple boundaries between this line and the previous, where exactly (in terms of element boundaries) is the break forced? Only positive integers are accepted. Zero or negative integers are a parse error." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <named-value id="overflow-value-3" declared-in="3.0" url="http://www.w3.org/TR/2013/WD-css-overflow-3-20130418/#overflow">
+    <group type="or">
+      <name value="visible" tooltip="There is no special handling of overflow, that is, it may be rendered outside the block container." />
+      <name value="hidden" tooltip="These values are collectively the scrolling values; they are defined in the section on scrolling and hidden overflow." />
+      <name value="scroll" tooltip="These values are collectively the scrolling values; they are defined in the section on scrolling and hidden overflow." />
+      <name value="auto" tooltip="These values are collectively the scrolling values; they are defined in the section on scrolling and hidden overflow." />
+      <name value="paged-x" tooltip="These values are collectively the fragmenting values; they are defined in the sections on paginated overflow and fragment overflow." />
+      <name value="paged-y" tooltip="These values are collectively the fragmenting values; they are defined in the sections on paginated overflow and fragment overflow." />
+      <name value="paged-x-controls" tooltip="These values are collectively the fragmenting values; they are defined in the sections on paginated overflow and fragment overflow." />
+      <name value="paged-y-controls" tooltip="These values are collectively the fragmenting values; they are defined in the sections on paginated overflow and fragment overflow." />
+      <name value="fragments" tooltip="These values are collectively the fragmenting values; they are defined in the sections on paginated overflow and fragment overflow." />
+      <name value="-webkit-marquee" />
+      <name value="-moz-scrollbars-none" tooltip="Use overflow: hidden instead" obsolete-tooltip="Use overflow: hidden instead" obsolete-in="3.0" />
+      <name value="-moz-scrollbars-horizontal" tooltip="Use of overflow-x and overflow-y is preferred." />
+      <name value="-moz-scrollbars-vertical" tooltip="Use of overflow-x and overflow-y is preferred." />
+      <name value="-moz-hidde-unscrollable" tooltip="Is intended mainly for internal use and by themes. Disables scrolling of XML root elements and &lt;html&gt;, &lt;body&gt; by arrow keys and mouse wheel." />
+    </group>
+  </named-value>
+</definitions>

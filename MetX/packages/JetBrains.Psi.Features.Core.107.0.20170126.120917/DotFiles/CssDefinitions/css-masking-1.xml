@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Masking Module Level 1
+W3C Candidate Recommendation, 26 August 2014
+http://www.w3.org/TR/2014/CR-css-masking-1-20140826/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="clip-source" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-clip-source" caniuse-ids="css-masks,css-clip-path">
+    <uri />
+  </named-value>
+  <named-value id="geometry-box" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-geometry-box" caniuse-ids="css-masks,css-clip-path">
+    <group type="or">
+      <inline id="shape-box" />
+      <name value="fill-box" />
+      <name value="stroke-box" />
+      <name value="view-box" />
+    </group>
+  </named-value>
+  <named-value id="mask-reference" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-mask-reference" caniuse-ids="css-masks">
+    <group type="or">
+      <name value="none" />
+      <inline id="image" />
+      <inline id="mask-source" />
+    </group>
+  </named-value>
+  <named-value id="mask-source" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-mask-source" caniuse-ids="css-masks">
+    <uri />
+  </named-value>
+  <named-value id="masking-mode" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-masking-mode" caniuse-ids="css-masks">
+    <group type="or">
+      <name value="alpha" />
+      <name value="luminance" />
+      <name value="auto" />
+    </group>
+  </named-value>
+  <named-value id="compositing-operator" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-compositing-operator" caniuse-ids="css-masks">
+    <group type="or">
+      <name value="add" />
+      <name value="subtract" />
+      <name value="intersect" />
+      <name value="exclude" />
+    </group>
+  </named-value>
+  <named-value id="mask-layer" declared-in="3.0" url="http://www.w3.org/TR/2014/CR-css-masking-1-20140826/#typedef-mask-layer" caniuse-ids="css-masks">
+    <group type="any">
+      <group>
+        <inline id="mask-reference" />
+        <inline id="masking-mode" min="0" />
+      </group>
+      <group>
+        <position />
+        <group min="0">
+          <text value="/" />
+          <inline id="bg-size" />
+        </group>
+      </group>
+      <inline id="repeat-style" />
+      <inline id="geometry-box" />
+      <group type="or">
+        <inline id="geometry-box" />
+        <name value="no-clip" />
+      </group>
+      <inline id="compositing-operator" />
+    </group>
+  </named-value>
+  <property id="clip-path" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-clip-path" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="none" inherited="no" percentage="as specified" media="visual" caniuse-ids="css-masks,css-clip-path">
+    <description><![CDATA[
+      <p>Specifies a basic shape or references a clipPath element to create a clipping path.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="clip-source" />
+      <group type="any">
+        <inline id="basic-shape" tooltip="A basic shape function as defined in the CSS Shapes module [CSS-SHAPES]. A basic shape makes use of the specified reference box to size and position the basic shape. If no reference box is specified, the border-box will be used as reference box." />
+        <inline id="geometry-box" tooltip="If specified in combination with a &lt;basic-shape&gt; it provides the reference box for the &lt;basic-shape&gt;. If specified by itself, uses the edges of the specified box, including any corner shaping (e.g. defined by border-radius [CSS3BG]), as clipping path. See also “Shapes from box values” [CSS-SHAPES]." />
+      </group>
+      <name value="none" tooltip="No clipping path gets created." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="clip-rule" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-clip-rule" applies="Applies to SVG graphics elements" initial="nonzero" inherited="yes" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The clip-rule property indicates the algorithm which is to be used to determine whether a given point is inside a shape for a
+        clipping region created with a graphics element. The definition of the algorithms and the clip-rule values follows the definition of
+        the
+        <see cref="P:fill-rule"/> property. See section “Fill Properties” in SVG 1.1 [SVG11].</p>
+      ]]></description>
+    <group type="or">
+      <name value="nonzero" tooltip="See description of fill-rule property [SVG11]." />
+      <name value="evenodd" tooltip="See description of fill-rule property [SVG11]." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-image" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-image" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="none" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <group type="or">
+      <inline id="mask-reference" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-mode" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-mode" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The mask-mode property indicates whether the &lt;mask-reference&gt; is treated as luminance mask or alpha mask.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="masking-mode" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-repeat" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-repeat" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="no-repeat" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>Specifies how mask layer images are tiled after they have been sized and positioned.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="repeat-style" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-position" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-position" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="center" inherited="no" percentage="refer to size of mask painting area minus size of mask layer image; see text background-position [CSS3BG]" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The clipping path restricts the region to which paint can be applied, the so-called <dfn data-dfn-type="dfn" data-export=""
+                                                                                                  id="clipping-region">clipping region</dfn>.
+        Conceptually, any parts of the drawing that lie outside of this region are not drawn. This includes any content, background,
+        borders, text decoration, outline and visible scrolling mechanism of the element to which the clipping path is applied, and those of
+        its descendants.</p>
+      ]]></description>
+    <group type="or">
+      <position comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-clip" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-clip" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="border-box" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>Determines the <dfn data-dfn-type="dfn" data-export="" id="mask-painting-area">mask painting area</dfn>, which determines the area
+        that is affected by the mask. The painted content of an element must be restricted to this area.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <inline id="geometry-box" />
+        <name value="no-clip" tooltip="The painted content is not restricted (not clipped)." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-origin" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-origin" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="border-box" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>For elements rendered as a single box, specifies the <dfn data-dfn-type="dfn" data-export="" id="mask-positioning-area">mask
+        positioning area</dfn>. For elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages)
+        specifies which boxes
+        <see cref="P:box-decoration-break"/> operates on to determine the mask positioning area.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="geometry-box" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-size" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-size" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The clipping path restricts the region to which paint can be applied, the so-called <dfn data-dfn-type="dfn" data-export=""
+                                                                                                  id="clipping-region">clipping region</dfn>.
+        Conceptually, any parts of the drawing that lie outside of this region are not drawn. This includes any content, background,
+        borders, text decoration, outline and visible scrolling mechanism of the element to which the clipping path is applied, and those of
+        its descendants.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="bg-size" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-composite" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-composite" applies="All elements. In SVG, it applies to container elements without the &lt;defs&gt; element and all graphics elements" initial="add" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <group type="or">
+      <inline id="compositing-operator" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="see individual properties" inherited="no" percentage="see individual properties" media="visual" caniuse-ids="css-masks">
+    <group type="or">
+      <inline id="mask-layer" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-source" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-source" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="none" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>Specifies an image to be used as mask border image.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <inline id="image" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-mode" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-mode" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="alpha" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The mask-border-mode property indicates whether the &lt;image&gt; value for
+        <see cref="P:mask-border-source"/> is treated as luminance mask or alpha mask. (See Mask processing.)</p>
+      ]]></description>
+    <group type="or">
+      <name value="luminance" tooltip="A value of luminance indicates that the luminance values of the mask border image should be used as the mask values. See Calculating mask values." />
+      <name value="alpha" tooltip="A value of alpha indicates that the alpha values of the mask border image should be used as the mask values. See Calculating mask values." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-slice" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-slice" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="0" inherited="no" percentage="refer to size of the mask border image" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>This property specifies inward offsets from the top, right, bottom, and left edges of the mask border image, dividing it into nine
+        regions: four corners, four edges and a middle. The middle image part is discarded and treated as fully opaque white (the content
+        covered by the middle part is not masked and shines through) unless the <dfn class="css-code" data-dfn-for="mask-border-slice"
+                                                                                     data-dfn-type="value" data-export=""
+                                                                                     id="valuedef-fill">fill</dfn> keyword is present.</p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group type="or" max="4">
+          <number />
+          <percentage />
+        </group>
+        <name value="fill" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-width" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-width" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="auto" inherited="no" percentage="relative to width/height of the mask border image area" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The mask border image is drawn inside an area called the <dfn data-dfn-type="dfn" data-export="" id="mask-border-image-area">mask
+        border image area</dfn>. This is an area whose boundaries by default correspond to the border box, see
+        <see cref="P:mask-border-outset"/>.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" max="4">
+        <length />
+        <percentage />
+        <number />
+        <name value="auto" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-outset" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-outset" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="0" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The values specify the amount by which the mask border image area extends beyond the border box. If it has four values, they set
+        the outsets on the top, right, bottom and left sides in that order. If the left is missing, it is the same as the right; if the
+        bottom is missing, it is the same as the top; if the right is missing, it is the same as the top.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" max="4">
+        <length />
+        <number />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border-repeat" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border-repeat" applies="All elements. In SVG, it applies to container elements excluding the &lt;defs&gt; element and all graphics elements" initial="stretch" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>This property specifies how the images for the sides and the middle part of the mask border image are scaled and tiled. The first
+        keyword applies to the horizontal sides, the second to the vertical ones. If the second keyword is absent, it is assumed to be the
+        same as the first.</p>
+      ]]></description>
+    <group type="or">
+      <group type="or" max="2">
+        <name value="stretch" />
+        <name value="repeat" />
+        <name value="round" />
+        <name value="space" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-border" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-border" applies="See individual properties" initial="See individual properties" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>This is a shorthand property for setting
+        <see cref="P:mask-border-source"/>,
+        <see cref="P:mask-border-slice"/>,
+        <see cref="P:mask-border-width"/>,
+        <see cref="P:mask-border-outset"/> and
+        <see cref="P:mask-border-repeat"/>. Omitted values are set to their initial values.</p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="mask-border-source" />
+        <group>
+          <property id="mask-border-slice" />
+          <group min="0">
+            <text value="/" />
+            <property id="mask-border-width" min="0" />
+            <group min="0">
+              <text value="/" />
+              <property id="mask-border-outset" />
+            </group>
+          </group>
+        </group>
+        <property id="mask-border-repeat" />
+        <property id="mask-border-mode" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="mask-type" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-mask-type" applies="mask elements" initial="luminance" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>The mask-type property defines whether the content of the mask element is treated as as luminance mask or alpha mask, as described
+        in Calculating mask values.</p>
+      ]]></description>
+    <group type="or">
+      <name value="luminance" tooltip="Indicates that the luminance values of the mask should be used." />
+      <name value="alpha" tooltip="Indicates that the alpha values of the mask should be used." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="clip" declared-in="3.0" url="http://www.w3.org/TR/css-masking-1/#propdef-clip" applies="Absolutely positioned elements. In SVG, it applies to elements which establish a new viewport, &lt;pattern&gt; elements and mask elements." initial="auto" inherited="no" percentage="n/a" media="visual" caniuse-ids="css-masks">
+    <description><![CDATA[
+      <p>With this specification the clip property is deprecated. Authors are encouraged to use the
+        <see cref="P:clip-path"/> property instead. UAs must support the clip property.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <invoke id="rect" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

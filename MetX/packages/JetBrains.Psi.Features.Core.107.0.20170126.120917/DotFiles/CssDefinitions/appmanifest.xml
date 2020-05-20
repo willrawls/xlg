@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Web App Manifest
+W3C Working Draft 09 June 2016
+https://www.w3.org/TR/2016/WD-appmanifest-20160609/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <media-feature id="display-mode" min-max="no" declared-in="0" browsers="C1.0,FF47" media="visual" url="https://www.w3.org/TR/appmanifest/#the-display-mode-media-feature">
+    <description><![CDATA[
+      <p>A display mode represents how the web application is being presented within the context of an OS</p>
+      ]]></description>
+    <group type="or">
+      <name value="fullscreen" tooltip="Opens the web application without any user agent chrome and takes up the entirety of the available display area." />
+      <name value="standalone" tooltip="Opens the web application to look and feel like a standalone native application. This can include the application having a different window, its own icon in the application launcher, etc. In this mode, the user agent will exclude UI elements for controlling navigation, but can include other UI elements such as a status bar." />
+      <name value="minimal-ui" tooltip="This mode is similar to fullscreen, but provides the end-user with some means to access a minimal set of UI elements for controlling navigation (i.e., back, forward, reload, and perhaps some way of viewing the document's address). A user agent can include other platform specific UI elements, such as &quot;share&quot; and &quot;print&quot; buttons or whatever is customary on the platform and user agent." />
+      <name value="browser" tooltip="Opens the web application using the platform-specific convention for opening hyperlinks in the user agent (e.g., in a browser tab or a new window)." />
+    </group>
+  </media-feature>
+</definitions>

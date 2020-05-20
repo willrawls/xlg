@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Animations
+W3C Working Draft 19 February 2013
+http://www.w3.org/TR/css3-animations/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="single-animation-name" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation-name" caniuse-ids="css-animation">
+    <group type="or">
+      <name value="none" />
+      <name />
+    </group>
+  </named-value>
+  <named-value id="single-animation-direction" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation-direction" caniuse-ids="css-animation">
+    <group type="or">
+      <name value="normal" tooltip="All iterations of the animation are played as specified." />
+      <name value="reverse" tooltip="All iterations of the animation are played in the reverse direction from the way they were specified." />
+      <name value="alternate" tooltip="The animation cycle iterations that are odd counts are played in the normal direction, and the animation cycle iterations that are even counts are played in a reverse direction." />
+      <name value="alternate-reverse" tooltip="The animation cycle iterations that are odd counts are played in the reverse direction, and the animation cycle iterations that are even counts are played in a normal direction." />
+    </group>
+  </named-value>
+  <named-value id="single-animation-fill-mode" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation-fill-mode" caniuse-ids="css-animation">
+    <group type="or">
+      <name value="none" />
+      <name value="forwards" />
+      <name value="backwards" />
+      <name value="both" />
+    </group>
+  </named-value>
+  <named-value id="single-animation-iteration-count" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation-iteration-count" caniuse-ids="css-animation">
+    <group type="or">
+      <name value="infinite" />
+      <number />
+    </group>
+  </named-value>
+  <named-value id="single-animation-play-state" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation-play-state" caniuse-ids="css-animation">
+    <group type="or">
+      <name value="running" />
+      <name value="paused" />
+    </group>
+  </named-value>
+  <named-value id="single-animation" declared-in="3.0" url="http://www.w3.org/TR/css3-animations/#single-animation" caniuse-ids="css-animation">
+    <group type="any">
+      <inline id="single-animation-name" />
+      <time />
+      <property id="transition-timing-function" name="single-animation-timing-function" />
+      <time />
+      <inline id="single-animation-iteration-count" />
+      <inline id="single-animation-direction" />
+      <inline id="single-animation-fill-mode" />
+      <inline id="single-animation-play-state" />
+    </group>
+  </named-value>
+  <property id="animation" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation" applies="" initial="see individual properties" percentage="N/A" media="visual" browsers="FF16.0,IE10,S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation" prefix="o" browsers="O12" />
+  <property id="animation-delay" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-delay" applies="" initial="0s" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <time comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-delay" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-delay" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-delay" prefix="o" browsers="O12" />
+  <property id="animation-direction" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-direction" applies="" initial="normal" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation-direction" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-direction" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-direction" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-direction" prefix="o" browsers="O12" />
+  <property id="animation-duration" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-duration" applies="" initial="0s" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <description><![CDATA[
+      <p> The initial value is ‘<code class="css">0s</code>’, meaning that the animation takes no time. When the duration is ‘<code
+          class="css">0s</code>’ ‘animation-fill-mode’ still applies, so an animation that fills backwards will show the value of the 0%
+        keyframe during any delay period, and an animation that fills forwards will retain the value specified at the 100% keyframe, even if
+        the animation was instantaneous. Also, animation events are still fired. A negative ‘animation-duration’ value renders the
+        declaration invalid. </p>
+      ]]></description>
+    <group type="or">
+      <time comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-duration" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-duration" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-duration" prefix="o" browsers="O12" />
+  <property id="animation-fill-mode" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-fill-mode" applies="" initial="none" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation-fill-mode" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-fill-mode" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-fill-mode" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-fill-mode" prefix="o" browsers="O12" />
+  <property id="animation-iteration-count" declared-in="0" browsers="S9.0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-iteration-count" applies="" initial="1" inherited="no" percentage="N/A" media="visual" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation-iteration-count" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-iteration-count" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-iteration-count" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-iteration-count" prefix="o" browsers="O12" />
+  <property id="animation-name" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-name" applies="" initial="none" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation-name" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-name" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-name" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-name" prefix="o" browsers="O12" />
+  <property id="animation-play-state" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-play-state" applies="" initial="running" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <group type="or">
+      <inline id="single-animation-play-state" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-play-state" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-play-state" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-play-state" prefix="o" browsers="O12" />
+  <property id="animation-timing-function" declared-in="0" url="http://www.w3.org/TR/2013/WD-css3-animations-20130219/#animation-timing-function" applies="" initial="ease" inherited="no" percentage="N/A" media="visual" browsers="S9.0" caniuse-ids="css-animation">
+    <description><![CDATA[
+      <p>All the valid values of ‘<code class="css">&lt;single-timing-function&gt;</code>’ are defined by the ‘<code class="property">transition-timing-function</code>’
+        property [CSS3-TRANSITIONS]. </p>
+      ]]></description>
+    <group type="or">
+      <property id="transition-timing-function" name="single-animation-timing-function" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="animation-timing-function" prefix="webkit" browsers="C1.0,S4.0" />
+  <prefixed-property id="animation-timing-function" prefix="moz" browsers="FF5.0" />
+  <prefixed-property id="animation-timing-function" prefix="o" browsers="O12" />
+</definitions>

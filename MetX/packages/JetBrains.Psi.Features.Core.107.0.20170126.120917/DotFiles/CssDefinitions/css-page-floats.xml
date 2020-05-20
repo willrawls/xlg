@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Page Floats
+Editor's Draft 24 September 2013
+http://dev.w3.org/csswg/css-page-floats
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <function id="snap" declared-in="3.0" url="http://dev.w3.org/csswg/css-page-floats/#floating-to-the-topbottom-top-bottom-snap">
+    <description><![CDATA[
+      <p>Makes the element float to the top or bottom if it naturally appears within a certain distance from the top or bottom. The length
+        value(s) specifies the maxium distance from the top/bottom that an element must be within in order to be floated; one length value
+        specifies the distance from both the top and the bottom, two length values specify the distance from the top and bottom,
+        respectively.</p>
+      ]]></description>
+    <group>
+      <length />
+      <length min="0" />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <name value="top" />
+          <name value="bottom" />
+          <name value="near" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <named-value id="page-floats" declared-in="3.0" url="http://dev.w3.org/csswg/css-page-floats/#floating-to-the-topbottom-top-bottom-snap">
+    <group type="or">
+      <name value="top" tooltip="The float is floated to the top of the column" />
+      <name value="bottom" tooltip="The float is floated to the bottom of the column" />
+      <name value="snap" tooltip="same as snap(2em, near)" />
+      <name value="inside" tooltip="On a right page, this value is synonymous with ‘left’. On a left page, this value is synonymous with ‘right’." />
+      <name value="outside" tooltip="On a left page, this value is synonymous with ‘left’, On a right page, this value is synonymous with ‘right’." />
+      <invoke id="snap" />
+    </group>
+  </named-value>
+  <property id="clear-side" declared-in="0" url="http://dev.w3.org/csswg/css-page-floats/#clear-side" applies="floated elements" initial="auto" inherited="no" percentage="N/A" media="visual paged">
+    <description><![CDATA[
+      <p>This property declares if the side of a float should be cleared of content. Values have the following meaning: </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="if the float is left-floated, there should be no content to the left; if the float is right-floated, there should be no content to the right !_-" />
+      <name value="left" tooltip="there should be no content to the left of the float" />
+      <name value="right" tooltip="there should be no content to the left of the float --&gt;" />
+      <name value="none" tooltip="there may be content on either side of the float" />
+      <name value="both" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-defer-column" declared-in="0" url="http://dev.w3.org/csswg/css-page-floats/#float-defer-column0" applies="page floats" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>These properties specify whether page floats should appear in their natural column/page, or in a following column/page.</p>
+      ]]></description>
+    <group type="or">
+      <integer tooltip="A positive integer value indicates that the page float should be displayed in a following column/page." />
+      <name value="last" tooltip="The page float should be displayed in the last column, or on the last page." />
+      <name value="none" tooltip="the page float appears in the natural column/page" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-defer-page" declared-in="0" url="http://dev.w3.org/csswg/css-page-floats/#float-defer-page0" applies="page floats" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>These properties specify whether page floats should appear in their natural column/page, or in a following column/page.</p>
+      ]]></description>
+    <group type="or">
+      <integer tooltip="A positive integer value indicates that the page float should be displayed in a following column/page." />
+      <name value="last" tooltip="The page float should be displayed in the last column, or on the last page." />
+      <name value="none" tooltip="the page float appears in the natural column/page" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-offset" declared-in="0" url="http://dev.w3.org/csswg/css-page-floats/#float-offset" applies="floated elements" initial="0 0" inherited="no" percentage="see prose" media="visual paged">
+    <description><![CDATA[
+      <p>This property pushes a float in opposite direction of the where it has been floated with ‘<code class="property">float</code>’. If
+        one value is specified, it is the horizontal offset. If two values are specified, the first is the horizontal and the second is the
+        vertical offset. If no vertical value has been specified, the vertical offset is set to zero. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group type="or">
+          <length />
+          <percentage />
+        </group>
+        <length min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-wrap" declared-in="0" url="http://dev.w3.org/csswg/css-page-floats/#float-wrap" applies="page floats" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property indicates whether other content may wrap around a page float: </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="other content may not wrap around the page float" />
+      <name value="wrap" tooltip="other content may wrap around the page float" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <!-- EXTENSIONS -->
+  <property id="clear" declared-in="3.0" url="http://dev.w3.org/csswg/css-page-floats/#clearing-page-floats" media="visual paged">
+    <group type="or">
+      <name value="top" tooltip="The page float requests to be the only page float at the top of the column." />
+      <name value="bottom" tooltip="The page float requests to be the only page float at the bottom of the column." />
+      <name value="column" tooltip="The page float requests to be the only page float in the column. If there is already another page float on the page, the page float is moved to the next page which does not have a page float." />
+      <name value="page" tooltip="The page float requests to be the only page float on the page. If there is already another page float on the page, the page float is moved to the next page which does not have a page float." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="column-span" declared-in="3.0" url="http://dev.w3.org/csswg/css-page-floats/#spanning-columns">
+    <group type="or">
+      <name value="all" />
+      <name value="page" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

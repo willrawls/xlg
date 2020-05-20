@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <pseudo-class id="any-link" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#any-link-pseudo" />
+  <pseudo-class id="blank" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#blank-pseudo" />
+  <pseudo-class id="current" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#current-pseudo" />
+  <pseudo-class id="focus-within" declared-in="4.0" url="https://drafts.csswg.org/selectors-4/#focus-within-pseudo" caniuse-ids="css-focus-within" />
+  <pseudo-class id="future" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#future-pseudo" />
+  <pseudo-class id="past" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#past-pseudo" />
+  <pseudo-class id="placeholder-shown" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#placeholder-shown-pseudo" caniuse-ids="css-placeholder-shown" />
+  <pseudo-class id="scope" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#scope-pseudo" />
+  <pseudo-class id="matches" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#matches" caniuse-ids="css-matches-pseudo">
+    <selector />
+  </pseudo-class>
+  <pseudo-class id="has" declared-in="4.0" url="https://drafts.csswg.org/selectors-4/#has-pseudo" caniuse-ids="css-has">
+    <selector />
+  </pseudo-class>
+  <pseudo-class id="nth-column" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#nth-column-pseudo">
+    <inline id="AnPlusB" name="An+B" />
+  </pseudo-class>
+  <pseudo-class id="nth-last-column" declared-in="4.0" url="https://www.w3.org/TR/selectors4/#nth-last-column-pseudo">
+    <inline id="AnPlusB" name="An+B" />
+  </pseudo-class>
+</definitions>

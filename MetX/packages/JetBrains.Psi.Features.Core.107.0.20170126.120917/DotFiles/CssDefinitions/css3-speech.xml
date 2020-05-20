@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Speech Module
+W3C Candidate Recommendation 20 March 2012
+http://www.w3.org/TR/css3-speech/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="generic-voice-css3" declared-in="3.0" url="http://www.w3.org/TR/css3-speech/#voice-family">
+    <group>
+      <group name="age" type="or" min="0" tooltip="indicating the preferred age category to match during voice selection">
+        <name value="child" />
+        <name value="young" />
+        <name value="old" />
+      </group>
+      <group name="gender" type="or" tooltip="specifying a male, female, or neutral voice">
+        <name value="male" />
+        <name value="female" />
+        <name value="neutral" />
+      </group>
+      <number min="0" min-value="0" allow-zero="no" tooltip="An integer indicating the preferred variant (e.g. &quot;the second male child voice&quot;)" />
+    </group>
+  </named-value>
+  <property id="cue" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#cue" applies="all elements" initial="N/A (see individual properties)" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘cue’ property is a shorthand for ‘cue-before’ and ‘cue-after’. If two values are given the first value is ‘cue-before’ and the
+        second is ‘cue-after’. If only one value is given, it applies to both properties. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="cue-before" />
+        <property id="cue-after" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="cue-after" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#cue-after" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘cue-before’ and ‘cue-after’ properties specify auditory icons (i.e. pre-recorded / pre-generated sound clips) to be played
+        before (or after) the selected element within the aural box model. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="uri" tooltip="The URI designates an auditory icon resource. When a user agent is not able to render the specified auditory icon (e.g. missing file resource, or unsupported audio codec), it is recommended to produce an alternative cue, such as a bell sound." />
+        <decibel min="0" />
+      </group>
+      <name value="none" tooltip="Specifies that no auditory icon is used." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="cue-before" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#cue-before" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>&nbsp; </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <inline id="uri" tooltip="The URI designates an auditory icon resource. When a user agent is not able to render the specified auditory icon (e.g. missing file resource, or unsupported audio codec), it is recommended to produce an alternative cue, such as a bell sound." />
+        <decibel min="0" />
+      </group>
+      <name value="none" tooltip="Specifies that no auditory icon is used." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="pause" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#pause" applies="all elements" initial="N/A (see individual properties)" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘pause’ property is a shorthand property for ‘pause-before’ and ‘pause-after’. If two values are given, the first value is
+        ‘pause-before’ and the second is ‘pause-after’. If only one value is given, it applies to both properties. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="pause-before" />
+        <property id="pause-after" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="pause-after" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#pause-after" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘pause-before’ and ‘pause-after’ properties specify a prosodic boundary (silence with a specific duration) that occurs before
+        (or after) the speech synthesis rendition of the selected element, or if any ‘cue-before’ (or ‘cue-after’) is specified, before (or
+        after) the cue within the aural box model. </p>
+      ]]></description>
+    <group type="or">
+      <time tooltip="Expresses the pause in absolute time units (seconds and milliseconds, e.g. &quot;+3s&quot;, &quot;250ms&quot;). Only non-negative values are allowed." />
+      <name value="none" tooltip="Equivalent to 0ms (no prosodic break is produced by the speech processor)." />
+      <name value="x-weak" />
+      <name value="weak" />
+      <name value="medium" />
+      <name value="strong" />
+      <name value="x-strong" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="pause-before" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#pause-before" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>&nbsp; </p>
+      ]]></description>
+    <group type="or">
+      <time tooltip="Expresses the pause in absolute time units (seconds and milliseconds, e.g. &quot;+3s&quot;, &quot;250ms&quot;). Only non-negative values are allowed." />
+      <name value="none" tooltip="Equivalent to 0ms (no prosodic break is produced by the speech processor)." />
+      <name value="x-weak" />
+      <name value="weak" />
+      <name value="medium" />
+      <name value="strong" />
+      <name value="x-strong" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="rest" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#rest" applies="all elements" initial="N/A (see individual properties)" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘rest’ property is a shorthand for ‘rest-before’ and ‘rest-after’. If two values are given, the first value is ‘rest-before’
+        and the second is ‘rest-after’. If only one value is given, it applies to both properties. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <property id="rest-before" />
+        <property id="rest-after" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="rest-after" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#rest-after" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘rest-before’ and ‘rest-after’ properties specify a prosodic boundary (silence with a specific duration) that occurs before (or
+        after) the speech synthesis rendition of an element within the aural box model. </p>
+      ]]></description>
+    <group type="or">
+      <time tooltip="Expresses the rest in absolute time units (seconds and milliseconds, e.g. &quot;+3s&quot;, &quot;250ms&quot;). Only non-negative values are allowed." />
+      <name value="none" tooltip="Equivalent to 0ms (no prosodic break is produced by the speech processor)." />
+      <name value="x-weak" />
+      <name value="weak" />
+      <name value="medium" />
+      <name value="strong" />
+      <name value="x-strong" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="rest-before" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#rest-before" applies="all elements" initial="none" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>&nbsp; </p>
+      ]]></description>
+    <group type="or">
+      <time tooltip="Expresses the rest in absolute time units (seconds and milliseconds, e.g. &quot;+3s&quot;, &quot;250ms&quot;). Only non-negative values are allowed." />
+      <name value="none" tooltip="Equivalent to 0ms (no prosodic break is produced by the speech processor)." />
+      <name value="x-weak" />
+      <name value="weak" />
+      <name value="medium" />
+      <name value="strong" />
+      <name value="x-strong" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="speak" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#speak" applies="all elements" initial="auto" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘speak’ property determines whether or not to render text aurally. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Resolves to a computed value of ‘none’ when ‘display’ is ‘none’, otherwise resolves to a computed value of ‘auto’ which yields a used value of ‘normal’. Note that the ‘none’ value of the ‘display’ property cannot be overridden by descendants of the selected element, but the ‘auto’ value of ‘speak’ can however be overridden using either of ‘none’ or ‘normal’." />
+      <name value="none" tooltip="This value causes an element (including pauses, cues, rests and actual content) to not be rendered (i.e., the element has no effect in the aural dimension). Note that any of the descendants of the affected element are allowed to override this value, so descendants can actually take part in the aural rendering despite using ‘none’ at this level. However, the pauses, cues, and rests of the ancestor element remain &quot;deactivated&quot; in the aural dimension, and therefore do not contribute to the collapsing of pauses or additive behavior of adjoining rests." />
+      <name value="normal" tooltip="The element is rendered aurally (regardless of its ‘display’ value and the ‘display’ and ‘speak’ values of its ancestors). Note that using this value can result in the element being rendered in the aural dimension even though it would not be rendered on the visual canvas." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="speak-as" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#speak-as" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘speak-as’ property determines in what manner text gets rendered aurally, based upon a predefined list of possibilities. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Uses language-dependent pronunciation rules for rendering the element's content. For example, punctuation is not spoken as-is, but instead rendered naturally as appropriate pauses." />
+      <group type="any">
+        <name value="spell-out" tooltip="Spells the text one letter at a time (useful for acronyms and abbreviations). In languages where accented characters are rare, it is permitted to drop accents in favor of alternative unaccented spellings. As as example, in English, the word &quot;rôle&quot; can also be written as &quot;role&quot;. A conforming implementation would thus be able to spell-out &quot;rôle&quot; as &quot;R O L E&quot;." />
+        <name value="digits" tooltip="Speak numbers one digit at a time, for instance, &quot;twelve&quot; would be spoken as &quot;one two&quot;, and &quot;31&quot; as &quot;three one&quot;. Speech synthesizers are knowledgeable about what a number is. The ‘speak-as’ property enables some level of control on how user agents render numbers, and may be implemented as a preprocessing step before passing the text to the actual speech synthesizer." />
+        <group type="or">
+          <name value="literal-punctuation" tooltip="Punctuation such as semicolons, braces, and so on is named aloud (i.e. spoken literally) rather than rendered naturally as appropriate pauses." />
+          <name value="no-punctuation" tooltip="Punctuation is not rendered: neither spoken nor rendered as pauses." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-balance" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-balance" applies="all elements" initial="center" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p> The ‘voice-balance’ property controls the spatial distribution of audio output across a lateral sound stage: one extremity is on
+        the left, the other extremity is on the right hand side, relative to the listener's position. Authors can specify intermediary steps
+        between left and right extremities, to represent the audio separation along the resulting left-right axis. </p>
+      ]]></description>
+    <group type="or">
+      <number tooltip="A number between ‘-100’ and ‘100’ (inclusive). Values smaller than ‘-100’ are clamped to ‘-100’. Values greater than ‘100’ are clamped to ‘100’. The value ‘-100’ represents the left side, and the value ‘100’ represents the right side. The value ‘0’ represents the center point whereby there is no discernible audio separation between left and right sides (in a stereo sound system, this corresponds to equal distribution of audio signals between left and right speakers)." />
+      <name value="left" tooltip="Same as ‘-100’." />
+      <name value="center" tooltip="Same as ‘0’." />
+      <name value="right" tooltip="Same as ‘100’." />
+      <name value="leftwards" tooltip="Moves the sound to the left, by subtracting 20 from the inherited ‘voice-balance’ value, and by clamping the resulting number to ‘-100’." />
+      <name value="rightwards" tooltip="Moves the sound to the right, by adding 20 to the inherited ‘voice-balance’ value, and by clamping the resulting number to ‘100’." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-duration" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-duration" applies="all elements" initial="auto" inherited="no" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p> The ‘voice-duration’ property specifies how long it should take to render the selected element's content (not including audio
+        cues, pauses and rests ). Unless the value ‘<code class="property">auto</code>’ is specified, this property takes precedence over
+        the ‘voice-rate’ property, and should be used to determine a suitable speaking rate for the voice. An element for which the
+        ‘voice-duration’ property value is not ‘<code class="property">auto</code>’ may have descendants for which the ‘voice-duration’ and
+        ‘voice-rate’ properties are specified, but these must be ignored. In other words, when a ‘<code class="property">time</code>’ is
+        specified for the ‘voice-duration’ of a selected element, it applies to the entire element subtree (children cannot override the
+        property). </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Resolves to a used value corresponding to the duration of the speech synthesis when using the inherited ‘voice-rate’." />
+      <time min-value="0" tooltip="Specifies a value in absolute time units (seconds and milliseconds, e.g. &quot;+3s&quot;, &quot;250ms&quot;). Only non-negative values are allowed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-family" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-family" applies="all elements" initial="implementation-dependent" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘voice-family’ property specifies a prioritized list of component values that are separated by commas to indicate that they are
+        alternatives (this is analogous to ‘<code class="css">font-family</code>’ in visual style sheets). Each component value potentially
+        designates a speech synthesis voice instance, by specifying match criteria (see the voice selection section on this topic). </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group min="0" max="-1">
+          <group type="or">
+            <name tooltip="Values are specific voice instances (e.g., Mike, comedian, mary, carlos2, &quot;valley girl&quot;). Voice names must either be given quoted as strings, or unquoted as a sequence of one or more identifiers. Note that as a result, most punctuation characters, or digits at the start of each token, must be escaped in unquoted voice names. If a sequence of identifiers is given as a voice name, the computed value is the name converted to a string by joining all the identifiers in the sequence by single spaces. Voice names that happen to be the same as the gender keywords (‘male’, ‘female’ and ‘neutral’) or that happen to match the keywords ‘inherit’ or ‘preserve’ must be quoted to disambiguate with these keywords. The keywords ‘initial’ and ‘default’ are reserved for future use and must also be quoted when used as voice names. Note that in [SSML], voice names are space-separated and cannot contain whitespace characters. It is recommended to quote voice names that contain white space, digits, or punctuation characters other than hyphens - even if these voice names are valid in unquoted form - in order to improve code clarity. For example: voice-family: &quot;john doe&quot;, &quot;Henry the-8th&quot;;" />
+            <inline id="generic-voice-css3" name="generic-voice" />
+          </group>
+          <text value="," />
+        </group>
+        <group type="or">
+          <name tooltip="Values are specific voice instances (e.g., Mike, comedian, mary, carlos2, &quot;valley girl&quot;). Voice names must either be given quoted as strings, or unquoted as a sequence of one or more identifiers. Note that as a result, most punctuation characters, or digits at the start of each token, must be escaped in unquoted voice names. If a sequence of identifiers is given as a voice name, the computed value is the name converted to a string by joining all the identifiers in the sequence by single spaces. Voice names that happen to be the same as the gender keywords (‘male’, ‘female’ and ‘neutral’) or that happen to match the keywords ‘inherit’ or ‘preserve’ must be quoted to disambiguate with these keywords. The keywords ‘initial’ and ‘default’ are reserved for future use and must also be quoted when used as voice names. Note that in [SSML], voice names are space-separated and cannot contain whitespace characters. It is recommended to quote voice names that contain white space, digits, or punctuation characters other than hyphens - even if these voice names are valid in unquoted form - in order to improve code clarity. For example: voice-family: &quot;john doe&quot;, &quot;Henry the-8th&quot;;" />
+          <inline id="generic-voice-css3" name="generic-voice" />
+        </group>
+      </group>
+      <name value="preserve" tooltip="Indicates that the ‘voice-family’ value gets inherited and used regardless of any potential language change within the content markup (see the section below about voice selection and language handling). This value behaves as ‘inherit’ when applied to the root element. Note that descendants of the selected element automatically inherit the ‘preserve’ value, unless it is explicitly overridden by other ‘voice-family’ values (e.g. name, gender, age)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-pitch" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-pitch" applies="all elements" initial="medium" inherited="yes" percentage="refer to inherited value" media="speech">
+    <description><![CDATA[
+      <p>The ‘voice-pitch’ property specifies the &quot;baseline&quot; pitch of the generated speech output, which depends on the used
+        ‘voice-family’ instance, and varies across speech synthesis processors (it approximately corresponds to the average pitch of the
+        output). For example, the common pitch for a male voice is around 120Hz, whereas it is around 210Hz for a female voice. </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <frequency tooltip="A value in frequency units (Hertz or kiloHertz, e.g. &quot;100Hz&quot;, &quot;+2kHz&quot;). Values are restricted to positive numbers when the ‘absolute’ keyword is specified. Otherwise (when the ‘absolute’ keyword is not specified), a negative value represents a decrement, and a positive value represents an increment, relative to the inherited value. For example, &quot;2kHz&quot; is a positive offset (strictly equivalent to &quot;+2kHz&quot;), and &quot;+2kHz absolute&quot; is an absolute frequency (strictly equivalent to &quot;2kHz absolute&quot;)." />
+        <name value="absolute" tooltip="If specified, this keyword indicates that the specified frequency represents an absolute value. If a negative frequency is specified, the computed frequency will be zero." />
+      </group>
+      <group type="any">
+        <group type="or">
+          <name value="x-low" />
+          <name value="low" />
+          <name value="medium" />
+          <name value="high" />
+          <name value="x-high" />
+        </group>
+        <group type="or">
+          <frequency tooltip="A value in frequency units (Hertz or kiloHertz, e.g. &quot;100Hz&quot;, &quot;+2kHz&quot;). Values are restricted to positive numbers when the ‘absolute’ keyword is specified. Otherwise (when the ‘absolute’ keyword is not specified), a negative value represents a decrement, and a positive value represents an increment, relative to the inherited value. For example, &quot;2kHz&quot; is a positive offset (strictly equivalent to &quot;+2kHz&quot;), and &quot;+2kHz absolute&quot; is an absolute frequency (strictly equivalent to &quot;2kHz absolute&quot;)." />
+          <semitones />
+          <percentage tooltip="Positive and negative percentage values are allowed, to represent an increment or decrement (respectively) relative to the inherited value. Computed values are calculated by adding (or subtracting) the specified fraction of the inherited value, to (from) the inherited value. For example, 50% (which is equivalent to +50%) with a inherited value of 200Hz results in 200 + (200*0.5) = 300Hz. Conversely, -50% results in 200-(200*0.5) = 100Hz." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-range" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-range" applies="all elements" initial="medium" inherited="yes" percentage="refer to inherited value" media="speech">
+    <description><![CDATA[
+      <p> The ‘voice-range’ property specifies the variability in the &quot;baseline&quot; pitch, i.e. how much the fundamental frequency
+        may deviate from the average pitch of the speech output. The dynamic pitch range of the generated speech generally increases for a
+        highly animated voice, for example when variations in inflection are used to convey meaning and emphasis in speech. Typically, a low
+        range produces a flat, monotonic voice, whereas a high range produces an animated voice. </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <frequency tooltip="A value in frequency units (Hertz or kiloHertz, e.g. &quot;100Hz&quot;, &quot;+2kHz&quot;). Values are restricted to positive numbers when the ‘absolute’ keyword is specified. Otherwise (when the ‘absolute’ keyword is not specified), a negative value represents a decrement, and a positive value represents an increment, relative to the inherited value. For example, &quot;2kHz&quot; is a positive offset (strictly equivalent to &quot;+2kHz&quot;), and &quot;+2kHz absolute&quot; is an absolute frequency (strictly equivalent to &quot;2kHz absolute&quot;)." />
+        <name value="absolute" tooltip="If specified, this keyword indicates that the specified frequency represents an absolute value. If a negative frequency is specified, the computed frequency will be zero." />
+      </group>
+      <group type="any">
+        <group type="or">
+          <name value="x-low" />
+          <name value="low" />
+          <name value="medium" />
+          <name value="high" />
+          <name value="x-high" />
+        </group>
+        <group type="or">
+          <frequency tooltip="A value in frequency units (Hertz or kiloHertz, e.g. &quot;100Hz&quot;, &quot;+2kHz&quot;). Values are restricted to positive numbers when the ‘absolute’ keyword is specified. Otherwise (when the ‘absolute’ keyword is not specified), a negative value represents a decrement, and a positive value represents an increment, relative to the inherited value. For example, &quot;2kHz&quot; is a positive offset (strictly equivalent to &quot;+2kHz&quot;), and &quot;+2kHz absolute&quot; is an absolute frequency (strictly equivalent to &quot;2kHz absolute&quot;)." />
+          <semitones />
+          <percentage tooltip="Positive and negative percentage values are allowed, to represent an increment or decrement (respectively) relative to the inherited value. Computed values are calculated by adding (or subtracting) the specified fraction of the inherited value, to (from) the inherited value. For example, 50% (which is equivalent to +50%) with a inherited value of 200Hz results in 200 + (200*0.5) = 300Hz. Conversely, -50% results in 200-(200*0.5) = 100Hz." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-rate" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-rate" applies="all elements" initial="normal" inherited="yes" percentage="refer to default value" media="speech">
+    <description><![CDATA[
+      <p>The ‘voice-rate’ property manipulates the rate of generated synthetic speech in terms of words per minute. </p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <group type="or">
+          <name value="normal" tooltip="Represents the default rate produced by the speech synthesizer for the currently active voice. This is processor-specific and depends on the language, dialect and on the &quot;personality&quot; of the voice." />
+          <name value="x-slow" />
+          <name value="slow" />
+          <name value="medium" />
+          <name value="fast" />
+          <name value="x-fast" />
+        </group>
+        <percentage tooltip="Only non-negative percentage values are allowed. This represents a change relative to the given keyword value (see enumeration above), or to the default value for the root element, or otherwise to the inherited speaking rate (which may itself be a combination of a keyword value and of a percentage, in which case percentages are combined multiplicatively). For example, 50% means that the speaking rate gets multiplied by 0.5 (half the value). Percentages above 100% result in faster speaking rates (relative to the base keyword), whereas percentages below 100% result in slower speaking rates." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-stress" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-stress" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘voice-stress’ property manipulates the strength of emphasis, which is normally applied using a combination of pitch change,
+        timing changes, loudness and other acoustic differences. The precise meaning of the values therefore depend on the language being
+        spoken. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Represents the default emphasis produced by the speech synthesizer." />
+      <name value="strong" />
+      <name value="moderate" />
+      <name value="none" tooltip="Prevents the synthesizer from emphasizing text it would normally emphasize." />
+      <name value="reduced" tooltip="Effectively the opposite of emphasizing a word." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="voice-volume" declared-in="3.0" url="http://www.w3.org/TR/2012/CR-css3-speech-20120320/#voice-volume" applies="all elements" initial="medium" inherited="yes" percentage="N/A" media="speech">
+    <description><![CDATA[
+      <p>The ‘voice-volume’ property allows authors to control the amplitude of the audio waveform generated by the speech synthesiser, and
+        is also used to adjust the relative volume level of audio cues within the aural box model of the selected element. </p>
+      ]]></description>
+    <group type="or">
+      <name value="silent" tooltip="Specifies that no sound is generated (the text is read &quot;silently&quot;). Note that this has the same effect as using negative infinity decibels. Also note that there is a difference between an element whose ‘voice-volume’ property has a value of ‘silent’, and an element whose ‘speak’ property has the value ‘none’. With the former, the selected element takes up the same time as if it was spoken, including any pause before and after the element, but no sound is generated (descendants within the aural box model of the selected element can override the ‘voice-volume’ value, and may therefore generate audio output). With the latter, the selected element is not rendered in the aural dimension and no time is allocated for playback (descendants within the aural box model of the selected element can override the ‘speak’ value, and may therefore generate audio output)." />
+      <group type="any">
+        <group type="or">
+          <name value="x-soft" />
+          <name value="soft" />
+          <name value="medium" />
+          <name value="loud" />
+          <name value="x-loud" />
+        </group>
+        <decibel />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

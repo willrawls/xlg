@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Text Decoration Module Level 3
+W3C Candidate Recommendation 1 August 2013
+http://www.w3.org/TR/2013/CR-css-text-decor-3-20130801/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="text-decoration-line" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-decoration-line-property" rules="noname,@page,page-margin" inherited="no" animatable="no" applies="all elements" percentage="N/A" media="visual" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>Specifies what line decorations, if any, are added to the element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Neither produces nor inhibits text decoration." />
+      <group type="any">
+        <name value="underline" tooltip="Each line of text is underlined." />
+        <name value="overline" tooltip="Each line of text has a line over it (i.e. on the opposite side from an underline)." />
+        <name value="line-through" tooltip="Each line of text has a line through the middle." />
+        <name value="blink" tooltip="The text blinks (alternates between visible and invisible). Value is deprecated." obsolete-in="3.0" />
+        <name value="-moz-anchor-decoration" browsers="FF6.0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-decoration-line" prefix="moz" browsers="FF6.0" />
+  <property id="text-decoration-color" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-decoration-color" rules="noname,@page,page-margin" initial="currentColor" applies="all elements" inherited="no" media="visual" percentage="N/A" animatable="yes" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>This property specifies the color of text decoration (underlines overlines, and line-throughs) set on the element with <see
+          cref="P:text-decoration-line"/>.</p>
+      ]]></description>
+    <group type="or">
+      <inline id="color" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-decoration-color" prefix="webkit" browsers="S6.0" />
+  <prefixed-property id="text-decoration-color" prefix="moz" browsers="FF6.0" />
+  <property id="text-decoration-style" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-decoration-style-property" rules="noname,@page,page-margin" initial="solid" applies="all elements" inherited="no" percentage="N/A" media="visual" animatable="no" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>his property specifies the style of the line(s) drawn for text decoration specified on the element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="solid" />
+      <name value="double" />
+      <name value="dotted" />
+      <name value="dashed" />
+      <name value="wavy" browsers="C30.0" />
+      <name value="-moz-wavy" browsers="FF6.0" />
+      <name value="-moz-none" browsers="FF6.0" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-decoration-style" prefix="webkit" browsers="C24.0,O15.0" />
+  <prefixed-property id="text-decoration-style" prefix="moz" browsers="FF6.0" />
+  <property id="text-decoration" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-decoration" rules="noname,@page,page-margin" browsers="FF6.0" initial="none" applies="all elements" inherited="no" percentage="N/A" media="visual" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>This property is a shorthand for setting <see cref="P:text-decoration-line"/>, <see cref="P:text-decoration-color"/>, and
+        <see cref="P:text-decoration-style"/> in one declaration. Omitted values are set to their initial values.
+        A ‘text-decoration’ declaration that omits both the <see cref="P:text-decoration-color"/> and <see cref="P:text-decoration-style"/>
+        values is backwards-compatible with CSS Levels 1 and 2.</p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="text-decoration-line" />
+        <property id="text-decoration-style" />
+        <property id="text-decoration-color" />
+      </group>
+      <name value="-moz-anchor-decoration" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-decoration-skip" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-decoration-skip" rules="noname,@page,page-margin" initial="objects" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="no" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>This property specifies what parts of the element's content any text decoration affecting the element must skip over. It controls
+        all text decoration lines drawn by the element and also any text decoration lines drawn by its ancestors.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Skip nothing: text-decoration is drawn for all text content and across atomic inline-level boxes." />
+      <group type="any">
+        <name value="objects" tooltip="Skip this element (its entire margin box) if it is an atomic inline (such as an image or inline-block)." />
+        <name value="spaces" tooltip="Skip all spacing, i.e. all characters with the Unicode White_Space property [UAX44] and all word separator characters, plus any adjacent letter-spacing or word-spacing [CSS3TEXT]." />
+        <name value="ink" tooltip="Skip over where glyphs are drawn: interrupt the decoration line to let the shape of the text show through where the text decoration would otherwise cross over a glyph. The UA must skip a small distance to either side of the glyph outline." />
+        <name value="edges" tooltip="The UA should place the start and end of the line inwards slightly (e.g. by half a line thickness) from the content edge of the decorating box so that, e.g. two underlined elements side-by-side do not appear to have a single underline. (This is important in Chinese, where underlining is a form of punctuation.)" />
+        <name value="box-decoration" tooltip="Skip over the box's margin, border, and padding areas. Note that this only has an effect on decorations imposed by an ancestor; a decorating box never draws over its own box decoration." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-underline-position" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-underline-position" initial="auto" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="no" caniuse-ids="text-decoration">
+    <description><![CDATA[
+      <p>This property sets the position of an underline specified on the element. (It does not affect underlines specified by ancestor
+        elements.) If ‘left’ or ‘right’ is specified alone, ‘under’ is also implied.</p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="The user agent may use any algorithm to determine the underline's position; however it must be placed at or under the alphabetic baseline." />
+      <group type="any">
+        <name value="under" tooltip="The underline is positioned under the element's text content. In this case the underline usually does not cross the descenders. (This is sometimes called “accounting” underline.) This value can be combined with ‘left’ or ‘right’ if a particular side is preferred in vertical writing modes." />
+        <group type="or">
+          <name value="left" tooltip="In vertical writing modes, the underline is aligned as for ‘under’, except it is always aligned to the left edge of the text. If this causes the underline to be drawn on the &quot;over&quot; side of the text, then an overline also switches sides and is drawn on the &quot;under&quot; side." />
+          <name value="right" tooltip="In vertical writing modes, the underline is aligned as for ‘under’, except it is always aligned to the right edge of the text. If this causes the underline to be drawn on the &quot;over&quot; side of the text, then an overline also switches sides and is drawn on the &quot;under&quot; side." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-emphasis-style" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-emphasis-style" initial="none" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property applies emphasis marks to the element's text.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No emphasis marks." />
+      <group type="any">
+        <group type="or">
+          <name value="filled" tooltip="The shape is filled with solid color." />
+          <name value="open" tooltip="The shape is hollow." />
+        </group>
+        <group type="or">
+          <name value="dot" tooltip="Display small circles as marks. The filled dot is U+2022 ‘•’, and the open dot is U+25E6 ‘◦’." />
+          <name value="circle" tooltip="Display large circles as marks. The filled circle is U+25CF ‘●’, and the open circle is U+25CB ‘○’." />
+          <name value="double-circle" tooltip="Display double circles as marks. The filled double-circle is U+25C9 ‘◉’, and the open double-circle is U+25CE ‘◎’." />
+          <name value="triangle" tooltip="Display triangles as marks. The filled triangle is U+25B2 ‘▲’, and the open triangle is U+25B3 ‘△’." />
+          <name value="sesame" tooltip="Display sesames as marks. The filled sesame is U+FE45 ‘﹅’, and the open sesame is U+FE46 ‘﹆’." />
+        </group>
+      </group>
+      <string tooltip="Display the given string as marks. Authors should not specify more than one character in &lt;string&gt;. The UA may truncate or ignore strings consisting of more than one grapheme cluster." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-emphasis-style" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions" />
+  <property id="text-emphasis-color" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-emphasis-color" initial="currentColor" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="yes">
+    <description><![CDATA[
+      <p>This property specifies the foreground color of the emphasis marks.</p>
+      ]]></description>
+    <inline id="color" />
+  </property>
+  <prefixed-property id="text-emphasis-color" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions" />
+  <property id="text-emphasis" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-emphasis" initial="" applies="all elements" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property is a shorthand for setting <see cref="P:text-emphasis-style"/> and <see cref="P:text-emphasis-color"/> in one
+        declaration. Omitted values are set to their initial values.</p>
+      ]]></description>
+    <group type="or">
+      <group type="any">
+        <property id="text-emphasis-style" />
+        <property id="text-emphasis-color" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-emphasis" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions" />
+  <property id="text-emphasis-position" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-emphasis-position" initial="over right" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property describes where emphasis marks are drawn at.</p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <name value="over" tooltip="Draw marks over the text in horizontal writing mode." />
+          <name value="under" tooltip="Draw marks under the text in horizontal writing mode." />
+        </group>
+        <group type="or">
+          <name value="right" tooltip="Draw marks to the right of the text in vertical writing mode." />
+          <name value="left" tooltip="Draw marks to the left of the text in vertical writing mode." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="text-emphasis-position" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Mozilla_Extensions" />
+  <property id="text-shadow" declared-in="3.0" url="http://www.w3.org/TR/css-text-decor-3/#text-shadow" initial="none" applies="all elements" inherited="yes" percentage="N/A" media="visual" animatable="yes" caniuse-ids="css-textshadow">
+    <group type="or">
+      <name value="none" />
+      <group type="or" comma-separated="yes">
+        <length min="2" max="3" />
+        <inline id="color" min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

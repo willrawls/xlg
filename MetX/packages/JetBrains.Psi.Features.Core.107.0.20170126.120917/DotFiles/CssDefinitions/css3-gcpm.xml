@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Generated Content for Paged Media Module
+W3C Working Draft, 13 May 2014
+http://www.w3.org/TR/2014/WD-css-gcpm-3-20140513/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="css3-gcpm-content-values" declared-in="3.0">
+    <group type="or">
+      <invoke id="element" />
+      <invoke id="leader" />
+      <invoke id="target-counter" />
+      <invoke id="target-counters" />
+      <invoke id="target-text" />
+      <invoke id="string" />
+    </group>
+  </named-value>
+  <function id="content" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#string-set" media="paged" rules="noname,page-margin">
+    <group type="or" min="0">
+      <name value="text" tooltip="The string value of the element, determined as if white-space: normal had been set. This is the default value." />
+      <name value="before" tooltip="The string value of the ::before pseudo-element, determined as if white-space: normal had been set." />
+      <name value="after" tooltip="The string value of the ::after pseudo-element, determined as if white-space: normal had been set." />
+      <name value="first-letter" tooltip="The first letter of the element, as defined for the ::first-letter pseudo-element" />
+    </group>
+  </function>
+  <function id="string" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-string" rules="noname,page-margin">
+    <group>
+      <inline id="custom-ident" />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <name value="first" tooltip="The value of the first assignment on the page is used. If there is no assignment on the page, the entry value is used. first is the default value." />
+          <name value="start" tooltip="If the element is the first element on the page, the value of the first assignment is used. Otherwise the entry value is used. The entry value may be empty if the element hasn’t yet appeared." />
+          <name value="last" tooltip="The exit value of the named string is used." />
+          <name value="first-except" tooltip="This is identical to 'first', except that the empty string is used on the page where the value is assigned." />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="running" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-running" media="paged" rules="noname,page-margin">
+    <description><![CDATA[
+      <p>string(&lt;custom-ident&gt;)</p>
+      ]]></description>
+    <inline id="custom-ident" />
+  </function>
+  <function id="leader" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-leader" media="paged" rules="noname,page-margin">
+    <group type="or">
+      <name value="dotted" />
+      <name value="solid" />
+      <name value="space" />
+      <string />
+    </group>
+  </function>
+  <function id="target-counter" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-target-counter" media="paged" rules="noname,page-margin">
+    <group>
+      <uri />
+      <text value="," />
+      <inline id="custom-ident" />
+      <group min="0">
+        <text value="," />
+        <inline id="counter-style" />
+      </group>
+    </group>
+  </function>
+  <function id="target-counters" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-target-counters" media="paged" rules="noname,page-margin">
+    <group>
+      <uri />
+      <text value="," />
+      <inline id="custom-ident" />
+      <text value="," />
+      <string />
+      <group min="0">
+        <text value="," />
+        <inline id="counter-style" />
+      </group>
+    </group>
+  </function>
+  <function id="target-text" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-target-text" media="paged" rules="noname,page-margin">
+    <group>
+      <uri />
+      <group min="0">
+        <text value="," />
+        <group type="or">
+          <name value="content" />
+          <name value="before" />
+          <name value="after" />
+          <name value="first-letter" />
+        </group>
+      </group>
+    </group>
+  </function>
+  <function id="element" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-element" media="paged" rules="noname,page-margin">
+    <inline id="custom-ident" />
+  </function>
+  <named-value id="content-list" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#string-set">
+    <group type="or" max="-1">
+      <string />
+      <invoke id="counter" />
+      <invoke id="counters" />
+      <invoke id="content" />
+      <invoke id="env" />
+      <invoke id="attr" />
+    </group>
+  </named-value>
+  <property id="string-set" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#string-set" applies="all elements, but not pseudo-elements" initial="none" inherited="no" percentage="N/A" media="all">
+    <description><![CDATA[
+      <p>The string-set property contains one or more pairs, each consisting of an custom identifier (the name of the named string) followed
+        by a content-list describing how to construct the value of the named string. </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group>
+          <inline id="custom-ident" />
+          <inline id="content-list" />
+        </group>
+        <group min="0" max="-1">
+          <text value="," />
+          <inline id="custom-ident" />
+          <inline id="content-list" />
+        </group>
+      </group>
+      <name value="none" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="running" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#running" applies="elements" initial="none" inherited="no" percentage="N/A" media="all">
+    <group type="or">
+      <inline id="custom-ident" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="footnote-display" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#footnote-display" applies="elements" initial="block" inherited="no" percentage="N/A" media="paged">
+    <group type="or">
+      <name value="block" tooltip="The footnote element is placed in the footnote area as a block element" />
+      <name value="inline" tooltip="The footnote element is placed in the footnote area as an inline element" />
+      <name value="compact" tooltip="The user agent determines whether a given footnote element is placed as a block element or an inline element. If two or more footnotes could fit on the same line in the footnote area, they should be placed inline." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="footnote-policy" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#footnote-policy" applies="elements" initial="auto" inherited="no" percentage="N/A" media="paged">
+    <group type="or">
+      <name value="auto" tooltip="The user agent chooses how to render footnotes, and may place the footnote body on a later page than the footnote reference. A footnote body must never be placed on a page before the footnote reference." />
+      <name value="line" tooltip="If a given footnote body cannot be placed on the current page due to lack of space, the user agent introduces a forced page break at the start of the line containing the footnote reference, so that both the reference and the footnote body fall on the next page. Note that the user agent must honor widow and orphan settings when doing this, and so may need to insert the page break on an earlier line." />
+      <name value="block" tooltip="As with line, except a forced page break is introduced before the paragraph that contains the footnote." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="bookmark-level" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#bookmark-level" applies="all elements" initial="none" inherited="no" percentage="N/A" media="paged">
+    <group type="or">
+      <name value="none" tooltip="no bookmark is generated." />
+      <integer tooltip="defines the level of the bookmark, with the highest level being 1 (negative and zero values are invalid)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="bookmark-label" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#bookmark-label" applies="all elements" initial="none" inherited="no" percentage="N/A" media="paged">
+    <group type="or">
+      <inline id="content-list" tooltip="&lt;content-list&gt; is defined above, in the section on the string-set property. The value of &lt;content-list&gt; becomes the text content of the bookmark label." />
+      <name value="none" tooltip="no bookmark is generated." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="bookmark-state" declared-in="0" url="http://www.w3.org/TR/css-gcpm-3/#bookmark-state" applies="block-level elements" initial="open" inherited="no" percentage="N/A" media="paged">
+    <group type="or">
+      <name value="open" tooltip="The bookmarks of the nearest descendants of an element with a bookmark-state of open will be displayed." />
+      <name value="closed" tooltip="any bookmarks of descendant elements are not initially displayed." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <pseudo-element id="footnote-marker" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#footnote-marker" media="paged">
+    <description><![CDATA[
+      <p>The ::footnote-marker pseudo-element represents the footnote element’s marker, the number or symbol that identifies each
+        footnote.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-element id="footnote-call" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#footnote-call" media="paged">
+    <description><![CDATA[
+      <p>A ::footnote-call pseudo-element is inserted in place of the footnote element when the latter is removed from the flow. By default,
+        the content of this pseudo-element is the value of the footnote counter, styled as a superscripted number.</p>
+      ]]></description>
+  </pseudo-element>
+  <pseudo-class id="nth" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-running" rules="@page">
+    <description><![CDATA[
+      <p>The nth() page pseudo-class allows the selection of arbitrary document pages.</p>
+      ]]></description>
+    <group>
+      <inline id="AnPlusB" name="An+B" />
+      <name value="of" />
+      <inline id="custom-ident" />
+    </group>
+  </pseudo-class>
+  <!-- EXTENSIONS -->
+  <property id="position" declared-in="3.0" url="http://www.w3.org/TR/css3-gcpm/#funcdef-running">
+    <invoke id="running" />
+  </property>
+</definitions>

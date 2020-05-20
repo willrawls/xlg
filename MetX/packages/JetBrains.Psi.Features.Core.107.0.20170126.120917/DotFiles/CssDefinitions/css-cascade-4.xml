@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Cascading and Inheritance Level 4
+W3C Candidate Recommendation, 14 January 2016
+https://www.w3.org/TR/2016/CR-css-cascade-4-20160114/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="wide-keywords" declared-in="1.0" url="http://www.w3.org/TR/2015/CR-css-cascade-3-20150416/#defaulting-keywords">
+    <group type="or">
+      <name value="initial" />
+      <name value="inherit" />
+      <name value="unset" browsers="S9.1" />
+      <name value="revert" browsers="S9.1" />
+    </group>
+  </named-value>
+  <property id="all" declared-in="3.0" url="http://www.w3.org/TR/2015/WD-css-cascade-4-20150421/#propdef-all" applies="See individual properties" initial="See individual properties" inherited="yes" percentage="See individual properties">
+    <description><![CDATA[
+      <p> The <b>all</b> property is a shorthand that resets <em title="">all</em> CSS properties except <see cref="P:direction"/> and <see
+          cref="P:unicode-bidi"/>. It only accepts the CSS-wide keywords.</p>
+      ]]></description>
+    <inline id="wide-keywords" inline="yes" />
+  </property>
+</definitions>

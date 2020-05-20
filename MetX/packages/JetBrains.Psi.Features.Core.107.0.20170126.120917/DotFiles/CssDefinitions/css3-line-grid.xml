@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Line Grid Module Level 1
+W3C Working Draft, 16 September 2014
+http://www.w3.org/TR/2014/WD-css-line-grid-1-20140916/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="line-grid" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css-line-grid-1-20140916/#line-grid" applies="block containers" initial="match-parent" inherited="no" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Specifies whether this box creates a new baseline grid for its descendants or uses the same baseline grid as its parent. (Each box
+        always has an associated line grid. However, whether a box or its contents snap to a line grid is determined by
+        <see cref="P:line-snap"/> and <see cref="box-snap"/>.)</p>
+      ]]></description>
+    <group type="or">
+      <name value="match-parent" tooltip="Box assumes the line grid of its parent." />
+      <name value="create" tooltip="Box creates a new line grid using its own font and line layout settings. The line grid consists of a series of horizontal lines corresponding to all the baselines (alphabetic, text-top, text-bottom, mathematic, central, hanging, etc.) and to the line-over and line-under edges, positioned where they would fall if the contents of this element consisted entirely of line boxes filled with text (no sub-elements) using the first available font. If the box is paginated, the line grid is restarted on each page; since line boxes cannot be fragmented, no page begins with the bottom part of a line’s grid." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="line-snap" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css-line-grid-1-20140916/#propdef-line-snap" applies="all elements" initial="none" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>This property applies to all the line boxes directly contained by the element, and, when not none, causes each line box to shift
+        (usually downward, possibly by zero) until it snaps to the line grid specified by <see cref="P:line-grid"/>.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Line boxes do not snap to the grid; they stack normally." />
+      <name value="baseline" tooltip="The dominant baseline snaps with the matching baseline on the line grid applying to the element." />
+      <name value="contain" tooltip="Two baselines are used to align the line box: the line box is snapped so that its central baseline is centered between one of the line grid’s text-over-edge baselines and a subsequent (but not necessarily consecutive) text-under-edge baseline." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="box-snap" declared-in="3.0" url="http://www.w3.org/TR/2014/WD-css-line-grid-1-20140916/#propdef-box-snap" applies="block-level boxes and internal table elements except table cells" initial="none" inherited="yes" percentage="N/A" media="visual" animatable="no">
+    <description><![CDATA[
+      <p>Specifies how the block is snapped to the baseline grid.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="The block is not snapped to any grid." />
+      <name value="block-start" tooltip="The block-start edge is snapped to the nearest grid line." />
+      <name value="block-end" tooltip="The block-end edge is snapped to the nearest grid line." />
+      <name value="center" tooltip="The block is centered centered between one of the baseline grid’s text-over baselines and a subsequent (but not necessarily consecutive) text-under baseline." />
+      <name value="first-baseline" tooltip="The first line box’s dominant baseline is snapped to the nearest grid line." />
+      <name value="last-baseline" tooltip="The last line box’s dominant baseline is snapped to the nearest grid line." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS basic box model
+Editor's Draft 12 October 2013
+http://www.w3.org/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="margin-width-3" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin">
+    <group type="or">
+      <length tooltip="Sets the margin to the given length. Note that the actual distance to the next element may be different, due to margin collapsing." />
+      <percentage tooltip="Sets the margin to the given percentage of the block dimension of the containing block. If that dimension depends on the value of this percentage, then the percentage is taken relative to ‘100vw’ or ‘100vh’ instead, depending on whether the containing block is horizontal, respectively vertical." />
+      <name value="fill" tooltip="Makes the margin depend on the available space, as defined in “Calculating widths, heights and margins” and in [the section that defines how block-level boxes are laid out in a flow]" />
+      <name value="auto" tooltip="On the A edge and C edge, the used value of ‘auto’ is 0. On the B edge and D edge, the used value depends on the available space, as defined in “Calculating widths, heights and margins.”" />
+    </group>
+  </named-value>
+  <named-value id="padding-width-3" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding">
+    <group type="or">
+      <length />
+      <percentage />
+      <name value="auto" />
+    </group>
+  </named-value>
+  <property id="alignment" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#alignment" applies="" initial="see text" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p class="issue">For consistency with ‘<code class="property">text-align</code>’, maybe this should be called ‘<code class="property">block-align</code>’.
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="top" />
+      <name value="right" />
+      <name value="bottom" />
+      <name value="left" />
+      <name value="center" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="child-align" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#child-align" applies="block-level elements, table cells and inline blocks" initial="auto" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property describes how block-level content of a block is aligned vertically, or more precisely: in the block progression
+        direction. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <name value="top" />
+      <name value="middle" tooltip="Child blocks are centered in the block progression direction." />
+      <name value="bottom" />
+      <name value="left" />
+      <name value="right" />
+      <name value="auto" tooltip="Child blocks are aligned according to ‘writing-mode’: at the top if ‘tb’, at the right if ‘rl’ and at the left if ‘lr’." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="clear" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#clear" applies="block-level elements" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p class="issue">[To do: copy from CSS2 [CSS21] and generalize to vertical text, define <dfn id="clearance.">clearance.</dfn>] </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <name value="left" />
+      <name value="right" />
+      <name value="both" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="clear-after" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#clear-after" applies="block-level elements" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>It is sometimes useful to make sure that the bottom border of a block-level element goes below floating elements. The ‘clear-after’
+        property increases the element's padding as needed. More precisely: If the element has a foot padding or foot border, and there are
+        any floats on the indicated side(s) in the current flow up to and including the end of this element, then find the one whose C
+        margin edge is furthest away from the head content edge of the containing block. If that C margin edge is further from the
+        containing block's head than the element's foot content edge is, then increase the element's foot padding by the difference. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No effect." />
+      <name value="left" tooltip="Only left elements are considered." />
+      <name value="right" tooltip="Only right floating elements are considered" />
+      <name value="top" tooltip="Only top floating elements are considered." />
+      <name value="bottom" tooltip="Only bottom floating elements are considered" />
+      <name value="inside" tooltip="If the bottom of the element occurs on a right-hand page, only left floating elements are considered. On a left-hand page, only right floating elements. On media that are not paged, ‘inside’ means the same as ‘left’." />
+      <name value="outside" tooltip="Analogous" />
+      <name value="start" tooltip="If the ‘direction’ of the element is ‘ltr’, same as ‘left’, otherwise same as ‘right’." />
+      <name value="end" tooltip="If the ‘direction’ of the element is ‘ltr’, same as ‘right’, otherwise same as ‘left’." />
+      <name value="both" tooltip="Both left/top and right/bottom floats are considered." />
+      <name value="descendants" tooltip="All floats in the element's flow that are descendants of the element are considered, but not any other floats." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#float" applies="all, but see text" initial="none" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p class="issue">Adding ‘start’ and ‘end’ was decided at 2009-12-02 telcon. Precise definitions not yet decided: does it depend on
+        ‘direction’ of the element itself or its parent? </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <name value="left" tooltip="If ‘writing-mode’ is ‘tb’, the element generates a box that is floated to the left and content flows on the right side of the box (subject to the ‘clear’ property). If ‘writing-mode’ has a different value, the element generates a box that is floated to the top and content flows on the bottom side of the box (subject to the ‘clear’ property)." />
+          <name value="right" tooltip="Similar to ‘left’, except the box is floated to the right (if ‘writing-mode’ is ‘tb’) or to the bottom (otherwise), and content flows on the left or top side of the box." />
+          <name value="top" tooltip="Same as ‘left’" />
+          <name value="bottom" tooltip="same as ‘right’" />
+          <name value="start" tooltip="If the ‘direction’ property is ‘ltr’, the same as ‘left’; otherwise the same as ‘right’." />
+          <name value="end" tooltip="If the ‘direction’ property is ‘rtl’, the same as ‘right’; otherwise the same as ‘left’." />
+          <name value="none" tooltip="The box is not floated." />
+          <inline id="page-floats" tooltip="Check that the names page-top, page-bottom, next-top, or otherwise do not clash with top and bottom" />
+        </group>
+        <name value="contour" tooltip="Text is flowed around the actual shape of the element rather than around its margin box. Only applies if the element is a replaced element without a border and without padding. See under ‘float-displace’ for how it affects text flow." min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-displace" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#float-displace" applies="" initial="line" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property determines the line wrapping policy in the presence of floats. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <name value="line" tooltip="Line boxes should be shortened and moved so as to avoid floats. The margin, border, padding and background of the element are not affected by floats. (This is the behavior as described in CSS2.) [add description or image?]" />
+      <name value="indent" tooltip="The distance between the margin edge of the floats and the start of the line box is set to the distance between the active reference indent edge (see the ‘indent-edge-reset’ property) and the content edge of the block box. This ensures that relative indents are preserved in the presence of floats. Example of ‘float-displace: indent’. Note that the “bar” paragraph has the same indent (green arrow) next to the float as below it ." />
+      <name value="block" tooltip="The containing block's width as used by the horizontal formatting model is reduced by the width of the floats intruding upon its content area (not taking into account floating descendants or floating elements that appear later in the document tree). The block is then flowed in this reduced containing block width. If the effective containing block width is, by the algorithm given above, reduced to a value smaller than the sum of the margin-left, border-width-left, padding-left, width, padding-right, border-width-right, and margin-right values (treating any ‘auto’ values as zero) then the margin-top of the block is increased until the effective containing block width is no longer so constrained or until all floats have been cleared, whichever occurs first. Example of ‘float-displace: block’" />
+      <name value="block-within-page" tooltip="As for the ‘block’ value, but the determination of intrusions that adjust the width of the block is done separately on each page on which the block appears. Thus, the block may be narrowed on the first page due to one or more intrusions, but may expand (or contract) its width on subsequent pages with different intrusions. The computed value of the ‘width’ property for this case is...?" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-displace" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#float-displace0" applies="" initial="line" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property determines the line wrapping policy in the presence of floats. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <name value="line" tooltip="Line boxes should be shortened and moved so as to avoid floats. The margin, border, padding and background of the element are not affected by floats. (This is the behavior as described in CSS2.) [add description or image?]" />
+      <name value="indent" tooltip="The distance between the margin edge of the floats and the start of the line box is set to the distance between the active reference indent edge (see the ‘indent-edge-reset’ property) and the content edge of the block box. This ensures that relative indents are preserved in the presence of floats. Example of ‘float-displace: indent’. Note that the “bar” paragraph has the same indent (green arrow) next to the float as below it ." />
+      <name value="block" tooltip="The containing block's width as used by the horizontal formatting model is reduced by the width of the floats intruding upon its content area (not taking into account floating descendants or floating elements that appear later in the document tree). The block is then flowed in this reduced containing block width. If the effective containing block width is, by the algorithm given above, reduced to a value smaller than the sum of the margin-left, border-width-left, padding-left, width, padding-right, border-width-right, and margin-right values (treating any ‘auto’ values as zero) then the margin-top of the block is increased until the effective containing block width is no longer so constrained or until all floats have been cleared, whichever occurs first. Example of ‘float-displace: block’" />
+      <name value="block-within-page" tooltip="As for the ‘block’ value, but the determination of intrusions that adjust the width of the block is done separately on each page on which the block appears. Thus, the block may be narrowed on the first page due to one or more intrusions, but may expand (or contract) its width on subsequent pages with different intrusions. The computed value of the ‘width’ property for this case is...?" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="float-displace" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#float-displace1" applies="" initial="line" inherited="no" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property determines the line wrapping policy in the presence of floats. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" />
+      <group type="and">
+        <length />
+        <group type="or" min="0">
+          <name value="block" tooltip="The containing block's width as used by the horizontal formatting model is reduced by the width of the floats intruding upon its content area (not taking into account floating descendants or floating elements that appear later in the document tree). The block is then flowed in this reduced containing block width. If the effective containing block width is, by the algorithm given above, reduced to a value smaller than the sum of the margin-left, border-width-left, padding-left, width, padding-right, border-width-right, and margin-right values (treating any ‘auto’ values as zero) then the margin-top of the block is increased until the effective containing block width is no longer so constrained or until all floats have been cleared, whichever occurs first. Example of ‘float-displace: block’" />
+          <name value="block-within-page" tooltip="As for the ‘block’ value, but the determination of intrusions that adjust the width of the block is done separately on each page on which the block appears. Thus, the block may be narrowed on the first page due to one or more intrusions, but may expand (or contract) its width on subsequent pages with different intrusions. The computed value of the ‘width’ property for this case is...?" />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="height" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#height" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table columns, and column groups" initial="auto" inherited="no" percentage="see prose" media="visual">
+    <description><![CDATA[
+      <p>These properties specify the width and height of the content area or border area (depending on ‘box-sizing’) of certain boxes. </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies the size using a length unit. Negative values are illegal. If the keyword ‘border-box’ is present, the length sets the size of the border box; if ‘content-box’ is present, it sets the size of the content box; if neither is present, the ‘box-sizing’ property determines which size is set." />
+          <percentage tooltip="Specifies a percentage width or height. The percentage is calculated with respect to the width (in the case of ‘width’) or height (for ‘height’) of the generated box's containing block. Negative percentages are illegal. If the containing block's width, resp. height depends on this element, then the percentage is relative to ‘100vw’, resp. ‘100vh’. If the keyword ‘border-box’ is present, the percentage sets the size of the border box; if ‘content-box’ is present, it sets the size of the content box; if neither is present, the ‘box-sizing’ property determines which size is set." />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="Equal to the containing block width or height minus the current element's margin, border, and padding. If the required width, resp. height of the containing block is unknown (depends on this element), then ‘available’ is equal to ‘100vw’, resp. ‘100vh’." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="fit-content" tooltip="Equal to max(‘min-content’, min(‘max-content’, ‘available’))." />
+      <name value="complex" tooltip="(Only on ‘height’.) The same as ‘auto’, except that elements with a complex aspect ratio are considered to have an intrinsic ratio. More precisely: for the purposes of the section on “Calculating widths, heights and margins,” the element is treated as if its height was ‘auto’ and it had an intrinsic ratio." />
+      <name value="auto" tooltip="The width or height depends on the values of other properties. See Calculating widths, heights and margins below." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="indent-edge-reset" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#indent-edge-reset" applies="all elements with a block-level inner formatting context." initial="none" inherited="no" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p>This property determines which edge to use as the <dfn id="reference-indent-edge">reference indent edge</dfn> when calculating the
+        amount of indent to preserve when the value of ‘float-displace’ is set to ‘<code class="css">indent</code>’. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="This block does not introduce a new reference edge." />
+      <name value="margin-edge" tooltip="A new reference indent edge is introduced by this block. Which edge is used as the reference indent edge is determined by which value is given." />
+      <name value="border-edge" tooltip="A new reference indent edge is introduced by this block. Which edge is used as the reference indent edge is determined by which value is given." />
+      <name value="padding-edge" tooltip="A new reference indent edge is introduced by this block. Which edge is used as the reference indent edge is determined by which value is given." />
+      <name value="content-edge" tooltip="A new reference indent edge is introduced by this block. Which edge is used as the reference indent edge is determined by which value is given." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="margin" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin" applies="" initial="(see individual properties)" rules="noname,@page,page-margin" inherited="no" percentage="width* of containing block" media="visual">
+    <description><![CDATA[
+      <p>These properties set the thickness of the margin area. The value may be negative. </p>
+      ]]></description>
+    <group type="or">
+      <inline id="margin-width-3" name="all" tooltip="margin for all sides" />
+      <group>
+        <inline id="margin-width-3" name="top and bottom" tooltip="margin for top and bottom" />
+        <inline id="margin-width-3" name="right and left" tooltip="margin for right and left" />
+      </group>
+      <group>
+        <inline id="margin-width-3" name="top" tooltip="margin for top" />
+        <inline id="margin-width-3" name="right and left" tooltip="margin for right and left" />
+        <inline id="margin-width-3" name="bottom" tooltip="margin for bottom" />
+      </group>
+      <group>
+        <inline id="margin-width-3" name="top" tooltip="margin for top" />
+        <inline id="margin-width-3" name="right" tooltip="margin for right" />
+        <inline id="margin-width-3" name="bottom" tooltip="margin for bottom" />
+        <inline id="margin-width-3" name="left" tooltip="margin for left" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="margin-bottom" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin-bottom" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <group type="or">
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="margin-left" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin-left" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <group type="or">
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="margin-right" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin-right" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <group type="or">
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="margin-top" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#margin-top" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <group type="or">
+      <inline id="margin-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="max-height" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#max-height" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table rows, and row groups" initial="none" inherited="no" percentage="refer to width, resp. height of containing block" media="visual">
+    <description><![CDATA[
+      <p>These properties allow authors to constrain content widths and heights to a certain range. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies a fixed minimum or maximum for ‘width’ or ‘height’. Negative values are illegal." />
+          <percentage tooltip="Specifies a minimum or maximum for ‘width’ or ‘height’ as a percentage of the corresponding dimension of the containing block. Negative percentages are illegal. If the containing block's dimension is negative, the used value is zero. If that containing block's dimension depends on this element's dimension, then the resulting layout is undefined. Or: use the initial value?" />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="The containing block width or height minus margin, border, and padding." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="fit-content" tooltip="For ‘max-width’/‘max-height’, same as ‘max-content’. For ‘min-width’/‘min-height’, same as ‘min-content’." />
+      <name value="none" tooltip="No limit on the width or height of the box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="max-width" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#max-width" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table rows, and row groups" initial="none" inherited="no" percentage="refer to width, resp. height of containing block" media="visual">
+    <description><![CDATA[
+      <p>These properties allow authors to constrain content widths and heights to a certain range. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies a fixed minimum or maximum for ‘width’ or ‘height’. Negative values are illegal." />
+          <percentage tooltip="Specifies a minimum or maximum for ‘width’ or ‘height’ as a percentage of the corresponding dimension of the containing block. Negative percentages are illegal. If the containing block's dimension is negative, the used value is zero. If that containing block's dimension depends on this element's dimension, then the resulting layout is undefined. Or: use the initial value?" />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="The containing block width or height minus margin, border, and padding." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="fit-content" tooltip="For ‘max-width’/‘max-height’, same as ‘max-content’. For ‘min-width’/‘min-height’, same as ‘min-content’." />
+      <name value="none" tooltip="No limit on the width or height of the box." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="min-height" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#min-height" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table rows, and row groups" initial="0" inherited="no" percentage="refer to width, resp. height of containing block" media="visual">
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies a fixed minimum or maximum for ‘width’ or ‘height’. Negative values are illegal." />
+          <percentage tooltip="Specifies a minimum or maximum for ‘width’ or ‘height’ as a percentage of the corresponding dimension of the containing block. Negative percentages are illegal. If the containing block's dimension is negative, the used value is zero. If that containing block's dimension depends on this element's dimension, then the resulting layout is undefined. Or: use the initial value?" />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="The containing block width or height minus margin, border, and padding." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="fit-content" tooltip="For ‘max-width’/‘max-height’, same as ‘max-content’. For ‘min-width’/‘min-height’, same as ‘min-content’." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="min-width" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#min-width" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table rows, and row groups" initial="0" inherited="no" percentage="refer to width, resp. height of containing block" media="visual">
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies a fixed minimum or maximum for ‘width’ or ‘height’. Negative values are illegal." />
+          <percentage tooltip="Specifies a minimum or maximum for ‘width’ or ‘height’ as a percentage of the corresponding dimension of the containing block. Negative percentages are illegal. If the containing block's dimension is negative, the used value is zero. If that containing block's dimension depends on this element's dimension, then the resulting layout is undefined. Or: use the initial value?" />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="The containing block width or height minus margin, border, and padding." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="-webkit-min-content" tooltip="The min-content width or height." browsers="C24" />
+      <name value="-moz-min-content" tooltip="The min-content width or height." browsers="FF3.0" />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="-webkit-max-content" tooltip="The min-content width or height." browsers="C24" />
+      <name value="-moz-max-content" tooltip="The min-content width or height." browsers="FF3.0" />
+      <name value="fit-content" tooltip="For ‘max-width’/‘max-height’, same as ‘max-content’. For ‘min-width’/‘min-height’, same as ‘min-content’." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="overflow" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#overflow1" rules="noname,page-margin" applies="non-replaced block-level elements and non-replaced ‘inline-block’ elements" initial="see individual properties" inherited="no" percentage="N/A" media="visual">
+    <group type="or">
+      <inline id="overflow-value-3" max="2" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="overflow-x" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#overflow-x" rules="noname,page-margin" applies="non-replaced block-level elements and non-replaced ‘inline-block’ elements" initial="visible" inherited="no" percentage="N/A" media="visual">
+    <group type="or">
+      <inline id="overflow-value-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="overflow-x" prefix="ms" url="http://msdn.microsoft.com/en-us/library/ie/ms530826(v=vs.85).aspx" browsers="IE9.0" />
+  <property id="overflow-y" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#overflow-y" rules="noname,page-margin" applies="non-replaced block-level elements and non-replaced ‘inline-block’ elements" initial="visible" inherited="no" percentage="N/A" media="visual">
+    <group type="or">
+      <inline id="overflow-value-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="overflow-y" prefix="ms" url="http://msdn.microsoft.com/en-us/library/ie/ms530829(v=vs.85).aspx" browsers="IE9.0" />
+  <property id="padding" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding" applies="" initial="(see individual properties)" rules="noname,@page,page-margin" inherited="no" percentage="width* of containing block" media="visual">
+    <group type="or">
+      <group type="or">
+        <inline id="padding-width-3" name="all" tooltip="padding for all sides" />
+        <group>
+          <inline id="padding-width-3" name="top and bottom" tooltip="padding for top and bottom" />
+          <inline id="padding-width-3" name="right and left" tooltip="padding for right and left" />
+        </group>
+        <group>
+          <inline id="padding-width-3" name="top" tooltip="padding for top" />
+          <inline id="padding-width-3" name="right and left" tooltip="padding for right and left" />
+          <inline id="padding-width-3" name="bottom" tooltip="padding for bottom" />
+        </group>
+        <group>
+          <inline id="padding-width-3" name="top" tooltip="padding for top" />
+          <inline id="padding-width-3" name="right" tooltip="padding for right" />
+          <inline id="padding-width-3" name="bottom" tooltip="padding for bottom" />
+          <inline id="padding-width-3" name="left" tooltip="padding for left" />
+        </group>
+        <inline id="wide-keywords" inline="yes" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="padding-bottom" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding-bottom" applies="" initial="0" rules="noname,@page,page-margin" inherited="no" percentage="width* of containing block" media="visual">
+    <description><![CDATA[
+      <p>Sets the thickness of the padding area. The value may not be negative. </p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="padding-left" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding-left" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <description><![CDATA[
+      <p>Sets the thickness of the padding area. The value may not be negative. </p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="padding-right" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding-right" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <description><![CDATA[
+      <p>Sets the thickness of the padding area. The value may not be negative. </p>
+      ]]></description>
+    <group type="or">
+      <inline id="padding-width-3" inline="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="padding-top" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#padding-top" applies="" initial="0" inherited="no" rules="noname,@page,page-margin" percentage="width* of containing block" media="visual">
+    <description><![CDATA[
+      <p>Sets the thickness of the padding area. The value may not be negative. </p>
+      ]]></description>
+    <group type="or">
+      <group type="or">
+        <length />
+        <percentage />
+        <name value="auto" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="visibility" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#visibility" applies="" initial="visible" rules="noname,@page,page-margin" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property specifies whether the boxes generated by an element are rendered. Invisible boxes still affect layout (set the
+        ‘display’ property to ‘<code class="css">none</code>’ to suppress box generation altogether). Values have the following meanings:
+      </p>
+      ]]></description>
+    <group type="or">
+      <name value="visible" tooltip="The generated box is visible." />
+      <name value="hidden" tooltip="The generated box is invisible (fully transparent, nothing is drawn), but still affects layout. Furthermore, descendants of the element will be visible if they have ‘visibility: visible’." />
+      <name value="collapse" tooltip="See the Tables module [CSS3TBL]. If used on elements other than rows, row groups, columns, or column groups, ‘collapse’ has the same meaning as ‘hidden’." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="width" declared-in="3.0" url="http://dev.w3.org/csswg/css3-box/#width" rules="noname,@page,page-margin" applies="all elements but non-replaced inline elements, table rows, and row groups" initial="auto" inherited="no" percentage="refer to width of containing block" media="visual">
+    <description><![CDATA[
+      <p>These properties specify the width and height of the content area or border area (depending on ‘box-sizing’) of certain boxes. </p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <length tooltip="Specifies the size using a length unit. Negative values are illegal. If the keyword ‘border-box’ is present, the length sets the size of the border box; if ‘content-box’ is present, it sets the size of the content box; if neither is present, the ‘box-sizing’ property determines which size is set." />
+          <percentage tooltip="Specifies a percentage width or height. The percentage is calculated with respect to the width (in the case of ‘width’) or height (for ‘height’) of the generated box's containing block. Negative percentages are illegal. If the containing block's width, resp. height depends on this element, then the percentage is relative to ‘100vw’, resp. ‘100vh’. If the keyword ‘border-box’ is present, the percentage sets the size of the border box; if ‘content-box’ is present, it sets the size of the content box; if neither is present, the ‘box-sizing’ property determines which size is set." />
+        </group>
+        <group type="or" min="0">
+          <name value="border-box" />
+          <name value="content-box" />
+        </group>
+      </group>
+      <name value="available" tooltip="Equal to the containing block width or height minus the current element's margin, border, and padding. If the required width, resp. height of the containing block is unknown (depends on this element), then ‘available’ is equal to ‘100vw’, resp. ‘100vh’." />
+      <name value="-moz-available" tooltip="Equal to the containing block width or height minus the current element's margin, border, and padding. If the required width, resp. height of the containing block is unknown (depends on this element), then ‘available’ is equal to ‘100vw’, resp. ‘100vh’." />
+      <name value="min-content" tooltip="The min-content width or height." />
+      <name value="-moz-min-content" tooltip="The min-content width or height." />
+      <name value="max-content" tooltip="The max-content width or height." />
+      <name value="-moz-max-content" tooltip="The max-content width or height." />
+      <name value="fit-content" tooltip="Equal to max(‘min-content’, min(‘max-content’, ‘available’))." />
+      <name value="-moz-fit-content" tooltip="Equal to max(‘min-content’, min(‘max-content’, ‘available’))." />
+      <name value="auto" tooltip="The width or height depends on the values of other properties. See Calculating widths, heights and margins below." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

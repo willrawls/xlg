@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -34,7 +34,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -54,14 +54,14 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\..\..\bin\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>890372096</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\..\..\..\bin\MetX.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\MetX.XML</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -70,9 +70,10 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>1</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -95,6 +96,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -149,6 +151,15 @@
     <Compile Include="Data\AggregateFunction.cs" />
     <Compile Include="Data\Comparison.cs" />
     <Compile Include="Data\DataProviderCollection.cs" />
+    <Compile Include="Data\Factory\CommandLineGatherer.cs" />
+    <Compile Include="Data\Factory\FileSystemGatherer.cs" />
+    <Compile Include="Data\Factory\CommandLineProvider.cs" />
+    <Compile Include="Data\Factory\FileSystemProvider.cs" />
+    <Compile Include="Data\Factory\PowershellProvider.cs" />
+    <Compile Include="Data\Factory\PowerShellGatherer.cs" />
+    <Compile Include="Data\Factory\SqlDataProvider.cs" />
+    <Compile Include="Data\Factory\SqlToXmlGatherer.cs" />
+    <Compile Include="Data\Factory\SystemDataSqlClientProvider.cs" />
     <Compile Include="Data\Join.cs" />
     <Compile Include="Data\OrderBy.cs" />
     <Compile Include="Data\QueryCommandCollection.cs" />
@@ -161,6 +172,7 @@
     <Compile Include="Library\ChooseOneDialog.cs" />
     <Compile Include="Library\Fred.cs" />
     <Compile Include="Library\GeneralQuestionDialog.cs" />
+    <Compile Include="Library\SerializesToXml.cs" />
     <Compile Include="Library\StreamBuilder.cs" />
     <Compile Include="Library\Tokenizer.cs" />
     <Compile Include="Scripts\CaseFreeDictionary.cs" />

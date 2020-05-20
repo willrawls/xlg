@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Writing Modes Level 3
+W3C Candidate Recommendation, 20 March 2014
+http://www.w3.org/TR/2014/CR-css-writing-modes-3-20140320/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property id="direction" declared-in="3.0" url="http://www.w3.org/TR/css-writing-modes-3/#direction" applies="all elements" initial="ltr" rules="noname,@page,page-margin" inherited="yes" percentage="n/a" media="visual" browsers="C2.0,FF1.0,IE5.5,O9.2,S1.3">
+    <description><![CDATA[
+      <p>This property specifies the inline base direction or directionality of any bidi paragraph, embedding, isolate, or override
+        established by the box. (See
+        <see cref="P:unicode-bidi"/>.) In addition, it informs the ordering of table column layout, the direction of horizontal overflow,
+        and the default alignment of text within a line, and other layout effects that depend on the box’s inline base direction.</p>
+      ]]></description>
+    <group type="or">
+      <name value="ltr" tooltip="Left-to-right directionality." />
+      <name value="rtl" tooltip="Right-to-left directionality." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="unicode-bidi" declared-in="3.0" url="http://www.w3.org/TR/css-writing-modes-3/#unicode-bidi" applies="all elements, but see prose" initial="normal" inherited="no" percentage="n/a" media="visual" browsers="C2.0,FF1.0,IE5.5,O9.2,S1.3">
+    <description><![CDATA[
+      <p>Normally (i.e. when unicode-bidi is normal) an inline box is transparent to the unicode bidi algorithm; content is ordered as if
+        the box’s boundaries were not there. Other values of the unicode-bidi property cause inline boxes to create scopes within the
+        algorithm, and to override the intrinsic directionality of text.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="The box does not open an additional level of embedding with respect to the bidirectional algorithm. For inline boxes, implicit reordering works across box boundaries." />
+      <name value="embed" tooltip="If the box is inline, this value creates a directional embedding by opening an additional level of embedding with respect to the bidirectional algorithm. The direction of this embedding level is given by the direction property. Inside the box, reordering is done implicitly. Following clause HL3 [UAX9], this corresponds to inserting a LRE (U+202A), for direction: ltr, or RLE (U+202B), for direction: rtl, at the start of the inline box and a PDF (U+202C) at the end of the box. This value has no effect on boxes that are not inline." />
+      <name value="isolate" tooltip="On an inline box, this bidi-isolates its contents. This is similar to a directional embedding (and increases the embedding level accordingly) except that each sequence of inline-level boxes uninterrupted by any block boundary or forced paragraph break is treated as an isolated sequence: the content within the sequence is ordered as if inside an independent paragraph with the base directionality specified by the box’s direction property. for the purpose of bidi resolution in its containing bidi paragraph, the sequence is treated as if it were a single Object Replacement Character (U+FFFC). In effect, neither is the content inside the box bidi-affected by the content surrounding the box, nor is the content surrounding the box bidi-affected by the content or specified directionality of the box. However, forced paragraph breaks within the box still create a corresponding break in the containing paragraph. Following clause HL3 [UAX9], this corresponds to inserting an LRI (U+2066), for direction: ltr, or RLI (U+2067), for direction: rtl, at the start of the inline box, and a PDI (U+2069) at the end of the box. [UAX9] This value has no effect on boxes that are not inline." />
+      <name value="-webkit-isolate" browsers="C16" tooltip="On an inline box, this bidi-isolates its contents. This is similar to a directional embedding (and increases the embedding level accordingly) except that each sequence of inline-level boxes uninterrupted by any block boundary or forced paragraph break is treated as an isolated sequence: the content within the sequence is ordered as if inside an independent paragraph with the base directionality specified by the box’s direction property. for the purpose of bidi resolution in its containing bidi paragraph, the sequence is treated as if it were a single Object Replacement Character (U+FFFC). In effect, neither is the content inside the box bidi-affected by the content surrounding the box, nor is the content surrounding the box bidi-affected by the content or specified directionality of the box. However, forced paragraph breaks within the box still create a corresponding break in the containing paragraph. Following clause HL3 [UAX9], this corresponds to inserting an LRI (U+2066), for direction: ltr, or RLI (U+2067), for direction: rtl, at the start of the inline box, and a PDI (U+2069) at the end of the box. [UAX9] This value has no effect on boxes that are not inline." />
+      <name value="-moz-isolate" browsers="FF10" tooltip="On an inline box, this bidi-isolates its contents. This is similar to a directional embedding (and increases the embedding level accordingly) except that each sequence of inline-level boxes uninterrupted by any block boundary or forced paragraph break is treated as an isolated sequence: the content within the sequence is ordered as if inside an independent paragraph with the base directionality specified by the box’s direction property. for the purpose of bidi resolution in its containing bidi paragraph, the sequence is treated as if it were a single Object Replacement Character (U+FFFC). In effect, neither is the content inside the box bidi-affected by the content surrounding the box, nor is the content surrounding the box bidi-affected by the content or specified directionality of the box. However, forced paragraph breaks within the box still create a corresponding break in the containing paragraph. Following clause HL3 [UAX9], this corresponds to inserting an LRI (U+2066), for direction: ltr, or RLI (U+2067), for direction: rtl, at the start of the inline box, and a PDI (U+2069) at the end of the box. [UAX9] This value has no effect on boxes that are not inline." />
+      <name value="bidi-override" tooltip="This value puts the box’s immediate inline content in a directional override. For an inline, this means that the box acts like a directional embedding in the bidirectional algorithm, except that reordering within it is strictly in sequence according to the direction property; the implicit part of the bidirectional algorithm is ignored. For a block container, the override is applied to an anonymous inline box that surrounds all of its content. Following clause HL3 [UAX9], this corresponds to inserting an LRO (U+202D), for direction: ltr, or RLO (U+202E), for direction: rtl, at the start of the inline box and a PDF (U+202C) at the end of the box. [UAX9]" />
+      <name value="isolate-override" tooltip="This combines the isolation behavior of isolate with the directional override behavior of bidi-override: to surrounding content, it is equivalent to isolate, but within the box content is ordered as if bidi-override were specified. Following clause HL3 [UAX9], for inline boxes this corresponds to inserting an FSI (U+2068) followed by an LRO (U+202D), for direction: ltr, or RLO (U+202E), for direction: rtl at the start of the box, and a PDF (U+202C) followed by PDI (U+2069) at the end of the box. [UAX9] For other boxes, this value is exactly equivalent to bidi-override." />
+      <name value="-moz-isolate-override" browsers="FF10" tooltip="This combines the isolation behavior of isolate with the directional override behavior of bidi-override: to surrounding content, it is equivalent to isolate, but within the box content is ordered as if bidi-override were specified. Following clause HL3 [UAX9], for inline boxes this corresponds to inserting an FSI (U+2068) followed by an LRO (U+202D), for direction: ltr, or RLO (U+202E), for direction: rtl at the start of the box, and a PDF (U+202C) followed by PDI (U+2069) at the end of the box. [UAX9] For other boxes, this value is exactly equivalent to bidi-override." />
+      <name value="plaintext" tooltip="This value behaves as isolate except that for the purposes of the Unicode bidirectional algorithm, the base directionality of each of the box’s bidi paragraphs (if a block container) or isolated sequences (if an inline) is determined by following the heuristic in rules P2 and P3 of the Unicode bidirectional algorithm (rather than by using the direction property of the box). Following cause HL3 [UAX9], for inline boxes this corresponds to inserting an FSI (U+2068) at the start of the box, and a PDI (U+2069) at the end of the box. [UAX9]" />
+      <name value="-moz-plaintext" browsers="FF10" tooltip="This value behaves as isolate except that for the purposes of the Unicode bidirectional algorithm, the base directionality of each of the box’s bidi paragraphs (if a block container) or isolated sequences (if an inline) is determined by following the heuristic in rules P2 and P3 of the Unicode bidirectional algorithm (rather than by using the direction property of the box). Following cause HL3 [UAX9], for inline boxes this corresponds to inserting an FSI (U+2068) at the start of the box, and a PDI (U+2069) at the end of the box. [UAX9]" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="writing-mode" declared-in="3.0" url="http://www.w3.org/TR/css-writing-modes-3/#writing-mode" applies="All elements except table row groups, table column groups, table rows, and table columns" initial="horizontal-tb" inherited="yes" percentage="n/a" media="visual" browsers="IE8.0">
+    <description><![CDATA[
+      <p>This property specifies whether lines of text are laid out horizontally or vertically and the direction in which blocks
+        progress.</p>
+      ]]></description>
+    <group type="or">
+      <name value="horizontal-tb" tooltip="Top-to-bottom block flow direction. The writing mode is horizontal." />
+      <name value="vertical-rl" tooltip="Right-to-left block flow direction. The writing mode is vertical." />
+      <name value="vertical-lr" tooltip="Left-to-right block flow direction. The writing mode is vertical." />
+      <name value="lr-tb" obsolete-in="3.0" browsers="IE9" tooltip="Content flows horizontally from left to right, top to bottom. The next horizontal line is positioned underneath the previous line. All glyphs are positioned upright. This layout is used by most writing systems." />
+      <name value="rl-tb" obsolete-in="3.0" browsers="IE9" tooltip="Content flows horizontally from right to left, top to bottom. The next horizontal line is positioned underneath the previous line. All glyphs are positioned upright. This layout is used with right-to-left scripts like Arabic, Hebrew, Thaana, and Syriac." />
+      <name value="tb-rl" obsolete-in="3.0" browsers="IE9" tooltip="Content flows vertically from top to bottom, right to left. The next vertical line is positioned to the left of the previous line. Wide-cell glyphs are positioned upright; nonwide-cell glyphs (also known as narrow Latin or narrow Kana glyphs) are rotated 90° clockwise. This layout is used in East Asian typography." />
+      <name value="bt-rl" obsolete-in="3.0" browsers="IE9" tooltip="Content flows vertically from bottom to top, right to left. The next vertical line is positioned to the left of the previous line. Wide-cell glyphs are positioned upright; nonwide-cell glyphs (also known as narrow Latin or narrow Kana glyphs) are rotated 90° clockwise. This layout is used for right-to-left script blocks used in vertical East Asian typography." />
+      <name value="tb-lr" obsolete-in="3.0" browsers="IE8" tooltip="Content flows vertically from top to bottom, left to right. The next vertical line is positioned to the right of the previous line." />
+      <name value="bt-lr" obsolete-in="3.0" browsers="IE8" tooltip="Content flows vertically from bottom to top, left to right." />
+      <name value="rl-bt" obsolete-in="3.0" browsers="IE8" tooltip="Content flows horizontally from bottom to top, left to right. The next horizontal line is positioned above the previous line." />
+      <name value="lr-bt" obsolete-in="3.0" browsers="IE8" tooltip="Content flows horizontally from bottom to top, right to left." />
+      <name value="lr" obsolete-in="3.0" browsers="IE9" tooltip="Equivalent to lr-tb." />
+      <name value="rl" obsolete-in="3.0" browsers="IE9" tooltip="Equivalent to rl-tb." />
+      <name value="tb" obsolete-in="3.0" browsers="IE9" tooltip="Equivalent to tb-rl." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="writing-mode" prefix="webkit" browsers="C16" />
+  <property id="text-orientation" declared-in="3.0" url="http://www.w3.org/TR/css-writing-modes-3/#text-orientation" applies="all elements except table row groups, rows, column groups, and columns" initial="mixed" inherited="yes" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p>This property specifies the orientation of text within a line. Current values only have an effect in vertical writing modes; the
+        property has no effect on boxes in horizontal writing modes. </p>
+      ]]></description>
+    <group type="or">
+      <name value="mixed" tooltip="In vertical writing modes, characters from horizontal-only scripts are set sideways, i.e. 90° clockwise from their standard orientation in horizontal text. Characters from vertical scripts are set with their intrinsic orientation. See Vertical Orientations for further details. This value is typical for layout of primarily vertical-script text." />
+      <name value="upright" tooltip="In vertical writing modes, characters from horizontal-only scripts are rendered upright, i.e. in their standard horizontal orientation. Characters from vertical scripts are set with their intrinsic orientation and shaped normally. See Vertical Orientations for further details. For the purposes of bidi reordering, this value causes all characters to be treated as strong LTR. This value causes the used value of direction to be ltr." />
+      <name value="sideways-right" tooltip="In vertical writing modes, this causes text to be set as if in a horizontal layout, but rotated 90° clockwise." />
+      <name value="sideways-left" tooltip="In vertical writing modes, this causes text to be set as if in a horizontal layout, but rotated 90° counter-clockwise. If set on a non-replaced inline whose parent is not sideways-left, this forces bidi isolation: the normal and embed values of unicode-bidi compute to isolate, and bidi-override computes to isolate-override. Layout of text is exactly as for sideways-right except that the baseline table of each of the inline box’s fragments is mirrored around a vertical axis along the center of its content box and text layout is rotated 180° to match. The positions of text decorations propagated from an ancestor inline (including the block container’s root inline) are not mirrored, but any text decorations introduced by the box are positioned using the mirrored baseline table. Similarly, if an inline child of the box has a text-orientation value other than sideways-left, an analogous transformation (and bidi isolation) is applied." />
+      <name value="sideways" tooltip="This value is equivalent to sideways-right in vertical-rl writing mode and equivalent to sideways-left in vertical-lr writing mode. It can be useful when setting horizontal script text vertically in a primarily horizontal-only document." />
+      <name value="use-glyph-orientation" tooltip="[SVG11] defines glyph-orientation-vertical and glyph-orientation-horizontal properties that were intended to control text orientation. These properties are deprecated and do not apply to non-SVG elements. If an implementation supports these properties, the use-glyph-orientation value when set on SVG elements indicates that the SVG glyph-orientation-vertical and glyph-orientation-horizontal behavior control the layout of text. Such UAs must set text-orientation: use-glyph-orientation on all SVG text content elements in their default UA style sheet for SVG. In all other contexts, and for implementations that do not support the glyph orientation properties, the use-glyph-orientation behavior is the same as for mixed. This value is at-risk and may be dropped during CR." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="text-combine-upright" declared-in="3.0" url="http://www.w3.org/TR/css-writing-modes-3/#text-combine-upright" applies="non-replaced inline elements" initial="none" inherited="yes" percentage="n/a" media="visual">
+    <description><![CDATA[
+      <p>This property specifies the combination of multiple characters into the space of a single character. If the combined text is wider
+        than 1em, the UA must fit the contents within 1em, see below. The resulting composition is treated as a single upright glyph for the
+        purposes of layout and decoration. This property only has an effect in vertical writing modes.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="No special processing." />
+      <name value="all" tooltip="Attempt to typeset horizontally all consecutive characters within the box such that they take up the space of a single character within the vertical line box." />
+      <group tooltip="Attempt to typeset horizontally each maximal sequence of consecutive ASCII digits (U+0030–U+0039) that has as many or fewer characters than the specified integer such that it takes up the space of a single character within the vertical line box. If the integer is omitted, it computes to 2. Integers outside the range 2-4 are invalid.">
+        <name value="digits" />
+        <integer min="0" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

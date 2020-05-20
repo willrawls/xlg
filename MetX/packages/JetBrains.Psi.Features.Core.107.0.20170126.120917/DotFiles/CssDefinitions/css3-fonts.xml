@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Fonts Module Level 3
+W3C Candidate Recommendation 3 October 2013
+http://www.w3.org/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <named-value id="feature-tag-value" declared-in="3.0" url="http://www.w3.org/TR/css3-fonts/#ltfeature-tag-valuegt">
+    <group>
+      <string />
+      <group type="or" min="0">
+        <integer />
+        <name value="on" tooltip="A value of ‘on’ is synonymous with 1." />
+        <name value="off" tooltip="A value of ‘off’ is synonymous with 2." />
+      </group>
+    </group>
+  </named-value>
+  <named-value id="feature-value-name" declared-in="3.0" url="http://www.w3.org/TR/css3-fonts/#ltfeature-value-namegt">
+    <name />
+  </named-value>
+  <named-value id="common-lig-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#common-lig-values">
+    <group type="or">
+      <name value="common-ligatures" tooltip="Enables display of common ligatures (OpenType features: liga, clig)." />
+      <name value="no-common-ligatures" tooltip="Disables display of common ligatures (OpenType features: liga, clig)." />
+    </group>
+  </named-value>
+  <named-value id="discretionary-lig-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#discretionary-lig-values">
+    <group type="or">
+      <name value="discretionary-ligatures" tooltip="Enables display of discretionary ligatures (OpenType feature: dlig)." />
+      <name value="no-discretionary-ligatures" tooltip="Disables display of discretionary ligatures (OpenType feature: dlig)." />
+    </group>
+  </named-value>
+  <named-value id="historical-lig-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#historical-lig-values">
+    <group type="or">
+      <name value="historical-ligatures" tooltip="Enables display of historical ligatures (OpenType feature: hlig)." />
+      <name value="no-historical-ligatures" tooltip="Disables display of historical ligatures (OpenType feature: hlig)." />
+    </group>
+  </named-value>
+  <named-value id="contextual-alt-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#contextual-alt-values">
+    <group type="or">
+      <name value="contextual" tooltip="Enables display of contextual alternates (OpenType feature: calt). " />
+      <name value="no-contextual" tooltip="Disables display of contextual alternates (OpenType feature: calt)." />
+    </group>
+  </named-value>
+  <named-value id="numeric-figure-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#numeric-figure-values">
+    <group type="or">
+      <name value="lining-nums" tooltip="Enables display of lining numerals (OpenType feature: lnum)." />
+      <name value="oldstyle-nums" tooltip="Enables display of old-style numerals (OpenType feature: onum)." />
+    </group>
+  </named-value>
+  <named-value id="numeric-spacing-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#numeric-spacing-values">
+    <group type="or">
+      <name value="proportional-nums" tooltip="Enables display of proportional numerals (OpenType feature: pnum)." />
+      <name value="tabular-nums" tooltip="Enables display of tabular numerals (OpenType feature: tnum)." />
+    </group>
+  </named-value>
+  <named-value id="numeric-fraction-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#numeric-fraction-values">
+    <group type="or">
+      <name value="diagonal-fractions" tooltip="Enables display of lining diagonal fractions (OpenType feature: frac)." />
+      <name value="stacked-fractions" tooltip="Enables display of lining stacked fractions (OpenType feature: afrc)." />
+    </group>
+  </named-value>
+  <named-value id="east-asian-variant-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#east-asian-variant-values">
+    <group type="or">
+      <name value="jis78" tooltip="Enables rendering of JIS78 forms (OpenType feature: jp78)." />
+      <name value="jis83" tooltip="Enables rendering of JIS83 forms (OpenType feature: jp83)." />
+      <name value="jis90" tooltip="Enables rendering of JIS90 forms (OpenType feature: jp90)." />
+      <name value="jis04" tooltip="Enables rendering of JIS2004 forms (OpenType feature: jp04)." />
+      <name value="simplified" tooltip="Enables rendering of simplified forms (OpenType feature: smpl)." />
+      <name value="traditional" tooltip="Enables rendering of traditional forms (OpenType feature: trad)." />
+    </group>
+  </named-value>
+  <named-value id="east-asian-width-values" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#east-asian-width-values">
+    <group type="or">
+      <name value="full-width" tooltip="Enables rendering of full-width variants (OpenType feature: fwid)." />
+      <name value="proportional-width" tooltip="Enables rendering of proportionally-spaced variants (OpenType feature: pwid)." />
+    </group>
+  </named-value>
+  <function id="stylistic" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#stylistic">
+    <description><![CDATA[
+      <p>Enables display of stylistic alternates (font specific, OpenType feature: salt &lt;feature-index&gt;).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <function id="styleset" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#styleset">
+    <description><![CDATA[
+      <p>Enables display with stylistic sets (font specific, OpenType feature: ss&lt;feature-index&gt; OpenType currently defines ss01
+        through ss20).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <function id="character-variant" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#character-variant">
+    <description><![CDATA[
+      <p>Enables display of specific character variants (font specific, OpenType feature: cv&lt;feature-index&gt; OpenType currently defines
+        cv01 through cv99).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <function id="swash" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#swash">
+    <description><![CDATA[
+      <p>Enables display of swash glyphs (font specific, OpenType feature: swsh &lt;feature-index&gt;, cswh &lt;feature-index&gt;).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <function id="ornaments" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#ornaments">
+    <description><![CDATA[
+      <p>Enables replacement of default glyphs with ornaments, if provided in the font (font specific, OpenType feature: ornm &lt;feature-index&gt;).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <function id="annotation" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#annotation">
+    <description><![CDATA[
+      <p>Enables display of alternate annotation forms (font specific, OpenType feature: nalt lt;feature-index&gt;).</p>
+      ]]></description>
+    <inline id="feature-value-name" />
+  </function>
+  <property id="font" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font" applies="all elements" rules="noname,@page,page-margin" initial="see individual properties" inherited="yes" percentage="see individual properties" media="visual">
+    <description><![CDATA[
+      <p>The <see cref="P:font"/> property is, except as described below, a shorthand property for setting ‘font-style’, ‘font-variant’,
+        ‘font-weight’, ‘font-stretch’, <see cref="P:font-size"/>,
+        <see cref="P:line-height"/>, ‘font-family’ at the same place in the stylesheet. Values for the ‘font-variant’ property may also be
+        included but only those supported in CSS 2.1, none of the ‘font-variant’ values added in this specification can be used in the <see
+            cref="P:font"/> shorthand: </p>
+      ]]></description>
+    <group type="or">
+      <group>
+        <group type="any" min="0">
+          <property id="font-style" />
+          <inline id="font-variant-css21" />
+          <property id="font-weight" />
+          <property id="font-stretch" />
+        </group>
+        <property id="font-size" />
+        <group min="0">
+          <text value="/" />
+          <property id="line-height" />
+        </group>
+        <property id="font-family" />
+      </group>
+      <name value="caption" tooltip="The font used for captioned controls (e.g., buttons, drop-downs, etc.)." />
+      <name value="icon" tooltip="The font used to label icons." />
+      <name value="menu" tooltip="The font used in menus (e.g., dropdown menus and menu lists)." />
+      <name value="message-box" tooltip="The font used in dialog boxes." />
+      <name value="small-caption" tooltip="The font used for labeling small controls." />
+      <name value="status-bar" tooltip="The font used in window status bars." />
+      <inline id="apple-system-font" tooltip="iOS predefined fonts" />
+      <inline id="moz-system-font" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-family" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-family-prop" applies="all elements" rules="noname,@page,page-margin" initial="depends on user agent" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property specifies a prioritized list of font family names or generic family names. A font family defines a set of faces that
+        vary in weight, width or slope. CSS uses the combination of a family name with other style attributes to select an individual face.
+        Using this selection mechanism, rather than selecting a face via the style name as is often done in design applications, allows some
+        degree of regularity in textual display when fallback occurs. </p>
+      ]]></description>
+    <group type="or">
+      <group type="or" comma-separated="yes">
+        <inline id="font-family" tooltip="The name of a font family of choice such as Helvetica or Verdana." />
+        <inline id="generic-font-family" tooltip="The following generic family keywords are defined: ‘serif’, ‘sans-serif’, ‘cursive’, ‘fantasy’, and ‘monospace’. These keywords can be used as a general fallback mechanism when an author's desired font choices are not available. As keywords, they must not be quoted. Authors are encouraged to append a generic font family as a last alternative for improved robustness." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-feature-settings" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-feature-settings" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual" browsers="FF34.0,IE10.0,S9.1">
+    <description><![CDATA[
+      <p>This property provides low-level control over OpenType font features. It is intended as a way of providing access to font features
+        that are not widely used but are needed for a particular use case. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <inline id="feature-tag-value" comma-separated="yes" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="font-feature-settings" prefix="moz" browsers="FF4.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings" />
+  <prefixed-property id="font-feature-settings" prefix="o" browsers="O18.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings" />
+  <prefixed-property id="font-feature-settings" prefix="webkit" browsers="C16.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings" />
+  <property id="font-kerning" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-kerning" applies="all elements" initial="auto" inherited="yes" percentage="N/A" media="visual" caniuse-ids="font-kerning">
+    <description><![CDATA[
+      <p>Kerning is the contextual adjustment of inter-glyph spacing. This property controls metric kerning, kerning that utilizes
+        adjustment data contained in the font. </p>
+      ]]></description>
+    <group type="or">
+      <name value="auto" tooltip="Specifies that kerning is applied at the discretion of the user agent" />
+      <name value="normal" tooltip="Specifies that kerning is applied" />
+      <name value="none" tooltip="Specifies that kerning is not applied" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="font-kerning" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Webkit_Extensions" />
+  <property id="font-language-override" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-language-override" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Normally, authors can control the use of language-specific glyph substitutions and positioning by setting the content language of
+        an element.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Specifies that when rendering with OpenType fonts, the content language of the element is used to infer the OpenType language system." />
+      <string tooltip="Single three-letter case-sensitive OpenType language system tag, specifies the OpenType language system to be used instead of the language system implied by the language of the element." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="font-language-override" prefix="moz" browsers="FF1.0" url="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-font-language-override" />
+  <property id="font-size" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-size" rules="noname,@page,page-margin" applies="all elements" initial="medium" inherited="yes" percentage="refer to parent element's font size" media="visual">
+    <description><![CDATA[
+      <p>This property indicates the desired height of glyphs from the font. For scalable fonts, the font-size is a scale factor applied to
+        the EM unit of the font. (Note that certain glyphs may bleed outside their EM box.) For non-scalable fonts, the font-size is
+        converted into absolute units and matched against the declared font-size of the font, using the same absolute coordinate space for
+        both of the matched values. Values have the following meanings: </p>
+      ]]></description>
+    <group type="or">
+      <inline id="absolute-size" tooltip="An &lt;absolute-size&gt; keyword refers to an entry in a table of font sizes computed and kept by the user agent. Possible values are: [ xx-small | x-small | small | medium | large | x-large | xx-large ]" />
+      <inline id="relative-size" tooltip="A &lt;relative-size&gt; keyword is interpreted relative to the table of font sizes and the computed ‘font-size’ of the parent element. Possible values are: [ larger | smaller ] For example, if the parent element has a font size of ‘medium’, a value of ‘larger’ will make the font size of the current element be ‘large’. If the parent element's size is not close to a table entry, the user agent is free to interpolate between table entries or round off to the closest one. The user agent may have to extrapolate table values if the numerical value goes beyond the keywords." />
+      <length tooltip="A length value specifies an absolute font size (independent of the user agent's font table). Negative lengths are illegal." />
+      <percentage tooltip="A percentage value specifies an absolute font size relative to the parent element's font size. Use of percentage values, or values in ‘em’s, leads to more robust and cascadable style sheets." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-size-adjust" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-size-adjust" applies="all elements" initial="none" inherited="yes" percentage="N/A" media="visual" caniuse-ids="font-size-adjust">
+    <description><![CDATA[
+      <p>For any given font size, the apparent size and legibility of text varies across fonts. For scripts such as Latin or Cyrillic that
+        distinguish between upper and lowercase letters, the relative height of lowercase letters compared to their uppercase counterparts
+        is a determining factor of legibility. This is commonly referred to as the aspect value. Precisely defined, it is equal to the
+        x-height of a font divided by the font size. </p>
+      ]]></description>
+    <group type="or">
+      <name value="none" tooltip="Do not preserve the font's x-height." />
+      <number tooltip="Specifies the aspect value used in the calculation below to calculate the adjusted font size: c  =  ( a / a' )." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-stretch" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-stretch" applies="all elements" rules="noname" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The ‘font-stretch’ property selects a normal, condensed, or expanded face from a font family.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <name value="ultra-condensed" />
+      <name value="extra-condensed" />
+      <name value="condensed" />
+      <name value="semi-condensed" />
+      <name value="semi-expanded" />
+      <name value="expanded" />
+      <name value="extra-expanded" />
+      <name value="ultra-expanded" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-style" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-style" applies="all elements" rules="noname,@page,page-margin" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The ‘font-style’ property allows italic or oblique faces to be selected. Italic forms are generally cursive in nature while oblique
+        faces are typically sloped versions of the regular face. Oblique faces can be simulated by artificially sloping the glyphs of the
+        regular face.</p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="selects a face that is classified as a normal face, one that is neither italic or obliqued" />
+      <name value="italic" tooltip="selects a font that is labeled as an italic face, or an oblique face if one is not" />
+      <name value="oblique" tooltip="selects a font that is labeled as an oblique face, or an italic face if one is not" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-synthesis" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-synthesis" applies="all elements" initial="weight style" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property controls whether user agents are allowed to synthesize bold or oblique font faces when a font family lacks bold or
+        italic faces.</p>
+      ]]></description>
+    <group type="or">
+      <name value="none" />
+      <group type="any">
+        <name value="weight" />
+        <name value="style" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-weight" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-weight" applies="all elements" rules="noname,@page,page-margin" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>The ‘font-weight’ property specifies the weight of glyphs in the font, their degree of blackness or stroke thickness. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="Same as ‘400’," />
+      <name value="bold" tooltip="Same as ‘700’." />
+      <name value="bolder" />
+      <name value="lighter" />
+      <text value="100" />
+      <text value="200" />
+      <text value="300" />
+      <text value="400" />
+      <text value="500" />
+      <text value="600" />
+      <text value="700" />
+      <text value="800" />
+      <text value="900" />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#font-variant" applies="all elements" rules="noname,@page,page-margin" initial="normal" inherited="yes" percentage="see individual properties" media="visual">
+    <description><![CDATA[
+      <p>The ‘font-variant’ property is a shorthand for all font-variant subproperties. The value <dfn id="font-variant-normal-value"
+                                                                                                       title="normal!!font-variant">‘<code
+          class="property">normal</code>’</dfn> resets all subproperties of ‘font-variant’ to their inital value. The <dfn
+          id="font-variant-none-value" title="none!!font-variant">‘<code class="property">none</code>’</dfn> value sets
+        ‘font-variant-ligatures’ to ‘<code class="property">none</code>’ and resets all other font feature properties to their initial
+        value. Like other shorthands, using ‘font-variant’ resets unspecified ‘font-variant’ subproperties to their initial values. It does
+        not reset the values of either ‘font-language-override’ or ‘font-feature-settings’. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <name value="none" />
+      <group type="any">
+        <inline id="common-lig-values" />
+        <inline id="discretionary-lig-values" />
+        <inline id="historical-lig-values" />
+        <inline id="contextual-alt-values" />
+        <invoke id="stylistic" />
+        <name value="historical-forms" />
+        <invoke id="styleset" />
+        <invoke id="character-variant" />
+        <invoke id="swash" />
+        <invoke id="ornaments" />
+        <invoke id="annotation" />
+        <group type="or">
+          <name value="small-caps" />
+          <name value="all-small-caps" />
+          <name value="petite-caps" />
+          <name value="all-petite-caps" />
+          <name value="unicase" />
+          <name value="titling-caps" />
+        </group>
+        <inline id="numeric-figure-values" />
+        <inline id="numeric-spacing-values" />
+        <inline id="numeric-fraction-values" />
+        <name value="ordinal" />
+        <name value="slashed-zero" />
+        <inline id="east-asian-variant-values" />
+        <inline id="east-asian-width-values" />
+        <name value="ruby" tooltip="Enables display of ruby variant glyphs (OpenType feature: ruby)." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant-alternates" declared-in="3.0" browsers="S9.1" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-alternates" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual" caniuse-ids="font-variant-alternates">
+    <description><![CDATA[
+      <p>For any given character, fonts can provide a variety of alternate glyphs in addition to the default glyph for that character. This
+        property provides control over the selection of these alternate glyphs. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="None of the features listed below are enabled." />
+      <group type="any">
+        <invoke id="stylistic" />
+        <name value="historical-forms" tooltip="Enables display of historical forms (OpenType feature: hist)." />
+        <invoke id="styleset" />
+        <invoke id="character-variant" />
+        <invoke id="swash" />
+        <invoke id="ornaments" />
+        <invoke id="annotation" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant-caps" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-caps" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual" browsers="S9.1">
+    <description><![CDATA[
+      <p>This property allows the selection of alternate glyphs used for small or petite capitals or for titling. These glyphs are
+        specifically designed to blend well with the surrounding normal glyphs, to maintain the weight and readability which suffers when
+        text is simply resized to fit this purpose. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="None of the features listed below are enabled." />
+      <name value="small-caps" tooltip="Enables display of small capitals (OpenType feature: smcp). Small-caps glyphs typically use the form of uppercase letters but are reduced to the size of lowercase letters." />
+      <name value="all-small-caps" tooltip="Enables display of small capitals for both upper and lowercase letters (OpenType features: c2sc, smcp)." />
+      <name value="petite-caps" tooltip="Enables display of petite capitals (OpenType feature: pcap)." />
+      <name value="all-petite-caps" tooltip="Enables display of petite capitals for both upper and lowercase letters (OpenType features: c2pc, pcap)." />
+      <name value="unicase" tooltip="Enables display of mixture of small capitals for uppercase letters with normal lowercase letters (OpenType feature: unic)." />
+      <name value="titling-caps" tooltip="Enables display of titling capitals (OpenType feature: titl). Uppercase letter glyphs are often designed for use with lowercase letters. When used in all uppercase titling sequences they can appear too strong. Titling capitals are designed specifically for this situation." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant-east-asian" declared-in="3.0" browsers="S9.1" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-east-asian" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Allows control of glyph substitution and sizing in East Asian text. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="None of the features listed below are enabled." />
+      <group type="any">
+        <inline id="east-asian-variant-values" />
+        <inline id="east-asian-width-values" />
+        <name value="ruby" tooltip="Enables display of ruby variant glyphs (OpenType feature: ruby)." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant-ligatures" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-ligatures" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual" browsers="S9.1">
+    <description><![CDATA[
+      <p>Ligatures and contextual forms are ways of combining glyphs to produce more harmonized forms. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <name value="none" />
+      <group type="any">
+        <inline id="common-lig-values" />
+        <inline id="discretionary-lig-values" />
+        <inline id="historical-lig-values" />
+        <inline id="contextual-alt-values" />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <prefixed-property id="font-variant-ligatures" prefix="webkit" url="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Webkit_Extensions" />
+  <property id="font-variant-numeric" declared-in="3.0" browsers="S9.1" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-numeric" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>Specifies control over numerical forms. The example below shows how some of these values can be combined to influence the rendering
+        of tabular data with fonts that support these features. Within normal paragraph text, proportional numbers are used while tabular
+        numbers are used so that columns of numbers line up properly: </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" />
+      <group type="any">
+        <inline id="numeric-figure-values" />
+        <inline id="numeric-spacing-values" />
+        <inline id="numeric-fraction-values" />
+        <name value="ordinal" tooltip="Enables display of letter forms used with ordinal numbers (OpenType feature: ordn)." />
+        <name value="slashed-zero" tooltip="Enables display of slashed zeros (OpenType feature: zero)." />
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="font-variant-position" declared-in="3.0" url="http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/#propdef-font-variant-position" applies="all elements" initial="normal" inherited="yes" percentage="N/A" media="visual">
+    <description><![CDATA[
+      <p>This property is used to enable typographic subscript and superscript glyphs. These are alternate glyphs designed within the same
+        em-box as default glyphs and are intended to be laid out on the same baseline as the default glyphs, with no resizing or
+        repositioning of the baseline. They are explicitly designed to match the surrounding text and to be more readable without affecting
+        the line height. </p>
+      ]]></description>
+    <group type="or">
+      <name value="normal" tooltip="None of the features listed below are enabled." />
+      <name value="sub" tooltip="Enables display of subscript variants (OpenType feature: subs)." />
+      <name value="super" tooltip="Enables display of superscript variants (OpenType feature: sups)." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

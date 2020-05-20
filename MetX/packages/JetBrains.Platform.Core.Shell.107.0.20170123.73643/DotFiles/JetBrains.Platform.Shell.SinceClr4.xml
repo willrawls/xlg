@@ -1,0 +1,454 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Platform.Shell.SinceClr4</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.Application.SinceClr4.VsResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AggregateSourceName">
+            <summary>
+              Looks up a localized string similar to All.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AmbiguousProjectLevelUninstal">
+            <summary>
+              Looks up a localized string similar to Unable to find &apos;{0}&apos; in &apos;{1}&apos; and found multiple versions of &apos;{0}&apos; installed. Please specify a version..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AmbiguousUninstall">
+            <summary>
+              Looks up a localized string similar to Found multiple versions of &apos;{0}&apos; installed. Please specify a version..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AmbiguousUpdate">
+            <summary>
+              Looks up a localized string similar to Unable to update &apos;{0}&apos;. Found multiple versions installed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AskForRestoreMessage">
+            <summary>
+              Looks up a localized string similar to Some extensions are missing from this product. Click to restore..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.AskForUpdateMessage">
+            <summary>
+              Looks up a localized string similar to A new version of NuGet Package Manager is available..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Console_DisclaimerText">
+            <summary>
+              Looks up a localized string similar to Each extension is licensed to you by its owner. JetBrains is not responsible for, nor does it grant any licenses to, third-party extensions. Some extensions may include dependencies which are governed by additional licenses. Follow the extension source (feed) URL to determine any dependencies..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Console_HelpText">
+            <summary>
+              Looks up a localized string similar to Type &apos;get-help NuGet&apos; to see all available NuGet commands..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Console_InitializeHostFails">
+            <summary>
+              Looks up a localized string similar to Failed to initialize the PowerShell host. If your PowerShell execution policy setting is set to AllSigned, open the Package Manager Console to initialize the host first..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_AddedFileToProject">
+            <summary>
+              Looks up a localized string similar to Added file &apos;{0}&apos; to project &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_AddReference">
+            <summary>
+              Looks up a localized string similar to Added reference &apos;{0}&apos; to project &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_RemovedFile">
+            <summary>
+              Looks up a localized string similar to Removed file &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_RemovedFileFromFolder">
+            <summary>
+              Looks up a localized string similar to Removed file &apos;{0}&apos; from folder &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_RemovedFolder">
+            <summary>
+              Looks up a localized string similar to Removed folder &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Debug_RemoveReference">
+            <summary>
+              Looks up a localized string similar to Removed reference &apos;{0}&apos; from project &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Dialog_DisclaimerText">
+            <summary>
+              Looks up a localized string similar to Each extension is licensed to you by its owner. JetBrains is not responsible for, nor does it grant any licenses to, third-party extensions..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.DialogTitle">
+            <summary>
+              Looks up a localized string similar to Extension Manager.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.DoNotRemindAgain">
+            <summary>
+              Looks up a localized string similar to Don&apos;t show again.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.DTE_InvalidProject">
+            <summary>
+              Looks up a localized string similar to The project is invalid.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.DTE_ProjectUnsupported">
+            <summary>
+              Looks up a localized string similar to The project &apos;{0}&apos; is unsupported.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ErrorReadingFile">
+            <summary>
+              Looks up a localized string similar to Error reading &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ExecutingScript">
+            <summary>
+              Looks up a localized string similar to Executing script file &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.FailedToAddGacReference">
+            <summary>
+              Looks up a localized string similar to Failed to add reference to &apos;{0}&apos;. Please make sure that it is in the Global Assembly Cache..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.FailedToAddReference">
+            <summary>
+              Looks up a localized string similar to Failed to add reference to &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.FailedToRemoveReference">
+            <summary>
+              Looks up a localized string similar to Case insensitive search for reference &apos;{0}&apos;, to be removed, returned more than 1 match. Request could not be performed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.FileConflictTitle">
+            <summary>
+              Looks up a localized string similar to File Conflict.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.IgnoreUpgrade">
+            <summary>
+              Looks up a localized string similar to Ignore for now.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Log_PackageAlreadyInstalled">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; already installed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.NoActivePackageSource">
+            <summary>
+              Looks up a localized string similar to Unable to retrieve extension list because no source was specified..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.NoUpdatesAvailable">
+            <summary>
+              Looks up a localized string similar to No updates available for &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.OfficialSourceName">
+            <summary>
+              Looks up a localized string similar to NuGet official package source.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.OperationFailed">
+            <summary>
+              Looks up a localized string similar to Operation failed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageCannotBeRemovedBecauseItIsInUse">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; cannot be removed because it in use by &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageNotInstalledInAnyProject">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; was not installed in any project. Update failed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreCompleted">
+            <summary>
+              Looks up a localized string similar to Finished configuring this product to restore extensions on start..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreConfirmation">
+            <summary>
+              Looks up a localized string similar to Do you want to configure this product to download and restore missing extensions?.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreDownloadPackageFailed">
+            <summary>
+              Looks up a localized string similar to Downloading extension &apos;{0}&apos; failed..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreErrorMessage">
+            <summary>
+              Looks up a localized string similar to An error occurred while configuring the product to restore extensions on start.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreErrorTryAgain">
+            <summary>
+              Looks up a localized string similar to An error occurred while trying to restore extensions. Please try again..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreProgressMessage">
+            <summary>
+              Looks up a localized string similar to Downloading missing extensions....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreSkipForProject">
+            <summary>
+              Looks up a localized string similar to Skipped reinstalling extension &apos;{0}&apos; in product &apos;{1}&apos; because the extension does not exist in the extension source..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreSkipForSolution">
+            <summary>
+              Looks up a localized string similar to Skipped reinstalling extension &apos;{0}&apos; because the extension does not exist in the extension source..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageRestoreWaitMessage">
+            <summary>
+              Looks up a localized string similar to Configuring the product to restore extensions on start....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageSource_Invalid">
+            <summary>
+              Looks up a localized string similar to The extension source does not belong to the collection of available sources..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.PackageUpdatedSuccessfully">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; updated successfully..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ProjectNotSpecified">
+            <summary>
+              Looks up a localized string similar to No project was specified..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ReinstallProjectPackage">
+            <summary>
+              Looks up a localized string similar to Reinstalling &apos;{0}&apos; in project &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ReinstallSolutionPackage">
+            <summary>
+              Looks up a localized string similar to Reinstalling &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.RequestRestartToCompleteUninstall">
+            <summary>
+              Looks up a localized string similar to You must restart application in order for the changes to take effect. The following extensions require a restart: {0}..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.RestartNow">
+            <summary>
+              Looks up a localized string similar to Restart Now.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.RestoreButtonLabel">
+            <summary>
+              Looks up a localized string similar to _Restore.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.ShowDetails">
+            <summary>
+              Looks up a localized string similar to Show Details.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.SolutionDirectoryNotAvailable">
+            <summary>
+              Looks up a localized string similar to Unable to locate the solution directory. Please ensure that the solution has been saved..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.SolutionNotAvailable">
+            <summary>
+              Looks up a localized string similar to The current environment does not have a solution loaded..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_ErrorDialogTitle">
+            <summary>
+              Looks up a localized string similar to Package Installation Error.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_ExtensionManagerError">
+            <summary>
+              Looks up a localized string similar to Error accessing Extension Manager..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_FailedToInstallPackage">
+            <summary>
+              Looks up a localized string similar to Could not add all required extensionы to the product. The following extensions failed to install from &apos;{0}&apos;:.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_InvalidExtensionId">
+            <summary>
+              Looks up a localized string similar to The project template has a reference to a missing Extension. Could not find an Extension with ID &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_InvalidPackageElementAttributes">
+            <summary>
+              Looks up a localized string similar to The project template lists one or more packages with missing, empty, or invalid values for the &quot;id&quot; or &quot;version&quot; attributes. Both attributes are required and must have valid values..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_InvalidRegistryValue">
+            <summary>
+              Looks up a localized string similar to The project template has a reference to a missing Registry value. Could not find a Registry key with name &apos;{0}&apos; under &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_InvalidRepositoryAttribute">
+            <summary>
+              Looks up a localized string similar to The &quot;repository&quot; attribute of the package element has an invalid value: &apos;{0}&apos;. Valid values are: &apos;template&apos; or &apos;extension&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_InvalidWizardRunKind">
+            <summary>
+              Looks up a localized string similar to This template wizard can only be applied to single-project or project-item templates..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_MissingExtensionId">
+            <summary>
+              Looks up a localized string similar to The project template is configured to use an Extension-specific package repository but the Extension ID has not been specified. Use the &quot;repositoryId&quot; attribute to specify the Extension ID..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_MissingRegistryKeyName">
+            <summary>
+              Looks up a localized string similar to The project template is configured to use a Registry-provided package repository but the Registry value name has not been specified. Use the &quot;keyName&quot; attribute to specify the Registry value..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_PackageInstallStatus">
+            <summary>
+              Looks up a localized string similar to Adding {0}.{1} to project....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_RegistryKeyError">
+            <summary>
+              Looks up a localized string similar to The project template is configured to use a Registry-provided package repository but there was an error accessing Registry key &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.TemplateWizard_VersionConflict">
+            <summary>
+              Looks up a localized string similar to Attempting to install version &apos;{1}&apos; of &apos;{0}&apos; but the project already includes a different version. Skipping....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.UnableToFindPackageFromSource">
+            <summary>
+              Looks up a localized string similar to Unable to find extension &apos;{0}&apos; version &apos;{1}&apos; from the source &apos;{2}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.UnknownPackage">
+            <summary>
+              Looks up a localized string similar to Unable to find extension &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.UnknownPackageInProject">
+            <summary>
+              Looks up a localized string similar to Unable to find extension &apos;{0}&apos; in &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.VisualStudioExpressForWindows8SourceName">
+            <summary>
+              Looks up a localized string similar to Windows 8 Packages.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_DirectoryNotEmpty">
+            <summary>
+              Looks up a localized string similar to Directory &apos;{0}&apos; is not empty. Skipping....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FailedToAddBindingRedirects">
+            <summary>
+              Looks up a localized string similar to Failed to generate binding redirects for &apos;{0}&apos;. {1}.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FailedToDeleteMarkedPackageDirectories">
+            <summary>
+              Looks up a localized string similar to Failed to remove extension directories that were marked for deletion on application restart: {0}.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FailedToDeleteMarkedPackageDirectory">
+            <summary>
+              Looks up a localized string similar to Failed to remove extension directory &apos;{0}&apos; that was marked for deletion on application restart..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FailedToFindMatchForRemoveReference">
+            <summary>
+              Looks up a localized string similar to Failed to find match for removing reference &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FailedToMarkPackageDirectoryForDeletion">
+            <summary>
+              Looks up a localized string similar to Failed to mark extension directory &apos;{0}&apos; for deletion on application restart: {1}.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_FileAlreadyExists">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; already exists. Skipping....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_NoExactMatchForReference">
+            <summary>
+              Looks up a localized string similar to No exact match found for removing reference &apos;{0}&apos;. Trying case-insensitive search....
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_PackageNotReferencedByAnyProject">
+            <summary>
+              Looks up a localized string similar to Extension {0} of version {1} is not referenced by any product..
+            </summary>
+        </member>
+        <member name="P:JetBrains.Application.SinceClr4.VsResources.Warning_RollingBack">
+            <summary>
+              Looks up a localized string similar to Install failed. Rolling back....
+            </summary>
+        </member>
+        <member name="T:JetBrains.Application.SinceClr4.Extensions.OptionsPages.ExtensionManagerOptionsView">
+            <summary>
+            ExtensionManagerOptionsView
+            </summary>
+        </member>
+        <member name="M:JetBrains.Application.SinceClr4.Extensions.OptionsPages.ExtensionManagerOptionsView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="F:JetBrains.Application.SinceClr4.Extensions.OptionsPages.PackageSourceEditorDialog.components">
+            <summary>Required designer variable</summary>
+        </member>
+        <member name="M:JetBrains.Application.SinceClr4.Extensions.OptionsPages.PackageSourceEditorDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:JetBrains.Application.SinceClr4.Extensions.OptionsPages.PackageSourceEditorDialog.InitializeComponent(JetBrains.UI.Application.IUIApplication)">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+            <param name="application"></param>
+        </member>
+    </members>
+</doc>

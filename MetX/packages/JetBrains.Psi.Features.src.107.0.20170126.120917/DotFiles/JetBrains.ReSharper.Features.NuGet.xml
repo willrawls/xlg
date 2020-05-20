@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.Features.NuGet</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.ReSharper.Features.NuGet.ExternalAnnotations.NuGetExternalAnnotationsFileProvider">
+            <remarks>Bad placement for component. Should be moved to Psi when we'll migrate to .NET 4.0</remarks>
+        </member>
+    </members>
+</doc>

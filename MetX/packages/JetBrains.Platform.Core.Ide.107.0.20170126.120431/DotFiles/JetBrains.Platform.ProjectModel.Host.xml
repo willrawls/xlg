@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Platform.ProjectModel.Host</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.MsBuild.Internal.MsBuildProjectLoadModificatorService">
+            <summary>
+            Allows to modify project properties and targets before load
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.MsBuild.IMsBuildUserProfile">
+            <summary>
+            Contains options for ms build solution load customization
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.ProjectsHost.ProjectStructure.ProjectStructureBuilder`1.GetLogicalPath(`0)">
+            <summary>
+            Logical path to the element in project model and solution explorer
+            Can be null, that means physical path is the same as logical path
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.ProjectsHost.ProjectStructure.ProjectStructureBuilder`1.GetPhysicalPath(`0)">
+            <summary>
+            Physical path to the element in file system (can point to any path on any disk)
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.ProjectsHost.ProjectStructure.ProjectTrieNodeBase`1.Builder">
+            <summary>
+             Specific builder for project structure
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.ProjectsHost.ProjectStructure.ProjectTrieNodeBase`1.PhysicalPath">
+            <summary>
+             Physical path to the element in file system (can point to any path on any disk)
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.SolutionLoader">
+            <summary>
+            Util component to load or update solution once without control solutuion lifecycle <see cref="T:JetBrains.ProjectModel.ProjectsHost.SolutionHost.Impl.SolutionHostManager"/>
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.ProjectsHostComponentAttribute">
+            <summary>
+            Components for loading solution/project file and create project descriptors
+            Use <see cref="T:JetBrains.ProjectModel.ProjectsHost.SolutionLoader"/> for update existing solution or load descriptors from disk
+            Use <see cref="T:JetBrains.ProjectModel.ProjectsHost.SolutionHost.Impl.SolutionHostManager"/> from <see cref="T:JetBrains.ProjectModel.ProjectsHost.SolutionHost.ISolutionHostZone"/> control solution lifecycle inside resharper
+            This component container allows to compose a component container each time when we need to load solution or project, SolutionInstance component container doesn't allow this
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.MsBuild.Internal.MsBuildProjectTypeService">
+            <summary>
+            Discovers project type using loaded msbuild project and a number of hacks
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.ProjectsHost.SolutionHost.Impl.SolutionHostManager">
+            <summary>
+            Controls ReSharper Solution life-cycle listening to <see cref="T:JetBrains.ProjectModel.ProjectsHost.SolutionHost.Impl.SolutionHostManager"/>
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.ProjectsHost.SolutionConfigurationInfo.FixAnyCpuPlatformNameFromSolution(JetBrains.ProjectModel.ProjectsHost.ConfigurationAndPlatform)">
+            <summary>
+            Fix for shitty MS logic. Taken from MSBuild sources. See RemoveSpaceFromAnyCpuPlatform method
+            </summary>
+            <param name="pair"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

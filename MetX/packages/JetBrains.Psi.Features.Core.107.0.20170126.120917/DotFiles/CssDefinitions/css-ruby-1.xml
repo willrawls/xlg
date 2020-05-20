@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CSS Ruby Layout Module Level 1
+W3C Working Draft, 5 August 2014
+http://www.w3.org/TR/2014/WD-css-ruby-1-20140805/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <property declared-in="3.0" id="display-inside" url="http://www.w3.org/TR/css-ruby-1/#display-inside-outside">
+    <group type="or">
+      <name value="ruby" tooltip="Specifies that an element generates a ruby container box. (Corresponds to HTML/XHTML &lt;ruby&gt; elements.)" />
+      <name value="ruby-base" tooltip="Specifies that an element generates a ruby base box. (Corresponds to HTML/XHTML &lt;rb&gt; elements.)" />
+      <name value="ruby-text" tooltip="Specifies that an element generates a ruby annotation box. (Corresponds to HTML/XHTML &lt;rt&gt; elements.)" />
+      <name value="ruby-base-container" tooltip="Specifies that an element generates a ruby base container box. (Corresponds to XHTML &lt;rbc&gt; elements; generated as an anonymous box in HTML.)" />
+      <name value="ruby-text-container" tooltip="Specifies that an element generates a ruby annotation container box. (Corresponds to HTML/XHTML &lt;rtc&gt; elements.)" />
+    </group>
+  </property>
+  <property declared-in="3.0" id="display-outside" url="http://www.w3.org/TR/css-ruby-1/#display-inside-outside">
+    <group type="or">
+      <name value="ruby" tooltip="Specifies that an element generates a ruby container box. (Corresponds to HTML/XHTML &lt;ruby&gt; elements.)" />
+      <name value="ruby-base" tooltip="Specifies that an element generates a ruby base box. (Corresponds to HTML/XHTML &lt;rb&gt; elements.)" />
+      <name value="ruby-text" tooltip="Specifies that an element generates a ruby annotation box. (Corresponds to HTML/XHTML &lt;rt&gt; elements.)" />
+      <name value="ruby-base-container" tooltip="Specifies that an element generates a ruby base container box. (Corresponds to XHTML &lt;rbc&gt; elements; generated as an anonymous box in HTML.)" />
+      <name value="ruby-text-container" tooltip="Specifies that an element generates a ruby annotation container box. (Corresponds to HTML/XHTML &lt;rtc&gt; elements.)" />
+    </group>
+  </property>
+  <property id="ruby-position" declared-in="3.0" url="http://www.w3.org/TR/css-ruby-1/#propdef-ruby-position" initial="over right" applies="ruby annotation containers" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property controls position of the ruby text with respect to its base.</p>
+      ]]></description>
+    <group type="or">
+      <group type="and">
+        <group type="or">
+          <name value="over" tooltip="The ruby text appears over the base in horizontal text." />
+          <name value="under" tooltip="The ruby text appears under the base in horizontal text. This is a relatively rare setting used in ideographic East Asian writing systems, most easily found in educational text." />
+          <name value="inter-character" tooltip="The ruby text appears on the right of the base in horizontal text. This value forces the writing-mode of the ruby annotation to be vertical." />
+        </group>
+        <group type="or">
+          <name value="right" tooltip="The ruby text appears over the base in horizontal text." />
+          <name value="left" tooltip="The ruby text appears on the left side of the base in vertical text." />
+        </group>
+      </group>
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="ruby-merge" declared-in="3.0" url="http://www.w3.org/TR/css-ruby-1/#propdef-ruby-merge" initial="separate" applies="ruby annotation containers" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property controls how ruby annotation boxes should be rendered when there are more than one in a ruby container box: whether
+        each pair should be kept separate, the annotations should be collapsed and rendered as a group, or the separation should be
+        determined based on the space available.</p>
+      ]]></description>
+    <group type="or">
+      <name value="separate" tooltip="Each ruby annotation box is rendered in the same column(s) as its corresponding base box(es)." />
+      <name value="collapse" tooltip="All ruby annotation boxes within the same ruby segment on the same line are concatenated, and laid out as if their contents belonged to a single ruby annotation box spanning all their associated ruby base boxes. This style renders similar to “group ruby” in [JLREQ], except that ruby annotations are kept together with their respective ruby bases when breaking lines." />
+      <name value="auto" tooltip="The user agent may use any algorithm to determine how each ruby annotation box is rendered to its corresponding base box, with the intention that if all annotations fit over their respective bases, the result is identical to “mono ruby”, but if some annotations are wider than their bases the space is shared in some way to avoid imposing space between bases." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+  <property id="ruby-align" declared-in="3.0" url="http://www.w3.org/TR/css-ruby-1/#propdef-ruby-align" initial="space-around" applies="ruby bases, ruby annotations, ruby base containers, ruby annotation containers" inherited="yes" media="visual">
+    <description><![CDATA[
+      <p>This property specifies how text is distributed within the various ruby boxes when their contents do not exactly fill their
+        respective boxes. Note that space distributed by ruby-align is unrelated to, and independent of, any space distributed due to
+        justification.</p>
+      ]]></description>
+    <group type="or">
+      <name value="start" tooltip="The ruby content is aligned with the start edge of its box." />
+      <name value="center" tooltip="The ruby content is centered within its box." />
+      <name value="space-between" tooltip="The ruby content expands as defined for normal text justification (as defined by text-justify), except that if there are no justification opportunities the content is centered." />
+      <name value="space-around" tooltip="As for space-between except that there exists an extra justification opportunities whose space is distributed half before and half after the ruby content." />
+      <inline id="wide-keywords" inline="yes" />
+    </group>
+  </property>
+</definitions>

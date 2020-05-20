@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+The 'view-mode' Media Feature
+W3C Recommendation 19 June 2012
+http://www.w3.org/TR/2012/REC-view-mode-20120619/
+-->
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <media-feature id="view-mode" declared-in="3.0" min-max="no" applies="visual media types" tooltip="The view-mode media feature describes the mode in which the Web application is being shown as a running application on the platform." url="http://www.w3.org/TR/view-mode/#the--view-mode--media-feature" media="visual">
+    <group type="or">
+      <name value="windowed" tooltip="Describes a Web application running in a windowed manner, which is to say with chrome and without occupying the entire screen area." />
+      <name value="floating" tooltip="Describes a Web application providing a more immersive interface, running in a windowed manner but without chrome." />
+      <name value="fullscreen" tooltip="Describes a Web application that is occupying the entirety of the display." />
+      <name value="maximized" tooltip="Describes a Web application that is occupying the entirety of the screen area but with chrome." />
+      <name value="minimized" tooltip="Describes a Web application docked or otherwise minimized." />
+    </group>
+  </media-feature>
+</definitions>

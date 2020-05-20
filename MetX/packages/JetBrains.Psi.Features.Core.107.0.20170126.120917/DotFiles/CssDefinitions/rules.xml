@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="urn:schemas-jetbrains-com:css-xml">
+  <atrule id="@color-profile" />
+  <atrule id="@counter-style" />
+  <atrule id="@font-face" />
+  <atrule id="@jquery" />
+  <atrule id="@page" />
+  <atrule id="@viewport" />
+  <atrule id="@top-left-corner" scope="page-margin" />
+  <atrule id="@top-left" scope="page-margin" />
+  <atrule id="@top-center" scope="page-margin" />
+  <atrule id="@top-right" scope="page-margin" />
+  <atrule id="@top-right-corner" scope="page-margin" />
+  <atrule id="@bottom-left-corner" scope="page-margin" />
+  <atrule id="@bottom-left" scope="page-margin" />
+  <atrule id="@bottom-center" scope="page-margin" />
+  <atrule id="@bottom-right" scope="page-margin" />
+  <atrule id="@bottom-right-corner" scope="page-margin" />
+  <atrule id="@left-top" scope="page-margin" />
+  <atrule id="@left-middle" scope="page-margin" />
+  <atrule id="@left-bottom" scope="page-margin" />
+  <atrule id="@right-top" scope="page-margin" />
+  <atrule id="@right-middle" scope="page-margin" />
+  <atrule id="@right-bottom" scope="page-margin" />
+</definitions>

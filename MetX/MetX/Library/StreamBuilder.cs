@@ -1,4 +1,6 @@
-﻿namespace MetX.Library
+﻿using System.Threading;
+
+namespace MetX.Library
 {
     using System;
     using System.IO;
@@ -39,8 +41,22 @@
             }
 
             FilePath = filePath;
-            UnderlyingStream = File.Open(FilePath, append ? FileMode.Append : FileMode.Create, FileAccess.Write);
-            Target = new StreamWriter(UnderlyingStream);
+            int retries = 10;
+            while (--retries < 10 && (UnderlyingStream == null || Target == null))
+            {
+                UnderlyingStream = File.Open(FilePath, append ? FileMode.Append : FileMode.Create, FileAccess.Write);
+                try
+                {
+                    if(UnderlyingStream != null)
+                        Target = new StreamWriter(UnderlyingStream);
+                }
+                catch (Exception e)
+                {
+                    // Ignore, we'll try again
+                }
+                Thread.Sleep(100);
+            }
+            return;
         }
 
         /// <summary>
@@ -108,12 +124,12 @@
         /// <summary>
         /// The stream stream to write to
         /// </summary>
-        public TextWriter Target { get; private set; }
+        public TextWriter Target { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Stream UnderlyingStream { get; private set; }
+        public Stream UnderlyingStream { get; set; }
 
         public StringBuilder UnderlyingStringBuilder { get; set; }
 
@@ -196,20 +212,19 @@
         {
             try
             {
-                if (Target == null)
-                {
-                    return;
-                }
-
-                Target.Flush();
+                Target?.Flush();
 
                 if (!CloseOnFinish)
                     return;
-
-                Target.Close();
-                if (UnderlyingStream != null)
+                else
                 {
-                    UnderlyingStream.Close();
+                    Target?.Close();
+                    if (UnderlyingStream != null)
+                    {
+                        UnderlyingStream.Close();
+                        UnderlyingStream.Dispose();
+                        UnderlyingStream = null;
+                    }
                 }
             }
             catch (ObjectDisposedException odex)
@@ -232,6 +247,7 @@
             {
                 Target = null;
                 UnderlyingStream = null;
+                UnderlyingStringBuilder = null;
             }
         }
 

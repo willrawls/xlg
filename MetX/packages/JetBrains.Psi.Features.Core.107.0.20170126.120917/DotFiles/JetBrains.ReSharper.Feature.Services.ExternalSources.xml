@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.ReSharper.Feature.Services.ExternalSources</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData">
+            <summary>
+            Mapping between source file ranges and IL offsets,
+            local variable names and scopes
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.GetSequencePoint(JetBrains.Metadata.Access.MetadataToken,System.Int32)">
+            <summary>
+            Sequence point with less or equal IL offset in method with given token
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.GetSortedSequencePoints(JetBrains.Metadata.Access.MetadataToken)">
+            <summary>
+            Sequence points sorted by ilOffset
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.OriginalPdbFilePath">
+            <summary>
+            Path to pdb file from which the data was obtained
+            </summary>
+            <remarks>Should be null for decompiler-generated DebugData</remarks>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.SourceFileIndex">
+            <summary>
+            Index of source in pdb file
+            (if data was obtained from pdb)
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.MethodData.GetSortedSequencePoints">
+            <summary>
+            Sequence points sorted by ilOffset
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DebugData.MethodData.GetSequencePoint(System.Int32)">
+            <summary>
+            Sequence point with less or equal IL offset
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.INavigationDecompilationCache">
+            <summary>
+            Cache for navigation providers (this cache may be shared)
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IDecompilationCacheBase.CanBeCachedFile(System.String,JetBrains.Util.FileSystemPath)">
+            <summary>
+            Checks whether file is under cache directory and on appropriate level.
+            Doesn't impose any guarantees about GetCacheItem result
+            </summary>
+        </member>
+        <member name="T:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.ISharedDecompilationCache">
+            <summary>
+            Cache shared for all products in wave
+            (is used e.g. for pdb sources)
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.LocalVariableData.Index">
+            <summary>
+            Index in method
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.LocalVariableData.StartOffset">
+            <summary>
+            The start offset of variable visibility scope
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.LocalVariableData.EndOffset">
+            <summary>
+            The end offset of the variable visibility scope 
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.IlOffset">
+            <summary>
+            The IL offset of the sequence point measured from the beginning of the method (in bytes)
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.StartLine">
+            <summary>
+            The starting line number of the sequence point
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.StartColumn">
+            <summary>
+            The starting column number of the sequence point
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.EndLine">
+            <summary>
+            The ending line number of the sequence point
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.EndColumn">
+            <summary>
+            The ending column number of the sequence point
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.SequencePointData.IsHidden">
+            <summary>
+            if sequence point is hidden then the debugger will skip over it
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.DeclaredElementBinder.BindDeclarations(JetBrains.ReSharper.Psi.Tree.IFile,JetBrains.ReSharper.Psi.Modules.IPsiModule,System.Boolean)">
+            <summary>
+            Bind declarations in <paramref name="file"/> to corresponding declared elements in psiModule.
+            WARNING: all references of psiModule must be loaded beforehand because
+            binding process uses xmldocids which requires all types to be resolved correctly.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DecompilationCacheStructure.#ctor(JetBrains.Application.Environment.Components.ProductSettingsLocation,System.Boolean)">
+            <summary>
+            File/folder structure of cache
+            </summary>
+            <param name="productSettingsLocation"></param>
+            <param name="shared">cache is located in shared (for all products in wave) folder if true, 
+            cache is located in product folder otherwise</param>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DecompilationCacheStructure.CacheDirectory">
+            <summary>
+            Cache root folder
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.AssemblyByPdbProviders.IAssemblyByPdbProvider.GetAssemblies(System.String,System.String)">
+            <summary>
+            Assemblies associated with pdb with pdbName and pdbSignature
+            </summary>
+            <param name="pdbName">pdb file name without .pdb extension</param>
+            <param name="pdbSignature">signature.ToString(hex)+age.ToString(hex)</param>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.IVsSymbolSettings.IsAvailable">
+            <remarks>true in VS</remarks>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.IVsSymbolSettings.SymbolCacheFolder">
+            <remarks>null if symbol cache folder is not specified or if IsAvailable is false</remarks>
+        </member>
+        <member name="F:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.DecompilerBasedConstants.MinorVersion">
+            <summary>
+            Decompiler minor code version. Increasing this value will force cache expiration
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.ExternalSourcesActivation.Active">
+            <summary>
+            Turn on/off entire External Sources subsystem.
+            Currenly used to delay External Sources loading in Visual Studio.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.DecompilationCacheItem.Moniker">
+            <summary>
+            Null for assembly-level decompilation. i.e. assembly attributes
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService.NavigateToSources(JetBrains.ReSharper.Psi.ICompiledElement,System.Collections.Generic.IEnumerable{JetBrains.ReSharper.Feature.Services.ExternalSource.IExternalSourcesProvider},JetBrains.Application.Progress.ITaskExecutor,System.Boolean)">
+            <summary>
+            Tries to get source(s) for <paramref name="compiledElement"/> from <paramref name="providers"/>
+            </summary>
+            <returns>source file(s) related to specified compiled element, null if user cancelled action</returns>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.IExternalSourcesService.GetOrCreateSourceFile(JetBrains.ProjectModel.IProjectFile)">
+            <summary>
+            Creates psiSourceFile or returns existing if there is ExternalSourcesMapping available
+            </summary>
+            <param name="projectFile">Project file from misc files project</param>
+            <returns>PsiSourceFile or null</returns>
+        </member>
+        <member name="T:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.Cache.GeneratedPdbCacheBase">
+            <summary>
+            File/folder structure of cache (inside symbol cache folder):
+            name.pdb/signature/name.pdb
+            name - name of assembly without extension,
+            signature - pdb signature (Guid in hex) and age (int in hex)
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.Cache.IGeneratedPdbCache.TryGetExistingPdbFile(System.String,System.String)">
+            <summary>
+            Gets pdb file path if this file exists in cache,
+            otherwise returns null
+            </summary>
+            <param name="pdbFileName">short file name with pdb extension</param>
+            <param name="pdbSignature">hex representation of pdb signature and age</param>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.Cache.IGeneratedPdbCache.GetPdbFilePath(System.String,System.String)">
+            <summary>
+            Gets path for pdb file in cache file/folder structure without checking file existence
+            </summary>
+            <param name="pdbFileName">short file name with pdb extension</param>
+            <param name="pdbSignature">hex representation of pdb signature and age</param>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.Cache.IGeneratedPdbCache.GetPdbFolderPath(System.String,System.String)">
+            <summary>
+            Gets folder for pdb file in cache file/folder structure
+            </summary>
+            <param name="pdbFileName">short file name with pdb extension</param>
+            <param name="pdbSignature">hex representation of pdb signature and age</param>
+        </member>
+        <member name="T:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.Impl.ExternalSourcesForceSourceCookie">
+            <summary>
+            Cookie allow to force process navigation via decompiled sorces
+            TODO: after release, refactor this. We need to transfer information about caller (AssemblyExplorer for example) to ExternalSources providers. Another way is abstract from settings and make a new component to manage abilities of external sources
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Core.Impl.InfoFileContentGenerationService.WriteDecompilerVersion(System.IO.BinaryWriter)">
+            <remarks>changing decompiler version string leads to expiration of all cached decompiled items</remarks>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Pdb.IPdbService.DownloadSourceFilesForTypeIfNeeded(JetBrains.ProjectModel.Model2.Assemblies.Interfaces.IAssemblyFile,JetBrains.Metadata.Reader.API.IClrTypeName,JetBrains.Application.Progress.IProgressIndicator)">
+            <summary>
+            Downloads source files for <paramref name="typeName"/> type
+            </summary>
+            <exception cref="T:JetBrains.Application.Progress.ProcessCancelledException">if user cancelled download</exception>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.NamespaceFolderExtensions.GetFolderName(System.String)">
+            <summary>
+            Gets relative folder name corresponding to this namespace
+            (Namespace1.Namespace2. ... .NamespaceN => "Namespace1\Namespace2\...\NamespaceN\")
+            ("" => "")
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.NamespaceFolderExtensions.GetFolderName(JetBrains.ReSharper.Psi.INamespace)">
+            <summary>
+            Gets relative folder name corresponding to this namespace
+            (Namespace1.Namespace2. ... .NamespaceN => "Namespace1\Namespace2\...\NamespaceN\")
+            ("" => "")
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.NamespaceFolderExtensions.GetRelativeName(System.String,System.String)">
+            <example>"A\B\Cd\File.ext" "A\B\" => "Cd\File.ext"</example>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.NamespaceFolderExtensions.GetRelativeFolderName(JetBrains.ReSharper.Psi.INamespace,System.String)">
+            <summary>
+            Gets relative to defaultNamespace folder name corresponding to this namespace 
+            (Namespace1.Namespace2. ... .NamespaceN, "Namespace1\" => "Namespace2\...\NamespaceN\")
+            ("" => "")
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.ResxUtil.ConvertResourcesToResx(System.IO.Stream,System.String)">
+            <summary>
+            *.resources => *.resx (resxFilePath)
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.TypeElementFileNameExtensions.TryGetFileName(JetBrains.ReSharper.Psi.ITypeElement,System.Tuple{JetBrains.ReSharper.Psi.PsiLanguageType,System.String})">
+            <summary>
+            Gets source file name without path
+            (~typeElement.ShortName + "." + extension)
+            (typeElement.ShortName + "`" + X + "." + extension, 
+            for generic types with X type parameters)
+            </summary>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.TypeElementFileNameExtensions.ConvertToFilePath(System.String)">
+            <example>Folder1.Folder2.file.aaa => Folder1\Folder2\file.aaa</example>
+            <example>Folder1/Folder2\file.aaa => Folder1\Folder2\file.aaa</example>
+            <example>Folder1/Folder2.file.aaa => Folder1\Folder2.file.aaa</example>
+        </member>
+        <member name="M:JetBrains.ReSharper.Feature.Services.ExternalSources.Utils.TypeElementFileNameExtensions.NormalizeFileName(System.String)">
+            <example>Folder1.Folder2.file.aaa => Folder1\Folder2\file.aaa</example>
+            <example>Folder1/Folder2\file.aaa => Folder1\Folder2\file.aaa</example>
+            <example>Folder1/Folder2.file.aaa => Folder1\Folder2.file.aaa</example>
+        </member>
+    </members>
+</doc>

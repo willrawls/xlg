@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -28,7 +28,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -58,11 +58,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\xlgPipeliner.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\xlgPipeliner.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +73,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\bin\xlgPipeliner.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -82,8 +84,9 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.13.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.2.13.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +141,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="batfile.ico" />
-    <Content Include="license.txt" />
+    <None Include="Resources\126Edit.ico" />
+    <None Include="Resources\107259NewContentPage32x32.png" />
+    <None Include="Resources\1421584661_4.png" />
+    <None Include="Resources\1421584690_2.png" />
+    <None Include="Resources\1421584694_2.png" />
+    <None Include="Resources\1421584753_Cut.png" />
+    <None Include="Resources\1421584808_Copy.png" />
+    <None Include="Resources\1421584898_clipboard.png" />
+    <None Include="Resources\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
+    <None Include="Resources\1421584946_file-48.png" />
+    <None Include="Resources\add_48.png" />
+    <None Include="Resources\AnnotateDefault.ico" />
+    <None Include="Resources\arrow_down_48.png" />
+    <None Include="Resources\button_play.png" />
+    <None Include="Resources\cancel_48.png" />
+    <None Include="Resources\circle_blue.png" />
+    <None Include="Resources\circle_green.png" />
+    <None Include="Resources\circle_orange.png" />
+    <None Include="Resources\console-mock.jpg" />
+    <None Include="Resources\cross_48.png" />
+    <None Include="Resources\database_add_48.png" />
+    <None Include="Resources\database_remove_48.png" />
+    <None Include="Resources\dragon2.png" />
+    <None Include="Resources\floppy_disk_48.png" />
+    <None Include="Resources\folder_48.png" />
+    <None Include="Resources\hops2.png" />
+    <None Include="Resources\Long-dragon-running.png" />
+    <None Include="Resources\refresh_48.png" />
     <Content Include="Settings.ico" />
     <None Include="XLG.snk" />
   </ItemGroup>
