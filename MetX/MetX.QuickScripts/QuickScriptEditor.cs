@@ -167,7 +167,7 @@
             return null;
         }
 
-        public override void Progress(int index)
+        public override void Progress(int index = -1)
         {
             if (InvokeRequired)
             {
@@ -330,7 +330,7 @@
 
         private void DestinationParam_MouseUp(object sender, MouseEventArgs e)
         {
-            if (DestinationParamAlreadyFocused || (this.DestinationParam.SelectionLength != 0)) return;
+            if (DestinationParamAlreadyFocused || (DestinationParam.SelectionLength != 0)) return;
 
             DestinationParamAlreadyFocused = true;
             DestinationParam.SelectAll();
@@ -399,7 +399,7 @@
 
         private void InputParam_MouseUp(object sender, MouseEventArgs e)
         {
-            if (InputParamAlreadyFocused || (this.InputParam.SelectionLength != 0)) return;
+            if (InputParamAlreadyFocused || (InputParam.SelectionLength != 0)) return;
 
             InputParamAlreadyFocused = true;
             InputParam.SelectAll();
@@ -438,7 +438,7 @@
             if (Context.Scripts != null)
             {
                 string name = string.Empty;
-                DialogResult answer = UI.InputBox("New Script Name", "Please enter the name for the new script.",
+                DialogResult answer = Ui.InputBox("New Script Name", "Please enter the name for the new script.",
                     ref name);
                 if ((answer != DialogResult.OK) || ((name ?? string.Empty).Trim() == string.Empty))
                 {

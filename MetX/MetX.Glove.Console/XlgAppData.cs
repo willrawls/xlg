@@ -10,7 +10,7 @@ namespace XLG.Pipeliner
     [Serializable]
     public class XlgAppData
     {
-        private static RegistryKey m_AppDataRegKey;
+        private static RegistryKey _mAppDataRegKey;
         [XmlAttribute] public string BasePath;
         [XmlAttribute] public string LastXlgsFile;
         [XmlAttribute] public string ParentNamespace;
@@ -40,10 +40,10 @@ namespace XLG.Pipeliner
         public static XlgAppData Load()
         {
             XlgAppData ret = null;
-            m_AppDataRegKey = Application.UserAppDataRegistry;
-            if (m_AppDataRegKey != null)
+            _mAppDataRegKey = Application.UserAppDataRegistry;
+            if (_mAppDataRegKey != null)
             {
-                List<string> valueNames = new List<string>(m_AppDataRegKey.GetValueNames());
+                List<string> valueNames = new List<string>(_mAppDataRegKey.GetValueNames());
 
                 try
                 {
@@ -55,7 +55,7 @@ namespace XLG.Pipeliner
                     {
                         try
                         {
-                            ret = FromXml(m_AppDataRegKey.GetValue("Preferences") as string);
+                            ret = FromXml(_mAppDataRegKey.GetValue("Preferences") as string);
                         }
                         catch
                         {
@@ -65,10 +65,10 @@ namespace XLG.Pipeliner
                 }
                 finally
                 {
-                    if (m_AppDataRegKey != null)
+                    if (_mAppDataRegKey != null)
                     {
-                        m_AppDataRegKey.Close();
-                        m_AppDataRegKey = null;
+                        _mAppDataRegKey.Close();
+                        _mAppDataRegKey = null;
                     }
                 }
             }
@@ -78,24 +78,24 @@ namespace XLG.Pipeliner
         public void Save()
         {
             bool openedKey = false;
-            if (m_AppDataRegKey == null)
+            if (_mAppDataRegKey == null)
             {
-                m_AppDataRegKey = Application.UserAppDataRegistry;
+                _mAppDataRegKey = Application.UserAppDataRegistry;
                 openedKey = true;
             }
 
-            if (m_AppDataRegKey == null)
+            if (_mAppDataRegKey == null)
             {
                 return;
             }
-            m_AppDataRegKey.SetValue("Preferences", ToXml(), RegistryValueKind.String);
+            _mAppDataRegKey.SetValue("Preferences", ToXml(), RegistryValueKind.String);
 
-            if (!openedKey || m_AppDataRegKey == null)
+            if (!openedKey || _mAppDataRegKey == null)
             {
                 return;
             }
-            m_AppDataRegKey.Close();
-            m_AppDataRegKey = null;
+            _mAppDataRegKey.Close();
+            _mAppDataRegKey = null;
         }
     }
 }

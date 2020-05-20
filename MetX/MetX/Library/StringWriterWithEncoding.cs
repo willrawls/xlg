@@ -4,18 +4,18 @@ namespace MetX.Library
 {
     public class StringWriterWithEncoding : System.IO.StringWriter
     {
-        Encoding m_Encoding;
+        Encoding _mEncoding;
         public StringWriterWithEncoding(StringBuilder sb, Encoding encoding)
             : base(sb)
         {
-            m_Encoding = encoding;
+            _mEncoding = encoding;
         }
 
         public override Encoding Encoding
         {
             get
             {
-                return m_Encoding;
+                return _mEncoding;
             }
         }
     }

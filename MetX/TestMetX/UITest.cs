@@ -1,12 +1,11 @@
 ﻿using MetX.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Windows.Forms;
 
 namespace MetX.Tests
 {
     [TestClass]
-    public class UITest
+    public class UiTest
     {
         // [TestMethod] bad test
         public void InputBoxTest()
@@ -16,7 +15,7 @@ namespace MetX.Tests
             string value = string.Empty; 
             string valueExpected = string.Empty; 
             DialogResult expected = new DialogResult(); 
-            var actual = UI.InputBox(title, promptText, ref value);
+            var actual = Ui.InputBox(title, promptText, ref value);
             Assert.AreEqual(valueExpected, value);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");

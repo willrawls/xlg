@@ -10,10 +10,10 @@ namespace MetX.Data
     {
         public string AggregateString = string.Empty;
         public Aggregate() {  }
-        public Aggregate(DataProvider Instance, AggregateFunction agg, string columnName, string alias)
+        public Aggregate(DataProvider instance, AggregateFunction agg, string columnName, string alias)
         {
-            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + Instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
+            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
         }
-        public static Aggregate New(DataProvider Instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(Instance, agg, columnName, alias); }
+        public static Aggregate New(DataProvider instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(instance, agg, columnName, alias); }
     }
 }

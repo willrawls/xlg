@@ -14,7 +14,7 @@ namespace MetX.Library
 		/// <summary>The ?xml directive that should be at the top of each file</summary>
 		public const string Declaration = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
-		private static SortedList<int, XmlSerializer> m_Serializers;
+		private static SortedList<int, XmlSerializer> _mSerializers;
 
         /// <summary>Converts an XmlElement into a JSON string and appends it to Target</summary>
         /// <param name="element">The XmlElment to walk and translate to JSON</param>
@@ -332,16 +332,16 @@ namespace MetX.Library
 		/// <returns>The XmlSerializer for the type</returns>
 		public static XmlSerializer Serializer(Type t)
 		{
-			if (m_Serializers == null)
-				m_Serializers = new SortedList<int, XmlSerializer>(10);
+			if (_mSerializers == null)
+				_mSerializers = new SortedList<int, XmlSerializer>(10);
 			XmlSerializer xs = null;
 			int hash = t.FullName.GetHashCode();
-			if (m_Serializers.ContainsKey(hash))
-				xs = m_Serializers[hash];
+			if (_mSerializers.ContainsKey(hash))
+				xs = _mSerializers[hash];
 			else
 			{
 				xs = new XmlSerializer(t);
-				m_Serializers.Add(hash, xs);
+				_mSerializers.Add(hash, xs);
 			}
 			return xs;
 		}

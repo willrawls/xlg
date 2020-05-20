@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Text;
 
 namespace MetX.Data
 {
@@ -61,14 +59,12 @@ namespace MetX.Data
             {
                 get
                 {
-                    if (Columns != null)
-                        return Columns.GetPrimaryKey();
-                    return null;
+                    return Columns?.GetPrimaryKey();
                 }
             }
 
             /// <summary>The basic SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
-            public string SELECT_SQL { get { return "SELECT " + FIELD_LIST + " FROM [" + Name + "] "; } }
+            public string SelectSql { get { return "SELECT " + FIELD_LIST + " FROM [" + Name + "] "; } }
         }
 
         /// <summary>
@@ -101,21 +97,21 @@ namespace MetX.Data
             /// <param name="isForeignKey">C#CD: </param>
             public TableColumn(string columnName, DbType dbType, bool isPrimaryKey, bool isForeignKey)
             {
-                this.ColumnName = columnName;
-                this.IsPrimaryKey = isPrimaryKey;
-                this.IsForiegnKey = isForeignKey;
-                this.DataType = dbType;
+                ColumnName = columnName;
+                IsPrimaryKey = isPrimaryKey;
+                IsForiegnKey = isForeignKey;
+                DataType = dbType;
             }
 
-            public TableColumn(string columnName, DbType dbType, bool AutoIncrement, int MaxLength, bool IsNullable, bool isPrimaryKey, bool isForeignKey)
+            public TableColumn(string columnName, DbType dbType, bool autoIncrement, int maxLength, bool isNullable, bool isPrimaryKey, bool isForeignKey)
             {
-                this.ColumnName = columnName;
-                this.IsPrimaryKey = isPrimaryKey;
-                this.IsForiegnKey = isForeignKey;
-                this.DataType = dbType;
-                this.AutoIncrement = AutoIncrement;
-                this.MaxLength = MaxLength;
-                this.IsNullable = IsNullable;
+                ColumnName = columnName;
+                IsPrimaryKey = isPrimaryKey;
+                IsForiegnKey = isForeignKey;
+                DataType = dbType;
+                this.AutoIncrement = autoIncrement;
+                this.MaxLength = maxLength;
+                this.IsNullable = isNullable;
             }
         }
 
@@ -125,7 +121,7 @@ namespace MetX.Data
         {
             public TableColumn PrimaryKeyColumn = null;
 
-            private Dictionary<string, TableColumn> iList = new Dictionary<string, TableColumn>();
+            private Dictionary<string, TableColumn> _iList = new Dictionary<string, TableColumn>();
 
             public TableColumnCollection()
             {
@@ -135,7 +131,7 @@ namespace MetX.Data
 
             public new void Add(TableColumn column)
             {
-                iList.Add(column.ColumnName.ToLower(), column);
+                _iList.Add(column.ColumnName.ToLower(), column);
                 base.Add(column);
             }
 
@@ -157,7 +153,7 @@ namespace MetX.Data
                 if (!Contains(name))
                 {
                     Add(col);
-                    iList.Add(name.ToLower(), col);
+                    _iList.Add(name.ToLower(), col);
                 }
                 if (isPrimaryKey)
                     PrimaryKeyColumn = col;
@@ -174,7 +170,7 @@ namespace MetX.Data
 
             public bool Contains(string columnName)
             {
-                return iList.ContainsKey(columnName.ToLower());
+                return _iList.ContainsKey(columnName.ToLower());
             }
 
             #endregion Collection Methods
@@ -184,8 +180,8 @@ namespace MetX.Data
             public TableColumn GetColumn(string columnName)
             {
                 columnName = columnName.ToLower();
-                if (iList.ContainsKey(columnName))
-                    return iList[columnName];
+                if (_iList.ContainsKey(columnName))
+                    return _iList[columnName];
                 return null;
             }
 
@@ -217,30 +213,30 @@ namespace MetX.Data
         public class TableColumnSetting
         {
             /// <summary>C#CD: </summary>
-            private string columnName;
+            private string _columnName;
 
             /// <summary>C#CD: </summary>
-            private object currentValue;
+            private object _currentValue;
 
             /// <summary>C#CD: </summary>
             public string ColumnName
             {
-                get { return columnName; }
-                set { columnName = value; }
+                get { return _columnName; }
+                set { _columnName = value; }
             }
 
             /// <summary>C#CD: </summary>
             public object CurrentValue
             {
-                get { return currentValue; }
+                get { return _currentValue; }
                 set
                 {
                     if (value is int && (int)value == int.MinValue)
-                        currentValue = DBNull.Value;
+                        _currentValue = DBNull.Value;
                     else if (value is DateTime && (DateTime)value == DateTime.MinValue)
-                        currentValue = DBNull.Value;
+                        _currentValue = DBNull.Value;
                     else
-                        currentValue = value;
+                        _currentValue = value;
                 }
             }
         }
@@ -255,7 +251,7 @@ namespace MetX.Data
             public object GetValue(string columnName)
             {
                 columnName = columnName.ToLower();
-                if (this.ContainsKey(columnName))
+                if (ContainsKey(columnName))
                     return this[columnName].CurrentValue;
                 return null;
             }
@@ -266,12 +262,12 @@ namespace MetX.Data
             public void SetValue(string columnName, object oVal)
             {
                 columnName = columnName.ToLower();
-                if (!this.ContainsKey(columnName))
+                if (!ContainsKey(columnName))
                 {
                     TableColumnSetting setting = new TableColumnSetting();
                     setting.ColumnName = columnName;
                     setting.CurrentValue = oVal;
-                    this.Add(columnName.ToLower(), setting);
+                    Add(columnName.ToLower(), setting);
                 }
                 else
                 {
@@ -281,7 +277,7 @@ namespace MetX.Data
 
             private bool Contains(string columnName)
             {
-                return this.ContainsKey(columnName.ToLower());
+                return ContainsKey(columnName.ToLower());
             }
         }
 
@@ -298,9 +294,9 @@ namespace MetX.Data
 
             public TableIndex(IDataReader rdr)
             {
-                this.Name = rdr["name"].ToString();
-                this.IsClustered = rdr["isclustered"].ToString() == "1";
-                this.Columns.Add(rdr["column"].ToString());
+                Name = rdr["name"].ToString();
+                IsClustered = rdr["isclustered"].ToString() == "1";
+                Columns.Add(rdr["column"].ToString());
             }
         }
 
@@ -333,11 +329,11 @@ namespace MetX.Data
             {
             }
 
-            public TableKey Find(string ToFind)
+            public TableKey Find(string toFind)
             {
-                foreach (TableKey CurrKey in this)
-                    if (CurrKey.Name.ToLower() == ToFind.ToLower())
-                        return CurrKey;
+                foreach (TableKey currKey in this)
+                    if (currKey.Name.ToLower() == toFind.ToLower())
+                        return currKey;
                 return null;
             }
         }
@@ -352,10 +348,10 @@ namespace MetX.Data
             {
             }
 
-            public TableKeyColumn(string Column, string Related)
+            public TableKeyColumn(string column, string related)
             {
-                this.Column = Column;
-                this.Related = Related;
+                this.Column = column;
+                this.Related = related;
             }
         }
     }

@@ -55,11 +55,11 @@ namespace MetX.Data
 
         public abstract TableSchema.Table GetTableSchema(string tableName);
 
-        public abstract string[] GetSPList();
+        public abstract string[] GetSpList();
 
         public abstract string[] GetTableList();
 
-        public abstract IDataReader GetSPParams(string spName);
+        public abstract IDataReader GetSpParams(string spName);
 
         public abstract string GetForeignKeyTableName(string fkColumnName);
 

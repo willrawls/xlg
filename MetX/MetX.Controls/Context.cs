@@ -9,9 +9,9 @@
     using System.Threading;
     using System.Windows.Forms;
 
-    using MetX.Interfaces;
-    using MetX.Library;
-    using MetX.Scripts;
+    using Interfaces;
+    using Library;
+    using Scripts;
 
     using Microsoft.Win32;
 
@@ -20,7 +20,7 @@
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
         protected static bool ScriptIsRunning;
-        private static readonly object m_ScriptSyncRoot = new object();
+        private static readonly object MScriptSyncRoot = new object();
 
         public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
         {
@@ -116,7 +116,7 @@
             }
 
             bool lockTaken = false;
-            Monitor.TryEnter(m_ScriptSyncRoot, ref lockTaken);
+            Monitor.TryEnter(MScriptSyncRoot, ref lockTaken);
             if (!lockTaken) return;
 
             try
@@ -203,7 +203,7 @@
             finally
             {
                 ScriptIsRunning = false;
-                Monitor.Exit(m_ScriptSyncRoot);
+                Monitor.Exit(MScriptSyncRoot);
             }
         }
 

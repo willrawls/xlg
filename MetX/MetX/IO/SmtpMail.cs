@@ -15,31 +15,31 @@ namespace MetX.IO
 		/// <summary>Get or Set the name of the SMTP relay mail server</summary>
 		public static string SmtpServer;
 		
-		private enum SMTP_Responses: int
+		private enum SmtpResponses: int
 		{
-			CONNECT_SUCCESS = 220,
-			GENERIC_SUCCESS = 250,
-			DATA_SUCCESS	= 354,
-			QUIT_SUCCESS	= 221
+			ConnectSuccess = 220,
+			GenericSuccess = 250,
+			DataSuccess	= 354,
+			QuitSuccess	= 221
     		
 		}
 		
 		/// <summary>Send an Email</summary>
-		/// <param name="FromName">The displayed name for the FROM address</param>
-		/// <param name="FromEmail">The FROM address</param>
-		/// <param name="ToName">The displayed name for the TO address</param>
-		/// <param name="ToEmail">The TO address</param>
-		/// <param name="Subject">The SUBJECT for the email</param>
-		/// <param name="Body">The text body of the email</param>
+		/// <param name="fromName">The displayed name for the FROM address</param>
+		/// <param name="fromEmail">The FROM address</param>
+		/// <param name="toName">The displayed name for the TO address</param>
+		/// <param name="toEmail">The TO address</param>
+		/// <param name="subject">The SUBJECT for the email</param>
+		/// <param name="body">The text body of the email</param>
 		/// <returns>True if the email was sent</returns>
-		public static bool Send(string FromName, string FromEmail, string ToName, string ToEmail, string Subject, string Body)
+		public static bool Send(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
 			bool ret = false;
 			MailMessage mm = new MailMessage();
-			mm.From = new MailAddress(FromEmail, FromName);
-			mm.To.Add(new MailAddress(ToEmail, ToName));
-			mm.Subject = Subject;
-			mm.Body = Body;
+			mm.From = new MailAddress(fromEmail, fromName);
+			mm.To.Add(new MailAddress(toEmail, toName));
+			mm.Subject = subject;
+			mm.Body = body;
             //if(SendViaCustomCode)
             //{
 				SmtpServer = System.Configuration.ConfigurationManager.AppSettings["SmtpServer"];
@@ -69,7 +69,7 @@ namespace MetX.IO
 			Socket s= new Socket(target.AddressFamily, SocketType.Stream,ProtocolType.Tcp);
 			s.Connect(target);
     			#region connect
-			if(!Check_Response(s, SMTP_Responses.CONNECT_SUCCESS))
+			if(!Check_Response(s, SmtpResponses.ConnectSuccess))
 			{
 				Console.WriteLine("Server didn't respond.");
 				s.Close();
@@ -78,7 +78,7 @@ namespace MetX.IO
     			#endregion
     			#region send helo
 			Senddata(s, string.Format("HELO {0}\r\n", Dns.GetHostName() ));
-			if(!Check_Response(s, SMTP_Responses.GENERIC_SUCCESS))
+			if(!Check_Response(s, SmtpResponses.GenericSuccess))
 			{
 				Console.WriteLine("Helo Failed!.");
 				s.Close();
@@ -87,7 +87,7 @@ namespace MetX.IO
     			#endregion
     			#region Send the MAIL command
 			Senddata(s, string.Format("MAIL From: {0}\r\n", message.From ));
-			if(!Check_Response(s, SMTP_Responses.GENERIC_SUCCESS))
+			if(!Check_Response(s, SmtpResponses.GenericSuccess))
 			{
 				Console.WriteLine("Mail command Failed!.");
 				s.Close();
@@ -95,12 +95,12 @@ namespace MetX.IO
 			}
     			#endregion
     			#region Send RCPT commands (one for each recipient)
-			foreach (MailAddress To in message.To)
+			foreach (MailAddress to in message.To)
 			{
-				Senddata(s, string.Format("RCPT TO: {0}\r\n", To.Address));
-				if(!Check_Response(s, SMTP_Responses.GENERIC_SUCCESS))
+				Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
+				if(!Check_Response(s, SmtpResponses.GenericSuccess))
 				{
-					Console.WriteLine("RCPT command Failed ({0})!.", To.Address);
+					Console.WriteLine("RCPT command Failed ({0})!.", to.Address);
 					s.Close();
 					return false;
 				}
@@ -109,12 +109,12 @@ namespace MetX.IO
     			#region Send RCPT commands (one for each recipient) - CC
 			if(message.CC.Count > 0)
 			{
-                foreach (MailAddress To in message.CC)
+                foreach (MailAddress to in message.CC)
 				{
-					Senddata(s, string.Format("RCPT TO: {0}\r\n", To.Address));
-					if(!Check_Response(s, SMTP_Responses.GENERIC_SUCCESS))
+					Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
+					if(!Check_Response(s, SmtpResponses.GenericSuccess))
 					{
-						Console.WriteLine("RCPT command Failed ({0})!.", To.Address);
+						Console.WriteLine("RCPT command Failed ({0})!.", to.Address);
 						s.Close();
 						return false;
 					}
@@ -122,45 +122,45 @@ namespace MetX.IO
 			}
     			#endregion
     			#region Send the DATA command
-			StringBuilder Header=new StringBuilder();
-			Header.Append("From: " + message.From + "\r\n");
-			Header.Append("To: ");
+			StringBuilder header=new StringBuilder();
+			header.Append("From: " + message.From + "\r\n");
+			header.Append("To: ");
             for (int i = 0; i < message.To.Count; i++)
 			{
-				Header.Append( i > 0 ? "," : "" );
-                Header.Append(message.To[i]);
+				header.Append( i > 0 ? "," : "" );
+                header.Append(message.To[i]);
 			}
-			Header.Append("\r\n");
+			header.Append("\r\n");
 			if(message.CC.Count > 0)
 			{
-				Header.Append("Cc: ");
+				header.Append("Cc: ");
                 for (int i = 0; i < message.CC.Count; i++)
 				{
-					Header.Append( i > 0 ? "," : "" );
-                    Header.Append(message.CC[i]);
+					header.Append( i > 0 ? "," : "" );
+                    header.Append(message.CC[i]);
 				}
-				Header.Append("\r\n");
+				header.Append("\r\n");
 			}
-			Header.Append( "Date: " );
-			Header.Append(DateTime.Now.ToString("ddd, d M y H:m:s z" ));
-			Header.Append("\r\n");
-			Header.Append("Subject: " + message.Subject+ "\r\n");
-			Header.Append( "X-Mailer: Narayan EMail v2\r\n" );
-			string MsgBody = message.Body;
-			if(!MsgBody.EndsWith("\r\n"))
-				MsgBody+="\r\n";
+			header.Append( "Date: " );
+			header.Append(DateTime.Now.ToString("ddd, d M y H:m:s z" ));
+			header.Append("\r\n");
+			header.Append("Subject: " + message.Subject+ "\r\n");
+			header.Append( "X-Mailer: Narayan EMail v2\r\n" );
+			string msgBody = message.Body;
+			if(!msgBody.EndsWith("\r\n"))
+				msgBody+="\r\n";
 			if(message.Attachments.Count>0)
 			{
-				Header.Append( "MIME-Version: 1.0\r\n" );
-				Header.Append( "Content-Type: multipart/mixed; boundary=unique-boundary-1\r\n" );
-				Header.Append("\r\n");
-				Header.Append( "This is a multi-part message in MIME format.\r\n" );
+				header.Append( "MIME-Version: 1.0\r\n" );
+				header.Append( "Content-Type: multipart/mixed; boundary=unique-boundary-1\r\n" );
+				header.Append("\r\n");
+				header.Append( "This is a multi-part message in MIME format.\r\n" );
 				StringBuilder sb = new StringBuilder();
 				sb.Append("--unique-boundary-1\r\n");
 				sb.Append("Content-Type: text/plain\r\n");
 				sb.Append("Content-Transfer-Encoding: 7Bit\r\n");
 				sb.Append("\r\n");
-				sb.Append(MsgBody + "\r\n");
+				sb.Append(msgBody + "\r\n");
 				sb.Append("\r\n");
     				
 				foreach(object o in message.Attachments)
@@ -195,23 +195,23 @@ namespace MetX.IO
     					
 					}
 				}
-				MsgBody=sb.ToString();
+				msgBody=sb.ToString();
 			}
     			
 			Senddata(s, ("DATA\r\n"));
-			if(!Check_Response(s, SMTP_Responses.DATA_SUCCESS))
+			if(!Check_Response(s, SmtpResponses.DataSuccess))
 			{
 				Console.WriteLine("Data command Failed!.");
 				s.Close();
 				return false;
 			}
-			Header.Append( "\r\n" );
-			Header.Append( MsgBody );
-			Header.Append( ".\r\n" );
-			Header.Append( "\r\n" );
-			Header.Append( "\r\n" );
-			Senddata(s, Header.ToString());
-			if(!Check_Response(s, SMTP_Responses.GENERIC_SUCCESS ))
+			header.Append( "\r\n" );
+			header.Append( msgBody );
+			header.Append( ".\r\n" );
+			header.Append( "\r\n" );
+			header.Append( "\r\n" );
+			Senddata(s, header.ToString());
+			if(!Check_Response(s, SmtpResponses.GenericSuccess ))
 			{
 				Console.WriteLine("Data command Failed!.");
 				s.Close();
@@ -220,7 +220,7 @@ namespace MetX.IO
     			#endregion
     			#region quit
 			Senddata(s, "QUIT\r\n");
-			Check_Response(s, SMTP_Responses.QUIT_SUCCESS );
+			Check_Response(s, SmtpResponses.QuitSuccess );
 			s.Close();
     			#endregion
 			return true;
@@ -233,11 +233,11 @@ namespace MetX.IO
 			//			sw.Close();
 			//			sw=null;
 			//			GC.Collect();
-			byte[] _msg = Encoding.ASCII.GetBytes(msg);
-			s.Send(_msg , 0, _msg .Length, SocketFlags.None);
+			byte[] msgBytes = Encoding.ASCII.GetBytes(msg);
+			s.Send(msgBytes , 0, msgBytes .Length, SocketFlags.None);
 		}
 		
-		private static bool Check_Response(Socket s, SMTP_Responses response_expected )
+		private static bool Check_Response(Socket s, SmtpResponses responseExpected )
 		{
 			string sResponse;
 			int response;
@@ -252,7 +252,7 @@ namespace MetX.IO
 			sResponse = Encoding.ASCII.GetString(bytes);
 			//Console.WriteLine(sResponse);
 			response = Convert.ToInt32(sResponse.Substring(0,3));
-			if(response != (int)response_expected)
+			if(response != (int)responseExpected)
 				return false;
 			return true;
 		}

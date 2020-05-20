@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace MetX.Library
 {
-    public class UI
+    public class Ui
     {
-        public static string InputBox(string title, string promptText, string defaultValue = "")
+        public static string InputBox(string title, string promptText, string defaultValue)
         {
-            string value = defaultValue;
+            string value = defaultValue ?? string.Empty;
             return InputBox(title, promptText, ref value) == DialogResult.Cancel
                 ? null
                 : value;

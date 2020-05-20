@@ -1,6 +1,5 @@
 ﻿using MetX.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace MetX.Tests
 {

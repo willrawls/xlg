@@ -56,7 +56,6 @@ namespace MetX.Library
                 }
                 Thread.Sleep(100);
             }
-            return;
         }
 
         /// <summary>
@@ -214,32 +213,18 @@ namespace MetX.Library
             {
                 Target?.Flush();
 
-                if (!CloseOnFinish)
-                    return;
-                else
-                {
-                    Target?.Close();
-                    if (UnderlyingStream != null)
-                    {
-                        UnderlyingStream.Close();
-                        UnderlyingStream.Dispose();
-                        UnderlyingStream = null;
-                    }
-                }
+                if (!CloseOnFinish) return;
+
+                Target?.Close();
+
+                if (UnderlyingStream == null) return;
+                UnderlyingStream.Close();
+                UnderlyingStream.Dispose();
+                UnderlyingStream = null;
             }
             catch (ObjectDisposedException odex)
             {
-                try
-                {
-                    if (UnderlyingStream != null)
-                    {
-                        UnderlyingStream.Close();
-                    }
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                UnderlyingStream?.Close();
 
                 // Safe to ignore
             }
@@ -264,7 +249,7 @@ namespace MetX.Library
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
         public void Overwrite(int index, string value, int count = -1, bool returnToOriginalPosition = false)
         {
-            if ((this.UnderlyingStream == null) || !UnderlyingStream.CanSeek)
+            if ((UnderlyingStream == null) || !UnderlyingStream.CanSeek)
                 throw new InvalidOperationException("UnderlyingStream must not be null and seekable.");
             if (index < 0)
                 throw new ArgumentOutOfRangeException("index", "Can't seek to a negative index");
@@ -310,10 +295,7 @@ namespace MetX.Library
                     Target.Close();
                 }
 
-                if (UnderlyingStream != null)
-                {
-                    UnderlyingStream.Close();
-                }
+                UnderlyingStream?.Close();
 
                 if (FilePath.IsEmpty())
                 {
