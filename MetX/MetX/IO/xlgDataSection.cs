@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
-using System.Web.Configuration;
 
 namespace MetX.IO
 {
     /// <summary>Represents the xlg section in a configuration file</summary>
     // ReSharper disable UnusedMember.Global
-    public class xlgDataSection : ConfigurationSection
+    public class XlgDataSection : ConfigurationSection
     {
         /// <summary>Represents a collection of ProviderSettings objects</summary>
         [ConfigurationProperty("providers")]

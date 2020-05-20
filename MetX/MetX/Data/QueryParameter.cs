@@ -16,32 +16,32 @@ namespace MetX.Data
         public QueryParameter() { }
         public QueryParameter(string parameterName, object value)
         {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.Direction = ParameterDirection.Input;
+            ParameterName = parameterName;
+            ParameterValue = value;
+            Direction = ParameterDirection.Input;
         }
 
         public QueryParameter(string parameterName, object value, DbType dataType)
         {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.DataType = dataType;
-            this.Direction = ParameterDirection.Input;
+            ParameterName = parameterName;
+            ParameterValue = value;
+            DataType = dataType;
+            Direction = ParameterDirection.Input;
         }
 
-        public QueryParameter(string parameterName, object value, ParameterDirection Direction)
+        public QueryParameter(string parameterName, object value, ParameterDirection direction)
         {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.Direction = Direction;
+            ParameterName = parameterName;
+            ParameterValue = value;
+            this.Direction = direction;
         }
 
-        public QueryParameter(string parameterName, object value, DbType dataType, ParameterDirection Direction)
+        public QueryParameter(string parameterName, object value, DbType dataType, ParameterDirection direction)
         {
-            this.ParameterName = parameterName;
-            this.ParameterValue = value;
-            this.DataType = dataType;
-            this.Direction = Direction;
+            ParameterName = parameterName;
+            ParameterValue = value;
+            DataType = dataType;
+            this.Direction = direction;
         }
 
         [XmlAttribute]

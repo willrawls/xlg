@@ -51,6 +51,7 @@ namespace MetX.Scripts
                     {
                         File.Delete(history[i]);
                     }
+                    // ReSharper disable once EmptyGeneralCatchClause
                     catch { }
                 }
             }

@@ -42,52 +42,52 @@ namespace MetX.Library
 
         public virtual void Initialize(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default(TReturn), int height = 110, int width = 400)
         {
-            this.DefaultValue = defaultValue;
-            this.ConstructedForm = new Form();
-            this.CancelButton = new Button();
-            this.EntryArea = new TEntryArea();
-            this.OkButton = new Button();
-            this.PromptLabel = new Label();
+            DefaultValue = defaultValue;
+            ConstructedForm = new Form();
+            CancelButton = new Button();
+            EntryArea = new TEntryArea();
+            OkButton = new Button();
+            PromptLabel = new Label();
 
-            this.ConstructedForm.Text = title;
-            this.PromptLabel.Text = promptText;
+            ConstructedForm.Text = title;
+            PromptLabel.Text = promptText;
 
-            this.OkButton.Text = "OK";
-            this.CancelButton.Text = "Cancel";
-            this.OkButton.DialogResult = DialogResult.OK;
-            this.CancelButton.DialogResult = DialogResult.Cancel;
+            OkButton.Text = "OK";
+            CancelButton.Text = "Cancel";
+            OkButton.DialogResult = DialogResult.OK;
+            CancelButton.DialogResult = DialogResult.Cancel;
 
-            this.PromptLabel.SetBounds(9, 20, 372, 13);
-            this.EntryArea.SetBounds(12, 36, 372, 20);
-            this.OkButton.SetBounds(228, 72, 75, 23);
-            this.CancelButton.SetBounds(309, 72, 75, 23);
+            PromptLabel.SetBounds(9, 20, 372, 13);
+            EntryArea.SetBounds(12, 36, 372, 20);
+            OkButton.SetBounds(228, 72, 75, 23);
+            CancelButton.SetBounds(309, 72, 75, 23);
 
-            this.PromptLabel.AutoSize = true;
-            this.EntryArea.Anchor = this.EntryArea.Anchor | AnchorStyles.Right;
-            this.OkButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.CancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            PromptLabel.AutoSize = true;
+            EntryArea.Anchor = EntryArea.Anchor | AnchorStyles.Right;
+            OkButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            CancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            this.SetupEntryArea();
+            SetupEntryArea();
 
-            this.ConstructedForm.ClientSize = new Size(width, height);
-            this.ConstructedForm.Controls.AddRange(
-                new Control[] { this.PromptLabel, this.EntryArea, this.OkButton, this.CancelButton });
-            this.ConstructedForm.ClientSize = new Size(
-                Math.Max(300, this.PromptLabel.Right + 10),
-                this.ConstructedForm.ClientSize.Height);
-            this.ConstructedForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.ConstructedForm.StartPosition = FormStartPosition.CenterScreen;
-            this.ConstructedForm.MinimizeBox = false;
-            this.ConstructedForm.MaximizeBox = false;
-            this.ConstructedForm.AcceptButton = this.OkButton;
-            this.ConstructedForm.CancelButton = this.CancelButton;
+            ConstructedForm.ClientSize = new Size(width, height);
+            ConstructedForm.Controls.AddRange(
+                new Control[] { PromptLabel, EntryArea, OkButton, CancelButton });
+            ConstructedForm.ClientSize = new Size(
+                Math.Max(300, PromptLabel.Right + 10),
+                ConstructedForm.ClientSize.Height);
+            ConstructedForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            ConstructedForm.StartPosition = FormStartPosition.CenterScreen;
+            ConstructedForm.MinimizeBox = false;
+            ConstructedForm.MaximizeBox = false;
+            ConstructedForm.AcceptButton = OkButton;
+            ConstructedForm.CancelButton = CancelButton;
         }
 
         public abstract void SetupEntryArea();
 
         public virtual DialogResult ShowDialog()
         {
-            Result = this.ConstructedForm.ShowDialog();
+            Result = ConstructedForm.ShowDialog();
             return Result;
         }
     }

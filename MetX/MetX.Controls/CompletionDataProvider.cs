@@ -7,19 +7,19 @@ namespace MetX.Controls
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{
-	    readonly ImageList m_ImageList = new ImageList();
+	    readonly ImageList _mImageList = new ImageList();
 
-        readonly ICompletionData[] m_CompletionData;
+        readonly ICompletionData[] _mCompletionData;
 		
 		public CompletionDataProvider(IList<string> items)
 		{
-		    m_CompletionData = new ICompletionData[items.Count];
+		    _mCompletionData = new ICompletionData[items.Count];
 		    for (int index = 0; index < items.Count; index++) 
-                m_CompletionData[index] = new DefaultCompletionData(items[index], 0);
+                _mCompletionData[index] = new DefaultCompletionData(items[index], 0);
 		}
 
 	    public ImageList ImageList {
-			get { return m_ImageList; }
+			get { return _mImageList; }
 		}
 		
 		public string PreSelection {
@@ -46,7 +46,7 @@ namespace MetX.Controls
 		
 		public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
 		{
-			return m_CompletionData;
+			return _mCompletionData;
 		}
 	}
 }

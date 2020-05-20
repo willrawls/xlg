@@ -7,16 +7,16 @@
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-    using MetX.Controls.Properties;
-    using MetX.Library;
-    using MetX.Scripts;
+    using Properties;
+    using Library;
+    using Scripts;
 
     public partial class QuickScriptControl : TextEditorControl
     {
         public XlgQuickScript Current = null;
 
-        private TextArea CodeArea;
-        private CodeCompletionWindow completionWindow;
+        private TextArea _codeArea;
+        private CodeCompletionWindow _completionWindow;
 
         public QuickScriptControl()
         {
@@ -28,9 +28,9 @@
         {
             get
             {
-                if ((this.Text.Length == 0) || (this.CodeArea.Caret.Column == 0)) return string.Empty;
+                if ((Text.Length == 0) || (_codeArea.Caret.Column == 0)) return string.Empty;
                 string line = Text.TokenAt(
-                    this.CodeArea.Caret.Line + 1,
+                    _codeArea.Caret.Line + 1,
                     Environment.NewLine,
                     StringComparison.InvariantCulture);
 
@@ -42,12 +42,12 @@
         {
             get
             {
-                if ((this.CodeArea.Caret.Column == 0) || (this.Text.Length == 0))
+                if ((_codeArea.Caret.Column == 0) || (Text.Length == 0))
                 {
                     return string.Empty;
                 }
 
-                string linePart = LineAtCaret.Substring(0, this.CodeArea.Caret.Column).LastToken();
+                string linePart = LineAtCaret.Substring(0, _codeArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
                 {
@@ -71,15 +71,15 @@
             if ((items != null) && (items.Length > 0))
             {
                 CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
-                completionWindow = CodeCompletionWindow.ShowCompletionWindow(
+                _completionWindow = CodeCompletionWindow.ShowCompletionWindow(
                     FindForm(),
                     this,
                     string.Empty,
                     completionDataProvider,
                     '.');
-                if (completionWindow != null)
+                if (_completionWindow != null)
                 {
-                    completionWindow.Closed += CompletionWindowClosed;
+                    _completionWindow.Closed += CompletionWindowClosed;
                 }
             }
         }
@@ -115,20 +115,20 @@
 
         private void CompletionWindowClosed(object source, EventArgs e)
         {
-            if (completionWindow != null)
+            if (_completionWindow != null)
             {
-                completionWindow.Closed -= CompletionWindowClosed;
-                completionWindow.Dispose();
-                completionWindow = null;
+                _completionWindow.Closed -= CompletionWindowClosed;
+                _completionWindow.Dispose();
+                _completionWindow = null;
             }
         }
 
         private void InitializeEditor()
         {
-            this.CodeArea = ActiveTextAreaControl.TextArea;
+            _codeArea = ActiveTextAreaControl.TextArea;
 
-            this.CodeArea.KeyEventHandler += ProcessKey;
-            this.CodeArea.KeyUp += this.CodeAreaOnKeyUp;
+            _codeArea.KeyEventHandler += ProcessKey;
+            _codeArea.KeyUp += CodeAreaOnKeyUp;
 
             FileSyntaxModeProvider fsmProvider =
                 new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
@@ -141,7 +141,7 @@
 
         private void InsertMissingSections()
         {
-            this.CodeArea.InsertString(Resources.StringToInsertOnTripleTilde);
+            _codeArea.InsertString(Resources.StringToInsertOnTripleTilde);
         }
 
         private bool ProcessKey(char ch)
@@ -158,63 +158,44 @@
                     break;
 
                 case '(':
-                    string wordBeforeCaret = this.WordBeforeCaret;
-                    string lineAtCaret = this.LineAtCaret;
+                    string wordBeforeCaret = WordBeforeCaret;
+                    string lineAtCaret = LineAtCaret;
 
                     if ((wordBeforeCaret == "Ask") && !lineAtCaret.Contains(")"))
                     {
-                        int location = this.CodeArea.Caret.Column;
-                        this.CodeArea.InsertString("(\"What string to look for?\", \" \");");
-                        this.CodeArea.Caret.Column = location + 30;
+                        int location = _codeArea.Caret.Column;
+                        _codeArea.InsertString("(\"What string to look for?\", \" \");");
+                        _codeArea.Caret.Column = location + 30;
                         return true;
                     }
 
                     if ((wordBeforeCaret == "Choose") && !lineAtCaret.Contains(")"))
                     {
-                        int location = this.CodeArea.Caret.Column;
-                        this.CodeArea.InsertString("(choices, selectedIndex, \"Please select one from the list\", \"SELECT ONE\");");
-                        this.CodeArea.Caret.Column = location + 9;
+                        int location = _codeArea.Caret.Column;
+                        _codeArea.InsertString("(choices, selectedIndex, \"Please select one from the list\", \"SELECT ONE\");");
+                        _codeArea.Caret.Column = location + 9;
                         return true;
                     }
 
                     if ((wordBeforeCaret == "MultipleChoice") && !lineAtCaret.Contains(")"))
                     {
-                        int location = this.CodeArea.Caret.Column;
-                        this.CodeArea.InsertString("(choices, initiallySelectedIndices, \"Please select one or more items from the list\", \"MULTIPLE CHOICE\");");
-                        this.CodeArea.Caret.Column = location + 9;
+                        int location = _codeArea.Caret.Column;
+                        _codeArea.InsertString("(choices, initiallySelectedIndices, \"Please select one or more items from the list\", \"MULTIPLE CHOICE\");");
+                        _codeArea.Caret.Column = location + 9;
                         return true;
                     }
 
                     if ((wordBeforeCaret == "MessageBox") && !lineAtCaret.Contains(")"))
                     {
-                        int location = this.CodeArea.Caret.Column;
-                        this.CodeArea.InsertString(".Show(\"\");");
-                        this.CodeArea.Caret.Column = location + 7;
+                        int location = _codeArea.Caret.Column;
+                        _codeArea.InsertString(".Show(\"\");");
+                        _codeArea.Caret.Column = location + 7;
                         return true;
                     }
 
                     break;
             }
-
-            // switch (ch)
-            // {
-            // case '.':
-            // if (WordBeforeCaret == "this")
-            // {
-            // ShowThisCodeCompletion();
-            // }
-            // break;
-            // case '~':
-            // ShowScriptCommandCodeCompletion();
-            // break;
-            // }
             return false;
-        }
-
-        private void ShowScriptCommandCodeCompletion()
-        {
-            ShowCodeCompletion(
-                new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" });
         }
 
         private void ShowThisCodeCompletion()

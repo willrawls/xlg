@@ -52,15 +52,15 @@ namespace MetX.Pipelines
         [XmlAttribute]
         public DateTime LastRegenerated;
         [XmlAttribute]
-        public Guid LastXlgInstanceID;
+        public Guid LastXlgInstanceId;
 
         [XmlAttribute]
         public bool RegenerateOnly;
         [XmlAttribute]
         public string SqlToXml;
 
-        private bool m_GenInProgress;
-        private object m_SyncRoot = new object();
+        private bool _mGenInProgress;
+        private object _mSyncRoot = new object();
 
         public XmlDocument LoadXlgDoc()
         {
@@ -88,11 +88,11 @@ namespace MetX.Pipelines
             public OpParams(int op, System.Windows.Forms.Form gui)
             {
                 this.op = op;
-                this.Gui = gui;
+                Gui = gui;
             }
         }
 
-        private void InternalOp(object Params) { OpParams o = (OpParams)Params; if ((int)o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
+        private void InternalOp(object @params) { OpParams o = (OpParams)@params; if ((int)o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
         public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(1, gui)); }
 
@@ -100,11 +100,11 @@ namespace MetX.Pipelines
 
         public int Regenerate(System.Windows.Forms.Form gui)
         {
-            if (m_GenInProgress) return 0;
-            lock (m_SyncRoot)
+            if (_mGenInProgress) return 0;
+            lock (_mSyncRoot)
             {
-                if (m_GenInProgress) return 0;
-                m_GenInProgress = true;
+                if (_mGenInProgress) return 0;
+                _mGenInProgress = true;
                 string originalDirectory = Environment.CurrentDirectory;
                 try
                 {
@@ -122,7 +122,7 @@ namespace MetX.Pipelines
                 }
                 finally
                 {
-                    m_GenInProgress = false;
+                    _mGenInProgress = false;
                     Environment.CurrentDirectory = originalDirectory;
                 }
             }
@@ -131,11 +131,11 @@ namespace MetX.Pipelines
 
         public int Generate(System.Windows.Forms.Form gui)
         {
-            if (m_GenInProgress) return 0;
-            lock (m_SyncRoot)
+            if (_mGenInProgress) return 0;
+            lock (_mSyncRoot)
             {
-                if (m_GenInProgress) return 0;
-                m_GenInProgress = true;
+                if (_mGenInProgress) return 0;
+                _mGenInProgress = true;
                 string originalDirectory = Environment.CurrentDirectory;
                 try
                 {
@@ -228,7 +228,7 @@ namespace MetX.Pipelines
                         }
                     }
                     LastGenerated = DateTime.Now;
-                    LastXlgInstanceID = (gen != null ? gen.XlgInstanceID : Guid.NewGuid());
+                    LastXlgInstanceId = (gen != null ? gen.XlgInstanceId : Guid.NewGuid());
                     return 1;
                 }
                 catch (Exception ex)
@@ -237,7 +237,7 @@ namespace MetX.Pipelines
                 }
                 finally
                 {
-                    m_GenInProgress = false;
+                    _mGenInProgress = false;
                     Environment.CurrentDirectory = originalDirectory;
                 }
             }
@@ -249,34 +249,34 @@ namespace MetX.Pipelines
         public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, string xlgDocFilename, string xslFilename, string configFilename, string outputFilename)
         {
             if (!basePath.EndsWith(@"\")) basePath += @"\";
-            this.BasePath = basePath;
-            this.ParentNamespace = parentNamespace;
-            this.ConnectionName = connectionName;
-            this.DisplayName = displayName;
-            this.XlgDocFilename = xlgDocFilename;
-            this.XslFilename = xslFilename;
+            BasePath = basePath;
+            ParentNamespace = parentNamespace;
+            ConnectionName = connectionName;
+            DisplayName = displayName;
+            XlgDocFilename = xlgDocFilename;
+            XslFilename = xslFilename;
             //this.ConfigFilename = ConfigFilename;
-            this.OutputFilename = outputFilename;
+            OutputFilename = outputFilename;
             DateCreated = DateTime.Now;
         }
 
         public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, bool selected)
             : this(basePath, parentNamespace, displayName, connectionName)
         {
-            this.Selected = selected;
+            Selected = selected;
         }
 
         public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName)
         {
             if (!basePath.EndsWith(@"\")) basePath += @"\";
-            this.BasePath = basePath;
-            this.ParentNamespace = parentNamespace;
-            this.DisplayName = displayName;
-            this.ConnectionName = connectionName;
-            this.XlgDocFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".xlgd";
-            this.XslFilename = basePath + @"Support\app.xlg.xsl";
+            BasePath = basePath;
+            ParentNamespace = parentNamespace;
+            DisplayName = displayName;
+            ConnectionName = connectionName;
+            XlgDocFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".xlgd";
+            XslFilename = basePath + @"Support\app.xlg.xsl";
             //this.ConfigFilename = BasePath + @"Support\app.config";
-            this.OutputFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".Glove.cs";
+            OutputFilename = basePath + parentNamespace + "." + connectionName + @"\" + connectionName + ".Glove.cs";
             DateCreated = DateTime.Now;
         }
 

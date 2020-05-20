@@ -12,9 +12,9 @@ namespace MetX.Interfaces
 
         string ProviderAssemblyString { get; }
 
-        DataService GetNewDataService(string ConnectionName);
+        DataService GetNewDataService(string connectionName);
 
-        DataProvider GetNewDataProvider(string ConnectionString);
+        DataProvider GetNewDataProvider(string connectionString);
 
         GatherProvider GetNewGatherProvider();
     }

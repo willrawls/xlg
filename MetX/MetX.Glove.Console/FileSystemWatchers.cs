@@ -43,7 +43,7 @@ namespace XLG.Pipeliner
                 fsw.Error += onerror;
                 fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
                 fsw.EnableRaisingEvents = true;
-                this.Add(fsw);
+                Add(fsw);
             }
             IsActive = true;
         }

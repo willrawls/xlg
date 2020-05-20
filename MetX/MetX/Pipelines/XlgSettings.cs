@@ -12,7 +12,7 @@ namespace MetX.Pipelines
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
     {
-        private static XmlSerializer m_SettingsSerializer = new XmlSerializer(typeof(XlgSettings));
+        private static XmlSerializer _mSettingsSerializer = new XmlSerializer(typeof(XlgSettings));
 
         [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
          XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)]
@@ -43,14 +43,14 @@ namespace MetX.Pipelines
 
         public static XlgSettings FromXml(string xmldoc)
         {
-            return (XlgSettings)m_SettingsSerializer.Deserialize(new StringReader(xmldoc));
+            return (XlgSettings)_mSettingsSerializer.Deserialize(new StringReader(xmldoc));
         }
 
         public string OuterXml()
         {
             StringBuilder sb = new StringBuilder();
             using (StringWriter sw = new StringWriter(sb))
-                m_SettingsSerializer.Serialize(sw, this);
+                _mSettingsSerializer.Serialize(sw, this);
             return sb.ToString();
         }
 

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using MetX.Library;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -39,7 +32,7 @@ namespace MetX.Controls
                 if (Controls.ContainsKey(controlName))
                     Controls[controlName].Focus();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Ignore
             }

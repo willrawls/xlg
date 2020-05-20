@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 
 namespace MetX.IO
 {
     /// <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
-    public class xlgUrnResolver : XmlResolver
+    public class XlgUrnResolver : XmlResolver
     {
-        XmlUrlResolver xur;
+        XmlUrlResolver _xur;
         
         /// <summary>Only Load has been called on an XSL/XSL document, this will contain a list of the files included by the XSL/XML</summary>
         public List<string> FileEntitys;
@@ -19,20 +18,20 @@ namespace MetX.IO
         /// <returns>The actual resource</returns>
         public virtual object OnGetEntity(Uri absoluteUri, Type ofObjectToReturn)
         {
-            return xur.GetEntity(absoluteUri, null, ofObjectToReturn);
+            return _xur.GetEntity(absoluteUri, null, ofObjectToReturn);
         }
 
         /// <summary>Basic constructor</summary>
-        public xlgUrnResolver() : base()
+        public XlgUrnResolver() : base()
         {
-            xur = new XmlUrlResolver();
+            _xur = new XmlUrlResolver();
             FileEntitys = new List<string>();
         }
 
         /// <summary>Provides the base authentication credentials</summary>
         public override System.Net.ICredentials Credentials
         {
-            set { xur.Credentials = value; }
+            set { _xur.Credentials = value; }
         }
 
         /// <summary>Resolves and retrieves the requested entity via URI</summary>
@@ -44,9 +43,9 @@ namespace MetX.IO
         {
             if (absoluteUri.AbsoluteUri.StartsWith("file:"))
             {
-                string Filename = absoluteUri.AbsoluteUri.Replace("file:///", string.Empty).Replace("/", "\\");
-                if (!FileEntitys.Contains(Filename))
-                    FileEntitys.Add(Filename);
+                string filename = absoluteUri.AbsoluteUri.Replace("file:///", string.Empty).Replace("/", "\\");
+                if (!FileEntitys.Contains(filename))
+                    FileEntitys.Add(filename);
             }
             return OnGetEntity(absoluteUri, ofObjectToReturn);
         }

@@ -9,7 +9,7 @@ namespace MetX.Scripts
     using System.Windows.Forms;
     using System.Xml.Serialization;
 
-    using MetX.Library;
+    using Library;
 
     using Microsoft.CSharp;
 
@@ -122,6 +122,7 @@ namespace MetX.Scripts
                     {
                         string variableName = variableContent.FirstToken();
                         string variableIndex = variableContent.TokensAfterFirst();
+                        // ReSharper disable once NotAccessedVariable
                         int actualIndex;
                         if (int.TryParse(variableIndex, out actualIndex))
                         {

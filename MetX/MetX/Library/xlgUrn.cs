@@ -13,21 +13,21 @@ namespace MetX.Library
     /// </summary>
     public class XlgUrn
     {
-        private int m_NextID;
-        private int m_NextHash = 1;
-        private int m_NextLayer = 10000;
-        private string m_CurrRowClass = "contentDataRow2";
-        private string m_NextRowClass = "contentDataRow1";
-        private Dictionary<string, double> m_RunningTotals;
-        private Dictionary<string, string> m_Ht;
-        private Dictionary<string, string> m_Vars;
-        private Dictionary<string, StringBuilder> m_SbVars;
+        private int _mNextId;
+        private int _mNextHash = 1;
+        private int _mNextLayer = 10000;
+        private string _mCurrRowClass = "contentDataRow2";
+        private string _mNextRowClass = "contentDataRow1";
+        private Dictionary<string, double> _mRunningTotals;
+        private Dictionary<string, string> _mHt;
+        private Dictionary<string, string> _mVars;
+        private Dictionary<string, StringBuilder> _mSbVars;
 
-        private string m_ThemePath = "~/theme/default/";
-        private string m_DefaultThemePath = "~/theme/default/";
-        private string m_SupportPath = "/xlgSupport/";
+        private string _mThemePath = "~/theme/default/";
+        private string _mDefaultThemePath = "~/theme/default/";
+        private string _mSupportPath = "/xlgSupport/";
 
-        HttpContext m_C;
+        HttpContext _mC;
 
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace MetX.Library
                 themePath += "/";
             if (!defaultThemePath.EndsWith("/"))
                 defaultThemePath += "/";
-            this.m_ThemePath = themePath;
-            this.m_DefaultThemePath = defaultThemePath;
+            _mThemePath = themePath;
+            _mDefaultThemePath = defaultThemePath;
             return string.Empty;
         }
 
@@ -75,7 +75,7 @@ namespace MetX.Library
         {
             if (!supportPath.EndsWith("/"))
                 supportPath += "/";
-            this.m_SupportPath = supportPath;
+            _mSupportPath = supportPath;
             return string.Empty;
         }
 
@@ -83,14 +83,14 @@ namespace MetX.Library
         /// <returns>The value of ThemePath</returns>
         public string GetThemePath()
         {
-            return m_ThemePath;
+            return _mThemePath;
         }
 
         /// <summary>Returns the value of the internal variable 'SupportPath'</summary>
         /// <returns>The value of SupportPath</returns>
         public string GetSupportPath()
         {
-            return m_SupportPath;
+            return _mSupportPath;
         }
 
         /// <summary>Returns the physical path and file name of RelativePathFile.
@@ -103,25 +103,25 @@ namespace MetX.Library
         /// <returns>The physical path and file found</returns>
         public string FilePath(string relativePathFile)
         {
-            if (m_C == null)
-                m_C = HttpContext.Current;
+            if (_mC == null)
+                _mC = HttpContext.Current;
 
-            relativePathFile = relativePathFile.Replace(m_DefaultThemePath, string.Empty);
-            relativePathFile = relativePathFile.Replace(m_DefaultThemePath.Replace("~/", string.Empty), string.Empty);
+            relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
+            relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
 
-            string ret = m_C.Server.MapPath(m_ThemePath + relativePathFile);
+            string ret = _mC.Server.MapPath(_mThemePath + relativePathFile);
             if (File.Exists(ret))
                 return ret;
-            ret = m_C.Server.MapPath(m_DefaultThemePath + relativePathFile);
+            ret = _mC.Server.MapPath(_mDefaultThemePath + relativePathFile);
             if (File.Exists(ret))
                 return ret;
-            ret = m_C.Server.MapPath(relativePathFile);
+            ret = _mC.Server.MapPath(relativePathFile);
             if (File.Exists(ret))
                 return ret;
-            ret = m_C.Server.MapPath("~/" + relativePathFile);
+            ret = _mC.Server.MapPath("~/" + relativePathFile);
             if (File.Exists(ret))
                 return ret;
-            ret = m_C.Server.MapPath(m_SupportPath + relativePathFile);
+            ret = _mC.Server.MapPath(_mSupportPath + relativePathFile);
             if (File.Exists(ret))
                 return ret;
             return "unknown.file";
@@ -139,47 +139,47 @@ namespace MetX.Library
         public string FileUrl(string relativePathFile)
         {
             string ret = "unknown.file";
-            if (m_C == null)
-                m_C = HttpContext.Current;
+            if (_mC == null)
+                _mC = HttpContext.Current;
 
-            relativePathFile = relativePathFile.Replace(m_DefaultThemePath, string.Empty);
-            relativePathFile = relativePathFile.Replace(m_DefaultThemePath.Replace("~/", string.Empty), string.Empty);
+            relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
+            relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
 
-            string filePath = m_C.Server.MapPath(m_ThemePath + relativePathFile);
+            string filePath = _mC.Server.MapPath(_mThemePath + relativePathFile);
             string vDirPath;
 
             if (File.Exists(filePath))
-                ret = m_ThemePath + relativePathFile;
+                ret = _mThemePath + relativePathFile;
             else
             {
-                filePath = m_C.Server.MapPath(m_DefaultThemePath + relativePathFile);
+                filePath = _mC.Server.MapPath(_mDefaultThemePath + relativePathFile);
                 if (File.Exists(filePath))
-                    ret = m_DefaultThemePath + relativePathFile;
+                    ret = _mDefaultThemePath + relativePathFile;
                 else
                 {
-                    filePath = m_C.Server.MapPath(relativePathFile);
+                    filePath = _mC.Server.MapPath(relativePathFile);
                     if (File.Exists(filePath))
                     {
-                        ret = m_C.Request.Url.AbsoluteUri.TokensAfter(4, "/");
+                        ret = _mC.Request.Url.AbsoluteUri.TokensAfter(4, "/");
                         ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
                         ret = ret + "/" + relativePathFile;
                     }
                     else
                     {
-                        filePath = m_C.Server.MapPath("~/" + relativePathFile);
+                        filePath = _mC.Server.MapPath("~/" + relativePathFile);
                         if (File.Exists(filePath))
                         {
-                            ret = m_C.Request.Url.AbsoluteUri.TokensAfter(4, "/");
+                            ret = _mC.Request.Url.AbsoluteUri.TokensAfter(4, "/");
                             ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
                             ret = ret + "/" + relativePathFile;
                         }
                         else
                         {
-                            filePath = m_C.Server.MapPath(m_SupportPath + relativePathFile);
+                            filePath = _mC.Server.MapPath(_mSupportPath + relativePathFile);
                             if (File.Exists(filePath))
                             {
-                                ret = m_SupportPath + relativePathFile;
-                                vDirPath = m_C.Request.Url.AbsoluteUri.TokensBefore(4, "/").FirstToken("?");
+                                ret = _mSupportPath + relativePathFile;
+                                vDirPath = _mC.Request.Url.AbsoluteUri.TokensBefore(4, "/").FirstToken("?");
                                 ret = ret.Replace("~/", string.Empty);
                                 if (ret.StartsWith("/"))
                                     ret = vDirPath + ret;
@@ -191,7 +191,7 @@ namespace MetX.Library
                     }
                 }
             }
-            vDirPath = m_C.Request.Url.AbsoluteUri.TokensBefore(5, "/").FirstToken("?");
+            vDirPath = _mC.Request.Url.AbsoluteUri.TokensBefore(5, "/").FirstToken("?");
             ret = ret.Replace("~/", string.Empty);
             if (ret.StartsWith("/"))
                 ret = vDirPath + ret;
@@ -262,12 +262,12 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string SbAppend(string sbVarName, string toAppend)
         {
-            if (m_SbVars == null)
-                m_SbVars = new Dictionary<string, StringBuilder>();
-            if (m_SbVars.ContainsKey(sbVarName))
-                m_SbVars[sbVarName].Append(toAppend);
+            if (_mSbVars == null)
+                _mSbVars = new Dictionary<string, StringBuilder>();
+            if (_mSbVars.ContainsKey(sbVarName))
+                _mSbVars[sbVarName].Append(toAppend);
             else
-                m_SbVars[sbVarName] = new StringBuilder(toAppend);
+                _mSbVars[sbVarName] = new StringBuilder(toAppend);
             return string.Empty;
         }
 
@@ -280,11 +280,11 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string SbAppendLine(string sbVarName, string toAppend)
         {
-            if (m_SbVars == null)
-                m_SbVars = new Dictionary<string, StringBuilder>();
-            if (!m_SbVars.ContainsKey(sbVarName))
-                m_SbVars[sbVarName] = new StringBuilder();
-            m_SbVars[sbVarName].AppendLine(toAppend);
+            if (_mSbVars == null)
+                _mSbVars = new Dictionary<string, StringBuilder>();
+            if (!_mSbVars.ContainsKey(sbVarName))
+                _mSbVars[sbVarName] = new StringBuilder();
+            _mSbVars[sbVarName].AppendLine(toAppend);
             return string.Empty;
         }
 
@@ -296,8 +296,8 @@ namespace MetX.Library
         /// <returns>The string builder contents</returns>
         public string SbGetVar(string sbVarName)
         {
-            if (m_SbVars != null && m_SbVars.ContainsKey(sbVarName))
-                return m_SbVars[sbVarName].ToString();
+            if (_mSbVars != null && _mSbVars.ContainsKey(sbVarName))
+                return _mSbVars[sbVarName].ToString();
             return string.Empty;
         }
 
@@ -309,8 +309,8 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string SbRemove(string sbVarName)
         {
-            if (m_SbVars != null && m_SbVars.ContainsKey(sbVarName))
-                m_SbVars.Remove(sbVarName);
+            if (_mSbVars != null && _mSbVars.ContainsKey(sbVarName))
+                _mSbVars.Remove(sbVarName);
             return string.Empty;
         }
 
@@ -320,10 +320,10 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string RemoveVar(string varName)
         {
-            if (m_Vars == null)
-                m_Vars = new Dictionary<string, string>();
-            if (m_Vars.ContainsKey(varName))
-                m_Vars.Remove(varName);
+            if (_mVars == null)
+                _mVars = new Dictionary<string, string>();
+            if (_mVars.ContainsKey(varName))
+                _mVars.Remove(varName);
             return string.Empty;
         }
 
@@ -332,8 +332,7 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string ClearVars()
         {
-            if (m_Vars != null)
-                m_Vars.Clear();
+            _mVars?.Clear();
             return string.Empty;
         }
 
@@ -344,9 +343,9 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string SetVar(string varName, string varValue)
         {
-            if (m_Vars == null)
-                m_Vars = new Dictionary<string, string>();
-            m_Vars[varName] = varValue;
+            if (_mVars == null)
+                _mVars = new Dictionary<string, string>();
+            _mVars[varName] = varValue;
             return string.Empty;
         }
 
@@ -356,10 +355,10 @@ namespace MetX.Library
         /// <returns>The variables value or a blank string if not set</returns>
         public string GetVar(string varName)
         {
-            if (m_Vars == null)
-                m_Vars = new Dictionary<string, string>();
-            if (m_Vars.ContainsKey(varName))
-                return m_Vars[varName];
+            if (_mVars == null)
+                _mVars = new Dictionary<string, string>();
+            if (_mVars.ContainsKey(varName))
+                return _mVars[varName];
             return string.Empty;
         }
 
@@ -369,9 +368,9 @@ namespace MetX.Library
         /// <returns>True if the variable has been set to a non empty string</returns>
         public bool IsVarSet(string varName)
         {
-            if (m_Vars == null)
-                m_Vars = new Dictionary<string, string>();
-            if (m_Vars.ContainsKey(varName) && m_Vars[varName] != null && m_Vars[varName].Length > 0)
+            if (_mVars == null)
+                _mVars = new Dictionary<string, string>();
+            if (_mVars.ContainsKey(varName) && _mVars[varName] != null && _mVars[varName].Length > 0)
                 return true;
             return false;
         }
@@ -382,15 +381,15 @@ namespace MetX.Library
         /// <returns>The hash value for the item</returns>
         public string SHash(string toHash)
         {
-            if (m_Ht == null)
-                m_Ht = new Dictionary<string, string>();
+            if (_mHt == null)
+                _mHt = new Dictionary<string, string>();
             // ReSharper disable once InvertIf
-            if (!m_Ht.ContainsKey(toHash))
+            if (!_mHt.ContainsKey(toHash))
             {
-                m_Ht.Add(toHash, m_NextHash.ToString());
-                m_NextHash += 1;
+                _mHt.Add(toHash, _mNextHash.ToString());
+                _mNextHash += 1;
             }
-            return m_Ht[toHash];
+            return _mHt[toHash];
         }
 
 
@@ -713,7 +712,7 @@ namespace MetX.Library
         /// <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
         /// <param name="xmlDate">The date to convert</param>
         /// <returns>The displayable date</returns>
-        public string sXmlDate(string xmlDate)
+        public string SXmlDate(string xmlDate)
         {
             xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
@@ -752,7 +751,7 @@ namespace MetX.Library
         /// <param name="xmlDate">The date to convert</param>
         /// <param name="sFormat">The VB.NET format string to format the date/time to</param>
         /// <returns>The formated date/time string</returns>
-        public string sXmlDate(string xmlDate, string sFormat)
+        public string SXmlDate(string xmlDate, string sFormat)
         {
             xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
@@ -781,10 +780,10 @@ namespace MetX.Library
 
         /// <summary>Increments an internal counter (NextID) and returns that value.</summary>
         /// <returns>The next higher ID</returns>
-        public string GetNextID()
+        public string GetNextId()
         {
-            m_NextID += 1;
-            return m_NextID.ToString();
+            _mNextId += 1;
+            return _mNextId.ToString();
         }
 
 
@@ -792,8 +791,8 @@ namespace MetX.Library
         /// <returns>The next lower layer</returns>
         public string GetNextLayer()
         {
-            m_NextLayer -= 1;
-            return m_NextLayer.ToString();
+            _mNextLayer -= 1;
+            return _mNextLayer.ToString();
         }
 
 
@@ -801,9 +800,9 @@ namespace MetX.Library
         /// <returns>The next row CSS class value</returns>
         public string GetNextRowClass()
         {
-            string t = m_CurrRowClass;
-            m_CurrRowClass = m_NextRowClass;
-            m_NextRowClass = t;
+            string t = _mCurrRowClass;
+            _mCurrRowClass = _mNextRowClass;
+            _mNextRowClass = t;
             return t;
         }
 
@@ -813,7 +812,7 @@ namespace MetX.Library
         /// <returns></returns>
         public string ClearTotals()
         {
-            m_RunningTotals = new Dictionary<string, double>();
+            _mRunningTotals = new Dictionary<string, double>();
             return string.Empty;
         }
 
@@ -831,12 +830,12 @@ namespace MetX.Library
         /// <returns>an empty string</returns>
         public string ClearTotal(string totalName, string sInitialValue)
         {
-            if (m_RunningTotals == null)
-                m_RunningTotals = new Dictionary<string, double>();
-            if (m_RunningTotals.ContainsKey(totalName))
-                m_RunningTotals[totalName] = Worker.NzDouble(sInitialValue);
+            if (_mRunningTotals == null)
+                _mRunningTotals = new Dictionary<string, double>();
+            if (_mRunningTotals.ContainsKey(totalName))
+                _mRunningTotals[totalName] = Worker.NzDouble(sInitialValue);
             else
-                m_RunningTotals.Add(totalName, Worker.NzDouble(sInitialValue));
+                _mRunningTotals.Add(totalName, Worker.NzDouble(sInitialValue));
             return string.Empty;
         }
 
@@ -847,12 +846,12 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string AddToTotal(string totalName, string toAdd)
         {
-            if (m_RunningTotals == null)
-                m_RunningTotals = new Dictionary<string, double>();
-            if (m_RunningTotals.ContainsKey(totalName))
-                m_RunningTotals[totalName] += NzDouble(toAdd);
+            if (_mRunningTotals == null)
+                _mRunningTotals = new Dictionary<string, double>();
+            if (_mRunningTotals.ContainsKey(totalName))
+                _mRunningTotals[totalName] += NzDouble(toAdd);
             else
-                m_RunningTotals.Add(totalName, Worker.NzDouble(toAdd));
+                _mRunningTotals.Add(totalName, Worker.NzDouble(toAdd));
             return string.Empty;
         }
 
@@ -863,12 +862,12 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string SubtractFromTotal(string totalName, string toSubtract)
         {
-            if (m_RunningTotals == null)
-                m_RunningTotals = new Dictionary<string, double>();
-            if (m_RunningTotals.ContainsKey(totalName))
-                m_RunningTotals[totalName] -= NzDouble(toSubtract);
+            if (_mRunningTotals == null)
+                _mRunningTotals = new Dictionary<string, double>();
+            if (_mRunningTotals.ContainsKey(totalName))
+                _mRunningTotals[totalName] -= NzDouble(toSubtract);
             else
-                m_RunningTotals.Add(totalName, -Worker.NzDouble(toSubtract));
+                _mRunningTotals.Add(totalName, -Worker.NzDouble(toSubtract));
             return string.Empty;
         }
 
@@ -879,15 +878,15 @@ namespace MetX.Library
         /// <returns>The internal total formatted to the number of decimal places</returns>
         public string GetTotal(string totalName, int decimalPlaces)
         {
-            if (m_RunningTotals == null)
-                m_RunningTotals = new Dictionary<string, double>();
+            if (_mRunningTotals == null)
+                _mRunningTotals = new Dictionary<string, double>();
             if (decimalPlaces > 0)
-                if (m_RunningTotals.ContainsKey(totalName))
-                    return m_RunningTotals[totalName].ToString("0." + new string('0', decimalPlaces));
+                if (_mRunningTotals.ContainsKey(totalName))
+                    return _mRunningTotals[totalName].ToString("0." + new string('0', decimalPlaces));
                 else
                     return "0." + new string('0', decimalPlaces);
-            else if (m_RunningTotals.ContainsKey(totalName))
-                return m_RunningTotals[totalName].ToString();
+            else if (_mRunningTotals.ContainsKey(totalName))
+                return _mRunningTotals[totalName].ToString();
             return "0";
         }
 

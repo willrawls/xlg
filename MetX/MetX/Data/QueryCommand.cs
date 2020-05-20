@@ -19,23 +19,23 @@ namespace MetX.Data
 
         public QueryCommand(string sql)
         {
-            this.CommandSql = sql;
-            this.CommandType = CommandType.Text;
-            this.Parameters = new QueryParameterCollection();
+            CommandSql = sql;
+            CommandType = CommandType.Text;
+            Parameters = new QueryParameterCollection();
         }
 
-        public void AddParameter(string parameterName, object parameterValue, DbType dataType, ParameterDirection Direction)
+        public void AddParameter(string parameterName, object parameterValue, DbType dataType, ParameterDirection direction)
         {
             if (Parameters == null)
                 Parameters = new QueryParameterCollection();
-            Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType, Direction));
+            Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType, direction));
         }
 
-        public void AddParameter(string parameterName, object parameterValue, ParameterDirection Direction)
+        public void AddParameter(string parameterName, object parameterValue, ParameterDirection direction)
         {
             if (Parameters == null)
                 Parameters = new QueryParameterCollection();
-            Parameters.Add(new QueryParameter(parameterName, parameterValue, Direction));
+            Parameters.Add(new QueryParameter(parameterName, parameterValue, direction));
         }
 
         public void AddParameter(string parameterName, object parameterValue, DbType dataType)
@@ -54,7 +54,7 @@ namespace MetX.Data
 
         //public IDbCommand ToIDbCommand() { return DataService.Instance.GetIDbCommand(this); }
 
-        public string ToXML()
+        public string ToXml()
         {
             XmlSerializer xs = new XmlSerializer(typeof(QueryCommand));
             StringBuilder sb = new StringBuilder();
@@ -66,7 +66,7 @@ namespace MetX.Data
             return sb.ToString();
         }
 
-        public static QueryCommand FromXML(ref string xmlText)
+        public static QueryCommand FromXml(ref string xmlText)
         {
             XmlSerializer xs = new XmlSerializer(typeof(QueryCommand));
             return (QueryCommand)xs.Deserialize(new System.IO.StringReader(xmlText));

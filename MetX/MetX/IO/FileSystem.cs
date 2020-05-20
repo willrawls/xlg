@@ -72,9 +72,9 @@ namespace MetX.IO
         /// </summary>
         /// <param name="source">The path from which files and subfolders to iterate</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static xlgFolder DeepContents(DirectoryInfo source)
+        public static XlgFolder DeepContents(DirectoryInfo source)
         {
-            var ret = new xlgFolder(source.FullName, source.Name, source.CreationTime, source.LastWriteTime);
+            var ret = new XlgFolder(source.FullName, source.Name, source.CreationTime, source.LastWriteTime);
             return DeepContents(ret, source);
         }
 
@@ -84,7 +84,7 @@ namespace MetX.IO
         /// </summary>
         /// <param name="source">The path from which files and subfolders to iterate</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static xlgFolder DeepContents(xlgFolder target, DirectoryInfo source)
+        public static XlgFolder DeepContents(XlgFolder target, DirectoryInfo source)
         {
             var sourceContents = source.GetFileSystemInfos();
             FileInfo currSourceFile;
@@ -95,7 +95,7 @@ namespace MetX.IO
                 {
                     target.Folders.Add(
                         DeepContents(
-                            new xlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime,
+                            new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime,
                                 currSource.LastWriteTime),
                             (DirectoryInfo) currSource));
                 }
@@ -103,7 +103,7 @@ namespace MetX.IO
                 {
                     var fi = (FileInfo) currSource;
                     target.Files.Add(
-                        new xlgFile(fi.FullName, fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
+                        new XlgFile(fi.FullName, fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
                 }
             }
             return target;

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Windows.Forms;
 
-    using MetX.Library;
+    using Library;
 
     public partial class OrderedSelector : UserControl
     {
@@ -22,7 +22,7 @@
                     return new object[0];
                 }
 
-                object[] ret = this.GetSelectedObjects(this.SelectionList);
+                object[] ret = GetSelectedObjects(SelectionList);
                 return ret;
             }
         }
@@ -32,7 +32,7 @@
             get
             {
                 // ReSharper disable once ConvertPropertyToExpressionBody
-                return this.SelectionList.SelectedIndices;
+                return SelectionList.SelectedIndices;
             }
         }
 
@@ -40,48 +40,48 @@
         {
             get
             {
-                return this.SelectionList.SelectionMode;
+                return SelectionList.SelectionMode;
             }
 
             set
             {
-                this.SelectionList.SelectionMode = value;
+                SelectionList.SelectionMode = value;
             }
         }
 
         public void Initialize(IEnumerable<string> sourceList, IEnumerable<string> selectionList)
         {
-            this.SourceList.Items.Clear();
-            this.SelectionList.Items.Clear();
+            SourceList.Items.Clear();
+            SelectionList.Items.Clear();
 
             foreach (string item in sourceList)
             {
-                this.SourceList.Items.Add(item);
+                SourceList.Items.Add(item);
             }
 
             foreach (string item in selectionList)
             {
-                this.SelectionList.Items.Add(item);
+                SelectionList.Items.Add(item);
             }
         }
 
         public void Initialize(object[] sourceList, object[] selectionList)
         {
-            this.SourceList.Items.Clear();
-            this.SelectionList.Items.Clear();
+            SourceList.Items.Clear();
+            SelectionList.Items.Clear();
 
-            this.SourceList.Items.AddRange(sourceList);
-            this.SelectionList.Items.AddRange(selectionList);
+            SourceList.Items.AddRange(sourceList);
+            SelectionList.Items.AddRange(selectionList);
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (this.SourceList.SelectedItems.Count == 0)
+            if (SourceList.SelectedItems.Count == 0)
                 return;
 
-            object[] objects = this.GetSelectedObjects(this.SourceList);
-            AddItems(this.SelectionList, objects);
-            this.RemoveSelectedItems(this.SourceList);
+            object[] objects = GetSelectedObjects(SourceList);
+            AddItems(SelectionList, objects);
+            RemoveSelectedItems(SourceList);
         }
 
         private void AddItems(ListBox list, object[] objects)
@@ -95,19 +95,19 @@
 
         private void DownButton_Click(object sender, EventArgs e)
         {
-            object[] objectsSelected = this.GetSelectedObjects(this.SelectionList);
+            object[] objectsSelected = GetSelectedObjects(SelectionList);
             if (objectsSelected.IsEmpty())
             {
                 return;
             }
 
-            int[] indices = this.GetSortedSelectedIndicies(this.SelectionList);
+            int[] indices = GetSortedSelectedIndicies(SelectionList);
             for (int i = indices.Length; i < 0; i--)
             {
-                if (indices[i] >= this.SelectionList.Items.Count)
+                if (indices[i] >= SelectionList.Items.Count)
                     continue;
-                this.SelectionList.Items.RemoveAt(indices[i]);
-                this.SelectionList.Items.Insert(indices[i] + 1, objectsSelected[i]);
+                SelectionList.Items.RemoveAt(indices[i]);
+                SelectionList.Items.Insert(indices[i] + 1, objectsSelected[i]);
             }
         }
 
@@ -153,44 +153,44 @@
 
         private void LastButton_Click(object sender, EventArgs e)
         {
-            object[] objectsSelected = this.GetSelectedObjects(this.SelectionList);
+            object[] objectsSelected = GetSelectedObjects(SelectionList);
             if (objectsSelected.IsEmpty())
             {
                 return;
             }
 
-            int[] indices = this.GetSortedSelectedIndicies(this.SelectionList);
+            int[] indices = GetSortedSelectedIndicies(SelectionList);
             for (int i = indices.Length; i < 0; i--)
             {
-                this.SelectionList.Items.RemoveAt(indices[i]);
+                SelectionList.Items.RemoveAt(indices[i]);
             }
 
             foreach (object item in objectsSelected)
             {
-                this.SelectionList.Items.Add(item);
+                SelectionList.Items.Add(item);
             }
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            if (this.SelectionList.SelectedIndices.Count == 0)
+            if (SelectionList.SelectedIndices.Count == 0)
             {
                 return;
             }
 
-            object[] objects = this.GetSelectedObjects(this.SelectionList);
-            this.RemoveSelectedItems(this.SelectionList);
-            this.AddItems(this.SourceList, objects);
+            object[] objects = GetSelectedObjects(SelectionList);
+            RemoveSelectedItems(SelectionList);
+            AddItems(SourceList, objects);
         }
 
         private void RemoveSelectedItems(ListBox list)
         {
-            if (this.SelectionList.SelectedIndices.Count == 0)
+            if (SelectionList.SelectedIndices.Count == 0)
             {
                 return;
             }
 
-            int[] indices = this.GetSortedSelectedIndicies(this.SelectionList);
+            int[] indices = GetSortedSelectedIndicies(SelectionList);
             for (int index = indices.Length - 1; index >= 0; index--)
             {
                 list.Items.RemoveAt(indices[index]);
@@ -199,20 +199,20 @@
 
         private void UpButton_Click(object sender, EventArgs e)
         {
-            object[] objectsSelected = this.GetSelectedObjects(this.SelectionList);
+            object[] objectsSelected = GetSelectedObjects(SelectionList);
             if (objectsSelected.IsEmpty())
             {
                 return;
             }
 
-            int[] indices = this.GetSortedSelectedIndicies(this.SelectionList);
+            int[] indices = GetSortedSelectedIndicies(SelectionList);
             for (int i = indices.Length; i < 0; i--)
             {
                 if (indices[i] == 0)
                     continue;
-                this.SelectionList.Items.RemoveAt(indices[i]);
+                SelectionList.Items.RemoveAt(indices[i]);
                 int newindex = indices[i] - 1;
-                this.SelectionList.Items.Insert(newindex, objectsSelected[i]);
+                SelectionList.Items.Insert(newindex, objectsSelected[i]);
                 SelectionList.SetSelected(newindex, true);
             }
         }
