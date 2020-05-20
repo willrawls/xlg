@@ -226,3 +226,7 @@ MetX_LocalFracturedBackup.7z
 MetX/MetX/Data/Obsolete/2016-03-31/TableSchema.cs
 MetX/MetX/Pipelines/Obsolete/2016-03-31/CodeGenerator.cs
 MetX/MetX/Library/Obsolete/2016-03-31/BaseLineProcessor.cs
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
