@@ -6,22 +6,21 @@ using System.Windows.Forms;
 using MetX.IO;
 using MetX.Library;
 using MetX.Pipelines;
-using MetX.Properties;
 using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner
 {
     public partial class GloveMain : Form
     {
-        private static XlgAppData m_AppData;
+        private static XlgAppData _mAppData;
 
-        public static XlgAppData AppData { get { return m_AppData ?? (m_AppData = XlgAppData.Load()); } }
+        public static XlgAppData AppData { get { return _mAppData ?? (_mAppData = XlgAppData.Load()); } }
 
-        private readonly FileSystemWatchers m_FSWs = new FileSystemWatchers();
-        private readonly object m_SyncRoot = new object();
-        private bool m_AutoGenActive = false;
-        private XlgSource m_CurrSource = null;
-        private bool m_RefreshingList;
+        private readonly FileSystemWatchers _mFsWs = new FileSystemWatchers();
+        private readonly object _mSyncRoot = new object();
+        private bool _mAutoGenActive = false;
+        private XlgSource _mCurrSource = null;
+        private bool _mRefreshingList;
         public XlgSettings Settings;
 
         public GloveMain()
@@ -56,9 +55,9 @@ namespace XLG.Pipeliner
             }
         }
 
-        private string ChooseFile(string Default, string ext)
+        private string ChooseFile(string @default, string ext)
         {
-            openFileDialog1.FileName = Default;
+            openFileDialog1.FileName = @default;
             openFileDialog1.AddExtension = true;
             openFileDialog1.CheckFileExists = true;
             openFileDialog1.CheckPathExists = true;
@@ -70,7 +69,7 @@ namespace XLG.Pipeliner
             {
                 return openFileDialog1.FileName;
             }
-            return Default;
+            return @default;
         }
 
         private void buttonChooseXlgFile_Click(object sender, EventArgs e)
@@ -172,17 +171,17 @@ namespace XLG.Pipeliner
 
         private void RefreshList(string xlgSourceFilename)
         {
-            if (m_RefreshingList || (string.IsNullOrEmpty(xlgSourceFilename) && Settings == null))
+            if (_mRefreshingList || (string.IsNullOrEmpty(xlgSourceFilename) && Settings == null))
             {
                 return;
             }
 
-            if (m_RefreshingList)
+            if (_mRefreshingList)
             {
                 return;
             }
 
-            m_RefreshingList = true;
+            _mRefreshingList = true;
             try
             {
                 if (string.IsNullOrEmpty(xlgSourceFilename) && Settings != null)
@@ -225,7 +224,7 @@ namespace XLG.Pipeliner
             }
             finally
             {
-                m_RefreshingList = false;
+                _mRefreshingList = false;
             }
         }
 
@@ -242,17 +241,17 @@ namespace XLG.Pipeliner
 
         private void buttonAutoGen_Click(object sender, EventArgs e)
         {
-            lock (m_SyncRoot)
+            lock (_mSyncRoot)
             {
-                if (m_FSWs.IsActive)
+                if (_mFsWs.IsActive)
                 {
-                    m_FSWs.End();
+                    _mFsWs.End();
                     autoRegenToolbarButton.Image = Resources.circle_blue;
                     autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_blue;
                 }
                 else
                 {
-                    m_FSWs.Begin(Settings, FSW_Changed, FSW_Error);
+                    _mFsWs.Begin(Settings, FSW_Changed, FSW_Error);
                     autoRegenToolbarButton.Image = Resources.circle_green;
                     autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
                 }
@@ -271,13 +270,13 @@ namespace XLG.Pipeliner
             }
             try
             {
-                lock (m_SyncRoot)
+                lock (_mSyncRoot)
                 {
-                    if (m_AutoGenActive)
+                    if (_mAutoGenActive)
                     {
                         return;
                     }
-                    m_AutoGenActive = true;
+                    _mAutoGenActive = true;
                 }
                 Invoke(new MethodInvoker(SynchAutoRegen));
             }
@@ -287,8 +286,8 @@ namespace XLG.Pipeliner
             }
             finally
             {
-                m_AutoGenActive = false;
-                m_FSWs.EnableRaisingEvents = true;
+                _mAutoGenActive = false;
+                _mFsWs.EnableRaisingEvents = true;
             }
         }
 
@@ -296,7 +295,7 @@ namespace XLG.Pipeliner
         {
             autoRegenToolbarButton.Image = Resources.circle_orange;
             autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_orange;
-            m_FSWs.EnableRaisingEvents = false;
+            _mFsWs.EnableRaisingEvents = false;
             buttonRegen_Click(null, null);
             autoRegenToolbarButton.Image = Resources.circle_green;
             autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
@@ -316,17 +315,17 @@ namespace XLG.Pipeliner
                 {
                     return;
                 }
-                m_CurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
-                textAppXlgXsl.Text = m_CurrSource.XslFilename;
-                textOutput.Text = m_CurrSource.OutputFilename;
-                textOutputXml.Text = m_CurrSource.OutputXml;
-                textXlgFile.Text = m_CurrSource.XlgDocFilename;
-                textConnectionName.Text = m_CurrSource.DisplayName;
-                textConnectionStringName.Text = m_CurrSource.ConnectionName;
-                textConnectionString.Text = m_CurrSource.ConnectionString;
+                _mCurrSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
+                textAppXlgXsl.Text = _mCurrSource.XslFilename;
+                textOutput.Text = _mCurrSource.OutputFilename;
+                textOutputXml.Text = _mCurrSource.OutputXml;
+                textXlgFile.Text = _mCurrSource.XlgDocFilename;
+                textConnectionName.Text = _mCurrSource.DisplayName;
+                textConnectionStringName.Text = _mCurrSource.ConnectionName;
+                textConnectionString.Text = _mCurrSource.ConnectionString;
                 //textSqlToXml.Text = m_CurrSource.SqlToXml;
-                checkRegenerateOnly.Checked = m_CurrSource.RegenerateOnly;
-                int index = comboProviderName.FindString(m_CurrSource.ProviderName);
+                checkRegenerateOnly.Checked = _mCurrSource.RegenerateOnly;
+                int index = comboProviderName.FindString(_mCurrSource.ProviderName);
                 if (index > -1)
                 {
                     comboProviderName.SelectedIndex = index;
@@ -340,22 +339,22 @@ namespace XLG.Pipeliner
 
         public void UpdateCurrentSource()
         {
-            if (m_CurrSource == null)
+            if (_mCurrSource == null)
             {
                 return;
             }
-            m_CurrSource.XslFilename = textAppXlgXsl.Text;
-            m_CurrSource.OutputFilename = textOutput.Text;
-            m_CurrSource.OutputXml = textOutputXml.Text;
-            m_CurrSource.XlgDocFilename = textXlgFile.Text;
-            m_CurrSource.DisplayName = textConnectionName.Text;
-            m_CurrSource.ConnectionName = textConnectionStringName.Text;
-            m_CurrSource.ConnectionString = textConnectionString.Text;
-            m_CurrSource.RegenerateOnly = checkRegenerateOnly.Checked;
+            _mCurrSource.XslFilename = textAppXlgXsl.Text;
+            _mCurrSource.OutputFilename = textOutput.Text;
+            _mCurrSource.OutputXml = textOutputXml.Text;
+            _mCurrSource.XlgDocFilename = textXlgFile.Text;
+            _mCurrSource.DisplayName = textConnectionName.Text;
+            _mCurrSource.ConnectionName = textConnectionStringName.Text;
+            _mCurrSource.ConnectionString = textConnectionString.Text;
+            _mCurrSource.RegenerateOnly = checkRegenerateOnly.Checked;
             //            m_CurrSource.SqlToXml = textSqlToXml.Text;
             if (comboProviderName.SelectedIndex > -1)
             {
-                m_CurrSource.ProviderName = (string)comboProviderName.SelectedItem;
+                _mCurrSource.ProviderName = (string)comboProviderName.SelectedItem;
             }
         }
 
@@ -413,34 +412,34 @@ namespace XLG.Pipeliner
             {
                 string itemName = "CLONE";
 
-                if (UI.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                if (Ui.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
                     == DialogResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {
                     return;
                 }
 
-                if (m_CurrSource == null && Settings.Sources.Count > 0)
+                if (_mCurrSource == null && Settings.Sources.Count > 0)
                 {
-                    m_CurrSource = Settings.Sources[0];
+                    _mCurrSource = Settings.Sources[0];
                 }
 
                 XlgSource newSource = null;
                 if (itemName == "CLONE")
                 {
-                    newSource = Xml.FromXml<XlgSource>(Xml.ToXml<XlgSource>(m_CurrSource, false));
+                    newSource = Xml.FromXml<XlgSource>(Xml.ToXml<XlgSource>(_mCurrSource, false));
                 }
                 else
                 {
                     newSource = new XlgSource(AppData.BasePath, AppData.ParentNamespace,
-                        (m_CurrSource != null
-                            ? m_CurrSource.ProviderName
+                        (_mCurrSource != null
+                            ? _mCurrSource.ProviderName
                             : (Settings.Sources.Count + 1).ToString()).LastToken(".") + ": " + itemName, itemName);
 
-                    if (m_CurrSource != null)
+                    if (_mCurrSource != null)
                     {
                         newSource.BasePath =
-                            m_CurrSource.OutputFilename.TokensBefore(m_CurrSource.OutputFilename.TokenCount(@"\") - 1,
+                            _mCurrSource.OutputFilename.TokensBefore(_mCurrSource.OutputFilename.TokenCount(@"\") - 1,
                                 @"\") + @"\" + itemName
                             + @"\";
                     }
@@ -451,16 +450,16 @@ namespace XLG.Pipeliner
                     FileSystem.InsureFolderExists(newSource.BasePath, false);
                     // NewSource.ConfigFilename = CurrSource.ConfigFilename;
 
-                    if (m_CurrSource != null)
+                    if (_mCurrSource != null)
                     {
-                        newSource.ConnectionString = m_CurrSource.ConnectionString;
+                        newSource.ConnectionString = _mCurrSource.ConnectionString;
                         newSource.OutputFilename = newSource.BasePath + itemName + ".Glove."
-                                                   + Path.GetExtension(m_CurrSource.OutputFilename);
+                                                   + Path.GetExtension(_mCurrSource.OutputFilename);
                         newSource.OutputXml = newSource.BasePath + itemName + ".Glove.xml";
-                        newSource.ProviderName = m_CurrSource.ProviderName;
+                        newSource.ProviderName = _mCurrSource.ProviderName;
                         newSource.Selected = true;
                         newSource.XlgDocFilename = newSource.BasePath + itemName + ".xlgd";
-                        newSource.XslFilename = m_CurrSource.XslFilename;
+                        newSource.XslFilename = _mCurrSource.XslFilename;
                     }
                     else
                     {
@@ -493,7 +492,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                if (m_CurrSource == null)
+                if (_mCurrSource == null)
                 {
                     return;
                 }
@@ -505,8 +504,8 @@ namespace XLG.Pipeliner
                 {
                     return;
                 }
-                Settings.Sources.Remove(m_CurrSource);
-                m_CurrSource = null;
+                Settings.Sources.Remove(_mCurrSource);
+                _mCurrSource = null;
                 buttonSave_Click(null, null);
                 RefreshList();
             }
@@ -524,7 +523,7 @@ namespace XLG.Pipeliner
                 if (!File.Exists(textXlgFile.Text))
                 {
                     File.WriteAllText(textXlgFile.Text,
-                        DefaultXlg.xml.Replace("[Default]", textConnectionStringName.Text));
+                        DefaultXlg.Xml.Replace("[Default]", textConnectionStringName.Text));
                 }
                 Process.Start(AppData.TextEditor, textXlgFile.Text);
             }

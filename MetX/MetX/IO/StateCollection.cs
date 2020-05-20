@@ -1,13 +1,5 @@
 using System;
-using System.Collections;
-using System.Configuration;
 using System.Data;
-using System.Diagnostics;
-using System.Text;
-using System.Web;
-using System.IO;
-using System.Data.SqlClient;
-using System.Web.SessionState;
 using System.Collections.Generic;
 using MetX.Library;
 
@@ -18,7 +10,7 @@ namespace MetX.IO
     public partial class StateCollection
     {
         /// <summary>The internal sorted list in memory</summary>
-        private SortedStringList mState;
+        private SortedStringList _mState;
         /// <summary>The first of two unique strings that identify the secure state to work with.</summary>
         public string StateParent;
         /// <summary>The second of two unique strings that identify the secure state to work with.</summary>
@@ -30,50 +22,50 @@ namespace MetX.IO
         public string ConnectionName = "xlgSecurity";
 
         /// <summary>Basic constructor. Does not load a profile, just sets up the properties.</summary>
-        /// <param name="StateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
-        /// <param name="StateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
-        /// <param name="TagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
-        public StateCollection(string StateParent, string StateName, string TagName)
+        /// <param name="stateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
+        /// <param name="stateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
+        /// <param name="tagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
+        public StateCollection(string stateParent, string stateName, string tagName)
         {
-            if (StateParent == null || StateParent.Length == 0)
+            if (stateParent == null || stateParent.Length == 0)
                 throw new Exception("StateParent must be set to a non empty string.");
-            if (StateName == null || StateName.Length == 0)
+            if (stateName == null || stateName.Length == 0)
                 throw new Exception("StateName must be set to a non empty string.");
-            if (TagName == null || TagName.Length == 0)
+            if (tagName == null || tagName.Length == 0)
                 throw new Exception("TagName must be set to a non empty string.");
-            this.StateParent = StateParent;
-            this.StateName = StateName;
-            this.TagName = TagName;
+            this.StateParent = stateParent;
+            this.StateName = stateName;
+            this.TagName = tagName;
         }
 
         /// <summary>Basic constructor that additionally sets the intial state. Useful when loading state from an existing list or when setting up a new secure state.</summary>
-        /// <param name="StateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
-        /// <param name="StateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
-        /// <param name="TagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
-        /// <param name="InitialState">The initial set of name/value pairs for the named secure state.</param>
-        public StateCollection(string StateParent, string StateName, string TagName, SortedStringList InitialState)
-            : this(StateParent, StateName, TagName)
+        /// <param name="stateParent">The first of two unique strings that identify the secure state to work with. Usually the UserID guid.</param>
+        /// <param name="stateName">The second of two unique strings that identify the secure state to work with. Usually the path to the web page.</param>
+        /// <param name="tagName">Used by InnerXml, This is the name of each element. Usually something like "Profile" or "PageState".</param>
+        /// <param name="initialState">The initial set of name/value pairs for the named secure state.</param>
+        public StateCollection(string stateParent, string stateName, string tagName, SortedStringList initialState)
+            : this(stateParent, stateName, tagName)
         {            
-            this.mState = InitialState;
+            _mState = initialState;
         }
 
         /// <summary>Retrieves/Sets the string value for a name/value pair. If the item doesn't exist, the item will be created.</summary>
-        public string this[string Name]
+        public string this[string name]
         {
             get
             {
-                if (State.ContainsKey(Name))
-                    return Convert.ToString(mState[Name]);
+                if (State.ContainsKey(name))
+                    return Convert.ToString(_mState[name]);
                 else
-                    mState.Add(Name, string.Empty);
+                    _mState.Add(name, string.Empty);
                 return string.Empty;
             }
             set
             {
-                if (State.ContainsKey(Name))
-                    mState[Name] = value;
+                if (State.ContainsKey(name))
+                    _mState[name] = value;
                 else
-                    mState.Add(Name, value);
+                    _mState.Add(name, value);
             }
         }
 
@@ -82,42 +74,42 @@ namespace MetX.IO
         {
             get
             {
-                if (mState == null)
+                if (_mState == null)
                 {
-                    mState = new SortedStringList(5);
-                    DataRowCollection rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2DB(StateParent.ToLower()) + " AND StateName=" + Worker.S2DB(StateName.ToLower()), ConnectionName);
+                    _mState = new SortedStringList(5);
+                    DataRowCollection rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
                     if (rstState != null)
                     {
                         if (rstState.Count > 0)
                         {
-                            foreach (DataRow CurrRow in rstState)
+                            foreach (DataRow currRow in rstState)
                             {
-                                mState.Add(Convert.ToString(CurrRow[0]), Convert.ToString(CurrRow[1]));
+                                _mState.Add(Convert.ToString(currRow[0]), Convert.ToString(currRow[1]));
                             }
                         }
                     }
                 }
-                return mState;
+                return _mState;
             }
             set
             {
-                mState = value;
+                _mState = value;
             }
         }
 
         /// <summary>Saves the current state to the StateCollection table. All previous items in the state are deleted.</summary>
         public void Save()
         {
-            List<string> SQLs = null;
-            if (mState != null)
+            List<string> sqLs = null;
+            if (_mState != null)
             {
-                SQLs = new List<string>(1 + mState.Count);
-                SQLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.S2DB(StateParent.ToLower()) + " AND StateName=" + Worker.S2DB(StateName.ToLower()));
+                sqLs = new List<string>(1 + _mState.Count);
+                sqLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()));
 
-                if (mState.Count > 0)
-                    foreach (KeyValuePair<string, string> DE in mState)
-                        SQLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid().ToString() + "'," + Worker.S2DB(StateParent) + "," + Worker.S2DB(StateName) + "," + Worker.S2DB(DE.Key) + "," + Worker.S2DB(DE.Value) + ", getdate())");
-                Sql.Execute(SQLs, ConnectionName);
+                if (_mState.Count > 0)
+                    foreach (KeyValuePair<string, string> de in _mState)
+                        sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid().ToString() + "'," + Worker.S2Db(StateParent) + "," + Worker.S2Db(StateName) + "," + Worker.S2Db(de.Key) + "," + Worker.S2Db(de.Value) + ", getdate())");
+                Sql.Execute(sqLs, ConnectionName);
             }
         }
 

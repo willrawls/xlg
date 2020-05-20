@@ -9,7 +9,7 @@ namespace MetX.Pipelines
     /// Represents a library to generate
     /// </summary>
     [Serializable, XmlType(Namespace = "", AnonymousType = true)]
-    public class xlgFolder
+    public class XlgFolder
     {
         [XmlAttribute]
         public string Path;
@@ -21,20 +21,20 @@ namespace MetX.Pipelines
         public DateTime Modified;
 
         [XmlArray("Folders", Namespace = "", IsNullable = false), XmlArrayItem("Folder", Namespace = "", IsNullable = false)]
-        public List<xlgFolder> Folders = new List<xlgFolder>();
+        public List<XlgFolder> Folders = new List<XlgFolder>();
 
         [XmlArray("Files", Namespace = "", IsNullable = false), XmlArrayItem("File", Namespace = "", IsNullable = false)]
-        public List<xlgFile> Files = new List<xlgFile>();
+        public List<XlgFile> Files = new List<XlgFile>();
 
-        public xlgFolder() { /* XmlSerializer */ }
+        public XlgFolder() { /* XmlSerializer */ }
 
-        public xlgFolder(string Path, string Name, DateTime Created, DateTime Modified)
+        public XlgFolder(string path, string name, DateTime created, DateTime modified)
         {
-            if (!Path.EndsWith(@"\")) Path += @"\";
-            this.Path = Path;
-            this.Name = Name;
-            this.Created = Created;
-            this.Modified = Modified;
+            if (!path.EndsWith(@"\")) path += @"\";
+            this.Path = path;
+            this.Name = name;
+            this.Created = created;
+            this.Modified = modified;
         }
 
         public override string ToString()
@@ -42,24 +42,24 @@ namespace MetX.Pipelines
             return Name;
         }
 
-        public static xlgFolder FromXml(string xmldoc)
+        public static XlgFolder FromXml(string xmldoc)
         {
-            return Xml.FromXml<xlgFolder>(xmldoc);
+            return Xml.FromXml<XlgFolder>(xmldoc);
         }
 
         public string OuterXml()
         {
-            return Xml.ToXml<xlgFolder>(this, true);
+            return Xml.ToXml<XlgFolder>(this, true);
         }
 
-        public void Save(string Filename)
+        public void Save(string filename)
         {
-            Xml.SaveFile<xlgFolder>(Filename, this);
+            Xml.SaveFile<XlgFolder>(filename, this);
         }
 
-        public static xlgFolder Load(string Filename)
+        public static XlgFolder Load(string filename)
         {
-            return Xml.LoadFile<xlgFolder>(Filename);
+            return Xml.LoadFile<XlgFolder>(filename);
         }
     }
 }

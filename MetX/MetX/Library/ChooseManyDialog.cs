@@ -8,32 +8,32 @@ namespace MetX.Library
 
         public ChooseManyDialog()
         {
-            this.ValueToReturnOnCancel = null;
+            ValueToReturnOnCancel = null;
         }
 
         public override int[] SelectedValue
         {
             get
             {
-                if (this.Result == DialogResult.Cancel)
+                if (Result == DialogResult.Cancel)
                 {
-                    return this.ValueToReturnOnCancel;
+                    return ValueToReturnOnCancel;
                 }
 
-                if (this.EntryArea.SelectedIndices.Count == 0)
+                if (EntryArea.SelectedIndices.Count == 0)
                 {
                     return new int[0];
                 }
 
-                int[] ret = new int[this.EntryArea.SelectedIndices.Count];
-                for (int index = 0; index < this.EntryArea.SelectedIndices.Count; index++)
+                int[] ret = new int[EntryArea.SelectedIndices.Count];
+                for (int index = 0; index < EntryArea.SelectedIndices.Count; index++)
                 {
                     if (index == -1)
                     {
                         return null;
                     }
 
-                    int item = this.EntryArea.SelectedIndices[index];
+                    int item = EntryArea.SelectedIndices[index];
                     ret[index] = item;
                 }
 
@@ -47,33 +47,33 @@ namespace MetX.Library
             string title = "MULTIPLE CHOICE",
             int[] initiallySelectedIndexes = null)
         {
-            this.Items = choices;
-            return this.Ask(promptText, title, initiallySelectedIndexes, 400);
+            Items = choices;
+            return Ask(promptText, title, initiallySelectedIndexes, 400);
         }
 
         public override void SetupEntryArea()
         {
             EntryArea.SelectionMode = SelectionMode.MultiSimple;
-            this.EntryArea.SetBounds(12, 106, 372, 280);
+            EntryArea.SetBounds(12, 106, 372, 280);
 
-            this.EntryArea.Items.Clear();
-            if (this.Items.IsEmpty())
+            EntryArea.Items.Clear();
+            if (Items.IsEmpty())
             {
                 return;
             }
 
-            foreach (string choice in this.Items)
+            foreach (string choice in Items)
             {
-                this.EntryArea.Items.Add(choice);
+                EntryArea.Items.Add(choice);
             }
 
-            if ((this.DefaultValue != null) && (this.DefaultValue.Length > 0))
+            if ((DefaultValue != null) && (DefaultValue.Length > 0))
             {
-                foreach (int index in this.DefaultValue)
+                foreach (int index in DefaultValue)
                 {
-                    if ((index >= 0) && (index < this.Items.Length))
+                    if ((index >= 0) && (index < Items.Length))
                     {
-                        this.EntryArea.SetSelected(index, true);
+                        EntryArea.SetSelected(index, true);
                     }
                 }
             }

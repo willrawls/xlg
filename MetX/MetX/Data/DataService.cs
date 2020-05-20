@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Configuration.Provider;
 using System.Configuration;
 using System.Web.Configuration;
-using System.Data.Common;
 using System.Data;
 using System.Reflection;
 using MetX.Interfaces;
-using MetX.IO;
 
 namespace MetX.Data
 {
@@ -29,8 +26,8 @@ namespace MetX.Data
 
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
-        private static Dictionary<string, DataService> m_Services = new Dictionary<string, DataService>();
-        private static readonly Dictionary<string, IProvide> m_Providers = new Dictionary<string, IProvide>();
+        private static Dictionary<string, DataService> _mServices = new Dictionary<string, DataService>();
+        private static readonly Dictionary<string, IProvide> MProviders = new Dictionary<string, IProvide>();
 
         public DataService(ConnectionStringSettings connectionSettings)
         {
@@ -41,19 +38,19 @@ namespace MetX.Data
         public void Setup()
         {
             IProvide metXProvider;
-            if (!m_Providers.ContainsKey(Settings.ProviderName.ToLower()))
+            if (!MProviders.ContainsKey(Settings.ProviderName.ToLower()))
             {
                 MetXObjectName = "MetX.Data.Factory." + Settings.ProviderName.Replace(".", "_");
                 Assembly metXProviderAssembly = Assembly.Load(MetXObjectName);
                 Type metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
                 metXProvider = Activator.CreateInstance(metXProviderType, true) as IProvide;
                 if (metXProvider == null) throw new ProviderException("Unable to instantiate: " + metXProviderType.FullName);
-                m_Providers.Add(Settings.ProviderName.ToLower(), metXProvider);
+                MProviders.Add(Settings.ProviderName.ToLower(), metXProvider);
                 MetXProviderAssemblyString = metXProvider.ProviderAssemblyString;
                 ProviderAssemblyString = metXProviderAssembly.FullName;
             }
             else
-                metXProvider = m_Providers[Settings.ProviderName.ToLower()];
+                metXProvider = MProviders[Settings.ProviderName.ToLower()];
 
             ProviderType = metXProvider.ProviderType;
             if (metXProvider.ProviderType == ProviderTypeEnum.Data || metXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
@@ -71,7 +68,7 @@ namespace MetX.Data
                     throw new ProviderException("Unknown gatherer: " + Settings.ProviderName);
             }
 
-            m_Services.Add(Settings.Name, this);
+            _mServices.Add(Settings.Name, this);
             if (Instance == null)
                 Instance = this;
 
@@ -105,8 +102,8 @@ namespace MetX.Data
         /// <returns></returns>
         public static DataService GetDataService(string connectionStringName)
         {
-            if (m_Services.ContainsKey(connectionStringName))
-                return m_Services[connectionStringName];
+            if (_mServices.ContainsKey(connectionStringName))
+                return _mServices[connectionStringName];
 
             if (ConnectionStrings == null)
                 ConnectionStrings = WebConfigurationManager.ConnectionStrings;
@@ -128,8 +125,8 @@ namespace MetX.Data
         /// <returns></returns>
         public static DataService GetDataServiceManually(string connectionStringName, string connectionString, string providerName)
         {
-            if (m_Services.ContainsKey(connectionStringName))
-                return m_Services[connectionStringName];
+            if (_mServices.ContainsKey(connectionStringName))
+                return _mServices[connectionStringName];
 
             return new DataService(new ConnectionStringSettings(connectionStringName, connectionString, providerName));
         }
@@ -215,9 +212,9 @@ namespace MetX.Data
         }
         
         /// <returns>C#CD: </returns>
-        public string[] GetSPList()
+        public string[] GetSpList()
         {
-            return Provider.GetSPList();
+            return Provider.GetSpList();
         }
         
         /// <param name="fkColumn">C#CD: </param>
@@ -229,9 +226,9 @@ namespace MetX.Data
         
         /// <param name="spName">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public IDataReader GetSPParams(string spName)
+        public IDataReader GetSpParams(string spName)
         {
-            return Provider.GetSPParams(spName);
+            return Provider.GetSpParams(spName);
         }
         
         /// <param name="dataType">C#CD: </param>

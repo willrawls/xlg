@@ -70,14 +70,14 @@ namespace MetX.Data
 
         #region props
 
-        TableSchema.Table table;
+        TableSchema.Table _table;
 
         public QueryType QueryType = QueryType.Select;
         public string Top = "";
         public bool Distinct;
         public string SelectList = " * ";
         public OrderBy OrderBy;
-        private List<Aggregate> aggregates;
+        private List<Aggregate> _aggregates;
         public List<Where> wheres;
         public List<Join> joins;
         public DataProvider Instance;
@@ -92,14 +92,14 @@ namespace MetX.Data
 
         public Query(TableSchema.Table tbl)
         {
-            table = tbl;
-            bool TriedAgain = false;
+            _table = tbl;
+            bool triedAgain = false;
         TryAgain:
-            if (table.Instance != null)
-                Instance = table.Instance;
-            else if (!TriedAgain)
+            if (_table.Instance != null)
+                Instance = _table.Instance;
+            else if (!triedAgain)
             {
-                TriedAgain = true;
+                triedAgain = true;
                 System.Threading.Thread.Sleep(50);
                 goto TryAgain;
             }
@@ -109,10 +109,10 @@ namespace MetX.Data
         public Query(TableSchema.Table tbl, Where[] whereClauses)
             : this(tbl)
         {
-            foreach (Where CurrWhere in whereClauses)
+            foreach (Where currWhere in whereClauses)
             {
-                CurrWhere.TableName = table.Name;
-                AddWhere(CurrWhere);
+                currWhere.TableName = _table.Name;
+                AddWhere(currWhere);
             }
         }
 
@@ -120,46 +120,46 @@ namespace MetX.Data
 
         #region Add Methods for adding WHERE, Aggregates, and Joins
 
-        Dictionary<string, object> updateSettings;
+        Dictionary<string, object> _updateSettings;
 
         public void AddUpdateColumn(string columnName, object value)
         {
-            if (updateSettings == null) updateSettings = new Dictionary<string, object>();
+            if (_updateSettings == null) _updateSettings = new Dictionary<string, object>();
 
             //boolean massage for MySQL
             if (value.AsString().ToLower() == "false") value = 0;
             else if (value.AsString().ToLower() == "true") value = 1;
 
-            if (updateSettings.ContainsKey(columnName)) updateSettings[columnName] = value;
-            else updateSettings.Add(columnName, value);
+            if (_updateSettings.ContainsKey(columnName)) _updateSettings[columnName] = value;
+            else _updateSettings.Add(columnName, value);
             QueryType = QueryType.Update;
         }
 
         /// <summary>C#CD: </summary>
-        /// <param name="ToTableName">C#CD: </param>
-        /// <param name="FromColumnName">C#CD: </param>
-        /// <param name="ToColumnName">C#CD: </param>
-        public void AddInnerJoin(string ToTableName, string FromColumnName, string ToColumnName)
+        /// <param name="toTableName">C#CD: </param>
+        /// <param name="fromColumnName">C#CD: </param>
+        /// <param name="toColumnName">C#CD: </param>
+        public void AddInnerJoin(string toTableName, string fromColumnName, string toColumnName)
         {
             if (joins == null) joins = new List<Join>();
 
             Join j = new Join();
-            j.ToColumn = ToColumnName;
-            j.JoinTable = ToTableName;
-            j.FromColumn = FromColumnName;
+            j.ToColumn = toColumnName;
+            j.JoinTable = toTableName;
+            j.FromColumn = fromColumnName;
             joins.Add(j);
         }
 
         /// <summary>C#CD: </summary>
-        /// <param name="ToTableName">C#CD: </param>
-        public void AddInnerJoin(string ToTableName)
+        /// <param name="toTableName">C#CD: </param>
+        public void AddInnerJoin(string toTableName)
         {
             if (joins == null) joins = new List<Join>();
 
             Join j = new Join();
-            j.ToColumn = table.PrimaryKey.ColumnName;
-            j.JoinTable = ToTableName;
-            j.FromColumn = table.PrimaryKey.ColumnName;
+            j.ToColumn = _table.PrimaryKey.ColumnName;
+            j.JoinTable = toTableName;
+            j.FromColumn = _table.PrimaryKey.ColumnName;
 
             joins.Add(j);
         }
@@ -178,8 +178,8 @@ namespace MetX.Data
         /// <param name="agg">C#CD: </param>
         public void AddAggregate(Aggregate agg)
         {
-            if (aggregates == null) aggregates = new List<Aggregate>();
-            aggregates.Add(agg);
+            if (_aggregates == null) _aggregates = new List<Aggregate>();
+            _aggregates.Add(agg);
         }
 
         /// <summary>C#CD: </summary>
@@ -235,7 +235,7 @@ namespace MetX.Data
         /// <param name="paramValue">C#CD: </param>
         public void AddWhere(string columnName, object paramValue)
         {
-            AddWhere(table.Name, columnName, Comparison.Equals, paramValue);
+            AddWhere(_table.Name, columnName, Comparison.Equals, paramValue);
         }
 
         /// <summary>C#CD: </summary>
@@ -253,7 +253,7 @@ namespace MetX.Data
         /// <param name="paramValue">C#CD: </param>
         public void AddWhere(string columnName, Comparison comp, object paramValue)
         {
-            AddWhere(table.Name, columnName, comp, paramValue);
+            AddWhere(_table.Name, columnName, comp, paramValue);
         }
 
         /// <summary>C#CD: </summary>
@@ -311,24 +311,24 @@ namespace MetX.Data
             if (wheres != null && wheres.Count > 0)
             {
                 int i = 1;
-                bool NeedAHinge = false;
+                bool needAHinge = false;
                 foreach (Where where in wheres)
                 {
                     //Append the SQL
                     if (i == 1)
                     {
                         sql += " WHERE ";
-                        NeedAHinge = false;
+                        needAHinge = false;
                     }
                     switch (where.Options)
                     {
-                        case WhereOptions.And: if (NeedAHinge) sql += " AND "; break;
-                        case WhereOptions.Or: if (NeedAHinge) sql += " OR "; break;
-                        case WhereOptions.AndWithBeginParen: sql += " AND ("; NeedAHinge = false; break;
-                        case WhereOptions.OrWithBeginParen: sql += " OR ("; NeedAHinge = false; break;
-                        case WhereOptions.BeginParen: sql += "("; NeedAHinge = false; break;
-                        case WhereOptions.EndParen: sql += ")"; NeedAHinge = true; break;
-                        default: if (NeedAHinge) { sql += " AND "; NeedAHinge = false; } break;
+                        case WhereOptions.And: if (needAHinge) sql += " AND "; break;
+                        case WhereOptions.Or: if (needAHinge) sql += " OR "; break;
+                        case WhereOptions.AndWithBeginParen: sql += " AND ("; needAHinge = false; break;
+                        case WhereOptions.OrWithBeginParen: sql += " OR ("; needAHinge = false; break;
+                        case WhereOptions.BeginParen: sql += "("; needAHinge = false; break;
+                        case WhereOptions.EndParen: sql += ")"; needAHinge = true; break;
+                        default: if (needAHinge) { sql += " AND "; needAHinge = false; } break;
                     }
                     //}
                     if (where.ColumnName != null)
@@ -340,9 +340,8 @@ namespace MetX.Data
                         else
                             sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + " " + (string)where.ParameterValue;
 
-                        if (cmd != null)
-                            cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue);
-                        NeedAHinge = true;
+                        cmd?.AddParameter("@_" + @where.ParameterName, @where.ParameterValue);
+                        needAHinge = true;
                     }
                     i++;
                 }
@@ -354,7 +353,7 @@ namespace MetX.Data
         /// </summary>
         public QueryCommand BuildDeleteCommand()
         {
-            string sql = "DELETE FROM " + table.Name;
+            string sql = "DELETE FROM " + _table.Name;
             //stub this out
             QueryCommand cmd = new QueryCommand(sql);
             if (wheres != null && wheres.Count > 0)
@@ -370,28 +369,28 @@ namespace MetX.Data
         /// </summary>
         public QueryCommand BuildUpdateCommand()
         {
-            if (updateSettings == null)
+            if (_updateSettings == null)
                 throw new Exception("No update settings have been set. Use Query.AddUpdateSetting to add some in");
 
-            string sql = "UPDATE " + table.Name;
+            string sql = "UPDATE " + _table.Name;
             QueryCommand cmd = new QueryCommand(sql);
 
             TableSchema.TableColumn column = null;
             //append the update statements
             string setClause = " SET ";
-            foreach (KeyValuePair<string, object> CurrColumn in updateSettings)
+            foreach (KeyValuePair<string, object> currColumn in _updateSettings)
             {
-                column = table.Columns.GetColumn(CurrColumn.Key);
+                column = _table.Columns.GetColumn(currColumn.Key);
                 if (column != null)
                 {
-                    sql += setClause + CurrColumn.Key + "=@" + CurrColumn.Key + ",";
-                    cmd.AddParameter("@_" + CurrColumn.Key, CurrColumn.Value);
+                    sql += setClause + currColumn.Key + "=@" + currColumn.Key + ",";
+                    cmd.AddParameter("@_" + currColumn.Key, currColumn.Value);
                     setClause = string.Empty;
                 }
                 else
                 {
                     //there's no column in this table that corresponds to the passed-in hash
-                    throw new Exception("There is no column in " + table.Name + " called " + CurrColumn.Key);
+                    throw new Exception("There is no column in " + _table.Name + " called " + currColumn.Key);
                 }
             }
             //trim the comma
@@ -478,7 +477,7 @@ namespace MetX.Data
             string query = string.Empty;
             string whereOperator = " WHERE ";
 
-            if (aggregates != null && aggregates.Count > 0)
+            if (_aggregates != null && _aggregates.Count > 0)
             {
                 //if there's an aggregate, do it up first
                 string aggList = string.Empty;
@@ -489,7 +488,7 @@ namespace MetX.Data
                 if (SelectList.Trim() == "*")
                     SelectList = string.Empty;
 
-                foreach (Aggregate agg in aggregates)
+                foreach (Aggregate agg in _aggregates)
                 {
                     thisAggregate = agg.AggregateString + ",";
                     if (Distinct)
@@ -600,12 +599,12 @@ namespace MetX.Data
             //append on the SelectList, which is a property that can be set
             //and is "*" by default
 
-            select += " FROM " + Instance.ValidIdentifier(table.Name) + " ";
+            select += " FROM " + Instance.ValidIdentifier(_table.Name) + " ";
 
             //joins
             if (joins != null && joins.Count > 0)
                 foreach (Join j in joins)
-                    join += " " + j.JoinType + " " + Instance.ValidIdentifier(j.JoinTable) + " ON " + Instance.ValidIdentifier(table.Name) + "." + Instance.ValidIdentifier(j.FromColumn) + "=" + Instance.ValidIdentifier(j.JoinTable) + "." + Instance.ValidIdentifier(j.ToColumn) + " ";
+                    join += " " + j.JoinType + " " + Instance.ValidIdentifier(j.JoinTable) + " ON " + Instance.ValidIdentifier(_table.Name) + "." + Instance.ValidIdentifier(j.FromColumn) + "=" + Instance.ValidIdentifier(j.JoinTable) + "." + Instance.ValidIdentifier(j.ToColumn) + " ";
 
             //now for the wheres...
             //MUST USE parameters to avoid injection issues
@@ -627,9 +626,9 @@ namespace MetX.Data
                 if (!Top.Contains("%") && !Top.ToLower().Contains("percent"))
                     query += " LIMIT " + Top;
 
-            int PageSize;
-            if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out PageSize) && PageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
-                query = Instance.HandlePage(query, ((Page - 1) * PageSize) + 1, PageSize, QueryType);
+            int pageSize;
+            if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out pageSize) && pageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
+                query = Instance.HandlePage(query, ((Page - 1) * pageSize) + 1, pageSize, QueryType);
 
             if (QueryType == QueryType.Exists)
                 query = "IF EXISTS(" + query + ") SELECT 1 ELSE SELECT 0";
@@ -641,10 +640,10 @@ namespace MetX.Data
         public string GetUpdateSql()
         {
             //split the TablNames and loop out the SQL
-            string updateSQL = "UPDATE " + Instance.ValidIdentifier(table.Name) + " SET ";
+            string updateSql = "UPDATE " + Instance.ValidIdentifier(_table.Name) + " SET ";
             string cols = "";
 
-            foreach (TableSchema.TableColumn col in table.Columns)
+            foreach (TableSchema.TableColumn col in _table.Columns)
             {
                 //don't want to change the created bits
                 if (!col.IsPrimaryKey && col.ColumnName.ToLower() != "createdby" && col.ColumnName.ToLower() != "createdon")
@@ -652,13 +651,13 @@ namespace MetX.Data
             }
             cols = cols.Remove(cols.Length - 1, 1);
 
-            updateSQL += cols;
+            updateSql += cols;
 
             if (wheres == null || wheres.Count == 0)
-                updateSQL += " WHERE " + table.PrimaryKey.ColumnName + "=@" + table.PrimaryKey.ColumnName + Instance.CommandSeparator; // + "SELECT @" + table.PrimaryKey.ColumnName + " as id";
+                updateSql += " WHERE " + _table.PrimaryKey.ColumnName + "=@" + _table.PrimaryKey.ColumnName + Instance.CommandSeparator; // + "SELECT @" + table.PrimaryKey.ColumnName + " as id";
             else
-                updateSQL += BuildWhere();
-            return updateSQL;
+                updateSql += BuildWhere();
+            return updateSql;
         }
 
         /// <summary>
@@ -669,13 +668,13 @@ namespace MetX.Data
         public string GetInsertSql()
         {
             //split the TablNames and loop out the SQL
-            string insertSQL = "INSERT INTO " + Instance.ValidIdentifier(table.Name) + " ";
+            string insertSql = "INSERT INTO " + Instance.ValidIdentifier(_table.Name) + " ";
 
             string cols = "";
             string pars = "";
 
             //if table columns are null toss an exception
-            foreach (TableSchema.TableColumn col in table.Columns)
+            foreach (TableSchema.TableColumn col in _table.Columns)
             {
                 if (!col.AutoIncrement)
                 {
@@ -685,26 +684,26 @@ namespace MetX.Data
             }
             cols = cols.Remove(cols.Length - 1, 1);
             pars = pars.Remove(pars.Length - 1, 1);
-            insertSQL += "(" + cols + ") ";
+            insertSql += "(" + cols + ") ";
 
-            insertSQL += "VALUES(" + pars + ");";
+            insertSql += "VALUES(" + pars + ");";
 
             //the default convention is that every table has a unique, auto-increment key
             //this is for setting the PK after save. @@IDENTITY or IDENTITY_SCOPE can
             //be used, but don't translate to other DBs. MAX does so it's used here
-            if (table.PrimaryKey != null && table.PrimaryKey.DataType != DbType.Guid)
-                insertSQL += " SELECT MAX(" + Instance.ValidIdentifier(table.PrimaryKey.ColumnName) + ") FROM " + Instance.ValidIdentifier(table.Name) + " as newID";
+            if (_table.PrimaryKey != null && _table.PrimaryKey.DataType != DbType.Guid)
+                insertSql += " SELECT MAX(" + Instance.ValidIdentifier(_table.PrimaryKey.ColumnName) + ") FROM " + Instance.ValidIdentifier(_table.Name) + " as newID";
 
-            return insertSQL;
+            return insertSql;
         }
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
         public string GetDeleteSql()
         {
-            string sql = "DELETE FROM " + table.Name;
+            string sql = "DELETE FROM " + _table.Name;
             if (wheres == null || wheres.Count == 0)
-                sql += " WHERE " + table.PrimaryKey.ColumnName + "=@" + table.PrimaryKey.ColumnName;
+                sql += " WHERE " + _table.PrimaryKey.ColumnName + "=@" + _table.PrimaryKey.ColumnName;
             else
                 sql += BuildWhere();
             return sql;

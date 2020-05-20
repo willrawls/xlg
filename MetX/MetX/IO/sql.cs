@@ -1,15 +1,11 @@
 using System;
 using System.Configuration;
 using System.Data;
-using System.Data.Common;
 using System.Xml;
 using System.Data.SqlClient;
 using System.Text;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Web;
 
 namespace MetX.IO
 {
@@ -104,9 +100,8 @@ namespace MetX.IO
 			}
 			finally
 			{
-				if( !Equals(rst, null) )
-					rst.Close();
-				cmd.Dispose();
+                rst?.Close();
+                cmd.Dispose();
 				conn.Close();
 				conn.Dispose();
 			}
@@ -171,9 +166,8 @@ namespace MetX.IO
 			}
 			finally
 			{
-				if( !Equals(rst, null) )
-					rst.Close();
-				cmd.Dispose();
+                rst?.Close();
+                cmd.Dispose();
 				conn.Close();
 				conn.Dispose();
 			}
@@ -335,9 +329,8 @@ namespace MetX.IO
 			}
 			finally
 			{
-				if(!Equals(rst, null))
-					rst.Close();
-				cmd.Dispose();
+                rst?.Close();
+                cmd.Dispose();
 				conn.Close();
 				conn.Dispose();
 			}
@@ -382,9 +375,8 @@ namespace MetX.IO
 			}
 			finally
 			{
-				if(!Equals(rst, null))
-					rst.Close();
-				cmd.Dispose();
+                rst?.Close();
+                cmd.Dispose();
 				conn.Close();				
 				conn.Dispose();
 			}
@@ -534,17 +526,17 @@ namespace MetX.IO
 		}
 
 		/// <summary>Updates a field in the Notification table for a single NotificationID</summary>
-		/// <param name="notificationID">The NotificationID to update</param>
+		/// <param name="notificationId">The NotificationID to update</param>
 		/// <param name="fieldName">The field to update</param>
 		/// <param name="newValue">The new value of the field</param>
 		/// <param name="maxLength">If the field has a maximum length, specify it and this function will insure the field does not exceed that length</param>
 		/// <returns>True if the record was updated</returns>
-		public static bool UpdateNotificationField(string notificationID, string fieldName, string newValue, int maxLength)
+		public static bool UpdateNotificationField(string notificationId, string fieldName, string newValue, int maxLength)
 		{
             SqlConnection conn = DefaultConnection;
 			SqlCommand cmd = new SqlCommand("SET ARITHABORT ON", conn);
 			cmd.ExecuteNonQuery();
-			cmd.CommandText = "UPDATE Notification SET " + fieldName + "='" + newValue.Substring(0, maxLength) + "' WHERE NotificationID='" + notificationID + "'";
+			cmd.CommandText = "UPDATE Notification SET " + fieldName + "='" + newValue.Substring(0, maxLength) + "' WHERE NotificationID='" + notificationId + "'";
 			int recordCount = cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();
@@ -659,9 +651,7 @@ namespace MetX.IO
             if (connectionName == null || connectionName.Length == 0)
                 return DefaultConnectionString;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[connectionName];
-            if (settings  == null)
-                return DefaultConnectionString;
-            string connectionString = settings.ConnectionString;
+            string connectionString = settings?.ConnectionString;
             if (connectionString == null || connectionString.Length == 0)
                 return DefaultConnectionString;
             return connectionString;

@@ -13,8 +13,8 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-    using MetX.Library;
-    using MetX.Scripts;
+    using Library;
+    using Scripts;
 
     using Microsoft.Win32;
 
@@ -28,7 +28,7 @@ namespace MetX.Controls
 
         public bool Updating;
 
-        private TextArea textArea;
+        private TextArea _textArea;
 
         public QuickScriptToolWindow(XlgQuickScript script)
         {
@@ -41,13 +41,13 @@ namespace MetX.Controls
         {
             get
             {
-                if ((this.ScriptEditor.Text.Length == 0) || (this.textArea.Caret.Column == 0))
+                if ((ScriptEditor.Text.Length == 0) || (_textArea.Caret.Column == 0))
                 {
                     return string.Empty;
                 }
 
                 string[] lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                string linePart = lines[textArea.Caret.Line].Substring(0, textArea.Caret.Column).LastToken();
+                string linePart = lines[_textArea.Caret.Line].Substring(0, _textArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
                 {
@@ -70,9 +70,9 @@ namespace MetX.Controls
         {
             get
             {
-                if ((this.Text.Length == 0) || (this.textArea.Caret.Column == 0)) return string.Empty;
+                if ((Text.Length == 0) || (_textArea.Caret.Column == 0)) return string.Empty;
                 string line = Text.TokenAt(
-                    this.textArea.Caret.Line,
+                    _textArea.Caret.Line,
                     Environment.NewLine,
                     StringComparison.InvariantCulture);
 
@@ -157,7 +157,7 @@ namespace MetX.Controls
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(CurrentScript.InputFilePath)
-                    && (this.CurrentScript.Input != "Web Address"))
+                    && (CurrentScript.Input != "Web Address"))
                 {
                     parentDestination = CurrentScript.InputFilePath.TokensBeforeLast(@"\");
                 }
@@ -334,9 +334,9 @@ namespace MetX.Controls
 
         private void InitializeEditor()
         {
-            textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
-            textArea.KeyEventHandler += ProcessKey;
-            textArea.KeyUp += TextAreaOnKeyUp;
+            _textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
+            _textArea.KeyEventHandler += ProcessKey;
+            _textArea.KeyUp += TextAreaOnKeyUp;
 
             FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
             HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
@@ -346,7 +346,7 @@ namespace MetX.Controls
 
         private void InsertMissingSections()
         {
-            this.textArea.InsertString("Members:\n\tList<string> Items = new List<string>();\n\n~~Start:\n\n~~Body:\n\n~~Finish:\n\n");
+            _textArea.InsertString("Members:\n\tList<string> Items = new List<string>();\n\n~~Start:\n\n~~Body:\n\n~~Finish:\n\n");
         }
 
         private bool ProcessKey(char ch)
@@ -414,24 +414,23 @@ namespace MetX.Controls
                     return;
                 }
 
-                if (Context.Scripts != null)
-                {
-                    UpdateScriptFromForm();
+                if (Context.Scripts == null) return;
 
-                    SaveDestinationFilePathDialog.FileName = Context.Scripts.FilePath;
-                    SaveDestinationFilePathDialog.InitialDirectory = Context.Scripts.FilePath.TokensBeforeLast(@"\");
-                    SaveDestinationFilePathDialog.AddExtension = true;
-                    SaveDestinationFilePathDialog.CheckPathExists = true;
-                    SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
-                    SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq;All files (*.*)|*.*";
-                    SaveDestinationFilePathDialog.ShowDialog(this);
-                    if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
-                    {
-                        Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                        Context.Scripts.Save();
-                        Text = "Quick Scriptr - " + Context.Scripts.FilePath;
-                        UpdateLastKnownPath();
-                    }
+                UpdateScriptFromForm();
+
+                SaveDestinationFilePathDialog.FileName = Context.Scripts.FilePath;
+                SaveDestinationFilePathDialog.InitialDirectory = Context.Scripts.FilePath.TokensBeforeLast(@"\");
+                SaveDestinationFilePathDialog.AddExtension = true;
+                SaveDestinationFilePathDialog.CheckPathExists = true;
+                SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
+                SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq;All files (*.*)|*.*";
+                SaveDestinationFilePathDialog.ShowDialog(this);
+                if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
+                {
+                    Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
+                    Context.Scripts.Save();
+                    Text = "Quick Scriptr - " + Context.Scripts.FilePath;
+                    UpdateLastKnownPath();
                 }
             }
             catch (Exception exception)
@@ -468,11 +467,12 @@ namespace MetX.Controls
             }
         }
 
+/*
         private void ShowScriptCommandCodeCompletion()
         {
             ShowCodeCompletion(new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" });
         }
-
+*/      
         private void ShowThisCodeCompletion()
         {
             ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
@@ -501,7 +501,7 @@ namespace MetX.Controls
                 }
             }
         }
-
+/*
         private void UpdateFormWithScript(XlgQuickScript selectedScript)
         {
             if (CurrentScript == null)
@@ -514,7 +514,7 @@ namespace MetX.Controls
             ScriptEditor.Focus();
             CurrentScript = selectedScript;
         }
-
+*/
         private void UpdateLastKnownPath()
         {
             if ((Context.Scripts == null) || string.IsNullOrEmpty(Context.Scripts.FilePath) || !File.Exists(Context.Scripts.FilePath))

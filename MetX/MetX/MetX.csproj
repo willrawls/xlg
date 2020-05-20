@@ -170,7 +170,6 @@
     <Compile Include="Library\BaseRuntimeFunctions.cs" />
     <Compile Include="Library\ChooseManyDialog.cs" />
     <Compile Include="Library\ChooseOneDialog.cs" />
-    <Compile Include="Library\Fred.cs" />
     <Compile Include="Library\GeneralQuestionDialog.cs" />
     <Compile Include="Library\SerializesToXml.cs" />
     <Compile Include="Library\StreamBuilder.cs" />

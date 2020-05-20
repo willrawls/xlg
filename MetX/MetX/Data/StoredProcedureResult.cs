@@ -9,9 +9,9 @@ namespace MetX.Data
         public int ReturnValue = int.MinValue;
         public IDataParameterCollection Parameters;
 
-        public StoredProcedureResult(IDataParameterCollection Parameters)
+        public StoredProcedureResult(IDataParameterCollection parameters)
         {
-            this.Parameters = Parameters;
+            this.Parameters = parameters;
         }
 
         public override string ToString()

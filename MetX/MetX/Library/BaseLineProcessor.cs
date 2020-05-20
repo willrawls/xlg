@@ -1,6 +1,4 @@
-﻿using System.CodeDom.Compiler;
-
-namespace MetX.Library
+﻿namespace MetX.Library
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +6,8 @@ namespace MetX.Library
     using System.Text;
     using System.Windows.Forms;
 
-    using MetX.IO;
-    using MetX.Scripts;
+    using IO;
+    using Scripts;
 
     public abstract class BaseLineProcessor : BaseRuntimeFunctions
     {
@@ -26,7 +24,7 @@ namespace MetX.Library
         {
             get
             {
-                if (InputFiles.IsEmpty() || (this.CurrentInputFileIndex < 0) || (this.CurrentInputFileIndex >= this.InputFiles.Count))
+                if (InputFiles.IsEmpty() || (CurrentInputFileIndex < 0) || (CurrentInputFileIndex >= InputFiles.Count))
                     return null;
 
                 return InputFiles[CurrentInputFileIndex];
@@ -37,7 +35,7 @@ namespace MetX.Library
         {
             get
             {
-                if (InputFiles.IsEmpty() || (this.CurrentInputFileIndex < 0))
+                if (InputFiles.IsEmpty() || (CurrentInputFileIndex < 0))
                     return null;
 
                 CurrentInputFileIndex++;
@@ -69,7 +67,7 @@ namespace MetX.Library
                     throw new NotImplementedException("Database query is not yet implemented.");
 
                 case "webaddress":
-                    bytes = Encoding.UTF8.GetBytes(HTTP.GetURL(InputFilePath));
+                    bytes = Encoding.UTF8.GetBytes(Http.GetUrl(InputFilePath));
                     InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
@@ -86,11 +84,11 @@ namespace MetX.Library
                         return null;
                     }
 
-                    switch ((Path.GetExtension(InputFilePath) ?? string.Empty).ToLower())
+                    switch ((Path.GetExtension(InputFilePath)).ToLower())
                     {
                         case ".xls":
                         case ".xlsx":
-                            string sideFile = null;
+                            string sideFile;
                             FileInfo inputFile = new FileInfo(InputFilePath);
                             InputFilePath = inputFile.FullName;
                             Type excelType = Type.GetTypeFromProgID("Excel.Application");
@@ -126,7 +124,7 @@ namespace MetX.Library
 
                             excel.Quit();
                             CurrentInputFileIndex = 0;
-                            if ((this.CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
+                            if ((CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
                             break;
 
@@ -135,7 +133,7 @@ namespace MetX.Library
                                 new FileInfo(InputFilePath)
                             };
                             CurrentInputFileIndex = 0;
-                            if ((this.CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
+                            if ((CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
                             break;
                     }
@@ -143,7 +141,7 @@ namespace MetX.Library
                     break;
             }
 
-            if ((this.InputStream == StreamReader.Null) || (this.InputStream.BaseStream.Length < 1) || InputStream.EndOfStream)
+            if ((InputStream == StreamReader.Null) || (InputStream.BaseStream.Length < 1) || InputStream.EndOfStream)
             {
                 MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;

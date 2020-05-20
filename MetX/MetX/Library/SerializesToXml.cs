@@ -1,8 +1,7 @@
 using System.IO;
 using System.Text;
-using MetX.Library;
 
-namespace IntegenX.RapidLink.Services.Common.Library
+namespace MetX.Library
 {
     public abstract class SerializesToXml<T>
         where T : SerializesToXml<T>, new()

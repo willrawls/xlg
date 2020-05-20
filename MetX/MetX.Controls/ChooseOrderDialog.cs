@@ -3,7 +3,7 @@ namespace MetX.Controls
     using System.Linq;
     using System.Windows.Forms;
 
-    using MetX.Library;
+    using Library;
 
     public class ChooseOrderDialog : GeneralQuestionDialog<OrderedSelector, string[]>
     {
@@ -11,25 +11,25 @@ namespace MetX.Controls
 
         public ChooseOrderDialog()
         {
-            this.ValueToReturnOnCancel = null;
+            ValueToReturnOnCancel = null;
         }
 
         public override string[] SelectedValue
         {
             get
             {
-                if (this.Result == DialogResult.Cancel)
+                if (Result == DialogResult.Cancel)
                 {
-                    return this.ValueToReturnOnCancel;
+                    return ValueToReturnOnCancel;
                 }
 
-                if (this.EntryArea.SelectedIndices.Count == 0)
+                if (EntryArea.SelectedIndices.Count == 0)
                 {
                     return new string[0];
                 }
 
-                object[] selection = this.EntryArea.CurrentSelection;
-                string[] ret = new string[this.EntryArea.SelectedIndices.Count];
+                object[] selection = EntryArea.CurrentSelection;
+                string[] ret = new string[EntryArea.SelectedIndices.Count];
                 for (int index = 0; index < selection.Length; index++)
                 {
                     ret[index] = selection[index].AsString();
@@ -45,17 +45,17 @@ namespace MetX.Controls
             string promptText = "Please order this list",
             string title = "ORDER LIST")
         {
-            this.Items = choices;
-            string[] result = this.Ask(promptText, title, selection, 400, 500);
+            Items = choices;
+            string[] result = Ask(promptText, title, selection, 400, 500);
             return result;
         }
 
         public override void SetupEntryArea()
         {
-            this.EntryArea.SelectionMode = SelectionMode.MultiSimple;
-            this.EntryArea.SetBounds(12, 106, 372, 500);
+            EntryArea.SelectionMode = SelectionMode.MultiSimple;
+            EntryArea.SetBounds(12, 106, 372, 500);
 
-            this.EntryArea.Initialize((object[])this.Items.Cast<object>(), this.DefaultValue);
+            EntryArea.Initialize((object[])Items.Cast<object>(), DefaultValue);
         }
     }
 }

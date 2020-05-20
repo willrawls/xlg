@@ -158,14 +158,14 @@ namespace MetX.Data.Factory
             }
             catch (Exception ex)
             {
-                throw new Exception(qry.ToXML() + "\r\n\r\n" + ex.ToString());
+                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex.ToString());
             }
             return ret;
         }
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
-        public override string[] GetSPList()
+        public override string[] GetSpList()
         {
             var cmd = new QueryCommand(SpSql);
             var list = new List<string>();
@@ -184,7 +184,7 @@ namespace MetX.Data.Factory
         /// <summary>C#CD: </summary>
         /// <param name="spName">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override IDataReader GetSPParams(string spName)
+        public override IDataReader GetSpParams(string spName)
         {
             var cmd = new QueryCommand(SpParamSql);
             cmd.AddParameter("@spName", spName);
@@ -215,7 +215,7 @@ namespace MetX.Data.Factory
             }
             catch (Exception ex)
             {
-                throw new Exception(qry.ToXML() + "\r\n\r\n" + ex.ToString());
+                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex.ToString());
             }
             if (cmd.Parameters.Contains("@ReturnValue") && cmd.Parameters["@ReturnValue"].Value != null)
             {

@@ -7,7 +7,7 @@ namespace MetX.Pipelines
     /// Represents a file
     /// </summary>
     [Serializable, XmlType(Namespace = "", AnonymousType = true)]
-    public class xlgFile
+    public class XlgFile
     {
         [XmlAttribute]
         public string Path;
@@ -22,9 +22,9 @@ namespace MetX.Pipelines
         [XmlAttribute]
         public long Size;
 
-        public xlgFile() { /* XmlSerializer */ }
+        public XlgFile() { /* XmlSerializer */ }
 
-        public xlgFile(string path, string name, string extension, long size, DateTime created, DateTime modified)
+        public XlgFile(string path, string name, string extension, long size, DateTime created, DateTime modified)
         {
             if (!path.EndsWith(@"\")) path += @"\";
             Path = path;

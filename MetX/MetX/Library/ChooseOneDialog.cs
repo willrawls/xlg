@@ -8,14 +8,14 @@ namespace MetX.Library
 
         public ChooseOneDialog()
         {
-            this.ValueToReturnOnCancel = -1;
+            ValueToReturnOnCancel = -1;
         }
 
         public override int SelectedValue
         {
             get
             {
-                return this.Result == DialogResult.Cancel ? this.ValueToReturnOnCancel : this.EntryArea.SelectedIndex;
+                return Result == DialogResult.Cancel ? ValueToReturnOnCancel : EntryArea.SelectedIndex;
             }
         }
 
@@ -25,26 +25,26 @@ namespace MetX.Library
             string title = "CHOOSE ONE",
             int defaultValue = 0)
         {
-            this.Choices = choices;
-            return this.Ask(promptText, title, defaultValue);
+            Choices = choices;
+            return Ask(promptText, title, defaultValue);
         }
 
         public override void SetupEntryArea()
         {
-            this.EntryArea.Items.Clear();
-            if (this.Choices.IsEmpty())
+            EntryArea.Items.Clear();
+            if (Choices.IsEmpty())
             {
                 return;
             }
 
-            foreach (string choice in this.Choices)
+            foreach (string choice in Choices)
             {
-                this.EntryArea.Items.Add(choice.AsString());
+                EntryArea.Items.Add(choice.AsString());
             }
 
-            if ((this.DefaultValue >= 0) && (this.DefaultValue < this.Choices.Length))
+            if ((DefaultValue >= 0) && (DefaultValue < Choices.Length))
             {
-                this.EntryArea.SelectedIndex = this.DefaultValue;
+                EntryArea.SelectedIndex = DefaultValue;
             }
         }
     }

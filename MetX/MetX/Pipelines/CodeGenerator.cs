@@ -23,7 +23,7 @@ namespace MetX.Pipelines
     public class CodeGenerator
     {
         /// <summary>The class name to contain the Stored Procedures</summary>
-        public const string spClassName = "SPs";
+        public const string SpClassName = "SPs";
 
         public static string AppDomainAppPath;
 
@@ -78,25 +78,25 @@ namespace MetX.Pipelines
         /// </summary>
         public string xlgFilename = "app.xlg.xsl";
 
-        public Guid XlgInstanceID;
-        private static string m_FullName;
+        public Guid XlgInstanceId;
+        private static string _mFullName;
 
-        private XmlElement m_StoredProceduresToRender;
+        private XmlElement _mStoredProceduresToRender;
 
-        private XmlElement m_TablesToRender;
+        private XmlElement _mTablesToRender;
 
-        private string m_UrlExtension;
+        private string _mUrlExtension;
 
-        private XmlDocument m_XlgDataXmlDoc = new XmlDocument();
+        private XmlDocument _mXlgDataXmlDoc = new XmlDocument();
 
-        private XmlElement m_XslsToRender;
+        private XmlElement _mXslsToRender;
 
         /// <summary>Default constructor. Does nothing</summary>
         public CodeGenerator()
         {
-            if (m_FullName == null)
+            if (_mFullName == null)
             {
-                m_FullName = Assembly.GetExecutingAssembly().FullName;
+                _mFullName = Assembly.GetExecutingAssembly().FullName;
             }
         }
 
@@ -104,7 +104,7 @@ namespace MetX.Pipelines
         public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, Form gui)
             : this()
         {
-            this.Gui = gui;
+            Gui = gui;
             Initialize(xlgFilePath, xlgXslFilePath, settingsFilePath);
         }
 
@@ -119,12 +119,12 @@ namespace MetX.Pipelines
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlElement root = xmlDoc.CreateElement("xlgDoc");
 
-                if (m_XlgDataXmlDoc.DocumentElement == null)
+                if (_mXlgDataXmlDoc.DocumentElement == null)
                 {
                     return null;
                 }
 
-                foreach (XmlAttribute currAttribute in m_XlgDataXmlDoc.DocumentElement.Attributes)
+                foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
                 {
                     root.SetAttribute(currAttribute.Name, currAttribute.Value);
                 }
@@ -142,28 +142,28 @@ namespace MetX.Pipelines
                 }
                 root.SetAttribute("OutputFolder", OutputFolder);
                 root.SetAttribute("Now", DateTime.Now.ToString("s"));
-                root.SetAttribute("XlgInstanceID", XlgInstanceID.ToString().ToUpper());
+                root.SetAttribute("XlgInstanceID", XlgInstanceId.ToString().ToUpper());
 
                 root.SetAttribute("MetXAssemblyString", MetXAssemblyString);
 
                 xmlDoc.AppendChild(root);
-                foreach (XmlAttribute currAttribute in m_XlgDataXmlDoc.DocumentElement.Attributes)
+                foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
                 {
                     root.SetAttribute(currAttribute.Name, currAttribute.Value);
                 }
-                if (m_TablesToRender != null)
+                if (_mTablesToRender != null)
                 {
                     if (TablesXml(xmlDoc) == null) return null;
                 }
-                if (m_StoredProceduresToRender != null)
+                if (_mStoredProceduresToRender != null)
                 {
                     StoredProceduresXml(xmlDoc);
                 }
-                if (m_XslsToRender != null)
+                if (_mXslsToRender != null)
                 {
                     XslXml(xmlDoc);
                 }
-                foreach (XmlElement currChild in m_XlgDataXmlDoc.DocumentElement.ChildNodes)
+                foreach (XmlElement currChild in _mXlgDataXmlDoc.DocumentElement.ChildNodes)
                 {
                     root.AppendChild(xmlDoc.ImportNode(currChild, true));
                 }
@@ -173,7 +173,7 @@ namespace MetX.Pipelines
             }
         }
 
-        public string MetXAssemblyString { get { return m_FullName; } }
+        public string MetXAssemblyString { get { return _mFullName; } }
 
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string GenerateCode()
@@ -183,7 +183,7 @@ namespace MetX.Pipelines
             {
                 throw new Exception("xlg.xsl missing (1).");
             }
-            XlgInstanceID = Guid.NewGuid();
+            XlgInstanceId = Guid.NewGuid();
             CodeXmlDocument = DataXml;
             if (CodeXmlDocument == null) return null;
             return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
@@ -263,21 +263,21 @@ namespace MetX.Pipelines
 
         private void ParseDataXml()
         {
-            m_XlgDataXmlDoc = new XmlDocument();
+            _mXlgDataXmlDoc = new XmlDocument();
             if (xlgDataXml == null || xlgDataXml.StartsWith("*"))
             {
-                m_XlgDataXmlDoc.LoadXml(DefaultXlg.xml.Replace("[Default]", Namespace));
+                _mXlgDataXmlDoc.LoadXml(DefaultXlg.Xml.Replace("[Default]", Namespace));
             }
             else
             {
-                m_XlgDataXmlDoc.LoadXml(xlgDataXml);
+                _mXlgDataXmlDoc.LoadXml(xlgDataXml);
             }
 
-            m_TablesToRender = (XmlElement)m_XlgDataXmlDoc.SelectSingleNode("/*/Render/Tables");
-            m_StoredProceduresToRender = (XmlElement)m_XlgDataXmlDoc.SelectSingleNode("/*/Render/StoredProcedures");
-            m_XslsToRender = (XmlElement)m_XlgDataXmlDoc.SelectSingleNode("/*/Render/Xsls");
+            _mTablesToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Tables");
+            _mStoredProceduresToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/StoredProcedures");
+            _mXslsToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Xsls");
 
-            string connectionStringName = Dav(m_XlgDataXmlDoc, "ConnectionStringName", "Default");
+            string connectionStringName = Dav(_mXlgDataXmlDoc, "ConnectionStringName", "Default");
             //if (xlgDataXmlDoc.DocumentElement.Attributes["ConnectionStringName"] == null)
             //    ConnectionStringName = "Default";
             //else
@@ -288,28 +288,28 @@ namespace MetX.Pipelines
                 throw new Exception("No valid connection name (from xlgd): " + connectionStringName);
             }
 
-            AddElement(m_XslsToRender, "Exclude", "Name", "~/security/xsl/xlg");
-            AddElement(m_XslsToRender, "Exclude", "Name", "~/App_Code");
-            AddElement(m_XslsToRender, "Exclude", "Name", "~/App_Data");
-            AddElement(m_XslsToRender, "Exclude", "Name", "~/theme");
-            AddElement(m_XslsToRender, "Exclude", "Name", "~/bin");
-            AddElement(m_XslsToRender, "Exclude", "Name", "_svn");
-            AddElement(m_XslsToRender, "Exclude", "Name", ".svn");
-            AddElement(m_XslsToRender, "Exclude", "Name", "_vti_pvt");
-            AddElement(m_XslsToRender, "Exclude", "Name", "_vti_cnf");
-            AddElement(m_XslsToRender, "Exclude", "Name", "_vti_script");
-            AddElement(m_XslsToRender, "Exclude", "Name", "_vti_txt");
+            AddElement(_mXslsToRender, "Exclude", "Name", "~/security/xsl/xlg");
+            AddElement(_mXslsToRender, "Exclude", "Name", "~/App_Code");
+            AddElement(_mXslsToRender, "Exclude", "Name", "~/App_Data");
+            AddElement(_mXslsToRender, "Exclude", "Name", "~/theme");
+            AddElement(_mXslsToRender, "Exclude", "Name", "~/bin");
+            AddElement(_mXslsToRender, "Exclude", "Name", "_svn");
+            AddElement(_mXslsToRender, "Exclude", "Name", ".svn");
+            AddElement(_mXslsToRender, "Exclude", "Name", "_vti_pvt");
+            AddElement(_mXslsToRender, "Exclude", "Name", "_vti_cnf");
+            AddElement(_mXslsToRender, "Exclude", "Name", "_vti_script");
+            AddElement(_mXslsToRender, "Exclude", "Name", "_vti_txt");
 
-            AddElement(m_StoredProceduresToRender, "Exclude", "Name", "sp_*");
-            AddElement(m_StoredProceduresToRender, "Exclude", "Name", "dt_*");
+            AddElement(_mStoredProceduresToRender, "Exclude", "Name", "sp_*");
+            AddElement(_mStoredProceduresToRender, "Exclude", "Name", "dt_*");
         }
 
         private void ProcessXslPath(XmlDocument xmlDoc, string renderPath, string xlgPath, string path, XmlElement parent)
         {
             foreach (string xslFile in Directory.GetFiles(path))
             {
-                if (!string.IsNullOrEmpty(xslFile) && Path.GetExtension(xslFile) == ".xsl" && !xslFile.EndsWith(".xlg.xsl") && IsIncluded(m_XslsToRender, xslFile)
-                    && IsIncluded(m_XslsToRender, renderPath + "/" + Path.GetFileNameWithoutExtension(xslFile)))
+                if (!string.IsNullOrEmpty(xslFile) && Path.GetExtension(xslFile) == ".xsl" && !xslFile.EndsWith(".xlg.xsl") && IsIncluded(_mXslsToRender, xslFile)
+                    && IsIncluded(_mXslsToRender, renderPath + "/" + Path.GetFileNameWithoutExtension(xslFile)))
                 {
                     XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
                     string classname = Path.GetFileNameWithoutExtension(xslFile).Replace(" ", "_");
@@ -326,7 +326,7 @@ namespace MetX.Pipelines
                     }
 
                     AddAttribute(xmlXsl, "ClassName", classname);
-                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath(xlgPath + "/" + Path.GetFileNameWithoutExtension(xslFile) + "." + m_UrlExtension));
+                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath(xlgPath + "/" + Path.GetFileNameWithoutExtension(xslFile) + "." + _mUrlExtension));
                     AddAttribute(xmlXsl, "FilePath", xslFile);
                     AddAttribute(xmlXsl, "Path", Path.GetDirectoryName(xslFile));
                     AddAttribute(xmlXsl, "Filename", Path.GetFileName(xslFile));
@@ -340,7 +340,7 @@ namespace MetX.Pipelines
             foreach (string xslFolder in Directory.GetDirectories(path))
             {
                 string folderName = xslFolder.LastToken(@"\");
-                if (IsIncluded(m_XslsToRender, folderName) && IsIncluded(m_XslsToRender, renderPath + "/" + folderName))
+                if (IsIncluded(_mXslsToRender, folderName) && IsIncluded(_mXslsToRender, renderPath + "/" + folderName))
                 {
                     XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
                     AddAttribute(xmlXsls, "VirtualPath", renderPath + "/" + folderName);
@@ -358,11 +358,11 @@ namespace MetX.Pipelines
         private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
         {
             //get the SP list from the DB
-            string[] sPs = DataService.Instance.GetSPList();
+            string[] sPs = DataService.Instance.GetSpList();
             XmlElement root = xmlDoc.DocumentElement;
 
             XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
-            AddAttribute(xmlStoredProcedures, "ClassName", spClassName);
+            AddAttribute(xmlStoredProcedures, "ClassName", SpClassName);
             // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlStoredProcedures);
 
@@ -371,14 +371,14 @@ namespace MetX.Pipelines
             {
                 // Make sure there is a stored proc to process
                 //  (is blank when there are no stored procedures in the database)
-                if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(m_StoredProceduresToRender, spName))
+                if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(_mStoredProceduresToRender, spName))
                 {
                     XmlElement xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
                     AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
                     AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
                     AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
                     //grab the parameters
-                    IDataReader paramReader = DataService.Instance.GetSPParams(spName);
+                    IDataReader paramReader = DataService.Instance.GetSpParams(spName);
 
                     XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
                     xmlStoredProcedure.AppendChild(xmlParameters);
@@ -467,7 +467,7 @@ namespace MetX.Pipelines
                                 MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
                         {
                             case DialogResult.Yes:
-                                AddElement(m_TablesToRender, "Exclude", "Name", table);
+                                AddElement(_mTablesToRender, "Exclude", "Name", table);
                                 break;
 
                             case DialogResult.No:
@@ -590,20 +590,20 @@ namespace MetX.Pipelines
         // ReSharper disable once UnusedMethodReturnValue.Local
         private XmlDocument XslXml(XmlDocument xmlDoc)
         {
-            string renderPath = m_XslsToRender.GetAttribute("Path");
+            string renderPath = _mXslsToRender.GetAttribute("Path");
             if (renderPath.Length == 0)
             {
                 renderPath = "~";
             }
 
-            m_UrlExtension = m_XslsToRender.GetAttribute("UrlExtension");
-            if (string.IsNullOrEmpty(m_UrlExtension))
+            _mUrlExtension = _mXslsToRender.GetAttribute("UrlExtension");
+            if (string.IsNullOrEmpty(_mUrlExtension))
             {
-                m_UrlExtension = "aspx";
+                _mUrlExtension = "aspx";
             }
-            else if (m_UrlExtension.StartsWith("."))
+            else if (_mUrlExtension.StartsWith("."))
             {
-                m_UrlExtension = m_UrlExtension.Substring(1);
+                _mUrlExtension = _mUrlExtension.Substring(1);
             }
 
             XmlElement root = xmlDoc.DocumentElement;
@@ -618,7 +618,7 @@ namespace MetX.Pipelines
             // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlXsls);
 
-            XmlNodeList xmlNodeList = m_XslsToRender.SelectNodes("Virtual");
+            XmlNodeList xmlNodeList = _mXslsToRender.SelectNodes("Virtual");
             if (xmlNodeList != null)
             {
                 foreach (XmlElement currVirtual in xmlNodeList)
@@ -638,8 +638,8 @@ namespace MetX.Pipelines
                         classname += "PageHandler";
                     }
 
-                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + m_UrlExtension));
-                    AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + m_UrlExtension);
+                    AddAttribute(xmlXsl, "xlgPath", GetxlgPath("/" + VDirName + "/" + xslFile + "." + _mUrlExtension));
+                    AddAttribute(xmlXsl, "VirtualPath", renderPath + "/" + xslFile + "." + _mUrlExtension);
                     AddAttribute(xmlXsl, "ClassName", classname);
                     AddAttribute(xmlXsl, "Filepart", xslFile);
                     AddAttribute(xmlXsl, "IsVirtual", "true");
@@ -758,9 +758,9 @@ namespace MetX.Pipelines
 
         // Anytime a database column is named any of these words, it causes a code issue.
         //  Make sure a suffix is added to property names in these cases
-        private static readonly List<string> m_TypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
+        private static readonly List<string> MTypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
 
-        private readonly Dictionary<string, Regex> m_Patterns = new Dictionary<string, Regex>();
+        private readonly Dictionary<string, Regex> _mPatterns = new Dictionary<string, Regex>();
 
         /// <summary>Translates a table name into a CLSCompliant class name</summary>
         /// <param name="tableName">The name of the table, stored procedure, etc to translate</param>
@@ -965,11 +965,11 @@ namespace MetX.Pipelines
                     propertyName = propertyName.Substring(0, propertyName.Length - 4);
                 }
                 if (tableName == fieldName || tableName == propertyName || cleanTableName == fieldName || cleanTableName == propertyName || propertyName == "TableName"
-                    || m_TypeNames.Contains(propertyName.ToLower()))
+                    || MTypeNames.Contains(propertyName.ToLower()))
                 {
                     propertyName += suffix;
                 }
-                else if (classTableName == fieldName || classTableName == propertyName || m_TypeNames.Contains(classTableName.ToLower()))
+                else if (classTableName == fieldName || classTableName == propertyName || MTypeNames.Contains(classTableName.ToLower()))
                 {
                     propertyName += suffix;
                 }
@@ -1123,11 +1123,7 @@ namespace MetX.Pipelines
         /// <param name="attributeValue">The value of the attribute to add</param>
         public void AddAttribute(XmlElement target, string attributeName, string attributeValue)
         {
-            if (target == null)
-            {
-                return;
-            }
-            if (target.OwnerDocument != null)
+            if (target?.OwnerDocument != null)
             {
                 XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
                 ret.Value = attributeValue;
@@ -1219,15 +1215,15 @@ namespace MetX.Pipelines
             {
                 XmlAttribute name = includer.Attributes["Name"];
                 Regex regex;
-                if (!m_Patterns.ContainsKey(name.Value))
+                if (!_mPatterns.ContainsKey(name.Value))
                 {
                     string pattern = Worker.ConvertWildcardToRegex(name.Value);
                     regex = new Regex(pattern, RegexOptions.Compiled);
-                    m_Patterns.Add(name.Value, regex);
+                    _mPatterns.Add(name.Value, regex);
                 }
                 else
                 {
-                    regex = m_Patterns[name.Value];
+                    regex = _mPatterns[name.Value];
                 }
                 if (regex != null)
                 {
@@ -1239,7 +1235,7 @@ namespace MetX.Pipelines
 
         private bool IsInList(string tableName)
         {
-            return tableName != "dtproperties" && IsIncluded(m_TablesToRender, tableName);
+            return tableName != "dtproperties" && IsIncluded(_mTablesToRender, tableName);
         }
 
         #endregion "Support Functions"

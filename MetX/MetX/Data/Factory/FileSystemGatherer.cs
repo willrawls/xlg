@@ -1,6 +1,5 @@
 using System.Text;
 using MetX.Library;
-using MetX.Pipelines;
 
 namespace MetX.Data.Factory
 {

@@ -17,60 +17,60 @@ namespace MetX.Data
         public string ParameterName;
         public WhereOptions Options;
 
-        private object m_ParameterValue;
+        private object _mParameterValue;
 
         public Where() { }
 
-        public Where(string tableName, string ColumnName, Comparison Comparison, object Value)
+        public Where(string tableName, string columnName, Comparison comparison, object value)
         {
-            this.TableName = tableName;
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
+            TableName = tableName;
+            this.ColumnName = columnName;
+            this.Comparison = comparison;
+            _mParameterValue = value;
         }
 
-        public Where(string ColumnName, Comparison Comparison, object Value)
+        public Where(string columnName, Comparison comparison, object value)
         {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
+            this.ColumnName = columnName;
+            this.Comparison = comparison;
+            _mParameterValue = value;
         }
 
-        public Where(string ColumnName, object Value)
+        public Where(string columnName, object value)
         {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison.Equals;
-            this.m_ParameterValue = Value;
+            this.ColumnName = columnName;
+            Comparison = Comparison.Equals;
+            _mParameterValue = value;
         }
 
-        public Where(string tableName, string ColumnName, Comparison Comparison, object Value, WhereOptions Options)
+        public Where(string tableName, string columnName, Comparison comparison, object value, WhereOptions options)
         {
-            this.TableName = tableName;
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
+            TableName = tableName;
+            this.ColumnName = columnName;
+            this.Comparison = comparison;
+            _mParameterValue = value;
+            this.Options = options;
         }
 
-        public Where(WhereOptions Options)
+        public Where(WhereOptions options)
         {
-            this.Options = Options;
+            this.Options = options;
         }
 
-        public Where(string ColumnName, Comparison Comparison, object Value, WhereOptions Options)
+        public Where(string columnName, Comparison comparison, object value, WhereOptions options)
         {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
+            this.ColumnName = columnName;
+            this.Comparison = comparison;
+            _mParameterValue = value;
+            this.Options = options;
         }
 
-        public Where(string ColumnName, object Value, WhereOptions Options)
+        public Where(string columnName, object value, WhereOptions options)
         {
-            this.ColumnName = ColumnName;
-            this.Comparison = Comparison.Equals;
-            this.m_ParameterValue = Value;
-            this.Options = Options;
+            this.ColumnName = columnName;
+            Comparison = Comparison.Equals;
+            _mParameterValue = value;
+            this.Options = options;
         }
 
         public object ParameterValue
@@ -78,117 +78,117 @@ namespace MetX.Data
             get
             {
                 if (Comparison != Comparison.In && Comparison != Comparison.NotIn)
-                    return m_ParameterValue;
+                    return _mParameterValue;
                 else
-                    return InPhrase(m_ParameterValue);
+                    return InPhrase(_mParameterValue);
             }
         }
 
-        public void AddValue(string ValueToAddToInClause)
+        public void AddValue(string valueToAddToInClause)
         {
             List<string> pv;
-            if (m_ParameterValue is Array)
+            if (_mParameterValue is Array)
             {
-                Array t = (Array)m_ParameterValue;
+                Array t = (Array)_mParameterValue;
                 pv = new List<string>();
-                m_ParameterValue = pv;
-                foreach (object CurrValue in t)
-                    pv.Add(CurrValue.ToString());
+                _mParameterValue = pv;
+                foreach (object currValue in t)
+                    pv.Add(currValue.ToString());
             }
             else
-                pv = (List<string>)m_ParameterValue;
-            pv.Add(ValueToAddToInClause);
+                pv = (List<string>)_mParameterValue;
+            pv.Add(valueToAddToInClause);
         }
 
-        public void AddRangeOfValues(IEnumerable<string> ValuesToAddToInClause)
+        public void AddRangeOfValues(IEnumerable<string> valuesToAddToInClause)
         {
             List<string> pv;
-            if (m_ParameterValue is Array)
+            if (_mParameterValue is Array)
             {
-                Array t = (Array)m_ParameterValue;
+                Array t = (Array)_mParameterValue;
                 pv = new List<string>();
-                m_ParameterValue = pv;
-                foreach (object CurrValue in t)
-                    pv.Add(CurrValue.ToString());
+                _mParameterValue = pv;
+                foreach (object currValue in t)
+                    pv.Add(currValue.ToString());
             }
             else
-                pv = (List<string>)m_ParameterValue;
-            pv.AddRange(ValuesToAddToInClause);
+                pv = (List<string>)_mParameterValue;
+            pv.AddRange(valuesToAddToInClause);
         }
 
-        private string InPhrase(object Value)
+        private string InPhrase(object value)
         {
             StringBuilder sValue = new StringBuilder();
-            if (Value == null)
+            if (value == null)
                 sValue.Append("(NULL");
-            if (Value is string)
+            if (value is string)
             {
-                if (((string)Value).StartsWith("("))
-                    return (string)Value;
+                if (((string)value).StartsWith("("))
+                    return (string)value;
                 else
                 {
                     sValue.Append("(");
-                    if (!((string)Value).StartsWith("'"))
+                    if (!((string)value).StartsWith("'"))
                     {
                         sValue.Append("'");
-                        sValue.Append(((string)Value).Replace("'", "''"));
+                        sValue.Append(((string)value).Replace("'", "''"));
                         sValue.Append("'");
                     }
                     else
-                        sValue.Append((string)Value);
+                        sValue.Append((string)value);
                 }
             }
-            else if (Value is string[])
+            else if (value is string[])
             {
-                foreach (string CurrValue in (string[])Value)
+                foreach (string currValue in (string[])value)
                 {
-                    if (CurrValue != null && CurrValue.Length > 0)
+                    if (currValue != null && currValue.Length > 0)
                     {
                         if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
                         sValue.Append("'");
-                        sValue.Append(CurrValue.Replace("'", "''"));
+                        sValue.Append(currValue.Replace("'", "''"));
                         sValue.Append("'");
                     }
                 }
             }
-            else if (Value is int[])
+            else if (value is int[])
             {
-                foreach (int CurrValue in (int[])Value)
+                foreach (int currValue in (int[])value)
                 {
                     if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                    sValue.Append(CurrValue.ToString());
+                    sValue.Append(currValue.ToString());
                 }
             }
-            else if (Value is double[])
+            else if (value is double[])
             {
-                foreach (double CurrValue in (double[])Value)
+                foreach (double currValue in (double[])value)
                 {
                     if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                    sValue.Append(CurrValue.ToString());
+                    sValue.Append(currValue.ToString());
                 }
             }
-            else if (Value is Array)
+            else if (value is Array)
             {
-                foreach (object CurrValue in (Array)Value)
+                foreach (object currValue in (Array)value)
                 {
-                    if (CurrValue != null)
+                    if (currValue != null)
                     {
                         if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
                         sValue.Append("'");
-                        sValue.Append(CurrValue.ToString().Replace("'", "''"));
+                        sValue.Append(currValue.ToString().Replace("'", "''"));
                         sValue.Append("'");
                     }
                 }
             }
-            else if (Value is List<string>)
+            else if (value is List<string>)
             {
-                foreach (string CurrValue in (IList)Value)
+                foreach (string currValue in (IList)value)
                 {
-                    if (!string.IsNullOrEmpty(CurrValue))
+                    if (!string.IsNullOrEmpty(currValue))
                     {
                         if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
                         sValue.Append("'");
-                        sValue.Append(CurrValue.Replace("'", "''"));
+                        sValue.Append(currValue.Replace("'", "''"));
                         sValue.Append("'");
                     }
                 }
@@ -197,7 +197,7 @@ namespace MetX.Data
             {
                 sValue.Append("(");
                 sValue.Append("'");
-                sValue.Append(Value.AsString().Replace("'", "''"));
+                sValue.Append(value.AsString().Replace("'", "''"));
                 sValue.Append("'");
             }
             sValue.Append(")");

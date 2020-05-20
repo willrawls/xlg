@@ -28,7 +28,7 @@ namespace MetX.Controls
             }
         }
 
-        public string Title { get { return this.Text; } set { this.Text = value; } }
+        public string Title { get { return Text; } set { Text = value; } }
 
         public string TextToShow { get { return Output.Text; } set { Output.Text = value; } }
 
@@ -122,10 +122,7 @@ namespace MetX.Controls
             watchForChangesToolStripMenuItem.Text = "&Watch for changes";
             Task.Factory.StartNew(() =>
             {
-                if (Watcher != null)
-                {
-                    Watcher.Dispose();
-                }
+                Watcher?.Dispose();
                 Watcher = null;
             });
         }
