@@ -243,3 +243,7 @@ MetX/MetX/Library/Obsolete/2016-03-31/BaseLineProcessor.cs
 /MetX/.vs/XLG and MetX b/v16/Server/sqlite3/storage.ide-shm
 /MetX/.vs/XLG and MetX b/v16/Server/sqlite3/storage.ide
 /MetX/.vs/XLG and MetX b/v16/Server/sqlite3/db.lock
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
