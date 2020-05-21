@@ -27,22 +27,22 @@ namespace MetX.Library
 		/// <param name="sXsltDocument">The XSL document</param>
 		public StringBuilder Transform(XmlDocument xmlDocument, string sXsltDocument)
 		{
-			XmlTextReader xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
-			StringBuilder sb = new StringBuilder();
-			using (StringWriter sw = new StringWriter(sb))
+			var xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
+			var sb = new StringBuilder();
+			using (var sw = new StringWriter(sb))
 			{
 				try
 				{
-					XslCompiledTransform xslDoc = new XslCompiledTransform(true);
+					var xslDoc = new XslCompiledTransform(true);
 					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-					using (XmlWriter xw = XmlWriter.Create(sw, xslDoc.OutputSettings))
+					using (var xw = XmlWriter.Create(sw, xslDoc.OutputSettings))
 						xslDoc.Transform(xmlDocument.CreateNavigator(), Urns, xw);
 				}
 				catch (Exception exp)
 				{
 					sb.AppendLine("<HTML><BODY><PRE>"
-								+ (exp.ToString() + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
-								+ (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
+								+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
+                                          + (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
 				}
 			}
 			sb.Replace("&nbsp;", " ");
@@ -55,19 +55,19 @@ namespace MetX.Library
 		/// <param name="sXsltDocument">The XSL document</param>
 		public void Transform(TextWriter output, XmlDocument xmlDocument, string sXsltDocument)
 		{
-			XmlTextReader xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
+			var xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
 			try
 			{
-				XslCompiledTransform xslDoc = new XslCompiledTransform(true);
+				var xslDoc = new XslCompiledTransform(true);
 				xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-				using (XmlWriter xw = XmlWriter.Create(output, xslDoc.OutputSettings))
+				using (var xw = XmlWriter.Create(output, xslDoc.OutputSettings))
 					xslDoc.Transform(xmlDocument.CreateNavigator(), Urns, xw);
 			}
 			catch (Exception exp)
 			{
 				output.WriteLine("<HTML><BODY><PRE>"
-							+ (exp.ToString() + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
-							+ (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
+							+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
+                                      + (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
 			}
 		}
 
@@ -78,9 +78,9 @@ namespace MetX.Library
 		/// <returns>The transformed text</returns>
 		public StringBuilder Transform(Cache pageCache, StringBuilder sXmlDocument, string xsltPath)
 		{
-			XmlTextReader xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
-			StringBuilder sb = new StringBuilder();
-			StringWriter sw = new StringWriter(sb);
+			var xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
+			var sb = new StringBuilder();
+			var sw = new StringWriter(sb);
 			XmlWriter xw = null;
 
 			try
@@ -89,8 +89,8 @@ namespace MetX.Library
 					PageCacheSubKey = ".";
 				else if (!PageCacheSubKey.EndsWith("."))
 					PageCacheSubKey += ".";
-				XslCompiledTransform xslDoc = null;
-				string cacheKey = "XslCompiledTransform." + PageCacheSubKey + xsltPath;
+				XslCompiledTransform xslDoc;
+				var cacheKey = "XslCompiledTransform." + PageCacheSubKey + xsltPath;
 				if (pageCache != null && pageCache[cacheKey] != null)
 				{
 					xslDoc = (XslCompiledTransform)(pageCache[cacheKey]);
@@ -98,10 +98,10 @@ namespace MetX.Library
 				else
 				{
 					xslDoc = new XslCompiledTransform(false);
-					XlgUrnResolver resolver = UrlResolver;
+					var resolver = UrlResolver;
 					xslDoc.Load(xsltPath, new XsltSettings(false, false), resolver);
-					AggregateCacheDependency aggDep = new AggregateCacheDependency();
-					foreach (string currEntity in resolver.FileEntitys)
+					var aggDep = new AggregateCacheDependency();
+					foreach (var currEntity in resolver.FileEntitys)
 						aggDep.Add(new CacheDependency(currEntity, DateTime.Now));
                     pageCache?.Insert(cacheKey, xslDoc, aggDep);
                 }
@@ -111,7 +111,7 @@ namespace MetX.Library
 			}
 			catch (Exception exp)
 			{
-				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
+				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
 			}
 			finally
 			{
@@ -136,10 +136,10 @@ namespace MetX.Library
 				return Transform(pageCache, sXmlDocument, xsltPath);
 
 
-			XmlTextReader xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
-			XmlTextReader xsltDocument = new XmlTextReader(new StringReader(xsltDocumentContent.ToString()));
-			StringBuilder sb = new StringBuilder();
-			StringWriter sw = new StringWriter(sb);
+			var xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
+			var xsltDocument = new XmlTextReader(new StringReader(xsltDocumentContent.ToString()));
+			var sb = new StringBuilder();
+			var sw = new StringWriter(sb);
 			XmlWriter xw = null;
 
 			try
@@ -149,8 +149,8 @@ namespace MetX.Library
 				else if (!PageCacheSubKey.EndsWith("."))
 					PageCacheSubKey += ".";
 
-				XslCompiledTransform xslDoc = null;
-				string cacheKey = "XslCompiledTransform.FromContent." + xsltPath;
+				XslCompiledTransform xslDoc;
+				var cacheKey = "XslCompiledTransform.FromContent." + xsltPath;
 				if (pageCache != null && pageCache[cacheKey] != null)
 				{
 					xslDoc = (XslCompiledTransform)(pageCache[cacheKey]);
@@ -158,10 +158,10 @@ namespace MetX.Library
 				else
 				{
 					xslDoc = new XslCompiledTransform(false); //true);
-					XlgUrnResolver resolver = UrlResolver;
+					var resolver = UrlResolver;
 					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-					AggregateCacheDependency aggDep = new AggregateCacheDependency();
-					foreach (string currEntity in resolver.FileEntitys)
+					var aggDep = new AggregateCacheDependency();
+					foreach (var currEntity in resolver.FileEntitys)
 						aggDep.Add(new CacheDependency(currEntity, DateTime.Now));
                     pageCache?.Insert(cacheKey, xslDoc, aggDep);
                 }
@@ -171,7 +171,7 @@ namespace MetX.Library
 			}
 			catch (Exception exp)
 			{
-				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp.ToString() + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
+				sb.AppendLine("<HTML><BODY><PRE>" + exp.Message + "</PRE><br /><HR><br /><PRE>" + exp + "</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + sXmlDocument.Replace("><", ">" + Environment.NewLine + "<") + "</TEXTAREA></BODY></HTML>");
 			}
 			finally
 			{
@@ -228,25 +228,25 @@ namespace MetX.Library
 				if (_mUrns != null)
 					return _mUrns;
 
-				XsltArgumentList argsList = new XsltArgumentList();
+				var argsList = new XsltArgumentList();
 				argsList.AddExtensionObject("urn:xlg", XlgUrn);
 
-				string urnName = ConfigurationManager.AppSettings["xlgSecurity.UrnName"];
-				string urnClass = ConfigurationManager.AppSettings["xlgSecurity.UrnClass"];
+				var urnName = ConfigurationManager.AppSettings["xlgSecurity.UrnName"];
+				var urnClass = ConfigurationManager.AppSettings["xlgSecurity.UrnClass"];
 				if (urnName != null && urnClass != null && urnName.Length > 0 & urnClass.Length > 0)
 				{
 					Assembly a;
-					if (urnClass.IndexOf(",") > -1)
+					if (urnClass.IndexOf(",", StringComparison.Ordinal) > -1)
 					{
-						string assemblyName = urnClass.Substring(urnClass.IndexOf(",") + 1).Trim();
-						urnClass = urnClass.Substring(0, urnClass.IndexOf(",")).Trim();
+						var assemblyName = urnClass.Substring(urnClass.IndexOf(",", StringComparison.Ordinal) + 1).Trim();
+						urnClass = urnClass.Substring(0, urnClass.IndexOf(",", StringComparison.Ordinal)).Trim();
 						a = Assembly.Load(assemblyName);
 					}
 					else
 					{
 						a = Assembly.GetCallingAssembly();
 					}
-					object o = a.CreateInstance(urnClass);
+					var o = a.CreateInstance(urnClass);
 					if (o != null)
 						argsList.AddExtensionObject("urn:" + urnName, o);
 				}
@@ -261,18 +261,18 @@ namespace MetX.Library
 		public string TransformIso(string xslPath, string xmlDoc) { return TransformIso(xslPath, xmlDoc, "iso-8859-1"); }
 		public string TransformIso(string xslPath, string xmlDoc, string encodingName)
 		{
-			StringReader sr = new StringReader(xmlDoc);
-			XmlTextReader xmlDocument = new XmlTextReader(sr);
-			XslCompiledTransform xslt = new XslCompiledTransform(true);
-			StringWriterWithEncoding sw = new StringWriterWithEncoding(
+			var sr = new StringReader(xmlDoc);
+			var xmlDocument = new XmlTextReader(sr);
+			var xslt = new XslCompiledTransform(true);
+			var sw = new StringWriterWithEncoding(
 				new StringBuilder()
 				, Encoding.GetEncoding(encodingName));
-			XmlWriter xw = null;
+			XmlWriter xw;
 
-			XsltSettings settings = new XsltSettings(false, true);
+			var settings = new XsltSettings(false, true);
 			xslt.Load(xslPath, settings, new XmlUrlResolver());
 			xw = XmlWriter.Create(sw, xslt.OutputSettings);
-			XsltArgumentList argsList = new XsltArgumentList();
+			var argsList = new XsltArgumentList();
 			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
 
 			xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xw);
@@ -282,16 +282,16 @@ namespace MetX.Library
 
 		public string Transform(string xslPath, string xmlDoc)
 		{
-			StringReader sr = new StringReader(xmlDoc);
-			XmlTextReader xmlDocument = new XmlTextReader(sr);
-			XslCompiledTransform xslt = new XslCompiledTransform(true);
-			StringWriter sw = new StringWriter();
-			XmlWriter xw = null;
+			var sr = new StringReader(xmlDoc);
+			var xmlDocument = new XmlTextReader(sr);
+			var xslt = new XslCompiledTransform(true);
+			var sw = new StringWriter();
+			XmlWriter xw;
 
-			XsltSettings settings = new XsltSettings(false, true);
+			var settings = new XsltSettings(false, true);
 			xslt.Load(xslPath, settings, new XmlUrlResolver());
 			xw = XmlWriter.Create(sw, xslt.OutputSettings);
-			XsltArgumentList argsList = new XsltArgumentList();
+			var argsList = new XsltArgumentList();
 			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
 			xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xw);
 			return sw.ToString();

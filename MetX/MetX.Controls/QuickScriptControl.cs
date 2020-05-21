@@ -29,7 +29,7 @@
             get
             {
                 if ((Text.Length == 0) || (_codeArea.Caret.Column == 0)) return string.Empty;
-                string line = Text.TokenAt(
+                var line = Text.TokenAt(
                     _codeArea.Caret.Line + 1,
                     Environment.NewLine,
                     StringComparison.InvariantCulture);
@@ -47,7 +47,7 @@
                     return string.Empty;
                 }
 
-                string linePart = LineAtCaret.Substring(0, _codeArea.Caret.Column).LastToken();
+                var linePart = LineAtCaret.Substring(0, _codeArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
                 {
@@ -70,7 +70,7 @@
         {
             if ((items != null) && (items.Length > 0))
             {
-                CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
+                var completionDataProvider = new CompletionDataProvider(items);
                 _completionWindow = CodeCompletionWindow.ShowCompletionWindow(
                     FindForm(),
                     this,
@@ -101,7 +101,7 @@
                 switch (e.KeyCode)
                 {
                     case Keys.F5:
-                        ScriptRunningWindow form = FindForm() as ScriptRunningWindow;
+                        var form = FindForm() as ScriptRunningWindow;
                         if (form != null)
                         {
                             e.Handled = true;
@@ -130,7 +130,7 @@
             _codeArea.KeyEventHandler += ProcessKey;
             _codeArea.KeyUp += CodeAreaOnKeyUp;
 
-            FileSyntaxModeProvider fsmProvider =
+            var fsmProvider =
                 new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
             HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
             SetHighlighting("QuickScript");
@@ -158,12 +158,12 @@
                     break;
 
                 case '(':
-                    string wordBeforeCaret = WordBeforeCaret;
-                    string lineAtCaret = LineAtCaret;
+                    var wordBeforeCaret = WordBeforeCaret;
+                    var lineAtCaret = LineAtCaret;
 
                     if ((wordBeforeCaret == "Ask") && !lineAtCaret.Contains(")"))
                     {
-                        int location = _codeArea.Caret.Column;
+                        var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(\"What string to look for?\", \" \");");
                         _codeArea.Caret.Column = location + 30;
                         return true;
@@ -171,7 +171,7 @@
 
                     if ((wordBeforeCaret == "Choose") && !lineAtCaret.Contains(")"))
                     {
-                        int location = _codeArea.Caret.Column;
+                        var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(choices, selectedIndex, \"Please select one from the list\", \"SELECT ONE\");");
                         _codeArea.Caret.Column = location + 9;
                         return true;
@@ -179,7 +179,7 @@
 
                     if ((wordBeforeCaret == "MultipleChoice") && !lineAtCaret.Contains(")"))
                     {
-                        int location = _codeArea.Caret.Column;
+                        var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(choices, initiallySelectedIndices, \"Please select one or more items from the list\", \"MULTIPLE CHOICE\");");
                         _codeArea.Caret.Column = location + 9;
                         return true;
@@ -187,7 +187,7 @@
 
                     if ((wordBeforeCaret == "MessageBox") && !lineAtCaret.Contains(")"))
                     {
-                        int location = _codeArea.Caret.Column;
+                        var location = _codeArea.Caret.Column;
                         _codeArea.InsertString(".Show(\"\");");
                         _codeArea.Caret.Column = location + 7;
                         return true;

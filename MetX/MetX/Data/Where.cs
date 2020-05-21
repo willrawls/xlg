@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using MetX.Library;
 
@@ -89,10 +90,10 @@ namespace MetX.Data
             List<string> pv;
             if (_mParameterValue is Array)
             {
-                Array t = (Array)_mParameterValue;
+                var t = (Array)_mParameterValue;
                 pv = new List<string>();
                 _mParameterValue = pv;
-                foreach (object currValue in t)
+                foreach (var currValue in t)
                     pv.Add(currValue.ToString());
             }
             else
@@ -105,10 +106,10 @@ namespace MetX.Data
             List<string> pv;
             if (_mParameterValue is Array)
             {
-                Array t = (Array)_mParameterValue;
+                var t = (Array)_mParameterValue;
                 pv = new List<string>();
                 _mParameterValue = pv;
-                foreach (object currValue in t)
+                foreach (var currValue in t)
                     pv.Add(currValue.ToString());
             }
             else
@@ -118,7 +119,7 @@ namespace MetX.Data
 
         private string InPhrase(object value)
         {
-            StringBuilder sValue = new StringBuilder();
+            var sValue = new StringBuilder();
             if (value == null)
                 sValue.Append("(NULL");
             if (value is string)
@@ -140,7 +141,7 @@ namespace MetX.Data
             }
             else if (value is string[])
             {
-                foreach (string currValue in (string[])value)
+                foreach (var currValue in (string[])value)
                 {
                     if (currValue != null && currValue.Length > 0)
                     {
@@ -153,7 +154,7 @@ namespace MetX.Data
             }
             else if (value is int[])
             {
-                foreach (int currValue in (int[])value)
+                foreach (var currValue in (int[])value)
                 {
                     if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
                     sValue.Append(currValue.ToString());
@@ -161,15 +162,15 @@ namespace MetX.Data
             }
             else if (value is double[])
             {
-                foreach (double currValue in (double[])value)
+                foreach (var currValue in (double[])value)
                 {
                     if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                    sValue.Append(currValue.ToString());
+                    sValue.Append(currValue.ToString(CultureInfo.InvariantCulture));
                 }
             }
             else if (value is Array)
             {
-                foreach (object currValue in (Array)value)
+                foreach (var currValue in (Array)value)
                 {
                     if (currValue != null)
                     {

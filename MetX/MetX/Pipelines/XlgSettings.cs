@@ -48,8 +48,8 @@ namespace MetX.Pipelines
 
         public string OuterXml()
         {
-            StringBuilder sb = new StringBuilder();
-            using (StringWriter sw = new StringWriter(sb))
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
                 _mSettingsSerializer.Serialize(sw, this);
             return sb.ToString();
         }
@@ -68,8 +68,8 @@ namespace MetX.Pipelines
 
         public int Generate(Form gui)
         {
-            int genCount = 0;
-            foreach (XlgSource currSource in Sources)
+            var genCount = 0;
+            foreach (var currSource in Sources)
             {
                 if (currSource.Selected)
                 {
@@ -84,12 +84,12 @@ namespace MetX.Pipelines
 
         public int Regenerate(Form gui)
         {
-            int genCount = 0;
-            foreach (XlgSource currSource in Sources)
+            var genCount = 0;
+            foreach (var currSource in Sources)
             {
                 if (currSource.Selected)
                 {
-                    int lastGen = currSource.Regenerate(gui);
+                    var lastGen = currSource.Regenerate(gui);
                     if (lastGen == -1) return -genCount;
                     genCount++;
                 }

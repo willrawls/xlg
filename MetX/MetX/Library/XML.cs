@@ -42,7 +42,7 @@ namespace MetX.Library
              And generates a json string such as:
                 var VariableName = {"a": {"fred":"george", "b": [ { "x": "y", "c": "frank" }, { "x": "y", "c": "mary" } } ]};
              */
-            bool commaNeeded = false;
+            var commaNeeded = false;
             if (element.HasChildNodes || element.HasAttributes)
             {
                 if(containedInArray)
@@ -79,8 +79,8 @@ namespace MetX.Library
                     }
                     else
                     {
-                        string opener = "{";
-                        string closer = "}";
+                        var opener = "{";
+                        var closer = "}";
                         foreach (XmlElement currChild in element.ChildNodes)
                         {
                             if (currChild is XmlElement)
@@ -140,7 +140,7 @@ namespace MetX.Library
         /// </example>
         public static string AttributeEncode(object strIn)
         {
-            StringBuilder sb = new StringBuilder(strIn.AsString());
+            var sb = new StringBuilder(strIn.AsString());
             sb.Replace(Convert.ToString((char)147), "&quot;");
             sb.Replace(Convert.ToString((char)148), "&quot;");
             sb.Replace(Convert.ToString((char)150), "-");
@@ -228,7 +228,7 @@ namespace MetX.Library
 		/// <returns></returns>
 		public static XmlWriter Writer(Stream output)
 		{
-			XmlWriterSettings settings = new XmlWriterSettings();
+			var settings = new XmlWriterSettings();
 			settings.OmitXmlDeclaration = true;
 			settings.Indent = true;
 			return XmlWriter.Create(output, settings);
@@ -241,7 +241,7 @@ namespace MetX.Library
 		/// <returns></returns>
 		public static XmlWriter Writer(TextWriter output)
 		{
-			XmlWriterSettings settings = new XmlWriterSettings();
+			var settings = new XmlWriterSettings();
 			settings.OmitXmlDeclaration = true;
 			settings.Indent = true;
 			return XmlWriter.Create(output, settings);
@@ -254,7 +254,7 @@ namespace MetX.Library
 		/// <returns></returns>
 		public static XmlWriter Writer(StringBuilder output)
 		{
-			XmlWriterSettings settings = new XmlWriterSettings(); 
+			var settings = new XmlWriterSettings(); 
 			settings.OmitXmlDeclaration = true; 
 			settings.Indent = true;
 			return XmlWriter.Create(output, settings);
@@ -268,7 +268,7 @@ namespace MetX.Library
 		/// <returns>The deserializd object</returns>
 		public static T FromXml<T>(string xmlDoc)
 		{
-			using (StringReader sr = new StringReader(xmlDoc))
+			using (var sr = new StringReader(xmlDoc))
 				return (T)Serializer(typeof(T)).Deserialize(sr);
 		}
 		/// <summary>
@@ -280,7 +280,7 @@ namespace MetX.Library
 		public static T LoadFile<T>(string filePath)
 		{
 			if(File.Exists(filePath))
-                using(XmlTextReader xtr = new XmlTextReader(filePath))
+                using(var xtr = new XmlTextReader(filePath))
                     return (T)Serializer(typeof(T)).Deserialize(xtr);
 				//using (StreamReader s = System.IO.File.OpenText(FilePath))
 					//return (T) Serializer(typeof(T)).Deserialize(s);
@@ -300,7 +300,7 @@ namespace MetX.Library
 				File.SetAttributes(filePath, FileAttributes.Normal);
 				File.Delete(filePath);
 			}
-            using (XmlTextWriter xtw = new XmlTextWriter(filePath, Encoding.UTF8))
+            using (var xtw = new XmlTextWriter(filePath, Encoding.UTF8))
                 Serializer(typeof(T)).Serialize(xtw, toSerialize);
 			//using (StreamWriter sw = File.CreateText(FilePath))
 				//Serializer(typeof(T)).Serialize(sw, ToSerialize);
@@ -314,8 +314,8 @@ namespace MetX.Library
 		/// <returns></returns>
 		public static string ToXml<T>(T toSerialize, bool removeNamespaces = true)
 		{
-			StringBuilder sb = new StringBuilder();
-			using (XmlWriter xw = Writer(sb))
+			var sb = new StringBuilder();
+			using (var xw = Writer(sb))
 				Serializer(typeof(T)).Serialize(xw, toSerialize);
             if (removeNamespaces)
             { 
@@ -335,7 +335,7 @@ namespace MetX.Library
 			if (_mSerializers == null)
 				_mSerializers = new SortedList<int, XmlSerializer>(10);
 			XmlSerializer xs = null;
-			int hash = t.FullName.GetHashCode();
+			var hash = t.FullName.GetHashCode();
 			if (_mSerializers.ContainsKey(hash))
 				xs = _mSerializers[hash];
 			else

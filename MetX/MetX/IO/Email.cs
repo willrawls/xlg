@@ -22,7 +22,7 @@ namespace MetX.IO
         public static void SendMail(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
             // Join();
-            MailMessage mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName));
+            var mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName));
 			mm.Subject = subject;
 			mm.Body = body;
             mm.IsBodyHtml = (body.IndexOf("<HTML>") > -1 || body.IndexOf("<html>") > -1);
@@ -35,8 +35,8 @@ namespace MetX.IO
         /// <param name="mm">The MailMessage to send</param>
         public static void Send(MailMessage mm)
         {
-            Email m = new Email();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Start), mm);
+            var m = new Email();
+            ThreadPool.QueueUserWorkItem(Start, mm);
         }
         /// <summary>Private function for sending the asychronous email on a new thread</summary>
         private static void Start(object objMailMessage)

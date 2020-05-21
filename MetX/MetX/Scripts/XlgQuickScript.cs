@@ -70,7 +70,7 @@ namespace MetX.Scripts
 
         public static CompilerResults CompileSource(string source, bool asExecutable, List<Assembly> additionalReferences)
         {
-            CompilerParameters compilerParameters = new CompilerParameters
+            var compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = asExecutable,
                 GenerateInMemory = !asExecutable,
@@ -99,7 +99,7 @@ namespace MetX.Scripts
                         .ToArray());
             }
 
-            CompilerResults compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
+            var compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
                 source);
             return compilerResults;
         }
@@ -109,19 +109,19 @@ namespace MetX.Scripts
             // backslash percent will translate to % after parsing
             currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
 
-            bool keepGoing = true;
-            int iterations = 0;
+            var keepGoing = true;
+            var iterations = 0;
             while (keepGoing && (++iterations < 1000) && currScriptLine.Contains("%")
                    && (currScriptLine.TokenCount("%") > 1))
             {
-                string variableContent = currScriptLine.TokenAt(2, "%");
-                string resolvedContent = string.Empty;
+                var variableContent = currScriptLine.TokenAt(2, "%");
+                var resolvedContent = string.Empty;
                 if (variableContent.Length > 0)
                 {
                     if (variableContent.Contains(" "))
                     {
-                        string variableName = variableContent.FirstToken();
-                        string variableIndex = variableContent.TokensAfterFirst();
+                        var variableName = variableContent.FirstToken();
+                        var variableIndex = variableContent.TokensAfterFirst();
                         // ReSharper disable once NotAccessedVariable
                         int actualIndex;
                         if (int.TryParse(variableIndex, out actualIndex))
@@ -167,14 +167,14 @@ namespace MetX.Scripts
 
         public static string FormatCSharpCode(string code)
         {
-            NArrangeTestLogger logger = new NArrangeTestLogger();
-            int attempts = 0;
+            var logger = new NArrangeTestLogger();
+            var attempts = 0;
             while (++attempts < 2)
             {
                 try
                 {
-                    FileArranger fileArranger = new FileArranger(null, logger);
-                    string formattedCode = fileArranger.ArrangeSource(code);
+                    var fileArranger = new FileArranger(null, logger);
+                    var formattedCode = fileArranger.ArrangeSource(code);
                     return formattedCode ?? code;
                 }
                 catch (Exception ex)
@@ -206,7 +206,7 @@ namespace MetX.Scripts
             if (commandArgs.Restore)
             {
                 logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object)commandArgs.Input);
-                string fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
+                var fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
                 try
                 {
                     flag = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, fileNameKey);
@@ -258,7 +258,7 @@ namespace MetX.Scripts
 
         public bool Load(string rawScript)
         {
-            bool ret = false;
+            var ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
             Template = "Single file input";
@@ -291,8 +291,8 @@ namespace MetX.Scripts
                                         "~~QuickScriptInputEnd:" + Environment.NewLine);
                                 }
                 */
-                StringBuilder sb = new StringBuilder();
-                foreach (string line in rawScript.Lines())
+                var sb = new StringBuilder();
+                foreach (var line in rawScript.Lines())
                 {
                     if (line.StartsWith("~~QuickScriptDefault:"))
                     {
@@ -355,7 +355,7 @@ namespace MetX.Scripts
 
         public string ToCSharp(bool independent)
         {
-            string code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
+            var code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
             return code.IsEmpty()
                 ? code
                 : FormatCSharpCode(code);

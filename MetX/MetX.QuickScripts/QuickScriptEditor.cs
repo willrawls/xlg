@@ -1,7 +1,6 @@
 ﻿namespace XLG.QuickScripts
 {
     using System;
-    using System.CodeDom.Compiler;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
@@ -51,7 +50,7 @@
                 }
 
                 UpdateScriptFromForm();
-                string source = ScriptEditor.Current.ToCSharp(independent);
+                var source = ScriptEditor.Current.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source, true);
@@ -82,18 +81,18 @@
                 return null;
             }
 
-            string source = scriptToRun.ToCSharp(true);
-            List<Assembly> additionalReferences = new List<Assembly> {
+            var source = scriptToRun.ToCSharp(true);
+            var additionalReferences = new List<Assembly> {
                                                           Assembly.GetAssembly(typeof(ChooseOrderDialog))
                                                       };
 
-            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
+            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
 
             if (compilerResults.Errors.Count <= 0)
             {
-                Assembly assembly = compilerResults.CompiledAssembly;
+                var assembly = compilerResults.CompiledAssembly;
 
-                string parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+                var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
@@ -113,13 +112,13 @@
                     return assembly.Location;
                 }
 
-                string metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
+                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
 
                 parentDestination = Path.Combine(parentDestination, "bin");
-                string metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+                var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
 
-                string exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
-                string csFilePath = exeFilePath.Replace(".exe", ".cs");
+                var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
+                var csFilePath = exeFilePath.Replace(".exe", ".cs");
 
                 Directory.CreateDirectory(parentDestination);
 
@@ -133,13 +132,13 @@
                 return exeFilePath;
             }
 
-            StringBuilder sb =
+            var sb =
                 new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
                                   + Environment.NewLine);
-            List<string> lines = new List<string>(source.LineList());
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            var lines = new List<string>(source.LineList());
+            for (var index = 0; index < compilerResults.Errors.Count; index++)
             {
-                string error = compilerResults.Errors[index].ToString();
+                var error = compilerResults.Errors[index].ToString();
                 if (error.Contains("("))
                 {
                     error = error.TokensAfterFirst("(").Replace(")", string.Empty);
@@ -251,13 +250,13 @@
                 return;
             }
 
-            DialogResult answer = MessageBox.Show(this,
+            var answer = MessageBox.Show(this,
                 "This will permanently delete the current script.\n\tAre you sure this is what you want to do?",
                 "DELETE SCRIPT", MessageBoxButtons.YesNo);
             if (answer == DialogResult.Yes)
             {
                 Updating = true;
-                XlgQuickScript script = ScriptEditor.Current;
+                var script = ScriptEditor.Current;
                 try
                 {
                     QuickScriptList.Items.Remove(script);
@@ -286,7 +285,7 @@
 
         private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string input = DestinationList.Text;
+            var input = DestinationList.Text;
             if (string.IsNullOrEmpty(input))
             {
                 return;
@@ -353,7 +352,7 @@
 
         private void InputList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string input = InputList.Text;
+            var input = InputList.Text;
             if (string.IsNullOrEmpty(input))
             {
                 return;
@@ -413,7 +412,7 @@
 
             if (Context.Scripts.Count == 0)
             {
-                XlgQuickScript script = new XlgQuickScript("First script", QuickScriptWorker.FirstScript);
+                var script = new XlgQuickScript("First script", QuickScriptWorker.FirstScript);
                 Context.Scripts.Add(script);
                 Context.Scripts.Default = script;
                 script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
@@ -437,15 +436,15 @@
 
             if (Context.Scripts != null)
             {
-                string name = string.Empty;
-                DialogResult answer = Ui.InputBox("New Script Name", "Please enter the name for the new script.",
+                var name = string.Empty;
+                var answer = Ui.InputBox("New Script Name", "Please enter the name for the new script.",
                     ref name);
                 if ((answer != DialogResult.OK) || ((name ?? string.Empty).Trim() == string.Empty))
                 {
                     return;
                 }
 
-                string script = string.Empty;
+                var script = string.Empty;
                 XlgQuickScript newScript = null;
                 if (ScriptEditor.Current != null)
                 {
@@ -526,7 +525,7 @@
         {
             try
             {
-                foreach (QuickScriptOutput outputWindow in Context.OutputWindows)
+                foreach (var outputWindow in Context.OutputWindows)
                 {
                     outputWindow.Close();
                     outputWindow.Dispose();
@@ -581,8 +580,8 @@
             try
             {
                 QuickScriptList.Items.Clear();
-                int defaultIndex = 0;
-                foreach (XlgQuickScript script in Context.Scripts)
+                var defaultIndex = 0;
+                foreach (var script in Context.Scripts)
                 {
                     QuickScriptList.Items.Add(script);
                     if ((Context.Scripts.Default != null) && (script == Context.Scripts.Default))
@@ -689,16 +688,16 @@
         private void testFuncToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Determine order of the other
-            string[] choices = new string[0];
+            var choices = new string[0];
             string[] selection = { "C", "A", "B" };
 
-            ChooseOrderDialog dialog = new ChooseOrderDialog();
-            string[] items = dialog.Ask(choices, selection);
+            var dialog = new ChooseOrderDialog();
+            var items = dialog.Ask(choices, selection);
 
             if ((items != null) && (items.Length > 0))
             {
-                string x = string.Empty;
-                foreach (string item in items)
+                var x = string.Empty;
+                foreach (var item in items)
                 {
                     x += item + "\r\n";
                 }
@@ -726,7 +725,7 @@
                 ? "Text Box"
                 : selectedScript.Destination.ToString().Replace("Box", " Box");
 
-            int index = InputList.FindString(selectedScript.Input);
+            var index = InputList.FindString(selectedScript.Input);
             InputList.SelectedIndex = index > -1
                 ? index
                 : 0;
@@ -769,7 +768,7 @@
         {
             if ((Context.Scripts == null) || string.IsNullOrEmpty(Context.Scripts.FilePath) ||
                 !File.Exists(Context.Scripts.FilePath)) return;
-            bool openedKey = false;
+            var openedKey = false;
             if (Context.AppDataRegistry == null)
             {
                 Context.AppDataRegistry = Application.UserAppDataRegistry;
@@ -808,7 +807,7 @@
                 }
 
                 UpdateScriptFromForm();
-                string location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
+                var location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
                 if (location.IsEmpty()) return;
 
                 if (DialogResult.Yes == MessageBox.Show(this,

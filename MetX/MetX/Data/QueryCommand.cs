@@ -56,11 +56,11 @@ namespace MetX.Data
 
         public string ToXml()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(QueryCommand));
-            StringBuilder sb = new StringBuilder();
-            System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
+            var xs = new XmlSerializer(typeof(QueryCommand));
+            var sb = new StringBuilder();
+            var settings = new System.Xml.XmlWriterSettings();
             settings.OmitXmlDeclaration = true;
-            System.Xml.XmlWriter xw = System.Xml.XmlWriter.Create(sb, settings);
+            var xw = System.Xml.XmlWriter.Create(sb, settings);
             xs.Serialize(xw, this);
             sb.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" ", string.Empty);
             return sb.ToString();
@@ -68,7 +68,7 @@ namespace MetX.Data
 
         public static QueryCommand FromXml(ref string xmlText)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(QueryCommand));
+            var xs = new XmlSerializer(typeof(QueryCommand));
             return (QueryCommand)xs.Deserialize(new System.IO.StringReader(xmlText));
         }
     }

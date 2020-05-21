@@ -25,7 +25,7 @@ namespace MetX.Data
         /// <returns></returns>
         private string GetComparisonOperator(Comparison comp)
         {
-            string sOut = "=";
+            var sOut = "=";
             switch (comp)
             {
                 case Comparison.Blank:
@@ -93,7 +93,7 @@ namespace MetX.Data
         public Query(TableSchema.Table tbl)
         {
             _table = tbl;
-            bool triedAgain = false;
+            var triedAgain = false;
         TryAgain:
             if (_table.Instance != null)
                 Instance = _table.Instance;
@@ -109,7 +109,7 @@ namespace MetX.Data
         public Query(TableSchema.Table tbl, Where[] whereClauses)
             : this(tbl)
         {
-            foreach (Where currWhere in whereClauses)
+            foreach (var currWhere in whereClauses)
             {
                 currWhere.TableName = _table.Name;
                 AddWhere(currWhere);
@@ -143,7 +143,7 @@ namespace MetX.Data
         {
             if (joins == null) joins = new List<Join>();
 
-            Join j = new Join();
+            var j = new Join();
             j.ToColumn = toColumnName;
             j.JoinTable = toTableName;
             j.FromColumn = fromColumnName;
@@ -156,7 +156,7 @@ namespace MetX.Data
         {
             if (joins == null) joins = new List<Join>();
 
-            Join j = new Join();
+            var j = new Join();
             j.ToColumn = _table.PrimaryKey.ColumnName;
             j.JoinTable = toTableName;
             j.FromColumn = _table.PrimaryKey.ColumnName;
@@ -170,7 +170,7 @@ namespace MetX.Data
         /// <param name="alias">C#CD: </param>
         public void AddAggregate(string columnName, AggregateFunction func, string alias)
         {
-            Aggregate agg = Aggregate.New(Instance, func, columnName, alias);
+            var agg = Aggregate.New(Instance, func, columnName, alias);
             AddAggregate(agg);
         }
 
@@ -297,9 +297,9 @@ namespace MetX.Data
         /// </summary>
         public QueryCommand BuildSelectCommand()
         {
-            QueryCommand cmd = new QueryCommand(GetSelectSql());
+            var cmd = new QueryCommand(GetSelectSql());
             if (wheres != null)
-                foreach (Where where in wheres)
+                foreach (var where in wheres)
                     if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
                         if (where.ParameterValue != null)
                             cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue, ConvertToDbType(where.ParameterValue.GetType()));
@@ -310,9 +310,9 @@ namespace MetX.Data
         {
             if (wheres != null && wheres.Count > 0)
             {
-                int i = 1;
-                bool needAHinge = false;
-                foreach (Where where in wheres)
+                var i = 1;
+                var needAHinge = false;
+                foreach (var where in wheres)
                 {
                     //Append the SQL
                     if (i == 1)
@@ -333,7 +333,7 @@ namespace MetX.Data
                     //}
                     if (where.ColumnName != null)
                     {
-                        where.ParameterName = where.ColumnName + i.ToString();
+                        where.ParameterName = where.ColumnName + i;
 
                         if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
                             sql += Instance.ValidIdentifier(where.ColumnName) + " " + GetComparisonOperator(where.Comparison) + (where.ParameterValue == null || where.ParameterValue == DBNull.Value ? "NULL" : " @_" + where.ParameterName);
@@ -353,9 +353,9 @@ namespace MetX.Data
         /// </summary>
         public QueryCommand BuildDeleteCommand()
         {
-            string sql = "DELETE FROM " + _table.Name;
+            var sql = "DELETE FROM " + _table.Name;
             //stub this out
-            QueryCommand cmd = new QueryCommand(sql);
+            var cmd = new QueryCommand(sql);
             if (wheres != null && wheres.Count > 0)
                 AddWherePhraseToSql(ref sql, cmd);
             else
@@ -372,13 +372,13 @@ namespace MetX.Data
             if (_updateSettings == null)
                 throw new Exception("No update settings have been set. Use Query.AddUpdateSetting to add some in");
 
-            string sql = "UPDATE " + _table.Name;
-            QueryCommand cmd = new QueryCommand(sql);
+            var sql = "UPDATE " + _table.Name;
+            var cmd = new QueryCommand(sql);
 
             TableSchema.TableColumn column = null;
             //append the update statements
-            string setClause = " SET ";
-            foreach (KeyValuePair<string, object> currColumn in _updateSettings)
+            var setClause = " SET ";
+            foreach (var currColumn in _updateSettings)
             {
                 column = _table.Columns.GetColumn(currColumn.Key);
                 if (column != null)
@@ -424,11 +424,11 @@ namespace MetX.Data
         //right at the time of the command build
         private string BuildWhere()
         {
-            string sql = string.Empty;
+            var sql = string.Empty;
             if (wheres != null && wheres.Count > 0)
             {
-                int i = 1;
-                foreach (Where where in wheres)
+                var i = 1;
+                foreach (var where in wheres)
                 {
                     //Append the SQL
                     if (i == 1)
@@ -448,7 +448,7 @@ namespace MetX.Data
                         }
                     }
                     if (where.ColumnName != null)
-                        sql += where.ColumnName + " " + GetComparisonOperator(where.Comparison) + " @_" + where.ColumnName + i.ToString();
+                        sql += where.ColumnName + " " + GetComparisonOperator(where.Comparison) + " @_" + where.ColumnName + i;
                     i++;
                     //switch (where.Options)
                     //{
@@ -466,29 +466,29 @@ namespace MetX.Data
         /// <returns>C#CD: </returns>
         public string GetSelectSql()
         {
-            string client = Instance.GetType().Name;
+            var client = Instance.GetType().Name;
             //different rules for how to do TOP
-            string topStatement = Instance.TopStatement;
-            string select = Instance.SelectStatement(Top, Page, QueryType);
-            string groupBy = string.Empty;
-            string where = string.Empty;
-            string order = string.Empty;
-            string join = string.Empty;
-            string query = string.Empty;
-            string whereOperator = " WHERE ";
+            var topStatement = Instance.TopStatement;
+            var select = Instance.SelectStatement(Top, Page, QueryType);
+            var groupBy = string.Empty;
+            var where = string.Empty;
+            var order = string.Empty;
+            var join = string.Empty;
+            var query = string.Empty;
+            var whereOperator = " WHERE ";
 
             if (_aggregates != null && _aggregates.Count > 0)
             {
                 //if there's an aggregate, do it up first
-                string aggList = string.Empty;
-                string thisAggregate = string.Empty;
+                var aggList = string.Empty;
+                var thisAggregate = string.Empty;
                 groupBy = " GROUP BY ";
 
                 //select * on an aggregate doesn't make sense
                 if (SelectList.Trim() == "*")
                     SelectList = string.Empty;
 
-                foreach (Aggregate agg in _aggregates)
+                foreach (var agg in _aggregates)
                 {
                     thisAggregate = agg.AggregateString + ",";
                     if (Distinct)
@@ -522,11 +522,11 @@ namespace MetX.Data
                         //first, split the SelectList by commas
                         if (SelectList.Length > 0)
                         {
-                            string[] selectCols = SelectList.Split(',');
+                            var selectCols = SelectList.Split(',');
                             if (selectCols.Length > 0)
                             {
                                 //string the as bits off each one, and append on to the GROUP BY
-                                foreach (string sCol in selectCols)
+                                foreach (var sCol in selectCols)
                                     groupBy += Instance.ValidIdentifier(sCol.Substring(0, sCol.ToLower().IndexOf(" as "))) + ",";
 
                                 //remove the trailing comma
@@ -545,7 +545,7 @@ namespace MetX.Data
                     if (wheres != null)
                     {
                         whereOperator = " HAVING ";
-                        foreach (Where wHaving in wheres)
+                        foreach (var wHaving in wheres)
                         {
                             if (!groupBy.Contains(wHaving.ColumnName))
                                 groupBy += Instance.ValidIdentifier(wHaving.ColumnName) + ",";
@@ -603,7 +603,7 @@ namespace MetX.Data
 
             //joins
             if (joins != null && joins.Count > 0)
-                foreach (Join j in joins)
+                foreach (var j in joins)
                     join += " " + j.JoinType + " " + Instance.ValidIdentifier(j.JoinTable) + " ON " + Instance.ValidIdentifier(_table.Name) + "." + Instance.ValidIdentifier(j.FromColumn) + "=" + Instance.ValidIdentifier(j.JoinTable) + "." + Instance.ValidIdentifier(j.ToColumn) + " ";
 
             //now for the wheres...
@@ -640,10 +640,10 @@ namespace MetX.Data
         public string GetUpdateSql()
         {
             //split the TablNames and loop out the SQL
-            string updateSql = "UPDATE " + Instance.ValidIdentifier(_table.Name) + " SET ";
-            string cols = "";
+            var updateSql = "UPDATE " + Instance.ValidIdentifier(_table.Name) + " SET ";
+            var cols = "";
 
-            foreach (TableSchema.TableColumn col in _table.Columns)
+            foreach (var col in _table.Columns)
             {
                 //don't want to change the created bits
                 if (!col.IsPrimaryKey && col.ColumnName.ToLower() != "createdby" && col.ColumnName.ToLower() != "createdon")
@@ -668,13 +668,13 @@ namespace MetX.Data
         public string GetInsertSql()
         {
             //split the TablNames and loop out the SQL
-            string insertSql = "INSERT INTO " + Instance.ValidIdentifier(_table.Name) + " ";
+            var insertSql = "INSERT INTO " + Instance.ValidIdentifier(_table.Name) + " ";
 
-            string cols = "";
-            string pars = "";
+            var cols = "";
+            var pars = "";
 
             //if table columns are null toss an exception
-            foreach (TableSchema.TableColumn col in _table.Columns)
+            foreach (var col in _table.Columns)
             {
                 if (!col.AutoIncrement)
                 {
@@ -701,7 +701,7 @@ namespace MetX.Data
         /// <returns>C#CD: </returns>
         public string GetDeleteSql()
         {
-            string sql = "DELETE FROM " + _table.Name;
+            var sql = "DELETE FROM " + _table.Name;
             if (wheres == null || wheres.Count == 0)
                 sql += " WHERE " + _table.PrimaryKey.ColumnName + "=@" + _table.PrimaryKey.ColumnName;
             else

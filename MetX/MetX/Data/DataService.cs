@@ -41,8 +41,8 @@ namespace MetX.Data
             if (!MProviders.ContainsKey(Settings.ProviderName.ToLower()))
             {
                 MetXObjectName = "MetX.Data.Factory." + Settings.ProviderName.Replace(".", "_");
-                Assembly metXProviderAssembly = Assembly.Load(MetXObjectName);
-                Type metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
+                var metXProviderAssembly = Assembly.Load(MetXObjectName);
+                var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
                 metXProvider = Activator.CreateInstance(metXProviderType, true) as IProvide;
                 if (metXProvider == null) throw new ProviderException("Unable to instantiate: " + metXProviderType.FullName);
                 MProviders.Add(Settings.ProviderName.ToLower(), metXProvider);
@@ -108,7 +108,7 @@ namespace MetX.Data
             if (ConnectionStrings == null)
                 ConnectionStrings = WebConfigurationManager.ConnectionStrings;
 
-            DataService ret = new DataService();
+            var ret = new DataService();
             ret.Settings = ConnectionStrings[connectionStringName];
             if (ret.Settings == null) return null;
 

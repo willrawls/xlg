@@ -8,23 +8,23 @@ namespace MetX.Library
     {
         public static string Ask(string title, string promptText, string defaultValue)
         {
-            string value = defaultValue;
+            var value = defaultValue;
             return Ask(title, promptText, ref value) == DialogResult.Cancel ? null : value;
         }
 
         public static string Ask(string promptText, string defaultValue = "")
         {
-            string value = defaultValue;
+            var value = defaultValue;
             return Ask("ENTER VALUE", promptText, ref value) == DialogResult.Cancel ? null : value;
         }
 
         public static DialogResult Ask(string title, string promptText, ref string value)
         {
-            Form form = new Form();
-            Label label = new Label();
-            TextBox textBox = new TextBox();
-            Button buttonOk = new Button();
-            Button buttonCancel = new Button();
+            var form = new Form();
+            var label = new Label();
+            var textBox = new TextBox();
+            var buttonOk = new Button();
+            var buttonCancel = new Button();
 
             form.Text = title;
             label.Text = promptText;
@@ -55,7 +55,7 @@ namespace MetX.Library
             form.AcceptButton = buttonOk;
             form.CancelButton = buttonCancel;
 
-            DialogResult dialogResult = form.ShowDialog();
+            var dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;
         }
@@ -66,7 +66,7 @@ namespace MetX.Library
             string promptText = "Please select one from the list",
             string title = "CHOOSE ONE")
         {
-            ChooseOneDialog dialog = new ChooseOneDialog();
+            var dialog = new ChooseOneDialog();
             return dialog.Ask(choices, promptText, title, defaultValue);
         }
 
@@ -85,7 +85,7 @@ namespace MetX.Library
             string promptText = "Please select one or more items from the list",
             string title = "MULTIPLE CHOICE")
         {
-            ChooseManyDialog dialog = new ChooseManyDialog();
+            var dialog = new ChooseManyDialog();
             return dialog.Ask(choices, promptText, title, initiallySelectedIndexes);
         }
     }

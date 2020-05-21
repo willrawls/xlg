@@ -23,9 +23,9 @@ namespace XLG.Pipeliner
 
         public static XlgAppData ResetPreferences()
         {
-            string drive = Environment.CurrentDirectory.Substring(0, 1);
+            var drive = Environment.CurrentDirectory.Substring(0, 1);
 
-            XlgAppData ret = new XlgAppData
+            var ret = new XlgAppData
             {
                 BasePath = drive + @":\data\code\xlg\DAL\",
                 SupportPath = drive + @":\data\code\xlg\Support\",
@@ -43,7 +43,7 @@ namespace XLG.Pipeliner
             _mAppDataRegKey = Application.UserAppDataRegistry;
             if (_mAppDataRegKey != null)
             {
-                List<string> valueNames = new List<string>(_mAppDataRegKey.GetValueNames());
+                var valueNames = new List<string>(_mAppDataRegKey.GetValueNames());
 
                 try
                 {
@@ -77,7 +77,7 @@ namespace XLG.Pipeliner
 
         public void Save()
         {
-            bool openedKey = false;
+            var openedKey = false;
             if (_mAppDataRegKey == null)
             {
                 _mAppDataRegKey = Application.UserAppDataRegistry;

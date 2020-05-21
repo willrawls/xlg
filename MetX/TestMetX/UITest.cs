@@ -10,11 +10,11 @@ namespace MetX.Tests
         // [TestMethod] bad test
         public void InputBoxTest()
         {
-            string title = string.Empty; 
-            string promptText = string.Empty; 
-            string value = string.Empty; 
-            string valueExpected = string.Empty; 
-            DialogResult expected = new DialogResult(); 
+            var title = string.Empty; 
+            var promptText = string.Empty; 
+            var value = string.Empty; 
+            var valueExpected = string.Empty; 
+            var expected = new DialogResult(); 
             var actual = Ui.InputBox(title, promptText, ref value);
             Assert.AreEqual(valueExpected, value);
             Assert.AreEqual(expected, actual);

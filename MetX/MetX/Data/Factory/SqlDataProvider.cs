@@ -158,7 +158,7 @@ namespace MetX.Data.Factory
             }
             catch (Exception ex)
             {
-                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex.ToString());
+                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex);
             }
             return ret;
         }
@@ -215,7 +215,7 @@ namespace MetX.Data.Factory
             }
             catch (Exception ex)
             {
-                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex.ToString());
+                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex);
             }
             if (cmd.Parameters.Contains("@ReturnValue") && cmd.Parameters["@ReturnValue"].Value != null)
             {
@@ -234,7 +234,7 @@ namespace MetX.Data.Factory
             {
                 while (rdr.Read())
                 {
-                    sList += rdr["Name"].ToString() + "|";
+                    sList += rdr["Name"] + "|";
                 }
                 rdr.Close();
                 rdr.Dispose();
@@ -472,7 +472,7 @@ namespace MetX.Data.Factory
             }
             catch (Exception e)
             {
-                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
             }
             finally
             {
@@ -556,7 +556,7 @@ namespace MetX.Data.Factory
             }
             catch (Exception e)
             {
-                throw new Exception("SQL = " + sql + "\r\n\r\n" + e.ToString());
+                throw new Exception("SQL = " + sql + "\r\n\r\n" + e);
             }
             finally
             {

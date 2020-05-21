@@ -55,7 +55,7 @@ namespace MetX.Tests
         {
             const string target = "abcdefg";
 
-            string actual = target.Mid(3, 3);
+            var actual = target.Mid(3, 3);
             Assert.AreEqual("def", actual);
 
             actual = target.Mid(6, 3);

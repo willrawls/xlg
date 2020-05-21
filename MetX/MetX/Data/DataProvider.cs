@@ -20,16 +20,16 @@ namespace MetX.Data
 
         public virtual DataSet ToDataSet(string selectQueryText, System.Web.Caching.Cache cache)
         {
-            DataSet ds = null;
-            string cacheKey = "DP" + selectQueryText.GetHashCode().ToString();
-            string dsXml = (string)cache[cacheKey];
+            DataSet ds;
+            var cacheKey = "DP" + selectQueryText.GetHashCode();
+            var dsXml = (string)cache[cacheKey];
             if (dsXml == null)
             {
                 ds = ToDataSet(selectQueryText);
                 if (ds != null)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    using (StringWriter sw = new StringWriter(sb))
+                    var sb = new StringBuilder();
+                    using (var sw = new StringWriter(sb))
                         ds.WriteXml(sw);
                     cache.Add(cacheKey, sb.ToString(), null, DateTime.Now.AddMinutes(CacheTimeout),
                         System.Web.Caching.Cache.NoSlidingExpiration,
@@ -39,10 +39,10 @@ namespace MetX.Data
             else
             {
                 ds = new DataSet();
-                using (StringReader sr = new StringReader(dsXml))
+                using (var sr = new StringReader(dsXml))
                     ds.ReadXml(sr);
             }
-            if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
+            if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
                 return null;
             return ds;
         }
@@ -93,9 +93,9 @@ namespace MetX.Data
 
         public virtual string ValidIdentifier(string identifier)
         {
-            if (identifier != null) // && identifier.IndexOf(" ") > 0)
+            if (identifier != null)
                 return "[" + identifier + "]";
-            return identifier;
+            return null;
         }
 
         public virtual string TopStatement
@@ -125,7 +125,7 @@ namespace MetX.Data
 
         public DataRow ToDataRow(string sql)
         {
-            DataRowCollection rows = ToDataRows(sql);
+            var rows = ToDataRows(sql);
             if (rows == null || rows.Count == 0)
                 return null;
             return rows[0];
@@ -133,8 +133,8 @@ namespace MetX.Data
 
         public DataRowCollection ToDataRows(string sql)
         {
-            DataSet ds = ToDataSet(new QueryCommand(sql));
-            if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
+            var ds = ToDataSet(new QueryCommand(sql));
+            if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
                 return null;
             return ds.Tables[0].Rows;
         }

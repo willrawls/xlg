@@ -10,7 +10,8 @@ namespace MetX.Library
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SortedStringList() : base() { }
+        public SortedStringList()
+        { }
 
         /// <summary>
         /// Creates a sorted string list with an initial capacity
@@ -26,9 +27,9 @@ namespace MetX.Library
         {
             if (Count > 0)
             {
-                StringBuilder ret = new StringBuilder();
+                var ret = new StringBuilder();
                 ret.AppendLine("<" + tagName + "s" + (tagAttributes != null ? " " + tagAttributes : string.Empty) + ">");
-                foreach (System.Collections.Generic.KeyValuePair<string, string> currItem in this)
+                foreach (var currItem in this)
                     ret.AppendLine("<" + tagName + " Name=\"" + Xml.AttributeEncode(currItem.Key) + "\" Value=\"" + Xml.AttributeEncode(currItem.Value) + "\"/>");
                 ret.AppendLine("</" + tagName + "s>");
                 return ret.ToString();

@@ -88,9 +88,9 @@ namespace MetX.Library
         {
             if (target.IsEmpty()) return;
 
-            for (int i = 0; i < target.Count; i++)
+            for (var i = 0; i < target.Count; i++)
             {
-                string s = target[i];
+                var s = target[i];
                 if (s.IsEmpty()) continue;
                 target[i] = func(s, i);
             }
@@ -99,9 +99,9 @@ namespace MetX.Library
         public static void TransformAllNotEmpty(this IList<string> target, Func<string, string> func)
         {
             if (target.IsEmpty()) return;
-            for (int i = 0; i < target.Count; i++)
+            for (var i = 0; i < target.Count; i++)
             {
-                string s = target[i];
+                var s = target[i];
                 if (s.IsEmpty()) continue;
                 target[i] = func(s);
             }

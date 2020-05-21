@@ -55,7 +55,7 @@ namespace MetX.IO
         /// Retrieves field 0. If it's DbNull, DateTime.MinValue will be returned. </example>
         public static DateTime GetDateTime(SqlDataReader rst, int index)
 		{
-			DateTime returnValue = new DateTime(0);
+			var returnValue = new DateTime(0);
 
 			if (rst.IsDBNull(index))
 				return returnValue;
@@ -73,9 +73,9 @@ namespace MetX.IO
 		public static string RetrieveSingleStringValue(string sql, string connectionName, string defaultReturnValue)
 		{
             SqlDataReader rst = null;
-			SqlCommand cmd = new SqlCommand(sql);
+			var cmd = new SqlCommand(sql);
 			string returnValue;
-            SqlConnection conn = GetConnection(connectionName);
+            var conn = GetConnection(connectionName);
 
 			try
 			{
@@ -121,7 +121,7 @@ namespace MetX.IO
             if (idr != null)
                 if (idr.Read())
                 {
-                    string ret = idr.GetString(0);
+                    var ret = idr.GetString(0);
                     idr.Close();
                     idr.Dispose();
                     return ret;
@@ -140,11 +140,11 @@ namespace MetX.IO
         /// <returns>String value of the first column of the first row</returns>
         public static string RetrieveSingleStringValue(string sql, string connectionName)
 		{
-			Guid g = new Guid();
+			var g = new Guid();
 			SqlDataReader rst = null;
 			string returnValue;
-            SqlConnection conn = GetConnection(connectionName);
-            SqlCommand cmd = new SqlCommand(sql, conn);
+            var conn = GetConnection(connectionName);
+            var cmd = new SqlCommand(sql, conn);
 			try
 			{
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
@@ -183,10 +183,10 @@ namespace MetX.IO
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
         public static string ToXml(string tagName, string tagAttributes, string sql, string connectionName)
         {
-            if(sql.IndexOf("FOR XML") == -1) sql += " FOR XML AUTO";
-            StringBuilder returnValue = new StringBuilder();
-            SqlConnection conn = GetConnection(connectionName);
-            SqlCommand cmd = new SqlCommand(sql, conn);
+            if(sql.IndexOf("FOR XML", StringComparison.Ordinal) == -1) sql += " FOR XML AUTO";
+            var returnValue = new StringBuilder();
+            var conn = GetConnection(connectionName);
+            var cmd = new SqlCommand(sql, conn);
             try
             {
                 if (tagName != null && tagName.Length > 0)
@@ -194,7 +194,7 @@ namespace MetX.IO
                         returnValue.AppendLine("<" + tagName + " " + tagAttributes + ">");
                     else
                         returnValue.AppendLine("<" + tagName + ">");
-                XmlReader xr = cmd.ExecuteXmlReader();
+                var xr = cmd.ExecuteXmlReader();
                 xr.Read();
                 while (xr.ReadState != ReadState.EndOfFile)
                     returnValue.Append(xr.ReadOuterXml());
@@ -248,13 +248,13 @@ namespace MetX.IO
         /// <returns>A DataSet object with the results</returns>
         public static DataSet ToDataSet(string sql, string connectionName)
 		{
-            SqlConnection conn = GetConnection(connectionName);
-			SqlCommand cmd = new SqlCommand(sql, conn);
-			DataSet returnValue = new DataSet();
+            var conn = GetConnection(connectionName);
+			var cmd = new SqlCommand(sql, conn);
+			var returnValue = new DataSet();
 
 			try
 			{
-				SqlDataAdapter ra = new SqlDataAdapter(cmd);
+				var ra = new SqlDataAdapter(cmd);
 				ra.Fill(returnValue);
 			}
 			catch (Exception e)
@@ -276,14 +276,14 @@ namespace MetX.IO
         /// <returns>A DataSet object with the results</returns>
         public static DataSet ToDataSet(string sql)
 		{
-			SqlConnection conn = DefaultConnection;
-			SqlCommand cmd = new SqlCommand(sql);
-			DataSet returnValue = new DataSet();
+			var conn = DefaultConnection;
+			var cmd = new SqlCommand(sql);
+			var returnValue = new DataSet();
 
 			try
 			{
 				cmd.Connection = conn;
-				SqlDataAdapter ra = new SqlDataAdapter(cmd);
+				var ra = new SqlDataAdapter(cmd);
 				ra.Fill(returnValue);
 			}
 			catch (Exception e)
@@ -306,8 +306,8 @@ namespace MetX.IO
         /// <returns>DateTime value of the first column of the first row</returns>
         public static DateTime RetrieveSingleDateValue(string sql, string connectionName)
 		{
-            SqlConnection conn = GetConnection(connectionName);
-			SqlCommand cmd = new SqlCommand(sql, conn);
+            var conn = GetConnection(connectionName);
+			var cmd = new SqlCommand(sql, conn);
 			SqlDataReader rst = null;
 			DateTime returnValue;
 			try
@@ -352,8 +352,8 @@ namespace MetX.IO
         /// <returns>int value of the first column of the first row</returns>
         public static int RetrieveSingleIntegerValue(string sql, string connectionName, int defaultReturnValue)
 		{
-            SqlConnection conn = GetConnection(connectionName);
-			SqlCommand cmd = new SqlCommand(sql, conn);
+            var conn = GetConnection(connectionName);
+			var cmd = new SqlCommand(sql, conn);
 			SqlDataReader rst = null;
 			int returnValue;
 			try
@@ -406,7 +406,7 @@ namespace MetX.IO
         /// <returns>A DataTable object representing the SQL statement or null</returns>
         public static DataTable ToDataTable(string sql, string connectionName)
         {
-            DataSet ds = ToDataSet(sql, connectionName);
+            var ds = ToDataSet(sql, connectionName);
             if (ds.Tables.Count < 1)
                 return null;
             if (ds.Tables[0].Rows.Count < 1)
@@ -419,7 +419,7 @@ namespace MetX.IO
         /// <returns>A DataTable object representing the SQL statement or null</returns>
         public static DataTable ToDataTable(string sql)
         {
-            DataSet ds = ToDataSet(sql);
+            var ds = ToDataSet(sql);
             if (ds.Tables.Count < 1)
                 return null;
             if (ds.Tables[0].Rows.Count < 1)
@@ -434,13 +434,13 @@ namespace MetX.IO
         /// <returns>A DataTable object representing the SQL statement or null</returns>
         public static DataTable ToDataTable(string sql, string connectionName, DataTable toFill)
         {
-            SqlConnection conn = GetConnection(connectionName);
-            SqlCommand cmd = new SqlCommand(sql, conn);
+            var conn = GetConnection(connectionName);
+            var cmd = new SqlCommand(sql, conn);
             if (toFill == null)
                 toFill = new DataTable();
             try
             {
-                SqlDataAdapter ra = new SqlDataAdapter(cmd);
+                var ra = new SqlDataAdapter(cmd);
                 
                 ra.Fill(toFill);
             }
@@ -455,11 +455,7 @@ namespace MetX.IO
                 conn.Dispose();
             }
 
-            if (toFill == null)
-                return null;
-            if (toFill.Rows.Count < 1)
-                return null;
-            return toFill;
+            return toFill.Rows.Count < 1 ? null : toFill;
         }
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
@@ -477,7 +473,7 @@ namespace MetX.IO
         /// <returns>A DataRowCollection object representing the SQL statement or null</returns>
         public static DataRowCollection ToDataRows(string sql, string connectionName)
 		{
-            DataSet ds = ToDataSet(sql, connectionName);
+            var ds = ToDataSet(sql, connectionName);
 			if (ds.Tables.Count <  1)
 				return null;
             if (ds.Tables[0].Rows.Count <  1)
@@ -490,7 +486,7 @@ namespace MetX.IO
         /// <returns>A DataRowCollection object representing the SQL statement or null</returns>
         public static DataRowCollection ToDataRows(string sql)
 		{
-			DataSet ds = ToDataSet(sql);
+			var ds = ToDataSet(sql);
 			if (ds.Tables.Count <  1)
 				return null;
             if (ds.Tables[0].Rows.Count <  1)
@@ -504,7 +500,7 @@ namespace MetX.IO
         /// <returns>A DataRow object representing the SQL statement or null</returns>
         public static DataRow ToDataRow(string sql, string connectionName)
 		{
-            DataSet ds = ToDataSet(sql, connectionName);
+            var ds = ToDataSet(sql, connectionName);
 			if (ds.Tables.Count <  1)
 				return null;
             if (ds.Tables[0].Rows.Count <  1)
@@ -517,7 +513,7 @@ namespace MetX.IO
         /// <returns>A DataRow object representing the SQL statement or null</returns>
         public static DataRow ToDataRow(string sql)
 		{
-			DataSet ds = ToDataSet(sql);
+			var ds = ToDataSet(sql);
 			if (ds.Tables.Count <  1)
 				return null;
             if (ds.Tables[0].Rows.Count <  1)
@@ -533,11 +529,11 @@ namespace MetX.IO
 		/// <returns>True if the record was updated</returns>
 		public static bool UpdateNotificationField(string notificationId, string fieldName, string newValue, int maxLength)
 		{
-            SqlConnection conn = DefaultConnection;
-			SqlCommand cmd = new SqlCommand("SET ARITHABORT ON", conn);
+            var conn = DefaultConnection;
+			var cmd = new SqlCommand("SET ARITHABORT ON", conn);
 			cmd.ExecuteNonQuery();
 			cmd.CommandText = "UPDATE Notification SET " + fieldName + "='" + newValue.Substring(0, maxLength) + "' WHERE NotificationID='" + notificationId + "'";
-			int recordCount = cmd.ExecuteNonQuery();
+			var recordCount = cmd.ExecuteNonQuery();
 			cmd.Dispose();
 			conn.Close();
 			conn.Dispose();
@@ -551,11 +547,11 @@ namespace MetX.IO
 		{
 			if (sqlArray.Count >  0)
 			{
-                SqlConnection conn = GetConnection(connectionName);
-				SqlCommand cmd = new SqlCommand();
+                var conn = GetConnection(connectionName);
+				var cmd = new SqlCommand();
                 cmd.Connection = conn;
-				int errorAtSql = - 1;
-				foreach (string sql in sqlArray)
+				var errorAtSql = - 1;
+				foreach (var sql in sqlArray)
 				{
 					try
 					{
@@ -568,7 +564,7 @@ namespace MetX.IO
 					catch (Exception e)
 					{
 						conn.Close();
-						StringBuilder sb = new StringBuilder();
+						var sb = new StringBuilder();
 						int currSql;
 						sb.Append("Exception while executing SQL # " + errorAtSql + ": " + sql + "\r\n\r\n" + e + "\r\n");
 						sb.Append("\r\n------------------------------------------------------------------------\r\n");
@@ -598,11 +594,11 @@ namespace MetX.IO
         /// <returns>The number of records affected</returns>
         public static int Execute(string sql, string connectionName)
 		{
-			int recordCount = 0;
+			var recordCount = 0;
             if (sql != null && sql.Length > 0)
             {
-                SqlConnection conn = GetConnection(connectionName);
-                SqlCommand cmd = new SqlCommand("SET ARITHABORT ON", conn);
+                var conn = GetConnection(connectionName);
+                var cmd = new SqlCommand("SET ARITHABORT ON", conn);
                 try
                 {
                     cmd.ExecuteNonQuery();
@@ -638,7 +634,7 @@ namespace MetX.IO
         /// <returns>An open SqlConnection object to the appropriate database (remember to close it)</returns>
         public static SqlConnection GetConnection(string connectionName)
         {
-            SqlConnection ret = new SqlConnection(GetConnectionString(connectionName));
+            var ret = new SqlConnection(GetConnectionString(connectionName));
             ret.Open();
             return ret;
         }
@@ -650,8 +646,8 @@ namespace MetX.IO
         {
             if (connectionName == null || connectionName.Length == 0)
                 return DefaultConnectionString;
-            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[connectionName];
-            string connectionString = settings?.ConnectionString;
+            var settings = ConfigurationManager.ConnectionStrings[connectionName];
+            var connectionString = settings?.ConnectionString;
             if (connectionString == null || connectionString.Length == 0)
                 return DefaultConnectionString;
             return connectionString;
@@ -671,7 +667,7 @@ namespace MetX.IO
         {
             get
             {
-                SqlConnection ret = new SqlConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+                var ret = new SqlConnection(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
                 ret.Open();
                 return ret;
             }

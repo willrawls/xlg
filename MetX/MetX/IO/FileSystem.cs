@@ -193,7 +193,7 @@ namespace MetX.IO
         public static string GatherOutput(string filename, string arguments, string workingFolder = null,
             int waitTime = 60)
         {
-            Process p = new Process
+            var p = new Process
             {
                 StartInfo =
                 {
@@ -219,14 +219,14 @@ namespace MetX.IO
 
             p.Start();
 
-            string output = p.StandardOutput.ReadToEnd();
+            var output = p.StandardOutput.ReadToEnd();
             if (!(p.WaitForExit(waitTime)))
             {
                 p.Kill();
             }
             p.Close();
 
-            string ret = (output) // + Environment.NewLine + sError)
+            var ret = (output) // + Environment.NewLine + sError)
                 .Replace("\\x000C", string.Empty)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);

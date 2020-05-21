@@ -35,14 +35,18 @@ namespace MetX.Scripts
         {
             get
             {
-                string originalArea = string.Empty;
-                foreach (string currScriptLine in _mQuick.Script.Lines())
+                var originalArea = string.Empty;
+                foreach (var currScriptLine in _mQuick.Script.Lines())
                 {
-                    int indent = currScriptLine.Length - currScriptLine.Trim().Length;
-                    if (currScriptLine.StartsWith("~~To:") || currScriptLine.StartsWith("~~WriteTo:") ||
-                        currScriptLine.StartsWith("~~Output:"))
+                    var indent = currScriptLine.Length - currScriptLine.Trim().Length;
+                    if (currScriptLine.StartsWith("~~To:"))
                     {
-                        _mCurrArea.Lines.Add("//" + currScriptLine + "~~//");
+                        var filePath = currScriptLine
+                            .Replace("~~To:", string.Empty)
+                            .Replace("/", @"\")
+                            .Replace("\"", string.Empty)
+                            .Trim();
+                        _mCurrArea.Lines.Add("Output.SwitchTo(@\"" + filePath + "\");");
                     }
                     else if (currScriptLine.Contains("~~Start:") || currScriptLine.Contains("~~Begin:"))
                     {
@@ -73,7 +77,7 @@ namespace MetX.Scripts
                     }
                     else if (currScriptLine.Contains("~~BeginString:"))
                     {
-                        string stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
+                        var stringName = currScriptLine.TokenAt(2, "~~BeginString:").Trim();
                         if (string.IsNullOrEmpty(stringName))
                         {
                             continue;
@@ -133,8 +137,8 @@ namespace MetX.Scripts
                     }
                 }
 
-                StringBuilder sb = new StringBuilder(Template.Views[_mIndependent ? "Exe" : "Native"]);
-                foreach (GenArea area in this)
+                var sb = new StringBuilder(Template.Views[_mIndependent ? "Exe" : "Native"]);
+                foreach (var area in this)
                 {
                     sb.Replace("//~~" + area.Name + "~~//", string.Join(Environment.NewLine, area.Lines));
                 }
@@ -159,7 +163,7 @@ namespace MetX.Scripts
                     }
                 }
 
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
                     sb.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
                 }
@@ -169,7 +173,7 @@ namespace MetX.Scripts
 
         private void SetArea(string areaName)
         {
-            foreach (GenArea area in this.Where(area => area.Name == areaName))
+            foreach (var area in this.Where(area => area.Name == areaName))
             {
                 _mCurrArea = area;
                 return;

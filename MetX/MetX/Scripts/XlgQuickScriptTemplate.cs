@@ -17,7 +17,7 @@ namespace MetX.Scripts
             Name = TemplatePath.LastPathToken();
             if (Directory.Exists(TemplatePath))
             {
-                foreach (string file in Directory.GetFiles(TemplatePath, "*.cs"))
+                foreach (var file in Directory.GetFiles(TemplatePath, "*.cs"))
                 {
                     Views.Add(file.LastPathToken().ToLower().TokensBeforeLast(".cs"), File.ReadAllText(file));
                 }

@@ -19,7 +19,7 @@ namespace MetX.Scripts
         /// <summary>
         /// Whether or not events should also be written to the console.
         /// </summary>
-        private bool _writeToConsole = false;
+        private bool _writeToConsole;
 
         #endregion Fields
 
@@ -72,9 +72,9 @@ namespace MetX.Scripts
         /// <returns>Whether or not the message exists in the log.</returns>
         public bool HasMessage(LogLevel level, string message)
         {
-            bool hasMessage = false;
+            var hasMessage = false;
 
-            foreach (TestLogEvent logEvent in _events)
+            foreach (var logEvent in _events)
             {
                 if (logEvent.Level == level && logEvent.Message == message)
                 {
@@ -94,9 +94,9 @@ namespace MetX.Scripts
         /// <returns>Whether or not the message exists in the log.</returns>
         public bool HasPartialMessage(LogLevel level, string message)
         {
-            bool hasMessage = false;
+            var hasMessage = false;
 
-            foreach (TestLogEvent logEvent in _events)
+            foreach (var logEvent in _events)
             {
                 if (logEvent.Level == level && logEvent.Message.Contains(message))
                 {
@@ -116,7 +116,7 @@ namespace MetX.Scripts
         /// <param name="args">Message arguments.</param>
         public void LogMessage(LogLevel level, string message, params object[] args)
         {
-            string formatted = string.Format(
+            var formatted = string.Format(
                 CultureInfo.InvariantCulture, message, args);
 
             if (WriteToConsole)
@@ -124,7 +124,7 @@ namespace MetX.Scripts
                 Console.WriteLine(formatted);
             }
 
-            TestLogEvent logEvent = new TestLogEvent(level, formatted);
+            var logEvent = new TestLogEvent(level, formatted);
 
             _events.Add(logEvent);
         }
@@ -135,8 +135,8 @@ namespace MetX.Scripts
         /// <returns>String representation.</returns>
         public override string ToString()
         {
-            StringBuilder textBuilder = new StringBuilder();
-            foreach (TestLogEvent logEvent in Events)
+            var textBuilder = new StringBuilder();
+            foreach (var logEvent in Events)
             {
                 textBuilder.AppendLine(logEvent.ToString());
             }

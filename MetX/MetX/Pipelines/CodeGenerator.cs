@@ -54,7 +54,7 @@ namespace MetX.Pipelines
         });
 
         public readonly Form Gui;
-        public XmlDocument CodeXmlDocument = null;
+        public XmlDocument CodeXmlDocument;
 
         /// <summary>The namespace that should be passed into the XSL</summary>
         public string Namespace = "xlg";
@@ -116,8 +116,8 @@ namespace MetX.Pipelines
             get
             {
                 ParseDataXml();
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlElement root = xmlDoc.CreateElement("xlgDoc");
+                var xmlDoc = new XmlDocument();
+                var root = xmlDoc.CreateElement("xlgDoc");
 
                 if (_mXlgDataXmlDoc.DocumentElement == null)
                 {
@@ -178,7 +178,7 @@ namespace MetX.Pipelines
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string GenerateCode()
         {
-            string xlgXsl = GetVirtualFile(xlgFilename);
+            var xlgXsl = GetVirtualFile(xlgFilename);
             if (xlgXsl == null || xlgXsl.Length < 5)
             {
                 throw new Exception("xlg.xsl missing (1).");
@@ -221,7 +221,7 @@ namespace MetX.Pipelines
 
             if (!string.IsNullOrEmpty(settingsFilePath) && settingsFilePath.ToLower().Contains(".config"))
             {
-                ExeConfigurationFileMap configFile = new ExeConfigurationFileMap { ExeConfigFilename = settingsFilePath };
+                var configFile = new ExeConfigurationFileMap { ExeConfigFilename = settingsFilePath };
                 DataService.ConnectionStrings = ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None).ConnectionStrings.ConnectionStrings;
             }
         }
@@ -229,7 +229,7 @@ namespace MetX.Pipelines
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string RegenerateCode(XmlDocument xmlDoc)
         {
-            string xlgXsl = GetVirtualFile(xlgFilename);
+            var xlgXsl = GetVirtualFile(xlgFilename);
             if (xlgXsl == null || xlgXsl.Length < 5)
             {
                 throw new Exception("xlg.xsl missing (2).");
@@ -277,7 +277,7 @@ namespace MetX.Pipelines
             _mStoredProceduresToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/StoredProcedures");
             _mXslsToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Xsls");
 
-            string connectionStringName = Dav(_mXlgDataXmlDoc, "ConnectionStringName", "Default");
+            var connectionStringName = Dav(_mXlgDataXmlDoc, "ConnectionStringName", "Default");
             //if (xlgDataXmlDoc.DocumentElement.Attributes["ConnectionStringName"] == null)
             //    ConnectionStringName = "Default";
             //else
@@ -306,13 +306,13 @@ namespace MetX.Pipelines
 
         private void ProcessXslPath(XmlDocument xmlDoc, string renderPath, string xlgPath, string path, XmlElement parent)
         {
-            foreach (string xslFile in Directory.GetFiles(path))
+            foreach (var xslFile in Directory.GetFiles(path))
             {
                 if (!string.IsNullOrEmpty(xslFile) && Path.GetExtension(xslFile) == ".xsl" && !xslFile.EndsWith(".xlg.xsl") && IsIncluded(_mXslsToRender, xslFile)
                     && IsIncluded(_mXslsToRender, renderPath + "/" + Path.GetFileNameWithoutExtension(xslFile)))
                 {
-                    XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
-                    string classname = Path.GetFileNameWithoutExtension(xslFile).Replace(" ", "_");
+                    var xmlXsl = xmlDoc.CreateElement("XslEndpoint");
+                    var classname = Path.GetFileNameWithoutExtension(xslFile).Replace(" ", "_");
 
                     if (CSharpKeywords.Contains(classname))
                     {
@@ -337,12 +337,12 @@ namespace MetX.Pipelines
                     parent.AppendChild(xmlXsl);
                 }
             }
-            foreach (string xslFolder in Directory.GetDirectories(path))
+            foreach (var xslFolder in Directory.GetDirectories(path))
             {
-                string folderName = xslFolder.LastToken(@"\");
+                var folderName = xslFolder.LastToken(@"\");
                 if (IsIncluded(_mXslsToRender, folderName) && IsIncluded(_mXslsToRender, renderPath + "/" + folderName))
                 {
-                    XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
+                    var xmlXsls = xmlDoc.CreateElement("XslEndpoints");
                     AddAttribute(xmlXsls, "VirtualPath", renderPath + "/" + folderName);
                     AddAttribute(xmlXsls, "xlgPath", GetxlgPath(xlgPath + "/" + folderName));
                     AddAttribute(xmlXsls, "VirtualDir", folderName);
@@ -358,37 +358,37 @@ namespace MetX.Pipelines
         private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
         {
             //get the SP list from the DB
-            string[] sPs = DataService.Instance.GetSpList();
-            XmlElement root = xmlDoc.DocumentElement;
+            var sPs = DataService.Instance.GetSpList();
+            var root = xmlDoc.DocumentElement;
 
-            XmlElement xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
+            var xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
             AddAttribute(xmlStoredProcedures, "ClassName", SpClassName);
             // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlStoredProcedures);
 
-            int sprocIndex = 1;
-            foreach (string spName in sPs)
+            var sprocIndex = 1;
+            foreach (var spName in sPs)
             {
                 // Make sure there is a stored proc to process
                 //  (is blank when there are no stored procedures in the database)
                 if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(_mStoredProceduresToRender, spName))
                 {
-                    XmlElement xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
+                    var xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
                     AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
                     AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
                     AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
                     //grab the parameters
-                    IDataReader paramReader = DataService.Instance.GetSpParams(spName);
+                    var paramReader = DataService.Instance.GetSpParams(spName);
 
-                    XmlElement xmlParameters = xmlDoc.CreateElement("Parameters");
+                    var xmlParameters = xmlDoc.CreateElement("Parameters");
                     xmlStoredProcedure.AppendChild(xmlParameters);
-                    int parameterIndex = 1;
+                    var parameterIndex = 1;
                     while (paramReader.Read())
                     {
                         //loop the params, pulling out the names and dataTypes
-                        XmlElement xmlParameter = xmlDoc.CreateElement("Parameter");
-                        DbType dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString().ToLower());
-                        string paramName = paramReader["Name"].ToString();
+                        var xmlParameter = xmlDoc.CreateElement("Parameter");
+                        var dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString().ToLower());
+                        var paramName = paramReader["Name"].ToString();
 
                         if (CSharpKeywords.Contains(paramName))
                         {
@@ -438,16 +438,16 @@ namespace MetX.Pipelines
 
         private XmlDocument TablesXml(XmlDocument xmlDoc)
         {
-            XmlElement root = xmlDoc.DocumentElement;
-            XmlElement xmlTables = xmlDoc.CreateElement("Tables");
+            var root = xmlDoc.DocumentElement;
+            var xmlTables = xmlDoc.CreateElement("Tables");
             if (root == null)
             {
                 return null;
             }
 
             root.AppendChild(xmlTables);
-            string[] tables = DataService.Instance.GetTables();
-            foreach (string table in tables)
+            var tables = DataService.Instance.GetTables();
+            foreach (var table in tables)
             {
                 if (string.IsNullOrEmpty(table) || !IsInList(table))
                 {
@@ -485,7 +485,7 @@ namespace MetX.Pipelines
                     continue;
                 }
 
-                XmlElement xmlTable = xmlDoc.CreateElement("Table");
+                var xmlTable = xmlDoc.CreateElement("Table");
                 AddAttribute(xmlTable, "TableName", tbl.Name);
                 AddAttribute(xmlTable, "ClassName", GetClassName(tbl.Name));
                 if (tbl.PrimaryKey != null)
@@ -497,12 +497,12 @@ namespace MetX.Pipelines
                     AddAttribute(xmlTable, "PrimaryKeyColumnName", string.Empty);
                 }
 
-                XmlElement xmlColumns = xmlDoc.CreateElement("Columns");
+                var xmlColumns = xmlDoc.CreateElement("Columns");
                 xmlTable.AppendChild(xmlColumns);
-                for (int index = 0; index < tbl.Columns.Count; index++)
+                for (var index = 0; index < tbl.Columns.Count; index++)
                 {
-                    TableSchema.TableColumn col = tbl.Columns[index];
-                    XmlElement xmlColumn = xmlDoc.CreateElement("Column");
+                    var col = tbl.Columns[index];
+                    var xmlColumn = xmlDoc.CreateElement("Column");
                     AddAttribute(xmlColumn, "ColumnName", col.ColumnName);
                     AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field", true));
                     AddAttribute(xmlColumn, "CSharpVariableType", GetCSharpVariableType(col.DataType));
@@ -527,20 +527,20 @@ namespace MetX.Pipelines
                 }
                 if (tbl.Keys.Count > 0)
                 {
-                    XmlElement xmlKeys = xmlDoc.CreateElement("Keys");
+                    var xmlKeys = xmlDoc.CreateElement("Keys");
                     xmlTable.AppendChild(xmlKeys);
-                    for (int index = 0; index < tbl.Keys.Count; index++)
+                    for (var index = 0; index < tbl.Keys.Count; index++)
                     {
-                        TableSchema.TableKey key = tbl.Keys[index];
-                        XmlElement xmlKey = xmlDoc.CreateElement("Key");
+                        var key = tbl.Keys[index];
+                        var xmlKey = xmlDoc.CreateElement("Key");
                         AddAttribute(xmlKey, "Name", key.Name);
                         AddAttribute(xmlKey, "IsPrimary", key.IsPrimary.ToString());
                         AddAttribute(xmlKey, "Location", index.ToString());
-                        XmlElement xmlKeyColumns = xmlDoc.CreateElement("Columns");
-                        for (int i = 0; i < key.Columns.Count; i++)
+                        var xmlKeyColumns = xmlDoc.CreateElement("Columns");
+                        for (var i = 0; i < key.Columns.Count; i++)
                         {
-                            TableSchema.TableKeyColumn col = key.Columns[i];
-                            XmlElement xmlKeyColumn = xmlDoc.CreateElement("Column");
+                            var col = key.Columns[i];
+                            var xmlKeyColumn = xmlDoc.CreateElement("Column");
                             AddAttribute(xmlKeyColumn, "Column", col.Column);
                             if (col.Related != null)
                             {
@@ -555,12 +555,12 @@ namespace MetX.Pipelines
                 }
                 if (tbl.Indexes.Count > 0)
                 {
-                    XmlElement xmlIndexes = xmlDoc.CreateElement("Indexes");
+                    var xmlIndexes = xmlDoc.CreateElement("Indexes");
                     xmlTable.AppendChild(xmlIndexes);
-                    for (int i = 0; i < tbl.Indexes.Count; i++)
+                    for (var i = 0; i < tbl.Indexes.Count; i++)
                     {
-                        TableSchema.TableIndex index = tbl.Indexes[i];
-                        XmlElement xmlIndex = xmlDoc.CreateElement("Index");
+                        var index = tbl.Indexes[i];
+                        var xmlIndex = xmlDoc.CreateElement("Index");
                         AddAttribute(xmlIndex, "IndexName", index.Name);
                         AddAttribute(xmlIndex, "IsClustered", index.IsClustered.ToString());
                         AddAttribute(xmlIndex, "SingleColumnIndex", (index.Columns.Count == 1
@@ -568,12 +568,12 @@ namespace MetX.Pipelines
                             : "False"));
                         AddAttribute(xmlIndex, "PropertyName", GetProperName(tbl.Name, index.Name, "Index"));
                         AddAttribute(xmlIndex, "Location", i.ToString());
-                        XmlElement xmlIndexColumns = xmlDoc.CreateElement("IndexColumns");
+                        var xmlIndexColumns = xmlDoc.CreateElement("IndexColumns");
                         xmlIndex.AppendChild(xmlIndexColumns);
-                        for (int columnIndex = 0; columnIndex < index.Columns.Count; columnIndex++)
+                        for (var columnIndex = 0; columnIndex < index.Columns.Count; columnIndex++)
                         {
-                            string indexColumn = index.Columns[columnIndex];
-                            XmlElement xmlIndexColumn = xmlDoc.CreateElement("IndexColumn");
+                            var indexColumn = index.Columns[columnIndex];
+                            var xmlIndexColumn = xmlDoc.CreateElement("IndexColumn");
                             AddAttribute(xmlIndexColumn, "IndexColumnName", indexColumn);
                             AddAttribute(xmlIndexColumn, "Location", columnIndex.ToString());
                             AddAttribute(xmlIndexColumn, "PropertyName", GetProperName(tbl.Name, indexColumn, "Field"));
@@ -590,7 +590,7 @@ namespace MetX.Pipelines
         // ReSharper disable once UnusedMethodReturnValue.Local
         private XmlDocument XslXml(XmlDocument xmlDoc)
         {
-            string renderPath = _mXslsToRender.GetAttribute("Path");
+            var renderPath = _mXslsToRender.GetAttribute("Path");
             if (renderPath.Length == 0)
             {
                 renderPath = "~";
@@ -606,10 +606,10 @@ namespace MetX.Pipelines
                 _mUrlExtension = _mUrlExtension.Substring(1);
             }
 
-            XmlElement root = xmlDoc.DocumentElement;
-            string path = Helper.VirtualPathToPhysical(renderPath);
+            var root = xmlDoc.DocumentElement;
+            var path = Helper.VirtualPathToPhysical(renderPath);
 
-            XmlElement xmlXsls = xmlDoc.CreateElement("XslEndpoints");
+            var xmlXsls = xmlDoc.CreateElement("XslEndpoints");
             AddAttribute(xmlXsls, "VirtualPath", renderPath);
             AddAttribute(xmlXsls, "xlgPath", GetxlgPath("/" + VDirName));
             AddAttribute(xmlXsls, "VirtualDir", string.Empty);
@@ -618,14 +618,14 @@ namespace MetX.Pipelines
             // ReSharper disable once PossibleNullReferenceException
             root.AppendChild(xmlXsls);
 
-            XmlNodeList xmlNodeList = _mXslsToRender.SelectNodes("Virtual");
+            var xmlNodeList = _mXslsToRender.SelectNodes("Virtual");
             if (xmlNodeList != null)
             {
                 foreach (XmlElement currVirtual in xmlNodeList)
                 {
-                    string xslFile = currVirtual.GetAttribute("Name");
-                    string classname = xslFile.Replace(" ", "_").Replace("/", ".");
-                    XmlElement xmlXsl = xmlDoc.CreateElement("XslEndpoint");
+                    var xslFile = currVirtual.GetAttribute("Name");
+                    var classname = xslFile.Replace(" ", "_").Replace("/", ".");
+                    var xmlXsl = xmlDoc.CreateElement("XslEndpoint");
 
                     if (CSharpKeywords.Contains(classname))
                     {
@@ -685,21 +685,21 @@ namespace MetX.Pipelines
             /// <returns>The rendered content</returns>
             public static StringBuilder GenerateViaXsl(XmlDocument xmlDoc, string sXsl)
             {
-                StringBuilder sOut = new StringBuilder();
+                var sOut = new StringBuilder();
                 try
                 {
                     //xml Transformer = new xml();
                     //sOut = Transformer.xslTransform(XmlDoc, sXsl);
 
-                    MvpXslTransform xslt = new MvpXslTransform
+                    var xslt = new MvpXslTransform
                     {
                         SupportedFunctions = ExsltFunctionNamespace.All,
                         MultiOutput = true
                     };
-                    XsltArgumentList xal = new XsltArgumentList();
+                    var xal = new XsltArgumentList();
                     xal.AddExtensionObject("urn:xlg", new XlgUrn());
                     xslt.Load(XmlReader.Create(new StringReader(sXsl)));
-                    using (StringWriter sw = new StringWriter(sOut))
+                    using (var sw = new StringWriter(sOut))
                     {
                         xslt.Transform(new XmlInput(xmlDoc), xal, new XmlOutput(sw));
                     }
@@ -729,10 +729,10 @@ namespace MetX.Pipelines
                     }
                     else
                     {
-                        using (Stream inFile = VirtualPathProvider.OpenFile(virtualFilename))
+                        using (var inFile = VirtualPathProvider.OpenFile(virtualFilename))
                         {
-                            StreamReader rdr = new StreamReader(inFile);
-                            string contents = rdr.ReadToEnd();
+                            var rdr = new StreamReader(inFile);
+                            var contents = rdr.ReadToEnd();
                             rdr.Close();
                             rdr.Dispose();
                             return contents;
@@ -767,7 +767,7 @@ namespace MetX.Pipelines
         /// <returns>The translated class name</returns>
         public static string GetClassName(string tableName)
         {
-            string className = GetProperName(tableName.Replace(" ", string.Empty));
+            var className = GetProperName(tableName.Replace(" ", string.Empty));
             //if the table is a plural, make it singular
             if (className.EndsWith("ies"))
             {
@@ -956,9 +956,9 @@ namespace MetX.Pipelines
         {
             if (fieldName != null && fieldName.Length > 1)
             {
-                string propertyName = UnderscoreToCamelcase(fieldName, keepUnderscores);
-                string cleanTableName = UnderscoreToCamelcase(tableName, keepUnderscores);
-                string classTableName = GetClassName(tableName);
+                var propertyName = UnderscoreToCamelcase(fieldName, keepUnderscores);
+                var cleanTableName = UnderscoreToCamelcase(tableName, keepUnderscores);
+                var classTableName = GetClassName(tableName);
 
                 if (propertyName.EndsWith("TypeCode"))
                 {
@@ -984,7 +984,7 @@ namespace MetX.Pipelines
         {
             if (fieldName != null && fieldName.Length > 1)
             {
-                string propertyName = UnderscoreToCamelcase(fieldName);
+                var propertyName = UnderscoreToCamelcase(fieldName);
                 if (propertyName.EndsWith("TypeCode"))
                 {
                     propertyName = propertyName.Substring(0, propertyName.Length - 4);
@@ -1089,7 +1089,7 @@ namespace MetX.Pipelines
 
                 while (toConvert.IndexOf("_", StringComparison.Ordinal) > -1)
                 {
-                    string af = toConvert.TokensAfter(1, "_");
+                    var af = toConvert.TokensAfter(1, "_");
                     if (af.Length > 0)
                     {
                         af = af[0].ToString().ToUpper() + af.Substring(1);
@@ -1125,7 +1125,7 @@ namespace MetX.Pipelines
         {
             if (target?.OwnerDocument != null)
             {
-                XmlAttribute ret = target.OwnerDocument.CreateAttribute(attributeName);
+                var ret = target.OwnerDocument.CreateAttribute(attributeName);
                 ret.Value = attributeValue;
                 target.Attributes.Append(ret);
             }
@@ -1144,20 +1144,20 @@ namespace MetX.Pipelines
                 return;
             }
             // ReSharper disable once PossibleNullReferenceException
-            XmlElement x = target.OwnerDocument.CreateElement(elementName);
+            var x = target.OwnerDocument.CreateElement(elementName);
             AddAttribute(x, attributeName, attributeValue);
             target.AppendChild(x);
         }
 
         private bool IsAuditField(string colName)
         {
-            bool bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
+            var bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
             return bOut;
         }
 
         private bool IsExcluded(XmlElement toCheck, string toFind)
         {
-            bool ret = false;
+            var ret = false;
             if (toCheck != null)
             {
                 if (toFind.EndsWith("*"))
@@ -1205,7 +1205,7 @@ namespace MetX.Pipelines
                 return true;
             }
 
-            XmlNodeList xmlNodeList = toCheck.SelectNodes("Include");
+            var xmlNodeList = toCheck.SelectNodes("Include");
             if (xmlNodeList == null)
             {
                 return false;
@@ -1213,11 +1213,11 @@ namespace MetX.Pipelines
 
             foreach (XmlElement includer in xmlNodeList)
             {
-                XmlAttribute name = includer.Attributes["Name"];
+                var name = includer.Attributes["Name"];
                 Regex regex;
                 if (!_mPatterns.ContainsKey(name.Value))
                 {
-                    string pattern = Worker.ConvertWildcardToRegex(name.Value);
+                    var pattern = Worker.ConvertWildcardToRegex(name.Value);
                     regex = new Regex(pattern, RegexOptions.Compiled);
                     _mPatterns.Add(name.Value, regex);
                 }

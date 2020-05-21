@@ -25,15 +25,15 @@ namespace MetX.Library
                     return new int[0];
                 }
 
-                int[] ret = new int[EntryArea.SelectedIndices.Count];
-                for (int index = 0; index < EntryArea.SelectedIndices.Count; index++)
+                var ret = new int[EntryArea.SelectedIndices.Count];
+                for (var index = 0; index < EntryArea.SelectedIndices.Count; index++)
                 {
                     if (index == -1)
                     {
                         return null;
                     }
 
-                    int item = EntryArea.SelectedIndices[index];
+                    var item = EntryArea.SelectedIndices[index];
                     ret[index] = item;
                 }
 
@@ -62,14 +62,14 @@ namespace MetX.Library
                 return;
             }
 
-            foreach (string choice in Items)
+            foreach (var choice in Items)
             {
                 EntryArea.Items.Add(choice);
             }
 
             if ((DefaultValue != null) && (DefaultValue.Length > 0))
             {
-                foreach (int index in DefaultValue)
+                foreach (var index in DefaultValue)
                 {
                     if ((index >= 0) && (index < Items.Length))
                     {

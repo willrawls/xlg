@@ -1,7 +1,7 @@
+// ReSharper disable UnusedParameter.Local
 namespace MetX.Controls
 {
     using System;
-    using System.CodeDom.Compiler;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
@@ -46,8 +46,8 @@ namespace MetX.Controls
                     return string.Empty;
                 }
 
-                string[] lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                string linePart = lines[_textArea.Caret.Line].Substring(0, _textArea.Caret.Column).LastToken();
+                var lines = ScriptEditor.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                var linePart = lines[_textArea.Caret.Line].Substring(0, _textArea.Caret.Column).LastToken();
                 int i;
                 for (i = linePart.Length - 1; i >= 0; i--)
                 {
@@ -71,7 +71,7 @@ namespace MetX.Controls
             get
             {
                 if ((Text.Length == 0) || (_textArea.Caret.Column == 0)) return string.Empty;
-                string line = Text.TokenAt(
+                var line = Text.TokenAt(
                     _textArea.Caret.Line,
                     Environment.NewLine,
                     StringComparison.InvariantCulture);
@@ -82,7 +82,7 @@ namespace MetX.Controls
 
         public static string GetLastKnownPath()
         {
-            bool openedKey = false;
+            var openedKey = false;
             if (AppDataRegistry == null)
             {
                 AppDataRegistry = Application.UserAppDataRegistry;
@@ -94,7 +94,7 @@ namespace MetX.Controls
                 return null;
             }
 
-            string lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
+            var lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
 
             if (!openedKey || (AppDataRegistry == null))
             {
@@ -116,7 +116,7 @@ namespace MetX.Controls
                 }
 
                 UpdateScriptFromForm();
-                string source = CurrentScript.ToCSharp(independent);
+                var source = CurrentScript.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(source, true);
@@ -142,18 +142,18 @@ namespace MetX.Controls
                 return null;
             }
 
-            string source = CurrentScript.ToCSharp(true);
-            List<Assembly> additionalReferences = new List<Assembly>()
+            var source = CurrentScript.ToCSharp(true);
+            var additionalReferences = new List<Assembly>()
                                                       {
                                                           Assembly.GetExecutingAssembly(),
                                                       };
-            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
+            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
 
             if (compilerResults.Errors.Count <= 0)
             {
-                Assembly assembly = compilerResults.CompiledAssembly;
+                var assembly = compilerResults.CompiledAssembly;
 
-                string parentDestination = CurrentScript.DestinationFilePath.TokensBeforeLast(@"\");
+                var parentDestination = CurrentScript.DestinationFilePath.TokensBeforeLast(@"\");
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(CurrentScript.InputFilePath)
@@ -177,13 +177,13 @@ namespace MetX.Controls
                     return assembly.Location;
                 }
 
-                string metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
+                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
 
                 parentDestination = Path.Combine(parentDestination, "bin");
-                string metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+                var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
 
-                string exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
-                string csFilePath = exeFilePath.Replace(".exe", ".cs");
+                var exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
+                var csFilePath = exeFilePath.Replace(".exe", ".cs");
 
                 Directory.CreateDirectory(parentDestination);
 
@@ -207,13 +207,13 @@ namespace MetX.Controls
                 return exeFilePath;
             }
 
-            StringBuilder sb =
+            var sb =
                 new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
                                   + Environment.NewLine);
-            List<string> lines = new List<string>(source.LineList());
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            var lines = new List<string>(source.LineList());
+            for (var index = 0; index < compilerResults.Errors.Count; index++)
             {
-                string error = compilerResults.Errors[index].ToString();
+                var error = compilerResults.Errors[index].ToString();
                 if (error.Contains("("))
                 {
                     error = error.TokensAfterFirst("(").Replace(")", string.Empty);
@@ -250,18 +250,18 @@ namespace MetX.Controls
                 return null;
             }
 
-            string source = CurrentScript.ToCSharp(false);
-            List<Assembly> additionalReferences = new List<Assembly>()
+            var source = CurrentScript.ToCSharp(false);
+            var additionalReferences = new List<Assembly>()
                                                       {
                                                           Assembly.GetExecutingAssembly(),
                                                       };
 
-            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
+            var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
 
             if (compilerResults.Errors.Count <= 0)
             {
-                Assembly assembly = compilerResults.CompiledAssembly;
-                BaseLineProcessor quickScriptProcessor =
+                var assembly = compilerResults.CompiledAssembly;
+                var quickScriptProcessor =
                     assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
 
                 if (quickScriptProcessor != null)
@@ -273,10 +273,10 @@ namespace MetX.Controls
                 return quickScriptProcessor;
             }
 
-            StringBuilder sb =
+            var sb =
                 new StringBuilder("Compilation failure. Errors found include:"
                                   + Environment.NewLine + Environment.NewLine);
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            for (var index = 0; index < compilerResults.Errors.Count; index++)
             {
                 sb.AppendLine((index + 1) + ": Line " + compilerResults.Errors[index]
                     .ToString()
@@ -293,7 +293,7 @@ namespace MetX.Controls
 
         public void OpenNewOutput(XlgQuickScript script, string title, string output)
         {
-            QuickScriptOutput quickScriptOutput = new QuickScriptOutput(script, this, title, output);
+            var quickScriptOutput = new QuickScriptOutput(script, this, title, output);
             OutputWindows.Add(quickScriptOutput);
             quickScriptOutput.Show(this);
             quickScriptOutput.BringToFront();
@@ -303,7 +303,7 @@ namespace MetX.Controls
         {
             if ((items != null) && (items.Length > 0))
             {
-                CompletionDataProvider completionDataProvider = new CompletionDataProvider(items);
+                var completionDataProvider = new CompletionDataProvider(items);
                 completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
                 if (completionWindow != null)
                 {
@@ -338,7 +338,7 @@ namespace MetX.Controls
             _textArea.KeyEventHandler += ProcessKey;
             _textArea.KeyUp += TextAreaOnKeyUp;
 
-            FileSyntaxModeProvider fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
+            var fsmProvider = new FileSyntaxModeProvider(AppDomain.CurrentDomain.BaseDirectory);
             HighlightingManager.Manager.AddSyntaxModeFileProvider(fsmProvider); // Attach to the text editor.
             ScriptEditor.SetHighlighting("QuickScript"); // Activate the highlighting, use the name from the SyntaxDefinition node.
             ScriptEditor.Refresh();
@@ -522,7 +522,7 @@ namespace MetX.Controls
                 return;
             }
 
-            bool openedKey = false;
+            var openedKey = false;
             if (AppDataRegistry == null)
             {
                 AppDataRegistry = Application.UserAppDataRegistry;
@@ -561,7 +561,7 @@ namespace MetX.Controls
                 }
 
                 UpdateScriptFromForm();
-                string location = GenerateIndependentQuickScriptExe(CurrentScript.Template);
+                var location = GenerateIndependentQuickScriptExe(CurrentScript.Template);
                 if (location.IsEmpty())
                 {
                     return;

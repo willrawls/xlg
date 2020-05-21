@@ -1,7 +1,7 @@
-﻿namespace MetX.Controls
+﻿#pragma warning disable 414
+namespace MetX.Controls
 {
     using System;
-    using System.CodeDom.Compiler;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -19,7 +19,7 @@
     {
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
-        protected static bool ScriptIsRunning;
+        private static bool ScriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
         public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
@@ -31,18 +31,18 @@
                 return null;
             }
 
-            string source = scriptToRun.ToCSharp(false);
+            var source = scriptToRun.ToCSharp(false);
 
-            List<Assembly> additionalReferences = new List<Assembly> {
+            var additionalReferences = new List<Assembly> {
                                                           Assembly.GetAssembly(typeof(ChooseOrderDialog))
                                                       };
 
-            CompilerResults compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
+            var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
 
             if (compilerResults.Errors.Count <= 0)
             {
-                Assembly assembly = compilerResults.CompiledAssembly;
-                BaseLineProcessor quickScriptProcessor =
+                var assembly = compilerResults.CompiledAssembly;
+                var quickScriptProcessor =
                     assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
 
                 if (quickScriptProcessor != null)
@@ -54,10 +54,10 @@
                 return quickScriptProcessor;
             }
 
-            StringBuilder sb =
+            var sb =
                 new StringBuilder("Compilation failure. Errors found include:"
                                   + Environment.NewLine + Environment.NewLine);
-            for (int index = 0; index < compilerResults.Errors.Count; index++)
+            for (var index = 0; index < compilerResults.Errors.Count; index++)
             {
                 sb.AppendLine((index + 1) + ": Line "
                               + compilerResults.Errors[index]
@@ -75,7 +75,7 @@
 
         public static string GetLastKnownPath()
         {
-            bool openedKey = false;
+            var openedKey = false;
             if (AppDataRegistry == null)
             {
                 AppDataRegistry = Application.UserAppDataRegistry;
@@ -87,7 +87,7 @@
                 return null;
             }
 
-            string lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
+            var lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
 
             if (!openedKey || (AppDataRegistry == null))
             {
@@ -101,7 +101,7 @@
 
         public static void OpenNewOutput(IRunQuickScript caller, XlgQuickScript script, string title, string output)
         {
-            QuickScriptOutput quickScriptOutput = new QuickScriptOutput(script, caller, title, output);
+            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output);
             OutputWindows.Add(quickScriptOutput);
             quickScriptOutput.Show(caller.Window);
             quickScriptOutput.BringToFront();
@@ -115,7 +115,7 @@
                 return;
             }
 
-            bool lockTaken = false;
+            var lockTaken = false;
             Monitor.TryEnter(MScriptSyncRoot, ref lockTaken);
             if (!lockTaken) return;
 
@@ -137,7 +137,7 @@
                     }
                 }
 
-                RunResult runResult = Run(caller, ToolWindow.Context, scriptToRun);
+                var runResult = Run(caller, ToolWindow.Context, scriptToRun);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
                 if (runResult.Error != null)
@@ -183,7 +183,7 @@
                             break;
 
                         case QuickScriptDestination.File:
-                            runResult.QuickScriptProcessor.Output?.Finish();
+                            runResult.QuickScriptProcessor.Output?.Finish(false);
                             runResult.QuickScriptProcessor.Output = null;
                             QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
 
@@ -209,7 +209,7 @@
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun)
         {
-            RunResult result = new RunResult
+            var result = new RunResult
             {
                 QuickScriptProcessor = GenerateQuickScriptLineProcessor(@base, scriptToRun)
             };
@@ -219,7 +219,7 @@
                 return result;
             }
 
-            bool? inputResult = result.QuickScriptProcessor.ReadInput(scriptToRun.Input);
+            var inputResult = result.QuickScriptProcessor.ReadInput(scriptToRun.Input);
             switch (inputResult)
             {
                 case null:
@@ -259,10 +259,10 @@
             }
 
             // Process each line
-            int index = 0;
+            var index = 0;
             do
             {
-                string currLine = result.QuickScriptProcessor.InputStream.ReadLine();
+                var currLine = result.QuickScriptProcessor.InputStream.ReadLine();
                 if (string.IsNullOrEmpty(currLine))
                 {
                     continue;
@@ -286,7 +286,7 @@
                 }
                 catch (Exception ex)
                 {
-                    DialogResult answer =
+                    var answer =
                         MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
                                         currLine + Environment.NewLine +
                                         Environment.NewLine +

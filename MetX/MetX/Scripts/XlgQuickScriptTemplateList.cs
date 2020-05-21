@@ -16,7 +16,7 @@ namespace MetX.Scripts
             TemplatesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
             if (Directory.Exists(TemplatesPath))
             {
-                foreach (string directory in Directory.GetDirectories(TemplatesPath))
+                foreach (var directory in Directory.GetDirectories(TemplatesPath))
                 {
                     Add(new XlgQuickScriptTemplate(directory));
                 }
@@ -28,7 +28,7 @@ namespace MetX.Scripts
             get
             {
                 name = name.ToLower();
-                foreach (XlgQuickScriptTemplate template in this)
+                foreach (var template in this)
                 {
                     if (template.Name.ToLower() == name) return template;
                 }

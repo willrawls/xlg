@@ -59,7 +59,7 @@
                     return true;
 
                 case "clipboard":
-                    byte[] bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
+                    var bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
                     InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
@@ -89,13 +89,13 @@
                         case ".xls":
                         case ".xlsx":
                             string sideFile;
-                            FileInfo inputFile = new FileInfo(InputFilePath);
+                            var inputFile = new FileInfo(InputFilePath);
                             InputFilePath = inputFile.FullName;
-                            Type excelType = Type.GetTypeFromProgID("Excel.Application");
+                            var excelType = Type.GetTypeFromProgID("Excel.Application");
                             dynamic excel = Activator.CreateInstance(excelType);
                             try
                             {
-                                dynamic workbook = excel.Workbooks.Open(InputFilePath);
+                                var workbook = excel.Workbooks.Open(InputFilePath);
                                 sideFile = InputFilePath
                                     .Replace(".xlsx", ".xls")
                                     .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
@@ -105,10 +105,10 @@
                                 Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile + "*.txt");
 
                                 // 20 = text (tab delimited), 6 = csv
-                                int sheetNumber = 0;
-                                foreach (dynamic worksheet in workbook.Sheets)
+                                var sheetNumber = 0;
+                                foreach (var worksheet in workbook.Sheets)
                                 {
-                                    string worksheetFile = sideFile + "_" + (++sheetNumber).ToString("000") + ".txt";
+                                    var worksheetFile = sideFile + "_" + (++sheetNumber).ToString("000") + ".txt";
                                     Console.WriteLine("Saving Worksheet " + sheetNumber + " as: " + worksheetFile);
                                     worksheet.SaveAs(worksheetFile, 20, Type.Missing, Type.Missing, false, false, 1);
                                     InputFiles.Add(new FileInfo(worksheetFile));
@@ -190,7 +190,7 @@
                     throw new ArgumentOutOfRangeException("destination", destination, null);
             }
 
-            if (Output.UnderlyingStream == null || Output.Target == null)
+            if (!Output.IsOpenAndReady)
             {
                 MessageBox.Show("Couldn't create/open the output file");
                 return false;

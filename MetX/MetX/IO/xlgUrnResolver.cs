@@ -22,7 +22,7 @@ namespace MetX.IO
         }
 
         /// <summary>Basic constructor</summary>
-        public XlgUrnResolver() : base()
+        public XlgUrnResolver()
         {
             _xur = new XmlUrlResolver();
             FileEntitys = new List<string>();
@@ -43,7 +43,7 @@ namespace MetX.IO
         {
             if (absoluteUri.AbsoluteUri.StartsWith("file:"))
             {
-                string filename = absoluteUri.AbsoluteUri.Replace("file:///", string.Empty).Replace("/", "\\");
+                var filename = absoluteUri.AbsoluteUri.Replace("file:///", string.Empty).Replace("/", "\\");
                 if (!FileEntitys.Contains(filename))
                     FileEntitys.Add(filename);
             }

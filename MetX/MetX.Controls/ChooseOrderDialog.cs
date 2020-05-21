@@ -28,9 +28,9 @@ namespace MetX.Controls
                     return new string[0];
                 }
 
-                object[] selection = EntryArea.CurrentSelection;
-                string[] ret = new string[EntryArea.SelectedIndices.Count];
-                for (int index = 0; index < selection.Length; index++)
+                var selection = EntryArea.CurrentSelection;
+                var ret = new string[EntryArea.SelectedIndices.Count];
+                for (var index = 0; index < selection.Length; index++)
                 {
                     ret[index] = selection[index].AsString();
                 }
@@ -46,7 +46,7 @@ namespace MetX.Controls
             string title = "ORDER LIST")
         {
             Items = choices;
-            string[] result = Ask(promptText, title, selection, 400, 500);
+            var result = Ask(promptText, title, selection, 400, 500);
             return result;
         }
 

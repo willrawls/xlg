@@ -1,12 +1,12 @@
 ﻿using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security;
+using System.Text;
 
 namespace MetX.Library
 {
-    using System;
-    using System.IO;
-    using System.Security;
-    using System.Text;
-
     /// <summary>
     /// Duck type (ish) interface similar to StringBuilder only write operations go directly to a stream.
     /// While several of the functions from StringBuilder are supported, some are not implemented
@@ -17,7 +17,36 @@ namespace MetX.Library
         /// <summary>
         /// Set this to true and a call to Finish() or during disposal will automatically close <see cref="Target"/>.
         /// </summary>
-        public bool CloseOnFinish = true;
+        public bool CloseOnFinish { get; set; } = true;
+
+        /// <summary>
+        /// The path and filename being written to. NULL if a stream was passed in.
+        /// </summary>
+        public string FilePath { get; set; }
+
+        /// <summary>
+        /// The number of bytes written so far. Note: This may not be the same as the length of the file.
+        /// </summary>
+        public long Length { get; set; }
+
+        /// <summary>
+        /// The wrapper to targetStream
+        /// </summary>
+        public TextWriter Target { get; set; }
+
+        /// <summary>
+        /// The stream that is ultimately written to
+        /// </summary>
+        public Stream TargetStream { get; set; } 
+
+        /// <summary>
+        /// The StringBuilder being written to (for that mode)
+        /// </summary>
+        public StringBuilder UnderlyingStringBuilder { get; set; }
+
+        public int FinishCount { get; set; }
+
+        public bool IsOpenAndReady => TargetStream == null || Target == null;
 
         /// <summary>
         /// Attaches a new file stream to filePath (overwriting file if there).
@@ -35,29 +64,57 @@ namespace MetX.Library
         /// <exception cref="ArgumentOutOfRangeException">mode or access specified an invalid value. </exception>
         public StreamBuilder(string filePath, bool append = false)
         {
-            if (filePath.IsEmpty())
-            {
-                throw new ArgumentNullException("filePath");
-            }
-
-            FilePath = filePath;
-            int retries = 10;
-            while (--retries < 10 && (UnderlyingStream == null || Target == null))
-            {
-                UnderlyingStream = File.Open(FilePath, append ? FileMode.Append : FileMode.Create, FileAccess.Write);
-                try
-                {
-                    if(UnderlyingStream != null)
-                        Target = new StreamWriter(UnderlyingStream);
-                }
-                catch (Exception e)
-                {
-                    // Ignore, we'll try again
-                }
-                Thread.Sleep(100);
-            }
+            SwitchTo(filePath, append);
         }
 
+        public StreamBuilder()
+        {
+        }
+
+        public bool SwitchTo(string filePath, bool append = false)
+        {
+            if (filePath.IsEmpty())
+                throw new ArgumentNullException(nameof(filePath));
+
+            filePath = filePath.Replace(@"/", @"\");
+            var folderPath = filePath.TokensBeforeLast(@"\");
+
+            if (!folderPath.IsEmpty() && !Directory.Exists($"{folderPath}"))
+                Directory.CreateDirectory(folderPath);
+
+            FilePath = filePath;
+            var retries = 10;
+            while (--retries < 10 && (TargetStream == null || Target == null))
+            {
+                Finish(false);
+                try
+                {
+                    if (!append && File.Exists(FilePath))
+                    {
+                        File.SetAttributes(FilePath, FileAttributes.Normal);
+                        File.Delete(FilePath);
+                    }
+                    
+                    var fileStream = new FileStream(FilePath, append ? FileMode.Append : FileMode.Create);
+                    TargetStream = fileStream;
+
+                    if (TargetStream == null)
+                        return false;
+                    Target = new StreamWriter(TargetStream);
+                }
+                catch (Exception ex)
+                {
+                    Thread.Sleep(100);
+                }
+            }
+
+            if (TargetStream == null || Target == null)
+            {
+                throw new Exception($"StreamBuilder.SwitchTo was unable to open {filePath}");
+            }
+            return true;
+        }
+/*
         /// <summary>
         /// Attaches to an existing TextWriter (or StreamWriter)
         /// </summary>
@@ -72,25 +129,24 @@ namespace MetX.Library
                 throw new ArgumentException("You must supply a writable stream", "underlyingStream");
 
             Target = textWriter;
-            UnderlyingStream = underlyingStream;
+            TargetStream = underlyingStream;
         }
 
+*/
         /// <summary>
         /// Attaches to an existing TextWriter (or StreamWriter)
         /// </summary>
         /// <param name="textWriter"></param>
         /// <param name="underlyingStream"></param>
-        /// <exception cref="ArgumentException"><paramref name="textWriter" /> is null or not writable. </exception>
         public StreamBuilder(StringBuilder underlyingStringBuilder)
         {
             if (underlyingStringBuilder == null)
                 throw new ArgumentException("StringBuilder is required", "underlyingStringBuilder");
 
-            UnderlyingStream = null;
             UnderlyingStringBuilder = underlyingStringBuilder;
             Target = new StringWriter(underlyingStringBuilder);
         }
-
+/*
         /// <summary>
         /// Attaches to an existing Stream.
         /// </summary>
@@ -102,35 +158,13 @@ namespace MetX.Library
             if ((stream == null) || !stream.CanWrite)
                 throw new ArgumentException("You must supply a writable stream", "stream");
             Target = new StreamWriter(stream);
-            UnderlyingStream = stream;
+            TargetStream = stream;
         }
-
+*/
         ~StreamBuilder()
         {
-            Finish();
+            Finish(false);
         }
-
-        /// <summary>
-        /// The path and filename being written to. NULL if a stream was passed in.
-        /// </summary>
-        public string FilePath { get; private set; }
-
-        /// <summary>
-        /// The number of bytes written so far. Note: This may not be the same as the length of the file.
-        /// </summary>
-        public long Length { get; private set; }
-
-        /// <summary>
-        /// The stream stream to write to
-        /// </summary>
-        public TextWriter Target { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public Stream UnderlyingStream { get; set; }
-
-        public StringBuilder UnderlyingStringBuilder { get; set; }
 
         /// <summary>
         /// Appends a string to the stream
@@ -166,7 +200,7 @@ namespace MetX.Library
                 return;
             }
 
-            string value = string.Format(format, args);
+            var value = string.Format(format, args);
             Target.Write(value);
             Length += value.Length;
             Target.Flush();
@@ -180,15 +214,15 @@ namespace MetX.Library
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void AppendLine(string value)
         {
-            if (value.IsNotEmpty())
+            if (value.IsNotEmpty() && Target != null)
             {
-                Target.Write(value);
+                Target?.Write(value);
                 Length += value.Length;
             }
 
-            Target.Write(Environment.NewLine);
+            Target?.Write(Environment.NewLine);
             Length += Environment.NewLine.Length;
-            Target.Flush();
+            Target?.Flush();
         }
 
         /// <summary>
@@ -207,31 +241,25 @@ namespace MetX.Library
         /// Flushes and closes the stream.
         /// NOTE: Occurs automatically when the object is disposed.
         /// </summary>
-        public void Finish()
+        public void Finish(bool forceStayOpen)
         {
+            FinishCount++;
             try
             {
                 Target?.Flush();
-
-                if (!CloseOnFinish) return;
-
+                if (forceStayOpen || !CloseOnFinish) return;
                 Target?.Close();
-
-                if (UnderlyingStream == null) return;
-                UnderlyingStream.Close();
-                UnderlyingStream.Dispose();
-                UnderlyingStream = null;
             }
             catch (ObjectDisposedException odex)
             {
-                UnderlyingStream?.Close();
-
-                // Safe to ignore
+                TargetStream?.Close();
             }
             finally
             {
+                Target?.Dispose();
                 Target = null;
-                UnderlyingStream = null;
+                TargetStream?.Dispose();
+                TargetStream = null;
                 UnderlyingStringBuilder = null;
             }
         }
@@ -242,15 +270,15 @@ namespace MetX.Library
         /// <param name="value"></param>
         /// <param name="count"></param>
         /// <param name="returnToOriginalPosition">True to restore the seek location after writing.</param>
-        /// <exception cref="InvalidOperationException">UnderlyingStream must not be null</exception>
+        /// <exception cref="InvalidOperationException">TargetStream must not be null</exception>
         /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <exception cref="IOException">An I/O error occurs. </exception>
         /// <exception cref="NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output. </exception>
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed. </exception>
         public void Overwrite(int index, string value, int count = -1, bool returnToOriginalPosition = false)
         {
-            if ((UnderlyingStream == null) || !UnderlyingStream.CanSeek)
-                throw new InvalidOperationException("UnderlyingStream must not be null and seekable.");
+            if ((TargetStream == null) || !TargetStream.CanSeek)
+                throw new InvalidOperationException("TargetStream must not be null and seekable.");
             if (index < 0)
                 throw new ArgumentOutOfRangeException("index", "Can't seek to a negative index");
             if (value == null)
@@ -258,8 +286,8 @@ namespace MetX.Library
             if (count == 0)
                 return;
 
-            long position = UnderlyingStream.Position;
-            UnderlyingStream.Seek(index, SeekOrigin.Begin);
+            var position = TargetStream.Position;
+            TargetStream.Seek(index, SeekOrigin.Begin);
 
             if ((count == -1) || (count >= value.Length))
             {
@@ -272,7 +300,7 @@ namespace MetX.Library
 
             if (returnToOriginalPosition)
             {
-                UnderlyingStream.Seek(position, SeekOrigin.Begin);
+                TargetStream.Seek(position, SeekOrigin.Begin);
             }
         }
 
@@ -295,7 +323,7 @@ namespace MetX.Library
                     Target.Close();
                 }
 
-                UnderlyingStream?.Close();
+                TargetStream?.Close();
 
                 if (FilePath.IsEmpty())
                 {
@@ -308,8 +336,8 @@ namespace MetX.Library
             }
             finally
             {
-                Target = null;
-                UnderlyingStream = null;
+                Target?.Dispose();
+                TargetStream?.Dispose();
             }
         }
     }

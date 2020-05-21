@@ -16,7 +16,7 @@ namespace MetX.Data
 
         public override string ToString()
         {
-            StringBuilder ret = new StringBuilder();
+            var ret = new StringBuilder();
             while (Reader.Read())
                 ret.Append(Reader[0]);
             Reader.Close();

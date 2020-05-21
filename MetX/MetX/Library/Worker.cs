@@ -12,7 +12,7 @@ namespace MetX.Library
 	{
 	    public static string ConvertWildcardToRegex(string pattern)
 	    {
-            StringBuilder builder = new StringBuilder("^");
+            var builder = new StringBuilder("^");
             pattern = pattern
                 .Replace(".", @"\.")
                 .Replace("*", ".*")
@@ -25,14 +25,14 @@ namespace MetX.Library
         public static string ConvertLikeToRegex(string pattern)
         {
             // Turn "off" all regular expression related syntax in the pattern string. 
-            StringBuilder builder = new StringBuilder(Regex.Escape(pattern));
+            var builder = new StringBuilder(Regex.Escape(pattern));
 
             pattern = pattern.Replace("*", "%").Replace(".", "_");
 
             // these are needed because the .*? replacement below at the begining or end of the string is not
             // accounting for cases such as LIKE '*abc' or LIKE 'abc*'
-            bool startsWith = pattern.StartsWith("%") && !pattern.EndsWith("%");
-            bool endsWith = !pattern.StartsWith("%") && pattern.EndsWith("%");
+            var startsWith = pattern.StartsWith("%") && !pattern.EndsWith("%");
+            var endsWith = !pattern.StartsWith("%") && pattern.EndsWith("%");
 
             // this is a little tricky
             // ends with in like is '%abc'
@@ -74,7 +74,7 @@ namespace MetX.Library
         {
             if (string.IsNullOrEmpty(input))
                 return false;
-            foreach (char c in input)
+            foreach (var c in input)
                 if (!char.IsNumber(c)) return false;
             return true;
         }
@@ -83,7 +83,7 @@ namespace MetX.Library
         {
             if (!string.IsNullOrEmpty(sEmail) && sEmail.Contains("@"))
             {
-                Regex email = (Regex)(HttpContext.Current != null ? HttpContext.Current.Cache["Regex.Email"] : new Regex(ConfigurationManager.AppSettings["Regex.Email"]));
+                var email = (Regex)(HttpContext.Current != null ? HttpContext.Current.Cache["Regex.Email"] : new Regex(ConfigurationManager.AppSettings["Regex.Email"]));
                 if (email == null && HttpContext.Current != null)
                 {
                     email = new Regex(ConfigurationManager.AppSettings["Regex.Email"], RegexOptions.Compiled);
@@ -113,7 +113,7 @@ namespace MetX.Library
 
         public static string Value(System.Web.UI.StateBag state, string key)
         {
-            string ret = string.Empty;
+            var ret = string.Empty;
             if (state != null)
                 try { ret = state[key].ToString(); }
                 catch
@@ -125,7 +125,7 @@ namespace MetX.Library
 
         public static string Value(System.Web.SessionState.HttpSessionState state, string key)
         {
-            string ret = string.Empty;
+            var ret = string.Empty;
             if (state != null)
                 try { ret = state[key].ToString(); }
                 catch
@@ -156,7 +156,7 @@ namespace MetX.Library
 	            return ((string)value)[0];
 	        if (value is char)
 	            return (char)value;
-	        string ret = AsString(value);
+	        var ret = AsString(value);
 	        if (ret.Length == 0)
 	            return new char();
 	        return ret[0];
@@ -168,7 +168,7 @@ namespace MetX.Library
         public static double NzDouble(object value)
         {
             double ret = 0;
-            string text = AsString(value);
+            var text = AsString(value);
             if (text.Length == 0)
                 ret = 0;
             else 
@@ -198,21 +198,21 @@ namespace MetX.Library
 		/// <returns>The extracted proper case name</returns>
 		public static string EmailToName(string sOriginalText, string defaultName)
 		{
-			string text = (sOriginalText + "").Trim();
+			var text = (sOriginalText + "").Trim();
 			string returnValue;
 
 			if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
 				text = text.Split('@')[0];
 
 			text = text.Replace(".", " ");
-			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ") + 1,1).ToUpper() + text.Substring(text.IndexOf(" ") + 2).ToLower();
+			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1,1).ToUpper() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
 
 			if( text.Length == 0 )
 				returnValue = defaultName;
 			else
 				returnValue = text;
 
-			return Microsoft.VisualBasic.Strings.StrConv(returnValue, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
+			return Microsoft.VisualBasic.Strings.StrConv(returnValue, Microsoft.VisualBasic.VbStrConv.ProperCase);
 		}
 	}
 }

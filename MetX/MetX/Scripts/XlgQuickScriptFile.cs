@@ -34,17 +34,17 @@ namespace MetX.Scripts
                     ".xlgq"
                     );
             }
-            StringBuilder content = new StringBuilder();
-            foreach (XlgQuickScript script in this)
+            var content = new StringBuilder();
+            foreach (var script in this)
             {
                 content.AppendLine(script.ToFileFormat(script.Id == Default.Id));
             }
             File.WriteAllText(FilePath, content.ToString());
-            string[] history = Directory.GetFiles(FilePath.TokensBeforeLast(@"\"), "*_* *.xlgq");
+            var history = Directory.GetFiles(FilePath.TokensBeforeLast(@"\"), "*_* *.xlgq");
             if (history.Length > 4)
             {
                 Array.Sort(history);
-                for (int i = 4; i < history.Length; i++)
+                for (var i = 4; i < history.Length; i++)
                 {
                     File.SetAttributes(history[i], FileAttributes.Normal);
                     try
@@ -60,18 +60,18 @@ namespace MetX.Scripts
 
         public static XlgQuickScriptFile Load(string filePath)
         {
-            XlgQuickScriptFile ret = new XlgQuickScriptFile(filePath);
+            var ret = new XlgQuickScriptFile(filePath);
             if (!File.Exists(ret.FilePath))
             {
                 return ret;
             }
-            string[] rawScripts = File
+            var rawScripts = File
                 .ReadAllText(ret.FilePath)
                 .Split(new[] { "~~QuickScriptName:" }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string rawScript in rawScripts)
+            foreach (var rawScript in rawScripts)
             {
-                XlgQuickScript script = new XlgQuickScript();
-                bool isDefault = script.Load(rawScript);
+                var script = new XlgQuickScript();
+                var isDefault = script.Load(rawScript);
                 ret.Add(script);
                 if (isDefault) ret.Default = script;
             }

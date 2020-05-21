@@ -14,7 +14,7 @@ namespace MetX.Controls
 		public CompletionDataProvider(IList<string> items)
 		{
 		    _mCompletionData = new ICompletionData[items.Count];
-		    for (int index = 0; index < items.Count; index++) 
+		    for (var index = 0; index < items.Count; index++) 
                 _mCompletionData[index] = new DefaultCompletionData(items[index], 0);
 		}
 

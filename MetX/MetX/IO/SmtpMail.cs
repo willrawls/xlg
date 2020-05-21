@@ -34,8 +34,8 @@ namespace MetX.IO
 		/// <returns>True if the email was sent</returns>
 		public static bool Send(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
-			bool ret = false;
-			MailMessage mm = new MailMessage();
+			var ret = false;
+			var mm = new MailMessage();
 			mm.From = new MailAddress(fromEmail, fromName);
 			mm.To.Add(new MailAddress(toEmail, toName));
 			mm.Subject = subject;
@@ -64,9 +64,9 @@ namespace MetX.IO
 		/// <returns>Returns true if the email was sent.</returns>
 		public static bool Send(MailMessage message)
 		{
-			IPHostEntry lipa = Dns.GetHostEntry(SmtpServer);
-			IPEndPoint target = new IPEndPoint(lipa.AddressList[0], 25);
-			Socket s= new Socket(target.AddressFamily, SocketType.Stream,ProtocolType.Tcp);
+			var lipa = Dns.GetHostEntry(SmtpServer);
+			var target = new IPEndPoint(lipa.AddressList[0], 25);
+			var s= new Socket(target.AddressFamily, SocketType.Stream,ProtocolType.Tcp);
 			s.Connect(target);
     			#region connect
 			if(!Check_Response(s, SmtpResponses.ConnectSuccess))
@@ -95,7 +95,7 @@ namespace MetX.IO
 			}
     			#endregion
     			#region Send RCPT commands (one for each recipient)
-			foreach (MailAddress to in message.To)
+			foreach (var to in message.To)
 			{
 				Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
 				if(!Check_Response(s, SmtpResponses.GenericSuccess))
@@ -109,7 +109,7 @@ namespace MetX.IO
     			#region Send RCPT commands (one for each recipient) - CC
 			if(message.CC.Count > 0)
 			{
-                foreach (MailAddress to in message.CC)
+                foreach (var to in message.CC)
 				{
 					Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
 					if(!Check_Response(s, SmtpResponses.GenericSuccess))
@@ -122,10 +122,10 @@ namespace MetX.IO
 			}
     			#endregion
     			#region Send the DATA command
-			StringBuilder header=new StringBuilder();
+			var header=new StringBuilder();
 			header.Append("From: " + message.From + "\r\n");
 			header.Append("To: ");
-            for (int i = 0; i < message.To.Count; i++)
+            for (var i = 0; i < message.To.Count; i++)
 			{
 				header.Append( i > 0 ? "," : "" );
                 header.Append(message.To[i]);
@@ -134,7 +134,7 @@ namespace MetX.IO
 			if(message.CC.Count > 0)
 			{
 				header.Append("Cc: ");
-                for (int i = 0; i < message.CC.Count; i++)
+                for (var i = 0; i < message.CC.Count; i++)
 				{
 					header.Append( i > 0 ? "," : "" );
                     header.Append(message.CC[i]);
@@ -146,7 +146,7 @@ namespace MetX.IO
 			header.Append("\r\n");
 			header.Append("Subject: " + message.Subject+ "\r\n");
 			header.Append( "X-Mailer: Narayan EMail v2\r\n" );
-			string msgBody = message.Body;
+			var msgBody = message.Body;
 			if(!msgBody.EndsWith("\r\n"))
 				msgBody+="\r\n";
 			if(message.Attachments.Count>0)
@@ -155,7 +155,7 @@ namespace MetX.IO
 				header.Append( "Content-Type: multipart/mixed; boundary=unique-boundary-1\r\n" );
 				header.Append("\r\n");
 				header.Append( "This is a multi-part message in MIME format.\r\n" );
-				StringBuilder sb = new StringBuilder();
+				var sb = new StringBuilder();
 				sb.Append("--unique-boundary-1\r\n");
 				sb.Append("Content-Type: text/plain\r\n");
 				sb.Append("Content-Transfer-Encoding: 7Bit\r\n");
@@ -165,25 +165,25 @@ namespace MetX.IO
     				
 				foreach(object o in message.Attachments)
 				{
-					Attachment a = o as Attachment;
+					var a = o as Attachment;
 					byte[] binaryData;
 					if(a!=null)
 					{
-						FileInfo f = new FileInfo(a.Name);
+						var f = new FileInfo(a.Name);
 						sb.Append("--unique-boundary-1\r\n");
 						sb.Append("Content-Type: application/octet-stream; file=" + f.Name + "\r\n");
 						sb.Append("Content-Transfer-Encoding: base64\r\n");
 						sb.Append("Content-Disposition: attachment; filename=" + f.Name + "\r\n");
 						sb.Append("\r\n");
-						FileStream fs = f.OpenRead();
+						var fs = f.OpenRead();
 						binaryData = new byte[fs.Length];
 						long bytesRead = fs.Read(binaryData, 0, (int)fs.Length);
 						fs.Close();
-						string base64String = Convert.ToBase64String(binaryData, 0,binaryData.Length);
+						var base64String = Convert.ToBase64String(binaryData, 0,binaryData.Length);
     						
-						for(int i=0; i< base64String.Length ; )
+						for(var i=0; i< base64String.Length ; )
 						{
-							int nextchunk=100;
+							var nextchunk=100;
 							if(base64String.Length - (i + nextchunk ) <0)
 								nextchunk = base64String.Length -i;
 							sb.Append(base64String.Substring(i, nextchunk));
@@ -233,7 +233,7 @@ namespace MetX.IO
 			//			sw.Close();
 			//			sw=null;
 			//			GC.Collect();
-			byte[] msgBytes = Encoding.ASCII.GetBytes(msg);
+			var msgBytes = Encoding.ASCII.GetBytes(msg);
 			s.Send(msgBytes , 0, msgBytes .Length, SocketFlags.None);
 		}
 		
@@ -241,7 +241,7 @@ namespace MetX.IO
 		{
 			string sResponse;
 			int response;
-			byte[] bytes = new byte[1024];
+			var bytes = new byte[1024];
 			//			Console.WriteLine("Waiting for {0}", response_expected);
 			while (s.Available==0)
 			{

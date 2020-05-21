@@ -24,7 +24,7 @@ namespace MetX.IO
         /// <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
         /// <param name="basePath">The relative base path for all themes</param>
         /// <param name="themePath">The relative path to the specific theme directory</param>
-        public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath, string themePath) : base()
+        public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath, string themePath)
         {
             this.Transformer = transformer;
             this.pathTrigger = pathTrigger;
@@ -39,7 +39,6 @@ namespace MetX.IO
         /// <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
         /// <param name="basePath">The relative base path for all themes</param>
         public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath)
-            : base()
         {
             this.Transformer = transformer;
             this.pathTrigger = pathTrigger;
@@ -51,7 +50,6 @@ namespace MetX.IO
         /// <param name="transformer">The xml class from your xlgHandler</param>
         /// <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
         public XlgThemeResolver(Xsl transformer, string themeName)
-            : base()
         {
             this.Transformer = transformer;
             this.ThemeName = themeName;
@@ -60,7 +58,6 @@ namespace MetX.IO
         /// <summary>Initializes the Theme Resolver</summary>
         /// <param name="transformer">The xml class from your xlgHandler</param>
         public XlgThemeResolver(Xsl transformer)
-            : base()
         {
             this.Transformer = transformer;
             ThemeName = "default";
@@ -93,8 +90,8 @@ namespace MetX.IO
         {
             if (absoluteUri.AbsoluteUri.Contains(pathTrigger) && ThemePath.Length > 0)
             {
-                string url = absoluteUri.AbsoluteUri.Replace(pathTrigger, ThemePath);
-                string filename = url.Replace("file:///", string.Empty).Replace("/", @"\");
+                var url = absoluteUri.AbsoluteUri.Replace(pathTrigger, ThemePath);
+                var filename = url.Replace("file:///", string.Empty).Replace("/", @"\");
                 if (!File.Exists(filename))
                     url = absoluteUri.AbsoluteUri;
                 return base.GetEntity(new Uri(url), role, ofObjectToReturn);

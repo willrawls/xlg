@@ -64,7 +64,7 @@ namespace MetX.Pipelines
 
         public XmlDocument LoadXlgDoc()
         {
-            XmlDocument ret = new XmlDocument();
+            var ret = new XmlDocument();
             ret.Load(OutputXml);
             return ret;
         }
@@ -92,11 +92,11 @@ namespace MetX.Pipelines
             }
         }
 
-        private void InternalOp(object @params) { OpParams o = (OpParams)@params; if ((int)o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
+        private void InternalOp(object @params) { var o = (OpParams)@params; if (o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
-        public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(1, gui)); }
+        public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, gui)); }
 
-        public void GenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(new WaitCallback(InternalOp), new OpParams(2, gui)); }
+        public void GenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, gui)); }
 
         public int Regenerate(System.Windows.Forms.Form gui)
         {
@@ -105,13 +105,13 @@ namespace MetX.Pipelines
             {
                 if (_mGenInProgress) return 0;
                 _mGenInProgress = true;
-                string originalDirectory = Environment.CurrentDirectory;
+                var originalDirectory = Environment.CurrentDirectory;
                 try
                 {
                     Environment.CurrentDirectory = OutputPath;
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
-                    CodeGenerator gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                    var gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
                     File.WriteAllText(OutputFilename, gen.RegenerateCode(LoadXlgDoc()));
                     LastRegenerated = DateTime.Now;
                     return 1;
@@ -136,15 +136,15 @@ namespace MetX.Pipelines
             {
                 if (_mGenInProgress) return 0;
                 _mGenInProgress = true;
-                string originalDirectory = Environment.CurrentDirectory;
+                var originalDirectory = Environment.CurrentDirectory;
                 try
                 {
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
                     DataService.Instance = DataService.GetDataServiceManually(ConnectionName, ConnectionString, ProviderName);
                     CodeGenerator gen = null;
-                    StringBuilder sb = null;
-                    string output = null;
+                    StringBuilder sb;
+                    string output;
                     Environment.CurrentDirectory = OutputPath;
                     switch (DataService.Instance.ProviderType)
                     {
@@ -158,7 +158,7 @@ namespace MetX.Pipelines
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
 
-                                string generatedCode = gen.GenerateCode();
+                                var generatedCode = gen.GenerateCode();
                                 if (generatedCode == null)
                                     return -1;
                                 File.WriteAllText(OutputFilename, generatedCode);
@@ -175,7 +175,7 @@ namespace MetX.Pipelines
                                     gen.CodeXmlDocument.LoadXml(output);
                                     gen.CodeXmlDocument.Save(OutputXml);
 
-                                    string generatedCode = gen.RegenerateCode(gen.CodeXmlDocument);
+                                    var generatedCode = gen.RegenerateCode(gen.CodeXmlDocument);
                                     if (string.IsNullOrEmpty(generatedCode))
                                         return -1;
                                     File.WriteAllText(OutputFilename, generatedCode);
@@ -221,9 +221,9 @@ namespace MetX.Pipelines
                         {
                             OutputXml = Path.ChangeExtension(OutputFilename, ".xml");
                         }
-                        using (StreamWriter sw = File.CreateText(OutputXml))
+                        using (var sw = File.CreateText(OutputXml ?? string.Empty))
                         {
-                            using (XmlWriter xw = Xml.Writer(sw))
+                            using (var xw = Xml.Writer(sw))
                                 gen.CodeXmlDocument.WriteTo(xw);
                         }
                     }
@@ -246,7 +246,7 @@ namespace MetX.Pipelines
 
         public XlgSource() { /* XmlSerializer */ }
 
-        public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, string xlgDocFilename, string xslFilename, string configFilename, string outputFilename)
+        public XlgSource(string basePath, string parentNamespace, string displayName, string connectionName, string xlgDocFilename, string xslFilename, string outputFilename)
         {
             if (!basePath.EndsWith(@"\")) basePath += @"\";
             BasePath = basePath;

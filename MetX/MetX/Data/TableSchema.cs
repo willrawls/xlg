@@ -119,7 +119,7 @@ namespace MetX.Data
         [Serializable]
         public class TableColumnCollection : List<TableColumn>
         {
-            public TableColumn PrimaryKeyColumn = null;
+            public TableColumn PrimaryKeyColumn;
 
             private Dictionary<string, TableColumn> _iList = new Dictionary<string, TableColumn>();
 
@@ -143,7 +143,7 @@ namespace MetX.Data
             /// <param name="isForeignKey">C#CD: </param>
             public void Add(string name, DbType dbType, bool isNullable, bool isPrimaryKey, bool isForeignKey)
             {
-                TableColumn col = new TableColumn();
+                var col = new TableColumn();
                 col.IsPrimaryKey = isPrimaryKey;
                 col.IsForiegnKey = isForeignKey;
                 col.IsNullable = isNullable;
@@ -192,7 +192,7 @@ namespace MetX.Data
                     return PrimaryKeyColumn;
 
                 TableColumn coll = null;
-                foreach (TableColumn child in this)
+                foreach (var child in this)
                 {
                     if (child.IsPrimaryKey)
                     {
@@ -264,7 +264,7 @@ namespace MetX.Data
                 columnName = columnName.ToLower();
                 if (!ContainsKey(columnName))
                 {
-                    TableColumnSetting setting = new TableColumnSetting();
+                    var setting = new TableColumnSetting();
                     setting.ColumnName = columnName;
                     setting.CurrentValue = oVal;
                     Add(columnName.ToLower(), setting);
@@ -331,7 +331,7 @@ namespace MetX.Data
 
             public TableKey Find(string toFind)
             {
-                foreach (TableKey currKey in this)
+                foreach (var currKey in this)
                     if (currKey.Name.ToLower() == toFind.ToLower())
                         return currKey;
                 return null;

@@ -18,8 +18,8 @@ namespace XLG.Pipeliner
 
         private readonly FileSystemWatchers _mFsWs = new FileSystemWatchers();
         private readonly object _mSyncRoot = new object();
-        private bool _mAutoGenActive = false;
-        private XlgSource _mCurrSource = null;
+        private bool _mAutoGenActive;
+        private XlgSource _mCurrSource;
         private bool _mRefreshingList;
         public XlgSettings Settings;
 
@@ -187,9 +187,9 @@ namespace XLG.Pipeliner
                 if (string.IsNullOrEmpty(xlgSourceFilename) && Settings != null)
                 {
                     MetadataSources.Items.Clear();
-                    foreach (XlgSource currSource in Settings.Sources)
+                    foreach (var currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
+                        var lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
                         MetadataSources.Items.Add(lvi);
                     }
                 }
@@ -199,9 +199,9 @@ namespace XLG.Pipeliner
                     Settings.Filename = xlgSourceFilename;
                     Settings.Gui = this;
                     MetadataSources.Items.Clear();
-                    foreach (XlgSource currSource in Settings.Sources)
+                    foreach (var currSource in Settings.Sources)
                     {
-                        ListViewItem lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
+                        var lvi = new ListViewItem(currSource.DisplayName) { Tag = currSource, Checked = currSource.Selected };
                         MetadataSources.Items.Add(lvi);
                     }
                     if (Settings.Filename != AppData.LastXlgsFile)
@@ -325,7 +325,7 @@ namespace XLG.Pipeliner
                 textConnectionString.Text = _mCurrSource.ConnectionString;
                 //textSqlToXml.Text = m_CurrSource.SqlToXml;
                 checkRegenerateOnly.Checked = _mCurrSource.RegenerateOnly;
-                int index = comboProviderName.FindString(_mCurrSource.ProviderName);
+                var index = comboProviderName.FindString(_mCurrSource.ProviderName);
                 if (index > -1)
                 {
                     comboProviderName.SelectedIndex = index;
@@ -410,7 +410,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                string itemName = "CLONE";
+                var itemName = "CLONE";
 
                 if (Ui.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
                     == DialogResult.Cancel
@@ -424,10 +424,10 @@ namespace XLG.Pipeliner
                     _mCurrSource = Settings.Sources[0];
                 }
 
-                XlgSource newSource = null;
+                XlgSource newSource;
                 if (itemName == "CLONE")
                 {
-                    newSource = Xml.FromXml<XlgSource>(Xml.ToXml<XlgSource>(_mCurrSource, false));
+                    newSource = Xml.FromXml<XlgSource>(Xml.ToXml(_mCurrSource, false));
                 }
                 else
                 {
@@ -603,7 +603,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                XlgSettings t = Settings;
+                var t = Settings;
                 Settings = new XlgSettings(this)
                 {
                     Sources = new List<XlgSource>(),
@@ -728,7 +728,7 @@ namespace XLG.Pipeliner
 
         private void EditQuickScript_Click(object sender, EventArgs e)
         {
-            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
+            var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
             if (!File.Exists(exePath))
             {
                 MessageBox.Show(this, "Quick scripts missing: " + exePath);

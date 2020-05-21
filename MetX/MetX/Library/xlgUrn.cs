@@ -109,7 +109,7 @@ namespace MetX.Library
             relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
             relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
 
-            string ret = _mC.Server.MapPath(_mThemePath + relativePathFile);
+            var ret = _mC.Server.MapPath(_mThemePath + relativePathFile);
             if (File.Exists(ret))
                 return ret;
             ret = _mC.Server.MapPath(_mDefaultThemePath + relativePathFile);
@@ -138,14 +138,14 @@ namespace MetX.Library
         /// <returns>The virtual path and file found</returns>
         public string FileUrl(string relativePathFile)
         {
-            string ret = "unknown.file";
+            var ret = "unknown.file";
             if (_mC == null)
                 _mC = HttpContext.Current;
 
             relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
             relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
 
-            string filePath = _mC.Server.MapPath(_mThemePath + relativePathFile);
+            var filePath = _mC.Server.MapPath(_mThemePath + relativePathFile);
             string vDirPath;
 
             if (File.Exists(filePath))
@@ -442,7 +442,7 @@ namespace MetX.Library
         /// <returns>One line of javascript of the form var VarName = "outerxml of Nodes";</returns>
         public string OuterXmlJson(string varName, XPathNodeIterator nodes)
         {
-            StringBuilder ret = new StringBuilder(OuterXml(nodes));
+            var ret = new StringBuilder(OuterXml(nodes));
             if (ret.Length > 0)
             {
                 ret.Replace("\"", "\\\"");
@@ -466,8 +466,8 @@ namespace MetX.Library
             {
                 if (sDate2.Length > 0)
                 {
-                    DateTime date1 = DateTime.Parse(sDate1);
-                    DateTime date2 = DateTime.Parse(sDate2);
+                    var date1 = DateTime.Parse(sDate1);
+                    var date2 = DateTime.Parse(sDate2);
                     if (date1 > date2)
                         return sDate1;
                     else
@@ -493,9 +493,9 @@ namespace MetX.Library
                 {
                     if (sDateEnd.Length > 0)
                     {
-                        DateTime dateToTest = DateTime.Parse(sDateToTest);
-                        DateTime dateBegin = DateTime.Parse(sDateBegin);
-                        DateTime dateEnd = DateTime.Parse(sDateEnd);
+                        var dateToTest = DateTime.Parse(sDateToTest);
+                        var dateBegin = DateTime.Parse(sDateBegin);
+                        var dateEnd = DateTime.Parse(sDateEnd);
                         if (dateToTest >= dateBegin && dateToTest <= dateEnd)
                         {
                             return true;
@@ -558,7 +558,7 @@ namespace MetX.Library
         /// <returns>The proper case string</returns>
         public string ProperCase(string text)
         {
-            string ret = string.Empty;
+            var ret = string.Empty;
             try
             {
                 ret = Microsoft.VisualBasic.Strings.StrConv(text, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
@@ -614,7 +614,7 @@ namespace MetX.Library
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            string ret = sOriginalText.AsString();
+            var ret = sOriginalText.AsString();
             ret = ret == ret.ToUpper() 
                 ? ret.ToLower() 
                 : ret[0].ToString().ToLower() + ret.Substring(1);
@@ -625,7 +625,7 @@ namespace MetX.Library
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            string ret = sOriginalText.AsString();
+            var ret = sOriginalText.AsString();
             ret = ret[0].ToString().ToUpper() + ret.Substring(1);
             return ret;
         }
@@ -638,9 +638,9 @@ namespace MetX.Library
             xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
             if (xmlDate.Length > 0)
             {
-                DateTime dt = Convert.ToDateTime(xmlDate);
+                var dt = Convert.ToDateTime(xmlDate);
                 dt = dt.AddHours(-dt.Hour).AddMinutes(-dt.Minute);
-                TimeSpan ts = DateTime.Today.Subtract(dt);
+                var ts = DateTime.Today.Subtract(dt);
                 return ts.Days.ToString();
             }
             return string.Empty;
@@ -657,13 +657,13 @@ namespace MetX.Library
             if (string.IsNullOrEmpty(target))
                 return string.Empty;
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < target.Length; i++)
+            var sb = new StringBuilder();
+            for (var i = 0; i < target.Length; i++)
             {
-                char curr = target[i];
+                var curr = target[i];
                 if (i > 0 && ((curr >= 'A' && curr <= 'Z') || (curr >= '0' && curr <= '9')))
                 {
-                    char prev = target[i - 1];
+                    var prev = target[i - 1];
                     //if (!((prev >= 'A' && prev <= 'Z') || (prev >= '0' && prev <= '9')))
                     if(curr >= 'A' && curr <= 'Z')
                     {
@@ -741,8 +741,8 @@ namespace MetX.Library
                 toRepeat = " ";
             if (count > 200)
                 count = 200;
-            StringBuilder ret = new StringBuilder();
-            for (int i = 0; i < count; i++) { ret.Append(toRepeat); }
+            var ret = new StringBuilder();
+            for (var i = 0; i < count; i++) { ret.Append(toRepeat); }
             return ret.ToString();
         }
 
@@ -800,7 +800,7 @@ namespace MetX.Library
         /// <returns>The next row CSS class value</returns>
         public string GetNextRowClass()
         {
-            string t = _mCurrRowClass;
+            var t = _mCurrRowClass;
             _mCurrRowClass = _mNextRowClass;
             _mNextRowClass = t;
             return t;
@@ -899,11 +899,11 @@ namespace MetX.Library
         {
             if (nodeset.Count == 0)
                 return new XPathNavigator[0];
-            Dictionary<string, XPathNavigator> retNodes = new Dictionary<string, XPathNavigator>();
+            var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodeset.MoveNext())
                 if (!retNodes.ContainsKey(nodeset.Current.Value))
                     retNodes.Add(nodeset.Current.Value, nodeset.Current);
-            XPathNavigator[] ret = new XPathNavigator[retNodes.Count];
+            var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }
@@ -915,7 +915,7 @@ namespace MetX.Library
 
             while (nodeset.MoveNext())
             {
-                string attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
+                var attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
                 if (attributeValue == toFind)
                     return true;
             }
@@ -927,14 +927,14 @@ namespace MetX.Library
             if (nodeset.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
                 return new XPathNavigator[0];
 
-            Dictionary<string, XPathNavigator> retNodes = new Dictionary<string, XPathNavigator>();
+            var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodeset.MoveNext())
             {
-                string attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
+                var attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
                 if (attributeValue == toFind && !retNodes.ContainsKey(nodeset.Current.Value))
                     retNodes.Add(nodeset.Current.Value, nodeset.Current);
             }
-            XPathNavigator[] ret = new XPathNavigator[retNodes.Count];
+            var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }
@@ -953,37 +953,37 @@ namespace MetX.Library
             }
 
             // Build a list we can look over multiple times
-            List<string> compareSet = new List<string>();
+            var compareSet = new List<string>();
             while (nodeSetToCompareAgainst.MoveNext())
             {
-                string attributeValue = nodeSetToCompareAgainst.Current.GetAttribute(attributeName, string.Empty);
+                var attributeValue = nodeSetToCompareAgainst.Current.GetAttribute(attributeName, string.Empty);
                 if (!string.IsNullOrEmpty(attributeValue) && !compareSet.Contains(attributeValue))
                     compareSet.Add(attributeValue);
             }
 
             // Compare and add 
-            Dictionary<string, XPathNavigator> retNodes = new Dictionary<string, XPathNavigator>();
+            var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodesetToPossiblyKeep.MoveNext())
             {
-                string attributeValue = nodesetToPossiblyKeep.Current.GetAttribute(attributeName, string.Empty);
+                var attributeValue = nodesetToPossiblyKeep.Current.GetAttribute(attributeName, string.Empty);
                 if (!compareSet.Contains(attributeValue))
                     retNodes.Add(attributeValue, nodesetToPossiblyKeep.Current);
             }
-            XPathNavigator[] ret = new XPathNavigator[retNodes.Count];
+            var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }
 
         private static XPathNavigator[] XPathNodeIteratorToNavigators(XPathNodeIterator nodesetToPossiblyKeep)
         {
-            Dictionary<string, XPathNavigator> retNodes = new Dictionary<string, XPathNavigator>();
+            var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodesetToPossiblyKeep.MoveNext())
             {
-                string key = nodesetToPossiblyKeep.Current.Value;
+                var key = nodesetToPossiblyKeep.Current.Value;
                 if (string.IsNullOrEmpty(key)) key = Guid.NewGuid().ToString();
                 retNodes.Add(key, nodesetToPossiblyKeep.Current);
             }
-            XPathNavigator[] ret = new XPathNavigator[retNodes.Count];
+            var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }

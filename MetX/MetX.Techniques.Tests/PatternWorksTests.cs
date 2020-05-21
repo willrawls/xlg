@@ -12,13 +12,9 @@ namespace MetX.Techniques.Tests
             {
                 Techniques = new ParticleList<Technique>
                 {
-                    new Technique
-                    {
-                    },
+                    new Technique(),
                 },
-                Connections = new ParticleList<Connection>
-                {
-                }
+                Connections = new ParticleList<Connection>()
             };
             var actual = target.ToXml();
             Assert.IsNotNull(actual);

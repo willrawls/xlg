@@ -47,15 +47,15 @@ namespace XLG.Pipeliner
 
                 try
                 {
-                    CodeGenerator gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
-                    string generatedCode = gen.GenerateCode();
+                    var gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
+                    var generatedCode = gen.GenerateCode();
                     if (string.IsNullOrEmpty(generatedCode)) return;
                     FileSystem.StringToFile(outputFilename, generatedCode);
                     Console.Write("--- SUCCESS: " + outputFilename);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("--- FAILED: " + ex.ToString());
+                    Console.WriteLine("--- FAILED: " + ex);
                 }
             }
         }

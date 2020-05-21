@@ -40,7 +40,7 @@ namespace MetX.Security
                 _cryptoService = new RijndaelManaged();
                 _cryptoService.KeySize = 256;
                 _key = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Crypt.Key"]);
-                string theVector = ConfigurationManager.AppSettings["Crypt.Vector"];
+                var theVector = ConfigurationManager.AppSettings["Crypt.Vector"];
                 if (theVector.Length > _cryptoService.BlockSize / 8)
                     _vector = Encoding.ASCII.GetBytes(theVector.Substring(0, _cryptoService.BlockSize / 8));
                 else
@@ -60,11 +60,11 @@ namespace MetX.Security
         {
             _cryptoService.Key = _key;
             _cryptoService.IV = _vector;
-            DateTime dt = (today ? DateTime.UtcNow : DateTime.UtcNow.AddDays(-1));
-            byte v = (byte) (Math.Abs(dt.DayOfYear - dt.Day + (int) dt.DayOfWeek) + 1);
-            for (int i = 0; i < _cryptoService.Key.Length; i++)
+            var dt = (today ? DateTime.UtcNow : DateTime.UtcNow.AddDays(-1));
+            var v = (byte) (Math.Abs(dt.DayOfYear - dt.Day + (int) dt.DayOfWeek) + 1);
+            for (var i = 0; i < _cryptoService.Key.Length; i++)
                 _cryptoService.Key[i] = (byte) ((_cryptoService.Key[i] + v) % 254);
-            for (int i = 0; i < _cryptoService.IV.Length; i++)
+            for (var i = 0; i < _cryptoService.IV.Length; i++)
                 _cryptoService.IV[i] = (byte)((_cryptoService.IV[i] + v) % 254);
             if (today)
             {
@@ -82,19 +82,19 @@ namespace MetX.Security
             if (string.IsNullOrEmpty(source))
                 return string.Empty;
 
-            byte[] bytIn = Encoding.ASCII.GetBytes(source);
+            var bytIn = Encoding.ASCII.GetBytes(source);
             // create a MemoryStream so that the process can be done without I/O files
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
 
             // create Crypto Stream that transforms a stream using the encryption
-            CryptoStream cs = new CryptoStream(ms, _encryptorFixed, CryptoStreamMode.Write);
+            var cs = new CryptoStream(ms, _encryptorFixed, CryptoStreamMode.Write);
 
             // write out encrypted content into MemoryStream
             cs.Write(bytIn, 0, bytIn.Length);
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            string returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
+            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return returnValue;
@@ -107,19 +107,19 @@ namespace MetX.Security
             if (string.IsNullOrEmpty(source))
                 return string.Empty;
 
-            byte[] bytIn = Encoding.ASCII.GetBytes(source);
+            var bytIn = Encoding.ASCII.GetBytes(source);
             // create a MemoryStream so that the process can be done without I/O files
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
 
             // create Crypto Stream that transforms a stream using the encryption
-            CryptoStream cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write);
+            var cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write);
 
             // write out encrypted content into MemoryStream
             cs.Write(bytIn, 0, bytIn.Length);
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            string returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
+            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return returnValue;
@@ -133,27 +133,27 @@ namespace MetX.Security
                 return string.Empty;
 
             if (encryptedSource.Contains("<"))
-                encryptedSource = encryptedSource.Substring(0, encryptedSource.IndexOf("<") - 1).Trim();
+                encryptedSource = encryptedSource.Substring(0, encryptedSource.IndexOf("<", StringComparison.Ordinal) - 1).Trim();
             if (encryptedSource.Contains(" "))
                 encryptedSource = encryptedSource.Replace(" ", "+");
 
-            byte[] bytIn = Convert.FromBase64String(encryptedSource);
-            MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
+            var bytIn = Convert.FromBase64String(encryptedSource);
+            var ms = new MemoryStream(bytIn, 0, bytIn.Length);
 
             string returnValue = null;
-            bool haveTriedYesterday = false;
+            var haveTriedYesterday = false;
 TryAgain:
             try
             {
                 // create Crypto Stream that transforms a stream using the decryption
-                CryptoStream cs = new CryptoStream(ms, (haveTriedYesterday ? _decryptorToday : _decryptorYesterday), CryptoStreamMode.Read);
+                var cs = new CryptoStream(ms, (haveTriedYesterday ? _decryptorToday : _decryptorYesterday), CryptoStreamMode.Read);
 
                 // read out the result from the Crypto Stream
-                StreamReader sr = new StreamReader(cs);
+                var sr = new StreamReader(cs);
                 returnValue = sr.ReadToEnd();
-                sr.Close(); sr = null;
-                cs.Close(); cs = null;
-                ms.Close(); ms = null;
+                sr.Close(); 
+                cs.Close(); 
+                ms.Close(); 
             } catch { }
 
             if (returnValue == null && !haveTriedYesterday)
@@ -172,20 +172,20 @@ TryAgain:
             if (string.IsNullOrEmpty(encryptedSource))
                 return string.Empty;
 
-            byte[] bytIn = Convert.FromBase64String(encryptedSource);
-            MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
+            var bytIn = Convert.FromBase64String(encryptedSource);
+            var ms = new MemoryStream(bytIn, 0, bytIn.Length);
             string returnValue = null;
             try
             {
                 // create Crypto Stream that transforms a stream using the decryption
-                CryptoStream cs = new CryptoStream(ms, _decryptorFixed, CryptoStreamMode.Read);
+                var cs = new CryptoStream(ms, _decryptorFixed, CryptoStreamMode.Read);
 
                 // read out the result from the Crypto Stream
-                StreamReader sr = new StreamReader(cs);
+                var sr = new StreamReader(cs);
                 returnValue = sr.ReadToEnd();
-                sr.Close(); sr = null;
-                cs.Close(); cs = null;
-                ms.Close(); ms = null;
+                sr.Close(); 
+                cs.Close(); 
+                ms.Close(); 
             }
             catch { }
             return returnValue;
@@ -197,8 +197,8 @@ TryAgain:
 
             if (nameValuePairs == null || nameValuePairs.Count == 0)
                 return string.Empty;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < nameValuePairs.Count; i++)
+            var sb = new StringBuilder();
+            for (var i = 0; i < nameValuePairs.Count; i++)
             {
                 sb.AppendLine(HttpUtility.UrlEncode(nameValuePairs.GetKey(i).AsString()));
                 sb.AppendLine(HttpUtility.UrlEncode(nameValuePairs[i].AsString()));
@@ -214,14 +214,14 @@ TryAgain:
             }
             if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
 
-            System.Collections.Specialized.NameValueCollection ret = new System.Collections.Specialized.NameValueCollection();
+            var ret = new System.Collections.Specialized.NameValueCollection();
             if (string.IsNullOrEmpty(encryptedSource) && encryptedSource.Length < 1024)
                 return ret;
             encryptedSource = FromBase64(encryptedSource);
             if (!string.IsNullOrEmpty(encryptedSource))
             {
-                string[] items = encryptedSource.Lines();
-                for (int i = 0; i < items.Length - 1; i += 2)
+                var items = encryptedSource.Lines();
+                for (var i = 0; i < items.Length - 1; i += 2)
                     ret.Add(HttpUtility.UrlDecode(items[i]), HttpUtility.UrlDecode(items[i + 1]));
             }
             return ret;

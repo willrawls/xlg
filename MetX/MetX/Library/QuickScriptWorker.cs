@@ -11,7 +11,7 @@ namespace MetX.Library
         {
             try
             {
-                string tempFile = Path.Combine(Path.GetTempPath(),
+                var tempFile = Path.Combine(Path.GetTempPath(),
                     string.Format("qscript{0}{1}",
                         Guid.NewGuid().ToString().Substring(1, 6),
                         (isCSharpCode ? ".cs" : ".txt")));

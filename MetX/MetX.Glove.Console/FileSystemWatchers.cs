@@ -15,28 +15,28 @@ namespace XLG.Pipeliner
                 {
                     return;
                 }
-                foreach (FileSystemWatcher fsw in this)
+                foreach (var fsw in this)
                 {
                     fsw.EnableRaisingEvents = value;
                 }
             }
         }
 
-        public bool IsActive = false;
+        public bool IsActive;
 
         public void Begin(XlgSettings settings, FileSystemEventHandler onchange, ErrorEventHandler onerror)
         {
-            List<string> directories = new List<string> { GloveMain.AppData.SupportPath };
+            var directories = new List<string> { GloveMain.AppData.SupportPath };
             AddIfDifferent(directories, Path.GetDirectoryName(settings.Filename));
-            foreach (XlgSource setting in settings.Sources)
+            foreach (var setting in settings.Sources)
             {
                 AddIfDifferent(directories, setting.BasePath);
                 AddIfDifferent(directories, Path.GetDirectoryName(setting.OutputFilename));
             }
 
-            foreach (string directory in directories)
+            foreach (var directory in directories)
             {
-                FileSystemWatcher fsw = new FileSystemWatcher(directory);
+                var fsw = new FileSystemWatcher(directory);
                 fsw.Changed += onchange;
                 fsw.Created += onchange;
                 fsw.Deleted += onchange;
@@ -67,7 +67,7 @@ namespace XLG.Pipeliner
             {
                 return;
             }
-            foreach (FileSystemWatcher watcher in this)
+            foreach (var watcher in this)
             {
                 watcher.EnableRaisingEvents = false;
                 watcher.Dispose();

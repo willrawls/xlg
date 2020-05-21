@@ -48,7 +48,7 @@ namespace MetX.Controls
                 saveFileDialog1.CheckPathExists = true;
                 saveFileDialog1.DefaultExt = ".txt";
                 saveFileDialog1.Filter = "All files(*.*)|*.*";
-                DialogResult result = saveFileDialog1.ShowDialog(this);
+                var result = saveFileDialog1.ShowDialog(this);
                 if (result == DialogResult.OK && saveFileDialog1.FileName != null)
                 {
                     File.WriteAllText(saveFileDialog1.FileName, Output.Text);
@@ -99,8 +99,8 @@ namespace MetX.Controls
                 }
                 else if (!string.IsNullOrEmpty(Script.InputFilePath) && File.Exists(Script.InputFilePath))
                 {
-                    string path = Script.InputFilePath.TokensBeforeLast(@"\");
-                    string file = Script.InputFilePath.LastToken(@"\");
+                    var path = Script.InputFilePath.TokensBeforeLast(@"\");
+                    var file = Script.InputFilePath.LastToken(@"\");
                     Watcher = new FileSystemWatcher(path, file)
                     {
                         NotifyFilter = (NotifyFilters.LastWrite | NotifyFilters.Size),

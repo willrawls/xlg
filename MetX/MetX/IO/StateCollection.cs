@@ -7,7 +7,7 @@ namespace MetX.IO
 {
     /// <summary>Given two strings (such as a unique userid and the path to a web page),
     /// StateCollection allows for an arbitrary number of name/value pairs to be quickly loaded and saved to the StateCollection table.</summary>
-    public partial class StateCollection
+    public class StateCollection
     {
         /// <summary>The internal sorted list in memory</summary>
         private SortedStringList _mState;
@@ -77,7 +77,7 @@ namespace MetX.IO
                 if (_mState == null)
                 {
                     _mState = new SortedStringList(5);
-                    DataRowCollection rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
+                    var rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
                     if (rstState != null)
                     {
                         if (rstState.Count > 0)
@@ -100,15 +100,14 @@ namespace MetX.IO
         /// <summary>Saves the current state to the StateCollection table. All previous items in the state are deleted.</summary>
         public void Save()
         {
-            List<string> sqLs = null;
             if (_mState != null)
             {
-                sqLs = new List<string>(1 + _mState.Count);
+                var sqLs = new List<string>(1 + _mState.Count);
                 sqLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()));
 
                 if (_mState.Count > 0)
-                    foreach (KeyValuePair<string, string> de in _mState)
-                        sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid().ToString() + "'," + Worker.S2Db(StateParent) + "," + Worker.S2Db(StateName) + "," + Worker.S2Db(de.Key) + "," + Worker.S2Db(de.Value) + ", getdate())");
+                    foreach (var de in _mState)
+                        sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid() + "'," + Worker.S2Db(StateParent) + "," + Worker.S2Db(StateName) + "," + Worker.S2Db(de.Key) + "," + Worker.S2Db(de.Value) + ", getdate())");
                 Sql.Execute(sqLs, ConnectionName);
             }
         }

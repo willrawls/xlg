@@ -24,8 +24,9 @@ namespace MetX.Data
         #endregion
         #region default constructor
         public ActiveRecord() { IsNew = true; }
-        public ActiveRecord(IDataReader rdr) { Load(rdr); }
-        public ActiveRecord(DataRow dr) { Load(dr); }
+        public ActiveRecord(IDataReader rdr) => Load(rdr);
+        public ActiveRecord(DataRow dr) => Load(dr);
+
         #endregion
 
         public abstract void Load(IDataReader rdr);

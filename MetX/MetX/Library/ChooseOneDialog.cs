@@ -37,7 +37,7 @@ namespace MetX.Library
                 return;
             }
 
-            foreach (string choice in Choices)
+            foreach (var choice in Choices)
             {
                 EntryArea.Items.Add(choice.AsString());
             }

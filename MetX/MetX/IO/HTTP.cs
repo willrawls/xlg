@@ -22,20 +22,20 @@ namespace MetX.IO
         /// <returns>The response text from the post (ASCII encoded).</returns>
         public static string GetUrl(string lcUrl, string postData)
 		{
-            WebRequest myWebRequest = WebRequest.Create(lcUrl);
-			byte[] uploadData = Encoding.ASCII.GetBytes(postData);
+            var myWebRequest = WebRequest.Create(lcUrl);
+			var uploadData = Encoding.ASCII.GetBytes(postData);
 			
 			myWebRequest.Method = "POST";
 			myWebRequest.ContentType = "application/x-www-form-urlencoded";
 			myWebRequest.ContentLength = uploadData.Length;
-			Stream myStream = myWebRequest.GetRequestStream();
+			var myStream = myWebRequest.GetRequestStream();
 			myStream.Write(uploadData, 0, uploadData.Length);
 			myStream.Close();
 				
-			WebResponse myWebResponse = myWebRequest.GetResponse();
+			var myWebResponse = myWebRequest.GetResponse();
 			myStream = myWebResponse.GetResponseStream();
             if (myStream == null) return null;
-			byte[] returnedData = new byte[myWebResponse.ContentLength];
+			var returnedData = new byte[myWebResponse.ContentLength];
 			myStream.Read(returnedData, 0, (int)myWebResponse.ContentLength);
 
 			return Encoding.ASCII.GetString(returnedData);
@@ -49,17 +49,17 @@ namespace MetX.IO
         public static string GetUrl(string lcUrl, int timeout, string userAgent)
 		{	
 			//  *** Establish the request
-			HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
+			var loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
 			//  *** Set properties
 			if (timeout <  1000)
 				timeout = timeout * 1000;
 			loHttp.Timeout = timeout;
 			loHttp.UserAgent = (userAgent == null || userAgent.Length == 0 ? UserAgents.Ie60XPsp2DotNet2 : userAgent);
 			//  *** Retrieve request info headers
-			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-			StreamReader loResponseStream = new StreamReader(loWebResponse.GetResponseStream(), enc);
-			string lcHtml = loResponseStream.ReadToEnd();
+			var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
+			var enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
+			var loResponseStream = new StreamReader(loWebResponse.GetResponseStream(), enc);
+			var lcHtml = loResponseStream.ReadToEnd();
 			loWebResponse.Close();
 			loResponseStream.Close();
 			return lcHtml;
@@ -72,17 +72,17 @@ namespace MetX.IO
         public static string GetUrl(string lcUrl, int timeout)
 		{
 			//  *** Establish the request
-			HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
+			var loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
 			//  *** Set properties
 			if (timeout <  1000)
 				timeout = timeout * 1000;
 			loHttp.Timeout = timeout;
             loHttp.UserAgent = UserAgents.Ie60XPsp2DotNet2;
 			//  *** Retrieve request info headers
-			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-			StreamReader loResponseStream = new StreamReader(loWebResponse.GetResponseStream(), enc);
-			string lcHtml = loResponseStream.ReadToEnd();
+			var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
+			var enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
+			var loResponseStream = new StreamReader(loWebResponse.GetResponseStream(), enc);
+			var lcHtml = loResponseStream.ReadToEnd();
 			loWebResponse.Close();
 			loResponseStream.Close();
 			return lcHtml;
@@ -93,23 +93,22 @@ namespace MetX.IO
         /// <returns>The response text from the post (Windows default code page encoded).</returns>
         public static string GetUrl(string lcUrl)
         {
-            int timeout = 30;
+            var timeout = 30;
 
             //  *** Establish the request
-            HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
+            var loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
             //  *** Set properties
-            if (timeout < 1000)
-                timeout = timeout * 1000;
+            timeout *= 1000;
             loHttp.Timeout = timeout;
             loHttp.UserAgent = UserAgents.Ie60XPsp2DotNet2;
             //  *** Retrieve request info headers
-            HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-            Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-            Stream responseStream = loWebResponse.GetResponseStream();
+            var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
+            var enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
+            var responseStream = loWebResponse.GetResponseStream();
             if (responseStream != null)
             {
-                StreamReader loResponseStream = new StreamReader(responseStream, enc);
-                string lcHtml = loResponseStream.ReadToEnd();
+                var loResponseStream = new StreamReader(responseStream, enc);
+                var lcHtml = loResponseStream.ReadToEnd();
                 loWebResponse.Close();
                 loResponseStream.Close();
                 return lcHtml;
@@ -122,20 +121,18 @@ namespace MetX.IO
         /// <returns>The response text from the post (Windows default code page encoded).</returns>
         public static byte[] GetUrlByteArray(string lcUrl)
 		{	
-			int timeout = 30;
+			var timeout = 30;
 
 			//  *** Establish the request
-			HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
+			var loHttp = (HttpWebRequest)WebRequest.Create(lcUrl);
 			//  *** Set properties
-			if (timeout <  1000)
-				timeout = timeout * 1000;
+			timeout *= 1000;
 			loHttp.Timeout = timeout;
             loHttp.UserAgent = UserAgents.Ie60XPsp2DotNet2;
 			//  *** Retrieve request info headers
-			HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-			Encoding enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
+			var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
             byte[] ret = {};
-            using (Stream loResponseStream = loWebResponse.GetResponseStream())
+            using (var loResponseStream = loWebResponse.GetResponseStream())
             {
                 if(loResponseStream != null)
                 {
@@ -155,7 +152,7 @@ namespace MetX.IO
 		/// <param name="endResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
 		public static void PullPage(Uri url, HttpResponse theResponse, bool clearResponse, bool endResponse)
 		{
-		    WebRequest req = WebRequest.Create(url);
+		    var req = WebRequest.Create(url);
 			WebResponse resp;
 			try
 			{
@@ -172,10 +169,10 @@ namespace MetX.IO
 			}
 
 			theResponse.Clear();
-            Stream responseStream = resp.GetResponseStream();
+            var responseStream = resp.GetResponseStream();
             if(responseStream != null)
             {
-                StreamReader netStream = new StreamReader(responseStream);
+                var netStream = new StreamReader(responseStream);
                 theResponse.Write(netStream.ReadToEnd());
             }
             if(endResponse)
