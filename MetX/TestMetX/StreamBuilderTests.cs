@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MetX.Library;
@@ -8,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DataService.Tests.Services
 {
     [TestClass]
-    public class CLASS
+    public class StreamBuilderTests
     {
         [TestMethod]
         public void TargetStreamShouldNotBeNullWhenSetTest()
@@ -20,7 +21,14 @@ namespace DataService.Tests.Services
 
         public class Henry
         {
-            public Stream LocalStream;
+            //public Stream LocalStream;
+            public bool CloseOnFinish { get; set; } = true;
+            public string FilePath { get; set; }
+            public long Length { get; set; }
+            public TextWriter Target { get; set; }
+            public Stream TargetStream { get; set; } 
+            public StringBuilder UnderlyingStringBuilder { get; set; }
+            public int FinishCount { get; set; }
 
             public void TryIt()
             {
@@ -29,15 +37,15 @@ namespace DataService.Tests.Services
                 
                 Assert.IsFalse(fileStream.IsAsync);
                 Assert.IsTrue(fileStream.CanWrite);
-                LocalStream = fileStream; 
+                TargetStream = fileStream; 
                 Assert.IsTrue(fileStream.CanWrite);
 
                 var george = new Henry();
-                george.LocalStream = fileStream;
+                george.TargetStream = fileStream;
                 Assert.IsTrue(fileStream.CanWrite);
 
                 var streamBuilder1 = new StreamBuilder();
-                streamBuilder1.TargetStream = george.LocalStream;
+                streamBuilder1.TargetStream = george.TargetStream;
 
                 Assert.IsTrue(fileStream.CanWrite);
                 Assert.IsNotNull(streamBuilder1.TargetStream);
@@ -45,7 +53,7 @@ namespace DataService.Tests.Services
                 while(streamBuilder1.TargetStream != null && fileStream.CanWrite)
                     Thread.Sleep(1000);
 
-                Assert.IsTrue(LocalStream.CanWrite);
+                Assert.IsTrue(fileStream.CanWrite);
                 
                 var streamBuilder = new StreamBuilder("george2.txt");
                 streamBuilder.AppendLine("12");
