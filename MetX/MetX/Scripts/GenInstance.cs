@@ -46,7 +46,11 @@ namespace MetX.Scripts
                             .Replace("/", @"\")
                             .Replace("\"", string.Empty)
                             .Trim();
-                        _mCurrArea.Lines.Add("Output.SwitchTo(@\"" + filePath + "\");");
+
+                        
+                        var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
+
+                        _mCurrArea.Lines.Add("Output.SwitchTo(@\"" + resolvedFilePath + "\");");
                     }
                     else if (currScriptLine.Contains("~~Start:") || currScriptLine.Contains("~~Begin:"))
                     {
