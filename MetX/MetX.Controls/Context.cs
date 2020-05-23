@@ -183,7 +183,7 @@ namespace MetX.Controls
                             break;
 
                         case QuickScriptDestination.File:
-                            runResult.QuickScriptProcessor.Output?.Finish(false);
+                            runResult.QuickScriptProcessor.Output?.Finish();
                             runResult.QuickScriptProcessor.Output = null;
                             QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
 

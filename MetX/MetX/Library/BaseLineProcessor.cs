@@ -195,6 +195,7 @@
                 MessageBox.Show("Couldn't create/open the output file");
                 return false;
             }
+
             return true;
         }
 

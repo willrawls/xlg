@@ -171,8 +171,10 @@
     <Compile Include="Library\ChooseManyDialog.cs" />
     <Compile Include="Library\ChooseOneDialog.cs" />
     <Compile Include="Library\GeneralQuestionDialog.cs" />
-    <Compile Include="Library\SerializesToXml.cs" />
     <Compile Include="Library\StreamBuilder.cs" />
+    <Compile Include="Library\SerializesToXml.cs" />
+    <Compile Include="Library\BadStreamBuilderA.cs" />
+    <Compile Include="Library\BadStreamBuilderB.cs" />
     <Compile Include="Library\Tokenizer.cs" />
     <Compile Include="Scripts\CaseFreeDictionary.cs" />
     <Compile Include="Scripts\GenArea.cs" />
