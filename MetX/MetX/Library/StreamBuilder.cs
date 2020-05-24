@@ -33,6 +33,12 @@ namespace MetX.Library
             TargetStringBuilder = targetStringBuilder ?? throw new ArgumentException("StringBuilder is required", "targetStringBuilder");
             TargetStreamWriter = new StringWriter(targetStringBuilder);
         }
+
+        public bool AppendTo(string filePath)
+        {
+            return SwitchTo(filePath, true);
+        }
+
         public bool SwitchTo(string filePath, bool append = false)
         {
             if (filePath.IsEmpty())

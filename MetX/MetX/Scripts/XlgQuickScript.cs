@@ -109,6 +109,27 @@ namespace MetX.Scripts
             // backslash percent will translate to % after parsing
             currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
 
+            currScriptLine = ExpandScriptLineVariables(currScriptLine);
+
+            currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
+            currScriptLine =
+                currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
+                              .Replace(" + \"\")", ")")
+                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
+            currScriptLine = (indent > 0
+                ? new string(' ', indent + 12)
+                : string.Empty) +
+                             currScriptLine
+                                 .Replace(" + \"\" + ", string.Empty)
+                                 .Replace("\"\" + ", string.Empty)
+                                 .Replace(" + \"\"", string.Empty)
+                                 .Replace("~$~$", @"%")
+                                 .Replace("~#~$", "\\\"");
+            return currScriptLine;
+        }
+
+        public static string ExpandScriptLineVariables(string currScriptLine)
+        {
             var keepGoing = true;
             var iterations = 0;
             while (keepGoing && (++iterations < 1000) && currScriptLine.Contains("%")
@@ -148,20 +169,6 @@ namespace MetX.Scripts
                 currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
             }
 
-            currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
-            currScriptLine =
-                currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                              .Replace(" + \"\")", ")")
-                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
-            currScriptLine = (indent > 0
-                ? new string(' ', indent + 12)
-                : string.Empty) +
-                             currScriptLine
-                                 .Replace(" + \"\" + ", string.Empty)
-                                 .Replace("\"\" + ", string.Empty)
-                                 .Replace(" + \"\"", string.Empty)
-                                 .Replace("~$~$", @"%")
-                                 .Replace("~#~$", "\\\"");
             return currScriptLine;
         }
 

@@ -29,7 +29,7 @@ namespace MetX
         {
             if (string.IsNullOrEmpty(line) && number > -1) return true;
 //~~ProcessLine~~//
-            return true;
+            return true;    // true = keep going
         }
 
         public override bool Finish()
