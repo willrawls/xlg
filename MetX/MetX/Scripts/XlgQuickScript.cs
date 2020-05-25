@@ -111,7 +111,7 @@ namespace MetX.Scripts
 
             currScriptLine = ExpandScriptLineVariables(currScriptLine);
 
-            currScriptLine = "Output.AppendLine(\"" + currScriptLine.Mid(3) + "\");";
+            currScriptLine = $"Output.AppendLine(\"{currScriptLine.Mid(3).Replace(@"\", @"\\")}\");";
             currScriptLine =
                 currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
                               .Replace(" + \"\")", ")")

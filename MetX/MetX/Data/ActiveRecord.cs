@@ -31,7 +31,7 @@ namespace MetX.Data
 
         public abstract void Load(IDataReader rdr);
         public abstract void Load(DataRow dr);
-        public abstract string _ClassName();
+        public abstract string ClassName();
         
         public virtual void Save()  {  Save(null);  }
         public virtual void SaveIfChanged()  {  if(HasChanged())  Save(null);  }
