@@ -169,10 +169,12 @@ namespace MetX.Controls
                             break;
 
                         case QuickScriptDestination.Clipboard:
+                        {
                             Clipboard.Clear();
-                            Clipboard.SetText(runResult.QuickScriptProcessor.Output.ToString());
+                            var textForClipboard = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
+                            Clipboard.SetText(textForClipboard);
                             break;
-
+                        }
                         case QuickScriptDestination.Notepad:
 
                             // QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);

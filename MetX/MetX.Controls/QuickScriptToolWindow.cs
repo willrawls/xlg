@@ -241,6 +241,7 @@ namespace MetX.Controls
             return null;
         }
 
+        /*
         public BaseLineProcessor GenerateQuickScriptLineProcessor(string templateName)
         {
             if ((Context.Templates.Count == 0) ||
@@ -290,7 +291,9 @@ namespace MetX.Controls
 
             return null;
         }
+        */
 
+/*
         public void OpenNewOutput(XlgQuickScript script, string title, string output)
         {
             var quickScriptOutput = new QuickScriptOutput(script, this, title, output);
@@ -298,6 +301,7 @@ namespace MetX.Controls
             quickScriptOutput.Show(this);
             quickScriptOutput.BringToFront();
         }
+*/
 
         public void ShowCodeCompletion(string[] items)
         {

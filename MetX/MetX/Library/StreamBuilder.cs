@@ -16,11 +16,23 @@ namespace MetX.Library
         public StringBuilder TargetStringBuilder { get; set; }
         public int FinishCount { get; set; }
 
-        public bool IsOpenAndReady =>
-            TargetStream != null 
-            && (TargetStream != null 
-                || !TargetStream.CanWrite 
-                || TargetStreamWriter != null);
+        public bool IsOpenAndReady
+        {
+            get
+            {
+                if (TargetStringBuilder != null)
+                    return true;
+                
+                if (TargetStream != null)
+                {
+                    if (!TargetStream.CanWrite || TargetStreamWriter != null)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
         public StreamBuilder(string filePath, bool appendToExistingFile = false)
         {

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <!-- syntaxdefinition for C# 2000 by Mike Krueger -->
+<!-- syntaxdefinition for QuickScript 2021 by William Rawls -->
 
 <SyntaxDefinition name = "QuickScript" extensions = ".xlgq">
 	

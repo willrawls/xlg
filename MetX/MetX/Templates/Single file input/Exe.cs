@@ -4,6 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using MetX;
+using MetX.Library;
+using MetX.Data;
+using MetX.IO;
+
 //~~Usings~~//
 
 namespace Processor
@@ -71,7 +76,8 @@ namespace Processor
 
     public class QuickScriptProcessor
     {
-        public readonly StringBuilder Output = new StringBuilder();
+        public readonly StringBuilder OutputStringBuilder = new StringBuilder();
+        public readonly StreamBuilder Output = new StreamBuilder(OutputStringBuilder);
         public readonly List<string> Files = new List<string>();
         public List<string> Lines = new List<string>();
         public string AllText;
