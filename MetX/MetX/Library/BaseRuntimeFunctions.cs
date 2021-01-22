@@ -9,16 +9,16 @@ namespace MetX.Library
         public static string Ask(string title, string promptText, string defaultValue)
         {
             var value = defaultValue;
-            return Ask(title, promptText, ref value) == DialogResult.Cancel ? null : value;
+            return AskWithValue(title, promptText, ref value) == DialogResult.Cancel ? null : value;
         }
 
         public static string Ask(string promptText, string defaultValue = "")
         {
             var value = defaultValue;
-            return Ask("ENTER VALUE", promptText, ref value) == DialogResult.Cancel ? null : value;
+            return AskWithValue("ENTER VALUE", promptText, ref value) == DialogResult.Cancel ? null : value;
         }
 
-        public static DialogResult Ask(string title, string promptText, ref string value)
+        public static DialogResult AskWithValue(string title, string promptText, ref string value)
         {
             var form = new Form();
             var label = new Label();

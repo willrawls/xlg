@@ -15,7 +15,7 @@ namespace MetX.Tests
             var value = string.Empty; 
             var valueExpected = string.Empty; 
             var expected = new DialogResult(); 
-            var actual = Ui.InputBox(title, promptText, ref value);
+            var actual = Ui.InputBoxRef(title, promptText, ref value);
             Assert.AreEqual(valueExpected, value);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");

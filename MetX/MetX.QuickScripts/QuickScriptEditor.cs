@@ -438,7 +438,7 @@
             if (Context.Scripts != null)
             {
                 var name = string.Empty;
-                var answer = Ui.InputBox("New Script Name", "Please enter the name for the new script.",
+                var answer = Ui.InputBoxRef("New Script Name", "Please enter the name for the new script.",
                     ref name);
                 if ((answer != DialogResult.OK) || ((name ?? string.Empty).Trim() == string.Empty))
                 {

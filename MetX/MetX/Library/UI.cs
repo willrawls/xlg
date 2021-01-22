@@ -9,7 +9,7 @@ namespace MetX.Library
         public static string InputBox(string title, string promptText, string defaultValue)
         {
             var value = defaultValue ?? string.Empty;
-            return InputBox(title, promptText, ref value) == DialogResult.Cancel
+            return InputBoxRef(title, promptText, ref value) == DialogResult.Cancel
                 ? null
                 : value;
         }
@@ -17,12 +17,12 @@ namespace MetX.Library
         public static string InputBox(string promptText, string defaultValue = "")
         {
             var value = defaultValue;
-            return InputBox("ENTER VALUE", promptText, ref value) == DialogResult.Cancel
+            return InputBoxRef("ENTER VALUE", promptText, ref value) == DialogResult.Cancel
                 ? null
                 : value;
         }
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
+        public static DialogResult InputBoxRef(string title, string promptText, ref string value)
         {
             var form = new Form();
             var label = new Label();

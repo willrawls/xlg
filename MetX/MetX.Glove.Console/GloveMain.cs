@@ -412,7 +412,7 @@ namespace XLG.Pipeliner
             {
                 var itemName = "CLONE";
 
-                if (Ui.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                if (Ui.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
                     == DialogResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {
