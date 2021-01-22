@@ -93,6 +93,16 @@
                     case Keys.Space:
                         ShowThisCodeCompletion();
                         break;
+                    
+                    /*
+                    case Keys.F:
+                        FindNext();
+                        break;
+                    case Keys.H:
+                        if (e.Shift)
+                            ReplaceAll();
+                        break;
+                */
                 }
             }
             else
@@ -111,6 +121,45 @@
                         break;
                 }
             }
+        }
+
+        public void FindNext()
+        {
+            var dialog = new AskForStringDialog();
+            var toFind = dialog.Ask("What would you like to find?", "REPLACE ALL - TO FIND", LastFind);
+            if (toFind.IsEmpty())
+                return;
+
+            var rest = Text.Substring(_codeArea.Caret.Offset);
+            if (rest.IsNotEmpty())
+            {
+                var index = rest.IndexOf(toFind, StringComparison.InvariantCultureIgnoreCase);
+                if (index > 0)
+                {
+                    var realIndex = index + _codeArea.Caret.Offset;
+                    //var newCaret = new Caret(_codeArea);
+                    //_codeArea.Caret.UpdateCaretPosition();
+                    //_codeArea.Caret.
+                }
+            }
+        }
+
+        public string LastFind;
+        public string LastReplace;
+        
+        public void ReplaceAll()
+        {
+            var dialog = new AskForStringDialog();
+            var toFind = dialog.Ask("What would you like to find?", "REPLACE ALL - TO FIND", LastFind);
+            if (toFind.IsEmpty())
+                return;
+            
+            var replacement = dialog.Ask($"Replace with what?\n\nTo Find: {toFind}", "REPLACE ALL - CHOOSE REPLACEMENT", LastReplace);
+            
+            LastFind = toFind;
+            LastReplace = replacement;
+
+            Text = Text.Replace(toFind, replacement);
         }
 
         private void CompletionWindowClosed(object source, EventArgs e)

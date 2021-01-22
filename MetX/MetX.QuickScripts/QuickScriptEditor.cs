@@ -83,7 +83,8 @@
 
             var source = scriptToRun.ToCSharp(true);
             var additionalReferences = new List<Assembly> {
-                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog))
+                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
+                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
                                                       };
 
             var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
@@ -831,6 +832,26 @@
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
+
+        public string PreviousFind { get; set; }
+        public string PreviousReplace { get; set; }
+        
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var choices = new string[0];
+            string[] selection = { "C", "A", "B" };
+
+            var dialog = new AskForStringDialog(PreviousFind);
+            var answer = dialog.Ask("What would you like to find?", "FIND NEXT");
+
+            if (answer.IsNotEmpty())
+            {
+                //this.ScriptEditor.
+
+                //MessageBox.Show(x);
+            }
+
         }
     }
 }

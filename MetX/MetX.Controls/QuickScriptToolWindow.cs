@@ -146,6 +146,8 @@ namespace MetX.Controls
             var additionalReferences = new List<Assembly>()
                                                       {
                                                           Assembly.GetExecutingAssembly(),
+                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
+                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
                                                       };
             var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
 
@@ -255,6 +257,8 @@ namespace MetX.Controls
             var additionalReferences = new List<Assembly>()
                                                       {
                                                           Assembly.GetExecutingAssembly(),
+                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
+                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
                                                       };
 
             var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);

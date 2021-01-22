@@ -34,7 +34,8 @@ namespace MetX.Controls
             var source = scriptToRun.ToCSharp(false);
 
             var additionalReferences = new List<Assembly> {
-                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog))
+                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
+                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
                                                       };
 
             var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);

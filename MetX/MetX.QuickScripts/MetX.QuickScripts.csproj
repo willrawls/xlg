@@ -71,8 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\NArrange2010Signed\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.TextEditor">
-      <HintPath>..\packages\ICSharpCode.TextEditor.3.2.1.6466\lib\Net20\ICSharpCode.TextEditor.dll</HintPath>
+    <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6466, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TextEditor\Lib\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
     <Reference Include="narrange-console, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -15,7 +15,7 @@ namespace MetX.Controls
 		{
 		    _mCompletionData = new ICompletionData[items.Count];
 		    for (var index = 0; index < items.Count; index++) 
-                _mCompletionData[index] = new DefaultCompletionData(items[index], 0);
+                _mCompletionData[index] = new DefaultCompletionData(items[index],items[index],0);
 		}
 
 	    public ImageList ImageList {

@@ -151,7 +151,6 @@ namespace XLG.QuickScripts
             // 
             this.InputParam.AutoSize = false;
             this.InputParam.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InputParam.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.InputParam.Name = "InputParam";
             this.InputParam.Size = new System.Drawing.Size(450, 25);
             this.InputParam.ToolTipText = "When Input is File, this is the file that will be processed.";
@@ -237,7 +236,6 @@ namespace XLG.QuickScripts
             // 
             this.DestinationParam.AutoSize = false;
             this.DestinationParam.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.DestinationParam.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.DestinationParam.Name = "DestinationParam";
             this.DestinationParam.Size = new System.Drawing.Size(450, 25);
             this.DestinationParam.ToolTipText = "When Destination is File, this is the path where output will be (over) written.";
@@ -518,7 +516,7 @@ namespace XLG.QuickScripts
             this.NewScriptMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("NewScriptMenuItem.Image")));
             this.NewScriptMenuItem.Name = "NewScriptMenuItem";
             this.NewScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewScriptMenuItem.Size = new System.Drawing.Size(342, 30);
+            this.NewScriptMenuItem.Size = new System.Drawing.Size(334, 24);
             this.NewScriptMenuItem.Text = "Add &new script";
             this.NewScriptMenuItem.Click += new System.EventHandler(this.NewQuickScript_Click);
             // 
@@ -527,7 +525,7 @@ namespace XLG.QuickScripts
             this.ViewCodeMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ViewCodeMenuItem.Image")));
             this.ViewCodeMenuItem.Name = "ViewCodeMenuItem";
             this.ViewCodeMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.ViewCodeMenuItem.Size = new System.Drawing.Size(342, 30);
+            this.ViewCodeMenuItem.Size = new System.Drawing.Size(334, 24);
             this.ViewCodeMenuItem.Text = "&View generated code";
             this.ViewCodeMenuItem.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
             // 
@@ -536,7 +534,7 @@ namespace XLG.QuickScripts
             this.RunScriptMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("RunScriptMenuItem.Image")));
             this.RunScriptMenuItem.Name = "RunScriptMenuItem";
             this.RunScriptMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.RunScriptMenuItem.Size = new System.Drawing.Size(342, 30);
+            this.RunScriptMenuItem.Size = new System.Drawing.Size(334, 24);
             this.RunScriptMenuItem.Text = "&Run current script";
             this.RunScriptMenuItem.Click += new System.EventHandler(this.RunQuickScript_Click);
             // 
@@ -545,14 +543,14 @@ namespace XLG.QuickScripts
             this.BuildExeMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("BuildExeMenuItem.Image")));
             this.BuildExeMenuItem.Name = "BuildExeMenuItem";
             this.BuildExeMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.BuildExeMenuItem.Size = new System.Drawing.Size(342, 30);
+            this.BuildExeMenuItem.Size = new System.Drawing.Size(334, 24);
             this.BuildExeMenuItem.Text = "Build command line &executable";
             this.BuildExeMenuItem.Click += new System.EventHandler(this.ViewIndependectGeneratedCode_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(339, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(331, 6);
             // 
             // DeleteScriptMenuItem
             // 
@@ -561,7 +559,7 @@ namespace XLG.QuickScripts
             this.DeleteScriptMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D)));
-            this.DeleteScriptMenuItem.Size = new System.Drawing.Size(342, 30);
+            this.DeleteScriptMenuItem.Size = new System.Drawing.Size(334, 24);
             this.DeleteScriptMenuItem.Text = "Delete current script";
             this.DeleteScriptMenuItem.Click += new System.EventHandler(this.DeleteScript_Click);
             // 
