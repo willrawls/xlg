@@ -3,7 +3,6 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Web.Caching;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
@@ -21,6 +20,8 @@ namespace MetX.Library
 
 		/// <summary>Set this value when you wish your page's xslt compilation to be cached differently (say per theme, in this case the theme name will be sufficient).</summary>
 		public string PageCacheSubKey = ".";
+
+        public static readonly InMemoryCache<XslCompiledTransform> pageCache = new InMemoryCache<XslCompiledTransform>();
 
 		/// <summary>Performs an XSL Transformation on an XmlDocument</summary>
 		/// <param name="xmlDocument">The XmlDocument object to transform</param>
@@ -72,42 +73,39 @@ namespace MetX.Library
 		}
 
 		/// <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
-		/// <param name="pageCache">The PageCache object to retreive/store the XslCompiledTrasform from/to. If null, no caching is performed</param>
 		/// <param name="sXmlDocument">The xml string to transform</param>
 		/// <param name="xsltPath">The path and filename of the XSL file to load</param>
 		/// <returns>The transformed text</returns>
-		public StringBuilder Transform(Cache pageCache, StringBuilder sXmlDocument, string xsltPath)
+		public StringBuilder Transform(StringBuilder sXmlDocument, string xsltPath)
 		{
 			var xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
 			var sb = new StringBuilder();
 			var sw = new StringWriter(sb);
-			XmlWriter xw = null;
+			XmlWriter xmlWriter = null;
 
 			try
 			{
-				if (PageCacheSubKey == null || PageCacheSubKey.Length == 0)
+				if (string.IsNullOrEmpty(PageCacheSubKey))
 					PageCacheSubKey = ".";
 				else if (!PageCacheSubKey.EndsWith("."))
 					PageCacheSubKey += ".";
-				XslCompiledTransform xslDoc;
+                
+				XslCompiledTransform compiledTransform;
 				var cacheKey = "XslCompiledTransform." + PageCacheSubKey + xsltPath;
-				if (pageCache != null && pageCache[cacheKey] != null)
+				if (pageCache.Contains(cacheKey))
 				{
-					xslDoc = (XslCompiledTransform)(pageCache[cacheKey]);
+					compiledTransform = pageCache[cacheKey];
 				}
 				else
 				{
-					xslDoc = new XslCompiledTransform(false);
+					compiledTransform = new XslCompiledTransform(false);
 					var resolver = UrlResolver;
-					xslDoc.Load(xsltPath, new XsltSettings(false, false), resolver);
-					var aggDep = new AggregateCacheDependency();
-					foreach (var currEntity in resolver.FileEntitys)
-						aggDep.Add(new CacheDependency(currEntity, DateTime.Now));
-                    pageCache?.Insert(cacheKey, xslDoc, aggDep);
+					compiledTransform.Load(xsltPath, new XsltSettings(false, false), resolver);
+                    pageCache[cacheKey] = compiledTransform;
                 }
 
-				xw = XmlWriter.Create(sw, xslDoc.OutputSettings);
-				xslDoc.Transform(new XPathDocument(xmlDocument).CreateNavigator(), Urns, xw);
+				xmlWriter = XmlWriter.Create(sw, compiledTransform.OutputSettings);
+				compiledTransform.Transform(new XPathDocument(xmlDocument).CreateNavigator(), Urns, xmlWriter);
 			}
 			catch (Exception exp)
 			{
@@ -115,7 +113,7 @@ namespace MetX.Library
 			}
 			finally
 			{
-                xw?.Close();
+                xmlWriter?.Close();
                 sw.Close();
 			}
 			sb.Replace(" xmlns:msxsl=\"urn:schemas-microsoft-com:xslt\" xmlns:xlg=\"urn:xlg\"", string.Empty);
@@ -130,10 +128,10 @@ namespace MetX.Library
 		/// <param name="xsltPath">The path and filename of the XSL file to load</param>
 		/// <param name="xsltDocumentContent">If supplied, the xsl stylesheet is assumed to already be loaded here. xsltPath is then used as a key to cache the request</param>
 		/// <returns>The transformed text</returns>
-		public StringBuilder Transform(Cache pageCache, StringBuilder sXmlDocument, string xsltPath, StringBuilder xsltDocumentContent)
+		public StringBuilder Transform(StringBuilder sXmlDocument, string xsltPath, StringBuilder xsltDocumentContent)
 		{
 			if (xsltDocumentContent == null || xsltDocumentContent.Length == 0)
-				return Transform(pageCache, sXmlDocument, xsltPath);
+				return Transform(sXmlDocument, xsltPath);
 
 
 			var xmlDocument = new XmlTextReader(new StringReader(sXmlDocument.ToString()));
@@ -144,26 +142,23 @@ namespace MetX.Library
 
 			try
 			{
-				if (PageCacheSubKey == null || PageCacheSubKey.Length == 0)
+				if (PageCacheSubKey.IsEmpty())
 					PageCacheSubKey = ".";
 				else if (!PageCacheSubKey.EndsWith("."))
 					PageCacheSubKey += ".";
 
 				XslCompiledTransform xslDoc;
 				var cacheKey = "XslCompiledTransform.FromContent." + xsltPath;
-				if (pageCache != null && pageCache[cacheKey] != null)
+				if (pageCache.Contains(cacheKey))
 				{
-					xslDoc = (XslCompiledTransform)(pageCache[cacheKey]);
+					xslDoc = pageCache[cacheKey];
 				}
 				else
 				{
 					xslDoc = new XslCompiledTransform(false); //true);
 					var resolver = UrlResolver;
 					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-					var aggDep = new AggregateCacheDependency();
-					foreach (var currEntity in resolver.FileEntitys)
-						aggDep.Add(new CacheDependency(currEntity, DateTime.Now));
-                    pageCache?.Insert(cacheKey, xslDoc, aggDep);
+                    pageCache[cacheKey] = xslDoc;
                 }
 
 				xw = XmlWriter.Create(sw, xslDoc.OutputSettings);

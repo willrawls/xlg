@@ -6,8 +6,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Hosting;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Xsl;
@@ -203,20 +201,13 @@ namespace MetX.Pipelines
             }
             VDirName = Namespace;
 
-            try
+            if (!string.IsNullOrEmpty(settingsFilePath))
             {
-                AppDomainAppPath = HttpRuntime.AppDomainAppPath;
+                AppDomainAppPath = Path.GetDirectoryName(settingsFilePath);
             }
-            catch
+            else
             {
-                if (!string.IsNullOrEmpty(settingsFilePath))
-                {
-                    AppDomainAppPath = Path.GetDirectoryName(settingsFilePath);
-                }
-                else
-                {
-                    AppDomainAppPath = Path.GetDirectoryName(xlgFilename);
-                }
+                AppDomainAppPath = Path.GetDirectoryName(xlgFilename);
             }
 
             if (!string.IsNullOrEmpty(settingsFilePath) && settingsFilePath.ToLower().Contains(".config"))
@@ -727,16 +718,14 @@ namespace MetX.Pipelines
                     {
                         return FileSystem.FileToString(virtualFilename);
                     }
-                    else
+
+                    using (var inFile = File.Open(virtualFilename, FileMode.Create ))
                     {
-                        using (var inFile = VirtualPathProvider.OpenFile(virtualFilename))
-                        {
-                            var rdr = new StreamReader(inFile);
-                            var contents = rdr.ReadToEnd();
-                            rdr.Close();
-                            rdr.Dispose();
-                            return contents;
-                        }
+                        var rdr = new StreamReader(inFile);
+                        var contents = rdr.ReadToEnd();
+                        rdr.Close();
+                        rdr.Dispose();
+                        return contents;
                     }
                 }
                 catch

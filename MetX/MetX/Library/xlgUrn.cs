@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
-using System.Web;
 using System.Xml.XPath;
 
 namespace MetX.Library
@@ -26,9 +26,6 @@ namespace MetX.Library
         private string _mThemePath = "~/theme/default/";
         private string _mDefaultThemePath = "~/theme/default/";
         private string _mSupportPath = "/xlgSupport/";
-
-        HttpContext _mC;
-
 
         /// <summary>
         /// Returns if one or more bits are set in ToCheck
@@ -63,9 +60,7 @@ namespace MetX.Library
         /// <returns>The URL encoded string</returns>
         public string UrlEncode(string toEncode)
         {
-            if (toEncode == null)
-                return string.Empty;
-            return HttpUtility.UrlEncode(toEncode);
+            return toEncode == null ? string.Empty : WebUtility.UrlEncode(toEncode);
         }
 
         /// <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
@@ -93,124 +88,6 @@ namespace MetX.Library
             return _mSupportPath;
         }
 
-        /// <summary>Returns the physical path and file name of RelativePathFile.
-        /// <para>Checks if ThemePath + RelativePathFile exists first, if so, returns that physical path and filename.</para>
-        /// <para>If RelativePathFile exists, returns that.</para>
-        /// <para>If SupportPath + RelativePathFile exists, returns that.</para>
-        /// <para>Otherwise returns the string "unknown.file"</para>
-        /// </summary>
-        /// <param name="relativePathFile">The relative path and file to retrieve (such as 'xsl/Appearence.xsl')</param>
-        /// <returns>The physical path and file found</returns>
-        public string FilePath(string relativePathFile)
-        {
-            if (_mC == null)
-                _mC = HttpContext.Current;
-
-            relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
-            relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
-
-            var ret = _mC.Server.MapPath(_mThemePath + relativePathFile);
-            if (File.Exists(ret))
-                return ret;
-            ret = _mC.Server.MapPath(_mDefaultThemePath + relativePathFile);
-            if (File.Exists(ret))
-                return ret;
-            ret = _mC.Server.MapPath(relativePathFile);
-            if (File.Exists(ret))
-                return ret;
-            ret = _mC.Server.MapPath("~/" + relativePathFile);
-            if (File.Exists(ret))
-                return ret;
-            ret = _mC.Server.MapPath(_mSupportPath + relativePathFile);
-            if (File.Exists(ret))
-                return ret;
-            return "unknown.file";
-        }
-
-
-        /// <summary>Returns the virtual path and file name of RelativePathFile.
-        /// <para>Checks if ThemePath + RelativePathFile exists first, if so, returns that virtual path and filename.</para>
-        /// <para>If RelativePathFile exists, returns that.</para>
-        /// <para>If SupportPath + RelativePathFile exists, returns that.</para>
-        /// <para>Otherwise returns the string "unknown.file"</para>
-        /// </summary>
-        /// <param name="relativePathFile">The relative path and file to retrieve (such as 'xsl/Appearence.xsl')</param>
-        /// <returns>The virtual path and file found</returns>
-        public string FileUrl(string relativePathFile)
-        {
-            var ret = "unknown.file";
-            if (_mC == null)
-                _mC = HttpContext.Current;
-
-            relativePathFile = relativePathFile.Replace(_mDefaultThemePath, string.Empty);
-            relativePathFile = relativePathFile.Replace(_mDefaultThemePath.Replace("~/", string.Empty), string.Empty);
-
-            var filePath = _mC.Server.MapPath(_mThemePath + relativePathFile);
-            string vDirPath;
-
-            if (File.Exists(filePath))
-                ret = _mThemePath + relativePathFile;
-            else
-            {
-                filePath = _mC.Server.MapPath(_mDefaultThemePath + relativePathFile);
-                if (File.Exists(filePath))
-                    ret = _mDefaultThemePath + relativePathFile;
-                else
-                {
-                    filePath = _mC.Server.MapPath(relativePathFile);
-                    if (File.Exists(filePath))
-                    {
-                        ret = _mC.Request.Url.AbsoluteUri.TokensAfter(4, "/");
-                        ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
-                        ret = ret + "/" + relativePathFile;
-                    }
-                    else
-                    {
-                        filePath = _mC.Server.MapPath("~/" + relativePathFile);
-                        if (File.Exists(filePath))
-                        {
-                            ret = _mC.Request.Url.AbsoluteUri.TokensAfter(4, "/");
-                            ret = ret.TokensBefore(ret.TokenCount("/"), "/").FirstToken("?");
-                            ret = ret + "/" + relativePathFile;
-                        }
-                        else
-                        {
-                            filePath = _mC.Server.MapPath(_mSupportPath + relativePathFile);
-                            if (File.Exists(filePath))
-                            {
-                                ret = _mSupportPath + relativePathFile;
-                                vDirPath = _mC.Request.Url.AbsoluteUri.TokensBefore(4, "/").FirstToken("?");
-                                ret = ret.Replace("~/", string.Empty);
-                                if (ret.StartsWith("/"))
-                                    ret = vDirPath + ret;
-                                else
-                                    ret = vDirPath + "/" + ret;
-                                return ret;
-                            }
-                        }
-                    }
-                }
-            }
-            vDirPath = _mC.Request.Url.AbsoluteUri.TokensBefore(5, "/").FirstToken("?");
-            ret = ret.Replace("~/", string.Empty);
-            if (ret.StartsWith("/"))
-                ret = vDirPath + ret;
-            else
-                ret = vDirPath + "/" + ret;
-            return ret;
-        }
-
-
-        /// <summary>Uses FilePath to determine the path to a physical file and then retrieves the string contents.</summary>
-        /// <param name="relativePathFile">The relative path and file to retrieve</param>
-        /// <returns>The contents of the file</returns>
-        public string FileContents(string relativePathFile)
-        {
-            relativePathFile = FilePath(relativePathFile);
-            if (relativePathFile != "unknown.file")
-                return IO.FileSystem.FileToString(relativePathFile);
-            return string.Empty;
-        }
 
         /// <summary>
         /// Same as calling System.IO.File.Exists

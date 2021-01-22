@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Security.Permissions;
@@ -24,7 +23,7 @@ using System.Runtime.InteropServices;
 [assembly: IsolatedStorageFilePermission(SecurityAction.RequestMinimum, UserQuota = 1048576)]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 [assembly: FileIOPermission(SecurityAction.RequestOptional, Unrestricted = true)]
-[assembly: AspNetHostingPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
+// [assembly: AspNetHostingPermission(SecurityAction.RequestMinimum, Unrestricted = true)]  Not supported in .net 5
 [assembly: ReflectionPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: SqlClientPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 // [assembly: AllowPartiallyTrustedCallersAttribute()]

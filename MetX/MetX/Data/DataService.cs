@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Configuration;
-using System.Web.Configuration;
 using System.Data;
 using System.Reflection;
 using MetX.Interfaces;
@@ -106,11 +105,14 @@ namespace MetX.Data
                 return _mServices[connectionStringName];
 
             if (ConnectionStrings == null)
-                ConnectionStrings = WebConfigurationManager.ConnectionStrings;
+                ConnectionStrings = ConfigurationManager.ConnectionStrings;
 
-            var ret = new DataService();
-            ret.Settings = ConnectionStrings[connectionStringName];
-            if (ret.Settings == null) return null;
+            var ret = new DataService
+            {
+                Settings = ConnectionStrings[connectionStringName]
+            };
+            if (ret.Settings == null) 
+                return null;
 
             ret.Setup();
             return ret;

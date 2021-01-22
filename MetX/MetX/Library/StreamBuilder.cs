@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -17,7 +16,11 @@ namespace MetX.Library
         public StringBuilder TargetStringBuilder { get; set; }
         public int FinishCount { get; set; }
 
-        public bool IsOpenAndReady => (TargetStream != null || !TargetStream.CanWrite) || (TargetStreamWriter != null);
+        public bool IsOpenAndReady =>
+            TargetStream != null 
+            && (TargetStream != null 
+                || !TargetStream.CanWrite 
+                || TargetStreamWriter != null);
 
         public StreamBuilder(string filePath, bool appendToExistingFile = false)
         {

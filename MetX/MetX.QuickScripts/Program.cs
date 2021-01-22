@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using MetX.Controls;
-using MetX.Library;
 
 namespace XLG.QuickScripts
 {

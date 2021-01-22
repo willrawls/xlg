@@ -3,6 +3,7 @@ using System.Configuration.Provider;
 using System.Data;
 using System.IO;
 using System.Text;
+using MetX.Library;
 
 namespace MetX.Data
 {
@@ -18,7 +19,7 @@ namespace MetX.Data
 
         public virtual DataSet ToDataSet(string selectQueryText) { return ToDataSet(new QueryCommand(selectQueryText)); }
 
-        public virtual DataSet ToDataSet(string selectQueryText, System.Web.Caching.Cache cache)
+        public virtual DataSet ToDataSet(string selectQueryText, InMemoryCache<string> cache)
         {
             DataSet ds;
             var cacheKey = "DP" + selectQueryText.GetHashCode();
@@ -31,9 +32,7 @@ namespace MetX.Data
                     var sb = new StringBuilder();
                     using (var sw = new StringWriter(sb))
                         ds.WriteXml(sw);
-                    cache.Add(cacheKey, sb.ToString(), null, DateTime.Now.AddMinutes(CacheTimeout),
-                        System.Web.Caching.Cache.NoSlidingExpiration,
-                        System.Web.Caching.CacheItemPriority.AboveNormal, null);
+                    cache[cacheKey] =  sb.ToString();
                 }
             }
             else

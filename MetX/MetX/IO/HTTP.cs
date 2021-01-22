@@ -1,8 +1,6 @@
-using System;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Web;
 
 namespace MetX.IO
 {
@@ -144,39 +142,5 @@ namespace MetX.IO
             loWebResponse.Close();
 			return ret;
 		}
-
-		/// <summary>Pulls the contents of URL to the Response object. NOTE: Response is cleared before the URL's response is written to TheResponse</summary>
-		/// <param name="url">The URL to pull</param>
-		/// <param name="theResponse">The HttpResponse to write the result to</param>
-		/// <param name="clearResponse">True if you want TheResponse.Clear() to be called before writing URL response to TheResponse</param>
-		/// <param name="endResponse">True if you want TheResponse.End() to be called after writing URL response to TheResponse</param>
-		public static void PullPage(Uri url, HttpResponse theResponse, bool clearResponse, bool endResponse)
-		{
-		    var req = WebRequest.Create(url);
-			WebResponse resp;
-			try
-			{
-				resp = req.GetResponse();
-			}
-			catch (Exception exc)
-			{
-                if(clearResponse)
-				    theResponse.Clear();
-				theResponse.Write(exc.Message);
-                if (endResponse)
-                    theResponse.End();
-				return ;
-			}
-
-			theResponse.Clear();
-            var responseStream = resp.GetResponseStream();
-            if(responseStream != null)
-            {
-                var netStream = new StreamReader(responseStream);
-                theResponse.Write(netStream.ReadToEnd());
-            }
-            if(endResponse)
-			    theResponse.End();
-		}
-	}
+    }
 }

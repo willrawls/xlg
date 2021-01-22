@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Web;
 using System.Configuration;
+using System.Net;
 using System.Security.Cryptography;
 using MetX.Library;
 
@@ -47,12 +47,6 @@ namespace MetX.Security
                     _vector = Encoding.ASCII.GetBytes(theVector);
                 InternalSetup(true);
                 InternalSetup(false);
-
-                if(HttpContext.Current != null)
-                    HttpContext.Current.Cache.Add(CacheKey, "Still.Fresh",
-                        new System.Web.Caching.CacheDependency(HttpContext.Current.Server.MapPath("web.config")),
-                        DateTime.Today.AddDays(1).AddSeconds(1), System.Web.Caching.Cache.NoSlidingExpiration,
-                        System.Web.Caching.CacheItemPriority.AboveNormal, null);
             }
         }
 
@@ -77,7 +71,7 @@ namespace MetX.Security
 
         public static string ToBase64Fixed(string source)
         {
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null) Reset();
 
             if (string.IsNullOrEmpty(source))
                 return string.Empty;
@@ -102,7 +96,7 @@ namespace MetX.Security
 
         public static string ToBase64(string source)
         {
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null ) Reset();
 
             if (string.IsNullOrEmpty(source))
                 return string.Empty;
@@ -127,7 +121,7 @@ namespace MetX.Security
 
         public static string FromBase64(string encryptedSource)
         {
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null ) Reset();
 
             if (string.IsNullOrEmpty(encryptedSource))
                 return string.Empty;
@@ -167,7 +161,7 @@ TryAgain:
 
         public static string FromBase64Fixed(string encryptedSource)
         {
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null ) Reset();
 
             if (string.IsNullOrEmpty(encryptedSource))
                 return string.Empty;
@@ -191,20 +185,22 @@ TryAgain:
             return returnValue;
         }
 
+        /*
         public static string NameValuesToBase64(System.Collections.Specialized.NameValueCollection nameValuePairs)
         {
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null ) Reset();
 
             if (nameValuePairs == null || nameValuePairs.Count == 0)
                 return string.Empty;
             var sb = new StringBuilder();
             for (var i = 0; i < nameValuePairs.Count; i++)
             {
-                sb.AppendLine(HttpUtility.UrlEncode(nameValuePairs.GetKey(i).AsString()));
-                sb.AppendLine(HttpUtility.UrlEncode(nameValuePairs[i].AsString()));
+                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs.GetKey(i).AsString()));
+                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs[i].AsString()));
             }
             return ToBase64(sb.ToString());
         }
+        */
 
         public static System.Collections.Specialized.NameValueCollection NameValueFromBase64(string encryptedSource)
         {
@@ -212,7 +208,7 @@ TryAgain:
             {
                 throw new ArgumentNullException("encryptedSource");
             }
-            if (_encryptorFixed == null || (HttpContext.Current != null && HttpContext.Current.Cache[CacheKey] == null)) Reset();
+            if (_encryptorFixed == null ) Reset();
 
             var ret = new System.Collections.Specialized.NameValueCollection();
             if (string.IsNullOrEmpty(encryptedSource) && encryptedSource.Length < 1024)
@@ -222,7 +218,7 @@ TryAgain:
             {
                 var items = encryptedSource.Lines();
                 for (var i = 0; i < items.Length - 1; i += 2)
-                    ret.Add(HttpUtility.UrlDecode(items[i]), HttpUtility.UrlDecode(items[i + 1]));
+                    ret.Add(WebUtility.UrlDecode(items[i]), WebUtility.UrlDecode(items[i + 1]));
             }
             return ret;
         }

@@ -2,7 +2,6 @@ using System;
 using System.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace MetX.Library
 {
@@ -79,12 +78,15 @@ namespace MetX.Library
             return true;
         }
 
+        // public static readonly InMemoryCache<Regex> RegExCache = new InMemoryCache<Regex>();
+        
+        /*
         public static bool IsValidEmailAddress(ref string sEmail)
         {
             if (!string.IsNullOrEmpty(sEmail) && sEmail.Contains("@"))
             {
-                var email = (Regex)(HttpContext.Current != null ? HttpContext.Current.Cache["Regex.Email"] : new Regex(ConfigurationManager.AppSettings["Regex.Email"]));
-                if (email == null && HttpContext.Current != null)
+                var email = RegExCache["Regex.Email"] ?? new Regex(ConfigurationManager.AppSettings["Regex.Email"]);
+                if (email == null)
                 {
                     email = new Regex(ConfigurationManager.AppSettings["Regex.Email"], RegexOptions.Compiled);
                     HttpContext.Current.Cache.Add("Regex.Email", email,
@@ -98,42 +100,7 @@ namespace MetX.Library
             }
             return false;
         }
-
-        public static string Value(HttpRequest request, System.Web.UI.StateBag viewState, System.Web.SessionState.HttpSessionState session, string key)
-        {
-            string ret = null;
-            if (session != null) ret = Value(session, key);
-            if (string.IsNullOrEmpty(ret)) ret = request[key];
-            if (viewState != null && string.IsNullOrEmpty(ret)) ret = Value(viewState, key);
-            if (string.IsNullOrEmpty(ret)) ret = request.Headers[key];
-            if (string.IsNullOrEmpty(ret))
-                if (request.Cookies[key] != null) ret = request.Cookies[key].Value;
-            return ret;
-        }
-
-        public static string Value(System.Web.UI.StateBag state, string key)
-        {
-            var ret = string.Empty;
-            if (state != null)
-                try { ret = state[key].ToString(); }
-                catch
-                {
-                    // ignored
-                }
-            return ret;
-        }
-
-        public static string Value(System.Web.SessionState.HttpSessionState state, string key)
-        {
-            var ret = string.Empty;
-            if (state != null)
-                try { ret = state[key].ToString(); }
-                catch
-                {
-                    // ignored
-                }
-            return ret;
-        }
+        */
 
         /// <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
         /// <param name="value">The value to convert</param>

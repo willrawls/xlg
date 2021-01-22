@@ -137,9 +137,6 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
-    <Reference Include="System.Web">
-      <Name>System.Web</Name>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -171,6 +168,7 @@
     <Compile Include="Library\ChooseManyDialog.cs" />
     <Compile Include="Library\ChooseOneDialog.cs" />
     <Compile Include="Library\GeneralQuestionDialog.cs" />
+    <Compile Include="Library\InMemoryCache.cs" />
     <Compile Include="Library\StreamBuilder.cs" />
     <Compile Include="Library\SerializesToXml.cs" />
     <Compile Include="Library\BadStreamBuilderA.cs" />

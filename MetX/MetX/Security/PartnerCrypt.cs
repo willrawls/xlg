@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Configuration;
+using System.Net;
 using System.Security.Cryptography;
 
 namespace MetX.Security
@@ -107,8 +108,8 @@ namespace MetX.Security
             var sb = new StringBuilder();
             for (var i = 0; i < nameValuePairs.Count; i++)
             {
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode((nameValuePairs.GetKey(i) != null ? nameValuePairs.GetKey(i) : string.Empty)));
-                sb.AppendLine(System.Web.HttpUtility.UrlEncode((nameValuePairs[i] != null ? nameValuePairs[i] : string.Empty)));
+                sb.AppendLine(WebUtility.UrlEncode((nameValuePairs.GetKey(i) != null ? nameValuePairs.GetKey(i) : string.Empty)));
+                sb.AppendLine(WebUtility.UrlEncode((nameValuePairs[i] != null ? nameValuePairs[i] : string.Empty)));
             }
             return ToBase64(sb.ToString());
         }
@@ -119,12 +120,11 @@ namespace MetX.Security
             if (string.IsNullOrEmpty(encryptedSource))
                 return ret;
             var sItems = FromBase64(encryptedSource);
-            if (!string.IsNullOrEmpty(sItems))
-            {
-                var items = sItems.Split(new[] { "\r\n" }, StringSplitOptions.None);
-                for (var i = 0; i < items.Length - 1; i += 2)
-                    ret.Add(System.Web.HttpUtility.UrlDecode(items[i]), System.Web.HttpUtility.UrlDecode(items[i + 1]));
-            }
+            if (string.IsNullOrEmpty(sItems)) return ret;
+            
+            var items = sItems.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            for (var i = 0; i < items.Length - 1; i += 2)
+                ret.Add(WebUtility.UrlDecode(items[i]), WebUtility.UrlDecode(items[i + 1]));
             return ret;
         }
     }
