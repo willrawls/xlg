@@ -58,6 +58,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Templates\Single file input\Exe.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Single file input\Native.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Templates\Single file input\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
