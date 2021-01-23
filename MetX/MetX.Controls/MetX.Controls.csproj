@@ -14,12 +14,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DockPanelSuite">
-      <Version>3.0.6</Version>
-    </PackageReference>
-    <PackageReference Include="ICSharpCode.TextEditor">
-      <Version>3.2.1.6466</Version>
-    </PackageReference>
+    <PackageReference Include="As.Fork.NetCore.DockPanelSuite" Version="3.2.2" />
+    <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
