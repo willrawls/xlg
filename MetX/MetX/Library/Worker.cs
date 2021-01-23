@@ -78,30 +78,6 @@ namespace MetX.Library
             return true;
         }
 
-        // public static readonly InMemoryCache<Regex> RegExCache = new InMemoryCache<Regex>();
-        
-        /*
-        public static bool IsValidEmailAddress(ref string sEmail)
-        {
-            if (!string.IsNullOrEmpty(sEmail) && sEmail.Contains("@"))
-            {
-                var email = RegExCache["Regex.Email"] ?? new Regex(ConfigurationManager.AppSettings["Regex.Email"]);
-                if (email == null)
-                {
-                    email = new Regex(ConfigurationManager.AppSettings["Regex.Email"], RegexOptions.Compiled);
-                    HttpContext.Current.Cache.Add("Regex.Email", email,
-                        new System.Web.Caching.CacheDependency(HttpContext.Current.Server.MapPath("web.config")),
-                        System.Web.Caching.Cache.NoAbsoluteExpiration,
-                        new TimeSpan(1, 7, 11), System.Web.Caching.CacheItemPriority.AboveNormal, null);
-                }
-                sEmail = sEmail.Trim();
-                sEmail = sEmail.FirstToken("@").Trim() + "@" + sEmail.TokensAfter(1, "@").ToLower().FirstToken("<").Trim();
-                return email != null && email.IsMatch(sEmail);
-            }
-            return false;
-        }
-        */
-
         /// <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
         /// <param name="value">The value to convert</param>
         /// <param name="defaultValue">The value to return if Value == null or DbNull or an empty string.</param>

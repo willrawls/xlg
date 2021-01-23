@@ -8,6 +8,7 @@ using System.Web.UI;
 
 using MetX.Web.Virtual;
 using MetX.Web.Virtual.Security;
+using MetX.Web.Virtual.xsl;
 
 namespace MetX.Web
 {

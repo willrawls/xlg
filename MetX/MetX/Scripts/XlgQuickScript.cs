@@ -1,3 +1,5 @@
+using NArrange.Core.Configuration;
+
 namespace MetX.Scripts
 {
     using System;
@@ -13,7 +15,7 @@ namespace MetX.Scripts
 
     using Microsoft.CSharp;
 
-    using NArrange.ConsoleApplication;
+    //using NArrange.ConsoleApplication;
     using NArrange.Core;
 
     /// <summary>
@@ -180,8 +182,9 @@ namespace MetX.Scripts
             {
                 try
                 {
-                    var fileArranger = new FileArranger(null, logger);
-                    var formattedCode = fileArranger.ArrangeSource(code);
+
+                    var arranger = new StringArranger(null, logger);
+                    arranger.Arrange("virtual.cs", code, out var formattedCode);
                     return formattedCode ?? code;
                 }
                 catch (Exception ex)
@@ -197,6 +200,7 @@ namespace MetX.Scripts
             return code;
         }
 
+        /*
         public static bool Run(ILogger logger, CommandArguments commandArgs)
         {
             if (logger == null)
@@ -248,6 +252,7 @@ namespace MetX.Scripts
 
             return flag;
         }
+        */
 
         public XlgQuickScript Clone(string name)
         {
