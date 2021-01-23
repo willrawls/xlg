@@ -6,6 +6,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX.Controls</RootNamespace>
     <AssemblyName>MetX.Controls</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
 
   </PropertyGroup>
 
@@ -17,5 +20,8 @@
     <PackageReference Include="As.Fork.NetCore.DockPanelSuite" Version="3.2.2" />
     <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy /Y &quot;I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX.Controls\Roslyn&quot; &quot;I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX.Controls\bin&quot;&#xD;&#xA;" />
+  </Target>
 
 </Project>

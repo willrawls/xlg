@@ -7,6 +7,8 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>XLG.Pipeliner</RootNamespace>
     <AssemblyName>xlgPipeliner</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

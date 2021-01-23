@@ -7,6 +7,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>XLG.QuickScripts</RootNamespace>
     <AssemblyName>xlgQuickScripts</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 <ItemGroup>
   <None Include="Properties\Settings.settings">

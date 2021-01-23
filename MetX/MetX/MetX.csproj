@@ -5,6 +5,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX</RootNamespace>
     <AssemblyName>MetX</AssemblyName>
+    <ApplicationIcon>batfile.ico</ApplicationIcon>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX\MetX.xml</DocumentationFile>
@@ -93,6 +97,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>

@@ -11,12 +11,12 @@ namespace MetX.Scripts
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using System.Windows.Forms;
+    using Microsoft.CodeDom.Providers.DotNetCompilerPlatform;
     using System.Xml.Serialization;
 
     using Library;
 
-    using Microsoft.CSharp;
+    //using Microsoft.CSharp;
 
     //using NArrange.ConsoleApplication;
     //using NArrange.Core;
@@ -104,103 +104,42 @@ namespace MetX.Scripts
                         .ToArray());
             }
 
-            var cSharpProvider = CodeDomProvider.CreateProvider("CSharp");
-            /*
-            var cp = new CompilerParameters
+            try
             {
-                GenerateExecutable = true,
-                OutputAssembly = exeName,
-                GenerateInMemory = false,
-                TreatWarningsAsErrors = false
-            };
+                var cscPath =
+                    @"c:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Roslyn";
+                
+                var providerOptions = new ProviderOptions(cscPath, 100);
+                var cSharpProvider = new CSharpCodeProvider(providerOptions);
+                
+                var parameters = new CompilerParameters
+                {
+                    GenerateInMemory = true, 
+                    CompilerOptions = " -langversion:8.0 "
+                };
+                parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+                parameters.ReferencedAssemblies.Add("System.Core.dll");
+                //parameters.ReferencedAssemblies.Add("mscorlib.dll");
+                parameters.ReferencedAssemblies.Add("System.Security.Permissions.dll");
+
+                var results = cSharpProvider.CompileAssemblyFromSource(parameters, source);
+                return results;
+
+                /*
+                var providerOptions = new ProviderOptions(@"..\Roslyn\csc.exe", 100);
+                var cSharpProvider = new CSharpCodeProvider(providerOptions);
+                var compilerResults = cSharpProvider.CompileAssemblyFromSource(compilerParameters, source);
+                return compilerResults;
             */
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
-            var compilerResults = cSharpProvider.CompileAssemblyFromSource(compilerParameters, source);
-            //var compilerResults = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters, source);
-            return compilerResults;
+            return null;
         }
 
-        public static bool CompileExecutable(String sourceName)
-        {
-            FileInfo sourceFile = new FileInfo(sourceName);
-            CodeDomProvider provider = null;
-            bool compileOk = false;
-
-            // Select the code provider based on the input file extension.
-            if (sourceFile.Extension.ToUpper(CultureInfo.InvariantCulture) == ".CS")
-            {
-                provider = CodeDomProvider.CreateProvider("CSharp");
-            }
-            else if (sourceFile.Extension.ToUpper(CultureInfo.InvariantCulture) == ".VB")
-            {
-                provider = CodeDomProvider.CreateProvider("VisualBasic");
-            }
-            else
-            {
-                Console.WriteLine("Source file must have a .cs or .vb extension");
-            }
-
-            if (provider != null)
-            {
-
-                // Format the executable file name.
-                // Build the output assembly path using the current directory
-                // and <source>_cs.exe or <source>_vb.exe.
-
-                String exeName = String.Format(@"{0}\{1}.exe",
-                    System.Environment.CurrentDirectory,
-                    sourceFile.Name.Replace(".", "_"));
-
-                CompilerParameters cp = new CompilerParameters();
-
-                // Generate an executable instead of
-                // a class library.
-                cp.GenerateExecutable = true;
-
-                // Specify the assembly file name to generate.
-                cp.OutputAssembly = exeName;
-
-                // Save the assembly as a physical file.
-                cp.GenerateInMemory = false;
-
-                // Set whether to treat all warnings as errors.
-                cp.TreatWarningsAsErrors = false;
-
-                // Invoke compilation of the source file.
-                CompilerResults cr = provider.CompileAssemblyFromFile(cp,
-                    sourceName);
-
-                if(cr.Errors.Count > 0)
-                {
-                    // Display compilation errors.
-                    Console.WriteLine("Errors building {0} into {1}",
-                        sourceName, cr.PathToAssembly);
-                    foreach(CompilerError ce in cr.Errors)
-                    {
-                        Console.WriteLine("  {0}", ce.ToString());
-                        Console.WriteLine();
-                    }
-                }
-                else
-                {
-                    // Display a successful compilation message.
-                    Console.WriteLine("Source {0} built into {1} successfully.",
-                        sourceName, cr.PathToAssembly);
-                }
-
-                // Return the results of the compilation.
-                if (cr.Errors.Count > 0)
-                {
-                    compileOk = false;
-                }
-                else
-                {
-                    compileOk = true;
-                }
-            }
-            return compileOk;
-        }
-        
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
             // backslash percent will translate to % after parsing
