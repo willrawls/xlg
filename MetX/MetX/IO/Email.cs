@@ -8,11 +8,7 @@ namespace MetX.IO
 	/// </summary>
 	public class Email
 	{
-		/// <summary>The email message to use with Send()</summary>
-		//public MailMessage mm;
-        //Thread t;
-
-        /// <summary>Allows for the quick and asynchronous sending of a simple email</summary>
+		/// <summary>Allows for the quick and asynchronous sending of a simple email</summary>
         /// <param name="fromName">Display name of the person sending the email</param>
         /// <param name="fromEmail">From Email address</param>
         /// <param name="toName">Display name for the person receiving the email</param>

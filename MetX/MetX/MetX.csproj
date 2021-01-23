@@ -30,6 +30,7 @@
     <Compile Remove="IO\DatabaseUpdates.cs" />
     <Compile Remove="IO\Element.cs" />
     <Compile Remove="Library\ExampleXslUrn.cs" />
+    <Compile Remove="Scripts\NArrangeTestLogger.cs" />
     <Compile Remove="Templates\Single file input\Exe.cs" />
     <Compile Remove="Templates\Single file input\Native.cs" />
     <Compile Remove="Web\HttpAppErrHandler.cs" />
@@ -93,8 +94,7 @@
     <Folder Include="Templates\Single file input\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Mvp.Xml" Version="2.3.0" />
-    <PackageReference Include="NArrange" Version="0.3.5" />
+    <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 

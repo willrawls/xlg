@@ -1,4 +1,4 @@
-using NArrange.Core.Configuration;
+//using NArrange.Core.Configuration;
 
 namespace MetX.Scripts
 {
@@ -16,7 +16,7 @@ namespace MetX.Scripts
     using Microsoft.CSharp;
 
     //using NArrange.ConsoleApplication;
-    using NArrange.Core;
+    //using NArrange.Core;
 
     /// <summary>
     ///     Represents a clipboard processing script
@@ -176,13 +176,14 @@ namespace MetX.Scripts
 
         public static string FormatCSharpCode(string code)
         {
+            /*
             var logger = new NArrangeTestLogger();
             var attempts = 0;
             while (++attempts < 2)
             {
                 try
                 {
-
+                    // TODO Recompile NArrange for .net 5
                     var arranger = new StringArranger(null, logger);
                     arranger.Arrange("virtual.cs", code, out var formattedCode);
                     return formattedCode ?? code;
@@ -196,6 +197,7 @@ namespace MetX.Scripts
                     }
                 }
             }
+            */
 
             return code;
         }
