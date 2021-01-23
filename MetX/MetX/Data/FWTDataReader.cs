@@ -27,20 +27,14 @@ namespace MetX.Data
             
         }
 
-        public int Depth
-        {
-            get { return 1; }
-        }
+        public int Depth => 1;
 
         public DataTable GetSchemaTable()
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public bool IsClosed
-        {
-            get { return command.Connection.State != ConnectionState.Open; }
-        }
+        public bool IsClosed => command.Connection.State != ConnectionState.Open;
 
         public bool NextResult()
         {
@@ -63,10 +57,7 @@ namespace MetX.Data
             return buffer != null;
         }
 
-        public int RecordsAffected
-        {
-            get { return 1; }
-        }
+        public int RecordsAffected => 1;
 
         #endregion
 
@@ -83,10 +74,7 @@ namespace MetX.Data
 
         #region IDataRecord Members
 
-        public int FieldCount
-        {
-            get { throw new Exception("The method or operation is not implemented."); }
-        }
+        public int FieldCount => throw new Exception("The method or operation is not implemented.");
 
         public bool GetBoolean(int i)
         {
@@ -198,15 +186,9 @@ namespace MetX.Data
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public object this[string name]
-        {
-            get { throw new Exception("The method or operation is not implemented."); }
-        }
+        public object this[string name] => throw new Exception("The method or operation is not implemented.");
 
-        public object this[int i]
-        {
-            get { throw new Exception("The method or operation is not implemented."); }
-        }
+        public object this[int i] => throw new Exception("The method or operation is not implemented.");
 
         #endregion
     }

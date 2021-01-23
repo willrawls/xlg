@@ -71,6 +71,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\NArrange2010Signed\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.TextEditor, Version=3.2.1.6466, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TextEditor\Lib\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
     <Reference Include="narrange-console, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <ExecutableExtension>.exe</ExecutableExtension>
@@ -96,6 +100,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="QuickScriptEditor.cs">
@@ -120,6 +127,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,14 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Settings.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DockPanelSuite">
-      <Version>3.0.6</Version>
-    </PackageReference>
-    <PackageReference Include="ICSharpCode.TextEditor.Sample">
-      <Version>3.2.1.6466</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using MetX.Library;
 
 namespace MetX.Data
 {
@@ -54,33 +55,24 @@ namespace MetX.Data
 
         public string ConnectionString
         {
-            get
-            {
-                return connectionString;
-            }
+            get => connectionString;
             set
             {
                 connectionString = value;
-                XlgFilePath = Token.Between(connectionString, "XlgFilePath=", ";");
-                DataFilePath = Token.Between(connectionString, "DataFilePath=", ";");
-                AsReader = Token.Between(connectionString, "AsReader=", ";").ToLower() == "true";
+                XlgFilePath = connectionString.TokenBetween("XlgFilePath=", ";");
+                DataFilePath = connectionString.TokenBetween("DataFilePath=", ";");
+                AsReader = connectionString.TokenBetween("AsReader=", ";").ToLower() == "true";
             }
         }
 
-        public int ConnectionTimeout
-        {
-            get { return int.MinValue; }
-        }
+        public int ConnectionTimeout => int.MinValue;
 
         public IDbCommand CreateCommand()
         {
             return new FWTCommand();
         }
 
-        public string Database
-        {
-            get { return Path.GetFileNameWithoutExtension(DataFilePath); }
-        }
+        public string Database => Path.GetFileNameWithoutExtension(DataFilePath);
 
         public void Open()
         {
@@ -146,22 +138,13 @@ namespace MetX.Data
         string commandText;
         public string CommandText
         {
-            get
-            {
-                return commandText;
-            }
-            set
-            {
-                commandText = value;
-            }
+            get => commandText;
+            set => commandText = value;
         }
 
         public int CommandTimeout
         {
-            get
-            {
-                return int.MinValue; 
-            }
+            get => int.MinValue;
             set
             {
                 
@@ -171,27 +154,15 @@ namespace MetX.Data
         CommandType commandType;
         public CommandType CommandType
         {
-            get
-            {
-                return commandType;
-            }
-            set
-            {
-                commandType = value;
-            }
+            get => commandType;
+            set => commandType = value;
         }
 
         FWTConnection connection;
         public IDbConnection Connection
         {
-            get
-            {
-                return connection;
-            }
-            set
-            {
-                connection = (FWTConnection) value;
-            }
+            get => connection;
+            set => connection = (FWTConnection) value;
         }
 
         public IDbDataParameter CreateParameter()
@@ -228,10 +199,7 @@ namespace MetX.Data
             return commandText;
         }
 
-        public IDataParameterCollection Parameters
-        {
-            get { return null; }
-        }
+        public IDataParameterCollection Parameters => null;
 
         public void Prepare()
         {
@@ -240,10 +208,7 @@ namespace MetX.Data
 
         public IDbTransaction Transaction
         {
-            get
-            {
-                return null; 
-            }
+            get => null;
             set
             {
                 

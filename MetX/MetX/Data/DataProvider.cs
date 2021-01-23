@@ -97,21 +97,9 @@ namespace MetX.Data
             return null;
         }
 
-        public virtual string TopStatement
-        {
-            get
-            {
-                return " TOP ";
-            }
-        }
+        public virtual string TopStatement => " TOP ";
 
-        public virtual string CommandSeparator
-        {
-            get
-            {
-                return "; ";
-            }
-        }
+        public virtual string CommandSeparator => "; ";
 
         public virtual string SelectStatement(string top, int page, QueryType qType)
         {

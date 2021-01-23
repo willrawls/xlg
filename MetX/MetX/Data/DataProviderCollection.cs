@@ -6,12 +6,9 @@ namespace MetX.Data
     public class DataProviderCollection : ProviderCollection
     {
         
-        public new DataProvider this[string name]
-        {
-            get { return (DataProvider)base[name]; }
-        }
+        public new DataProvider this[string name] => (DataProvider)base[name];
 
-        
+
         /// <param name="provider">C#CD: </param>
         public override void Add(ProviderBase provider)
         {

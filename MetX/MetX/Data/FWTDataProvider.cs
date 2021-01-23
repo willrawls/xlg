@@ -23,28 +23,16 @@ namespace MetX.Data
             return null;
         }
 
-        public override string topStatement
+        public override string TopStatement => string.Empty;
+
+        public override string CommandSeparator => string.Empty;
+
+        public override string SelectStatement(string top, int page, QueryType qType)
         {
-            get
-            {
-                return string.Empty;
-            }
+            return top;
         }
 
-        public override string commandSeparator
-        {
-            get
-            {
-                return string.Empty;
-            }
-        }
-
-        public override string selectStatement(string Top, int Page)
-        {
-            return Top;
-        }
-
-        public override string handlePage(string query, int offset, int limit)
+        public override string HandlePage(string query, int offset, int limit, QueryType qType)
         {
             throw new Exception("The method or operation is not implemented.");
         }
@@ -70,7 +58,7 @@ namespace MetX.Data
             }
             catch (Exception ex)
             {
-                throw new Exception(qry.ToXML() + "\r\n\r\n" + ex.ToString());
+                throw new Exception(qry.ToXml() + "\r\n\r\n" + ex.ToString());
             }
             return ret;
         }
@@ -86,7 +74,7 @@ namespace MetX.Data
         /// <summary>C#CD: </summary>
         /// <param name="qry">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override System.Data.DataSet GetDataSet(QueryCommand qry)
+        public override System.Data.DataSet ToDataSet(QueryCommand qry)
         {
             return null;
         }
@@ -203,9 +191,9 @@ namespace MetX.Data
                         if (raw.IndexOf("FOREIGN KEY") > -1)
                         {
                             t1 = Token.First(raw, " FOREIGN KEY");
-                            t2 = Token.Between(raw, "REFERENCES ", "(").Trim();
+                            t2 = Tokenizer.TokenBetween(raw, "REFERENCES ", "(").Trim();
                             c1 = Microsoft.VisualBasic.Strings.Split(
-                                Token.Between(raw, "(", ")").Trim(),
+                                Tokenizer.TokenBetween(raw, "(", ")").Trim(),
                                 ", ", -1, Microsoft.VisualBasic.CompareMethod.Text);
                             c2 = Microsoft.VisualBasic.Strings.Split(
                                 Token.Get(Token.Get(raw, 3, "("), 1, ")").Trim(),
@@ -217,7 +205,7 @@ namespace MetX.Data
                             t1 = Token.First(raw, " KEY INDEX");
                             t2 = "Primary";
                             c1 = Microsoft.VisualBasic.Strings.Split(
-                                Token.Between(raw, "(", ")").Trim(),
+                                Tokenizer.TokenBetween(raw, "(", ")").Trim(),
                                 ", ", -1, Microsoft.VisualBasic.CompareMethod.Text);
                             c2 = new string[0];
                             constraintType = "Primary";

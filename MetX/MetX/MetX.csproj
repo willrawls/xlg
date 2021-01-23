@@ -1,285 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}</ProjectGuid>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>batfile.ico</ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
-    <AssemblyName>MetX</AssemblyName>
-    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
-    <DefaultClientScript>JScript</DefaultClientScript>
-    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-    <DefaultTargetSchema>IE50</DefaultTargetSchema>
-    <DelaySign>false</DelaySign>
-    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX</RootNamespace>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\bin\</OutputPath>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <BaseAddress>890372096</BaseAddress>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\..\bin\MetX.XML</DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
-    <NoStdLib>false</NoStdLib>
-    <NoWarn>1591</NoWarn>
-    <Optimize>false</Optimize>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>1</WarningLevel>
-    <DebugType>full</DebugType>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <BaseAddress>890372096</BaseAddress>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Debug\MetX.XML</DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
-    <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
-    <Optimize>true</Optimize>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
-    <DebugType>pdbonly</DebugType>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>false</Prefer32Bit>
+    <AssemblyName>MetX</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\NArrange2010Signed\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic">
-      <Name>Microsoft.VisualBasic</Name>
-    </Reference>
-    <Reference Include="narrange-console, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\References\NArrange2010Signed\narrange-console.exe</HintPath>
-    </Reference>
-    <Reference Include="NArrange.Core, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\NArrange2010Signed\NArrange.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NArrange.CSharp, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\NArrange2010Signed\NArrange.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="NArrange.VisualBasic, Version=0.2.9.0, Culture=neutral, PublicKeyToken=a6c68cb72c45459a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\NArrange2010Signed\NArrange.VisualBasic.dll</HintPath>
-    </Reference>
-    <Reference Include="nxslt2">
-      <HintPath>..\References\nxslt2.exe</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-    </Reference>
-    <Reference Include="System.Drawing">
-      <Name>System.Drawing</Name>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-    </Reference>
+    <Compile Remove="Templates\Single file input\Exe.cs" />
+    <Compile Remove="Templates\Single file input\Native.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Data\ActiveRecord.cs" />
-    <Compile Include="Data\Aggregate.cs" />
-    <Compile Include="Data\AggregateFunction.cs" />
-    <Compile Include="Data\Comparison.cs" />
-    <Compile Include="Data\DataProviderCollection.cs" />
-    <Compile Include="Data\Factory\CommandLineGatherer.cs" />
-    <Compile Include="Data\Factory\FileSystemGatherer.cs" />
-    <Compile Include="Data\Factory\CommandLineProvider.cs" />
-    <Compile Include="Data\Factory\FileSystemProvider.cs" />
-    <Compile Include="Data\Factory\PowershellProvider.cs" />
-    <Compile Include="Data\Factory\PowerShellGatherer.cs" />
-    <Compile Include="Data\Factory\SqlDataProvider.cs" />
-    <Compile Include="Data\Factory\SqlToXmlGatherer.cs" />
-    <Compile Include="Data\Factory\SystemDataSqlClientProvider.cs" />
-    <Compile Include="Data\Join.cs" />
-    <Compile Include="Data\OrderBy.cs" />
-    <Compile Include="Data\QueryCommandCollection.cs" />
-    <Compile Include="Data\QueryParameter.cs" />
-    <Compile Include="Data\QueryParameterCollection.cs" />
-    <Compile Include="Data\QueryType.cs" />
-    <Compile Include="Library\AskForStringDialog.cs" />
-    <Compile Include="Library\BaseRuntimeFunctions.cs" />
-    <Compile Include="Library\ChooseManyDialog.cs" />
-    <Compile Include="Library\ChooseOneDialog.cs" />
-    <Compile Include="Library\GeneralQuestionDialog.cs" />
-    <Compile Include="Library\InMemoryCache.cs" />
-    <Compile Include="Library\StreamBuilder.cs" />
-    <Compile Include="Library\SerializesToXml.cs" />
-    <Compile Include="Library\BadStreamBuilderA.cs" />
-    <Compile Include="Library\BadStreamBuilderB.cs" />
-    <Compile Include="Library\Tokenizer.cs" />
-    <Compile Include="Scripts\CaseFreeDictionary.cs" />
-    <Compile Include="Scripts\GenArea.cs" />
-    <Compile Include="Scripts\GenInstance.cs" />
-    <Compile Include="Scripts\QuickScriptDestination.cs" />
-    <Compile Include="Pipelines\CodeGenerator.cs" />
-    <Compile Include="Scripts\NArrangeTestLogger.cs" />
-    <Compile Include="Scripts\XlgQuickScript.cs" />
-    <Compile Include="Pipelines\xlgFile.cs" />
-    <Compile Include="Pipelines\DefaultXlg.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Data\DataProvider.cs" />
-    <Compile Include="Data\DataService.cs" />
-    <Compile Include="Data\GatherProvider.cs" />
-    <Compile Include="Scripts\XlgQuickScriptTemplate.cs" />
-    <Compile Include="Techniques\NodeParticle.cs" />
-    <Compile Include="Techniques\PatternWorks.cs" />
-    <Compile Include="Techniques\Connection.cs" />
-    <Compile Include="Techniques\FileParticle.cs" />
-    <Compile Include="Techniques\FolderParticle.cs" />
-    <Compile Include="Techniques\Particle.cs" />
-    <Compile Include="Techniques\Provider.cs" />
-    <Compile Include="Techniques\Reference.cs" />
-    <Compile Include="Techniques\ParticleList.cs" />
-    <Compile Include="Techniques\ParticleType.cs" />
-    <Compile Include="Techniques\Technique.cs" />
-    <Compile Include="Techniques\Variable.cs" />
-    <Compile Include="Data\Where.cs" />
-    <Compile Include="Data\WhereOptions.cs" />
-    <Compile Include="Interfaces\IProvide.cs" />
-    <Compile Include="Data\Query.cs" />
-    <Compile Include="Data\QueryCommand.cs" />
-    <Compile Include="Data\StoredProcedureResult.cs" />
-    <Compile Include="Data\TableSchema.cs" />
-    <Compile Include="Pipelines\xlgFolder.cs" />
-    <Compile Include="Scripts\XlgQuickScriptFile.cs" />
-    <Compile Include="Scripts\XlgQuickScriptTemplateList.cs" />
-    <Compile Include="Pipelines\XlgSettings.cs" />
-    <Compile Include="Pipelines\xlgSource.cs" />
-    <Compile Include="Interfaces\IShowText.cs" />
-    <Compile Include="Interfaces\ProviderTypeEnum.cs" />
-    <Compile Include="IO\xlgThemeResolver.cs" />
-    <Compile Include="IO\xlgUrnResolver.cs" />
-    <Compile Include="IO\StateCollection.cs" />
-    <EmbeddedResource Include="Templates\Single file input\Native.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Compile Include="Library\BaseLineProcessor.cs" />
-    <EmbeddedResource Include="Templates\Single file input\Exe.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Compile Include="Library\ContextBase.cs" />
-    <Compile Include="Library\QuickScriptWorker.cs" />
-    <Compile Include="Library\RunResult.cs" />
-    <Compile Include="Library\StringWriterWithEncoding.cs" />
-    <Compile Include="Library\UI.cs" />
-    <Compile Include="Library\Xhtml.cs" />
-    <Compile Include="Library\xlgUrn.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Library\xsl.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Security\Crypt.cs" />
-    <Compile Include="AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IO\Email.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IO\FileSystem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IO\HTTP.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IO\SmtpMail.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Library\SortedStringList.cs" />
-    <Compile Include="IO\xlgDataSection.cs" />
-    <Compile Include="IO\sql.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Library\StringExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Library\Worker.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Library\XML.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\PartnerCrypt.cs" />
+    <!--
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    -->
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
-  </ItemGroup>
+
   <ItemGroup>
     <None Include="XLG.snk" />
   </ItemGroup>
@@ -307,30 +52,11 @@
     <None Include="Properties\add_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Folder Include="Resources\" />
+    <Folder Include="Templates\Single file input\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

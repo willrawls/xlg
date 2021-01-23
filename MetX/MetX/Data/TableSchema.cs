@@ -55,16 +55,10 @@ namespace MetX.Data
                 }
             }
 
-            public TableColumn PrimaryKey
-            {
-                get
-                {
-                    return Columns?.GetPrimaryKey();
-                }
-            }
+            public TableColumn PrimaryKey => Columns?.GetPrimaryKey();
 
             /// <summary>The basic SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
-            public string SelectSql { get { return "SELECT " + FIELD_LIST + " FROM [" + Name + "] "; } }
+            public string SelectSql => "SELECT " + FIELD_LIST + " FROM [" + Name + "] ";
         }
 
         /// <summary>
@@ -221,14 +215,14 @@ namespace MetX.Data
             /// <summary>C#CD: </summary>
             public string ColumnName
             {
-                get { return _columnName; }
-                set { _columnName = value; }
+                get => _columnName;
+                set => _columnName = value;
             }
 
             /// <summary>C#CD: </summary>
             public object CurrentValue
             {
-                get { return _currentValue; }
+                get => _currentValue;
                 set
                 {
                     if (value is int && (int)value == int.MinValue)
