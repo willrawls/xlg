@@ -106,7 +106,7 @@ namespace MetX.Library
                                     commaNeeded = false;
                                 }
                                 if (commaNeeded) { target.Append(",/*7*/"); commaNeeded = false;  }
-                                ToJson((XmlElement)currChild, target, true, indent + "\t", true);
+                                ToJson(currChild, target, true, indent + "\t", true);
                                 lastNodeName = currChild.Name;
                                 commaNeeded = true;
                             }

@@ -23,7 +23,7 @@ namespace MetX.Data
         {
             DataSet ds;
             var cacheKey = "DP" + selectQueryText.GetHashCode();
-            var dsXml = (string)cache[cacheKey];
+            var dsXml = cache[cacheKey];
             if (dsXml == null)
             {
                 ds = ToDataSet(selectQueryText);

@@ -121,12 +121,10 @@ namespace System.Windows.Forms
 	/// </summary>
 	public static class InputBox
 	{
-		static public string Show(string prompt) 
-			{ return Show(prompt, null, null, int.MinValue, int.MinValue, false); }
-		static public string Show(string prompt, string title, string @default)
+        public static string Show(string prompt, string title, string @default)
 			{ return Show(prompt, title, @default, int.MinValue, int.MinValue, false); }
 		
-		static public string Show(string prompt, string title, string @default, int xPos, int yPos, bool isPassword)
+		public static string Show(string prompt, string title = null, string @default = null, int xPos = int.MinValue, int yPos = int.MinValue, bool isPassword = false)
 		{
 			title ??= Application.ProductName;
 			var dlg = new InputBoxDialog(prompt, title, xPos, yPos);
@@ -135,12 +133,9 @@ namespace System.Windows.Forms
 			if (@default != null)
 				dlg.TxtInput.Text = @default;
 			var result = dlg.ShowDialog();
-			if (result == DialogResult.Cancel)
-				return null;
-			else
-				return dlg.TxtInput.Text;
+			return result == DialogResult.Cancel ? null : dlg.TxtInput.Text;
 		}
-		static public string ShowPasswordBox(string prompt, string title)
+		public static string ShowPasswordBox(string prompt, string title)
 			{ return Show(prompt, title, "", int.MinValue, int.MinValue, true); }
 	}
 }

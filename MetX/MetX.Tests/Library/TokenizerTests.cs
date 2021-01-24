@@ -20,10 +20,10 @@ namespace MetX.Tests.Library
             Assert.AreEqual("", sample1.TokenAt(-2, " "));
 
             Assert.AreEqual("", ((string)null).TokenAt(1, " "));
-            Assert.AreEqual("", ((string)null).TokenAt(1, (string)null));
+            Assert.AreEqual("", ((string)null).TokenAt(1, null));
 
             Assert.AreEqual(sample1, sample1.TokenAt(1, ""));
-            Assert.AreEqual(sample1, sample1.TokenAt(1, ((string)null)));
+            Assert.AreEqual(sample1, sample1.TokenAt(1, null));
 
             var sample2 = sample1 + " Fred reads his mail.";
             Assert.AreEqual(_sample, sample2.TokenAt(1, "."));
@@ -37,13 +37,13 @@ namespace MetX.Tests.Library
             Assert.AreEqual(3, _sample.TokenCount());
 
             Assert.AreEqual(0, ((string)null).TokenCount());
-            Assert.AreEqual(0, ((string)null).TokenCount(((string)null)));
+            Assert.AreEqual(0, ((string)null).TokenCount(null));
 
             Assert.AreEqual(0, "".TokenCount());
             Assert.AreEqual(0, "".TokenCount(""));
             Assert.AreEqual(0, "".TokenCount("goes"));
 
-            Assert.AreEqual(1, _sample.TokenCount(((string)null)));
+            Assert.AreEqual(1, _sample.TokenCount(null));
 
             Assert.AreEqual(1, _sample.TokenCount(""));
             Assert.AreEqual(1, _sample.TokenCount("boggle"));
@@ -73,10 +73,10 @@ namespace MetX.Tests.Library
             Assert.AreEqual("", _sample.TokensBefore(-2, " "));
 
             Assert.AreEqual("", ((string)null).TokensBefore(1, " "));
-            Assert.AreEqual("", ((string)null).TokensBefore(1, (string)null));
+            Assert.AreEqual("", ((string)null).TokensBefore(1, null));
 
             Assert.AreEqual("", _sample.TokensBefore(1, ""));
-            Assert.AreEqual("", _sample.TokensBefore(1, ((string)null)));
+            Assert.AreEqual("", _sample.TokensBefore(1, null));
         }
     }
 }
