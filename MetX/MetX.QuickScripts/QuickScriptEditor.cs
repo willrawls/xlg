@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Reflection;
-    using System.Text;
     using System.Windows.Forms;
 
     using MetX.Controls;

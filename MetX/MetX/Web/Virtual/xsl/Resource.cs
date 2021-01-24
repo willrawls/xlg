@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Metta.Web.Virtual.xsl
 {
     /// <summary>C#CD: </summary>

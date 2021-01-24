@@ -1,7 +1,7 @@
 /// <summary>Allows for the retrieval of attachment information and location for a specified item.
 /// Use of this requires using the xlgAttachments website. Further development is required.</summary>
 /// <author>William M. Rawls</author>
-using System;
+
 using System.Configuration;
 using System.IO;
 using System.Xml;
