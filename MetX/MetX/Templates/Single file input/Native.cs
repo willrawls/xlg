@@ -4,10 +4,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text;
 using MetX;
+using MetX.IO;
+using MetX.Data;
+using MetX.Scripts;
 using MetX.Library;
+
 //~~Usings~~//
 
-namespace MetX
+namespace MetX.Scripts
 {
     public class QuickScriptProcessor : BaseLineProcessor
     {

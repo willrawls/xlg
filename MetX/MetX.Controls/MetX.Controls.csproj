@@ -21,7 +21,6 @@
     <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /Y &quot;I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX.Controls\Roslyn&quot; &quot;I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX.Controls\bin&quot;&#xD;&#xA;" />
   </Target>
 
 </Project>

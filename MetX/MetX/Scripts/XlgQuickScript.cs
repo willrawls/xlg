@@ -2,6 +2,7 @@
 
 using System.Globalization;
 using System.IO;
+using Microsoft.CodeAnalysis;
 
 namespace MetX.Scripts
 {
@@ -11,7 +12,6 @@ namespace MetX.Scripts
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using Microsoft.CodeDom.Providers.DotNetCompilerPlatform;
     using System.Xml.Serialization;
 
     using Library;
@@ -73,73 +73,17 @@ namespace MetX.Scripts
             Template = "Single file input";
         }
 
-        public static CompilerResults CompileSource(string source, bool asExecutable, List<Assembly> additionalReferences)
+        public static InMemoryCompiler<string> CompileSource(
+            string source, 
+            bool asExecutable, 
+            List<Type> additionalReferences,
+            List<string> additionalSharedReferences)
         {
-            var compilerParameters = new CompilerParameters
-            {
-                GenerateExecutable = asExecutable,
-                GenerateInMemory = !asExecutable,
-                IncludeDebugInformation = asExecutable
-            };
-            if (asExecutable)
-            {
-                compilerParameters.MainClass = "Processor.Program";
-                compilerParameters.OutputAssembly =
-                    Guid.NewGuid().ToString().Replace(new[] { "{", "}", "-" }, string.Empty).ToLower() + ".exe";
-            }
-            
-            compilerParameters
-                .ReferencedAssemblies
-                .AddRange(
-                    AppDomain.CurrentDomain
-                             .GetAssemblies()
-                             .Where(a => !a.IsDynamic)
-                             .Select(a => a.Location)
-                             .ToArray());
-            if ((additionalReferences != null) && (additionalReferences.Count > 0))
-            {
-                compilerParameters.ReferencedAssemblies.AddRange(
-                    additionalReferences
-                        .Select(a => a.Location)
-                        .ToArray());
-            }
-
-            try
-            {
-                var cscPath =
-                    @"c:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Roslyn";
-                
-                var providerOptions = new ProviderOptions(cscPath, 100);
-                var cSharpProvider = new CSharpCodeProvider(providerOptions);
-                
-                var parameters = new CompilerParameters
-                {
-                    GenerateInMemory = true, 
-                    CompilerOptions = " -langversion:8.0 "
-                };
-                parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
-                parameters.ReferencedAssemblies.Add("System.Core.dll");
-                //parameters.ReferencedAssemblies.Add("mscorlib.dll");
-                parameters.ReferencedAssemblies.Add("System.Security.Permissions.dll");
-
-                var results = cSharpProvider.CompileAssemblyFromSource(parameters, source);
-                return results;
-
-                /*
-                var providerOptions = new ProviderOptions(@"..\Roslyn\csc.exe", 100);
-                var cSharpProvider = new CSharpCodeProvider(providerOptions);
-                var compilerResults = cSharpProvider.CompileAssemblyFromSource(compilerParameters, source);
-                return compilerResults;
-            */
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            return null;
+            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences);
+            if (!compiler.CompiledSuccessfully) return null;
+            return compiler;
         }
-
+        
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
             // backslash percent will translate to % after parsing

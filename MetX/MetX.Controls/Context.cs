@@ -33,16 +33,14 @@ namespace MetX.Controls
 
             var source = scriptToRun.ToCSharp(false);
 
-            var additionalReferences = new List<Assembly> {
-                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
-                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
-                                                      };
+            var assemblies = DefaultTypesForCompiler();
+            var shared = new List<string>{ };
+            
+            var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared);
 
-            var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
-
-            if (compilerResults.Errors.Count <= 0)
+            if (compiler?.CompiledSuccessfully == true)
             {
-                var assembly = compilerResults.CompiledAssembly;
+                var assembly = compiler.CompiledAssembly;
                 var quickScriptProcessor =
                     assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
 
@@ -58,10 +56,10 @@ namespace MetX.Controls
             var sb =
                 new StringBuilder("Compilation failure. Errors found include:"
                                   + Environment.NewLine + Environment.NewLine);
-            for (var index = 0; index < compilerResults.Errors.Count; index++)
+            for (var index = 0; index < compiler.Failures.Length; index++)
             {
                 sb.AppendLine((index + 1) + ": Line "
-                              + compilerResults.Errors[index]
+                              + compiler.Failures[index]
                                   .ToString()
                                   .TokensAfterFirst("(")
                                   .Replace(")", string.Empty));
@@ -72,6 +70,17 @@ namespace MetX.Controls
             QuickScriptWorker.ViewTextInNotepad(source, true);
 
             return null;
+        }
+
+        public static List<Type> DefaultTypesForCompiler()
+        {
+            var assemblies = new List<Type>
+            {
+                typeof(ChooseOrderDialog),
+                typeof(InMemoryCache<>), // MetX.Library
+                typeof(Context),         // MetX.Controls
+            };
+            return assemblies;
         }
 
         public static string GetLastKnownPath()

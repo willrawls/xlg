@@ -143,15 +143,10 @@ namespace MetX.Controls
             }
 
             var source = CurrentScript.ToCSharp(true);
-            var additionalReferences = new List<Assembly>()
-                                                      {
-                                                          Assembly.GetExecutingAssembly(),
-                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
-                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
-                                                      };
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences);
+            var additionalReferences = Context.DefaultTypesForCompiler();
+            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null);
 
-            if (compilerResults.Errors.Count <= 0)
+            if (compilerResults.Failures.Length <= 0)
             {
                 var assembly = compilerResults.CompiledAssembly;
 
@@ -213,9 +208,9 @@ namespace MetX.Controls
                 new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
                                   + Environment.NewLine);
             var lines = new List<string>(source.LineList());
-            for (var index = 0; index < compilerResults.Errors.Count; index++)
+            for (var index = 0; index < compilerResults.Failures.Length; index++)
             {
-                var error = compilerResults.Errors[index].ToString();
+                var error = compilerResults.Failures[index].ToString();
                 if (error.Contains("("))
                 {
                     error = error.TokensAfterFirst("(").Replace(")", string.Empty);
@@ -225,15 +220,16 @@ namespace MetX.Controls
                 sb.AppendLine();
                 if (error.Contains(Environment.NewLine))
                 {
-                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
                 }
-                else if (compilerResults.Errors[index].Line == 0)
+                else if (compilerResults.Failures[index].Location.Line() == 0)
                 {
                     lines[0] += "\t// " + error;
                 }
                 else
                 {
-                    lines[compilerResults.Errors[index].Line - 1] += "\t// " + error;
+                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error;
                 }
             }
 
