@@ -8,13 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Support\AdventureWorks.xlgs = ..\Support\AdventureWorks.xlgs
 		..\Support\CSharp DAL Project File.xlg.xsl = ..\Support\CSharp DAL Project File.xlg.xsl
 		..\Support\CSharp DAL.xlg.xsl = ..\Support\CSharp DAL.xlg.xsl
-		Local.testsettings = Local.testsettings
 		..\Support\Simple ASPX Grid.xlg.xsl = ..\Support\Simple ASPX Grid.xlg.xsl
 		..\Support\Simple File System.xlg.xsl = ..\Support\Simple File System.xlg.xsl
 		..\Support\Simple Web Page.xlg.xsl = ..\Support\Simple Web Page.xlg.xsl
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		..\Support\Uber Indexing.xlg.xsl = ..\Support\Uber Indexing.xlg.xsl
-		XLG and MetX.vsmdi = XLG and MetX.vsmdi
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
