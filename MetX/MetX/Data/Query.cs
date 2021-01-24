@@ -75,7 +75,7 @@ namespace MetX.Data
         public QueryType QueryType = QueryType.Select;
         public string Top = "";
         public bool Distinct;
-        public string SelectList = " * ";
+        public string SelectList;
         public OrderBy OrderBy;
         private List<Aggregate> _aggregates;
         public List<Where> Wheres;
@@ -375,7 +375,7 @@ namespace MetX.Data
             var sql = "UPDATE " + _table.Name;
             var cmd = new QueryCommand(sql);
 
-            TableSchema.TableColumn column = null;
+            TableSchema.TableColumn column;
             //append the update statements
             var setClause = " SET ";
             foreach (var currColumn in _updateSettings)
@@ -468,20 +468,17 @@ namespace MetX.Data
         {
             var client = Instance.GetType().Name;
             //different rules for how to do TOP
-            var topStatement = Instance.TopStatement;
             var select = Instance.SelectStatement(Top, Page, QueryType);
             var groupBy = string.Empty;
             var where = string.Empty;
             var order = string.Empty;
             var join = string.Empty;
-            var query = string.Empty;
-            var whereOperator = " WHERE ";
+            string query;
 
             if (_aggregates != null && _aggregates.Count > 0)
             {
                 //if there's an aggregate, do it up first
                 var aggList = string.Empty;
-                var thisAggregate = string.Empty;
                 groupBy = " GROUP BY ";
 
                 //select * on an aggregate doesn't make sense
@@ -490,7 +487,7 @@ namespace MetX.Data
 
                 foreach (var agg in _aggregates)
                 {
-                    thisAggregate = agg.AggregateString + ",";
+                    var thisAggregate = agg.AggregateString + ",";
                     if (Distinct)
                         thisAggregate = thisAggregate.Replace("(", "(DISTINCT ");
                     aggList += thisAggregate;
@@ -526,8 +523,9 @@ namespace MetX.Data
                             if (selectCols.Length > 0)
                             {
                                 //string the as bits off each one, and append on to the GROUP BY
+                                // ReSharper disable once LoopCanBeConvertedToQuery
                                 foreach (var sCol in selectCols)
-                                    groupBy += Instance.ValidIdentifier(sCol.Substring(0, sCol.ToLower().IndexOf(" as "))) + ",";
+                                    groupBy += Instance.ValidIdentifier(sCol.Substring(0, sCol.ToLower().IndexOf(" as ", StringComparison.Ordinal))) + ",";
 
                                 //remove the trailing comma
                                 groupBy = groupBy.Remove(groupBy.Length - 1, 1);
@@ -544,7 +542,6 @@ namespace MetX.Data
                     //use the WHEREs to append on the bits in the HAVING clause
                     if (Wheres != null)
                     {
-                        whereOperator = " HAVING ";
                         foreach (var wHaving in Wheres)
                         {
                             if (!groupBy.Contains(wHaving.ColumnName))
@@ -560,7 +557,6 @@ namespace MetX.Data
                 {
                     //there were no passed-in columns
                     //so we can use a WHERE here without a GROUP BY
-                    whereOperator = " WHERE ";
                     groupBy = " ";
                 }
             }
@@ -573,19 +569,19 @@ namespace MetX.Data
                 switch (QueryType)
                 {
                     case QueryType.Count:
-                        if (SelectList.IndexOf(",") == -1)
+                        if (SelectList.IndexOf(",", StringComparison.Ordinal) == -1)
                             select += "COUNT(" + SelectList.Trim() + ")";
                         else
                             select += "COUNT(*)";
                         break;
                     case QueryType.Max:
-                        if (SelectList.IndexOf(",") == -1)
+                        if (SelectList.IndexOf(",", StringComparison.Ordinal) == -1)
                             select += "MAX(" + SelectList.Trim() + ")";
                         else
                             select += "MAX(*)";
                         break;
                     case QueryType.Min:
-                        if (SelectList.IndexOf(",") == -1)
+                        if (SelectList.IndexOf(",", StringComparison.Ordinal) == -1)
                             select += "MIN(" + SelectList.Trim() + ")";
                         else
                             select += "MIN(*)";
@@ -764,7 +760,7 @@ namespace MetX.Data
                     cmd = BuildUpdateCommand();
                     break;
                 case QueryType.Insert:
-                    cmd = null;
+                    //cmd = null;
                     break;
                 case QueryType.Delete:
                     cmd = BuildDeleteCommand();

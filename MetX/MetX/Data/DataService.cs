@@ -42,7 +42,12 @@ namespace MetX.Data
                 MetXObjectName = "MetX.Data.Factory." + Settings.ProviderName.Replace(".", "_");
                 var metXProviderAssembly = Assembly.Load(MetXObjectName);
                 var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
-                metXProvider = Activator.CreateInstance(metXProviderType, true) as IProvide;
+                
+                metXProvider = Activator
+                    .CreateInstance(metXProviderType 
+                                    ?? throw new InvalidOperationException(), true) 
+                    as IProvide;
+                
                 if (metXProvider == null) throw new ProviderException("Unable to instantiate: " + metXProviderType.FullName);
                 MProviders.Add(Settings.ProviderName.ToLower(), metXProvider);
                 MetXProviderAssemblyString = metXProvider.ProviderAssemblyString;
