@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace MetX.Controls
 {
     using System.Windows.Forms;
@@ -54,7 +56,9 @@ namespace MetX.Controls
             EntryArea.SelectionMode = SelectionMode.MultiSimple;
             EntryArea.SetBounds(12, 106, 372, 500);
 
-            EntryArea.Initialize((object[])Items, DefaultValue);
+            EntryArea.Initialize(
+                Items.Cast<object>().ToArray(), 
+                DefaultValue.Cast<object>().ToArray());
         }
     }
 }
