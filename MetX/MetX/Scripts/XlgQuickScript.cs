@@ -80,7 +80,6 @@ namespace MetX.Scripts
             List<string> additionalSharedReferences)
         {
             var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences);
-            if (!compiler.CompiledSuccessfully) return null;
             return compiler;
         }
         

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("XLG Pipeliner")]
@@ -13,3 +14,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("a0aaf3a5-908b-444d-b3fd-e142fb4f1c09")]
 [assembly: AssemblyVersion("5.0.1")]
 [assembly: AssemblyFileVersion("5.0.1")]
+[assembly: CLSCompliant(false)]

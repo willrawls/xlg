@@ -12,7 +12,7 @@ using MetX.Library;
 
 //~~Usings~~//
 
-namespace Processor
+namespace MetX.Scripts.Executable
 {
     // //~~NameInstance~~//
     static class Program

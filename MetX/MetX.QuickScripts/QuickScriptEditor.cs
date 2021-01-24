@@ -129,6 +129,7 @@
                 return exeFilePath;
             }
 
+            /*
             var sb =
                 new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
                                   + Environment.NewLine);
@@ -153,12 +154,14 @@
                 }
                 else
                 {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error;
+                    lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
                 }
             }
+            */
 
-            MessageBox.Show(sb.ToString());
-            QuickScriptWorker.ViewTextInNotepad(lines.Flatten(), true);
+            var lines = new List<string>(source.LineList());
+            QuickScriptWorker.ViewTextInNotepad(source, true);
+            QuickScriptWorker.ViewTextInNotepad(compilerResults.Failures.ForDisplay(lines), true);
 
             return null;
         }

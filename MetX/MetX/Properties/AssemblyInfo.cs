@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyFileVersion("5.0.1")]
 [assembly: ComVisibleAttribute(false)]
-[assembly: CLSCompliant(true)]
 [assembly: Guid("C4F77248-1E18-4A63-86EF-26AD836085B3")]
 
 [assembly: IsolatedStorageFilePermission(SecurityAction.RequestMinimum, UserQuota = 1048576)]
@@ -30,3 +29,5 @@ using System.Runtime.InteropServices;
 [assembly: System.Net.WebPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: PermissionSet(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: AssemblyDescriptionAttribute("XLG Core Functionality Library")]
+
+[assembly: CLSCompliant(false)]

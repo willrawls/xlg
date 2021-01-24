@@ -204,36 +204,11 @@ namespace MetX.Controls
                 return exeFilePath;
             }
 
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
+            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
             var lines = new List<string>(source.LineList());
-            for (var index = 0; index < compilerResults.Failures.Length; index++)
-            {
-                var error = compilerResults.Failures[index].ToString();
-                if (error.Contains("("))
-                {
-                    error = error.TokensAfterFirst("(").Replace(")", string.Empty);
-                }
+            var errorOutput = compilerResults.Failures.ForDisplay(lines);
 
-                sb.AppendLine((index + 1) + ": Line " + error);
-                sb.AppendLine();
-                if (error.Contains(Environment.NewLine))
-                {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                }
-                else if (compilerResults.Failures[index].Location.Line() == 0)
-                {
-                    lines[0] += "\t// " + error;
-                }
-                else
-                {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error;
-                }
-            }
-
-            MessageBox.Show(sb.ToString());
+            MessageBox.Show(errorOutput);
             QuickScriptWorker.ViewTextInNotepad(lines.Flatten(), true);
 
             return null;

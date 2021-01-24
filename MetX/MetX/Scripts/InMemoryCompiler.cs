@@ -12,25 +12,30 @@ namespace MetX.Scripts
 {
     public class InMemoryCompiler<TResultType> where TResultType : class
     {
+        public string PathToSharedRoslyn;
         public bool AsExecutable { get; }
         public List<Type> AdditionalReferenceTypes { get; }
         public List<string> AdditionalSharedReferences { get; }
-        public Assembly CompiledAssembly;
-        public Type? CompiledType;
-        public CSharpCompilation CSharpCompiler;
-        public BaseLineProcessor Instance;
-        public object? InstanceObject;
+        public Assembly CompiledAssembly { get; set; }
+        public Type? CompiledType { get; set; }
+        public CSharpCompilation CSharpCompiler { get; set; }
+        public BaseLineProcessor Instance { get; set; }
+        public object? InstanceObject { get; set; }
+        public SyntaxTree SyntaxTree { get; set; }
+        public Diagnostic[] Failures { get; set; }
 
-        public string PathToSharedRoslyn;
-        public SyntaxTree SyntaxTree;
-        public Diagnostic[] Failures;
+        public bool CompiledSuccessfully
+        {
+            get
+            {
+                if (Failures != null && Failures.Length > 0)
+                    return false;
+                return CompiledAssembly != null;
+            }
+        }
 
-        public bool CompiledSuccessfully =>
-            (Failures != null && Failures.Length > 0) == false
-             || CompiledType == null
-             || CompiledAssembly == null;
-        
-        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes, List<string> additionalSharedReferences)
+        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes,
+            List<string> additionalSharedReferences)
         {
             AsExecutable = asExecutable;
             AdditionalReferenceTypes = additionalReferenceTypes;
@@ -45,7 +50,7 @@ namespace MetX.Scripts
             CSharpCompiler = null;
             CompiledType = null;
             CompiledAssembly = null;
-            
+
             var assemblyName = Path.GetRandomFileName();
             var references = new List<MetadataReference>
             {
@@ -54,10 +59,12 @@ namespace MetX.Scripts
                 GetReference(typeof(Console)),
                 GetReference(typeof(GCSettings)),
                 GetReference(typeof(InMemoryCompiler<TResultType>)),
-                GetSharedReference("System.Runtime")
+                GetReference(typeof(System.Windows.Forms.Application)),
+                GetSharedReference("System.Runtime"),
+                //GetSharedReference("System.Windows.Forms"),
             };
 
-            if (AdditionalReferenceTypes != null) 
+            if (AdditionalReferenceTypes != null)
                 references.AddRange(AdditionalReferenceTypes.Select(GetReference));
 
             if (AdditionalSharedReferences != null)
@@ -74,26 +81,11 @@ namespace MetX.Scripts
                 assemblyName,
                 new[] {SyntaxTree},
                 references,
-                new CSharpCompilationOptions(OutputKind.ConsoleApplication));
+                new CSharpCompilationOptions(AsExecutable
+                    ? OutputKind.ConsoleApplication
+                    : OutputKind.DynamicallyLinkedLibrary));
         }
 
-        internal class ReferenceEqualityComparer : IEqualityComparer<MetadataReference>
-        {
-            public bool Equals(MetadataReference x, MetadataReference y)
-            {
-                if (ReferenceEquals(x, y)) return true;
-                if (ReferenceEquals(x, null)) return false;
-                if (ReferenceEquals(y, null)) return false;
-                if (x.GetType() != y.GetType()) return false;
-                return string.Equals(x.Display, y.Display, StringComparison.OrdinalIgnoreCase);
-            }
-
-            public int GetHashCode(MetadataReference obj)
-            {
-                return (obj.Display != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Display) : 0);
-            }
-        }
-        
         internal MetadataReference GetSharedReference(string name)
         {
             PathToSharedRoslyn ??= typeof(object).Assembly.Location.TokensBeforeLast(@"\");
@@ -121,32 +113,30 @@ namespace MetX.Scripts
             if (CSharpCompiler == null)
                 SetupCompiler();
 
-            using var ms = new MemoryStream();
-            var result = CSharpCompiler.Emit(ms);
+            using var memoryStream = new MemoryStream();
+            var emitResult = CSharpCompiler.Emit(memoryStream);
 
-            if (!result.Success)
+            if (!emitResult.Success)
             {
-                Failures = result.Diagnostics.Where(diagnostic =>
+                Failures = emitResult.Diagnostics.Where(diagnostic =>
                         diagnostic.IsWarningAsError ||
                         diagnostic.Severity == DiagnosticSeverity.Error)
                     .ToArray();
 
                 foreach (var diagnostic in Failures)
-                {
                     Console.WriteLine($"{diagnostic.Id}: {diagnostic.Location}: {diagnostic.GetMessage()}");
-                }
 
                 if (Failures.Any()) return Failures.ToArray().Length;
             }
             else
             {
-                ms.Seek(0, SeekOrigin.Begin);
-                CompiledAssembly = Assembly.Load(ms.ToArray());
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                CompiledAssembly = Assembly.Load(memoryStream.ToArray());
             }
 
             return 0;
         }
-        
+
         public BaseLineProcessor GetInstance(string fullClassNameWithNamespace)
         {
             if (BuildCompiledAssembly() > 0)
@@ -167,6 +157,23 @@ namespace MetX.Scripts
                 throw new Exception("Cast to Actual failed");
 
             return Instance;
+        }
+
+        internal class ReferenceEqualityComparer : IEqualityComparer<MetadataReference>
+        {
+            public bool Equals(MetadataReference x, MetadataReference y)
+            {
+                if (ReferenceEquals(x, y)) return true;
+                if (ReferenceEquals(x, null)) return false;
+                if (ReferenceEquals(y, null)) return false;
+                if (x.GetType() != y.GetType()) return false;
+                return string.Equals(x.Display, y.Display, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int GetHashCode(MetadataReference obj)
+            {
+                return obj.Display != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Display) : 0;
+            }
         }
     }
 }

@@ -38,37 +38,30 @@ namespace MetX.Controls
             
             var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared);
 
-            if (compiler?.CompiledSuccessfully == true)
+            if (compiler == null)
             {
-                var assembly = compiler.CompiledAssembly;
-                var quickScriptProcessor =
-                    assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
+                MessageBox.Show("Failed to create and compile (internal not due to script). This should never happen. Call Will");
+                return null;
+            }
+            
+            if (compiler.CompiledSuccessfully)
+            {
+                var quickScriptProcessor = compiler
+                    .CompiledAssembly
+                    .CreateInstance("MetX.Scripts.QuickScriptProcessor") 
+                    as BaseLineProcessor;
 
-                if (quickScriptProcessor != null)
-                {
-                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
-                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
-                }
+                if (quickScriptProcessor == null) return null;
+                
+                quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
+                quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
 
                 return quickScriptProcessor;
             }
 
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:"
-                                  + Environment.NewLine + Environment.NewLine);
-            for (var index = 0; index < compiler.Failures.Length; index++)
-            {
-                sb.AppendLine((index + 1) + ": Line "
-                              + compiler.Failures[index]
-                                  .ToString()
-                                  .TokensAfterFirst("(")
-                                  .Replace(")", string.Empty));
-                sb.AppendLine();
-            }
-
-            MessageBox.Show(sb.ToString());
+            var forDisplay = compiler?.Failures.ForDisplay(source.Lines());
             QuickScriptWorker.ViewTextInNotepad(source, true);
-
+            QuickScriptWorker.ViewTextInNotepad(forDisplay, true);
             return null;
         }
 
