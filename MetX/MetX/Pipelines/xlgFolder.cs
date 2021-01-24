@@ -49,12 +49,12 @@ namespace MetX.Pipelines
 
         public string OuterXml()
         {
-            return Xml.ToXml<XlgFolder>(this, true);
+            return Xml.ToXml(this, true);
         }
 
         public void Save(string filename)
         {
-            Xml.SaveFile<XlgFolder>(filename, this);
+            Xml.SaveFile(filename, this);
         }
 
         public static XlgFolder Load(string filename)

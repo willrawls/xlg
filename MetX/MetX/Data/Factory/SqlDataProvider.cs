@@ -244,7 +244,7 @@ namespace MetX.Data.Factory
                 }
             }
             var ret = sList.Split('|');
-            Array.Sort<string>(ret);
+            Array.Sort(ret);
             return ret;
         }
 
