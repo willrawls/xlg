@@ -172,18 +172,17 @@ namespace MetX.Data
             {
                 foreach (var currValue in (Array)value)
                 {
-                    if (currValue != null)
-                    {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
-                        sValue.Append("'");
-                        sValue.Append(currValue.ToString().Replace("'", "''"));
-                        sValue.Append("'");
-                    }
+                    if (currValue == null) continue;
+
+                    sValue.Append(sValue.Length > 0 ? "," : "(");
+                    sValue.Append("'");
+                    sValue.Append(currValue.ToString()?.Replace("'", "''"));
+                    sValue.Append("'");
                 }
             }
-            else if (value is List<string>)
+            else if (value is List<string> list)
             {
-                foreach (string currValue in (IList)value)
+                foreach (var currValue in list)
                 {
                     if (!string.IsNullOrEmpty(currValue))
                     {
