@@ -62,7 +62,7 @@ namespace MetX.Library
 
             if (builder[0] != '^')
                 builder.Insert(0, "^");
-            if (builder[builder.Length - 1] != '$')
+            if (builder[^1] != '$')
                 builder.Append("$");
 
             return builder.ToString();

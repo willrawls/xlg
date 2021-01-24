@@ -177,20 +177,20 @@ namespace MetX.Scripts
             else if (!_mCurrArea.Lines.Any(x => x.Contains("\"")))
             {
                 _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[_mCurrArea.Lines.Count - 1] += "\"";
+                _mCurrArea.Lines[^1] += "\"";
             }
             else if (!_mCurrArea.Lines.Any(x => x.Contains("`")))
             {
-                _mCurrArea.Lines.TransformAllNotEmpty((line, index) => line.Replace("\"", "``"));
+                _mCurrArea.Lines.TransformAllNotEmpty(line => line.Replace("\"", "``"));
                 _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[_mCurrArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                _mCurrArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
             else if (!_mCurrArea.Lines.Any(x => x.Contains("`")))
             {
                 _mCurrArea.Lines.TransformAllNotEmpty((line, index) =>
-                    "\t\"" + line.Replace("\"", "\\\"") + "\" + Enviornment.NewLine;" + Environment.NewLine);
+                    "\t\"" + line.Replace("\"", "\\\"") + "\" + Environment.NewLine;" + Environment.NewLine);
                 _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[_mCurrArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                _mCurrArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
         }
 

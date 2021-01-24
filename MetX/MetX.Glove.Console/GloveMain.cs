@@ -214,7 +214,7 @@ namespace XLG.Pipeliner
 
                     if (MetadataSources.Items.Count > 0)
                     {
-                        MetadataSources.Items[MetadataSources.Items.Count - 1].Selected = true;
+                        MetadataSources.Items[^1].Selected = true;
                     }
                 }
                 else
@@ -480,7 +480,7 @@ namespace XLG.Pipeliner
                 Settings.Sources.Add(newSource);
                 buttonSave_Click(null, null);
                 RefreshList();
-                MetadataSources.Items[MetadataSources.Items.Count - 1].Selected = true;
+                MetadataSources.Items[^1].Selected = true;
             }
             catch (Exception ex)
             {
