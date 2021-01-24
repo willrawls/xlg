@@ -20,7 +20,7 @@ namespace MetX.Tests
             if (gregory.TargetStream == null || !gregory.TargetStream.CanWrite)
                 return false;
 
-            int count = 0;
+            var count = 0;
             while(++count < 5 && gregory.TargetStream != null && gregory.TargetStream.CanWrite)
                 Thread.Sleep(1000);
 

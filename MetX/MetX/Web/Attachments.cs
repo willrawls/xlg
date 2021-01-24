@@ -16,22 +16,22 @@ namespace MetX.IO
 		/// <summary>The fixed name of the application</summary>
 		public string AppName;
 		/// <summary>A unique identifier relative to the AppName for the resource which contains attachments</summary>
-		public string ParentID;
+		public string ParentId;
 		/// <summary>The folder containing all attachments for the AppName(s)</summary>
 		public string BaseFolder;
 		/// <summary>Initially set to BaseFolder + AppName + "\" + ParentID + "\"</summary>
 		public string DirectoryName;
 
 		/// <summary>Default constructor</summary>
-		/// <param name="BaseFolder">The folder containing the Application's attachments</param>
-		/// <param name="AppName">The Application name (sub folder) containing the resource's attachments</param>
-		/// <param name="ParentID">The Unique string associated with the specific set of attachments</param>
-		public Attachments(string BaseFolder, string AppName, string ParentID)
+		/// <param name="baseFolder">The folder containing the Application's attachments</param>
+		/// <param name="appName">The Application name (sub folder) containing the resource's attachments</param>
+		/// <param name="parentId">The Unique string associated with the specific set of attachments</param>
+		public Attachments(string baseFolder, string appName, string parentId)
 		{
-			this.BaseFolder = BaseFolder;
-			this.AppName = AppName;
-			this.ParentID = ParentID;
-			DirectoryName = BaseFolder + AppName + @"\" + ParentID + @"\";
+			this.BaseFolder = baseFolder;
+			this.AppName = appName;
+			this.ParentId = parentId;
+			DirectoryName = baseFolder + appName + @"\" + parentId + @"\";
 		}
 
 		/// <summary>Retrieves an Xml containins the list of attacments for the AppName/ParentID combination. Element name is "Attachments" with each attachment being a child element named "Attachment" with "Filename" and "Link" attributes.</summary>
@@ -39,20 +39,20 @@ namespace MetX.IO
 		{
 			get
 			{
-				XmlDocument xmlDoc = new XmlDocument();
+				var xmlDoc = new XmlDocument();
 				XmlNode ret = xmlDoc.CreateElement("Attachments");
 				ret.Attributes["AppName"].Value = AppName;
-				ret.Attributes["ParentID"].Value = ParentID;
+				ret.Attributes["ParentID"].Value = ParentId;
 
 				if(Directory.Exists(DirectoryName))
 				{
-					string[] FileList = Directory.GetFiles(DirectoryName);
-					foreach(string CurrFile in FileList)
+					var fileList = Directory.GetFiles(DirectoryName);
+					foreach(var currFile in fileList)
 					{
-						XmlNode CurrNode = xmlDoc.CreateElement("Attachment");
-						CurrNode.Attributes["Filename"].Value = CurrFile;
-						CurrNode.Attributes["Link"].Value = "http://" + ConfigurationManager.AppSettings["AttachServer"] +"/Attach/Attachments/" + AppName + "/" + ParentID + "/" + CurrFile;
-						ret.AppendChild(CurrNode);
+						XmlNode currNode = xmlDoc.CreateElement("Attachment");
+						currNode.Attributes["Filename"].Value = currFile;
+						currNode.Attributes["Link"].Value = "http://" + ConfigurationManager.AppSettings["AttachServer"] +"/Attach/Attachments/" + AppName + "/" + ParentId + "/" + currFile;
+						ret.AppendChild(currNode);
 					}
 				}
 				return ret.OuterXml;

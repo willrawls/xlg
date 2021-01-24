@@ -14,7 +14,7 @@ namespace MetX.Techniques
 
         public virtual void SaveXmlToFile(string path, bool easyToRead)
         {
-            T t = (T)this;
+            var t = (T)this;
             if (easyToRead)
             {
                 File.WriteAllText(path, Xml.ToXml(t));
@@ -27,7 +27,7 @@ namespace MetX.Techniques
 
         public virtual string ToXml()
         {
-            T t = (T)this;
+            var t = (T)this;
             return Xml.ToXml(t);
         }
 

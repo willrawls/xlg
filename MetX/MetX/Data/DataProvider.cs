@@ -9,7 +9,7 @@ namespace MetX.Data
 {
     public abstract class DataProvider : ProviderBase
     {
-        protected string connectionString;
+        protected string ConnectionString;
 
         public abstract StoredProcedureResult GetStoredProcedureResult(QueryCommand cmd);
 

@@ -10,9 +10,9 @@ namespace MetX.IO
         /// <summary>The relative path to the theme directory</summary>
         public string ThemePath;
         /// <summary>The string within the URL that triggers a conversion</summary>
-        public string pathTrigger = "theme/default/";
+        public string PathTrigger = "theme/default/";
         /// <summary>The base path for all themes</summary>
-        public string basePath = "theme/";
+        public string BasePath = "theme/";
         /// <summary>The xml class from the xlgHandler</summary>
         public Xsl Transformer;
 
@@ -27,8 +27,8 @@ namespace MetX.IO
         public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath, string themePath)
         {
             this.Transformer = transformer;
-            this.pathTrigger = pathTrigger;
-            this.basePath = basePath;
+            this.PathTrigger = pathTrigger;
+            this.BasePath = basePath;
             this.ThemeName = themeName;
             this.ThemePath = themePath;
         }
@@ -41,8 +41,8 @@ namespace MetX.IO
         public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath)
         {
             this.Transformer = transformer;
-            this.pathTrigger = pathTrigger;
-            this.basePath = basePath;
+            this.PathTrigger = pathTrigger;
+            this.BasePath = basePath;
             this.ThemeName = themeName;
         }
 
@@ -73,11 +73,11 @@ namespace MetX.IO
             set
             {
                 _mThemeName = value;
-                ThemePath = basePath + value;
+                ThemePath = BasePath + value;
                 if (!ThemePath.EndsWith("/"))
                     ThemePath += "/";
                 Transformer.PageCacheSubKey = value;
-                Transformer.XlgUrn.SetThemePath("~/" + ThemePath, "~/" + pathTrigger);
+                Transformer.XlgUrn.SetThemePath("~/" + ThemePath, "~/" + PathTrigger);
             }
         }
 
@@ -88,9 +88,9 @@ namespace MetX.IO
         /// <returns>The resolved entity</returns>
         public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
         {
-            if (absoluteUri.AbsoluteUri.Contains(pathTrigger) && ThemePath.Length > 0)
+            if (absoluteUri.AbsoluteUri.Contains(PathTrigger) && ThemePath.Length > 0)
             {
-                var url = absoluteUri.AbsoluteUri.Replace(pathTrigger, ThemePath);
+                var url = absoluteUri.AbsoluteUri.Replace(PathTrigger, ThemePath);
                 var filename = url.Replace("file:///", string.Empty).Replace("/", @"\");
                 if (!File.Exists(filename))
                     url = absoluteUri.AbsoluteUri;

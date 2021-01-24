@@ -78,8 +78,8 @@ namespace MetX.Data
         public string SelectList = " * ";
         public OrderBy OrderBy;
         private List<Aggregate> _aggregates;
-        public List<Where> wheres;
-        public List<Join> joins;
+        public List<Where> Wheres;
+        public List<Join> Joins;
         public DataProvider Instance;
         protected WhereOptions LastOption = WhereOptions.None;
         //protected int ParenStack;
@@ -103,7 +103,7 @@ namespace MetX.Data
                 System.Threading.Thread.Sleep(50);
                 goto TryAgain;
             }
-            SelectList = tbl.FIELD_LIST;
+            SelectList = tbl.FieldList;
         }
 
         public Query(TableSchema.Table tbl, Where[] whereClauses)
@@ -141,27 +141,27 @@ namespace MetX.Data
         /// <param name="toColumnName">C#CD: </param>
         public void AddInnerJoin(string toTableName, string fromColumnName, string toColumnName)
         {
-            if (joins == null) joins = new List<Join>();
+            if (Joins == null) Joins = new List<Join>();
 
             var j = new Join();
             j.ToColumn = toColumnName;
             j.JoinTable = toTableName;
             j.FromColumn = fromColumnName;
-            joins.Add(j);
+            Joins.Add(j);
         }
 
         /// <summary>C#CD: </summary>
         /// <param name="toTableName">C#CD: </param>
         public void AddInnerJoin(string toTableName)
         {
-            if (joins == null) joins = new List<Join>();
+            if (Joins == null) Joins = new List<Join>();
 
             var j = new Join();
             j.ToColumn = _table.PrimaryKey.ColumnName;
             j.JoinTable = toTableName;
             j.FromColumn = _table.PrimaryKey.ColumnName;
 
-            joins.Add(j);
+            Joins.Add(j);
         }
 
         /// <summary>C#CD: </summary>
@@ -188,13 +188,13 @@ namespace MetX.Data
             switch (LastOption)
             {
                 case WhereOptions.And:
-                    wheres.Add(new Where(WhereOptions.AndWithBeginParen));
+                    Wheres.Add(new Where(WhereOptions.AndWithBeginParen));
                     break;
                 case WhereOptions.Or:
-                    wheres.Add(new Where(WhereOptions.OrWithBeginParen));
+                    Wheres.Add(new Where(WhereOptions.OrWithBeginParen));
                     break;
                 default:
-                    wheres.Add(new Where(WhereOptions.BeginParen));
+                    Wheres.Add(new Where(WhereOptions.BeginParen));
                     break;
             }
         }
@@ -202,7 +202,7 @@ namespace MetX.Data
         /// <summary>C#CD: </summary>
         public void EndParen()
         {
-            wheres.Add(new Where(WhereOptions.EndParen));
+            Wheres.Add(new Where(WhereOptions.EndParen));
             //switch (LastOption)
             //{
             //    case WhereOptions.And:
@@ -221,13 +221,13 @@ namespace MetX.Data
         /// <param name="where">C#CD: </param>
         public void AddWhere(Where where)
         {
-            if (wheres == null) wheres = new List<Where>();
+            if (Wheres == null) Wheres = new List<Where>();
             if (LastOption != WhereOptions.None)
             {
                 where.Options = LastOption;
                 LastOption = WhereOptions.None;
             }
-            wheres.Add(where);
+            Wheres.Add(where);
         }
 
         /// <summary>C#CD: </summary>
@@ -298,8 +298,8 @@ namespace MetX.Data
         public QueryCommand BuildSelectCommand()
         {
             var cmd = new QueryCommand(GetSelectSql());
-            if (wheres != null)
-                foreach (var where in wheres)
+            if (Wheres != null)
+                foreach (var where in Wheres)
                     if (where.Comparison != Comparison.In && where.Comparison != Comparison.NotIn)
                         if (where.ParameterValue != null)
                             cmd.AddParameter("@_" + where.ParameterName, where.ParameterValue, ConvertToDbType(where.ParameterValue.GetType()));
@@ -308,11 +308,11 @@ namespace MetX.Data
 
         private void AddWherePhraseToSql(ref string sql, QueryCommand cmd)
         {
-            if (wheres != null && wheres.Count > 0)
+            if (Wheres != null && Wheres.Count > 0)
             {
                 var i = 1;
                 var needAHinge = false;
-                foreach (var where in wheres)
+                foreach (var where in Wheres)
                 {
                     //Append the SQL
                     if (i == 1)
@@ -356,7 +356,7 @@ namespace MetX.Data
             var sql = "DELETE FROM " + _table.Name;
             //stub this out
             var cmd = new QueryCommand(sql);
-            if (wheres != null && wheres.Count > 0)
+            if (Wheres != null && Wheres.Count > 0)
                 AddWherePhraseToSql(ref sql, cmd);
             else
                 sql = GetDeleteSql();
@@ -397,7 +397,7 @@ namespace MetX.Data
             sql = sql.Remove(sql.Length - 1, 1);
 
             //string whereClause = " WHERE ";
-            if (wheres != null && wheres.Count > 0)
+            if (Wheres != null && Wheres.Count > 0)
                 AddWherePhraseToSql(ref sql, cmd);
             //if (wheres != null && wheres.Count > 0)
             //{
@@ -425,10 +425,10 @@ namespace MetX.Data
         private string BuildWhere()
         {
             var sql = string.Empty;
-            if (wheres != null && wheres.Count > 0)
+            if (Wheres != null && Wheres.Count > 0)
             {
                 var i = 1;
-                foreach (var where in wheres)
+                foreach (var where in Wheres)
                 {
                     //Append the SQL
                     if (i == 1)
@@ -538,14 +538,14 @@ namespace MetX.Data
                         groupBy += SelectList;
 
                     //if there are columns in the where list, append on a comma
-                    if (wheres != null && wheres.Count > 0 && groupBy.Trim() != "GROUP BY")
+                    if (Wheres != null && Wheres.Count > 0 && groupBy.Trim() != "GROUP BY")
                         groupBy += ",";
 
                     //use the WHEREs to append on the bits in the HAVING clause
-                    if (wheres != null)
+                    if (Wheres != null)
                     {
                         whereOperator = " HAVING ";
-                        foreach (var wHaving in wheres)
+                        foreach (var wHaving in Wheres)
                         {
                             if (!groupBy.Contains(wHaving.ColumnName))
                                 groupBy += Instance.ValidIdentifier(wHaving.ColumnName) + ",";
@@ -602,15 +602,15 @@ namespace MetX.Data
             select += " FROM " + Instance.ValidIdentifier(_table.Name) + " ";
 
             //joins
-            if (joins != null && joins.Count > 0)
-                foreach (var j in joins)
+            if (Joins != null && Joins.Count > 0)
+                foreach (var j in Joins)
                     join += " " + j.JoinType + " " + Instance.ValidIdentifier(j.JoinTable) + " ON " + Instance.ValidIdentifier(_table.Name) + "." + Instance.ValidIdentifier(j.FromColumn) + "=" + Instance.ValidIdentifier(j.JoinTable) + "." + Instance.ValidIdentifier(j.ToColumn) + " ";
 
             //now for the wheres...
             //MUST USE parameters to avoid injection issues
             //the following line is my favorite... Moe, Larry, Curly...
             //int i = 1;
-            if (wheres != null)
+            if (Wheres != null)
                 AddWherePhraseToSql(ref where, null);
 
             //Finally, do the orderby
@@ -653,7 +653,7 @@ namespace MetX.Data
 
             updateSql += cols;
 
-            if (wheres == null || wheres.Count == 0)
+            if (Wheres == null || Wheres.Count == 0)
                 updateSql += " WHERE " + _table.PrimaryKey.ColumnName + "=@" + _table.PrimaryKey.ColumnName + Instance.CommandSeparator; // + "SELECT @" + table.PrimaryKey.ColumnName + " as id";
             else
                 updateSql += BuildWhere();
@@ -702,7 +702,7 @@ namespace MetX.Data
         public string GetDeleteSql()
         {
             var sql = "DELETE FROM " + _table.Name;
-            if (wheres == null || wheres.Count == 0)
+            if (Wheres == null || Wheres.Count == 0)
                 sql += " WHERE " + _table.PrimaryKey.ColumnName + "=@" + _table.PrimaryKey.ColumnName;
             else
                 sql += BuildWhere();

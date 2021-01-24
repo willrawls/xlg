@@ -18,12 +18,12 @@ namespace MetX.Data
             public TableColumnCollection Columns = new TableColumnCollection();
 
             /// <summary>The field list as it goes into the SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
-            public string FIELD_LIST;
+            public string FieldList;
 
             public TableIndexCollection Indexes = new TableIndexCollection();
 
             /// <summary>The basic INSERT INTO sql statement used for Insert type queries</summary>
-            public string INSERT_SQL;
+            public string InsertSql;
 
             public DataProvider Instance;
             public TableKeyCollection Keys = new TableKeyCollection();
@@ -31,7 +31,7 @@ namespace MetX.Data
             public string Schema;
 
             /// <summary>The basic UPDATE sql statement used for Update type querie</summary>
-            public string UPDATE_SQL;
+            public string UpdateSql;
 
             /// <summary>C#CD: </summary>
             public Table() { }
@@ -58,7 +58,7 @@ namespace MetX.Data
             public TableColumn PrimaryKey => Columns?.GetPrimaryKey();
 
             /// <summary>The basic SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
-            public string SelectSql => "SELECT " + FIELD_LIST + " FROM [" + Name + "] ";
+            public string SelectSql => "SELECT " + FieldList + " FROM [" + Name + "] ";
         }
 
         /// <summary>

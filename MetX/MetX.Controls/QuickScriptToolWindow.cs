@@ -22,7 +22,7 @@ namespace MetX.Controls
     {
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
-        public CodeCompletionWindow completionWindow;
+        public CodeCompletionWindow CompletionWindow;
 
         public XlgQuickScript CurrentScript;
 
@@ -283,10 +283,10 @@ namespace MetX.Controls
             if ((items != null) && (items.Length > 0))
             {
                 var completionDataProvider = new CompletionDataProvider(items);
-                completionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
-                if (completionWindow != null)
+                CompletionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
+                if (CompletionWindow != null)
                 {
-                    completionWindow.Closed += CompletionWindowClosed;
+                    CompletionWindow.Closed += CompletionWindowClosed;
                 }
             }
         }
@@ -303,11 +303,11 @@ namespace MetX.Controls
 
         private void CompletionWindowClosed(object source, EventArgs e)
         {
-            if (completionWindow != null)
+            if (CompletionWindow != null)
             {
-                completionWindow.Closed -= CompletionWindowClosed;
-                completionWindow.Dispose();
-                completionWindow = null;
+                CompletionWindow.Closed -= CompletionWindowClosed;
+                CompletionWindow.Dispose();
+                CompletionWindow = null;
             }
         }
 

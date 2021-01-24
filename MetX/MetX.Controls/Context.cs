@@ -19,7 +19,7 @@ namespace MetX.Controls
     {
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
-        private static bool ScriptIsRunning;
+        private static bool _scriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
         public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
@@ -124,7 +124,7 @@ namespace MetX.Controls
 
             try
             {
-                ScriptIsRunning = true;
+                _scriptIsRunning = true;
                 if (scriptToRun.Destination == QuickScriptDestination.File)
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
@@ -207,7 +207,7 @@ namespace MetX.Controls
             }
             finally
             {
-                ScriptIsRunning = false;
+                _scriptIsRunning = false;
                 Monitor.Exit(MScriptSyncRoot);
             }
         }

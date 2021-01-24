@@ -77,7 +77,7 @@ namespace TextEditor
 				RemoveTextEditor(ActiveEditor);
 
 			// Open file(s)
-			foreach (string fn in fns)
+			foreach (var fn in fns)
 			{
 				var editor = AddNewTextEditor(Path.GetFileName(fn));
 				try {
@@ -115,7 +115,7 @@ namespace TextEditor
 
 		private void menuFileSave_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor != null)
 				DoSave(editor);
 		}
@@ -238,14 +238,14 @@ namespace TextEditor
 
 		private void menuEditFind_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			_findForm.ShowFor(editor, false);
 		}
 
 		private void menuEditReplace_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			_findForm.ShowFor(editor, true);
 		}
@@ -293,7 +293,7 @@ namespace TextEditor
 		/// it.</remarks>
 		private void menuSplitTextArea_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.Split();
 		}
@@ -313,14 +313,14 @@ namespace TextEditor
 
 		private void menuShowSpaces_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.ShowSpaces = editor.ShowTabs = !editor.ShowSpaces;
 			OnSettingsChanged();
 		}
 		private void menuShowNewlines_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.ShowEOLMarkers = !editor.ShowEOLMarkers;
 			OnSettingsChanged();
@@ -328,7 +328,7 @@ namespace TextEditor
 
 		private void menuHighlightCurrentRow_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.LineViewerStyle = editor.LineViewerStyle == LineViewerStyle.None 
 				? LineViewerStyle.FullRow : LineViewerStyle.None;
@@ -337,7 +337,7 @@ namespace TextEditor
 
 		private void menuBracketMatchingStyle_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.BracketMatchingStyle = editor.BracketMatchingStyle == BracketMatchingStyle.After 
 				? BracketMatchingStyle.Before : BracketMatchingStyle.After;
@@ -346,7 +346,7 @@ namespace TextEditor
 
 		private void menuEnableVirtualSpace_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.AllowCaretBeyondEOL = !editor.AllowCaretBeyondEOL;
 			OnSettingsChanged();
@@ -354,7 +354,7 @@ namespace TextEditor
 
 		private void menuShowLineNumbers_Click(object sender, EventArgs e)
 		{
-			TextEditorControl editor = ActiveEditor;
+			var editor = ActiveEditor;
 			if (editor == null) return;
 			editor.ShowLineNumbers = !editor.ShowLineNumbers;
 			OnSettingsChanged();
@@ -363,7 +363,7 @@ namespace TextEditor
 		private void menuSetTabSize_Click(object sender, EventArgs e)
 		{
 			if (ActiveEditor != null) {
-				string result = InputBox.Show("Specify the desired tab width.", "Tab size", _editorSettings.TabIndent.ToString());
+				var result = InputBox.Show("Specify the desired tab width.", "Tab size", _editorSettings.TabIndent.ToString());
 				int value;
 				if (result != null && int.TryParse(result, out value) && value.IsInRange(1, 32)) {
 					ActiveEditor.TabIndent = value;
@@ -454,7 +454,7 @@ namespace TextEditor
 		}
 		private void TextEditorForm_DragDrop(object sender, DragEventArgs e)
 		{
-			string[] list = e.Data.GetData(DataFormats.FileDrop) as string[];
+			var list = e.Data.GetData(DataFormats.FileDrop) as string[];
 			if (list != null)
 				OpenFiles(list);
 		}
@@ -476,12 +476,12 @@ namespace TextEditor
 		/// <returns>A list of FoldMarkers.</returns>
 		public List<FoldMarker> GenerateFoldMarkers(IDocument document, string fileName, object parseInformation)
 		{
-			List<FoldMarker> list = new List<FoldMarker>();
+			var list = new List<FoldMarker>();
 
-			Stack<int> startLines = new Stack<int>();
+			var startLines = new Stack<int>();
 			
 			// Create foldmarkers for the whole document, enumerate through every line.
-			for (int i = 0; i < document.TotalNumberOfLines; i++)
+			for (var i = 0; i < document.TotalNumberOfLines; i++)
 			{
 				var seg = document.GetLineSegment(i);
 				int offs, end = document.TextLength;
@@ -490,16 +490,16 @@ namespace TextEditor
 					{}
 				if (offs == end) 
 					break;
-				int spaceCount = offs - seg.Offset;
+				var spaceCount = offs - seg.Offset;
 
 				// now offs points to the first non-whitespace char on the line
 				if (document.GetCharAt(offs) == '#') {
-					string text = document.GetText(offs, seg.Length - spaceCount);
+					var text = document.GetText(offs, seg.Length - spaceCount);
 					if (text.StartsWith("#region"))
 						startLines.Push(i);
 					if (text.StartsWith("#endregion") && startLines.Count > 0) {
 						// Add a new FoldMarker to the list.
-						int start = startLines.Pop();
+						var start = startLines.Pop();
 						list.Add(new FoldMarker(document, start, 
 							document.GetLineSegment(start).Length, 
 							i, spaceCount + "#endregion".Length));

@@ -8,18 +8,18 @@ namespace Metta.Web.Virtual.xsl
     public static class Resource
     {
         /// <summary>C#CD: </summary>
-        /// <param name="ResourceName">C#CD: </param>
-        public static string Get(string ResourceName)
+        /// <param name="resourceName">C#CD: </param>
+        public static string Get(string resourceName)
         {
             System.IO.Stream st = null;
             try
             {
-                System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-                st = a.GetManifestResourceStream(typeof(Metta.Web.Virtual.xsl.Resource), ResourceName);
+                var a = System.Reflection.Assembly.GetExecutingAssembly();
+                st = a.GetManifestResourceStream(typeof(Metta.Web.Virtual.xsl.Resource), resourceName);
             }
             catch { }
-            System.IO.StreamReader sr = new System.IO.StreamReader(st);
-            string ret = sr.ReadToEnd();
+            var sr = new System.IO.StreamReader(st);
+            var ret = sr.ReadToEnd();
             sr.Close();
             sr.Dispose();
             if (st != null)

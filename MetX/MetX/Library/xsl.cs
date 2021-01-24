@@ -21,7 +21,7 @@ namespace MetX.Library
 		/// <summary>Set this value when you wish your page's xslt compilation to be cached differently (say per theme, in this case the theme name will be sufficient).</summary>
 		public string PageCacheSubKey = ".";
 
-        public static readonly InMemoryCache<XslCompiledTransform> pageCache = new InMemoryCache<XslCompiledTransform>();
+        public static readonly InMemoryCache<XslCompiledTransform> PageCache = new InMemoryCache<XslCompiledTransform>();
 
 		/// <summary>Performs an XSL Transformation on an XmlDocument</summary>
 		/// <param name="xmlDocument">The XmlDocument object to transform</param>
@@ -92,16 +92,16 @@ namespace MetX.Library
                 
 				XslCompiledTransform compiledTransform;
 				var cacheKey = "XslCompiledTransform." + PageCacheSubKey + xsltPath;
-				if (pageCache.Contains(cacheKey))
+				if (PageCache.Contains(cacheKey))
 				{
-					compiledTransform = pageCache[cacheKey];
+					compiledTransform = PageCache[cacheKey];
 				}
 				else
 				{
 					compiledTransform = new XslCompiledTransform(false);
 					var resolver = UrlResolver;
 					compiledTransform.Load(xsltPath, new XsltSettings(false, false), resolver);
-                    pageCache[cacheKey] = compiledTransform;
+                    PageCache[cacheKey] = compiledTransform;
                 }
 
 				xmlWriter = XmlWriter.Create(sw, compiledTransform.OutputSettings);
@@ -149,16 +149,16 @@ namespace MetX.Library
 
 				XslCompiledTransform xslDoc;
 				var cacheKey = "XslCompiledTransform.FromContent." + xsltPath;
-				if (pageCache.Contains(cacheKey))
+				if (PageCache.Contains(cacheKey))
 				{
-					xslDoc = pageCache[cacheKey];
+					xslDoc = PageCache[cacheKey];
 				}
 				else
 				{
 					xslDoc = new XslCompiledTransform(false); //true);
 					var resolver = UrlResolver;
 					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-                    pageCache[cacheKey] = xslDoc;
+                    PageCache[cacheKey] = xslDoc;
                 }
 
 				xw = XmlWriter.Create(sw, xslDoc.OutputSettings);

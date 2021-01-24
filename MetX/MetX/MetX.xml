@@ -356,13 +356,13 @@
             static for each object
             </summary>
         </member>
-        <member name="F:MetX.Data.TableSchema.Table.FIELD_LIST">
+        <member name="F:MetX.Data.TableSchema.Table.FieldList">
             <summary>The field list as it goes into the SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
         </member>
-        <member name="F:MetX.Data.TableSchema.Table.INSERT_SQL">
+        <member name="F:MetX.Data.TableSchema.Table.InsertSql">
             <summary>The basic INSERT INTO sql statement used for Insert type queries</summary>
         </member>
-        <member name="F:MetX.Data.TableSchema.Table.UPDATE_SQL">
+        <member name="F:MetX.Data.TableSchema.Table.UpdateSql">
             <summary>The basic UPDATE sql statement used for Update type querie</summary>
         </member>
         <member name="M:MetX.Data.TableSchema.Table.#ctor">
@@ -871,10 +871,10 @@
         <member name="F:MetX.IO.XlgThemeResolver.ThemePath">
             <summary>The relative path to the theme directory</summary>
         </member>
-        <member name="F:MetX.IO.XlgThemeResolver.pathTrigger">
+        <member name="F:MetX.IO.XlgThemeResolver.PathTrigger">
             <summary>The string within the URL that triggers a conversion</summary>
         </member>
-        <member name="F:MetX.IO.XlgThemeResolver.basePath">
+        <member name="F:MetX.IO.XlgThemeResolver.BasePath">
             <summary>The base path for all themes</summary>
         </member>
         <member name="F:MetX.IO.XlgThemeResolver.Transformer">
@@ -947,7 +947,7 @@
         <member name="F:MetX.IO.Attachments.AppName">
             <summary>The fixed name of the application</summary>
         </member>
-        <member name="F:MetX.IO.Attachments.ParentID">
+        <member name="F:MetX.IO.Attachments.ParentId">
             <summary>A unique identifier relative to the AppName for the resource which contains attachments</summary>
         </member>
         <member name="F:MetX.IO.Attachments.BaseFolder">
@@ -958,9 +958,9 @@
         </member>
         <member name="M:MetX.IO.Attachments.#ctor(System.String,System.String,System.String)">
             <summary>Default constructor</summary>
-            <param name="BaseFolder">The folder containing the Application's attachments</param>
-            <param name="AppName">The Application name (sub folder) containing the resource's attachments</param>
-            <param name="ParentID">The Unique string associated with the specific set of attachments</param>
+            <param name="baseFolder">The folder containing the Application's attachments</param>
+            <param name="appName">The Application name (sub folder) containing the resource's attachments</param>
+            <param name="parentId">The Unique string associated with the specific set of attachments</param>
         </member>
         <member name="P:MetX.IO.Attachments.OuterXml">
             <summary>Retrieves an Xml containins the list of attacments for the AppName/ParentID combination. Element name is "Attachments" with each attachment being a child element named "Attachment" with "Filename" and "Link" attributes.</summary>
@@ -1770,10 +1770,10 @@
         <member name="F:MetX.Pipelines.CodeGenerator.VirtualxlgFilePath">
             <summary>Set externally indicating the file of any overriding template(s)</summary>
         </member>
-        <member name="F:MetX.Pipelines.CodeGenerator.xlgDataXml">
+        <member name="F:MetX.Pipelines.CodeGenerator.XlgDataXml">
             <summary>The Data XML file to generate against</summary>
         </member>
-        <member name="F:MetX.Pipelines.CodeGenerator.xlgFilename">
+        <member name="F:MetX.Pipelines.CodeGenerator.XlgFilename">
             <summary>The file containing the XSL to render code against.
             <para>NOTE: This file does not have to exist. If it doesn't the internal XSL rendering C# will be used.</para>
             </summary>
@@ -2010,93 +2010,93 @@
                 Represents a clipboard processing script
             </summary>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.applications">
+        <member name="T:MetX.Web.Virtual.xsl.Applications">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.applications.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.Applications.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\applications.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.applications.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.Applications.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editApplication">
+        <member name="T:MetX.Web.Virtual.xsl.EditApplication">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editApplication.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditApplication.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editApplication.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editApplication.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditApplication.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editCookie">
+        <member name="T:MetX.Web.Virtual.xsl.EditCookie">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editCookie.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditCookie.Xsl">
             <summary>The static contents of the file: "C:\data\code\xlg\MetX\Web\Virtual\xsl\editCookie.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editCookie.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditCookie.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editMembers">
+        <member name="T:MetX.Web.Virtual.xsl.EditMembers">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editMembers.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditMembers.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editMembers.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editMembers.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditMembers.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editMenuUrl">
+        <member name="T:MetX.Web.Virtual.xsl.EditMenuUrl">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editMenuUrl.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditMenuUrl.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editMenuUrl.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editMenuUrl.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditMenuUrl.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editMindset">
+        <member name="T:MetX.Web.Virtual.xsl.EditMindset">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editMindset.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditMindset.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editMindset.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editMindset.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditMindset.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.editPermissions">
+        <member name="T:MetX.Web.Virtual.xsl.EditPermissions">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.editPermissions.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.EditPermissions.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editPermissions.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.editPermissions.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.EditPermissions.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
-        <member name="T:MetX.Web.Virtual.xsl.mindsets">
+        <member name="T:MetX.Web.Virtual.xsl.Mindsets">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.mindsets.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.Mindsets.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\mindsets.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.mindsets.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.Mindsets.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
         <member name="T:MetX.Web.Virtual.xsl.XmlToJson">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
-        <member name="F:MetX.Web.Virtual.xsl.XmlToJson.xsl">
+        <member name="F:MetX.Web.Virtual.xsl.XmlToJson.Xsl">
             <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\XmlToJson.xsl" as it existed at compile time.</summary>
         </member>
-        <member name="P:MetX.Web.Virtual.xsl.XmlToJson.xslStringBuilder">
+        <member name="P:MetX.Web.Virtual.xsl.XmlToJson.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
@@ -2105,7 +2105,7 @@
         </member>
         <member name="M:Metta.Web.Virtual.xsl.Resource.Get(System.String)">
             <summary>C#CD: </summary>
-            <param name="ResourceName">C#CD: </param>
+            <param name="resourceName">C#CD: </param>
         </member>
     </members>
 </doc>

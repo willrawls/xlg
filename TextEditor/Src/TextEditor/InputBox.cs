@@ -12,10 +12,10 @@ namespace System.Windows.Forms
 	/// </summary>
 	internal class InputBoxDialog : Form 
 	{
-		private System.Windows.Forms.Label lblPrompt;
-		public System.Windows.Forms.TextBox txtInput;
-		private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Label _lblPrompt;
+		public System.Windows.Forms.TextBox TxtInput;
+		private System.Windows.Forms.Button _btnOk;
+		private System.Windows.Forms.Button _btnCancel;
 	
 		public InputBoxDialog(string prompt, string title) : this(prompt, title, int.MinValue, int.MinValue) {} 
 
@@ -28,18 +28,18 @@ namespace System.Windows.Forms
 
 			InitializeComponent();
 
-			lblPrompt.Text = prompt;
+			_lblPrompt.Text = prompt;
 			this.Text = title;
 
-			Graphics g = this.CreateGraphics();
-			SizeF size = g.MeasureString(prompt, lblPrompt.Font, lblPrompt.Width);
+			var g = this.CreateGraphics();
+			var size = g.MeasureString(prompt, _lblPrompt.Font, _lblPrompt.Width);
 			Debug.WriteLine("PROMPT SIZE: " + size);
-			if (size.Height > lblPrompt.Height)
-				this.Height += (int)size.Height - lblPrompt.Height;
+			if (size.Height > _lblPrompt.Height)
+				this.Height += (int)size.Height - _lblPrompt.Height;
 
-			txtInput.SelectionStart = 0;
-			txtInput.SelectionLength = txtInput.Text.Length;
-			txtInput.Focus();
+			TxtInput.SelectionStart = 0;
+			TxtInput.SelectionLength = TxtInput.Text.Length;
+			TxtInput.Focus();
 		}
 
 		#region Windows Form Designer generated code
@@ -49,60 +49,60 @@ namespace System.Windows.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.lblPrompt = new System.Windows.Forms.Label();
-			this.txtInput = new System.Windows.Forms.TextBox();
-			this.btnOK = new System.Windows.Forms.Button();
-			this.btnCancel = new System.Windows.Forms.Button();
+			this._lblPrompt = new System.Windows.Forms.Label();
+			this.TxtInput = new System.Windows.Forms.TextBox();
+			this._btnOk = new System.Windows.Forms.Button();
+			this._btnCancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// lblPrompt
 			// 
-			this.lblPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this._lblPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left)));
-			this.lblPrompt.BackColor = System.Drawing.SystemColors.Control;
-			this.lblPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.lblPrompt.Location = new System.Drawing.Point(12, 9);
-			this.lblPrompt.Name = "lblPrompt";
-			this.lblPrompt.Size = new System.Drawing.Size(302, 71);
-			this.lblPrompt.TabIndex = 3;
+			this._lblPrompt.BackColor = System.Drawing.SystemColors.Control;
+			this._lblPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this._lblPrompt.Location = new System.Drawing.Point(12, 9);
+			this._lblPrompt.Name = "_lblPrompt";
+			this._lblPrompt.Size = new System.Drawing.Size(302, 71);
+			this._lblPrompt.TabIndex = 3;
 			// 
 			// txtInput
 			// 
-			this.txtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtInput.Location = new System.Drawing.Point(8, 88);
-			this.txtInput.Name = "txtInput";
-			this.txtInput.Size = new System.Drawing.Size(381, 20);
-			this.txtInput.TabIndex = 0;
-			this.txtInput.Text = "";
+			this.TxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.TxtInput.Location = new System.Drawing.Point(8, 88);
+			this.TxtInput.Name = "TxtInput";
+			this.TxtInput.Size = new System.Drawing.Size(381, 20);
+			this.TxtInput.TabIndex = 0;
+			this.TxtInput.Text = "";
 			// 
 			// btnOK
 			// 
-			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Location = new System.Drawing.Point(326, 8);
-			this.btnOK.Name = "btnOK";
-			this.btnOK.Size = new System.Drawing.Size(64, 24);
-			this.btnOK.TabIndex = 1;
-			this.btnOK.Text = "&OK";
+			this._btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this._btnOk.Location = new System.Drawing.Point(326, 8);
+			this._btnOk.Name = "_btnOk";
+			this._btnOk.Size = new System.Drawing.Size(64, 24);
+			this._btnOk.TabIndex = 1;
+			this._btnOk.Text = "&OK";
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(326, 40);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(64, 24);
-			this.btnCancel.TabIndex = 2;
-			this.btnCancel.Text = "&Cancel";
+			this._btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this._btnCancel.Location = new System.Drawing.Point(326, 40);
+			this._btnCancel.Name = "_btnCancel";
+			this._btnCancel.Size = new System.Drawing.Size(64, 24);
+			this._btnCancel.TabIndex = 2;
+			this._btnCancel.Text = "&Cancel";
 			// 
 			// InputBoxDialog
 			// 
-			this.AcceptButton = this.btnOK;
+			this.AcceptButton = this._btnOk;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.CancelButton = this.btnCancel;
+			this.CancelButton = this._btnCancel;
 			this.ClientSize = new System.Drawing.Size(398, 117);
-			this.Controls.Add(this.txtInput);
-			this.Controls.Add(this.btnCancel);
-			this.Controls.Add(this.btnOK);
-			this.Controls.Add(this.lblPrompt);
+			this.Controls.Add(this.TxtInput);
+			this.Controls.Add(this._btnCancel);
+			this.Controls.Add(this._btnOk);
+			this.Controls.Add(this._lblPrompt);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -121,27 +121,26 @@ namespace System.Windows.Forms
 	/// </summary>
 	public static class InputBox
 	{
-		static public string Show(string Prompt) 
-			{ return Show(Prompt, null, null, int.MinValue, int.MinValue, false); }
-		static public string Show(string Prompt, string Title, string Default)
-			{ return Show(Prompt, Title, Default, int.MinValue, int.MinValue, false); }
+		static public string Show(string prompt) 
+			{ return Show(prompt, null, null, int.MinValue, int.MinValue, false); }
+		static public string Show(string prompt, string title, string @default)
+			{ return Show(prompt, title, @default, int.MinValue, int.MinValue, false); }
 		
-		static public string Show(string Prompt, string Title, string Default, int xPos, int yPos, bool isPassword)
+		static public string Show(string prompt, string title, string @default, int xPos, int yPos, bool isPassword)
 		{
-			if (Title == null)
-				Title = Application.ProductName;
-			InputBoxDialog dlg = new InputBoxDialog(Prompt, Title, xPos, yPos);
+			title ??= Application.ProductName;
+			var dlg = new InputBoxDialog(prompt, title, xPos, yPos);
 			if (isPassword)
-				dlg.txtInput.UseSystemPasswordChar = true;
-			if (Default != null)
-				dlg.txtInput.Text = Default;
-			DialogResult result = dlg.ShowDialog();
+				dlg.TxtInput.UseSystemPasswordChar = true;
+			if (@default != null)
+				dlg.TxtInput.Text = @default;
+			var result = dlg.ShowDialog();
 			if (result == DialogResult.Cancel)
 				return null;
 			else
-				return dlg.txtInput.Text;
+				return dlg.TxtInput.Text;
 		}
-		static public string ShowPasswordBox(string Prompt, string Title)
-			{ return Show(Prompt, Title, "", int.MinValue, int.MinValue, true); }
+		static public string ShowPasswordBox(string prompt, string title)
+			{ return Show(prompt, title, "", int.MinValue, int.MinValue, true); }
 	}
 }

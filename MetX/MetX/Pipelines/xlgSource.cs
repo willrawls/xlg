@@ -82,17 +82,17 @@ namespace MetX.Pipelines
 
         private class OpParams
         {
-            public int op;
+            public int Op;
             public System.Windows.Forms.Form Gui;
 
             public OpParams(int op, System.Windows.Forms.Form gui)
             {
-                this.op = op;
+                this.Op = op;
                 Gui = gui;
             }
         }
 
-        private void InternalOp(object @params) { var o = (OpParams)@params; if (o.op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
+        private void InternalOp(object @params) { var o = (OpParams)@params; if (o.Op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
         public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, gui)); }
 

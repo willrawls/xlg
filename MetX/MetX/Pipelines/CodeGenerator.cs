@@ -69,12 +69,12 @@ namespace MetX.Pipelines
         public string VirtualxlgFilePath;
 
         /// <summary>The Data XML file to generate against</summary>
-        public string xlgDataXml = "*";
+        public string XlgDataXml = "*";
 
         /// <summary>The file containing the XSL to render code against.
         /// <para>NOTE: This file does not have to exist. If it doesn't the internal XSL rendering C# will be used.</para>
         /// </summary>
-        public string xlgFilename = "app.xlg.xsl";
+        public string XlgFilename = "app.xlg.xsl";
 
         public Guid XlgInstanceId;
         private static string _mFullName;
@@ -176,7 +176,7 @@ namespace MetX.Pipelines
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string GenerateCode()
         {
-            var xlgXsl = GetVirtualFile(xlgFilename);
+            var xlgXsl = GetVirtualFile(XlgFilename);
             if (xlgXsl == null || xlgXsl.Length < 5)
             {
                 throw new Exception("xlg.xsl missing (1).");
@@ -191,8 +191,8 @@ namespace MetX.Pipelines
         {
             VirtualPath = Path.GetDirectoryName(xlgFilePath).AsString().Replace("\\", "/");
             VirtualxlgFilePath = xlgFilePath;
-            xlgFilename = xlgXslFilePath;
-            xlgDataXml = GetVirtualFile(VirtualxlgFilePath);
+            XlgFilename = xlgXslFilePath;
+            XlgDataXml = GetVirtualFile(VirtualxlgFilePath);
 
             Namespace = Path.GetFileNameWithoutExtension(VirtualxlgFilePath).AsString();
             if (Namespace.ToUpper().EndsWith(".GLOVE"))
@@ -207,7 +207,7 @@ namespace MetX.Pipelines
             }
             else
             {
-                AppDomainAppPath = Path.GetDirectoryName(xlgFilename);
+                AppDomainAppPath = Path.GetDirectoryName(XlgFilename);
             }
 
             if (!string.IsNullOrEmpty(settingsFilePath) && settingsFilePath.ToLower().Contains(".config"))
@@ -220,7 +220,7 @@ namespace MetX.Pipelines
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string RegenerateCode(XmlDocument xmlDoc)
         {
-            var xlgXsl = GetVirtualFile(xlgFilename);
+            var xlgXsl = GetVirtualFile(XlgFilename);
             if (xlgXsl == null || xlgXsl.Length < 5)
             {
                 throw new Exception("xlg.xsl missing (2).");
@@ -255,13 +255,13 @@ namespace MetX.Pipelines
         private void ParseDataXml()
         {
             _mXlgDataXmlDoc = new XmlDocument();
-            if (xlgDataXml == null || xlgDataXml.StartsWith("*"))
+            if (XlgDataXml == null || XlgDataXml.StartsWith("*"))
             {
                 _mXlgDataXmlDoc.LoadXml(DefaultXlg.Xml.Replace("[Default]", Namespace));
             }
             else
             {
-                _mXlgDataXmlDoc.LoadXml(xlgDataXml);
+                _mXlgDataXmlDoc.LoadXml(XlgDataXml);
             }
 
             _mTablesToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Tables");

@@ -15,7 +15,7 @@ namespace MetX.Data.Factory
     {
         public SqlDataProvider(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.ConnectionString = connectionString;
         }
 
         /// <summary>C#CD: </summary>
@@ -23,7 +23,7 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override int ExecuteQuery(QueryCommand qry)
         {
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 var cmd = new SqlCommand(qry.CommandSql);
                 AddParams(cmd, qry);
@@ -42,7 +42,7 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override object ExecuteScalar(QueryCommand qry)
         {
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 var cmd = new SqlCommand(qry.CommandSql);
                 AddParams(cmd, qry);
@@ -147,7 +147,7 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override IDataReader GetReader(QueryCommand qry)
         {
-            var conn = new SqlConnection(connectionString);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             var cmd = new SqlCommand(qry.CommandSql, conn) { CommandType = qry.CommandType };
             AddParams(cmd, qry);
@@ -196,7 +196,7 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override StoredProcedureResult GetStoredProcedureResult(QueryCommand qry)
         {
-            var conn = new SqlConnection(connectionString);
+            var conn = new SqlConnection(ConnectionString);
             conn.Open();
             var cmd = new SqlCommand(qry.CommandSql, conn);
             cmd.CommandType = qry.CommandType;
@@ -422,7 +422,7 @@ namespace MetX.Data.Factory
 
         public override IDbConnection NewConnection()
         {
-            return new SqlConnection(connectionString);
+            return new SqlConnection(ConnectionString);
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
@@ -437,7 +437,7 @@ namespace MetX.Data.Factory
             {
                 sql += " FOR XML AUTO";
             }
-            var conn = new SqlConnection(connectionString);
+            var conn = new SqlConnection(ConnectionString);
             var cmd = new SqlCommand(sql, conn);
             conn.Open();
             try
@@ -491,7 +491,7 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override DataSet ToDataSet(QueryCommand qry)
         {
-            using var conn = new SqlConnection(connectionString);
+            using var conn = new SqlConnection(ConnectionString);
             using var cmd = new SqlCommand(qry.CommandSql, conn);
             using var da = new SqlDataAdapter(cmd);
             AddParams(cmd, qry);
@@ -515,7 +515,7 @@ namespace MetX.Data.Factory
             if (!sql.Contains("FOR XML")) sql += " FOR XML AUTO";
 
             var returnValue = new StringBuilder();
-            var conn = new SqlConnection(connectionString);
+            var conn = new SqlConnection(ConnectionString);
             var cmd = new SqlCommand(sql, conn);
             conn.Open();
             try
