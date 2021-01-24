@@ -55,7 +55,7 @@ namespace MetX.Controls
             EntryArea.SelectionMode = SelectionMode.MultiSimple;
             EntryArea.SetBounds(12, 106, 372, 500);
 
-            EntryArea.Initialize((object[])Items.Cast<object>(), DefaultValue);
+            EntryArea.Initialize((object[])Items, DefaultValue);
         }
     }
 }
