@@ -151,7 +151,7 @@ namespace MetX.Data.Factory
             conn.Open();
             var cmd = new SqlCommand(qry.CommandSql, conn) { CommandType = qry.CommandType };
             AddParams(cmd, qry);
-            IDataReader ret = null;
+            IDataReader ret;
             try
             {
                 ret = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -254,50 +254,46 @@ namespace MetX.Data.Factory
         public override TableSchema.Table GetTableSchema(string tableName)
         {
             string schemaName = null;
-            TableSchema.Table tableSchema = null;
+            TableSchema.Table tableSchema;
             var columns = new TableSchema.TableColumnCollection();
 
             var cmd = new QueryCommand(TableColumnSql + ";" + IndexSql);
             cmd.AddParameter("@tblName", tableName);
-            using (var rdr = GetReader(cmd))
+            using (var reader = GetReader(cmd))
             {
                 //get information about both the table and it's columns
 
                 TableSchema.TableColumn column;
-                while (rdr.Read())
+                while (reader.Read())
                 {
-                    var maxLength = 100;
-                    int.TryParse(rdr["MaxLength"].ToString(), out maxLength);
+                    int.TryParse(reader["MaxLength"].ToString(), out var maxLength);
                     column = new TableSchema.TableColumn
                     {
-                        ColumnName = rdr["ColumnName"].ToString(),
-                        DataType = GetDbType(rdr["DataType"].ToString().ToLower()),
-                        SourceType = rdr["DataType"].ToString(),
-                        AutoIncrement = rdr["isIdentity"].ToString() == "1",
-                        IsNullable = rdr["IsNullable"].ToString() == "YES",
-                        DomainName = rdr["DomainName"].ToString(),
-                        Precision = ToInt(rdr["Precision"]),
-                        Scale = ToInt(rdr["Scale"]),
+                        ColumnName = reader["ColumnName"].ToString(),
+                        DataType = GetDbType((reader["DataType"].ToString() ?? string.Empty).ToLower()),
+                        SourceType = reader["DataType"].ToString(),
+                        AutoIncrement = reader["isIdentity"].ToString() == "1",
+                        IsNullable = reader["IsNullable"].ToString() == "YES",
+                        DomainName = reader["DomainName"].ToString(),
+                        Precision = ToInt(reader["Precision"]),
+                        Scale = ToInt(reader["Scale"]),
                         MaxLength = maxLength,
                     };
                     columns.Add(column);
                     if (schemaName == null)
                     {
-                        schemaName = rdr["Owner"].ToString();
+                        schemaName = reader["Owner"].ToString();
                     }
                 }
-                rdr.NextResult();
+                reader.NextResult();
 
                 tableSchema = new TableSchema.Table(tableName, schemaName);
 
-                var colName = string.Empty;
-                var constraintType = string.Empty;
-
-                while (rdr.Read())
+                while (reader.Read())
                 {
-                    colName = rdr["ColumnName"].ToString();
-                    constraintType = rdr["constraintType"].ToString();
-                    column = columns.GetColumn(colName);
+                    var columnName = reader["ColumnName"].ToString();
+                    var constraintType = reader["constraintType"].ToString();
+                    column = columns.GetColumn(columnName);
 
                     if (constraintType == "PRIMARY KEY")
                     {
@@ -360,7 +356,6 @@ namespace MetX.Data.Factory
                     var constraintType = rdr["constraint_type"].ToString();
                     if (constraintType.Contains("DEFAULT")) { continue; }
 
-                    TableSchema.TableKey key = null;
                     if (constraintType.Contains("PRIMARY"))
                     {
                         if (tableSchema.Keys.Find("Primary") != null)
@@ -382,7 +377,7 @@ namespace MetX.Data.Factory
                     {
                         var raw = rdr["constraint_keys"].ToString();
                         var name = rdr["constraint_name"].ToString();
-                        key = new TableSchema.TableKey { Name = name, IsForeign = true };
+                        var key = new TableSchema.TableKey { Name = name, IsForeign = true };
                         if (key.Name == string.Empty)
                             key.Name = "Foreign" + (tableSchema.Keys.Count + 1);
                         key.Columns.AddRange(
@@ -496,24 +491,18 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override DataSet ToDataSet(QueryCommand qry)
         {
-            using (var conn = new SqlConnection(connectionString))
+            using var conn = new SqlConnection(connectionString);
+            using var cmd = new SqlCommand(qry.CommandSql, conn);
+            using var da = new SqlDataAdapter(cmd);
+            AddParams(cmd, qry);
+            conn.Open();
+            var ds = new DataSet();
+            da.Fill(ds);
+            if (ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
             {
-                using (var cmd = new SqlCommand(qry.CommandSql, conn))
-                {
-                    using (var da = new SqlDataAdapter(cmd))
-                    {
-                        AddParams(cmd, qry);
-                        conn.Open();
-                        var ds = new DataSet();
-                        da.Fill(ds);
-                        if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows == null || ds.Tables[0].Rows.Count == 0)
-                        {
-                            return null;
-                        }
-                        return ds;
-                    }
-                }
+                return null;
             }
+            return ds;
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
