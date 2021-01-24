@@ -1,6 +1,5 @@
 namespace MetX.Controls
 {
-    using System.Linq;
     using System.Windows.Forms;
 
     using Library;
