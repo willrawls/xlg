@@ -117,10 +117,6 @@ namespace MetX.Data
 
             private Dictionary<string, TableColumn> _iList = new Dictionary<string, TableColumn>();
 
-            public TableColumnCollection()
-            {
-            }
-
             #region Collection Methods
 
             public new void Add(TableColumn column)
@@ -297,9 +293,6 @@ namespace MetX.Data
         [Serializable]
         public class TableIndexCollection : List<TableIndex>
         {
-            public TableIndexCollection()
-            {
-            }
         }
 
         [Serializable]
@@ -310,19 +303,11 @@ namespace MetX.Data
             public bool IsPrimary;
             public bool IsReference;
             public string Name;
-
-            public TableKey()
-            {
-            }
         }
 
         [Serializable]
         public class TableKeyCollection : List<TableKey>
         {
-            public TableKeyCollection()
-            {
-            }
-
             public TableKey Find(string toFind)
             {
                 foreach (var currKey in this)
