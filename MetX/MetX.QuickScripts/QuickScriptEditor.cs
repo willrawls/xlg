@@ -67,7 +67,7 @@
                 return (string)Invoke(new Func<XlgQuickScript, string>(GenerateIndependentQuickScriptExe), scriptToRun);
             }
 
-            if ((Context.Templates.Count == 0) ||
+            if (Context.Templates.Count == 0 ||
                 string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Views["Exe"]))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
@@ -91,7 +91,7 @@
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
-                    && (scriptToRun.Input != "Web Address"))
+                    && scriptToRun.Input != "Web Address")
                 {
                     parentDestination = scriptToRun.InputFilePath.TokensBeforeLast(@"\");
                 }
@@ -327,7 +327,7 @@
 
         private void DestinationParam_MouseUp(object sender, MouseEventArgs e)
         {
-            if (DestinationParamAlreadyFocused || (DestinationParam.SelectionLength != 0)) return;
+            if (DestinationParamAlreadyFocused || DestinationParam.SelectionLength != 0) return;
 
             DestinationParamAlreadyFocused = true;
             DestinationParam.SelectAll();
@@ -368,8 +368,8 @@
                     break;
             }
 
-            EditInputFilePath.Enabled = InputParam.Enabled && (input != "Web Address");
-            BrowseInputFilePath.Enabled = InputParam.Enabled && (input != "Web Address");
+            EditInputFilePath.Enabled = InputParam.Enabled && input != "Web Address";
+            BrowseInputFilePath.Enabled = InputParam.Enabled && input != "Web Address";
         }
 
         private void InputParam_Enter(object sender, EventArgs e)
@@ -396,7 +396,7 @@
 
         private void InputParam_MouseUp(object sender, MouseEventArgs e)
         {
-            if (InputParamAlreadyFocused || (InputParam.SelectionLength != 0)) return;
+            if (InputParamAlreadyFocused || InputParam.SelectionLength != 0) return;
 
             InputParamAlreadyFocused = true;
             InputParam.SelectAll();
@@ -437,7 +437,7 @@
                 var name = string.Empty;
                 var answer = Ui.InputBoxRef("New Script Name", "Please enter the name for the new script.",
                     ref name);
-                if ((answer != DialogResult.OK) || ((name ?? string.Empty).Trim() == string.Empty))
+                if (answer != DialogResult.OK || (name ?? string.Empty).Trim() == string.Empty)
                 {
                     return;
                 }
@@ -582,7 +582,7 @@
                 foreach (var script in Context.Scripts)
                 {
                     QuickScriptList.Items.Add(script);
-                    if ((Context.Scripts.Default != null) && (script == Context.Scripts.Default))
+                    if (Context.Scripts.Default != null && script == Context.Scripts.Default)
                     {
                         defaultIndex = QuickScriptList.Items.Count - 1;
                     }
@@ -692,7 +692,7 @@
             var dialog = new ChooseOrderDialog();
             var items = dialog.Ask(choices, selection);
 
-            if ((items != null) && (items.Length > 0))
+            if (items != null && items.Length > 0)
             {
                 var x = string.Empty;
                 foreach (var item in items)
@@ -764,7 +764,7 @@
 
         private void UpdateLastKnownPath()
         {
-            if ((Context.Scripts == null) || string.IsNullOrEmpty(Context.Scripts.FilePath) ||
+            if (Context.Scripts == null || string.IsNullOrEmpty(Context.Scripts.FilePath) ||
                 !File.Exists(Context.Scripts.FilePath)) return;
             var openedKey = false;
             if (Context.AppDataRegistry == null)
@@ -780,7 +780,7 @@
 
             Context.AppDataRegistry.SetValue("LastQuickScriptPath", Context.Scripts.FilePath, RegistryValueKind.String);
 
-            if (!openedKey || (Context.AppDataRegistry == null))
+            if (!openedKey || Context.AppDataRegistry == null)
             {
                 return;
             }

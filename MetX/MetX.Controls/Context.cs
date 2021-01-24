@@ -22,7 +22,7 @@ namespace MetX.Controls
 
         public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
         {
-            if ((@base.Templates.Count == 0) ||
+            if (@base.Templates.Count == 0 ||
                 string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
             {
                 MessageBox.Show("Quick script template 'Native' missing: " + scriptToRun.Template);
@@ -90,7 +90,7 @@ namespace MetX.Controls
 
             var lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
 
-            if (!openedKey || (AppDataRegistry == null))
+            if (!openedKey || AppDataRegistry == null)
             {
                 return null;
             }
@@ -143,7 +143,7 @@ namespace MetX.Controls
                     caller.SetFocus("InputParam");
                 if (runResult.Error != null)
                     MessageBox.Show(runResult.Error.ToString());
-                if (!runResult.KeepGoing || (runResult.QuickScriptProcessor.Output == null) || (runResult.QuickScriptProcessor.Output.Length <= 0))
+                if (!runResult.KeepGoing || runResult.QuickScriptProcessor.Output == null || runResult.QuickScriptProcessor.Output.Length <= 0)
                 {
                     return;
                 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Net.Mail;
 
@@ -18,10 +19,13 @@ namespace MetX.IO
         public static void SendMail(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
             // Join();
-            var mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName));
-			mm.Subject = subject;
-			mm.Body = body;
-            mm.IsBodyHtml = (body.IndexOf("<HTML>") > -1 || body.IndexOf("<html>") > -1);
+            var mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName))
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = body.IndexOf("<HTML>", StringComparison.Ordinal) > -1 
+                             || body.IndexOf("<html>", StringComparison.Ordinal) > -1
+            };
             Send(mm);
 		}
 
@@ -31,7 +35,6 @@ namespace MetX.IO
         /// <param name="mm">The MailMessage to send</param>
         public static void Send(MailMessage mm)
         {
-            var m = new Email();
             ThreadPool.QueueUserWorkItem(Start, mm);
         }
         /// <summary>Private function for sending the asychronous email on a new thread</summary>
@@ -39,9 +42,13 @@ namespace MetX.IO
         {
             try
             {
-                new SmtpClient(System.Configuration.ConfigurationManager.AppSettings["SmtpServer"]).Send((MailMessage)objMailMessage);
+                new SmtpClient(System.Configuration.ConfigurationManager.AppSettings["SmtpServer"]).Send(
+                    (MailMessage) objMailMessage);
             }
-            catch { }
+            catch
+            {
+                // Ignored
+            }
         }
 
     }

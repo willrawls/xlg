@@ -119,7 +119,7 @@ namespace MetX.Scripts
                     }
                     else
                     {
-                        _mCurrArea.Lines.Add((new string(' ', indent + _mCurrArea.Indent)) + currScriptLine);
+                        _mCurrArea.Lines.Add(new string(' ', indent + _mCurrArea.Indent) + currScriptLine);
                     }
                 }
 
@@ -187,7 +187,7 @@ namespace MetX.Scripts
             }
             else if (!_mCurrArea.Lines.Any(x => x.Contains("`")))
             {
-                _mCurrArea.Lines.TransformAllNotEmpty((line, index) =>
+                _mCurrArea.Lines.TransformAllNotEmpty(line =>
                     "\t\"" + line.Replace("\"", "\\\"") + "\" + Environment.NewLine;" + Environment.NewLine);
                 _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
                 _mCurrArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";

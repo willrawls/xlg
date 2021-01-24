@@ -182,7 +182,7 @@ namespace MetX.Library
 
             if (tagAttributes.Length == 0)
             {
-                if ((tagValue).Length > 0)
+                if (tagValue.Length > 0)
                     // <tagName>
                     //    <tagName .../>
                     // </tagName>
@@ -193,7 +193,7 @@ namespace MetX.Library
             }
             else
             {
-                if ((tagValue).Length > 0)
+                if (tagValue.Length > 0)
                     // <tagName tagAttributes ... >
                     //    <tagName .../>
                     // </tagName>

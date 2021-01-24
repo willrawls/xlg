@@ -108,8 +108,8 @@ namespace MetX.Security
             var sb = new StringBuilder();
             for (var i = 0; i < nameValuePairs.Count; i++)
             {
-                sb.AppendLine(WebUtility.UrlEncode((nameValuePairs.GetKey(i) != null ? nameValuePairs.GetKey(i) : string.Empty)));
-                sb.AppendLine(WebUtility.UrlEncode((nameValuePairs[i] != null ? nameValuePairs[i] : string.Empty)));
+                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs.GetKey(i) != null ? nameValuePairs.GetKey(i) : string.Empty));
+                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs[i] != null ? nameValuePairs[i] : string.Empty));
             }
             return ToBase64(sb.ToString());
         }

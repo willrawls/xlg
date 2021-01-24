@@ -104,8 +104,8 @@ namespace MetX.Scripts
         {
             var keepGoing = true;
             var iterations = 0;
-            while (keepGoing && (++iterations < 1000) && currScriptLine.Contains("%")
-                   && (currScriptLine.TokenCount("%") > 1))
+            while (keepGoing && ++iterations < 1000 && currScriptLine.Contains("%")
+                   && currScriptLine.TokenCount("%") > 1)
             {
                 var variableContent = currScriptLine.TokenAt(2, "%");
                 var resolvedContent = string.Empty;

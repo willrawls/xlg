@@ -129,7 +129,7 @@ namespace MetX.Library
         /// <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
         public static string S2Db(object value)
         {
-            if (value == null || value == DBNull.Value || (value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10)) || (value is string && (string)value == "(NULL)"))
+            if (value == null || value == DBNull.Value || value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10) || value is string && (string)value == "(NULL)")
                 return "NULL";
             return "'" + AsString(value).Replace("'", "''") + "'";
         }

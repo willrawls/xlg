@@ -42,7 +42,7 @@ namespace MetX.Library
                 EntryArea.Items.Add(choice.AsString());
             }
 
-            if ((DefaultValue >= 0) && (DefaultValue < Choices.Length))
+            if (DefaultValue >= 0 && DefaultValue < Choices.Length)
             {
                 EntryArea.SelectedIndex = DefaultValue;
             }

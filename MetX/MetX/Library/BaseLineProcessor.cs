@@ -24,7 +24,7 @@
         {
             get
             {
-                if (InputFiles.IsEmpty() || (CurrentInputFileIndex < 0) || (CurrentInputFileIndex >= InputFiles.Count))
+                if (InputFiles.IsEmpty() || CurrentInputFileIndex < 0 || CurrentInputFileIndex >= InputFiles.Count)
                     return null;
 
                 return InputFiles[CurrentInputFileIndex];
@@ -35,7 +35,7 @@
         {
             get
             {
-                if (InputFiles.IsEmpty() || (CurrentInputFileIndex < 0))
+                if (InputFiles.IsEmpty() || CurrentInputFileIndex < 0)
                     return null;
 
                 CurrentInputFileIndex++;
@@ -84,7 +84,7 @@
                         return null;
                     }
 
-                    switch ((Path.GetExtension(InputFilePath)).ToLower())
+                    switch (Path.GetExtension(InputFilePath).ToLower())
                     {
                         case ".xls":
                         case ".xlsx":
@@ -124,7 +124,7 @@
 
                             excel.Quit();
                             CurrentInputFileIndex = 0;
-                            if ((CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
+                            if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
                             break;
 
@@ -133,7 +133,7 @@
                                 new FileInfo(InputFilePath)
                             };
                             CurrentInputFileIndex = 0;
-                            if ((CurrentInputFile == null) || !CurrentInputFile.Exists) return false;
+                            if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
                             break;
                     }
@@ -141,7 +141,7 @@
                     break;
             }
 
-            if ((InputStream == StreamReader.Null) || (InputStream.BaseStream.Length < 1) || InputStream.EndOfStream)
+            if (InputStream == StreamReader.Null || InputStream.BaseStream.Length < 1 || InputStream.EndOfStream)
             {
                 MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;

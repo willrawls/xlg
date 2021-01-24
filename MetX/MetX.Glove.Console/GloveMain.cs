@@ -171,7 +171,7 @@ namespace XLG.Pipeliner
 
         private void RefreshList(string xlgSourceFilename)
         {
-            if (_mRefreshingList || (string.IsNullOrEmpty(xlgSourceFilename) && Settings == null))
+            if (_mRefreshingList || string.IsNullOrEmpty(xlgSourceFilename) && Settings == null)
             {
                 return;
             }
@@ -381,9 +381,9 @@ namespace XLG.Pipeliner
         {
             try
             {
-                openFileDialog1.FileName = (Settings != null && !string.IsNullOrEmpty(Settings.Filename)
+                openFileDialog1.FileName = Settings != null && !string.IsNullOrEmpty(Settings.Filename)
                     ? Settings.Filename
-                    : string.Empty);
+                    : string.Empty;
                 if (string.IsNullOrEmpty(openFileDialog1.FileName) && Directory.Exists(AppData.SupportPath))
                 {
                     openFileDialog1.InitialDirectory = AppData.SupportPath;

@@ -29,7 +29,7 @@ namespace MetX.Scripts
             {
                 for (var index = 0; index < failures.Count; index++)
                 {
-                    sb.AppendLine((index + 1) + ": Line "
+                    sb.AppendLine(index + 1 + ": Line "
                                               + failures[index]
                                                   .ToString()
                                                   .TokensAfterFirst("(")
@@ -48,7 +48,7 @@ namespace MetX.Scripts
                     error = error.TokensAfterFirst("(").Replace(")", string.Empty);
                 }
 
-                sb.AppendLine((index + 1) + ": Line " + error);
+                sb.AppendLine(index + 1 + ": Line " + error);
                 sb.AppendLine();
                 if (error.Contains(Environment.NewLine))
                 {

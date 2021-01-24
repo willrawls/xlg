@@ -537,7 +537,7 @@ namespace MetX.IO
 			cmd.Dispose();
 			conn.Close();
 			conn.Dispose();
-			return (recordCount >  0);
+			return recordCount >  0;
 		}
 		
         /// <summary>Executes a series of SQL statements on the same connection</summary>

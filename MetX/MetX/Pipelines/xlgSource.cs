@@ -228,7 +228,7 @@ namespace MetX.Pipelines
                         }
                     }
                     LastGenerated = DateTime.Now;
-                    LastXlgInstanceId = (gen != null ? gen.XlgInstanceId : Guid.NewGuid());
+                    LastXlgInstanceId = gen != null ? gen.XlgInstanceId : Guid.NewGuid();
                     return 1;
                 }
                 catch (Exception ex)

@@ -103,7 +103,7 @@ namespace MetX.Controls
                     var file = Script.InputFilePath.LastToken(@"\");
                     Watcher = new FileSystemWatcher(path, file)
                     {
-                        NotifyFilter = (NotifyFilters.LastWrite | NotifyFilters.Size),
+                        NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
                         EnableRaisingEvents = true,
                         IncludeSubdirectories = false,
                     };

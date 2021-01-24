@@ -40,7 +40,7 @@ namespace MetX.Controls
         {
             get
             {
-                if ((ScriptEditor.Text.Length == 0) || (_textArea.Caret.Column == 0))
+                if (ScriptEditor.Text.Length == 0 || _textArea.Caret.Column == 0)
                 {
                     return string.Empty;
                 }
@@ -56,7 +56,7 @@ namespace MetX.Controls
                     }
                 }
 
-                if ((i > 0) && (i < linePart.Length))
+                if (i > 0 && i < linePart.Length)
                 {
                     linePart = linePart.Substring(i);
                 }
@@ -69,7 +69,7 @@ namespace MetX.Controls
         {
             get
             {
-                if ((Text.Length == 0) || (_textArea.Caret.Column == 0)) return string.Empty;
+                if (Text.Length == 0 || _textArea.Caret.Column == 0) return string.Empty;
                 var line = Text.TokenAt(
                     _textArea.Caret.Line,
                     Environment.NewLine,
@@ -95,7 +95,7 @@ namespace MetX.Controls
 
             var lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
 
-            if (!openedKey || (AppDataRegistry == null))
+            if (!openedKey || AppDataRegistry == null)
             {
                 return null;
             }
@@ -134,7 +134,7 @@ namespace MetX.Controls
                 return (string)Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
             }
 
-            if ((Context.Templates.Count == 0) ||
+            if (Context.Templates.Count == 0 ||
                 string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
@@ -153,7 +153,7 @@ namespace MetX.Controls
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(CurrentScript.InputFilePath)
-                    && (CurrentScript.Input != "Web Address"))
+                    && CurrentScript.Input != "Web Address")
                 {
                     parentDestination = CurrentScript.InputFilePath.TokensBeforeLast(@"\");
                 }
@@ -279,7 +279,7 @@ namespace MetX.Controls
 
         public void ShowCodeCompletion(string[] items)
         {
-            if ((items != null) && (items.Length > 0))
+            if (items != null && items.Length > 0)
             {
                 var completionDataProvider = new CompletionDataProvider(items);
                 CompletionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
@@ -495,7 +495,7 @@ namespace MetX.Controls
 */
         private void UpdateLastKnownPath()
         {
-            if ((Context.Scripts == null) || string.IsNullOrEmpty(Context.Scripts.FilePath) || !File.Exists(Context.Scripts.FilePath))
+            if (Context.Scripts == null || string.IsNullOrEmpty(Context.Scripts.FilePath) || !File.Exists(Context.Scripts.FilePath))
             {
                 return;
             }
@@ -514,7 +514,7 @@ namespace MetX.Controls
 
             AppDataRegistry.SetValue("LastQuickScriptPath", Context.Scripts.FilePath, RegistryValueKind.String);
 
-            if (!openedKey || (AppDataRegistry == null))
+            if (!openedKey || AppDataRegistry == null)
             {
                 return;
             }

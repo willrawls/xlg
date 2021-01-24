@@ -43,7 +43,7 @@ namespace TextEditor
 			// work.
 			tab.Enter +=
 				new EventHandler((sender, e) => { 
-					var page = ((TabPage)sender);
+					var page = (TabPage)sender;
 					page.BeginInvoke(new Action<TabPage>(p => p.Controls[0].Focus()), page);
 				});
 			tab.Controls.Add(editor);

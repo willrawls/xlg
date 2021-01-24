@@ -67,11 +67,11 @@ namespace MetX.Library
                 EntryArea.Items.Add(choice);
             }
 
-            if ((DefaultValue != null) && (DefaultValue.Length > 0))
+            if (DefaultValue != null && DefaultValue.Length > 0)
             {
                 foreach (var index in DefaultValue)
                 {
-                    if ((index >= 0) && (index < Items.Length))
+                    if (index >= 0 && index < Items.Length)
                     {
                         EntryArea.SetSelected(index, true);
                     }

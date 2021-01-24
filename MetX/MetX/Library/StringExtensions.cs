@@ -12,7 +12,7 @@ namespace MetX.Library
     {
         public static bool IsEmpty<T>(this IList<T> target)
         {
-            return (target == null || target.Count == 0);
+            return target == null || target.Count == 0;
         }
 
         public static bool IsEmpty(this string target)

@@ -554,9 +554,9 @@ namespace MetX.Pipelines
                         var xmlIndex = xmlDoc.CreateElement("Index");
                         AddAttribute(xmlIndex, "IndexName", index.Name);
                         AddAttribute(xmlIndex, "IsClustered", index.IsClustered.ToString());
-                        AddAttribute(xmlIndex, "SingleColumnIndex", (index.Columns.Count == 1
+                        AddAttribute(xmlIndex, "SingleColumnIndex", index.Columns.Count == 1
                             ? "True"
-                            : "False"));
+                            : "False");
                         AddAttribute(xmlIndex, "PropertyName", GetProperName(tbl.Name, index.Name, "Index"));
                         AddAttribute(xmlIndex, "Location", i.ToString());
                         var xmlIndexColumns = xmlDoc.CreateElement("IndexColumns");
@@ -1140,7 +1140,7 @@ namespace MetX.Pipelines
 
         private bool IsAuditField(string colName)
         {
-            var bOut = (colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon");
+            var bOut = colName.ToLower() == "createdby" || colName.ToLower() == "createdon" || colName.ToLower() == "modifiedby" || colName.ToLower() == "modifiedon";
             return bOut;
         }
 
@@ -1152,11 +1152,11 @@ namespace MetX.Pipelines
                 if (toFind.EndsWith("*"))
                 {
                     toFind = toFind.Substring(0, toFind.Length - 1);
-                    ret = (toCheck.SelectSingleNode(
+                    ret = toCheck.SelectSingleNode(
                         "Exclude[@Name='*" +
                         "' or starts-with(@Name,'" + toFind +
                         "') or starts-with(@Name,'" + Path.GetFileName(toFind) +
-                        "') or starts-with(@Name,'" + Path.GetFileNameWithoutExtension(toFind) + "')]") != null);
+                        "') or starts-with(@Name,'" + Path.GetFileNameWithoutExtension(toFind) + "')]") != null;
                 }
                 else
                 {
@@ -1168,11 +1168,11 @@ namespace MetX.Pipelines
                     }
                     else
                     {
-                        ret = (toCheck.SelectSingleNode(
+                        ret = toCheck.SelectSingleNode(
                             "Exclude[@Name='*" +
                             "' or @Name='" + toFind +
                             "' or @Name='" + Path.GetFileName(toFind) +
-                            "' or @Name='" + Path.GetFileNameWithoutExtension(toFind) + "']") != null);
+                            "' or @Name='" + Path.GetFileNameWithoutExtension(toFind) + "']") != null;
                     }
                 }
             }

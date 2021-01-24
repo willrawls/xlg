@@ -538,7 +538,7 @@ namespace MetX.Library
             for (var i = 0; i < target.Length; i++)
             {
                 var curr = target[i];
-                if (i > 0 && ((curr >= 'A' && curr <= 'Z') || (curr >= '0' && curr <= '9')))
+                if (i > 0 && (curr >= 'A' && curr <= 'Z' || curr >= '0' && curr <= '9'))
                 {
                     var prev = target[i - 1];
                     //if (!((prev >= 'A' && prev <= 'Z') || (prev >= '0' && prev <= '9')))

@@ -28,7 +28,7 @@
         {
             get
             {
-                if ((Text.Length == 0) || (_codeArea.Caret.Column == 0)) return string.Empty;
+                if (Text.Length == 0 || _codeArea.Caret.Column == 0) return string.Empty;
                 var line = Text.TokenAt(
                     _codeArea.Caret.Line + 1,
                     Environment.NewLine,
@@ -42,7 +42,7 @@
         {
             get
             {
-                if ((_codeArea.Caret.Column == 0) || (Text.Length == 0))
+                if (_codeArea.Caret.Column == 0 || Text.Length == 0)
                 {
                     return string.Empty;
                 }
@@ -57,7 +57,7 @@
                     }
                 }
 
-                if ((i > 0) && (i < linePart.Length))
+                if (i > 0 && i < linePart.Length)
                 {
                     linePart = linePart.Substring(i);
                 }
@@ -68,7 +68,7 @@
 
         public void ShowCodeCompletion(string[] items)
         {
-            if ((items != null) && (items.Length > 0))
+            if (items != null && items.Length > 0)
             {
                 var completionDataProvider = new CompletionDataProvider(items);
                 _completionWindow = CodeCompletionWindow.ShowCompletionWindow(
@@ -210,7 +210,7 @@
                     var wordBeforeCaret = WordBeforeCaret;
                     var lineAtCaret = LineAtCaret;
 
-                    if ((wordBeforeCaret == "Ask") && !lineAtCaret.Contains(")"))
+                    if (wordBeforeCaret == "Ask" && !lineAtCaret.Contains(")"))
                     {
                         var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(\"What string to look for?\", \" \");");
@@ -218,7 +218,7 @@
                         return true;
                     }
 
-                    if ((wordBeforeCaret == "Choose") && !lineAtCaret.Contains(")"))
+                    if (wordBeforeCaret == "Choose" && !lineAtCaret.Contains(")"))
                     {
                         var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(choices, selectedIndex, \"Please select one from the list\", \"SELECT ONE\");");
@@ -226,7 +226,7 @@
                         return true;
                     }
 
-                    if ((wordBeforeCaret == "MultipleChoice") && !lineAtCaret.Contains(")"))
+                    if (wordBeforeCaret == "MultipleChoice" && !lineAtCaret.Contains(")"))
                     {
                         var location = _codeArea.Caret.Column;
                         _codeArea.InsertString("(choices, initiallySelectedIndices, \"Please select one or more items from the list\", \"MULTIPLE CHOICE\");");
@@ -234,7 +234,7 @@
                         return true;
                     }
 
-                    if ((wordBeforeCaret == "MessageBox") && !lineAtCaret.Contains(")"))
+                    if (wordBeforeCaret == "MessageBox" && !lineAtCaret.Contains(")"))
                     {
                         var location = _codeArea.Caret.Column;
                         _codeArea.InsertString(".Show(\"\");");

@@ -388,9 +388,9 @@ namespace TextEditor
 			Func<char, char, bool> matchFirstCh;
 			Func<int, bool> matchWord;
 			if (MatchCase)
-				matchFirstCh = (lookFor, c) => (lookFor == c);
+				matchFirstCh = (lookFor, c) => lookFor == c;
 			else
-				matchFirstCh = (lookFor, c) => (lookFor == Char.ToUpperInvariant(c));
+				matchFirstCh = (lookFor, c) => lookFor == Char.ToUpperInvariant(c);
 			if (MatchWholeWordOnly)
 				matchWord = IsWholeWordMatch;
 			else

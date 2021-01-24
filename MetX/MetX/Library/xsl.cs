@@ -42,8 +42,7 @@ namespace MetX.Library
 				catch (Exception exp)
 				{
 					sb.AppendLine("<HTML><BODY><PRE>"
-								+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
-                                          + (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
+								+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + xmlDocument.OuterXml.Replace("><", ">" + "\r\n" + "<") + "</TEXTAREA></BODY></HTML>")));
 				}
 			}
 			sb.Replace("&nbsp;", " ");
@@ -67,8 +66,7 @@ namespace MetX.Library
 			catch (Exception exp)
 			{
 				output.WriteLine("<HTML><BODY><PRE>"
-							+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>"
-                                      + (xmlDocument.OuterXml.Replace("><", (">" + ("\r\n" + "<"))) + "</TEXTAREA></BODY></HTML>"))));
+							+ (exp + ("</PRE><br /><HR><br /><TEXTAREA COLS=90 ROWS=15>" + xmlDocument.OuterXml.Replace("><", ">" + "\r\n" + "<") + "</TEXTAREA></BODY></HTML>")));
 			}
 		}
 

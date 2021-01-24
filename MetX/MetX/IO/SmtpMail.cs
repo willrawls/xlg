@@ -198,7 +198,7 @@ namespace MetX.IO
 				msgBody=sb.ToString();
 			}
     			
-			Senddata(s, ("DATA\r\n"));
+			Senddata(s, "DATA\r\n");
 			if(!Check_Response(s, SmtpResponses.DataSuccess))
 			{
 				Console.WriteLine("Data command Failed!.");

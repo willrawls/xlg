@@ -610,7 +610,7 @@ namespace MetX.Data
                 AddWherePhraseToSql(ref where, null);
 
             //Finally, do the orderby
-            if (OrderBy != null && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
+            if (OrderBy != null && QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max)
                 order = OrderBy.OrderString;
 
             if (Page == 0)
@@ -623,8 +623,8 @@ namespace MetX.Data
                     query += " LIMIT " + Top;
 
             int pageSize;
-            if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out pageSize) && pageSize > 0 && (QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max))
-                query = Instance.HandlePage(query, ((Page - 1) * pageSize) + 1, pageSize, QueryType);
+            if (Page > 0 && !string.IsNullOrEmpty(Top) && int.TryParse(Top, out pageSize) && pageSize > 0 && QueryType != QueryType.Count && QueryType != QueryType.Min && QueryType != QueryType.Max)
+                query = Instance.HandlePage(query, (Page - 1) * pageSize + 1, pageSize, QueryType);
 
             if (QueryType == QueryType.Exists)
                 query = "IF EXISTS(" + query + ") SELECT 1 ELSE SELECT 0";

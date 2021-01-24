@@ -160,9 +160,9 @@ namespace MetX.IO
             var ret = string.Empty;
             if (!Directory.Exists(path))
             {
-                var folder = (stripOffFilename
+                var folder = stripOffFilename
                     ? path.TokensBefore(path.TokenCount(@"\"), @"\")
-                    : path);
+                    : path;
                 if (!Directory.Exists(folder))
                 {
                     if (
@@ -220,13 +220,13 @@ namespace MetX.IO
             p.Start();
 
             var output = p.StandardOutput.ReadToEnd();
-            if (!(p.WaitForExit(waitTime)))
+            if (!p.WaitForExit(waitTime))
             {
                 p.Kill();
             }
             p.Close();
 
-            var ret = (output) // + Environment.NewLine + sError)
+            var ret = output // + Environment.NewLine + sError)
                 .Replace("\\x000C", string.Empty)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);

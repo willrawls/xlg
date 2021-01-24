@@ -54,7 +54,7 @@ namespace MetX.Security
         {
             _cryptoService.Key = _key;
             _cryptoService.IV = _vector;
-            var dt = (today ? DateTime.UtcNow : DateTime.UtcNow.AddDays(-1));
+            var dt = today ? DateTime.UtcNow : DateTime.UtcNow.AddDays(-1);
             var v = (byte) (Math.Abs(dt.DayOfYear - dt.Day + (int) dt.DayOfWeek) + 1);
             for (var i = 0; i < _cryptoService.Key.Length; i++)
                 _cryptoService.Key[i] = (byte) ((_cryptoService.Key[i] + v) % 254);
@@ -140,7 +140,7 @@ TryAgain:
             try
             {
                 // create Crypto Stream that transforms a stream using the decryption
-                var cs = new CryptoStream(ms, (haveTriedYesterday ? _decryptorToday : _decryptorYesterday), CryptoStreamMode.Read);
+                var cs = new CryptoStream(ms, haveTriedYesterday ? _decryptorToday : _decryptorYesterday, CryptoStreamMode.Read);
 
                 // read out the result from the Crypto Stream
                 var sr = new StreamReader(cs);

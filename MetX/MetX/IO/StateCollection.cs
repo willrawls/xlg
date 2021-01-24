@@ -74,27 +74,19 @@ namespace MetX.IO
         {
             get
             {
-                if (_mState == null)
+                if (_mState != null) return _mState;
+                
+                _mState = new SortedStringList(5);
+                var rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
+                if (rstState == null || rstState.Count <= 0) return _mState;
+                    
+                foreach (DataRow currRow in rstState)
                 {
-                    _mState = new SortedStringList(5);
-                    var rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
-                    if (rstState != null)
-                    {
-                        if (rstState.Count > 0)
-                        {
-                            foreach (DataRow currRow in rstState)
-                            {
-                                _mState.Add(Convert.ToString(currRow[0]), Convert.ToString(currRow[1]));
-                            }
-                        }
-                    }
+                    _mState.Add(currRow[0].AsString(), currRow[1].AsString());
                 }
                 return _mState;
             }
-            set
-            {
-                _mState = value;
-            }
+            // set => _mState = value;
         }
 
         /// <summary>Saves the current state to the StateCollection table. All previous items in the state are deleted.</summary>
@@ -102,12 +94,23 @@ namespace MetX.IO
         {
             if (_mState != null)
             {
-                var sqLs = new List<string>(1 + _mState.Count);
-                sqLs.Add("DELETE FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()));
+                var sqLs = new List<string>(1 + _mState.Count)
+                {
+                    "DELETE FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) +
+                    " AND StateName=" + Worker.S2Db(StateName.ToLower())
+                };
 
                 if (_mState.Count > 0)
+                    // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
                     foreach (var de in _mState)
-                        sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid() + "'," + Worker.S2Db(StateParent) + "," + Worker.S2Db(StateName) + "," + Worker.S2Db(de.Key) + "," + Worker.S2Db(de.Value) + ", getdate())");
+                    {
+                        sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid() + "'," 
+                                 + Worker.S2Db(StateParent) + "," 
+                                 + Worker.S2Db(StateName) + "," 
+                                 + Worker.S2Db(de.Key) + "," 
+                                 + Worker.S2Db(de.Value) + ", getdate())");
+                    }
+
                 Sql.Execute(sqLs, ConnectionName);
             }
         }
