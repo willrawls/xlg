@@ -1,5 +1,0 @@
-<assembly name="Windows">
-  <member name="T:Windows.UI.Xaml.Media.FontFamily">
-    <attribute ctor="M:System.ComponentModel.TypeConverterAttribute.#ctor" />
-  </member>
-</assembly>
