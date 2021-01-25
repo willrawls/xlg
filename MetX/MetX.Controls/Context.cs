@@ -32,7 +32,7 @@ namespace MetX.Controls
             var source = scriptToRun.ToCSharp(false);
 
             var assemblies = DefaultTypesForCompiler();
-            var shared = new List<string>{ };
+            var shared = new List<string>();
             
             var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared);
 
@@ -57,7 +57,7 @@ namespace MetX.Controls
                 return quickScriptProcessor;
             }
 
-            var forDisplay = compiler?.Failures.ForDisplay(source.Lines());
+            var forDisplay = compiler.Failures.ForDisplay(source.Lines());
             QuickScriptWorker.ViewTextInNotepad(source, true);
             QuickScriptWorker.ViewTextInNotepad(forDisplay, true);
             return null;
