@@ -67,10 +67,10 @@ namespace MetX.Library
 
             FilePath = filePath;
             var retries = 10;
-            Finish(false);
+            Finish();
             while (--retries < 10 && (TargetStream == null || TargetStreamWriter == null))
             {
-                Finish(false);
+                Finish();
                 try
                 {
                     if (!append && File.Exists(FilePath))
@@ -104,7 +104,7 @@ namespace MetX.Library
 
         ~StreamBuilder()
         {
-            Finish(false);
+            Finish();
         }
 
         public void Finish(bool leaveOpen = false)

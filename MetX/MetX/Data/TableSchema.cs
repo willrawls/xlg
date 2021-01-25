@@ -88,20 +88,20 @@ namespace MetX.Data
             /// <param name="columnName">C#CD: </param>
             /// <param name="dbType">C#CD: </param>
             /// <param name="isPrimaryKey">C#CD: </param>
-            /// <param name="isForeignKey">C#CD: </param>
-            public TableColumn(string columnName, DbType dbType, bool isPrimaryKey, bool isForeignKey)
+            /// <param name="IsForiegnKey">C#CD: </param>
+            public TableColumn(string columnName, DbType dbType, bool isPrimaryKey, bool IsForiegnKey)
             {
                 ColumnName = columnName;
                 IsPrimaryKey = isPrimaryKey;
-                IsForiegnKey = isForeignKey;
+                IsForiegnKey = IsForiegnKey;
                 DataType = dbType;
             }
 
-            public TableColumn(string columnName, DbType dbType, bool autoIncrement, int maxLength, bool isNullable, bool isPrimaryKey, bool isForeignKey)
+            public TableColumn(string columnName, DbType dbType, bool autoIncrement, int maxLength, bool isNullable, bool isPrimaryKey, bool IsForiegnKey)
             {
                 ColumnName = columnName;
                 IsPrimaryKey = isPrimaryKey;
-                IsForiegnKey = isForeignKey;
+                IsForiegnKey = IsForiegnKey;
                 DataType = dbType;
                 this.AutoIncrement = autoIncrement;
                 this.MaxLength = maxLength;
@@ -130,12 +130,12 @@ namespace MetX.Data
             /// <param name="dbType">C#CD: </param>
             /// <param name="isNullable">C#CD: </param>
             /// <param name="isPrimaryKey">C#CD: </param>
-            /// <param name="isForeignKey">C#CD: </param>
-            public void Add(string name, DbType dbType, bool isNullable, bool isPrimaryKey, bool isForeignKey)
+            /// <param name="IsForiegnKey">C#CD: </param>
+            public void Add(string name, DbType dbType, bool isNullable, bool isPrimaryKey, bool IsForiegnKey)
             {
                 var col = new TableColumn();
                 col.IsPrimaryKey = isPrimaryKey;
-                col.IsForiegnKey = isForeignKey;
+                col.IsForiegnKey = IsForiegnKey;
                 col.IsNullable = isNullable;
                 col.DataType = dbType;
                 col.ColumnName = name;

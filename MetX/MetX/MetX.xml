@@ -389,7 +389,7 @@
             <param name="columnName">C#CD: </param>
             <param name="dbType">C#CD: </param>
             <param name="isPrimaryKey">C#CD: </param>
-            <param name="isForeignKey">C#CD: </param>
+            <param name="IsForiegnKey">C#CD: </param>
         </member>
         <member name="T:MetX.Data.TableSchema.TableColumnCollection">
             <summary>C#CD: </summary>
@@ -400,7 +400,7 @@
             <param name="dbType">C#CD: </param>
             <param name="isNullable">C#CD: </param>
             <param name="isPrimaryKey">C#CD: </param>
-            <param name="isForeignKey">C#CD: </param>
+            <param name="IsForiegnKey">C#CD: </param>
         </member>
         <member name="M:MetX.Data.TableSchema.TableColumnCollection.Add(System.String,System.Data.DbType,System.Boolean)">
             <summary>C#CD: </summary>

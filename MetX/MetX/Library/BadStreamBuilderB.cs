@@ -84,7 +84,7 @@ namespace MetX.Library
             var retries = 10;
             while (--retries < 10 && (TargetStream == null || Target == null))
             {
-                Finish(false);
+                Finish();
                 try
                 {
                     if (!append && File.Exists(FilePath))

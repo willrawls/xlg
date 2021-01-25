@@ -117,7 +117,7 @@ namespace System.Windows.Forms
 	public static class InputBox
 	{
         public static string Show(string prompt, string title, string @default)
-			{ return Show(prompt, title, @default, int.MinValue, int.MinValue, false); }
+			{ return Show(prompt, title, @default, int.MinValue); }
 		
 		public static string Show(string prompt, string title = null, string @default = null, int xPos = int.MinValue, int yPos = int.MinValue, bool isPassword = false)
 		{

@@ -12,14 +12,14 @@ namespace MetX.Tests.Library
         public void TokenAt_Basic()
         {
             var sample1 = _sample + ".";
-            Assert.AreEqual("Fred", sample1.TokenAt(1, " "));
-            Assert.AreEqual("goes", sample1.TokenAt(2, " "));
-            Assert.AreEqual("home.", sample1.TokenAt(3, " "));
-            Assert.AreEqual("", sample1.TokenAt(4, " "));
-            Assert.AreEqual("", sample1.TokenAt(10, " "));
-            Assert.AreEqual("", sample1.TokenAt(-2, " "));
+            Assert.AreEqual("Fred", sample1.TokenAt(1));
+            Assert.AreEqual("goes", sample1.TokenAt(2));
+            Assert.AreEqual("home.", sample1.TokenAt(3));
+            Assert.AreEqual("", sample1.TokenAt(4));
+            Assert.AreEqual("", sample1.TokenAt(10));
+            Assert.AreEqual("", sample1.TokenAt(-2));
 
-            Assert.AreEqual("", ((string)null).TokenAt(1, " "));
+            Assert.AreEqual("", ((string)null).TokenAt(1));
             Assert.AreEqual("", ((string)null).TokenAt(1, null));
 
             Assert.AreEqual(sample1, sample1.TokenAt(1, ""));
@@ -65,14 +65,14 @@ namespace MetX.Tests.Library
         [TestMethod]
         public void TokensBefore_Basic()
         {
-            Assert.AreEqual("", _sample.TokensBefore(1, " "));
-            Assert.AreEqual("Fred", _sample.TokensBefore(2, " "));
-            Assert.AreEqual("Fred goes", _sample.TokensBefore(3, " "));
-            Assert.AreEqual("Fred goes home", _sample.TokensBefore(4, " "));
-            Assert.AreEqual("Fred goes home", _sample.TokensBefore(10, " "));
-            Assert.AreEqual("", _sample.TokensBefore(-2, " "));
+            Assert.AreEqual("", _sample.TokensBefore(1));
+            Assert.AreEqual("Fred", _sample.TokensBefore(2));
+            Assert.AreEqual("Fred goes", _sample.TokensBefore(3));
+            Assert.AreEqual("Fred goes home", _sample.TokensBefore(4));
+            Assert.AreEqual("Fred goes home", _sample.TokensBefore(10));
+            Assert.AreEqual("", _sample.TokensBefore(-2));
 
-            Assert.AreEqual("", ((string)null).TokensBefore(1, " "));
+            Assert.AreEqual("", ((string)null).TokensBefore(1));
             Assert.AreEqual("", ((string)null).TokensBefore(1, null));
 
             Assert.AreEqual("", _sample.TokensBefore(1, ""));

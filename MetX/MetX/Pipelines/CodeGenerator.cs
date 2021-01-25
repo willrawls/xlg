@@ -378,7 +378,7 @@ namespace MetX.Pipelines
                     {
                         //loop the params, pulling out the names and dataTypes
                         var xmlParameter = xmlDoc.CreateElement("Parameter");
-                        var dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString().ToLower());
+                        var dbType = DataService.Instance.GetDbType(paramReader["DataType"].ToString()?.ToLower());
                         var paramName = paramReader["Name"].ToString();
 
                         if (CSharpKeywords.Contains(paramName))
@@ -415,7 +415,9 @@ namespace MetX.Pipelines
                         AddAttribute(xmlParameter, "VBVariableType", GetVbVariableType(dbType));
                         AddAttribute(xmlParameter, "IsDotNetObject", GetIsDotNetObject(dbType).ToString());
                         AddAttribute(xmlParameter, "ParameterName", paramName);
-                        AddAttribute(xmlParameter, "VariableName", GetProperName(paramName.Replace("@", string.Empty).Replace(" ", string.Empty)));
+                        if (paramName != null)
+                            AddAttribute(xmlParameter, "VariableName",
+                                GetProperName(paramName.Replace("@", string.Empty).Replace(" ", string.Empty)));
                         AddAttribute(xmlParameter, "IsInput", isInput.ToString());
                         AddAttribute(xmlParameter, "IsOutput", isOutput.ToString());
                         xmlParameters.AppendChild(xmlParameter);
@@ -479,14 +481,10 @@ namespace MetX.Pipelines
                 var xmlTable = xmlDoc.CreateElement("Table");
                 AddAttribute(xmlTable, "TableName", tbl.Name);
                 AddAttribute(xmlTable, "ClassName", GetClassName(tbl.Name));
-                if (tbl.PrimaryKey != null)
-                {
-                    AddAttribute(xmlTable, "PrimaryKeyColumnName", GetProperName(tbl.Name, tbl.PrimaryKey.ColumnName, "Field"));
-                }
-                else
-                {
-                    AddAttribute(xmlTable, "PrimaryKeyColumnName", string.Empty);
-                }
+                AddAttribute(xmlTable, "PrimaryKeyColumnName",
+                    tbl.PrimaryKey != null
+                        ? GetProperName(tbl.Name, tbl.PrimaryKey.ColumnName, "Field")
+                        : string.Empty);
 
                 var xmlColumns = xmlDoc.CreateElement("Columns");
                 xmlTable.AppendChild(xmlColumns);

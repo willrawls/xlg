@@ -438,7 +438,7 @@ namespace MetX.Library
             var ret = string.Empty;
             try
             {
-                ret = Microsoft.VisualBasic.Strings.StrConv(text, Microsoft.VisualBasic.VbStrConv.ProperCase, 0);
+                ret = Microsoft.VisualBasic.Strings.StrConv(text, Microsoft.VisualBasic.VbStrConv.ProperCase);
             }
             catch { }
             return ret;
@@ -643,7 +643,7 @@ namespace MetX.Library
         /// <returns>The first name found</returns>
         public string FirstName(string name)
         {
-            return name.FirstToken(" ");
+            return name.FirstToken();
         }
 
         /// <summary>Returns the last name (word) from the given string</summary>
@@ -651,7 +651,7 @@ namespace MetX.Library
         /// <returns>The last name found</returns>
         public string LastName(string name)
         {
-            return name.LastToken(" ");
+            return name.LastToken();
         }
 
 

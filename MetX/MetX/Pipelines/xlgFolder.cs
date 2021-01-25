@@ -49,7 +49,7 @@ namespace MetX.Pipelines
 
         public string OuterXml()
         {
-            return Xml.ToXml(this, true);
+            return Xml.ToXml(this);
         }
 
         public void Save(string filename)

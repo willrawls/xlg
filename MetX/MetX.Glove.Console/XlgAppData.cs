@@ -17,7 +17,7 @@ namespace XLG.Pipeliner
         [XmlAttribute] public string SupportPath;
         [XmlAttribute] public string TextEditor;
         // ReSharper disable once EmptyConstructor
-        public string ToXml() { return Xml.ToXml(this, true); }
+        public string ToXml() { return Xml.ToXml(this); }
         public static XlgAppData FromXml(string xmlDoc) { return Xml.FromXml<XlgAppData>(xmlDoc); }
 
         public static XlgAppData ResetPreferences()
