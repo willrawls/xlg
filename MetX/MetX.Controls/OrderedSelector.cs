@@ -27,14 +27,9 @@
             }
         }
 
-        public ListBox.SelectedIndexCollection SelectedIndices
-        {
-            get
-            {
-                // ReSharper disable once ConvertPropertyToExpressionBody
-                return SelectionList.SelectedIndices;
-            }
-        }
+        public ListBox.SelectedIndexCollection SelectedIndices =>
+            // ReSharper disable once ConvertPropertyToExpressionBody
+            SelectionList.SelectedIndices;
 
         public SelectionMode SelectionMode
         {

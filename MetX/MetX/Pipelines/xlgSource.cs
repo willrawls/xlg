@@ -60,7 +60,7 @@ namespace MetX.Pipelines
         public string SqlToXml;
 
         private bool _mGenInProgress;
-        private object _mSyncRoot = new object();
+        private object _mSyncRoot = new();
 
         public XmlDocument LoadXlgDoc()
         {

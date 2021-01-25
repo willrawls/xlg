@@ -66,10 +66,7 @@ namespace MetX.IO
         /// <summary>The name of the theme to resolve to (when available)</summary>
         public string ThemeName
         {
-            get
-            {
-                return _mThemeName;
-            }
+            get => _mThemeName;
             set
             {
                 _mThemeName = value;

@@ -18,19 +18,13 @@ namespace MetX.Controls
                 _mCompletionData[index] = new DefaultCompletionData(items[index],items[index],0);
 		}
 
-	    public ImageList ImageList {
-			get { return _mImageList; }
-		}
-		
-		public string PreSelection {
-			get { return null; }
-		}
-		
-		public int DefaultIndex {
-			get { return 0; }
-		}
-		
-		public CompletionDataProviderKeyResult ProcessKey(char key)
+	    public ImageList ImageList => _mImageList;
+
+        public string PreSelection => null;
+
+        public int DefaultIndex => 0;
+
+        public CompletionDataProviderKeyResult ProcessKey(char key)
 		{
 			if (char.IsLetterOrDigit(key)) {
 				return CompletionDataProviderKeyResult.NormalKey;

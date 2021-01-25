@@ -14,6 +14,6 @@ namespace MetX.Data
         {
             AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
         }
-        public static Aggregate New(DataProvider instance, AggregateFunction agg, string columnName, string alias) { return new Aggregate(instance, agg, columnName, alias); }
+        public static Aggregate New(DataProvider instance, AggregateFunction agg, string columnName, string alias) { return new(instance, agg, columnName, alias); }
     }
 }

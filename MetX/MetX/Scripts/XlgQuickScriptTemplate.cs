@@ -9,7 +9,7 @@ namespace MetX.Scripts
     {
         public string Name;
         public string TemplatePath;
-        public CaseFreeDictionary Views = new CaseFreeDictionary();
+        public CaseFreeDictionary Views = new();
 
         public XlgQuickScriptTemplate(string templatePath)
         {

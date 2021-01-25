@@ -12,7 +12,7 @@ namespace MetX.Pipelines
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
     {
-        private static XmlSerializer _mSettingsSerializer = new XmlSerializer(typeof(XlgSettings));
+        private static XmlSerializer _mSettingsSerializer = new(typeof(XlgSettings));
 
         [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
          XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)]
@@ -29,7 +29,7 @@ namespace MetX.Pipelines
 
         [XmlArray("Sources", Namespace = "", IsNullable = false),
          XmlArrayItem("Source", Namespace = "", IsNullable = false)]
-        public List<XlgSource> Sources = new List<XlgSource>();
+        public List<XlgSource> Sources = new();
 
         public XlgSettings()
         {

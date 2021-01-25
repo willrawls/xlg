@@ -14,10 +14,10 @@ namespace XLG.Pipeliner
     {
         private static XlgAppData _mAppData;
 
-        public static XlgAppData AppData { get { return _mAppData ?? (_mAppData = XlgAppData.Load()); } }
+        public static XlgAppData AppData => _mAppData ??= XlgAppData.Load();
 
-        private readonly FileSystemWatchers _mFsWs = new FileSystemWatchers();
-        private readonly object _mSyncRoot = new object();
+        private readonly FileSystemWatchers _mFsWs = new();
+        private readonly object _mSyncRoot = new();
         private bool _mAutoGenActive;
         private XlgSource _mCurrSource;
         private bool _mRefreshingList;
@@ -566,7 +566,7 @@ namespace XLG.Pipeliner
                 if (string.IsNullOrEmpty(textOutputXml.Text))
                 {
                     textOutputXml.Text = textOutput.Text.Substring(0,
-                        textOutput.Text.Length - Path.GetExtension(textOutput.Text).Length) + ".xml";
+                        textOutput.Text.Length - Path.GetExtension(textOutput?.Text ?? "").Length) + ".xml";
                 }
                 FileSystem.InsureFolderExists(textOutputXml.Text, true);
                 Process.Start(AppData.TextEditor, textOutputXml.Text);
@@ -676,54 +676,6 @@ namespace XLG.Pipeliner
 
         private void buttonEditConnectionString_Click(object sender, EventArgs e)
         {
-            /*
-            try
-            {
-                object[] args = new object[] { };
-                System.Type linkType = System.Type.GetTypeFromProgID("DataLinks");
-                object linkObj = Activator.CreateInstance(linkType);
-                object connObj = linkType.InvokeMember("PromptNew", System.Reflection.BindingFlags.InvokeMethod, null, linkObj, args);
-                if(connObj != null)
-                {
-                    string connString = connObj.GetType().InvokeMember("ConnectionString", System.Reflection.BindingFlags.GetProperty, null, connObj, args).ToString();
-                    if(!string.IsNullOrEmpty(connString))
-                    {
-                        textConnectionString.Text = connString;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-
-            DataConnectionDialog dcd = null;
-            try
-            {
-                dcd = new DataConnectionDialog();
-                DataSource.AddStandardDataSources(dcd);
-                /*
-                if (!string.IsNullOrEmpty(textConnectionString.Text))
-                {
-                    dcd.ConnectionString = textConnectionString.Text;
-                    dcd.SelectedDataProvider = Microsoft.Data.ConnectionUI.DataProvider.SqlDataProvider;
-                }
-                * /
-                if (DataConnectionDialog.Show(dcd) == DialogResult.OK)
-                {
-                    textConnectionString.Text = dcd.ConnectionString;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                if (dcd != null)
-                    dcd.Dispose();
-            }
-            */
         }
 
         private void EditQuickScript_Click(object sender, EventArgs e)

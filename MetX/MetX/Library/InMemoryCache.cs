@@ -4,7 +4,7 @@ namespace MetX.Library
 {
     public class InMemoryCache<T> where T : class
     {
-        public readonly Dictionary<string, T> Dictionary = new Dictionary<string, T>();
+        public readonly Dictionary<string, T> Dictionary = new();
         public T this[string cacheKey]
         {
             get

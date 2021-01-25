@@ -15,18 +15,18 @@ namespace MetX.Data
         [Serializable]
         public class Table
         {
-            public TableColumnCollection Columns = new TableColumnCollection();
+            public TableColumnCollection Columns = new();
 
             /// <summary>The field list as it goes into the SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
             public string FieldList;
 
-            public TableIndexCollection Indexes = new TableIndexCollection();
+            public TableIndexCollection Indexes = new();
 
             /// <summary>The basic INSERT INTO sql statement used for Insert type queries</summary>
             public string InsertSql;
 
             public DataProvider Instance;
-            public TableKeyCollection Keys = new TableKeyCollection();
+            public TableKeyCollection Keys = new();
             public string Name;
             public string Schema;
 
@@ -115,7 +115,7 @@ namespace MetX.Data
         {
             public TableColumn PrimaryKeyColumn;
 
-            private Dictionary<string, TableColumn> _iList = new Dictionary<string, TableColumn>();
+            private Dictionary<string, TableColumn> _iList = new();
 
             #region Collection Methods
 
@@ -274,7 +274,7 @@ namespace MetX.Data
         [Serializable]
         public class TableIndex
         {
-            public List<string> Columns = new List<string>();
+            public List<string> Columns = new();
             public bool IsClustered;
             public string Name;
 
@@ -298,7 +298,7 @@ namespace MetX.Data
         [Serializable]
         public class TableKey
         {
-            public List<TableKeyColumn> Columns = new List<TableKeyColumn>();
+            public List<TableKeyColumn> Columns = new();
             public bool IsForeign;
             public bool IsPrimary;
             public bool IsReference;

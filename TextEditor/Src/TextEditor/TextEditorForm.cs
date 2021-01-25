@@ -234,7 +234,7 @@ namespace TextEditor
 				editor.ActiveTextAreaControl.TextArea.SelectionManager.HasSomethingSelected;
 		}
 
-		FindAndReplaceForm _findForm = new FindAndReplaceForm();
+		FindAndReplaceForm _findForm = new();
 
 		private void menuEditFind_Click(object sender, EventArgs e)
 		{
@@ -406,16 +406,12 @@ namespace TextEditor
 		}
 
 		/// <summary>Returns a list of all editor controls</summary>
-		private IEnumerable<TextEditorControl> AllEditors
-		{
-			get {
-				return from t in fileTabs.Controls.Cast<TabPage>()
-					   from c in t.Controls.OfType<TextEditorControl>()
-					   select c;
-			}
-		}
-		
-		/// <summary>Returns the currently displayed editor, or null if none are open</summary>
+		private IEnumerable<TextEditorControl> AllEditors =>
+            from t in fileTabs.Controls.Cast<TabPage>()
+            from c in t.Controls.OfType<TextEditorControl>()
+            select c;
+
+        /// <summary>Returns the currently displayed editor, or null if none are open</summary>
 		private TextEditorControl ActiveEditor
 		{
 			get {

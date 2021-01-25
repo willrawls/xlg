@@ -130,7 +130,7 @@
 
                         default:
                             InputFiles = new List<FileInfo> {
-                                new FileInfo(InputFilePath)
+                                new(InputFilePath)
                             };
                             CurrentInputFileIndex = 0;
                             if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;

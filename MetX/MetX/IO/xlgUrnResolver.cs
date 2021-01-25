@@ -31,7 +31,7 @@ namespace MetX.IO
         /// <summary>Provides the base authentication credentials</summary>
         public override System.Net.ICredentials Credentials
         {
-            set { _xur.Credentials = value; }
+            set => _xur.Credentials = value;
         }
 
         /// <summary>Resolves and retrieves the requested entity via URI</summary>

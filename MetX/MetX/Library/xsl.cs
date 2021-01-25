@@ -21,7 +21,7 @@ namespace MetX.Library
 		/// <summary>Set this value when you wish your page's xslt compilation to be cached differently (say per theme, in this case the theme name will be sufficient).</summary>
 		public string PageCacheSubKey = ".";
 
-        public static readonly InMemoryCache<XslCompiledTransform> PageCache = new InMemoryCache<XslCompiledTransform>();
+        public static readonly InMemoryCache<XslCompiledTransform> PageCache = new();
 
 		/// <summary>Performs an XSL Transformation on an XmlDocument</summary>
 		/// <param name="xmlDocument">The XmlDocument object to transform</param>
@@ -188,11 +188,8 @@ namespace MetX.Library
 					return new XlgUrnResolver();
 				return _mUrlResolver;
 			}
-			set
-			{
-				_mUrlResolver = value;
-			}
-		}
+			set => _mUrlResolver = value;
+        }
 
 		/// <summary>Automatically set to a new xlgUrn unless you supply your own..
 		/// <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
@@ -205,11 +202,8 @@ namespace MetX.Library
 					_mXlgUrn = new XlgUrn();
 				return _mXlgUrn;
 			}
-			set
-			{
-				_mXlgUrn = value;
-			}
-		}
+			set => _mXlgUrn = value;
+        }
 
 		/// <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.UrnName and xlgSecurity.UrnClass.
 		/// <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
@@ -245,11 +239,8 @@ namespace MetX.Library
 				}
 				return argsList;
 			}
-			set
-			{
-				_mUrns = value;
-			}
-		}
+			set => _mUrns = value;
+        }
 
 		public string TransformIso(string xslPath, string xmlDoc) { return TransformIso(xslPath, xmlDoc, "iso-8859-1"); }
 		public string TransformIso(string xslPath, string xmlDoc, string encodingName)

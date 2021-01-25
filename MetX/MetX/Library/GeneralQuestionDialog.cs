@@ -7,14 +7,14 @@ namespace MetX.Library
     public abstract class GeneralQuestionDialog<TEntryArea, TReturn>
         where TEntryArea : Control, new()
     {
-        public Button CancelButton = new Button();
-        public Form ConstructedForm = new Form();
+        public Button CancelButton = new();
+        public Form ConstructedForm = new();
         public TReturn DefaultValue;
         public TEntryArea EntryArea;
 
-        public Button OkButton = new Button();
+        public Button OkButton = new();
 
-        public Label PromptLabel = new Label();
+        public Label PromptLabel = new();
 
         public DialogResult Result;
 

@@ -21,10 +21,10 @@ namespace MetX.Pipelines
         public DateTime Modified;
 
         [XmlArray("Folders", Namespace = "", IsNullable = false), XmlArrayItem("Folder", Namespace = "", IsNullable = false)]
-        public List<XlgFolder> Folders = new List<XlgFolder>();
+        public List<XlgFolder> Folders = new();
 
         [XmlArray("Files", Namespace = "", IsNullable = false), XmlArrayItem("File", Namespace = "", IsNullable = false)]
-        public List<XlgFile> Files = new List<XlgFile>();
+        public List<XlgFile> Files = new();
 
         public XlgFolder() { /* XmlSerializer */ }
 

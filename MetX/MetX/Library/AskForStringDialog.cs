@@ -9,13 +9,7 @@ namespace MetX.Library
             DefaultValue = defaultValue ?? string.Empty;
         }
 
-        public override string SelectedValue
-        {
-            get
-            {
-                return EntryArea.Text;
-            }
-        }
+        public override string SelectedValue => EntryArea.Text;
 
         public override void SetupEntryArea()
         {

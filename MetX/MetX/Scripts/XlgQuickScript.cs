@@ -228,7 +228,7 @@ namespace MetX.Scripts
 
         public XlgQuickScript Clone(string name)
         {
-            return new XlgQuickScript(name, Script)
+            return new(name, Script)
             {
                 Destination = Destination,
                 DestinationFilePath = DestinationFilePath,

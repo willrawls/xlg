@@ -11,13 +11,7 @@ namespace MetX.Library
             ValueToReturnOnCancel = -1;
         }
 
-        public override int SelectedValue
-        {
-            get
-            {
-                return Result == DialogResult.Cancel ? ValueToReturnOnCancel : EntryArea.SelectedIndex;
-            }
-        }
+        public override int SelectedValue => Result == DialogResult.Cancel ? ValueToReturnOnCancel : EntryArea.SelectedIndex;
 
         public int Ask(
             string[] choices,

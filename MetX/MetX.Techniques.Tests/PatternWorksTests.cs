@@ -12,7 +12,7 @@ namespace MetX.Techniques.Tests
             {
                 Techniques = new ParticleList<Technique>
                 {
-                    new Technique(),
+                    new(),
                 },
                 Connections = new ParticleList<Connection>()
             };

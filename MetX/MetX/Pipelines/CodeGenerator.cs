@@ -28,7 +28,7 @@ namespace MetX.Pipelines
         /// <summary>
         /// List of all the C# keywords
         /// </summary>
-        public readonly List<string> CSharpKeywords = new List<string>(new[]
+        public readonly List<string> CSharpKeywords = new(new[]
         {
             "abstract", "event", "new", "struct", "as", "explicit",
             "null", "switch", "base", "extern", "object", "this",
@@ -85,7 +85,7 @@ namespace MetX.Pipelines
 
         private string _mUrlExtension;
 
-        private XmlDocument _mXlgDataXmlDoc = new XmlDocument();
+        private XmlDocument _mXlgDataXmlDoc = new();
 
         private XmlElement _mXslsToRender;
 
@@ -171,7 +171,7 @@ namespace MetX.Pipelines
             }
         }
 
-        public string MetXAssemblyString { get { return _mFullName; } }
+        public string MetXAssemblyString => _mFullName;
 
         /// <summary>Causes generation and returns the code/contents generated</summary>
         public string GenerateCode()
@@ -745,9 +745,9 @@ namespace MetX.Pipelines
 
         // Anytime a database column is named any of these words, it causes a code issue.
         //  Make sure a suffix is added to property names in these cases
-        private static readonly List<string> MTypeNames = new List<string>(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
+        private static readonly List<string> MTypeNames = new(new[] { "guid", "int", "string", "timespan", "double", "single", "float", "decimal", "array" });
 
-        private readonly Dictionary<string, Regex> _mPatterns = new Dictionary<string, Regex>();
+        private readonly Dictionary<string, Regex> _mPatterns = new();
 
         /// <summary>Translates a table name into a CLSCompliant class name</summary>
         /// <param name="tableName">The name of the table, stored procedure, etc to translate</param>

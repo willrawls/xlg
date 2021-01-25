@@ -654,13 +654,7 @@ namespace MetX.IO
         }
 
         /// <summary>Returns the value of the Web.config key "Default.SqlClient"</summary>
-        public static string DefaultConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
-            }
-        }
+        public static string DefaultConnectionString => ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
         /// <summary>Returns a SqlClonnetion object using DefaultConnectionString</summary>
         public static SqlConnection DefaultConnection

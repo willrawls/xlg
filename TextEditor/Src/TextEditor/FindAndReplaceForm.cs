@@ -20,8 +20,8 @@ namespace TextEditor
 		TextEditorSearcher _search;
 		TextEditorControl _editor;
 		TextEditorControl Editor { 
-			get { return _editor; } 
-			set { 
+			get => _editor;
+            set { 
 				_editor = value;
 				_search.Document = _editor.Document;
 				UpdateTitleBar();
@@ -69,8 +69,8 @@ namespace TextEditor
 
 		public bool ReplaceMode
 		{
-			get { return txtReplaceWith.Visible; }
-			set {
+			get => txtReplaceWith.Visible;
+            set {
 				btnReplace.Visible = btnReplaceAll.Visible = value;
 				lblReplaceWith.Visible = txtReplaceWith.Visible = value;
 				btnHighlightAll.Visible = !value;
@@ -132,7 +132,7 @@ namespace TextEditor
 				_editor.Document.OffsetToPosition(range.Offset + range.Length);
 		}
 
-		Dictionary<TextEditorControl, HighlightGroup> _highlightGroups = new Dictionary<TextEditorControl, HighlightGroup>();
+		Dictionary<TextEditorControl, HighlightGroup> _highlightGroups = new();
 
 		private void btnHighlightAll_Click(object sender, EventArgs e)
 		{
@@ -244,8 +244,8 @@ namespace TextEditor
 			}
 		}
 
-		public string LookFor { get { return txtLookFor.Text; } }
-	}
+		public string LookFor => txtLookFor.Text;
+    }
 
 	public class TextRange : AbstractSegment
 	{
@@ -265,8 +265,8 @@ namespace TextEditor
 		IDocument _document;
 		public IDocument Document
 		{
-			get { return _document; } 
-			set { 
+			get => _document;
+            set { 
 				if (_document != value) {
 					ClearScanRegion();
 					_document = value;
@@ -299,11 +299,9 @@ namespace TextEditor
 				bkgColor.HalfMix(Color.FromArgb(160,160,160)));
 			_document.MarkerStrategy.AddMarker(_region);
 		}
-		public bool HasScanRegion
-		{
-			get { return _region != null; }
-		}
-		public void ClearScanRegion()
+		public bool HasScanRegion => _region != null;
+
+        public void ClearScanRegion()
 		{
 			if (_region != null)
 			{
@@ -343,9 +341,9 @@ namespace TextEditor
 		string _lookFor2; // uppercase in case-insensitive mode
 		public string LookFor
 		{
-			get { return _lookFor; }
-			set { _lookFor = value; }
-		}
+			get => _lookFor;
+            set => _lookFor = value;
+        }
 
 		/// <summary>Finds next instance of LookFor, according to the search rules 
 		/// (MatchCase, MatchWholeWordOnly).</summary>
@@ -444,7 +442,7 @@ namespace TextEditor
 	/// together.</summary>
 	public class HighlightGroup : IDisposable
 	{
-		List<TextMarker> _markers = new List<TextMarker>();
+		List<TextMarker> _markers = new();
 		TextEditorControl _editor;
 		IDocument _document;
 		public HighlightGroup(TextEditorControl editor)
@@ -467,6 +465,6 @@ namespace TextEditor
 		public void Dispose() { ClearMarkers(); GC.SuppressFinalize(this); }
 		~HighlightGroup() { Dispose(); }
 
-		public IList<TextMarker> Markers { get { return _markers.AsReadOnly(); } }
-	}
+		public IList<TextMarker> Markers => _markers.AsReadOnly();
+    }
 }

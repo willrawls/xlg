@@ -73,7 +73,7 @@ namespace MetX.Library
 
         public static List<string> AsList(this string[] target)
         {
-            return new List<string>(target);
+            return new(target);
         }
 
         public static List<string> Slice(this string target) { return target.LineList(StringSplitOptions.RemoveEmptyEntries); }

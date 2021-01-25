@@ -33,10 +33,7 @@
             LoadQuickScriptsFile(filePath);
         }
 
-        public XlgQuickScript SelectedScript
-        {
-            get { return QuickScriptList.SelectedItem as XlgQuickScript; }
-        }
+        public XlgQuickScript SelectedScript => QuickScriptList.SelectedItem as XlgQuickScript;
 
         public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
         {

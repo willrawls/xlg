@@ -116,12 +116,6 @@ namespace MetX.IO
         }
 
         /// <summary>Returns a string containing the xml representation of this state. The elements are wrapped with another element with the same name as TagName followed by an "s". So if TagName = "Item", then InnerXml will return a Items elemnt with one Item element per name/value pair.</summary>
-        public string InnerXml
-        {
-            get
-            {
-                return State.ToXml(TagName, "StateParent=\"" + Xml.AttributeEncode(StateParent) + "\" StateName=\"" + Xml.AttributeEncode(StateName) + "\"");
-            }
-        }
+        public string InnerXml => State.ToXml(TagName, "StateParent=\"" + Xml.AttributeEncode(StateParent) + "\" StateName=\"" + Xml.AttributeEncode(StateName) + "\"");
     }
 }

@@ -25,8 +25,8 @@ namespace MetX.Data
 
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
-        private static Dictionary<string, DataService> _mServices = new Dictionary<string, DataService>();
-        private static readonly Dictionary<string, IProvide> MProviders = new Dictionary<string, IProvide>();
+        private static Dictionary<string, DataService> _mServices = new();
+        private static readonly Dictionary<string, IProvide> MProviders = new();
 
         public DataService(ConnectionStringSettings connectionSettings)
         {

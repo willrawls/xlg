@@ -11,12 +11,6 @@ namespace MetX.Library
             _mEncoding = encoding;
         }
 
-        public override Encoding Encoding
-        {
-            get
-            {
-                return _mEncoding;
-            }
-        }
+        public override Encoding Encoding => _mEncoding;
     }
 }
