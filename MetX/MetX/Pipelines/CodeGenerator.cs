@@ -1201,14 +1201,14 @@ namespace MetX.Pipelines
             foreach (XmlElement includer in xmlNodeList)
             {
                 var name = includer.Attributes["Name"];
-                Regex regex;
-                if (!_mPatterns.ContainsKey(name.Value))
+                Regex regex = null;
+                if (name != null && !_mPatterns.ContainsKey(name.Value))
                 {
                     var pattern = Worker.ConvertWildcardToRegex(name.Value);
                     regex = new Regex(pattern, RegexOptions.Compiled);
                     _mPatterns.Add(name.Value, regex);
                 }
-                else
+                else if (name != null) 
                 {
                     regex = _mPatterns[name.Value];
                 }
