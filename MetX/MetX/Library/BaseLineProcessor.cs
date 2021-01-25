@@ -84,7 +84,7 @@
                         return null;
                     }
 
-                    switch (Path.GetExtension(InputFilePath).ToLower())
+                    switch (Path.GetExtension(InputFilePath)?.ToLower())
                     {
                         case ".xls":
                         case ".xlsx":
@@ -92,37 +92,40 @@
                             var inputFile = new FileInfo(InputFilePath);
                             InputFilePath = inputFile.FullName;
                             var excelType = Type.GetTypeFromProgID("Excel.Application");
-                            dynamic excel = Activator.CreateInstance(excelType);
+                            dynamic excel = Activator.CreateInstance(excelType ?? throw new InvalidOperationException());
                             try
                             {
-                                var workbook = excel.Workbooks.Open(InputFilePath);
-                                sideFile = InputFilePath
-                                    .Replace(".xlsx", ".xls")
-                                    .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
-                                    .Replace(":", string.Empty)
-                                    .Replace("/", string.Empty)
-                                    .Replace(":", string.Empty));
-                                Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile + "*.txt");
-
-                                // 20 = text (tab delimited), 6 = csv
-                                var sheetNumber = 0;
-                                foreach (var worksheet in workbook.Sheets)
+                                if (excel != null)
                                 {
-                                    var worksheetFile = sideFile + "_" + (++sheetNumber).ToString("000") + ".txt";
-                                    Console.WriteLine("Saving Worksheet " + sheetNumber + " as: " + worksheetFile);
-                                    worksheet.SaveAs(worksheetFile, 20, Type.Missing, Type.Missing, false, false, 1);
-                                    InputFiles.Add(new FileInfo(worksheetFile));
-                                }
+                                    var workbook = excel.Workbooks.Open(InputFilePath);
+                                    sideFile = InputFilePath
+                                        .Replace(".xlsx", ".xls")
+                                        .Replace(".xls", "_" + DateTime.Now.ToString("G").ToLower()
+                                            .Replace(":", string.Empty)
+                                            .Replace("/", string.Empty)
+                                            .Replace(":", string.Empty));
+                                    Console.WriteLine("Saving Excel as Tab delimited at: " + sideFile + "*.txt");
 
-                                // workbook.SaveAs(sideFile, 20, Type.Missing, Type.Missing, false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                                workbook.Close();
+                                    // 20 = text (tab delimited), 6 = csv
+                                    var sheetNumber = 0;
+                                    foreach (var worksheet in workbook.Sheets)
+                                    {
+                                        var worksheetFile = sideFile + "_" + (++sheetNumber).ToString("000") + ".txt";
+                                        Console.WriteLine("Saving Worksheet " + sheetNumber + " as: " + worksheetFile);
+                                        worksheet.SaveAs(worksheetFile, 20, Type.Missing, Type.Missing, false, false, 1);
+                                        InputFiles.Add(new FileInfo(worksheetFile));
+                                    }
+
+                                    // workbook.SaveAs(sideFile, 20, Type.Missing, Type.Missing, false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                                    workbook.Close();
+                                }
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine(ex);
                             }
 
-                            excel.Quit();
+                            excel?.Quit();
                             CurrentInputFileIndex = 0;
                             if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
@@ -130,7 +133,7 @@
 
                         default:
                             InputFiles = new List<FileInfo> {
-                                new(InputFilePath)
+                                new(InputFilePath ?? throw new InvalidOperationException())
                             };
                             CurrentInputFileIndex = 0;
                             if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;

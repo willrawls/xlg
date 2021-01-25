@@ -51,7 +51,6 @@ namespace MetX.IO
         public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest)
         {
             var sourceContents = source.GetFileSystemInfos();
-            FileInfo currSourceFile;
 
             foreach (var currSource in sourceContents)
             {
@@ -59,7 +58,7 @@ namespace MetX.IO
                     DeepCopy((DirectoryInfo) currSource, dest.CreateSubdirectory(currSource.Name));
                 else
                 {
-                    currSourceFile = (FileInfo) currSource;
+                    var currSourceFile = (FileInfo) currSource;
                     currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);
                 }
             }
@@ -82,12 +81,12 @@ namespace MetX.IO
         ///     Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along
         ///     the way
         /// </summary>
+        /// <param name="target"></param>
         /// <param name="source">The path from which files and subfolders to iterate</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
         public static XlgFolder DeepContents(XlgFolder target, DirectoryInfo source)
         {
             var sourceContents = source.GetFileSystemInfos();
-            FileInfo currSourceFile;
 
             foreach (var currSource in sourceContents)
             {
