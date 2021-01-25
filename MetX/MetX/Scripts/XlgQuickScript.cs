@@ -249,7 +249,7 @@ namespace MetX.Scripts
 
             if (string.IsNullOrEmpty(rawScript))
             {
-                throw new ArgumentNullException("rawScript");
+                throw new ArgumentNullException(nameof(rawScript));
             }
 
             Name = rawScript.FirstToken(Environment.NewLine);

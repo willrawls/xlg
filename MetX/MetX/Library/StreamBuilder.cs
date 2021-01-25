@@ -45,7 +45,7 @@ namespace MetX.Library
 
         public StreamBuilder(StringBuilder targetStringBuilder)
         {
-            TargetStringBuilder = targetStringBuilder ?? throw new ArgumentException("StringBuilder is required", "targetStringBuilder");
+            TargetStringBuilder = targetStringBuilder ?? throw new ArgumentException("StringBuilder is required", nameof(targetStringBuilder));
             TargetStreamWriter = new StringWriter(targetStringBuilder);
         }
 

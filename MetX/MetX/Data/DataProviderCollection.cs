@@ -13,11 +13,11 @@ namespace MetX.Data
         public override void Add(ProviderBase provider)
         {
             if (provider == null)
-                throw new ArgumentNullException("provider");
+                throw new ArgumentNullException(nameof(provider));
 
             if (!(provider is DataProvider))
                 throw new ArgumentException
-                    ("Invalid provider type", "provider");
+                    ("Invalid provider type", nameof(provider));
 
             base.Add(provider);
         }

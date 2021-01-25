@@ -202,26 +202,9 @@ namespace MetX.Security
             return returnValue;
         }
 
-        /*
-        public static string NameValuesToBase64(System.Collections.Specialized.NameValueCollection nameValuePairs)
-        {
-            if (_encryptorFixed == null ) Reset();
-
-            if (nameValuePairs == null || nameValuePairs.Count == 0)
-                return string.Empty;
-            var sb = new StringBuilder();
-            for (var i = 0; i < nameValuePairs.Count; i++)
-            {
-                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs.GetKey(i).AsString()));
-                sb.AppendLine(WebUtility.UrlEncode(nameValuePairs[i].AsString()));
-            }
-            return ToBase64(sb.ToString());
-        }
-        */
-
         public static NameValueCollection NameValueFromBase64(string encryptedSource)
         {
-            if (encryptedSource == null) throw new ArgumentNullException("encryptedSource");
+            if (encryptedSource == null) throw new ArgumentNullException(nameof(encryptedSource));
             if (_encryptorFixed == null) Reset();
 
             var ret = new NameValueCollection();

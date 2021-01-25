@@ -187,7 +187,7 @@
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("destination", destination, null);
+                    throw new ArgumentOutOfRangeException(nameof(destination), destination, null);
             }
 
             if (!Output.IsOpenAndReady)

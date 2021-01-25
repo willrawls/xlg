@@ -122,9 +122,9 @@ namespace MetX.Library
         public BadStreamBuilderB(TextWriter textWriter, Stream underlyingStream)
         {
             if (underlyingStream == null || !underlyingStream.CanWrite)
-                throw new ArgumentException("You must supply a writable stream", "underlyingStream");
+                throw new ArgumentException("You must supply a writable stream", nameof(underlyingStream));
 
-            Target = textWriter ?? throw new ArgumentException("TextWriter is required", "textWriter");
+            Target = textWriter ?? throw new ArgumentException("TextWriter is required", nameof(textWriter));
             TargetStream = underlyingStream;
         }
 
@@ -136,7 +136,7 @@ namespace MetX.Library
         public BadStreamBuilderB(StringBuilder targetStringBuilder)
         {
             if (targetStringBuilder == null)
-                throw new ArgumentException("StringBuilder is required", "targetStringBuilder");
+                throw new ArgumentException("StringBuilder is required", nameof(targetStringBuilder));
 
             TargetStringBuilder = targetStringBuilder;
             Target = new StringWriter(targetStringBuilder);
