@@ -515,6 +515,7 @@
                 Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along
                 the way
             </summary>
+            <param name="target"></param>
             <param name="source">The path from which files and subfolders to iterate</param>
             <returns>True if the operation was successful, otherwise an exception is thrown</returns>
         </member>
@@ -965,74 +966,6 @@
         </member>
         <member name="P:MetX.IO.Attachments.OuterXml">
             <summary>Retrieves an Xml containins the list of attacments for the AppName/ParentID combination. Element name is "Attachments" with each attachment being a child element named "Attachment" with "Filename" and "Link" attributes.</summary>
-        </member>
-        <member name="T:MetX.Library.BadStreamBuilderB">
-            <summary>
-            Duck type (ish) interface similar to StringBuilder only write operations go directly to a stream.
-            While several of the functions from StringBuilder are supported, some are not implemented
-            due to the fact that said functions would be far less efficient than in memory operations.
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.CloseOnFinish">
-            <summary>
-            Set this to true and a call to Finish() or during disposal will automatically close <see cref="P:MetX.Library.BadStreamBuilderB.Target"/>.
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.FilePath">
-            <summary>
-            The path and filename being written to. NULL if a stream was passed in.
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.Length">
-            <summary>
-            The number of bytes written so far. Note: This may not be the same as the length of the file.
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.Target">
-            <summary>
-            The wrapper to targetStream
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.TargetStream">
-            <summary>
-            The stream that is ultimately written to
-            </summary>
-        </member>
-        <member name="P:MetX.Library.BadStreamBuilderB.TargetStringBuilder">
-            <summary>
-            The StringBuilder being written to (for that mode)
-            </summary>
-        </member>
-        <member name="M:MetX.Library.BadStreamBuilderB.#ctor(System.String,System.Boolean)">
-            <summary>
-            Attaches a new file stream to filePath (overwriting file if there).
-            </summary>
-            <param name="filePath">Path to the file to write to. NOTE: When append is false, file will be overwritten if it exists.</param>
-            <param name="appendToExistingFile">True to start writing at the end of the file.</param>
-            <exception cref="T:System.ArgumentNullException">File path is required</exception>
-            <exception cref="T:System.ArgumentException"><see cref="P:MetX.Library.BadStreamBuilderB.FilePath" /> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by <see cref="F:System.IO.Path.InvalidPathChars" />.-or- access specified Read and mode specified Create, CreateNew, Truncate, or Append. </exception>
-            <exception cref="T:System.IO.PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
-            <exception cref="T:System.NotSupportedException"><see cref="P:MetX.Library.BadStreamBuilderB.FilePath" /> is in an invalid format. </exception>
-            <exception cref="T:System.IO.DirectoryNotFoundException">The specified path is invalid, (for example, it is on an unmapped drive). </exception>
-            <exception cref="T:System.IO.IOException">An I/O error occurred while opening the file. </exception>
-            <exception cref="T:System.UnauthorizedAccessException"><see cref="P:MetX.Library.BadStreamBuilderB.FilePath" /> specified a file that is read-only access is not Read.-or- <see cref="P:MetX.Library.BadStreamBuilderB.FilePath" /> specified a directory.-or- The caller does not have the required permission. -or-mode is <see cref="F:System.IO.FileMode.Create" /> and the specified file is a hidden file.</exception>
-            <exception cref="T:System.IO.FileNotFoundException">The file specified in <see cref="P:MetX.Library.BadStreamBuilderB.FilePath" /> was not found. </exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">mode or access specified an invalid value. </exception>
-        </member>
-        <member name="M:MetX.Library.BadStreamBuilderB.#ctor(System.IO.TextWriter,System.IO.Stream)">
-            <summary>
-            Attaches to an existing TextWriter (or StreamWriter)
-            </summary>
-            <param name="textWriter"></param>
-            <param name="underlyingStream"></param>
-            <exception cref="T:System.ArgumentException"><paramref name="textWriter" /> is null or not writable. </exception>
-        </member>
-        <member name="M:MetX.Library.BadStreamBuilderB.#ctor(System.Text.StringBuilder)">
-            <summary>
-            Attaches to an existing TextWriter (or StreamWriter)
-            </summary>
-            <param name="textWriter"></param>
-            <param name="underlyingStream"></param>
         </member>
         <member name="T:MetX.Library.SortedStringList">
             <summary>
