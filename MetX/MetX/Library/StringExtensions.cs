@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace MetX.Library
@@ -13,13 +14,46 @@ namespace MetX.Library
         
         public static string ProperCase(this string target)
         {
+            if (target.IsEmpty())
+                return string.Empty;
+            
+            var result = string.Empty;
+            var isFirst = true;
+            char? previousLetter = null;
+
             // For each char
-            //  If first
-            //    upper case and add to output
-            //  Else If last was space and char isn't uppercase
-            //    upper case and add to output
-            //  Else If, already upper and previous was not, 
-            //  Else, 
+            foreach (var letter in target.Trim())
+            {
+                //  If first
+                if (isFirst)
+                {
+                    //    upper case and add to output
+                    result += char.ToUpper(letter);
+                    isFirst = false;
+                }
+                //  Else If last was space and char isn't uppercase
+                else if (previousLetter == ' ')
+                {
+                    // upper case and add to output
+                    result += char.ToUpper(letter);
+                }
+                //  Else If char is already upper and previous was not
+                else if (char.IsUpper(letter) && !char.IsUpper(previousLetter.Value))
+                {
+                    //    add space then char
+                    result += ' ';
+                    result += letter;
+                }
+                //  Else
+                else
+                {
+                    //    add char
+                    result += letter;
+                }
+                previousLetter = letter;
+            }
+
+            return result;
         }
 
         public static bool IsEmpty<T>(this IList<T> target)

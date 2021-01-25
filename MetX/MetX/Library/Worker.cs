@@ -28,7 +28,7 @@ namespace MetX.Library
 
             pattern = pattern.Replace("*", "%").Replace(".", "_");
 
-            // these are needed because the .*? replacement below at the begining or end of the string is not
+            // these are needed because the .*? replacement below at the beginning or end of the string is not
             // accounting for cases such as LIKE '*abc' or LIKE 'abc*'
             var startsWith = pattern.StartsWith("%") && !pattern.EndsWith("%");
             var endsWith = !pattern.StartsWith("%") && pattern.EndsWith("%");
@@ -36,7 +36,7 @@ namespace MetX.Library
             // this is a little tricky
             // ends with in like is '%abc'
             // in regex it's 'abc$'
-            // so need to tanspose
+            // so need to transpose
             if (startsWith)
             {
                 builder.Replace("%", "", 0, 1);
@@ -148,17 +148,15 @@ namespace MetX.Library
 		public static string EmailToName(string sOriginalText, string defaultName)
 		{
 			var text = (sOriginalText + "").Trim();
-			string returnValue;
 
-			if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
+            if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
 				text = text.Split('@')[0];
 
 			text = text.Replace(".", " ");
 			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1,1).ToUpper() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
 
-			returnValue = text.Length == 0 ? defaultName : text;
-
-            return returnValue.ProperCase();
+			var returnValue = (text.Length == 0 ? defaultName : text).ProperCase();
+            return returnValue;
 		}
 	}
 }

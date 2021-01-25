@@ -40,6 +40,20 @@ namespace MetX.Tests
         //
         #endregion
 
+        [DataTestMethod]
+        [DataRow("abcdefg", "Abcdefg")]
+        [DataRow("abcDefg", "Abc Defg")]
+        [DataRow("abc defg", "Abc Defg")]
+        [DataRow("Abc D Efg", "Abc D Efg")]
+        [DataRow("abc d efg", "Abc D Efg")]
+        [DataRow(" aBc d efg", "A Bc D Efg")]
+        [DataRow(" a b c d e f g", "A B C D E F G")]
+        [DataRow(null, "")]
+        public void ProperCase_Various(string data, string expected)
+        {
+            var actual = data.ProperCase();
+            Assert.AreEqual(expected, actual, data);
+        }
 
         [TestMethod]
         public void TokensAroundTest()

@@ -1094,6 +1094,7 @@
             <summary>Returns the first delimited token in the indicated string</summary>
             <param name="target">The string to parse</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
             <example>
                 <code>
              string x = FirstToken("this is a test", " a ");
@@ -1106,32 +1107,29 @@
                 Returns everything after the last backslash (\)
             </summary>
             <param name="target">The string to parse</param>
-            <param name="delimiter">
-                The string that separates each token. For instance, In the string "Fred went home", a space ("
-                ") would be a common delimiter.
-            </param>
             <returns></returns>
         </member>
         <member name="M:MetX.Library.Tokenizer.LastToken(System.String,System.String,System.StringComparison)">
             <summary>Returns the last delimited token from a string</summary>
             <param name="target">The string to parse</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
         </member>
         <member name="M:MetX.Library.Tokenizer.TokenAt(System.String,System.Int32,System.String,System.StringComparison)">
              <summary>
-                 Scans 'target' and returns everything before the Nth (token) occurence of 'delimiter' and after the Nth - 1
-                 occurence of 'delimiter'.<br />
+                 Scans 'target' and returns everything before the Nth (token) occurrence of 'delimiter' and after the Nth - 1
+                 occurrence of 'delimiter'.<br />
              </summary>
              <para>
                  By definition, the following is true. When the target string is null or empty, TokenAt returns an empty string.
                  <br />
                  When the delimiter string is null or empty, TokenAt returns the target string.<br />
                  When the delimiter does not appear in the target string, TokenAt returns the target string.<br />
-                 Otherwise, TokenAt looks for the Nth occurence of the delimiter string (where N = token) in the target
+                 Otherwise, TokenAt looks for the Nth occurrence of the delimiter string (where N = token) in the target
                  string.<br />
-                 It the returns everything between the Nth-1 and Nth occurence of delimiter. If N = 1, then TokenAt just returns
-                 everything before the first occurence.<br />
-                 If there is no Nth occurence, TokenAt returns an empty string.<br />
+                 It the returns everything between the Nth-1 and Nth occurrence of delimiter. If N = 1, then TokenAt just returns
+                 everything before the first occurrence.<br />
+                 If there is no Nth occurrence, TokenAt returns an empty string.<br />
                  This function will never return null and throws no exceptions.<br />
                  NOTE: Whenever possible, this function ignores case.
              </para>
@@ -1156,13 +1154,13 @@
                  The token to return. For instance, with a delimiter of space (" ") and a string "Fred went
                  home.", token could be 1, 2 or 3.
              </param>
-             <param name="delimiter">The string inside 'target' which separaters tokens. Defaults to a space (" ").</param>
-             <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIngoreCase (case insensitive)</param>
-             <returns>Returns the substring from 'target' before the Nth (token) occurence of 'delimiter'.</returns>
+             <param name="delimiter">The string inside 'target' which separators tokens. Defaults to a space (" ").</param>
+             <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIgnoreCase (case insensitive)</param>
+             <returns>Returns the substring from 'target' before the Nth (token) occurrence of 'delimiter'.</returns>
         </member>
         <member name="M:MetX.Library.Tokenizer.TokenBetween(System.String,System.String,System.String,System.StringComparison)">
             <summary>
-                Returns everything after the first occurence of leftDelimiter and before the following occurrene of rightDelimiter
+                Returns everything after the first occurrence of leftDelimiter and before the following occurrence of rightDelimiter
             </summary>
             <param name="target">The string to parse</param>
             <param name="leftDelimiter">
@@ -1173,13 +1171,14 @@
                 The first string that separates each token. For instance, In the string "(123) 456-7890",
                 close parenthesis(")") would be a common right delimiter.
             </param>
+            <param name="compare"></param>
             <returns></returns>
         </member>
         <member name="M:MetX.Library.Tokenizer.TokenCount(System.String,System.String,System.StringComparison)">
             <summary>Returns the number of tokens in a string</summary>
             <param name="target">The string to parse</param>
             <param name="delimiter">The token delimiter</param>
-            <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIngoreCase (case insensitive)</param>
+            <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIgnoreCase (case insensitive)</param>
             <example>
                 <code>
              int x = TokenCount("this is a test", "is");
@@ -1207,6 +1206,7 @@
             <param name="target">The string to parse</param>
             <param name="token">The token number to return after</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
             <example>
                 <code>
              string x = .After("this is a test", 2, " ");
@@ -1218,6 +1218,7 @@
             <summary>Returns everything after the first delimited token from a string</summary>
             <param name="target">The string to parse</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
         </member>
         <member name="M:MetX.Library.Tokenizer.TokensAround(System.String,System.String,System.String,System.StringComparison)">
             <summary>
@@ -1225,6 +1226,7 @@
             <param name="target">The string to parse</param>
             <param name="leftDelimiter"></param>
             <param name="rightDelimiter"></param>
+            <param name="compare"></param>
             <returns></returns>
         </member>
         <member name="M:MetX.Library.Tokenizer.TokensBefore(System.String,System.Int32,System.String,System.StringComparison)">
@@ -1232,6 +1234,7 @@
             <param name="target">The string to parse</param>
             <param name="token">The token number to return before</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
             <example>
                 <code>
              string x = TokensBefore("this is a test", 3, " ");
@@ -1243,6 +1246,7 @@
             <summary>Returns all tokens before the last token.</summary>
             <param name="target">The string to parse</param>
             <param name="delimiter">The token delimiter</param>
+            <param name="compare"></param>
             <example>
                 <code>
              string x = TokensBeforeLast("this is a test", 3, " ");
