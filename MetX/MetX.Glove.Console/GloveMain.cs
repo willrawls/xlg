@@ -129,11 +129,11 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void buttonRegen_Click(object sender, EventArgs e)
+        private void buttonRegenerate_Click(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                Invoke(new EventHandler(buttonRegen_Click), sender, e);
+                Invoke(new EventHandler(buttonRegenerate_Click), sender, e);
                 return;
             }
 
@@ -278,7 +278,7 @@ namespace XLG.Pipeliner
                     }
                     _mAutoGenActive = true;
                 }
-                Invoke(new MethodInvoker(SynchAutoRegen));
+                Invoke(new MethodInvoker(SynchAutoRegenerate));
             }
             catch (Exception ex)
             {
@@ -291,12 +291,12 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void SynchAutoRegen()
+        private void SynchAutoRegenerate()
         {
             autoRegenToolbarButton.Image = Resources.circle_orange;
             autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_orange;
             _mFsWs.EnableRaisingEvents = false;
-            buttonRegen_Click(null, null);
+            buttonRegenerate_Click(null, null);
             autoRegenToolbarButton.Image = Resources.circle_green;
             autoRegenOnChangedXSLToolStripMenuItem.Image = Resources.circle_green;
         }

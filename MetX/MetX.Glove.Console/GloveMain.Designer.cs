@@ -231,7 +231,7 @@ namespace XLG.Pipeliner
             this.regenerateCheckedToolStripMenuItem.Name = "regenerateCheckedToolStripMenuItem";
             this.regenerateCheckedToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.regenerateCheckedToolStripMenuItem.Text = "&Regenerate Checked";
-            this.regenerateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonRegen_Click);
+            this.regenerateCheckedToolStripMenuItem.Click += new System.EventHandler(this.buttonRegenerate_Click);
             // 
             // regenerateSelectedToolStripMenuItem
             // 
@@ -715,7 +715,7 @@ namespace XLG.Pipeliner
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(68, 28);
             this.toolStripButton2.Text = "&Regen";
-            this.toolStripButton2.Click += new System.EventHandler(this.buttonRegen_Click);
+            this.toolStripButton2.Click += new System.EventHandler(this.buttonRegenerate_Click);
             // 
             // autoRegenToolbarButton
             // 
