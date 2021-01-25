@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using MetX.Library;
 // ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace MetX.Security
 {
