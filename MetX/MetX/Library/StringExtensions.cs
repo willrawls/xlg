@@ -10,6 +10,18 @@ namespace MetX.Library
     /// </summary>
     public static class StringExtensions
     {
+        
+        public static string ProperCase(this string target)
+        {
+            // For each char
+            //  If first
+            //    upper case and add to output
+            //  Else If last was space and char isn't uppercase
+            //    upper case and add to output
+            //  Else If, already upper and previous was not, 
+            //  Else, 
+        }
+
         public static bool IsEmpty<T>(this IList<T> target)
         {
             return target == null || target.Count == 0;

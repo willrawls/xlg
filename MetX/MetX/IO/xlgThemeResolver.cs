@@ -26,11 +26,11 @@ namespace MetX.IO
         /// <param name="themePath">The relative path to the specific theme directory</param>
         public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath, string themePath)
         {
-            this.Transformer = transformer;
-            this.PathTrigger = pathTrigger;
-            this.BasePath = basePath;
-            this.ThemeName = themeName;
-            this.ThemePath = themePath;
+            Transformer = transformer;
+            PathTrigger = pathTrigger;
+            BasePath = basePath;
+            ThemeName = themeName;
+            ThemePath = themePath;
         }
 
         /// <summary>Initializes the Theme Resolver</summary>
@@ -40,10 +40,10 @@ namespace MetX.IO
         /// <param name="basePath">The relative base path for all themes</param>
         public XlgThemeResolver(Xsl transformer, string themeName, string pathTrigger, string basePath)
         {
-            this.Transformer = transformer;
-            this.PathTrigger = pathTrigger;
-            this.BasePath = basePath;
-            this.ThemeName = themeName;
+            Transformer = transformer;
+            PathTrigger = pathTrigger;
+            BasePath = basePath;
+            ThemeName = themeName;
         }
 
         /// <summary>Initializes the Theme Resolver. This is the one you should use most often.</summary>
@@ -51,15 +51,15 @@ namespace MetX.IO
         /// <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
         public XlgThemeResolver(Xsl transformer, string themeName)
         {
-            this.Transformer = transformer;
-            this.ThemeName = themeName;
+            Transformer = transformer;
+            ThemeName = themeName;
         }
 
         /// <summary>Initializes the Theme Resolver</summary>
         /// <param name="transformer">The xml class from your xlgHandler</param>
         public XlgThemeResolver(Xsl transformer)
         {
-            this.Transformer = transformer;
+            Transformer = transformer;
             ThemeName = "default";
         }
 

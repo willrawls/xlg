@@ -103,9 +103,9 @@ namespace MetX.Data
                 IsPrimaryKey = isPrimaryKey;
                 IsForiegnKey = IsForiegnKey;
                 DataType = dbType;
-                this.AutoIncrement = autoIncrement;
-                this.MaxLength = maxLength;
-                this.IsNullable = isNullable;
+                AutoIncrement = autoIncrement;
+                MaxLength = maxLength;
+                IsNullable = isNullable;
             }
         }
 
@@ -329,8 +329,8 @@ namespace MetX.Data
 
             public TableKeyColumn(string column, string related)
             {
-                this.Column = column;
-                this.Related = related;
+                Column = column;
+                Related = related;
             }
         }
     }

@@ -11,7 +11,7 @@ namespace Metta.Web.Virtual.xsl
             try
             {
                 var a = System.Reflection.Assembly.GetExecutingAssembly();
-                st = a.GetManifestResourceStream(typeof(Metta.Web.Virtual.xsl.Resource), resourceName);
+                st = a.GetManifestResourceStream(typeof(Resource), resourceName);
             }
             catch { }
             var sr = new System.IO.StreamReader(st);

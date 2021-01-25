@@ -35,7 +35,7 @@ namespace TextEditor
 				text += " - " + Path.GetFileName(_editor.FileName);
 			if (_search.HasScanRegion)
 				text += " (selection only)";
-			this.Text = text;
+			Text = text;
 		}
 
 		public void ShowFor(TextEditorControl editor, bool replaceMode)
@@ -60,8 +60,8 @@ namespace TextEditor
 			
 			ReplaceMode = replaceMode;
 
-			this.Owner = (Form)editor.TopLevelControl;
-			this.Show();
+			Owner = (Form)editor.TopLevelControl;
+			Show();
 			
 			txtLookFor.SelectAll();
 			txtLookFor.Focus();
@@ -74,7 +74,7 @@ namespace TextEditor
 				btnReplace.Visible = btnReplaceAll.Visible = value;
 				lblReplaceWith.Visible = txtReplaceWith.Visible = value;
 				btnHighlightAll.Visible = !value;
-				this.AcceptButton = value ? btnReplace : btnFindNext;
+				AcceptButton = value ? btnReplace : btnFindNext;
 				UpdateTitleBar();
 			}
 		}
@@ -172,8 +172,8 @@ namespace TextEditor
 		{	// Prevent dispose, as this form can be re-used
 			if (e.CloseReason != CloseReason.FormOwnerClosing)
 			{
-				if (this.Owner != null)
-					this.Owner.Select(); // prevent another app from being activated instead
+				if (Owner != null)
+					Owner.Select(); // prevent another app from being activated instead
 				
 				e.Cancel = true;
 				Hide();

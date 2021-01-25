@@ -31,10 +31,10 @@ namespace MetX.Pipelines
         public XlgFolder(string path, string name, DateTime created, DateTime modified)
         {
             if (!path.EndsWith(@"\")) path += @"\";
-            this.Path = path;
-            this.Name = name;
-            this.Created = created;
-            this.Modified = modified;
+            Path = path;
+            Name = name;
+            Created = created;
+            Modified = modified;
         }
 
         public override string ToString()

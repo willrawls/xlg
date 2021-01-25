@@ -11,7 +11,7 @@ namespace MetX.Data
 
         public StoredProcedureResult(IDataParameterCollection parameters)
         {
-            this.Parameters = parameters;
+            Parameters = parameters;
         }
 
         public override string ToString()

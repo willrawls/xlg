@@ -15,7 +15,7 @@ namespace MetX.Data.Factory
     {
         public SqlDataProvider(string connectionString)
         {
-            this.ConnectionString = connectionString;
+            ConnectionString = connectionString;
         }
 
         /// <summary>C#CD: </summary>

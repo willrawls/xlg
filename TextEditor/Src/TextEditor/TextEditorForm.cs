@@ -32,20 +32,21 @@ namespace TextEditor
 		private TextEditorControl AddNewTextEditor(string title)
 		{
 			var tab = new TabPage(title);
-			var editor = new TextEditorControl();
-			editor.Dock = System.Windows.Forms.DockStyle.Fill;
-			editor.IsReadOnly = false;
-			editor.Document.DocumentChanged += 
-				new DocumentEventHandler((sender, e) => { SetModifiedFlag(editor, true); });
-			// When a tab page gets the focus, move the focus to the editor control
+            var editor = new TextEditorControl {IsReadOnly = false};
+            editor.Dock = DockStyle.Fill;
+            if (editor.Document != null)
+                editor.Document.DocumentChanged +=
+                    new DocumentEventHandler((sender, e) => { SetModifiedFlag(editor, true); });
+            // When a tab page gets the focus, move the focus to the editor control
 			// instead when it gets the Enter (focus) event. I use BeginInvoke 
 			// because changing the focus directly in the Enter handler doesn't 
 			// work.
 			tab.Enter +=
-				new EventHandler((sender, e) => { 
-					var page = (TabPage)sender;
-					page.BeginInvoke(new Action<TabPage>(p => p.Controls[0].Focus()), page);
-				});
+				(sender, e) =>
+                {
+                    var page = (TabPage)sender;
+                    page?.BeginInvoke(new Action<TabPage>(p => p.Controls[0].Focus()), page);
+                };
 			tab.Controls.Add(editor);
 			fileTabs.Controls.Add(tab);
 
@@ -91,11 +92,14 @@ namespace TextEditor
 				
 				// ICSharpCode.TextEditor doesn't have any built-in code folding
 				// strategies, so I've included a simple one. Apparently, the
-				// foldings are not updated automatically, so in this demo the user
+				// folding is not updated automatically, so in this demo the user
 				// cannot add or remove folding regions after loading the file.
-				editor.Document.FoldingManager.FoldingStrategy = new RegionFoldingStrategy();
-				editor.Document.FoldingManager.UpdateFoldings(null, null);
-			}
+                if (editor.Document != null)
+                {
+                    editor.Document.FoldingManager.FoldingStrategy = new RegionFoldingStrategy();
+                    editor.Document.FoldingManager.UpdateFoldings(null, null);
+                }
+            }
 		}
 
 		private void menuFileClose_Click(object sender, EventArgs e)
@@ -162,7 +166,7 @@ namespace TextEditor
 
 		private void menuFileExit_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 		
 		#endregion
@@ -173,7 +177,7 @@ namespace TextEditor
 		/// <remarks>
 		/// There is an implementation of IEditAction for every action that 
 		/// the user can invoke using a shortcut key (arrow keys, Ctrl+X, etc.)
-		/// The editor control doesn't provide a public funciton to perform one
+		/// The editor control doesn't provide a public function to perform one
 		/// of these actions directly, so I wrote DoEditAction() based on the
 		/// code in TextArea.ExecuteDialogKey(). You can call ExecuteDialogKey
 		/// directly, but it is more fragile because it takes a Keys value (e.g.

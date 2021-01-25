@@ -87,7 +87,7 @@ namespace MetX.Pipelines
 
             public OpParams(int op, System.Windows.Forms.Form gui)
             {
-                this.Op = op;
+                Op = op;
                 Gui = gui;
             }
         }

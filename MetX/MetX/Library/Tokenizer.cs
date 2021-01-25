@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+// ReSharper disable UnusedMember.Global
 
 namespace MetX.Library
 {
@@ -35,6 +36,7 @@ namespace MetX.Library
         /// <summary>Returns the first delimited token in the indicated string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         /// <example>
         ///     <code>
         ///  string x = FirstToken("this is a test", " a ");
@@ -50,10 +52,6 @@ namespace MetX.Library
         ///     Returns everything after the last backslash (\)
         /// </summary>
         /// <param name="target">The string to parse</param>
-        /// <param name="delimiter">
-        ///     The string that separates each token. For instance, In the string "Fred went home", a space ("
-        ///     ") would be a common delimiter.
-        /// </param>
         /// <returns></returns>
         public static string LastPathToken(this string target)
         {
@@ -63,6 +61,7 @@ namespace MetX.Library
         /// <summary>Returns the last delimited token from a string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         public static string LastToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             var tokenCount = TokenCount(target, delimiter, compare);
@@ -70,19 +69,19 @@ namespace MetX.Library
         }
 
         /// <summary>
-        ///     Scans 'target' and returns everything before the Nth (token) occurence of 'delimiter' and after the Nth - 1
-        ///     occurence of 'delimiter'.<br />
+        ///     Scans 'target' and returns everything before the Nth (token) occurrence of 'delimiter' and after the Nth - 1
+        ///     occurrence of 'delimiter'.<br />
         /// </summary>
         /// <para>
         ///     By definition, the following is true. When the target string is null or empty, TokenAt returns an empty string.
         ///     <br />
         ///     When the delimiter string is null or empty, TokenAt returns the target string.<br />
         ///     When the delimiter does not appear in the target string, TokenAt returns the target string.<br />
-        ///     Otherwise, TokenAt looks for the Nth occurence of the delimiter string (where N = token) in the target
+        ///     Otherwise, TokenAt looks for the Nth occurrence of the delimiter string (where N = token) in the target
         ///     string.<br />
-        ///     It the returns everything between the Nth-1 and Nth occurence of delimiter. If N = 1, then TokenAt just returns
-        ///     everything before the first occurence.<br />
-        ///     If there is no Nth occurence, TokenAt returns an empty string.<br />
+        ///     It the returns everything between the Nth-1 and Nth occurrence of delimiter. If N = 1, then TokenAt just returns
+        ///     everything before the first occurrence.<br />
+        ///     If there is no Nth occurrence, TokenAt returns an empty string.<br />
         ///     This function will never return null and throws no exceptions.<br />
         ///     NOTE: Whenever possible, this function ignores case.
         /// </para>
@@ -107,9 +106,9 @@ namespace MetX.Library
         ///     The token to return. For instance, with a delimiter of space (" ") and a string "Fred went
         ///     home.", token could be 1, 2 or 3.
         /// </param>
-        /// <param name="delimiter">The string inside 'target' which separaters tokens. Defaults to a space (" ").</param>
-        /// <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIngoreCase (case insensitive)</param>
-        /// <returns>Returns the substring from 'target' before the Nth (token) occurence of 'delimiter'.</returns>
+        /// <param name="delimiter">The string inside 'target' which separators tokens. Defaults to a space (" ").</param>
+        /// <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIgnoreCase (case insensitive)</param>
+        /// <returns>Returns the substring from 'target' before the Nth (token) occurrence of 'delimiter'.</returns>
         public static string TokenAt(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             //  Empty delimiter string means an return the target or blank if target is null
@@ -146,7 +145,7 @@ namespace MetX.Library
         }
 
         /// <summary>
-        ///     Returns everything after the first occurence of leftDelimiter and before the following occurrene of rightDelimiter
+        ///     Returns everything after the first occurrence of leftDelimiter and before the following occurrence of rightDelimiter
         /// </summary>
         /// <param name="target">The string to parse</param>
         /// <param name="leftDelimiter">
@@ -157,8 +156,12 @@ namespace MetX.Library
         ///     The first string that separates each token. For instance, In the string "(123) 456-7890",
         ///     close parenthesis(")") would be a common right delimiter.
         /// </param>
+        /// <param name="compare"></param>
         /// <returns></returns>
-        public static string TokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        public static string TokenBetween(this string target, 
+            string leftDelimiter, 
+            string rightDelimiter, 
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             if (string.IsNullOrEmpty(target))
                 return string.Empty;
@@ -169,7 +172,7 @@ namespace MetX.Library
         /// <summary>Returns the number of tokens in a string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
-        /// <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIngoreCase (case insensitive)</param>
+        /// <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIgnoreCase (case insensitive)</param>
         /// <example>
         ///     <code>
         ///  int x = TokenCount("this is a test", "is");
@@ -249,6 +252,7 @@ namespace MetX.Library
         /// <param name="target">The string to parse</param>
         /// <param name="token">The token number to return after</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         /// <example>
         ///     <code>
         ///  string x = .After("this is a test", 2, " ");
@@ -290,10 +294,10 @@ namespace MetX.Library
         /// <summary>Returns everything after the first delimited token from a string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         public static string TokensAfterFirst(this string target, 
             string delimiter = " ", 
-            StringComparison compare = 
-                StringComparison.OrdinalIgnoreCase)
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             return TokensAfter(target, 1, delimiter, compare);
         }
@@ -303,6 +307,7 @@ namespace MetX.Library
         /// <param name="target">The string to parse</param>
         /// <param name="leftDelimiter"></param>
         /// <param name="rightDelimiter"></param>
+        /// <param name="compare"></param>
         /// <returns></returns>
         public static string TokensAround(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
@@ -323,6 +328,7 @@ namespace MetX.Library
         /// <param name="target">The string to parse</param>
         /// <param name="token">The token number to return before</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         /// <example>
         ///     <code>
         ///  string x = TokensBefore("this is a test", 3, " ");
@@ -349,6 +355,7 @@ namespace MetX.Library
         /// <summary>Returns all tokens before the last token.</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
+        /// <param name="compare"></param>
         /// <example>
         ///     <code>
         ///  string x = TokensBeforeLast("this is a test", 3, " ");

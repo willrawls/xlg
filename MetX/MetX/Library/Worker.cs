@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
+// ReSharper disable UnusedMember.Global
 
 namespace MetX.Library
 {
@@ -85,19 +86,17 @@ namespace MetX.Library
         {
             if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return defaultValue;
-            if (value is Guid)
-                return Convert.ToString(value);
-            return value.ToString().Trim();
+            return value is Guid ? Convert.ToString(value) : value.ToString()?.Trim();
         }
 
 	    public static char AsChar(object value)
 	    {
 	        if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return new char();
-	        if (value is string)
-	            return ((string)value)[0];
-	        if (value is char)
-	            return (char)value;
+	        if (value is string stringValue)
+	            return stringValue[0];
+	        if (value is char charValue)
+	            return charValue;
 	        var ret = AsString(value);
 	        if (ret.Length == 0)
 	            return new char();
@@ -118,7 +117,11 @@ namespace MetX.Library
                 {
                     ret = Convert.ToDouble(text);
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
+
             return ret;
         }
 
@@ -129,8 +132,12 @@ namespace MetX.Library
         /// <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
         public static string S2Db(object value)
         {
-            if (value == null || value == DBNull.Value || value is DateTime && (DateTime)value < DateTime.MinValue.AddYears(10) || value is string && (string)value == "(NULL)")
+            if (value == null || value == DBNull.Value 
+                              || value is DateTime dateTime && dateTime < DateTime.MinValue.AddYears(10) 
+                              || value is string stringValue && stringValue == "(NULL)")
+            {
                 return "NULL";
+            }   
             return "'" + AsString(value).Replace("'", "''") + "'";
         }
 
@@ -149,12 +156,9 @@ namespace MetX.Library
 			text = text.Replace(".", " ");
 			text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1,1).ToUpper() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
 
-			if( text.Length == 0 )
-				returnValue = defaultName;
-			else
-				returnValue = text;
+			returnValue = text.Length == 0 ? defaultName : text;
 
-			return Microsoft.VisualBasic.Strings.StrConv(returnValue, Microsoft.VisualBasic.VbStrConv.ProperCase);
+            return returnValue.ProperCase();
 		}
 	}
 }

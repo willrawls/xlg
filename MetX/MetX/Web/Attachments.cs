@@ -28,9 +28,9 @@ namespace MetX.IO
 		/// <param name="parentId">The Unique string associated with the specific set of attachments</param>
 		public Attachments(string baseFolder, string appName, string parentId)
 		{
-			this.BaseFolder = baseFolder;
-			this.AppName = appName;
-			this.ParentId = parentId;
+			BaseFolder = baseFolder;
+			AppName = appName;
+			ParentId = parentId;
 			DirectoryName = baseFolder + appName + @"\" + parentId + @"\";
 		}
 

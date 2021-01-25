@@ -33,9 +33,9 @@ namespace MetX.IO
                 throw new Exception("StateName must be set to a non empty string.");
             if (tagName == null || tagName.Length == 0)
                 throw new Exception("TagName must be set to a non empty string.");
-            this.StateParent = stateParent;
-            this.StateName = stateName;
-            this.TagName = tagName;
+            StateParent = stateParent;
+            StateName = stateName;
+            TagName = tagName;
         }
 
         /// <summary>Basic constructor that additionally sets the intial state. Useful when loading state from an existing list or when setting up a new secure state.</summary>

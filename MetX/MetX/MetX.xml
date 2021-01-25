@@ -582,8 +582,9 @@
             <returns>The response text from the post (Windows default code page encoded).</returns>
         </member>
         <member name="T:MetX.IO.SmtpMail">
-            <summary>Provides methids to send email via smtp, with out CDO SYS installed.
-            <para>This is a manual implementation of the SMTP protocol.</para>
+            <summary>
+                Provides methods to send email via smtp, with out CDO SYS installed.
+                <para>This is a manual implementation of the SMTP protocol.</para>
             </summary>
         </member>
         <member name="F:MetX.IO.SmtpMail.SmtpServer">

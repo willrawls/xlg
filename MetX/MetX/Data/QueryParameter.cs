@@ -33,7 +33,7 @@ namespace MetX.Data
         {
             ParameterName = parameterName;
             ParameterValue = value;
-            this.Direction = direction;
+            Direction = direction;
         }
 
         public QueryParameter(string parameterName, object value, DbType dataType, ParameterDirection direction)
@@ -41,7 +41,7 @@ namespace MetX.Data
             ParameterName = parameterName;
             ParameterValue = value;
             DataType = dataType;
-            this.Direction = direction;
+            Direction = direction;
         }
 
         [XmlAttribute]

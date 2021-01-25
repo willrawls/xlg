@@ -24,21 +24,21 @@ namespace MetX.Data
         public Where(string tableName, string columnName, Comparison comparison, object value)
         {
             TableName = tableName;
-            this.ColumnName = columnName;
-            this.Comparison = comparison;
+            ColumnName = columnName;
+            Comparison = comparison;
             _mParameterValue = value;
         }
 
         public Where(string columnName, Comparison comparison, object value)
         {
-            this.ColumnName = columnName;
-            this.Comparison = comparison;
+            ColumnName = columnName;
+            Comparison = comparison;
             _mParameterValue = value;
         }
 
         public Where(string columnName, object value)
         {
-            this.ColumnName = columnName;
+            ColumnName = columnName;
             Comparison = Comparison.Equals;
             _mParameterValue = value;
         }
@@ -46,31 +46,31 @@ namespace MetX.Data
         public Where(string tableName, string columnName, Comparison comparison, object value, WhereOptions options)
         {
             TableName = tableName;
-            this.ColumnName = columnName;
-            this.Comparison = comparison;
+            ColumnName = columnName;
+            Comparison = comparison;
             _mParameterValue = value;
-            this.Options = options;
+            Options = options;
         }
 
         public Where(WhereOptions options)
         {
-            this.Options = options;
+            Options = options;
         }
 
         public Where(string columnName, Comparison comparison, object value, WhereOptions options)
         {
-            this.ColumnName = columnName;
-            this.Comparison = comparison;
+            ColumnName = columnName;
+            Comparison = comparison;
             _mParameterValue = value;
-            this.Options = options;
+            Options = options;
         }
 
         public Where(string columnName, object value, WhereOptions options)
         {
-            this.ColumnName = columnName;
+            ColumnName = columnName;
             Comparison = Comparison.Equals;
             _mParameterValue = value;
-            this.Options = options;
+            Options = options;
         }
 
         public object ParameterValue

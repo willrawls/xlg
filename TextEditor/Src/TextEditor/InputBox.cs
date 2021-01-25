@@ -7,30 +7,30 @@ namespace System.Windows.Forms
 	/// </summary>
 	internal class InputBoxDialog : Form 
 	{
-		private System.Windows.Forms.Label _lblPrompt;
-		public System.Windows.Forms.TextBox TxtInput;
-		private System.Windows.Forms.Button _btnOk;
-		private System.Windows.Forms.Button _btnCancel;
+		private Label _lblPrompt;
+		public TextBox TxtInput;
+		private Button _btnOk;
+		private Button _btnCancel;
 	
 		public InputBoxDialog(string prompt, string title) : this(prompt, title, int.MinValue, int.MinValue) {} 
 
  		public InputBoxDialog(string prompt, string title, int xPos, int yPos)
 		{
 			if (xPos != int.MinValue && yPos != int.MinValue) {
-				this.StartPosition = FormStartPosition.Manual;
-				this.Location = new System.Drawing.Point(xPos, yPos);
+				StartPosition = FormStartPosition.Manual;
+				Location = new Drawing.Point(xPos, yPos);
 			}
 
 			InitializeComponent();
 
 			_lblPrompt.Text = prompt;
-			this.Text = title;
+			Text = title;
 
-			var g = this.CreateGraphics();
+			var g = CreateGraphics();
 			var size = g.MeasureString(prompt, _lblPrompt.Font, _lblPrompt.Width);
 			Debug.WriteLine("PROMPT SIZE: " + size);
 			if (size.Height > _lblPrompt.Height)
-				this.Height += (int)size.Height - _lblPrompt.Height;
+				Height += (int)size.Height - _lblPrompt.Height;
 
 			TxtInput.SelectionStart = 0;
 			TxtInput.SelectionLength = TxtInput.Text.Length;
