@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using MetX.Library;
-using Microsoft.VisualBasic;
+//using Microsoft.VisualBasic;
 
 namespace MetX.Data.Factory
 {
@@ -23,18 +23,17 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override int ExecuteQuery(QueryCommand qry)
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                var cmd = new SqlCommand(qry.CommandSql);
-                AddParams(cmd, qry);
-                cmd.Connection = conn;
-                conn.Open();
-                var ret = cmd.ExecuteNonQuery();
-                conn.Close();
-                conn.Dispose();
-                cmd.Dispose();
-                return ret;
-            }
+            using var conn = new SqlConnection(ConnectionString);
+            
+            var cmd = new SqlCommand(qry.CommandSql);
+            AddParams(cmd, qry);
+            cmd.Connection = conn;
+            conn.Open();
+            var ret = cmd.ExecuteNonQuery();
+            conn.Close();
+            conn.Dispose();
+            cmd.Dispose();
+            return ret;
         }
 
         /// <summary>C#CD: </summary>
@@ -42,18 +41,17 @@ namespace MetX.Data.Factory
         /// <returns>C#CD: </returns>
         public override object ExecuteScalar(QueryCommand qry)
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                var cmd = new SqlCommand(qry.CommandSql);
-                AddParams(cmd, qry);
-                cmd.Connection = conn;
-                conn.Open();
-                var ret = cmd.ExecuteScalar();
-                conn.Close();
-                conn.Dispose();
-                cmd.Dispose();
-                return ret;
-            }
+            using var conn = new SqlConnection(ConnectionString);
+            
+            var cmd = new SqlCommand(qry.CommandSql);
+            AddParams(cmd, qry);
+            cmd.Connection = conn;
+            conn.Open();
+            var ret = cmd.ExecuteScalar();
+            conn.Close();
+            conn.Dispose();
+            cmd.Dispose();
+            return ret;
         }
 
         /// <summary>C#CD: </summary>
@@ -169,16 +167,14 @@ namespace MetX.Data.Factory
         {
             var cmd = new QueryCommand(SpSql);
             var list = new List<string>();
-            using (var rdr = GetReader(cmd))
+            using var rdr = GetReader(cmd);
+            while (rdr.Read())
             {
-                while (rdr.Read())
-                {
-                    list.Add(rdr[0].AsString());
-                }
-                rdr.Close();
-                rdr.Dispose();
-                return list.ToArray();
+                list.Add(rdr[0].AsString());
             }
+            rdr.Close();
+            rdr.Dispose();
+            return list.ToArray();
         }
 
         /// <summary>C#CD: </summary>
@@ -198,14 +194,14 @@ namespace MetX.Data.Factory
         {
             var conn = new SqlConnection(ConnectionString);
             conn.Open();
-            var cmd = new SqlCommand(qry.CommandSql, conn);
-            cmd.CommandType = qry.CommandType;
+            var cmd = new SqlCommand(qry.CommandSql, conn) {CommandType = qry.CommandType};
             AddParams(cmd, qry);
             if (!cmd.Parameters.Contains("@ReturnValue"))
             {
-                var returnValue = new SqlParameter();
-                returnValue.ParameterName = "@ReturnValue";
-                returnValue.Direction = ParameterDirection.ReturnValue;
+                var returnValue = new SqlParameter
+                {
+                    ParameterName = "@ReturnValue", Direction = ParameterDirection.ReturnValue
+                };
                 cmd.Parameters.Add(returnValue);
             }
             var ret = new StoredProcedureResult(cmd.Parameters);
@@ -280,10 +276,7 @@ namespace MetX.Data.Factory
                         MaxLength = maxLength,
                     };
                     columns.Add(column);
-                    if (schemaName == null)
-                    {
-                        schemaName = reader["Owner"].ToString();
-                    }
+                    schemaName ??= reader["Owner"].ToString();
                 }
                 reader.NextResult();
 
@@ -363,14 +356,25 @@ namespace MetX.Data.Factory
                             continue;
                         }
                         var raw = rdr["constraint_keys"].ToString().Replace("(-)", string.Empty);
+
+                        /*
+                        new List<TableSchema.TableKeyColumn>(Strings
+                            .Split(raw, ", ")
+                            .Where(col => col.Length > 0)
+                            .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))),
+                            */
+
+                        var keyColumns = raw
+                            .AllTokens(", ")
+                            .Where(col => col.Length > 0)
+                            .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))
+                            .ToList();
+                        
                         tableSchema.Keys.Add(new TableSchema.TableKey
                         {
                             Name = "Primary",
                             IsPrimary = true,
-                            Columns = new List<TableSchema.TableKeyColumn>(Strings
-                                .Split(raw, ", ")
-                                .Where(col => col.Length > 0)
-                                .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))),
+                            Columns = keyColumns,
                         });
                     }
                     else if (constraintType.Contains("FOREIGN"))
@@ -564,8 +568,7 @@ namespace MetX.Data.Factory
             }
             foreach (var param in qry.Parameters)
             {
-                var sqlParam = new SqlParameter(param.ParameterName, param.DataType);
-                sqlParam.Direction = param.Direction;
+                var sqlParam = new SqlParameter(param.ParameterName, param.DataType) {Direction = param.Direction};
                 if (param.ParameterValue != null)
                 {
                     sqlParam.Value = param.ParameterValue;
@@ -574,15 +577,21 @@ namespace MetX.Data.Factory
             }
         }
 
-        private int ToInt(object target, int defaultValue = -1)
+        private static int ToInt(object target, int defaultValue = -1)
         {
             if (target == null || target == DBNull.Value) return defaultValue;
-            if (target is byte) return (byte)target;
-            if (target is int) return (int)target;
-            var s = target.ToString();
-            int result;
-            if (int.TryParse(s, out result)) return result;
-            return defaultValue;
+            switch (target)
+            {
+                case byte targetByte:
+                    return targetByte;
+                case int targetInt:
+                    return targetInt;
+                default:
+                {
+                    var toParse = target.ToString();
+                    return int.TryParse(toParse, out var result) ? result : defaultValue;
+                }
+            }
         }
 
         #region Schema Bits
