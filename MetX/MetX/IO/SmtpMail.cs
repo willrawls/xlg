@@ -6,13 +6,13 @@ using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-
+// ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
 
 namespace MetX.IO
 {
     /// <summary>
-    ///     Provides methids to send email via smtp, with out CDO SYS installed.
+    ///     Provides methods to send email via smtp, with out CDO SYS installed.
     ///     <para>This is a manual implementation of the SMTP protocol.</para>
     /// </summary>
     public static class SmtpMail
@@ -76,7 +76,7 @@ namespace MetX.IO
 
             #region send helo
 
-            Senddata(s, string.Format("HELO {0}\r\n", Dns.GetHostName()));
+            SendData(s, $"HELO {Dns.GetHostName()}\r\n");
             if (!Check_Response(s, SmtpResponses.GenericSuccess))
             {
                 Console.WriteLine("Helo Failed!.");
@@ -88,7 +88,7 @@ namespace MetX.IO
 
             #region Send the MAIL command
 
-            Senddata(s, string.Format("MAIL From: {0}\r\n", message.From));
+            SendData(s, $"MAIL From: {message.From}\r\n");
             if (!Check_Response(s, SmtpResponses.GenericSuccess))
             {
                 Console.WriteLine("Mail command Failed!.");
@@ -102,7 +102,7 @@ namespace MetX.IO
 
             foreach (var to in message.To)
             {
-                Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
+                SendData(s, $"RCPT TO: {to.Address}\r\n");
                 if (!Check_Response(s, SmtpResponses.GenericSuccess))
                 {
                     Console.WriteLine("RCPT command Failed ({0})!.", to.Address);
@@ -118,7 +118,7 @@ namespace MetX.IO
             if (message.CC.Count > 0)
                 foreach (var to in message.CC)
                 {
-                    Senddata(s, string.Format("RCPT TO: {0}\r\n", to.Address));
+                    SendData(s, $"RCPT TO: {to.Address}\r\n");
                     if (!Check_Response(s, SmtpResponses.GenericSuccess))
                     {
                         Console.WriteLine("RCPT command Failed ({0})!.", to.Address);
@@ -175,42 +175,41 @@ namespace MetX.IO
                 sb.Append(msgBody + "\r\n");
                 sb.Append("\r\n");
 
-                foreach (object o in message.Attachments)
+                foreach (var o in message.Attachments)
                 {
-                    var a = o as Attachment;
-                    byte[] binaryData;
-                    if (a != null)
+                    var a = (Attachment) o;
+                    if (a == null) continue;
+                    
+                    var f = new FileInfo(a.Name ?? throw new InvalidOperationException());
+                    
+                    sb.Append("--unique-boundary-1\r\n");
+                    sb.Append("Content-Type: application/octet-stream; file=" + f.Name + "\r\n");
+                    sb.Append("Content-Transfer-Encoding: base64\r\n");
+                    sb.Append("Content-Disposition: attachment; filename=" + f.Name + "\r\n");
+                    sb.Append("\r\n");
+                    var fs = f.OpenRead();
+                    var binaryData = new byte[fs.Length];
+                    fs.Read(binaryData, 0, (int) fs.Length);
+                    fs.Close();
+                    var base64String = Convert.ToBase64String(binaryData, 0, binaryData.Length);
+
+                    for (var i = 0; i < base64String.Length;)
                     {
-                        var f = new FileInfo(a.Name);
-                        sb.Append("--unique-boundary-1\r\n");
-                        sb.Append("Content-Type: application/octet-stream; file=" + f.Name + "\r\n");
-                        sb.Append("Content-Transfer-Encoding: base64\r\n");
-                        sb.Append("Content-Disposition: attachment; filename=" + f.Name + "\r\n");
+                        var nextChunk = 100;
+                        if (base64String.Length - (i + nextChunk) < 0)
+                            nextChunk = base64String.Length - i;
+                        sb.Append(base64String.Substring(i, nextChunk));
                         sb.Append("\r\n");
-                        var fs = f.OpenRead();
-                        binaryData = new byte[fs.Length];
-                        long bytesRead = fs.Read(binaryData, 0, (int) fs.Length);
-                        fs.Close();
-                        var base64String = Convert.ToBase64String(binaryData, 0, binaryData.Length);
-
-                        for (var i = 0; i < base64String.Length;)
-                        {
-                            var nextchunk = 100;
-                            if (base64String.Length - (i + nextchunk) < 0)
-                                nextchunk = base64String.Length - i;
-                            sb.Append(base64String.Substring(i, nextchunk));
-                            sb.Append("\r\n");
-                            i += nextchunk;
-                        }
-
-                        sb.Append("\r\n");
+                        i += nextChunk;
                     }
+
+                    sb.Append("\r\n");
                 }
 
                 msgBody = sb.ToString();
             }
 
-            Senddata(s, "DATA\r\n");
+            SendData(s, "DATA\r\n");
             if (!Check_Response(s, SmtpResponses.DataSuccess))
             {
                 Console.WriteLine("Data command Failed!.");
@@ -223,7 +222,7 @@ namespace MetX.IO
             header.Append(".\r\n");
             header.Append("\r\n");
             header.Append("\r\n");
-            Senddata(s, header.ToString());
+            SendData(s, header.ToString());
             if (!Check_Response(s, SmtpResponses.GenericSuccess))
             {
                 Console.WriteLine("Data command Failed!.");
@@ -235,7 +234,7 @@ namespace MetX.IO
 
             #region quit
 
-            Senddata(s, "QUIT\r\n");
+            SendData(s, "QUIT\r\n");
             Check_Response(s, SmtpResponses.QuitSuccess);
             s.Close();
 
@@ -244,32 +243,21 @@ namespace MetX.IO
             return true;
         }
 
-        private static void Senddata(Socket s, string msg)
+        private static void SendData(Socket socket, string message)
         {
-            //			StreamWriter sw= new FileInfo("send.txt").AppendText();
-            //			sw.WriteLine(msg);
-            //			sw.Close();
-            //			sw=null;
-            //			GC.Collect();
-            var msgBytes = Encoding.ASCII.GetBytes(msg);
-            s.Send(msgBytes, 0, msgBytes.Length, SocketFlags.None);
+            var bytes = Encoding.ASCII.GetBytes(message);
+            socket.Send(bytes, 0, bytes.Length, SocketFlags.None);
         }
 
-        private static bool Check_Response(Socket s, SmtpResponses responseExpected)
+        private static bool Check_Response(Socket socket, SmtpResponses responseExpected)
         {
-            string sResponse;
-            int response;
             var bytes = new byte[1024];
-            //			Console.WriteLine("Waiting for {0}", response_expected);
-            while (s.Available == 0) Thread.Sleep(100);
+            while (socket.Available == 0) Thread.Sleep(100); // TODO Remove all the thread stuff whenever possible, use async await
 
-            s.Receive(bytes, 0, s.Available, SocketFlags.None);
-            sResponse = Encoding.ASCII.GetString(bytes);
-            //Console.WriteLine(sResponse);
-            response = Convert.ToInt32(sResponse.Substring(0, 3));
-            if (response != (int) responseExpected)
-                return false;
-            return true;
+            socket.Receive(bytes, 0, socket.Available, SocketFlags.None);
+            var sResponse = Encoding.ASCII.GetString(bytes);
+            var response = Convert.ToInt32(sResponse.Substring(0, 3));
+            return response == (int) responseExpected;
         }
     }
 }

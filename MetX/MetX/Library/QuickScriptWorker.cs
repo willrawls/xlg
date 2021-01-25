@@ -12,9 +12,7 @@ namespace MetX.Library
             try
             {
                 var tempFile = Path.Combine(Path.GetTempPath(),
-                    string.Format("qscript{0}{1}",
-                        Guid.NewGuid().ToString().Substring(1, 6),
-                        isCSharpCode ? ".cs" : ".txt"));
+                    $"qscript{Guid.NewGuid().ToString().Substring(1, 6)}{(isCSharpCode ? ".cs" : ".txt")}");
                 File.WriteAllText(tempFile, source);
                 Process.Start("notepad", tempFile);
             }

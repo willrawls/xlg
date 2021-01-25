@@ -248,13 +248,13 @@ namespace TextEditor
 
 		private void menuFindAgain_Click(object sender, EventArgs e)
 		{
-			_findForm.FindNext(true, false, 
-				string.Format("Search text «{0}» not found.", _findForm.LookFor));
+			_findForm.FindNext(true, false,
+                $"Search text «{_findForm.LookFor}» not found.");
 		}
 		private void menuFindAgainReverse_Click(object sender, EventArgs e)
 		{
-			_findForm.FindNext(true, true, 
-				string.Format("Search text «{0}» not found.", _findForm.LookFor));
+			_findForm.FindNext(true, true,
+                $"Search text «{_findForm.LookFor}» not found.");
 		}
 
 		private void menuToggleBookmark_Click(object sender, EventArgs e)
@@ -390,7 +390,7 @@ namespace TextEditor
 			{
 				if (IsModified(editor))
 				{
-					var r = MessageBox.Show(string.Format("Save changes to {0}?", editor.FileName ?? "new file"),
+					var r = MessageBox.Show($"Save changes to {editor.FileName ?? "new file"}?",
 						"Save?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 					if (r == DialogResult.Cancel)
 						e.Cancel = true;

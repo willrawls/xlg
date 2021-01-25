@@ -224,7 +224,7 @@ namespace TextEditor
 			if (count == 0)
 				MessageBox.Show("No occurrances found.");
 			else {
-				MessageBox.Show(string.Format("Replaced {0} occurrances.", count));
+				MessageBox.Show($"Replaced {count} occurrances.");
 				Close();
 			}
 		}

@@ -16,7 +16,7 @@ namespace MetX.Controls
 
         private void OnActionClick(object sender, EventArgs e)
         {
-            MessageBox.Show(string.Format("{0} => {1}", ActionType, Text));
+            MessageBox.Show($"{ActionType} => {Text}");
         }
     }
 }
