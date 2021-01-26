@@ -539,7 +539,7 @@
         </member>
         <member name="M:MetX.IO.FileSystem.GatherOutput(System.String,System.String,System.String,System.Int32)">
             <summary>
-                Runs a command line, waits for it to finish, gathers it's output from strin and returns the output.
+                Runs a command line, waits for it to finish, gathers it's output from string and returns the output.
             </summary>
             <param name="filename">The filename to execute</param>
             <param name="arguments">Any (optional) arguments to pass to the executable</param>
@@ -548,7 +548,7 @@
                 The number of seconds to wait before killing the process. If the value is less than 1, 60
                 seconds is assumed.
             </param>
-            <returns>The strout/strerr output by the executable</returns>
+            <returns>Both the regular and error output by the executable</returns>
         </member>
         <member name="T:MetX.IO.Http">
             <summary>Provides static methods to common web based tasks</summary>
@@ -867,55 +867,6 @@
         <member name="P:MetX.IO.XlgDataSection.ConnectionStringName">
             <summary>The default connection to use</summary>
         </member>
-        <member name="T:MetX.IO.XlgThemeResolver">
-            <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented. Additionally xlg type Theme support is added.</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.ThemePath">
-            <summary>The relative path to the theme directory</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.PathTrigger">
-            <summary>The string within the URL that triggers a conversion</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.BasePath">
-            <summary>The base path for all themes</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.Transformer">
-            <summary>The xml class from the xlgHandler</summary>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String,System.String,System.String,System.String)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
-            <param name="basePath">The relative base path for all themes</param>
-            <param name="themePath">The relative path to the specific theme directory</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String,System.String,System.String)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
-            <param name="basePath">The relative base path for all themes</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String)">
-            <summary>Initializes the Theme Resolver. This is the one you should use most often.</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-        </member>
-        <member name="P:MetX.IO.XlgThemeResolver.ThemeName">
-            <summary>The name of the theme to resolve to (when available)</summary>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.GetEntity(System.Uri,System.String,System.Type)">
-            <summary>Resolves and retrieves the requested entity via URI</summary>
-            <param name="absoluteUri">The URI to resolve</param>
-            <param name="role">N/A</param>
-            <param name="ofObjectToReturn">Type of object to return</param>
-            <returns>The resolved entity</returns>
-        </member>
         <member name="T:MetX.IO.XlgUrnResolver">
             <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
         </member>
@@ -1227,31 +1178,12 @@
             <param name="mask">The bit mask to check</param>
             <returns>true if all bits set in Mask are set in ToCheck, else false</returns>
         </member>
-        <member name="M:MetX.Library.XlgUrn.SetThemePath(System.String,System.String)">
-            <summary>Sets the internal variable 'ThemePath' used with FilePath, FileUrl, and FileContents</summary>
-            <param name="themePath">The virtual path to the theme directory (such as '/~/theme/YourClientName/')</param>
-            <param name="defaultThemePath">The virtual path to the defalt theme directory (such as '/~/theme/default/')</param>
-            <returns>A blank string</returns>
-        </member>
         <member name="M:MetX.Library.XlgUrn.UrlEncode(System.String)">
             <summary>
             Returns the URL encoded value of the string passed in
             </summary>
             <param name="toEncode">The string to URL encode</param>
             <returns>The URL encoded string</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.SetSupportPath(System.String)">
-            <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
-            <param name="supportPath">The virtual path to the xlgSupport directory (defalts to '/xlgSupport/')</param>
-            <returns>A blank string</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.GetThemePath">
-            <summary>Returns the value of the internal variable 'ThemePath'</summary>
-            <returns>The value of ThemePath</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.GetSupportPath">
-            <summary>Returns the value of the internal variable 'SupportPath'</summary>
-            <returns>The value of SupportPath</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.FileExists(System.String)">
             <summary>

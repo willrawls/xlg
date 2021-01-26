@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -23,10 +24,6 @@ namespace MetX.Library
         private Dictionary<string, string> _mVars;
         private Dictionary<string, StringBuilder> _mSbVars;
 
-        private string _mThemePath = "~/theme/default/";
-        private string _mDefaultThemePath = "~/theme/default/";
-        private string _mSupportPath = "/xlgSupport/";
-
         /// <summary>
         /// Returns if one or more bits are set in ToCheck
         /// </summary>
@@ -38,21 +35,6 @@ namespace MetX.Library
             return (toCheck & mask) != 0;
         }
 
-        /// <summary>Sets the internal variable 'ThemePath' used with FilePath, FileUrl, and FileContents</summary>
-        /// <param name="themePath">The virtual path to the theme directory (such as '/~/theme/YourClientName/')</param>
-        /// <param name="defaultThemePath">The virtual path to the defalt theme directory (such as '/~/theme/default/')</param>
-        /// <returns>A blank string</returns>
-        public string SetThemePath(string themePath, string defaultThemePath)
-        {
-            if (!themePath.EndsWith("/"))
-                themePath += "/";
-            if (!defaultThemePath.EndsWith("/"))
-                defaultThemePath += "/";
-            _mThemePath = themePath;
-            _mDefaultThemePath = defaultThemePath;
-            return string.Empty;
-        }
-
         /// <summary>
         /// Returns the URL encoded value of the string passed in
         /// </summary>
@@ -62,32 +44,6 @@ namespace MetX.Library
         {
             return toEncode == null ? string.Empty : WebUtility.UrlEncode(toEncode);
         }
-
-        /// <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
-        /// <param name="supportPath">The virtual path to the xlgSupport directory (defalts to '/xlgSupport/')</param>
-        /// <returns>A blank string</returns>
-        public string SetSupportPath(string supportPath)
-        {
-            if (!supportPath.EndsWith("/"))
-                supportPath += "/";
-            _mSupportPath = supportPath;
-            return string.Empty;
-        }
-
-        /// <summary>Returns the value of the internal variable 'ThemePath'</summary>
-        /// <returns>The value of ThemePath</returns>
-        public string GetThemePath()
-        {
-            return _mThemePath;
-        }
-
-        /// <summary>Returns the value of the internal variable 'SupportPath'</summary>
-        /// <returns>The value of SupportPath</returns>
-        public string GetSupportPath()
-        {
-            return _mSupportPath;
-        }
-
 
         /// <summary>
         /// Same as calling System.IO.File.Exists
@@ -139,8 +95,7 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string SbAppend(string sbVarName, string toAppend)
         {
-            if (_mSbVars == null)
-                _mSbVars = new Dictionary<string, StringBuilder>();
+            _mSbVars ??= new Dictionary<string, StringBuilder>();
             if (_mSbVars.ContainsKey(sbVarName))
                 _mSbVars[sbVarName].Append(toAppend);
             else
@@ -157,8 +112,7 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string SbAppendLine(string sbVarName, string toAppend)
         {
-            if (_mSbVars == null)
-                _mSbVars = new Dictionary<string, StringBuilder>();
+            _mSbVars ??= new Dictionary<string, StringBuilder>();
             if (!_mSbVars.ContainsKey(sbVarName))
                 _mSbVars[sbVarName] = new StringBuilder();
             _mSbVars[sbVarName].AppendLine(toAppend);
@@ -197,8 +151,7 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string RemoveVar(string varName)
         {
-            if (_mVars == null)
-                _mVars = new Dictionary<string, string>();
+            _mVars ??= new Dictionary<string, string>();
             if (_mVars.ContainsKey(varName))
                 _mVars.Remove(varName);
             return string.Empty;
@@ -220,8 +173,7 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string SetVar(string varName, string varValue)
         {
-            if (_mVars == null)
-                _mVars = new Dictionary<string, string>();
+            _mVars ??= new Dictionary<string, string>();
             _mVars[varName] = varValue;
             return string.Empty;
         }
@@ -232,8 +184,7 @@ namespace MetX.Library
         /// <returns>The variables value or a blank string if not set</returns>
         public string GetVar(string varName)
         {
-            if (_mVars == null)
-                _mVars = new Dictionary<string, string>();
+            _mVars ??= new Dictionary<string, string>();
             if (_mVars.ContainsKey(varName))
                 return _mVars[varName];
             return string.Empty;
@@ -245,8 +196,7 @@ namespace MetX.Library
         /// <returns>True if the variable has been set to a non empty string</returns>
         public bool IsVarSet(string varName)
         {
-            if (_mVars == null)
-                _mVars = new Dictionary<string, string>();
+            _mVars ??= new Dictionary<string, string>();
             if (_mVars.ContainsKey(varName) && _mVars[varName] != null && _mVars[varName].Length > 0)
                 return true;
             return false;
@@ -258,8 +208,7 @@ namespace MetX.Library
         /// <returns>The hash value for the item</returns>
         public string SHash(string toHash)
         {
-            if (_mHt == null)
-                _mHt = new Dictionary<string, string>();
+            _mHt ??= new Dictionary<string, string>();
             // ReSharper disable once InvertIf
             if (!_mHt.ContainsKey(toHash))
             {
@@ -290,10 +239,10 @@ namespace MetX.Library
             {
                 return string.Empty;
             }
-            XPathNavigator nameValueNodes = null;
+
             nodes.MoveNext();
-            nameValueNodes = nodes.Current;
-            return nameValueNodes.InnerXml;
+            var nameValueNodes = nodes.Current;
+            return nameValueNodes?.InnerXml;
         }
 
 
@@ -306,10 +255,10 @@ namespace MetX.Library
             {
                 return string.Empty;
             }
-            XPathNavigator nameValueNodes = null;
+
             nodes.MoveNext();
-            nameValueNodes = nodes.Current;
-            return nameValueNodes.OuterXml;
+            var nameValueNodes = nodes.Current;
+            return nameValueNodes?.OuterXml;
         }
 
 
@@ -357,7 +306,7 @@ namespace MetX.Library
         }
 
 
-        /// <summary>Determins if one date is between or equal to two other dates</summary>
+        /// <summary>Determines if one date is between or equal to two other dates</summary>
         /// <param name="sDateToTest">The date to test</param>
         /// <param name="sDateBegin">The lower boundary to test</param>
         /// <param name="sDateEnd">The upper boundary to test</param>
@@ -401,11 +350,10 @@ namespace MetX.Library
         /// <returns>The index of ToFind in ToSearch. -1 if nothing is found</returns>
         public int IndexOf(string toSearch, string toFind)
         {
-            return toSearch.IndexOf(toFind);
+            return toSearch.IndexOf(toFind, StringComparison.Ordinal);
         }
 
-
-        /// <summary>Determins if the date passed in is today regardless of the time of day</summary>
+        /// <summary>Determines if the date passed in is today regardless of the time of day</summary>
         /// <param name="dateStringToTest">The date to test</param>
         /// <returns>true if the date is between 00:00am and 11:59pm today</returns>
         public bool IsToday(string dateStringToTest)
@@ -440,7 +388,10 @@ namespace MetX.Library
             {
                 ret = Microsoft.VisualBasic.Strings.StrConv(text, Microsoft.VisualBasic.VbStrConv.ProperCase);
             }
-            catch { }
+            catch
+            {
+                //Ignored
+            }
             return ret;
         }
 
@@ -449,7 +400,7 @@ namespace MetX.Library
         /// <returns>The current date/time</returns>
         public string Today()
         {
-            return DateTime.Now.ToString();
+            return DateTime.Now.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>Returns the double representation of a string</summary>
@@ -603,7 +554,7 @@ namespace MetX.Library
         /// <summary>Formats a number to a particular format (see the VB Format() function).</summary>
         /// <param name="value">The value to format</param>
         /// <param name="formatString">The VB.NET format string</param>
-        /// <returns>The formated string</returns>
+        /// <returns>The formatted string</returns>
         public string Format(float value, string formatString)
         {
             return Microsoft.VisualBasic.Strings.Format(value, formatString);
@@ -627,7 +578,7 @@ namespace MetX.Library
         /// <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
         /// <param name="xmlDate">The date to convert</param>
         /// <param name="sFormat">The VB.NET format string to format the date/time to</param>
-        /// <returns>The formated date/time string</returns>
+        /// <returns>The formatted date/time string</returns>
         public string SXmlDate(string xmlDate, string sFormat)
         {
             xmlDate = Convert.ToString(xmlDate + string.Empty).Trim();
@@ -673,7 +624,7 @@ namespace MetX.Library
         }
 
 
-        /// <summary>Occilates between returning "contentDataRow1" and "contentDataRow2"</summary>
+        /// <summary>Oscillates between returning "contentDataRow1" and "contentDataRow2"</summary>
         /// <returns>The next row CSS class value</returns>
         public string GetNextRowClass()
         {
@@ -693,22 +644,13 @@ namespace MetX.Library
             return string.Empty;
         }
 
-        /// <summary>Clears the internal total to 0</summary>
-        /// <param name="totalName">The name of the total to clear</param>
-        /// <returns>The string "0"</returns>
-        public string ClearTotal(string totalName)
-        {
-            return ClearTotal(totalName, "0");
-        }
-
-        /// <summary>Clears the internal total to some intial value</summary>
+        /// <summary>Clears the internal total to some initial value</summary>
         /// <param name="totalName">The name of the total to clear</param>
         /// <param name="sInitialValue">The value to set internal total to</param>
         /// <returns>an empty string</returns>
-        public string ClearTotal(string totalName, string sInitialValue)
+        public string ClearTotal(string totalName, string sInitialValue = "0")
         {
-            if (_mRunningTotals == null)
-                _mRunningTotals = new Dictionary<string, double>();
+            _mRunningTotals ??= new Dictionary<string, double>();
             if (_mRunningTotals.ContainsKey(totalName))
                 _mRunningTotals[totalName] = Worker.NzDouble(sInitialValue);
             else
@@ -723,8 +665,7 @@ namespace MetX.Library
         /// <returns>An empty string</returns>
         public string AddToTotal(string totalName, string toAdd)
         {
-            if (_mRunningTotals == null)
-                _mRunningTotals = new Dictionary<string, double>();
+            _mRunningTotals ??= new Dictionary<string, double>();
             if (_mRunningTotals.ContainsKey(totalName))
                 _mRunningTotals[totalName] += NzDouble(toAdd);
             else
@@ -739,8 +680,7 @@ namespace MetX.Library
         /// <returns>a blank string</returns>
         public string SubtractFromTotal(string totalName, string toSubtract)
         {
-            if (_mRunningTotals == null)
-                _mRunningTotals = new Dictionary<string, double>();
+            _mRunningTotals ??= new Dictionary<string, double>();
             if (_mRunningTotals.ContainsKey(totalName))
                 _mRunningTotals[totalName] -= NzDouble(toSubtract);
             else
@@ -755,61 +695,65 @@ namespace MetX.Library
         /// <returns>The internal total formatted to the number of decimal places</returns>
         public string GetTotal(string totalName, int decimalPlaces)
         {
-            if (_mRunningTotals == null)
-                _mRunningTotals = new Dictionary<string, double>();
+            _mRunningTotals ??= new Dictionary<string, double>();
             if (decimalPlaces > 0)
                 if (_mRunningTotals.ContainsKey(totalName))
                     return _mRunningTotals[totalName].ToString("0." + new string('0', decimalPlaces));
                 else
                     return "0." + new string('0', decimalPlaces);
             else if (_mRunningTotals.ContainsKey(totalName))
-                return _mRunningTotals[totalName].ToString();
+                return _mRunningTotals[totalName].ToString(CultureInfo.InvariantCulture);
             return "0";
         }
 
         /// <summary>
         /// Returns a distinct set of nodes
         /// </summary>
-        /// <param name="nodeset"></param>
+        /// <param name="nodeSet"></param>
         /// <returns></returns>
-        public XPathNavigator[] Distinct(XPathNodeIterator nodeset)
+        public XPathNavigator[] Distinct(XPathNodeIterator nodeSet)
         {
-            if (nodeset.Count == 0)
+            if (nodeSet.Count == 0)
                 return new XPathNavigator[0];
             var retNodes = new Dictionary<string, XPathNavigator>();
-            while (nodeset.MoveNext())
-                if (!retNodes.ContainsKey(nodeset.Current.Value))
-                    retNodes.Add(nodeset.Current.Value, nodeset.Current);
+            while (nodeSet.MoveNext())
+                if (nodeSet.Current != null && !retNodes.ContainsKey(nodeSet.Current.Value))
+                    retNodes.Add(nodeSet.Current.Value, nodeSet.Current);
             var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }
 
-        public bool IsIn(string attributeName, string toFind, XPathNodeIterator nodeset)
+        public bool IsIn(string attributeName, string toFind, XPathNodeIterator nodeSet)
         {
-            if (nodeset.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
+            if (nodeSet.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
                 return false;
 
-            while (nodeset.MoveNext())
+            while (nodeSet.MoveNext())
             {
-                var attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
-                if (attributeValue == toFind)
-                    return true;
+                if (nodeSet.Current != null)
+                {
+                    var attributeValue = nodeSet.Current.GetAttribute(attributeName, string.Empty);
+                    if (attributeValue == toFind)
+                        return true;
+                }
             }
             return false;
         }
 
-        public XPathNavigator[] In(string attributeName, string toFind, XPathNodeIterator nodeset)
+        public XPathNavigator[] In(string attributeName, string toFind, XPathNodeIterator nodeSet)
         {
-            if (nodeset.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
+            if (nodeSet.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
                 return new XPathNavigator[0];
 
             var retNodes = new Dictionary<string, XPathNavigator>();
-            while (nodeset.MoveNext())
+            while (nodeSet.MoveNext())
             {
-                var attributeValue = nodeset.Current.GetAttribute(attributeName, string.Empty);
-                if (attributeValue == toFind && !retNodes.ContainsKey(nodeset.Current.Value))
-                    retNodes.Add(nodeset.Current.Value, nodeset.Current);
+                if (nodeSet.Current == null) continue;
+                
+                var attributeValue = nodeSet.Current.GetAttribute(attributeName, string.Empty);
+                if (attributeValue == toFind && !retNodes.ContainsKey(nodeSet.Current.Value))
+                    retNodes.Add(nodeSet.Current.Value, nodeSet.Current);
             }
             var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
@@ -817,22 +761,24 @@ namespace MetX.Library
         }
 
         // xlg:AllNotIn('ColumnName',$NonPointerMasterColumns,$HistoryTable/Columns/Column)
-        public XPathNavigator[] AllNotIn(string attributeName, XPathNodeIterator nodeSetToCompareAgainst, XPathNodeIterator nodesetToPossiblyKeep)
+        public XPathNavigator[] AllNotIn(string attributeName, XPathNodeIterator nodeSetToCompareAgainst, XPathNodeIterator nodeSetToPossiblyKeep)
         {
-            if (nodesetToPossiblyKeep.Count == 0 || string.IsNullOrEmpty(attributeName))
+            if (nodeSetToPossiblyKeep.Count == 0 || string.IsNullOrEmpty(attributeName))
                 return new XPathNavigator[0];
 
             // Handle special case of when there's nothing to compare against
             // Return all possible nodes 
             if (nodeSetToCompareAgainst.Count == 0)
             {
-                return XPathNodeIteratorToNavigators(nodesetToPossiblyKeep);
+                return XPathNodeIteratorToNavigators(nodeSetToPossiblyKeep);
             }
 
             // Build a list we can look over multiple times
             var compareSet = new List<string>();
             while (nodeSetToCompareAgainst.MoveNext())
             {
+                if (nodeSetToCompareAgainst.Current == null) continue;
+                
                 var attributeValue = nodeSetToCompareAgainst.Current.GetAttribute(attributeName, string.Empty);
                 if (!string.IsNullOrEmpty(attributeValue) && !compareSet.Contains(attributeValue))
                     compareSet.Add(attributeValue);
@@ -840,25 +786,29 @@ namespace MetX.Library
 
             // Compare and add 
             var retNodes = new Dictionary<string, XPathNavigator>();
-            while (nodesetToPossiblyKeep.MoveNext())
+            while (nodeSetToPossiblyKeep.MoveNext())
             {
-                var attributeValue = nodesetToPossiblyKeep.Current.GetAttribute(attributeName, string.Empty);
+                if (nodeSetToPossiblyKeep.Current == null) continue;
+                
+                var attributeValue = nodeSetToPossiblyKeep.Current.GetAttribute(attributeName, string.Empty);
                 if (!compareSet.Contains(attributeValue))
-                    retNodes.Add(attributeValue, nodesetToPossiblyKeep.Current);
+                    retNodes.Add(attributeValue, nodeSetToPossiblyKeep.Current);
             }
             var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
         }
 
-        private static XPathNavigator[] XPathNodeIteratorToNavigators(XPathNodeIterator nodesetToPossiblyKeep)
+        private static XPathNavigator[] XPathNodeIteratorToNavigators(XPathNodeIterator nodeSetToPossiblyKeep)
         {
             var retNodes = new Dictionary<string, XPathNavigator>();
-            while (nodesetToPossiblyKeep.MoveNext())
+            while (nodeSetToPossiblyKeep.MoveNext())
             {
-                var key = nodesetToPossiblyKeep.Current.Value;
+                if (nodeSetToPossiblyKeep.Current == null) continue;
+                 
+                var key = nodeSetToPossiblyKeep.Current.Value;
                 if (string.IsNullOrEmpty(key)) key = Guid.NewGuid().ToString();
-                retNodes.Add(key, nodesetToPossiblyKeep.Current);
+                retNodes.Add(key, nodeSetToPossiblyKeep.Current);
             }
             var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);

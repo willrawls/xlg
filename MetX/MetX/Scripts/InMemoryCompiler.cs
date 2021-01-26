@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace MetX.Scripts
         {
             get
             {
-                if (Failures != null && Failures.Length > 0)
+                if (Failures.Length > 0)
                     return false;
                 return CompiledAssembly != null;
             }
@@ -88,7 +89,10 @@ namespace MetX.Scripts
 
         internal MetadataReference GetSharedReference(string name)
         {
-            PathToSharedRoslyn ??= typeof(object).Assembly.Location.TokensBeforeLast(@"\");
+            if (PathToSharedRoslyn == null)
+            {
+                PathToSharedRoslyn = typeof(object).Assembly.Location.TokensBeforeLast(@"\");
+            }
 
             var fullAssemblyPath = Path.Combine(PathToSharedRoslyn, name);
             if (!fullAssemblyPath.EndsWith(".dll"))
