@@ -179,7 +179,7 @@ namespace MetX.IO
         }
 
         /// <summary>
-        ///     Runs a command line, waits for it to finish, gathers it's output from strin and returns the output.
+        ///     Runs a command line, waits for it to finish, gathers it's output from string and returns the output.
         /// </summary>
         /// <param name="filename">The filename to execute</param>
         /// <param name="arguments">Any (optional) arguments to pass to the executable</param>
@@ -188,7 +188,7 @@ namespace MetX.IO
         ///     The number of seconds to wait before killing the process. If the value is less than 1, 60
         ///     seconds is assumed.
         /// </param>
-        /// <returns>The strout/strerr output by the executable</returns>
+        /// <returns>Both the regular and error output by the executable</returns>
         public static string GatherOutput(string filename, string arguments, string workingFolder = null,
             int waitTime = 60)
         {
@@ -234,17 +234,5 @@ namespace MetX.IO
             return ret;
         }
 
-/*
-        private static void SortOutputHandler(object sendingProcess,
-            DataReceivedEventArgs outLine)
-        {
-            // Collect the sort command output.
-            if (!string.IsNullOrEmpty(outLine.Data))
-            {
-                // Add the text to the collected output.
-                _outputResult.Append(outLine.Data);
-            }
-        }
-*/
     }
 }
