@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 using MetX.IO;
-// // using MetX.Web;
+// ReSharper disable UnusedType.Global
 
 namespace MetX.Library
 {
@@ -23,11 +23,15 @@ namespace MetX.Library
 
         public static readonly InMemoryCache<XslCompiledTransform> PageCache = new();
 
-		/// <summary>Performs an XSL Transformation on an XmlDocument</summary>
-		/// <param name="xmlDocument">The XmlDocument object to transform</param>
-		/// <param name="sXsltDocument">The XSL document</param>
-		public StringBuilder Transform(XmlDocument xmlDocument, string sXsltDocument)
-		{
+        /// <summary>Performs an XSL Transformation on an XmlDocument</summary>
+        /// <param name="xmlDocument">The XmlDocument object to transform</param>
+        /// <param name="sXsltDocument">The XSL document</param>
+        /// <exception cref="ArgumentException"></exception>
+        public StringBuilder Transform(XmlDocument xmlDocument, string sXsltDocument)
+        {
+            if (xmlDocument == null)
+                throw new ArgumentException(nameof(xmlDocument));
+            
 			var xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
 			var sb = new StringBuilder();
 			using (var sw = new StringWriter(sb))
@@ -36,8 +40,8 @@ namespace MetX.Library
 				{
 					var xslDoc = new XslCompiledTransform(true);
 					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-					using (var xw = XmlWriter.Create(sw, xslDoc.OutputSettings))
-						xslDoc.Transform(xmlDocument.CreateNavigator(), Urns, xw);
+                    using var xw = XmlWriter.Create(sw, xslDoc.OutputSettings);
+                    xslDoc.Transform(xmlDocument.CreateNavigator() ?? throw new InvalidOperationException(), Urns, xw);
 				}
 				catch (Exception exp)
 				{
@@ -50,18 +54,19 @@ namespace MetX.Library
 			return sb;
 		}
 
-		/// <summary>Performs an XSL Transformation on an XmlDocument</summary>
-		/// <param name="xmlDocument">The XmlDocument object to transform</param>
-		/// <param name="sXsltDocument">The XSL document</param>
-		public void Transform(TextWriter output, XmlDocument xmlDocument, string sXsltDocument)
+        /// <summary>Performs an XSL Transformation on an XmlDocument</summary>
+        /// <param name="output"></param>
+        /// <param name="xmlDocument">The XmlDocument object to transform</param>
+        /// <param name="sXsltDocument">The XSL document</param>
+        public void Transform(TextWriter output, XmlDocument xmlDocument, string sXsltDocument)
 		{
 			var xsltDocument = new XmlTextReader(new StringReader(sXsltDocument));
 			try
 			{
 				var xslDoc = new XslCompiledTransform(true);
 				xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
-				using (var xw = XmlWriter.Create(output, xslDoc.OutputSettings))
-					xslDoc.Transform(xmlDocument.CreateNavigator(), Urns, xw);
+                using var xw = XmlWriter.Create(output, xslDoc.OutputSettings);
+                xslDoc.Transform(xmlDocument.CreateNavigator() ?? throw new InvalidOperationException(), Urns, xw);
 			}
 			catch (Exception exp)
 			{
@@ -70,7 +75,7 @@ namespace MetX.Library
 			}
 		}
 
-		/// <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
+		/// <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the page cache.</summary>
 		/// <param name="sXmlDocument">The xml string to transform</param>
 		/// <param name="xsltPath">The path and filename of the XSL file to load</param>
 		/// <returns>The transformed text</returns>
@@ -120,13 +125,12 @@ namespace MetX.Library
 			return sb;
 		}
 
-		/// <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
-		/// <param name="pageCache">The PageCache object to retreive/store the XslCompiledTrasform from/to. If null, no caching is performed</param>
-		/// <param name="sXmlDocument">The xml string to transform</param>
-		/// <param name="xsltPath">The path and filename of the XSL file to load</param>
-		/// <param name="xsltDocumentContent">If supplied, the xsl stylesheet is assumed to already be loaded here. xsltPath is then used as a key to cache the request</param>
-		/// <returns>The transformed text</returns>
-		public StringBuilder Transform(StringBuilder sXmlDocument, string xsltPath, StringBuilder xsltDocumentContent)
+        /// <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the page cache.</summary>
+        /// <param name="sXmlDocument">The xml string to transform</param>
+        /// <param name="xsltPath">The path and filename of the XSL file to load</param>
+        /// <param name="xsltDocumentContent">If supplied, the xsl stylesheet is assumed to already be loaded here. xsltPath is then used as a key to cache the request</param>
+        /// <returns>The transformed text</returns>
+        public StringBuilder Transform(StringBuilder sXmlDocument, string xsltPath, StringBuilder xsltDocumentContent)
 		{
 			if (xsltDocumentContent == null || xsltDocumentContent.Length == 0)
 				return Transform(sXmlDocument, xsltPath);
@@ -154,8 +158,7 @@ namespace MetX.Library
 				else
 				{
 					xslDoc = new XslCompiledTransform(false); //true);
-					var resolver = UrlResolver;
-					xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
+                    xslDoc.Load(xsltDocument, new XsltSettings(false, false), new XmlUrlResolver());
                     PageCache[cacheKey] = xslDoc;
                 }
 
@@ -178,7 +181,7 @@ namespace MetX.Library
 		}
 
 		/// <summary>Returns the page specific xlgUrnResolver or a default object if not specified.
-		/// <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+		/// <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
 		/// </summary>
 		public XlgUrnResolver UrlResolver
 		{
@@ -192,21 +195,16 @@ namespace MetX.Library
         }
 
 		/// <summary>Automatically set to a new xlgUrn unless you supply your own..
-		/// <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+		/// <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
 		/// </summary>
 		public XlgUrn XlgUrn
 		{
-			get
-			{
-				if (_mXlgUrn == null)
-					_mXlgUrn = new XlgUrn();
-				return _mXlgUrn;
-			}
-			set => _mXlgUrn = value;
+			get => _mXlgUrn ??= new XlgUrn();
+            set => _mXlgUrn = value;
         }
 
 		/// <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.UrnName and xlgSecurity.UrnClass.
-		/// <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+		/// <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
 		/// </summary>
 		public XsltArgumentList Urns
 		{
@@ -242,43 +240,49 @@ namespace MetX.Library
 			set => _mUrns = value;
         }
 
-		public string TransformIso(string xslPath, string xmlDoc) { return TransformIso(xslPath, xmlDoc, "iso-8859-1"); }
-		public string TransformIso(string xslPath, string xmlDoc, string encodingName)
+        public string TransformIso(string xslPath, string xmlDoc, string encodingName = "iso-8859-1")
 		{
-			var sr = new StringReader(xmlDoc);
-			var xmlDocument = new XmlTextReader(sr);
-			var xslt = new XslCompiledTransform(true);
-			var sw = new StringWriterWithEncoding(
-				new StringBuilder()
-				, Encoding.GetEncoding(encodingName));
-			XmlWriter xw;
+            XmlTextReader xmlDocument;
+            using (var stringReader = new StringReader(xmlDoc))
+            {
+                xmlDocument = new XmlTextReader(stringReader);
+            }
 
-			var settings = new XsltSettings(false, true);
-			xslt.Load(xslPath, settings, new XmlUrlResolver());
-			xw = XmlWriter.Create(sw, xslt.OutputSettings);
-			var argsList = new XsltArgumentList();
-			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
+            var xslt = new XslCompiledTransform(true);
+            using var stringWriterWithEncoding = new StringWriterWithEncoding(new StringBuilder(), Encoding.GetEncoding(encodingName));
+            
+            var settings = new XsltSettings(false, true);
+            xslt.Load(xslPath, settings, new XmlUrlResolver());
+            
+            using var xmlWriter = XmlWriter.Create(stringWriterWithEncoding, xslt.OutputSettings);
+            var argsList = new XsltArgumentList();
+            argsList.AddExtensionObject("urn:xlg", new XlgUrn());
 
-			xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xw);
+            xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xmlWriter);
 
-			return sw.ToString();
-		}
+            return stringWriterWithEncoding.ToString();
+        }
 
 		public string Transform(string xslPath, string xmlDoc)
 		{
-			var sr = new StringReader(xmlDoc);
-			var xmlDocument = new XmlTextReader(sr);
-			var xslt = new XslCompiledTransform(true);
-			var sw = new StringWriter();
-			XmlWriter xw;
+            XmlTextReader xmlDocument;
+            using (var stringReader = new StringReader(xmlDoc))
+            {
+                xmlDocument = new XmlTextReader(stringReader);
+            }
 
-			var settings = new XsltSettings(false, true);
-			xslt.Load(xslPath, settings, new XmlUrlResolver());
-			xw = XmlWriter.Create(sw, xslt.OutputSettings);
-			var argsList = new XsltArgumentList();
-			argsList.AddExtensionObject("urn:xlg", new XlgUrn());
-			xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xw);
-			return sw.ToString();
-		}
+            var xslt = new XslCompiledTransform(true);
+            
+            using var stringWriter = new StringWriter();
+            var settings = new XsltSettings(false, true);
+            xslt.Load(xslPath, settings, new XmlUrlResolver());
+            
+            using var xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
+            var argsList = new XsltArgumentList();
+            argsList.AddExtensionObject("urn:xlg", new XlgUrn());
+            xslt.Transform(new XPathDocument(xmlDocument).CreateNavigator(), argsList, xmlWriter);
+
+            return stringWriter.ToString();
+        }
 	}
 }
