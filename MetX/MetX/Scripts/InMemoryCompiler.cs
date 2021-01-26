@@ -13,30 +13,29 @@ namespace MetX.Scripts
 {
     public class InMemoryCompiler<TResultType> where TResultType : class
     {
-        public string PathToSharedRoslyn;
-        public bool AsExecutable { get; }
-        public List<Type> AdditionalReferenceTypes { get; }
-        public List<string> AdditionalSharedReferences { get; }
-        public Assembly CompiledAssembly { get; set; }
+        public string? PathToSharedRoslyn { get; set; }
+        public bool AsExecutable { get; set; }
+        public List<Type> AdditionalReferenceTypes { get; set; }
+        public List<string> AdditionalSharedReferences { get; set; }
+        public Assembly? CompiledAssembly { get; set; }
         public Type? CompiledType { get; set; }
-        public CSharpCompilation CSharpCompiler { get; set; }
-        public BaseLineProcessor Instance { get; set; }
+        public CSharpCompilation? CSharpCompiler { get; set; }
+        public BaseLineProcessor? Instance { get; set; }
         public object? InstanceObject { get; set; }
         public SyntaxTree SyntaxTree { get; set; }
-        public Diagnostic[] Failures { get; set; }
+        public Diagnostic[]? Failures { get; set; }
 
         public bool CompiledSuccessfully
         {
             get
             {
-                if (Failures.Length > 0)
+                if (Failures != null && Failures.Length > 0)
                     return false;
                 return CompiledAssembly != null;
             }
         }
 
-        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes,
-            List<string> additionalSharedReferences)
+        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes, List<string> additionalSharedReferences)
         {
             AsExecutable = asExecutable;
             AdditionalReferenceTypes = additionalReferenceTypes;
@@ -47,10 +46,10 @@ namespace MetX.Scripts
 
         public void SetupCompiler()
         {
-            Failures = null;
-            CSharpCompiler = null;
-            CompiledType = null;
-            CompiledAssembly = null;
+            Failures = null!;
+            CSharpCompiler = null!;
+            CompiledType = null!;
+            CompiledAssembly = null!;
 
             var assemblyName = Path.GetRandomFileName();
             var references = new List<MetadataReference>
@@ -65,14 +64,10 @@ namespace MetX.Scripts
                 //GetSharedReference("System.Windows.Forms"),
             };
 
-            if (AdditionalReferenceTypes != null)
-                references.AddRange(AdditionalReferenceTypes.Select(GetReference));
-
-            if (AdditionalSharedReferences != null)
-                references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
-
+            references.AddRange(AdditionalReferenceTypes.Select(GetReference));
+            references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
+            
             references = references.Distinct(new ReferenceEqualityComparer()).ToList();
-
             references.Sort((reference, metadataReference) => string.Compare(
                 reference.Display,
                 metadataReference.Display,
@@ -89,11 +84,12 @@ namespace MetX.Scripts
 
         internal MetadataReference GetSharedReference(string name)
         {
-            if (PathToSharedRoslyn == null)
-            {
-                PathToSharedRoslyn = typeof(object).Assembly.Location.TokensBeforeLast(@"\");
-            }
+            PathToSharedRoslyn ??= typeof(object).Assembly.Location.TokensBeforeLast(@"\");
 
+            var systemRuntimeDll = Path.Combine(PathToSharedRoslyn, "System.Runtime.DLL");
+            if (!File.Exists(systemRuntimeDll))
+                throw new ArgumentException(nameof(name));
+            
             var fullAssemblyPath = Path.Combine(PathToSharedRoslyn, name);
             if (!fullAssemblyPath.EndsWith(".dll"))
                 fullAssemblyPath += ".dll";
@@ -116,6 +112,9 @@ namespace MetX.Scripts
         {
             if (CSharpCompiler == null)
                 SetupCompiler();
+
+            if (CSharpCompiler == null)
+                throw new InvalidOperationException();
 
             using var memoryStream = new MemoryStream();
             var emitResult = CSharpCompiler.Emit(memoryStream);
@@ -141,14 +140,14 @@ namespace MetX.Scripts
             return 0;
         }
 
-        public BaseLineProcessor GetInstance(string fullClassNameWithNamespace)
+        public BaseLineProcessor? GetInstance(string fullClassNameWithNamespace)
         {
             if (BuildCompiledAssembly() > 0)
                 // At least one failure
                 return null;
 
             if (CompiledAssembly == null)
-                return null;
+                return null!;
 
             CompiledType = CompiledAssembly.GetType(fullClassNameWithNamespace);
             if (CompiledType == null)
@@ -165,13 +164,12 @@ namespace MetX.Scripts
 
         internal class ReferenceEqualityComparer : IEqualityComparer<MetadataReference>
         {
-            public bool Equals(MetadataReference x, MetadataReference y)
+            public bool Equals(MetadataReference? x, MetadataReference? y)
             {
+                if (y == null) throw new ArgumentNullException(nameof(y));
                 if (ReferenceEquals(x, y)) return true;
                 if (ReferenceEquals(x, null)) return false;
-                if (ReferenceEquals(y, null)) return false;
-                if (x.GetType() != y.GetType()) return false;
-                return string.Equals(x.Display, y.Display, StringComparison.OrdinalIgnoreCase);
+                return x.GetType() == y.GetType() && string.Equals(x.Display, y.Display, StringComparison.OrdinalIgnoreCase);
             }
 
             public int GetHashCode(MetadataReference obj)

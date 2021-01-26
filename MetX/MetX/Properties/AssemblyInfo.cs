@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Reflection;
-using System.Security.Permissions;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MetX Library")]
@@ -19,15 +17,17 @@ using System.Runtime.InteropServices;
 [assembly: ComVisibleAttribute(false)]
 [assembly: Guid("C4F77248-1E18-4A63-86EF-26AD836085B3")]
 
+/* Alas Babylon. All this went by by in dotnet5
 [assembly: IsolatedStorageFilePermission(SecurityAction.RequestMinimum, UserQuota = 1048576)]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 [assembly: FileIOPermission(SecurityAction.RequestOptional, Unrestricted = true)]
-// [assembly: AspNetHostingPermission(SecurityAction.RequestMinimum, Unrestricted = true)]  Not supported in .net 5
+[assembly: AspNetHostingPermission(SecurityAction.RequestMinimum, Unrestricted = true)]  Not supported in .net 5
 [assembly: ReflectionPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: SqlClientPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
-// [assembly: AllowPartiallyTrustedCallersAttribute()]
+[assembly: AllowPartiallyTrustedCallersAttribute()]
 [assembly: System.Net.WebPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: PermissionSet(SecurityAction.RequestMinimum, Unrestricted = true)]
-[assembly: AssemblyDescriptionAttribute("XLG Core Functionality Library")]
+*/
 
+[assembly: AssemblyDescriptionAttribute("XLG Core Functionality Library")]
 [assembly: CLSCompliant(false)]
