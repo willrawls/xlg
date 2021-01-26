@@ -4,17 +4,18 @@ using System.Text;
 using System.Configuration;
 using System.Net;
 using System.Security.Cryptography;
+// ReSharper disable UnusedType.Global
 
 namespace MetX.Security
 {
     public class PartnerCrypt : IDisposable
     {
-        private SymmetricAlgorithm _cryptoService;
+        private readonly SymmetricAlgorithm _cryptoService;
         private ICryptoTransform _encryptor;
         private ICryptoTransform _decryptor;
 
-        public string Key;
-        public string Vector;
+        public readonly string Key;
+        public readonly string Vector;
 
         public void Dispose()
         {
@@ -24,8 +25,7 @@ namespace MetX.Security
 
 		public PartnerCrypt(string theKey, string theVector)
         {
-            _cryptoService = new RijndaelManaged();
-            _cryptoService.KeySize = 256;
+            _cryptoService = new RijndaelManaged {KeySize = 256};
             Key = theKey;
             Vector = theVector;
             InternalSetup();
@@ -33,9 +33,8 @@ namespace MetX.Security
 
 		public PartnerCrypt()
 		{
-			_cryptoService = new RijndaelManaged();
-			_cryptoService.KeySize = 256;
-			Key = ConfigurationManager.AppSettings["Crypt.Key"];
+            _cryptoService = new RijndaelManaged {KeySize = 256};
+            Key = ConfigurationManager.AppSettings["Crypt.Key"];
 			Vector = ConfigurationManager.AppSettings["Crypt.Vector"];
 			InternalSetup();
 		}
@@ -43,10 +42,8 @@ namespace MetX.Security
         private void InternalSetup()
         {
             _cryptoService.Key = Encoding.ASCII.GetBytes(Key);
-            if (Vector.Length > _cryptoService.BlockSize / 8)
-                _cryptoService.IV = Encoding.ASCII.GetBytes(Vector.Substring(0, _cryptoService.BlockSize / 8));
-            else
-                _cryptoService.IV = Encoding.ASCII.GetBytes(Vector);
+            _cryptoService.IV = Encoding.ASCII.GetBytes(Vector.Length > _cryptoService.BlockSize / 8 ? Vector.Substring(0, _cryptoService.BlockSize / 8) : Vector);
+            
             var v = (byte)(Math.Abs(DateTime.UtcNow.DayOfYear - DateTime.UtcNow.Day + (int)DateTime.UtcNow.DayOfWeek) + 1);
             for (var i = 0; i < _cryptoService.Key.Length; i++)
                 _cryptoService.Key[i] = (byte)((_cryptoService.Key[i] + v) % 254);
@@ -85,19 +82,23 @@ namespace MetX.Security
                 return string.Empty;
 
             // convert from Base64 to binary
-            var bytIn = Convert.FromBase64String(encryptedSource);
+            var encryptedBytes = Convert.FromBase64String(encryptedSource);
             // create a MemoryStream with the input
-            var ms = new MemoryStream(bytIn, 0, bytIn.Length);
+            string returnValue;
+            using var memoryStream = new MemoryStream(encryptedBytes, 0, encryptedBytes.Length);
+            using (var cryptoStream = new CryptoStream(memoryStream, _decryptor, CryptoStreamMode.Read))
+            {
+                using (var streamReader = new StreamReader(cryptoStream))
+                {
+                    returnValue = streamReader.ReadToEnd();
+                    streamReader.Close(); 
+                }
 
-            // create Crypto Stream that transforms a stream using the decryption
-            var cs = new CryptoStream(ms, _decryptor, CryptoStreamMode.Read);
+                cryptoStream.Close(); 
+            }
 
-            // read out the result from the Crypto Stream
-            var sr = new StreamReader(cs);
-            var returnValue = sr.ReadToEnd();
-            sr.Close(); sr = null;
-            cs.Close(); cs = null;
-            ms.Close(); ms = null;
+            memoryStream.Close();
+
             return returnValue;
         }
 

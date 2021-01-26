@@ -539,7 +539,7 @@
         </member>
         <member name="M:MetX.IO.FileSystem.GatherOutput(System.String,System.String,System.String,System.Int32)">
             <summary>
-                Runs a command line, waits for it to finish, gathers it's output from strin and returns the output.
+                Runs a command line, waits for it to finish, gathers it's output from string and returns the output.
             </summary>
             <param name="filename">The filename to execute</param>
             <param name="arguments">Any (optional) arguments to pass to the executable</param>
@@ -548,7 +548,7 @@
                 The number of seconds to wait before killing the process. If the value is less than 1, 60
                 seconds is assumed.
             </param>
-            <returns>The strout/strerr output by the executable</returns>
+            <returns>Both the regular and error output by the executable</returns>
         </member>
         <member name="T:MetX.IO.Http">
             <summary>Provides static methods to common web based tasks</summary>
@@ -867,55 +867,6 @@
         <member name="P:MetX.IO.XlgDataSection.ConnectionStringName">
             <summary>The default connection to use</summary>
         </member>
-        <member name="T:MetX.IO.XlgThemeResolver">
-            <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented. Additionally xlg type Theme support is added.</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.ThemePath">
-            <summary>The relative path to the theme directory</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.PathTrigger">
-            <summary>The string within the URL that triggers a conversion</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.BasePath">
-            <summary>The base path for all themes</summary>
-        </member>
-        <member name="F:MetX.IO.XlgThemeResolver.Transformer">
-            <summary>The xml class from the xlgHandler</summary>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String,System.String,System.String,System.String)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
-            <param name="basePath">The relative base path for all themes</param>
-            <param name="themePath">The relative path to the specific theme directory</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String,System.String,System.String)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-            <param name="pathTrigger">The string within the URL that triggers a conversion. The part of the string so converted.</param>
-            <param name="basePath">The relative base path for all themes</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl,System.String)">
-            <summary>Initializes the Theme Resolver. This is the one you should use most often.</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-            <param name="themeName">The name of the theme (blue, red, YourClientName, etc)</param>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.#ctor(MetX.Library.Xsl)">
-            <summary>Initializes the Theme Resolver</summary>
-            <param name="transformer">The xml class from your xlgHandler</param>
-        </member>
-        <member name="P:MetX.IO.XlgThemeResolver.ThemeName">
-            <summary>The name of the theme to resolve to (when available)</summary>
-        </member>
-        <member name="M:MetX.IO.XlgThemeResolver.GetEntity(System.Uri,System.String,System.Type)">
-            <summary>Resolves and retrieves the requested entity via URI</summary>
-            <param name="absoluteUri">The URI to resolve</param>
-            <param name="role">N/A</param>
-            <param name="ofObjectToReturn">Type of object to return</param>
-            <returns>The resolved entity</returns>
-        </member>
         <member name="T:MetX.IO.XlgUrnResolver">
             <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
         </member>
@@ -1227,31 +1178,12 @@
             <param name="mask">The bit mask to check</param>
             <returns>true if all bits set in Mask are set in ToCheck, else false</returns>
         </member>
-        <member name="M:MetX.Library.XlgUrn.SetThemePath(System.String,System.String)">
-            <summary>Sets the internal variable 'ThemePath' used with FilePath, FileUrl, and FileContents</summary>
-            <param name="themePath">The virtual path to the theme directory (such as '/~/theme/YourClientName/')</param>
-            <param name="defaultThemePath">The virtual path to the defalt theme directory (such as '/~/theme/default/')</param>
-            <returns>A blank string</returns>
-        </member>
         <member name="M:MetX.Library.XlgUrn.UrlEncode(System.String)">
             <summary>
             Returns the URL encoded value of the string passed in
             </summary>
             <param name="toEncode">The string to URL encode</param>
             <returns>The URL encoded string</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.SetSupportPath(System.String)">
-            <summary>Sets the internal variable 'Support' used with FilePath, FileUrl, and FileContents</summary>
-            <param name="supportPath">The virtual path to the xlgSupport directory (defalts to '/xlgSupport/')</param>
-            <returns>A blank string</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.GetThemePath">
-            <summary>Returns the value of the internal variable 'ThemePath'</summary>
-            <returns>The value of ThemePath</returns>
-        </member>
-        <member name="M:MetX.Library.XlgUrn.GetSupportPath">
-            <summary>Returns the value of the internal variable 'SupportPath'</summary>
-            <returns>The value of SupportPath</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.FileExists(System.String)">
             <summary>
@@ -1365,7 +1297,7 @@
             <returns>The greater date</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.DateIsInRange(System.String,System.String,System.String)">
-            <summary>Determins if one date is between or equal to two other dates</summary>
+            <summary>Determines if one date is between or equal to two other dates</summary>
             <param name="sDateToTest">The date to test</param>
             <param name="sDateBegin">The lower boundary to test</param>
             <param name="sDateEnd">The upper boundary to test</param>
@@ -1385,7 +1317,7 @@
             <returns>The index of ToFind in ToSearch. -1 if nothing is found</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.IsToday(System.String)">
-            <summary>Determins if the date passed in is today regardless of the time of day</summary>
+            <summary>Determines if the date passed in is today regardless of the time of day</summary>
             <param name="dateStringToTest">The date to test</param>
             <returns>true if the date is between 00:00am and 11:59pm today</returns>
         </member>
@@ -1456,13 +1388,13 @@
             <summary>Formats a number to a particular format (see the VB Format() function).</summary>
             <param name="value">The value to format</param>
             <param name="formatString">The VB.NET format string</param>
-            <returns>The formated string</returns>
+            <returns>The formatted string</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.SXmlDate(System.String,System.String)">
             <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
             <param name="xmlDate">The date to convert</param>
             <param name="sFormat">The VB.NET format string to format the date/time to</param>
-            <returns>The formated date/time string</returns>
+            <returns>The formatted date/time string</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.FirstName(System.String)">
             <summary>Returns the first name (word) from the given string</summary>
@@ -1483,7 +1415,7 @@
             <returns>The next lower layer</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.GetNextRowClass">
-            <summary>Occilates between returning "contentDataRow1" and "contentDataRow2"</summary>
+            <summary>Oscillates between returning "contentDataRow1" and "contentDataRow2"</summary>
             <returns>The next row CSS class value</returns>
         </member>
         <member name="M:MetX.Library.XlgUrn.ClearTotals">
@@ -1492,13 +1424,8 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MetX.Library.XlgUrn.ClearTotal(System.String)">
-            <summary>Clears the internal total to 0</summary>
-            <param name="totalName">The name of the total to clear</param>
-            <returns>The string "0"</returns>
-        </member>
         <member name="M:MetX.Library.XlgUrn.ClearTotal(System.String,System.String)">
-            <summary>Clears the internal total to some intial value</summary>
+            <summary>Clears the internal total to some initial value</summary>
             <param name="totalName">The name of the total to clear</param>
             <param name="sInitialValue">The value to set internal total to</param>
             <returns>an empty string</returns>
@@ -1525,7 +1452,7 @@
             <summary>
             Returns a distinct set of nodes
             </summary>
-            <param name="nodeset"></param>
+            <param name="nodeSet"></param>
             <returns></returns>
         </member>
         <member name="T:MetX.Library.Xml">
@@ -1536,7 +1463,7 @@
         </member>
         <member name="M:MetX.Library.Xml.ToJson(System.Xml.XmlElement,System.Text.StringBuilder)">
             <summary>Converts an XmlElement into a JSON string and appends it to Target</summary>
-            <param name="element">The XmlElment to walk and translate to JSON</param>
+            <param name="element">The XmlElement to walk and translate to JSON</param>
             <param name="target">The StringBuilder to append the JSON string into</param>
         </member>
         <member name="M:MetX.Library.Xml.AttributeEncode(System.Object)">
@@ -1567,19 +1494,6 @@
             </code>
             </exmaple>
         </member>
-        <member name="M:MetX.Library.Xml.Wrap(System.String,System.String)">
-            <summary>Wraps some text in a xml element. NOTE: tagValue may contain any valid text or XML</summary>
-            <param name="tagName">The tag to wrap tagValue in</param>
-            <param name="tagValue">The text to wrap as the text node of the wrapping tag</param>
-            <returns>An xml string with a TagName element wrapping tagValue</returns>
-            
-            <exmaple>
-            <code>
-            string x = Wrap("Item", "This is a test");
-            // x = &amp;amp;amp;amp;amp;lt;Item&amp;amp;amp;amp;amp;gt;This is a test&amp;amp;amp;amp;amp;lt;/Item/&amp;amp;amp;amp;amp;gt;
-            </code>
-            </exmaple>
-        </member>
         <member name="M:MetX.Library.Xml.Writer(System.IO.Stream)">
             <summary>
             Don't forget to close the XmlWriter or wrap this line in a using statement
@@ -1607,7 +1521,7 @@
             </summary>
             <typeparam name="T">The type to return a XmlSerializer for</typeparam>
             <param name="xmlDoc">An xml string containing the serialized object</param>
-            <returns>The deserializd object</returns>
+            <returns>The deserialized object</returns>
         </member>
         <member name="M:MetX.Library.Xml.LoadFile``1(System.String)">
             <summary>
@@ -1615,7 +1529,7 @@
             </summary>
             <typeparam name="T">The type to return a XmlSerializer for</typeparam>
             <param name="filePath">The file to read the xml from</param>
-            <returns>The deserializd object</returns>
+            <returns>The deserialized object</returns>
         </member>
         <member name="M:MetX.Library.Xml.SaveFile``1(System.String,``0)">
             <summary>
@@ -1631,13 +1545,14 @@
             </summary>
             <typeparam name="T">The type to return a XmlSerializer for</typeparam>
             <param name="toSerialize">The object to serialize</param>
+            <param name="removeNamespaces"></param>
             <returns></returns>
         </member>
         <member name="M:MetX.Library.Xml.Serializer(System.Type)">
             <summary>
             Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are stored internally in a sorted list for quick retrieval.
             </summary>
-            <param name="t">The type to return a XmlSerializer for</param>
+            <param name="type">The type to return a XmlSerializer for</param>
             <returns>The XmlSerializer for the type</returns>
         </member>
         <member name="T:MetX.Library.Xsl">
@@ -1650,21 +1565,22 @@
             <summary>Performs an XSL Transformation on an XmlDocument</summary>
             <param name="xmlDocument">The XmlDocument object to transform</param>
             <param name="sXsltDocument">The XSL document</param>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:MetX.Library.Xsl.Transform(System.IO.TextWriter,System.Xml.XmlDocument,System.String)">
             <summary>Performs an XSL Transformation on an XmlDocument</summary>
+            <param name="output"></param>
             <param name="xmlDocument">The XmlDocument object to transform</param>
             <param name="sXsltDocument">The XSL document</param>
         </member>
         <member name="M:MetX.Library.Xsl.Transform(System.Text.StringBuilder,System.String)">
-            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
+            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the page cache.</summary>
             <param name="sXmlDocument">The xml string to transform</param>
             <param name="xsltPath">The path and filename of the XSL file to load</param>
             <returns>The transformed text</returns>
         </member>
         <member name="M:MetX.Library.Xsl.Transform(System.Text.StringBuilder,System.String,System.Text.StringBuilder)">
-            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the pagecache.</summary>
-            <param name="pageCache">The PageCache object to retreive/store the XslCompiledTrasform from/to. If null, no caching is performed</param>
+            <summary>Performs an XSL Transformation on an XmlDocument optionally pulling the XslCompiledTransform object from the page cache.</summary>
             <param name="sXmlDocument">The xml string to transform</param>
             <param name="xsltPath">The path and filename of the XSL file to load</param>
             <param name="xsltDocumentContent">If supplied, the xsl stylesheet is assumed to already be loaded here. xsltPath is then used as a key to cache the request</param>
@@ -1672,17 +1588,17 @@
         </member>
         <member name="P:MetX.Library.Xsl.UrlResolver">
             <summary>Returns the page specific xlgUrnResolver or a default object if not specified.
-            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
             </summary>
         </member>
         <member name="P:MetX.Library.Xsl.XlgUrn">
             <summary>Automatically set to a new xlgUrn unless you supply your own..
-            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
             </summary>
         </member>
         <member name="P:MetX.Library.Xsl.Urns">
             <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.UrnName and xlgSecurity.UrnClass.
-            <para>NOTE: You can set this proprety in PreBuild() or BuildXml() to override it with your own implementation.</para>
+            <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
             </summary>
         </member>
         <member name="T:MetX.Pipelines.CodeGenerator">

@@ -29,7 +29,6 @@ namespace MetX.Library
             output.WriteLine("<span class=\"" + target.Name + "_span\">" + target.Name + "</span>");
             output.WriteLine("<div class=\"" + target.Name + "_div\">");
             throw new Exception("Coding not completed. Finish or don't use me.");
-            output.WriteLine("<div>");
         }
     }
 }

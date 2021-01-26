@@ -89,7 +89,7 @@ namespace MetX.Library
                         return false;
                     TargetStreamWriter = new StreamWriter(TargetStream);
                 }
-                catch (Exception ex)
+                catch
                 {
                     Thread.Sleep(100);
                 }
@@ -116,14 +116,14 @@ namespace MetX.Library
                 if (leaveOpen || !CloseOnFinish) return;
                 TargetStreamWriter?.Close();
             }
-            catch (ObjectDisposedException odex)
+            catch (ObjectDisposedException)
             {
                 TargetStream?.Close();
             }
             finally
             {
-                try { TargetStreamWriter?.Dispose(); } catch { }
-                try { TargetStream?.Dispose(); } catch { }
+                try { TargetStreamWriter?.Dispose(); } catch { /* Ignored */ }
+                try { TargetStream?.Dispose(); } catch { /* Ignored */ }
 
                 TargetStream = null;
                 TargetStreamWriter = null;

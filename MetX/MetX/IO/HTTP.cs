@@ -100,18 +100,22 @@ namespace MetX.IO
             loHttp.Timeout = timeout;
             loHttp.UserAgent = UserAgents.Ie60XPsp2DotNet2;
             //  *** Retrieve request info headers
-            var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-            var enc = Encoding.GetEncoding(1252);			//  Windows default Code Page
-            var responseStream = loWebResponse.GetResponseStream();
-            if (responseStream != null)
+            StreamReader loResponseStream;
+            string lcHtml;
+            using (var loWebResponse = (HttpWebResponse) loHttp.GetResponse())
             {
-                var loResponseStream = new StreamReader(responseStream, enc);
-                var lcHtml = loResponseStream.ReadToEnd();
+                var enc = Encoding.GetEncoding(1252); //  Windows default Code Page
+                using (var responseStream = loWebResponse.GetResponseStream())
+                {
+                    loResponseStream = new StreamReader(responseStream, enc);
+                }
+
+                lcHtml = loResponseStream.ReadToEnd();
                 loWebResponse.Close();
-                loResponseStream.Close();
-                return lcHtml;
             }
-            return null;
+
+            loResponseStream.Close();
+            return lcHtml;
         }
 
         /// <summary>Makes an HTTP POST call returning the response (no headers)</summary>
@@ -129,18 +133,15 @@ namespace MetX.IO
             loHttp.UserAgent = UserAgents.Ie60XPsp2DotNet2;
 			//  *** Retrieve request info headers
 			var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-            byte[] ret = {};
+            byte[] byteArray;
             using (var loResponseStream = loWebResponse.GetResponseStream())
             {
-                if(loResponseStream != null)
-                {
-                    ret = new byte[loResponseStream.Length];
-                    loResponseStream.Read(ret, 0, (int) loResponseStream.Length);
-                    loResponseStream.Close();        
-                }
+                byteArray = new byte[loResponseStream.Length];
+                loResponseStream.Read(byteArray, 0, (int) loResponseStream.Length);
+                loResponseStream.Close();
             }
             loWebResponse.Close();
-			return ret;
+			return byteArray;
 		}
     }
 }
