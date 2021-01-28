@@ -294,7 +294,7 @@ namespace MetX.Data.Factory
                     }
                     else if (constraintType == "FOREIGN KEY")
                     {
-                        column.IsForiegnKey = true;
+                        column.IsForeignKey = true;
                     }
                 }
             }
