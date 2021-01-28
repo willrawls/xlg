@@ -502,7 +502,7 @@ namespace MetX.Pipelines
                     AddAttribute(xmlColumn, "AuditField", IsAuditField(col.ColumnName).ToString());
                     AddAttribute(xmlColumn, "DbType", col.DataType.ToString());
                     AddAttribute(xmlColumn, "AutoIncrement", col.AutoIncrement.ToString());
-                    AddAttribute(xmlColumn, "IsForiegnKey", col.IsForiegnKey.ToString());
+                    AddAttribute(xmlColumn, "IsForeignKey", col.IsForeignKey.ToString());
                     AddAttribute(xmlColumn, "IsNullable", col.IsNullable.ToString());
                     AddAttribute(xmlColumn, "IsIdentity", col.IsIdentity.ToString());
                     AddAttribute(xmlColumn, "IsPrimaryKey", col.IsPrimaryKey.ToString());

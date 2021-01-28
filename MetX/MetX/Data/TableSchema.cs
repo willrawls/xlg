@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+// ReSharper disable NotAccessedField.Global
+// ReSharper disable UnassignedField.Global
 
 namespace MetX.Data
 {
@@ -30,7 +32,7 @@ namespace MetX.Data
             public string Name;
             public string Schema;
 
-            /// <summary>The basic UPDATE sql statement used for Update type querie</summary>
+            /// <summary>The basic UPDATE sql statement used for Update type query</summary>
             public string UpdateSql;
 
             /// <summary>C#CD: </summary>
@@ -71,7 +73,7 @@ namespace MetX.Data
             public string ColumnName;
             public DbType DataType;
             public string DomainName;
-            public bool IsForiegnKey;
+            public bool IsForeignKey;
             public bool IsIdentity;
             public bool IsIndexed;
             public bool IsNullable;
@@ -88,20 +90,20 @@ namespace MetX.Data
             /// <param name="columnName">C#CD: </param>
             /// <param name="dbType">C#CD: </param>
             /// <param name="isPrimaryKey">C#CD: </param>
-            /// <param name="IsForiegnKey">C#CD: </param>
-            public TableColumn(string columnName, DbType dbType, bool isPrimaryKey, bool IsForiegnKey)
+            /// <param name="isForeignKey">C#CD: </param>
+            public TableColumn(string columnName, DbType dbType, bool isPrimaryKey, bool isForeignKey)
             {
                 ColumnName = columnName;
                 IsPrimaryKey = isPrimaryKey;
-                IsForiegnKey = IsForiegnKey;
+                IsForeignKey = isForeignKey;
                 DataType = dbType;
             }
 
-            public TableColumn(string columnName, DbType dbType, bool autoIncrement, int maxLength, bool isNullable, bool isPrimaryKey, bool IsForiegnKey)
+            public TableColumn(string columnName, DbType dbType, bool autoIncrement, int maxLength, bool isNullable, bool isPrimaryKey, bool isForeignKey)
             {
                 ColumnName = columnName;
                 IsPrimaryKey = isPrimaryKey;
-                IsForiegnKey = IsForiegnKey;
+                IsForeignKey = isForeignKey;
                 DataType = dbType;
                 AutoIncrement = autoIncrement;
                 MaxLength = maxLength;
@@ -130,15 +132,17 @@ namespace MetX.Data
             /// <param name="dbType">C#CD: </param>
             /// <param name="isNullable">C#CD: </param>
             /// <param name="isPrimaryKey">C#CD: </param>
-            /// <param name="IsForiegnKey">C#CD: </param>
-            public void Add(string name, DbType dbType, bool isNullable, bool isPrimaryKey, bool IsForiegnKey)
+            /// <param name="isForeignKey">C#CD: </param>
+            public void Add(string name, DbType dbType, bool isNullable, bool isPrimaryKey, bool isForeignKey)
             {
-                var col = new TableColumn();
-                col.IsPrimaryKey = isPrimaryKey;
-                col.IsForiegnKey = IsForiegnKey;
-                col.IsNullable = isNullable;
-                col.DataType = dbType;
-                col.ColumnName = name;
+                var col = new TableColumn
+                {
+                    IsPrimaryKey = isPrimaryKey,
+                    IsForeignKey = isForeignKey,
+                    IsNullable = isNullable,
+                    DataType = dbType,
+                    ColumnName = name
+                };
 
                 if (!Contains(name))
                 {
@@ -155,6 +159,7 @@ namespace MetX.Data
             /// <param name="isNullable">C#CD: </param>
             public void Add(string name, DbType dbType, bool isNullable)
             {
+                // ReSharper disable once IntroduceOptionalParameters.Global
                 Add(name, dbType, isNullable, false, false);
             }
 
@@ -221,9 +226,9 @@ namespace MetX.Data
                 get => _currentValue;
                 set
                 {
-                    if (value is int && (int)value == int.MinValue)
+                    if (value is int intValue && intValue == int.MinValue)
                         _currentValue = DBNull.Value;
-                    else if (value is DateTime && (DateTime)value == DateTime.MinValue)
+                    else if (value is DateTime dateValue && dateValue == DateTime.MinValue)
                         _currentValue = DBNull.Value;
                     else
                         _currentValue = value;
@@ -254,9 +259,7 @@ namespace MetX.Data
                 columnName = columnName.ToLower();
                 if (!ContainsKey(columnName))
                 {
-                    var setting = new TableColumnSetting();
-                    setting.ColumnName = columnName;
-                    setting.CurrentValue = oVal;
+                    var setting = new TableColumnSetting {ColumnName = columnName, CurrentValue = oVal};
                     Add(columnName.ToLower(), setting);
                 }
                 else

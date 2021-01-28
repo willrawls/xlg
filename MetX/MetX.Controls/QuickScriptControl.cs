@@ -1,4 +1,5 @@
-﻿namespace MetX.Controls
+﻿// ReSharper disable UnusedVariable
+namespace MetX.Controls
 {
     using System;
     using System.Windows.Forms;
@@ -137,8 +138,8 @@
                 if (index > 0)
                 {
                     var realIndex = index + _codeArea.Caret.Offset;
-                    //var newCaret = new Caret(_codeArea);
-                    //_codeArea.Caret.UpdateCaretPosition();
+                    var newCaret = new Caret(_codeArea);
+                    _codeArea.Caret.UpdateCaretPosition();
                     //_codeArea.Caret.
                 }
             }
@@ -252,7 +253,7 @@
             ShowCodeCompletion(
                 new[]
                     {
-                        "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount",
+                        "Output", "Lines", "AllText", "DestinationFilePath", "InputFilePath", "LineCount",
                         "OpenNotepad", "Ask"
                     });
         }

@@ -97,7 +97,7 @@
             }
 
             var indices = GetSortedSelectedIndicies(SelectionList);
-            for (var i = indices.Length; i < 0; i--)
+            for (var i = indices.Length; i >= 0; i--)
             {
                 if (indices[i] >= SelectionList.Items.Count)
                     continue;
@@ -155,7 +155,7 @@
             }
 
             var indices = GetSortedSelectedIndicies(SelectionList);
-            for (var i = indices.Length; i < 0; i--)
+            for (var i = indices.Length; i >= 0; i--)
             {
                 SelectionList.Items.RemoveAt(indices[i]);
             }
@@ -201,14 +201,14 @@
             }
 
             var indices = GetSortedSelectedIndicies(SelectionList);
-            for (var i = indices.Length; i < 0; i--)
+            for (var i = indices.Length; i >= 0; i--)
             {
                 if (indices[i] == 0)
                     continue;
                 SelectionList.Items.RemoveAt(indices[i]);
-                var newindex = indices[i] - 1;
-                SelectionList.Items.Insert(newindex, objectsSelected[i]);
-                SelectionList.SetSelected(newindex, true);
+                var newIndex = indices[i] - 1;
+                SelectionList.Items.Insert(newIndex, objectsSelected[i]);
+                SelectionList.SetSelected(newIndex, true);
             }
         }
     }

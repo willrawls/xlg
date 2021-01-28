@@ -1,3 +1,5 @@
+// ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable UnusedType.Global
 namespace MetX.Web.Virtual.xsl {
    /// <summary>Provides access to static virtual file content for files</summary>
    public partial class EditMembers {

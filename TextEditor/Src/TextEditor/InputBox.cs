@@ -1,11 +1,12 @@
 using System.Diagnostics;
+// ReSharper disable CheckNamespace
 
 namespace System.Windows.Forms
 {
 	/// <summary>
 	/// Used by InputBox.Show().
 	/// </summary>
-	internal class InputBoxDialog : Form 
+	internal sealed class InputBoxDialog : Form 
 	{
 		private Label _lblPrompt;
 		public TextBox TxtInput;
@@ -116,8 +117,10 @@ namespace System.Windows.Forms
 	/// </summary>
 	public static class InputBox
 	{
+        /*
         public static string Show(string prompt, string title, string @default)
 			{ return Show(prompt, title, @default, int.MinValue); }
+			*/
 		
 		public static string Show(string prompt, string title = null, string @default = null, int xPos = int.MinValue, int yPos = int.MinValue, bool isPassword = false)
 		{

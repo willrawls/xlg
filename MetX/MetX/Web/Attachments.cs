@@ -1,13 +1,14 @@
-/// <summary>Allows for the retrieval of attachment information and location for a specified item.
-/// Use of this requires using the xlgAttachments website. Further development is required.</summary>
-/// <author>William M. Rawls</author>
-
+/*
 using System.Configuration;
 using System.IO;
 using System.Xml;
+// ReSharper disable FieldCanBeMadeReadOnly.Global
 
-namespace MetX.IO
+namespace MetX.IO  << Should be MetX.Web but MetX.Web is no longer a thing
 {
+    /// <summary>Allows for the retrieval of attachment information and location for a specified item.
+    /// Use of this requires using the xlgAttachments website. Further development is required.</summary>
+    /// <author>William M. Rawls</author>
 	/// <summary>
 	/// Summary description for Attachments.
 	/// </summary>
@@ -60,3 +61,4 @@ namespace MetX.IO
 		}
 	}
 }
+*/

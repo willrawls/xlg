@@ -5,7 +5,6 @@ namespace MetX.Controls
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Text;
     using System.Windows.Forms;
 
     using ICSharpCode.TextEditor;
@@ -145,7 +144,7 @@ namespace MetX.Controls
             var additionalReferences = Context.DefaultTypesForCompiler();
             var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null);
 
-            if (compilerResults.Failures.Length <= 0)
+            if (compilerResults.Failures != null && compilerResults.Failures.Length <= 0)
             {
                 var assembly = compilerResults.CompiledAssembly;
 
@@ -165,49 +164,57 @@ namespace MetX.Controls
 
                 if (string.IsNullOrEmpty(parentDestination))
                 {
-                    parentDestination = assembly.Location.TokensBeforeLast(@"\");
+                    if (!ReferenceEquals(assembly, null)) 
+                        parentDestination = assembly.Location.TokensBeforeLast(@"\");
                 }
 
                 if (!Directory.Exists(parentDestination))
                 {
-                    return assembly.Location;
+                    if (!ReferenceEquals(assembly, null)) 
+                        return assembly.Location;
                 }
 
-                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
-
-                parentDestination = Path.Combine(parentDestination, "bin");
-                var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-
-                var exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
-                var csFilePath = exeFilePath.Replace(".exe", ".cs");
-
-                Directory.CreateDirectory(parentDestination);
-
-                if (File.Exists(exeFilePath))
+                if (!ReferenceEquals(assembly, null))
                 {
-                    File.Delete(exeFilePath);
-                }
+                    var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
 
-                if (File.Exists(csFilePath))
-                {
-                    File.Delete(csFilePath);
-                }
+                    parentDestination = Path.Combine(parentDestination, "bin");
+                    var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
 
-                File.Copy(assembly.Location, exeFilePath);
-                if (!File.Exists(metXDllPathDest))
-                {
-                    File.Copy(metXDllPathSource, metXDllPathDest);
-                }
+                    var exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
+                    var csFilePath = exeFilePath.Replace(".exe", ".cs");
 
-                File.WriteAllText(csFilePath, source);
-                return exeFilePath;
+                    Directory.CreateDirectory(parentDestination);
+
+                    if (File.Exists(exeFilePath))
+                    {
+                        File.Delete(exeFilePath);
+                    }
+
+                    if (File.Exists(csFilePath))
+                    {
+                        File.Delete(csFilePath);
+                    }
+
+                    File.Copy(assembly.Location, exeFilePath);
+                    if (!File.Exists(metXDllPathDest))
+                    {
+                        File.Copy(metXDllPathSource, metXDllPathDest);
+                    }
+
+                    File.WriteAllText(csFilePath, source);
+                    return exeFilePath;
+                }
             }
 
-            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
             var lines = new List<string>(source.LineList());
             var errorOutput = compilerResults.Failures.ForDisplay(lines);
 
-            MessageBox.Show(errorOutput);
+            MessageBox.Show(
+                "Compilation failure. Errors found include:" 
+                + Environment.NewLine + Environment.NewLine
+                + errorOutput);
+            
             QuickScriptWorker.ViewTextInNotepad(lines.Flatten(), true);
 
             return null;
@@ -407,7 +414,7 @@ namespace MetX.Controls
                 {
                     Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
                     Context.Scripts.Save();
-                    Text = "Quick Scriptr - " + Context.Scripts.FilePath;
+                    Text = "Quick Script - " + Context.Scripts.FilePath;
                     UpdateLastKnownPath();
                 }
             }
