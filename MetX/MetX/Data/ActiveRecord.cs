@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Xml;
 using System.Xml.Serialization;
+// ReSharper disable PublicConstructorInAbstractClass
 
 namespace MetX.Data
 {
@@ -24,12 +25,15 @@ namespace MetX.Data
         #endregion
         #region default constructor
         public ActiveRecord() { IsNew = true; }
-        public ActiveRecord(IDataReader rdr) => Load(rdr);
+
+        /*
+        public ActiveRecord(IDataReader dataReader) => Load(dataReader);
         public ActiveRecord(DataRow dr) => Load(dr);
+        */
 
         #endregion
 
-        public abstract void Load(IDataReader rdr);
+        public abstract void Load(IDataReader dataReader);
         public abstract void Load(DataRow dr);
         public abstract string ClassName();
         

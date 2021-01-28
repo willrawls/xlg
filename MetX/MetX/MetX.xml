@@ -892,32 +892,6 @@
             <param name="ofObjectToReturn">Unknown (see XmlResolver)</param>
             <returns>Unknown (see XmlResolver)</returns>
         </member>
-        <member name="T:MetX.IO.Attachments">
-            <summary>
-            Summary description for Attachments.
-            </summary>
-        </member>
-        <member name="F:MetX.IO.Attachments.AppName">
-            <summary>The fixed name of the application</summary>
-        </member>
-        <member name="F:MetX.IO.Attachments.ParentId">
-            <summary>A unique identifier relative to the AppName for the resource which contains attachments</summary>
-        </member>
-        <member name="F:MetX.IO.Attachments.BaseFolder">
-            <summary>The folder containing all attachments for the AppName(s)</summary>
-        </member>
-        <member name="F:MetX.IO.Attachments.DirectoryName">
-            <summary>Initially set to BaseFolder + AppName + "\" + ParentID + "\"</summary>
-        </member>
-        <member name="M:MetX.IO.Attachments.#ctor(System.String,System.String,System.String)">
-            <summary>Default constructor</summary>
-            <param name="baseFolder">The folder containing the Application's attachments</param>
-            <param name="appName">The Application name (sub folder) containing the resource's attachments</param>
-            <param name="parentId">The Unique string associated with the specific set of attachments</param>
-        </member>
-        <member name="P:MetX.IO.Attachments.OuterXml">
-            <summary>Retrieves an Xml containins the list of attacments for the AppName/ParentID combination. Element name is "Attachments" with each attachment being a child element named "Attachment" with "Filename" and "Link" attributes.</summary>
-        </member>
         <member name="T:MetX.Library.SortedStringList">
             <summary>
             Basic implmentation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
