@@ -1,6 +1,9 @@
-﻿namespace XLG.Pipeliner.Properties {
-    
-    
+﻿// ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
+
+namespace XLG.Pipeliner.Properties {
     // This class allows you to handle specific events on the settings class:
     //  The SettingChanging event is raised before a setting's value is changed.
     //  The PropertyChanged event is raised after a setting's value is changed.
