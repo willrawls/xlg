@@ -44,17 +44,20 @@ namespace MetX.Controls
             
             if (compiler.CompiledSuccessfully)
             {
-                var quickScriptProcessor = compiler
-                    .CompiledAssembly
-                    .CreateInstance("MetX.Scripts.QuickScriptProcessor") 
-                    as BaseLineProcessor;
+                if (!ReferenceEquals(compiler.CompiledAssembly, null))
+                {
+                    var quickScriptProcessor = compiler
+                            .CompiledAssembly
+                            .CreateInstance("MetX.Scripts.QuickScriptProcessor") 
+                        as BaseLineProcessor;
 
-                if (quickScriptProcessor == null) return null;
+                    if (quickScriptProcessor == null) return null;
                 
-                quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
-                quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
+                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
+                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
 
-                return quickScriptProcessor;
+                    return quickScriptProcessor;
+                }
             }
 
             var forDisplay = compiler.Failures.ForDisplay(source.Lines());

@@ -1868,7 +1868,7 @@
             <summary>Provides access to static virtual file content for files</summary>
         </member>
         <member name="F:MetX.Web.Virtual.xsl.Applications.Xsl">
-            <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\applications.xsl" as it existed at compile time.</summary>
+            <summary>The static contents of the file as it existed at compile time.</summary>
         </member>
         <member name="P:MetX.Web.Virtual.xsl.Applications.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
@@ -1944,6 +1944,13 @@
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
         </member>
+        <member name="T:MetX.Web.Virtual.xsl.Resource">
+            <summary>C#CD: </summary>
+        </member>
+        <member name="M:MetX.Web.Virtual.xsl.Resource.Get(System.String)">
+            <summary>C#CD: </summary>
+            <param name="resourceName">C#CD: </param>
+        </member>
         <member name="T:MetX.Web.Virtual.xsl.XmlToJson">
             <summary>Provides access to static virtual file content for files</summary>
         </member>
@@ -1953,13 +1960,6 @@
         <member name="P:MetX.Web.Virtual.xsl.XmlToJson.XslStringBuilder">
             <summary>Returns xsl inside a StringBuilder.</summary>
             <returns>A StringBuilder with the compile time file contents</returns>
-        </member>
-        <member name="T:Metta.Web.Virtual.xsl.Resource">
-            <summary>C#CD: </summary>
-        </member>
-        <member name="M:Metta.Web.Virtual.xsl.Resource.Get(System.String)">
-            <summary>C#CD: </summary>
-            <param name="resourceName">C#CD: </param>
         </member>
     </members>
 </doc>

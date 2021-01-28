@@ -10,7 +10,6 @@ namespace MetX.Tests
         [TestMethod]
         public void TargetStreamShouldNotBeNullWhenSetTest()
         {
-            var henry = new StreamBuilder();
             Assert.IsTrue(TryIt());
         }
 

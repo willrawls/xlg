@@ -1,4 +1,5 @@
-namespace Metta.Web.Virtual.xsl
+// ReSharper disable UnusedType.Global
+namespace MetX.Web.Virtual.xsl
 {
     /// <summary>C#CD: </summary>
     public static class Resource
@@ -7,23 +8,34 @@ namespace Metta.Web.Virtual.xsl
         /// <param name="resourceName">C#CD: </param>
         public static string Get(string resourceName)
         {
-            System.IO.Stream st = null;
+            System.IO.Stream reader1 = null;
             try
             {
                 var a = System.Reflection.Assembly.GetExecutingAssembly();
-                st = a.GetManifestResourceStream(typeof(Resource), resourceName);
+                reader1 = a.GetManifestResourceStream(typeof(Resource), resourceName);
             }
-            catch { }
-            var sr = new System.IO.StreamReader(st);
-            var ret = sr.ReadToEnd();
-            sr.Close();
-            sr.Dispose();
-            if (st != null)
+            catch
             {
-                st.Close();
-                st.Dispose();
+                // Ignored
             }
-            return ret;
+
+            if (reader1 == null)
+            {
+                return string.Empty;
+            }
+            
+            string contents;
+            using (var reader2 = new System.IO.StreamReader(reader1))
+            {
+                contents = reader2.ReadToEnd();
+                reader2.Close();
+                reader2.Dispose();
+            }
+
+
+            reader1.Close();
+            reader1.Dispose();
+            return contents;
         }
     }
 }

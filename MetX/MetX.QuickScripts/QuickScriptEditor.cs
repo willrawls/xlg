@@ -97,31 +97,35 @@
                     parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
 
                 if (string.IsNullOrEmpty(parentDestination))
-                    parentDestination = assembly.Location.TokensBeforeLast(@"\");
+                    if (assembly is not null)
+                        parentDestination = assembly.Location.TokensBeforeLast(@"\");
 
                 if (!Directory.Exists(parentDestination))
                 {
-                    return assembly.Location;
+                    if (assembly is not null) return assembly.Location;
                 }
 
-                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
+                if (assembly is not null)
+                {
+                    var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
 
-                parentDestination = Path.Combine(parentDestination, "bin");
-                var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+                    parentDestination = Path.Combine(parentDestination, "bin");
+                    var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
 
-                var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
-                var csFilePath = exeFilePath.Replace(".exe", ".cs");
+                    var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
+                    var csFilePath = exeFilePath.Replace(".exe", ".cs");
 
-                Directory.CreateDirectory(parentDestination);
+                    Directory.CreateDirectory(parentDestination);
 
-                if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
-                if (File.Exists(csFilePath)) File.Delete(csFilePath);
+                    if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
+                    if (File.Exists(csFilePath)) File.Delete(csFilePath);
 
-                File.Copy(assembly.Location, exeFilePath);
-                if (!File.Exists(metXDllPathDest))
-                    File.Copy(metXDllPathSource, metXDllPathDest);
-                File.WriteAllText(csFilePath, source);
-                return exeFilePath;
+                    File.Copy(assembly.Location, exeFilePath);
+                    if (!File.Exists(metXDllPathDest))
+                        File.Copy(metXDllPathSource, metXDllPathDest);
+                    File.WriteAllText(csFilePath, source);
+                    return exeFilePath;
+                }
             }
 
             /*
@@ -289,6 +293,7 @@
             switch (input.ToLower())
             {
                 case "text box":
+                // ReSharper disable once StringLiteralTypo
                 case "textbox":
                 case "notepad":
                 case "clipboard":
@@ -401,8 +406,7 @@
 
         private void LoadQuickScriptsFile(string filePath)
         {
-            if (Context == null)
-                Context = new Context();
+            Context ??= new Context();
             Context.Scripts = XlgQuickScriptFile.Load(filePath);
 
             if (Context.Scripts.Count == 0)
@@ -419,7 +423,7 @@
 
             RefreshLists();
             UpdateFormWithScript(Context.Scripts.Default);
-            Text = "Quick Scriptr - " + filePath;
+            Text = "Quick Script - " + filePath;
         }
 
         private void NewQuickScript_Click(object sender, EventArgs e)

@@ -97,7 +97,7 @@
             }
 
             var indices = GetSortedSelectedIndicies(SelectionList);
-            for (var i = indices.Length; i < 0; i--)
+            for (var i = indices.Length; i > 0; i--)
             {
                 if (indices[i] >= SelectionList.Items.Count)
                     continue;
