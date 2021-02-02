@@ -455,13 +455,18 @@ namespace TextEditor
 				OpenFiles(list);
 		}
 
-		#endregion
-	}
+        #endregion
 
-	/// <summary>
-	/// The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
-	/// </summary>
-	public class RegionFoldingStrategy : IFoldingStrategy
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// The class to generate the foldings, it implements ICSharpCode.TextEditor.Document.IFoldingStrategy
+    /// </summary>
+    public class RegionFoldingStrategy : IFoldingStrategy
 	{
 		/// <summary>
 		/// Generates the foldings for our document.

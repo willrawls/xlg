@@ -30,12 +30,20 @@
         {
             this.SuspendLayout();
             // 
+            // textAreaPanel
+            // 
+            this.textAreaPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textAreaPanel.Size = new System.Drawing.Size(640, 522);
+            // 
             // QuickScriptControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "QuickScriptControl";
-            this.Size = new System.Drawing.Size(480, 339);
+            this.Size = new System.Drawing.Size(640, 522);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuickScriptControl_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.QuickScriptControl_KeyUp);
             this.ResumeLayout(false);
 
         }

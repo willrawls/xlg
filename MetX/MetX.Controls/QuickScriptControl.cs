@@ -257,5 +257,45 @@ namespace MetX.Controls
                         "OpenNotepad", "Ask"
                     });
         }
+
+        private readonly FindAndReplaceForm _findForm = new FindAndReplaceForm();
+
+        private void menuEditFind_Click(object sender, EventArgs e)
+        {
+            _findForm.ShowFor(this, false);
+        }
+
+        private void menuEditReplace_Click(object sender, EventArgs e)
+        {
+            _findForm.ShowFor(this, true);
+        }
+
+        private void menuFindAgain_Click(object sender, EventArgs e)
+        {
+            _findForm.FindNext(true, false, $"Search text «{_findForm.LookFor}» not found.");
+        }
+        private void menuFindAgainReverse_Click(object sender, EventArgs e)
+        {
+            _findForm.FindNext(true, true, $"Search text «{_findForm.LookFor}» not found.");
+        }
+
+        private void QuickScriptControl_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void QuickScriptControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F:
+                    if (e.Control)
+                    {
+                        _findForm.ShowFor(this, false);
+                    }
+
+                    break;
+            }
+        }
     }
 }
