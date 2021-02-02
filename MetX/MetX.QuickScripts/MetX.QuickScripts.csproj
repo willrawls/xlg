@@ -33,7 +33,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="As.Fork.NetCore.DockPanelSuite" Version="3.2.2" />
     <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>

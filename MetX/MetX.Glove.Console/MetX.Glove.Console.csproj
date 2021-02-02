@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="As.Fork.NetCore.DockPanelSuite" Version="3.2.2" />
     <ProjectReference Include="..\MetX\MetX.csproj" />
   </ItemGroup>
 

@@ -219,71 +219,7 @@ namespace MetX.Controls
 
             return null;
         }
-
-        /*
-        public BaseLineProcessor GenerateQuickScriptLineProcessor(string templateName)
-        {
-            if ((Context.Templates.Count == 0) ||
-                string.IsNullOrEmpty(Context.Templates[templateName].Views["Native"]))
-            {
-                MessageBox.Show(this, "Quick script template 'Native' missing: " + templateName);
-                return null;
-            }
-
-            var source = CurrentScript.ToCSharp(false);
-            var additionalReferences = new List<Assembly>()
-                                                      {
-                                                          Assembly.GetExecutingAssembly(),
-                                                          Assembly.GetAssembly(typeof(ChooseOrderDialog)),
-                                                          Assembly.GetAssembly(typeof(InMemoryCache<>)),
-                                                      };
-
-            var compilerResults = XlgQuickScript.CompileSource(source, false, additionalReferences);
-
-            if (compilerResults.Errors.Count <= 0)
-            {
-                var assembly = compilerResults.CompiledAssembly;
-                var quickScriptProcessor =
-                    assembly.CreateInstance("MetX.QuickScriptProcessor") as BaseLineProcessor;
-
-                if (quickScriptProcessor != null)
-                {
-                    quickScriptProcessor.InputFilePath = CurrentScript.InputFilePath;
-                    quickScriptProcessor.DestinationFilePath = CurrentScript.DestinationFilePath;
-                }
-
-                return quickScriptProcessor;
-            }
-
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:"
-                                  + Environment.NewLine + Environment.NewLine);
-            for (var index = 0; index < compilerResults.Errors.Count; index++)
-            {
-                sb.AppendLine((index + 1) + ": Line " + compilerResults.Errors[index]
-                    .ToString()
-                    .TokensAfterFirst("(")
-                    .Replace(")", string.Empty));
-                sb.AppendLine();
-            }
-
-            MessageBox.Show(sb.ToString());
-            QuickScriptWorker.ViewTextInNotepad(source, true);
-
-            return null;
-        }
-        */
-
-/*
-        public void OpenNewOutput(XlgQuickScript script, string title, string output)
-        {
-            var quickScriptOutput = new QuickScriptOutput(script, this, title, output);
-            OutputWindows.Add(quickScriptOutput);
-            quickScriptOutput.Show(this);
-            quickScriptOutput.BringToFront();
-        }
-*/
-
+        
         public void ShowCodeCompletion(string[] items)
         {
             if (items != null && items.Length > 0)

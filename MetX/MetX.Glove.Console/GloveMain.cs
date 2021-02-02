@@ -206,8 +206,6 @@ namespace XLG.Pipeliner
                     }
                     if (Settings.Filename != AppData.LastXlgsFile)
                     {
-                        //XLG.Pipeliner.Properties.Settings.Default.LastXlgsFile = Settings.Filename;
-                        //XLG.Pipeliner.Properties.Settings.Default.Save();
                         AppData.LastXlgsFile = Settings.Filename;
                         AppData.Save();
                     }
@@ -219,7 +217,17 @@ namespace XLG.Pipeliner
                 }
                 else
                 {
-                    MessageBox.Show(xlgSourceFilename + " does not exist.");
+                    var appDataXlg = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "XLG");
+                    if (!Directory.Exists(appDataXlg))
+                        Directory.CreateDirectory(appDataXlg);
+                    
+                    Settings = new XlgSettings(this)
+                    {
+                        Filename = Path.Combine(appDataXlg, "Default.xlgs"), 
+                        Gui = this,
+                    };
+                    AppData.LastXlgsFile = Settings.Filename;
+                    AppData.Save();
                 }
             }
             finally
@@ -607,7 +615,6 @@ namespace XLG.Pipeliner
                 Settings = new XlgSettings(this)
                 {
                     Sources = new List<XlgSource>(),
-                    //QuickScripts = new List<XlgQuickScript>(),
                     DefaultConnectionString = t.DefaultConnectionString,
                     DefaultProviderName = t.DefaultProviderName
                 };
@@ -637,8 +644,10 @@ namespace XLG.Pipeliner
         {
             try
             {
-                saveFileDialog1.FileName = Settings.Filename;
-                saveFileDialog1.AddExtension = true;
+                if(Settings != null)
+                {
+                    saveFileDialog1.FileName = Settings.Filename;
+                }                saveFileDialog1.AddExtension = true;
                 saveFileDialog1.CheckFileExists = false;
                 saveFileDialog1.CheckPathExists = true;
                 saveFileDialog1.DefaultExt = ".xlgs";
@@ -648,7 +657,10 @@ namespace XLG.Pipeliner
                 {
                     return;
                 }
+
+                Settings ??= new XlgSettings(this);
                 Settings.Filename = saveFileDialog1.FileName;
+                
                 buttonSave_Click(null, null);
             }
             catch (Exception ex)

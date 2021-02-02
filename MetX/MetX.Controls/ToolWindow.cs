@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Windows.Forms;
 using MetX.Library;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace MetX.Controls
 {
-    public partial class ToolWindow : DockContent
+    public partial class ToolWindow : Form //: DockContent
     {
         public static Context Context
         {
