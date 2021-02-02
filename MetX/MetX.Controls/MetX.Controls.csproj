@@ -13,6 +13,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TechniqueEditorToolStripMenuItem.cs" />
+    <Compile Remove="TechniquesEditor.cs" />
+    <Compile Remove="TechniquesEditor.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="TechniquesEditor.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MetX\MetX.csproj">
     </ProjectReference>
   </ItemGroup>

@@ -70,7 +70,7 @@ namespace MetX.Controls
         {
             var ret = new ContextMenuStrip
             {
-                Name = name.Replace(" ", "") + "ContextMenu",
+                Name = name.Replace(" ", "") + "ContextMenuStrip",
                 Text = name
             };
             if (items == null || items.Count == 0)

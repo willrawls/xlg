@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MetX.Library;
+using System;
 using System.Windows.Forms;
-using MetX.Library;
 
 namespace MetX.Controls
 {
@@ -15,7 +15,7 @@ namespace MetX.Controls
                     return ContextBase.Default as Context;
                 }
                 ContextBase.Default = new Context();
-                return (Context) ContextBase.Default;
+                return (Context)ContextBase.Default;
             }
             set { ContextBase.Default = value; }
         }

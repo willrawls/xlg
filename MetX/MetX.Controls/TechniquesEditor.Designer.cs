@@ -31,6 +31,22 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TechniquesEditor));
             this.FileTree = new System.Windows.Forms.TreeView();
+            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.QuickScriptFileGroupMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickScriptFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.PipelineFilesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickScriptPipelineMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.DataConnectionsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.DataConnectionMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.OutputLocationsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.OutputLocationMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickScriptTemplateGroupMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickScriptTemplateMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.XsTemplatesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.XSLTemplateMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.PipelineProvidersMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.PipelineProviderMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -63,24 +79,8 @@
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.QuickScriptFileGroupMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuickScriptFileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.PipelineFilesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuickScriptPipelineMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.SettingsMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataConnectionsMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.DataConnectionMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.OutputLocationsMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.OutputLocationMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuickScriptTemplateGroupMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuickScriptTemplateMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.XsTemplatesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.XSLTemplateMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.PipelineProvidersMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.PipelineProviderMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // FileTree
@@ -100,8 +100,120 @@
             this.FileTree.TabIndex = 0;
             this.FileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
+            // RightClickMenu
+            // 
+            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.QuickScriptFileGroupMenu,
+            this.QuickScriptFileMenu,
+            this.PipelineFilesMenu,
+            this.QuickScriptPipelineMenu,
+            this.SettingsMenu,
+            this.DataConnectionsMenu,
+            this.DataConnectionMenu,
+            this.OutputLocationsMenu,
+            this.OutputLocationMenu,
+            this.QuickScriptTemplateGroupMenu,
+            this.QuickScriptTemplateMenu,
+            this.XsTemplatesMenu,
+            this.XSLTemplateMenu,
+            this.PipelineProvidersMenu,
+            this.PipelineProviderMenu});
+            this.RightClickMenu.Name = "RightClickMenu";
+            this.RightClickMenu.Size = new System.Drawing.Size(265, 364);
+            // 
+            // QuickScriptFileGroupMenu
+            // 
+            this.QuickScriptFileGroupMenu.Name = "QuickScriptFileGroupMenu";
+            this.QuickScriptFileGroupMenu.Size = new System.Drawing.Size(264, 24);
+            this.QuickScriptFileGroupMenu.Text = "Quick Script Files";
+            // 
+            // QuickScriptFileMenu
+            // 
+            this.QuickScriptFileMenu.Name = "QuickScriptFileMenu";
+            this.QuickScriptFileMenu.Size = new System.Drawing.Size(264, 24);
+            this.QuickScriptFileMenu.Text = "Quick Script File Menu";
+            // 
+            // PipelineFilesMenu
+            // 
+            this.PipelineFilesMenu.Name = "PipelineFilesMenu";
+            this.PipelineFilesMenu.Size = new System.Drawing.Size(264, 24);
+            this.PipelineFilesMenu.Text = "Pipeline Files";
+            // 
+            // QuickScriptPipelineMenu
+            // 
+            this.QuickScriptPipelineMenu.Name = "QuickScriptPipelineMenu";
+            this.QuickScriptPipelineMenu.Size = new System.Drawing.Size(264, 24);
+            this.QuickScriptPipelineMenu.Text = "Quick Script Pipeline Menu";
+            // 
+            // SettingsMenu
+            // 
+            this.SettingsMenu.Name = "SettingsMenu";
+            this.SettingsMenu.Size = new System.Drawing.Size(264, 24);
+            this.SettingsMenu.Text = "Settings";
+            // 
+            // DataConnectionsMenu
+            // 
+            this.DataConnectionsMenu.Name = "DataConnectionsMenu";
+            this.DataConnectionsMenu.Size = new System.Drawing.Size(264, 24);
+            this.DataConnectionsMenu.Text = "Data Connections";
+            // 
+            // DataConnectionMenu
+            // 
+            this.DataConnectionMenu.Name = "DataConnectionMenu";
+            this.DataConnectionMenu.Size = new System.Drawing.Size(264, 24);
+            this.DataConnectionMenu.Text = "Data Connection Menu";
+            // 
+            // OutputLocationsMenu
+            // 
+            this.OutputLocationsMenu.Name = "OutputLocationsMenu";
+            this.OutputLocationsMenu.Size = new System.Drawing.Size(264, 24);
+            this.OutputLocationsMenu.Text = "Output Locations";
+            // 
+            // OutputLocationMenu
+            // 
+            this.OutputLocationMenu.Name = "OutputLocationMenu";
+            this.OutputLocationMenu.Size = new System.Drawing.Size(264, 24);
+            this.OutputLocationMenu.Text = "Output Location Menu";
+            // 
+            // QuickScriptTemplateGroupMenu
+            // 
+            this.QuickScriptTemplateGroupMenu.Name = "QuickScriptTemplateGroupMenu";
+            this.QuickScriptTemplateGroupMenu.Size = new System.Drawing.Size(264, 24);
+            this.QuickScriptTemplateGroupMenu.Text = "Quick Script Templates";
+            // 
+            // QuickScriptTemplateMenu
+            // 
+            this.QuickScriptTemplateMenu.Name = "QuickScriptTemplateMenu";
+            this.QuickScriptTemplateMenu.Size = new System.Drawing.Size(264, 24);
+            this.QuickScriptTemplateMenu.Text = "Quick Script Template Menu";
+            // 
+            // XsTemplatesMenu
+            // 
+            this.XsTemplatesMenu.Name = "XsTemplatesMenu";
+            this.XsTemplatesMenu.Size = new System.Drawing.Size(264, 24);
+            this.XsTemplatesMenu.Text = "XSL Templates";
+            // 
+            // XSLTemplateMenu
+            // 
+            this.XSLTemplateMenu.Name = "XSLTemplateMenu";
+            this.XSLTemplateMenu.Size = new System.Drawing.Size(264, 24);
+            this.XSLTemplateMenu.Text = "XSL Template Menu";
+            // 
+            // PipelineProvidersMenu
+            // 
+            this.PipelineProvidersMenu.Name = "PipelineProvidersMenu";
+            this.PipelineProvidersMenu.Size = new System.Drawing.Size(264, 24);
+            this.PipelineProvidersMenu.Text = "Pipeline Providers";
+            // 
+            // PipelineProviderMenu
+            // 
+            this.PipelineProviderMenu.Name = "PipelineProviderMenu";
+            this.PipelineProviderMenu.Size = new System.Drawing.Size(264, 24);
+            this.PipelineProviderMenu.Text = "Pipeline Provider Menu";
+            // 
             // imageList1
             // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "126Edit.ico");
@@ -182,88 +294,88 @@
             // NewTechniquesFileMenuItem
             // 
             this.NewTechniquesFileMenuItem.Name = "NewTechniquesFileMenuItem";
-            this.NewTechniquesFileMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.NewTechniquesFileMenuItem.Size = new System.Drawing.Size(255, 24);
             this.NewTechniquesFileMenuItem.Text = "New Pattern File";
             this.NewTechniquesFileMenuItem.Click += new System.EventHandler(this.NewTechniquesFileMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(252, 6);
             // 
             // quickScriptFileToolStripMenuItem
             // 
             this.quickScriptFileToolStripMenuItem.Name = "quickScriptFileToolStripMenuItem";
-            this.quickScriptFileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.quickScriptFileToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.quickScriptFileToolStripMenuItem.Text = "Add Quick Script Group";
             // 
             // quickScriptToolStripMenuItem
             // 
             this.quickScriptToolStripMenuItem.Name = "quickScriptToolStripMenuItem";
-            this.quickScriptToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.quickScriptToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.quickScriptToolStripMenuItem.Text = "Add Quick Script Step";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(252, 6);
             // 
             // pipelinerFileToolStripMenuItem
             // 
             this.pipelinerFileToolStripMenuItem.Name = "pipelinerFileToolStripMenuItem";
-            this.pipelinerFileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.pipelinerFileToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.pipelinerFileToolStripMenuItem.Text = "Add Pipeline Group";
             // 
             // pipelinerStepToolStripMenuItem
             // 
             this.pipelinerStepToolStripMenuItem.Name = "pipelinerStepToolStripMenuItem";
-            this.pipelinerStepToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.pipelinerStepToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.pipelinerStepToolStripMenuItem.Text = "Add Pipeline Step";
             // 
             // addXLGStepSettingsToolStripMenuItem
             // 
             this.addXLGStepSettingsToolStripMenuItem.Name = "addXLGStepSettingsToolStripMenuItem";
-            this.addXLGStepSettingsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.addXLGStepSettingsToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.addXLGStepSettingsToolStripMenuItem.Text = "Add Step Settings";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(252, 6);
             // 
             // addOutputLocationToolStripMenuItem
             // 
             this.addOutputLocationToolStripMenuItem.Name = "addOutputLocationToolStripMenuItem";
-            this.addOutputLocationToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.addOutputLocationToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.addOutputLocationToolStripMenuItem.Text = "Add Output Location";
             // 
             // addConnectionToolStripMenuItem
             // 
             this.addConnectionToolStripMenuItem.Name = "addConnectionToolStripMenuItem";
-            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.addConnectionToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.addConnectionToolStripMenuItem.Text = "Add Connection";
             // 
             // addXLGXMLToolStripMenuItem
             // 
             this.addXLGXMLToolStripMenuItem.Name = "addXLGXMLToolStripMenuItem";
-            this.addXLGXMLToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.addXLGXMLToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.addXLGXMLToolStripMenuItem.Text = "Add XSL Template";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(252, 6);
             // 
             // addProviderToolStripMenuItem
             // 
             this.addProviderToolStripMenuItem.Name = "addProviderToolStripMenuItem";
-            this.addProviderToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.addProviderToolStripMenuItem.Size = new System.Drawing.Size(255, 24);
             this.addProviderToolStripMenuItem.Text = "Add Pipeline Provider";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(255, 24);
             this.toolStripMenuItem2.Text = "Add Quick Script Template";
             // 
             // openToolStripButton
@@ -343,117 +455,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // ContextMenu
-            // 
-            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.QuickScriptFileGroupMenu,
-            this.QuickScriptFileMenu,
-            this.PipelineFilesMenu,
-            this.QuickScriptPipelineMenu,
-            this.SettingsMenu,
-            this.DataConnectionsMenu,
-            this.DataConnectionMenu,
-            this.OutputLocationsMenu,
-            this.OutputLocationMenu,
-            this.QuickScriptTemplateGroupMenu,
-            this.QuickScriptTemplateMenu,
-            this.XsTemplatesMenu,
-            this.XSLTemplateMenu,
-            this.PipelineProvidersMenu,
-            this.PipelineProviderMenu});
-            this.RightClickMenu.Name = "RightClickMenu";
-            this.RightClickMenu.Size = new System.Drawing.Size(225, 356);
-            // 
-            // QuickScriptFileGroupMenu
-            // 
-            this.QuickScriptFileGroupMenu.Name = "QuickScriptFileGroupMenu";
-            this.QuickScriptFileGroupMenu.Size = new System.Drawing.Size(224, 22);
-            this.QuickScriptFileGroupMenu.Text = "Quick Script Files";
-            // 
-            // QuickScriptFileMenu
-            // 
-            this.QuickScriptFileMenu.Name = "QuickScriptFileMenu";
-            this.QuickScriptFileMenu.Size = new System.Drawing.Size(224, 22);
-            this.QuickScriptFileMenu.Text = "Quick Script File Menu";
-            // 
-            // PipelineFilesMenu
-            // 
-            this.PipelineFilesMenu.Name = "PipelineFilesMenu";
-            this.PipelineFilesMenu.Size = new System.Drawing.Size(224, 22);
-            this.PipelineFilesMenu.Text = "Pipeline Files";
-            // 
-            // QuickScriptPipelineMenu
-            // 
-            this.QuickScriptPipelineMenu.Name = "QuickScriptPipelineMenu";
-            this.QuickScriptPipelineMenu.Size = new System.Drawing.Size(224, 22);
-            this.QuickScriptPipelineMenu.Text = "Quick Script Pipeline Menu";
-            // 
-            // SettingsMenu
-            // 
-            this.SettingsMenu.Name = "SettingsMenu";
-            this.SettingsMenu.Size = new System.Drawing.Size(224, 22);
-            this.SettingsMenu.Text = "Settings";
-            // 
-            // DataConnectionsMenu
-            // 
-            this.DataConnectionsMenu.Name = "DataConnectionsMenu";
-            this.DataConnectionsMenu.Size = new System.Drawing.Size(224, 22);
-            this.DataConnectionsMenu.Text = "Data Connections";
-            // 
-            // DataConnectionMenu
-            // 
-            this.DataConnectionMenu.Name = "DataConnectionMenu";
-            this.DataConnectionMenu.Size = new System.Drawing.Size(224, 22);
-            this.DataConnectionMenu.Text = "Data Connection Menu";
-            // 
-            // OutputLocationsMenu
-            // 
-            this.OutputLocationsMenu.Name = "OutputLocationsMenu";
-            this.OutputLocationsMenu.Size = new System.Drawing.Size(224, 22);
-            this.OutputLocationsMenu.Text = "Output Locations";
-            // 
-            // OutputLocationMenu
-            // 
-            this.OutputLocationMenu.Name = "OutputLocationMenu";
-            this.OutputLocationMenu.Size = new System.Drawing.Size(224, 22);
-            this.OutputLocationMenu.Text = "Output Location Menu";
-            // 
-            // QuickScriptTemplateGroupMenu
-            // 
-            this.QuickScriptTemplateGroupMenu.Name = "QuickScriptTemplateGroupMenu";
-            this.QuickScriptTemplateGroupMenu.Size = new System.Drawing.Size(224, 22);
-            this.QuickScriptTemplateGroupMenu.Text = "Quick Script Templates";
-            // 
-            // QuickScriptTemplateMenu
-            // 
-            this.QuickScriptTemplateMenu.Name = "QuickScriptTemplateMenu";
-            this.QuickScriptTemplateMenu.Size = new System.Drawing.Size(224, 22);
-            this.QuickScriptTemplateMenu.Text = "Quick Script Template Menu";
-            // 
-            // XsTemplatesMenu
-            // 
-            this.XsTemplatesMenu.Name = "XsTemplatesMenu";
-            this.XsTemplatesMenu.Size = new System.Drawing.Size(224, 22);
-            this.XsTemplatesMenu.Text = "XSL Templates";
-            // 
-            // XSLTemplateMenu
-            // 
-            this.XSLTemplateMenu.Name = "XSLTemplateMenu";
-            this.XSLTemplateMenu.Size = new System.Drawing.Size(224, 22);
-            this.XSLTemplateMenu.Text = "XSL Template Menu";
-            // 
-            // PipelineProvidersMenu
-            // 
-            this.PipelineProvidersMenu.Name = "PipelineProvidersMenu";
-            this.PipelineProvidersMenu.Size = new System.Drawing.Size(224, 22);
-            this.PipelineProvidersMenu.Text = "Pipeline Providers";
-            // 
-            // PipelineProviderMenu
-            // 
-            this.PipelineProviderMenu.Name = "PipelineProviderMenu";
-            this.PipelineProviderMenu.Size = new System.Drawing.Size(224, 22);
-            this.PipelineProviderMenu.Text = "Pipeline Provider Menu";
-            // 
             // TechniquesEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -462,9 +463,9 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "TechniquesEditor";
             this.Text = "Code Pattern";
+            this.RightClickMenu.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.RightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
