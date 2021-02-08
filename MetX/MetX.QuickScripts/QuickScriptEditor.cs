@@ -795,7 +795,14 @@
             DisplayExpandedQuickScriptSourceInNotepad(false);
         }
 
-        private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
+        private void findReplaceMenuItem_Click(object sender, EventArgs e)
+        {
+            var findReplaceForm = new FindAndReplaceForm();
+            findReplaceForm.Show(this);
+        }
+
+        
+        private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
         {
             // DisplayExpandedQuickScriptSourceInNotepad(true);
             try
@@ -830,6 +837,11 @@
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
+
+        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

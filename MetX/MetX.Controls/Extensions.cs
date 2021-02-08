@@ -6,6 +6,7 @@ namespace MetX.Controls
 {
     public static class Extensions
     {
+        /*
         public static IEnumerable<ToolStripItem> BasicFileActions(this MenuActionType actionType)
         {
             return BuildActionMenuItems(actionType,
@@ -65,6 +66,7 @@ namespace MetX.Controls
             var ret = BuildContextMenu(name, items);
             return ret;
         }
+        */
 
         public static ContextMenuStrip BuildContextMenu(string name, List<ToolStripItem> items = null)
         {
@@ -81,6 +83,7 @@ namespace MetX.Controls
             return ret;
         }
 
+        /*
         public static TreeNode BuildTreeNode(this MenuActionType actionType, string text, TreeNode[] children = null)
         {
             var ret = children == null ? new TreeNode(text) : new TreeNode(text, children);
@@ -92,5 +95,6 @@ namespace MetX.Controls
         {
             return BuildActionMenuItems(actionType, new[] { "Add", "Remove", "Test" });
         }
+    */
     }
 }

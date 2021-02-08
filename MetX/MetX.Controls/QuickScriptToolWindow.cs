@@ -39,7 +39,7 @@ namespace MetX.Controls
         {
             get
             {
-                if (ScriptEditor.Text.Length == 0 || _textArea.Caret.Column == 0)
+                if (ScriptEditor.Text != null && (ScriptEditor.Text.Length == 0 || _textArea.Caret.Column == 0))
                 {
                     return string.Empty;
                 }
