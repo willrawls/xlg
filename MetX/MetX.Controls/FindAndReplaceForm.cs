@@ -180,7 +180,7 @@ namespace MetX.Controls
 				
 				// Discard search region
 				_search.ClearScanRegion();
-				_editor.Refresh(); // must repaint manually
+				_editor?.Refresh(); // must repaint manually
 			}
 		}
 
