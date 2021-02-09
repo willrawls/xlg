@@ -797,8 +797,7 @@
 
         private void findReplaceMenuItem_Click(object sender, EventArgs e)
         {
-            var findReplaceForm = new FindAndReplaceForm();
-            findReplaceForm.Show(this);
+            ScriptEditor.FindAndReplaceForm.ShowFor(false);
         }
 
         

@@ -11,11 +11,12 @@ namespace MetX.Controls
 {
 	public partial class FindAndReplaceForm : Form
 	{
-		public FindAndReplaceForm()
+		public FindAndReplaceForm(QuickScriptControl editor)
 		{
 			InitializeComponent();
 			_search = new TextEditorSearcher();
-		}
+            Editor = editor;
+        }
 
 		TextEditorSearcher _search;
 		TextEditorControl _editor;
@@ -38,12 +39,10 @@ namespace MetX.Controls
 			Text = text;
 		}
 
-		public void ShowFor(TextEditorControl editor, bool replaceMode)
+		public void ShowFor(bool replaceMode)
 		{
-			Editor = editor;
-
 			_search.ClearScanRegion();
-			var sm = editor.ActiveTextAreaControl.SelectionManager;
+			var sm = Editor.ActiveTextAreaControl.SelectionManager;
 			if (sm.HasSomethingSelected && sm.SelectionCollection.Count == 1) {
 				var sel = sm.SelectionCollection[0];
 				if (sel.StartPosition.Line == sel.EndPosition.Line)
@@ -52,15 +51,15 @@ namespace MetX.Controls
 					_search.SetScanRegion(sel);
 			} else {
 				// Get the current word that the caret is on
-				var caret = editor.ActiveTextAreaControl.Caret;
-				var start = TextUtilities.FindWordStart(editor.Document, caret.Offset);
-				var endAt = TextUtilities.FindWordEnd(editor.Document, caret.Offset);
-				txtLookFor.Text = editor.Document.GetText(start, endAt - start);
+				var caret = Editor.ActiveTextAreaControl.Caret;
+				var start = TextUtilities.FindWordStart(Editor.Document, caret.Offset);
+				var endAt = TextUtilities.FindWordEnd(Editor.Document, caret.Offset);
+				txtLookFor.Text = Editor.Document.GetText(start, endAt - start);
 			}
 			
 			ReplaceMode = replaceMode;
 
-			Owner = (Form)editor.TopLevelControl;
+			Owner = (Form)Editor.TopLevelControl;
 			Show();
 			
 			txtLookFor.SelectAll();
@@ -103,7 +102,7 @@ namespace MetX.Controls
 			_search.MatchCase = chkMatchCase.Checked;
 			_search.MatchWholeWordOnly = chkMatchWholeWord.Checked;
 
-			var caret = _editor.ActiveTextAreaControl.Caret;
+			var caret = Editor.ActiveTextAreaControl.Caret;
 			if (viaF3 && _search.HasScanRegion && !caret.Offset.
 				IsInRange(_search.BeginOffset, _search.EndOffset)) {
 				// user moved outside of the originally selected region

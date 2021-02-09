@@ -16,16 +16,17 @@ namespace MetX.Controls
     {
         public XlgQuickScript Current = null;
 
-        private TextArea _codeArea;
-        private CodeCompletionWindow _completionWindow;
+        public TextArea _codeArea;
+        public CodeCompletionWindow _completionWindow;
 
         public QuickScriptControl()
         {
             InitializeComponent();
             InitializeEditor();
+            FindAndReplaceForm = new FindAndReplaceForm(this);
         }
 
-        private string LineAtCaret
+        public string LineAtCaret
         {
             get
             {
@@ -39,7 +40,7 @@ namespace MetX.Controls
             }
         }
 
-        private string WordBeforeCaret
+        public string WordBeforeCaret
         {
             get
             {
@@ -85,7 +86,7 @@ namespace MetX.Controls
             }
         }
 
-        private void CodeAreaOnKeyUp(object sender, KeyEventArgs e)
+        public void CodeAreaOnKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Control)
             {
@@ -147,7 +148,8 @@ namespace MetX.Controls
 
         public string LastFind;
         public string LastReplace;
-        
+        public readonly FindAndReplaceForm FindAndReplaceForm;
+
         public void ReplaceAll()
         {
             var dialog = new AskForStringDialog();
@@ -163,7 +165,7 @@ namespace MetX.Controls
             Text = Text.Replace(toFind, replacement);
         }
 
-        private void CompletionWindowClosed(object source, EventArgs e)
+        public void CompletionWindowClosed(object source, EventArgs e)
         {
             if (_completionWindow != null)
             {
@@ -173,7 +175,7 @@ namespace MetX.Controls
             }
         }
 
-        private void InitializeEditor()
+        public void InitializeEditor()
         {
             _codeArea = ActiveTextAreaControl.TextArea;
 
@@ -189,12 +191,12 @@ namespace MetX.Controls
             Refresh();
         }
 
-        private void InsertMissingSections()
+        public void InsertMissingSections()
         {
             _codeArea.InsertString(Resources.StringToInsertOnTripleTilde);
         }
 
-        private bool ProcessKey(char ch)
+        public bool ProcessKey(char ch)
         {
             switch (ch)
             {
@@ -248,7 +250,7 @@ namespace MetX.Controls
             return false;
         }
 
-        private void ShowThisCodeCompletion()
+        public void ShowThisCodeCompletion()
         {
             ShowCodeCompletion(
                 new[]
@@ -258,42 +260,45 @@ namespace MetX.Controls
                     });
         }
 
-        private readonly FindAndReplaceForm _findForm = new FindAndReplaceForm();
-
-        private void menuEditFind_Click(object sender, EventArgs e)
+        public void menuEditFind_Click(object sender, EventArgs e)
         {
-            _findForm.ShowFor(this, false);
+            FindAndReplaceForm.ShowFor(false);
         }
 
-        private void menuEditReplace_Click(object sender, EventArgs e)
+        public void menuEditReplace_Click(object sender, EventArgs e)
         {
-            _findForm.ShowFor(this, true);
+            FindAndReplaceForm.ShowFor(true);
         }
 
-        private void menuFindAgain_Click(object sender, EventArgs e)
+        public void menuFindAgain_Click(object sender, EventArgs e)
         {
-            _findForm.FindNext(true, false, $"Search text «{_findForm.LookFor}» not found.");
+            FindAndReplaceForm.FindNext(true, false, $"Search text «{FindAndReplaceForm.LookFor}» not found.");
         }
-        private void menuFindAgainReverse_Click(object sender, EventArgs e)
+        public void menuFindAgainReverse_Click(object sender, EventArgs e)
         {
-            _findForm.FindNext(true, true, $"Search text «{_findForm.LookFor}» not found.");
+            FindAndReplaceForm.FindNext(true, true, $"Search text «{FindAndReplaceForm.LookFor}» not found.");
         }
 
-        private void QuickScriptControl_KeyDown(object sender, KeyEventArgs e)
+        public void QuickScriptControl_KeyDown(object sender, KeyEventArgs e)
         {
 
         }
 
-        private void QuickScriptControl_KeyUp(object sender, KeyEventArgs e)
+        public void QuickScriptControl_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 case Keys.F:
                     if (e.Control)
                     {
-                        _findForm.ShowFor(this, false);
+                        FindAndReplaceForm.ShowFor(false);
                     }
-
+                    break;
+                case Keys.R:
+                    if (e.Control)
+                    {
+                        FindAndReplaceForm.ShowFor(true);
+                    }
                     break;
             }
         }

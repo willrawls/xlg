@@ -9,6 +9,7 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>latest</LangVersion>
 
   </PropertyGroup>
 
