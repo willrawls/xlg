@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("William M. Rawls")]
 [assembly: AssemblyProduct("XLG")]
-[assembly: AssemblyCopyright("Copyright ©  2015 - William M. Rawls")]
+[assembly: AssemblyCopyright("MIT License 2021 - William Rawls")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

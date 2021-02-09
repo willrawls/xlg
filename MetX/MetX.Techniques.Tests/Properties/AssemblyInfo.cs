@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MetX.Techniques.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("MIT License 2021 - William Rawls")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

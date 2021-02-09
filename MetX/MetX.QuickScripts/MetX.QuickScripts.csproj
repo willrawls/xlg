@@ -10,6 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <StartupObject>XLG.QuickScripts.Program</StartupObject>
   </PropertyGroup>
 <ItemGroup>
   <None Include="Properties\Settings.settings">
