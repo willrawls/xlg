@@ -82,12 +82,13 @@ namespace XLG.QuickScripts
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.testFuncToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.RunningLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ScriptEditor = new MetX.Controls.QuickScriptControl();
-            this.findReplaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputOptions.SuspendLayout();
             this.OutputOutputs.SuspendLayout();
             this.MainStrip.SuspendLayout();
@@ -422,7 +423,8 @@ namespace XLG.QuickScripts
             this.toolStripMenuItem4,
             this.toolStripMenuItem5,
             this.testFuncToolStripMenuItem,
-            this.findReplaceMenuItem});
+            this.findMenuItem,
+            this.replaceMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(769, 32);
@@ -607,6 +609,15 @@ namespace XLG.QuickScripts
             this.testFuncToolStripMenuItem.Visible = false;
             this.testFuncToolStripMenuItem.Click += new System.EventHandler(this.testFuncToolStripMenuItem_Click);
             // 
+            // findMenuItem
+            // 
+            this.findMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findMenuItem.Image")));
+            this.findMenuItem.Name = "findMenuItem";
+            this.findMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.findMenuItem.Size = new System.Drawing.Size(73, 28);
+            this.findMenuItem.Text = "Find";
+            this.findMenuItem.Click += new System.EventHandler(this.findMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -650,14 +661,14 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Size = new System.Drawing.Size(769, 530);
             this.ScriptEditor.TabIndex = 0;
             // 
-            // findReplaceMenuItem
+            // replaceMenuItem
             // 
-            this.findReplaceMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("findReplaceMenuItem.Image")));
-            this.findReplaceMenuItem.Name = "findReplaceMenuItem";
-            this.findReplaceMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findReplaceMenuItem.Size = new System.Drawing.Size(140, 28);
-            this.findReplaceMenuItem.Text = "Find / Replace";
-            this.findReplaceMenuItem.Click += new System.EventHandler(this.findReplaceMenuItem_Click);
+            this.replaceMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("replaceMenuItem.Image")));
+            this.replaceMenuItem.Name = "replaceMenuItem";
+            this.replaceMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.replaceMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.replaceMenuItem.Text = "Replace";
+            this.replaceMenuItem.Click += new System.EventHandler(this.replaceMenuItem_Click);
             // 
             // QuickScriptEditor
             // 
@@ -752,6 +763,7 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.ToolStripStatusLabel ProgressLabel;
         private QuickScriptControl ScriptEditor;
         private System.Windows.Forms.ToolStripMenuItem testFuncToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem findReplaceMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem replaceMenuItem;
     }
 }

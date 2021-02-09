@@ -795,12 +795,16 @@
             DisplayExpandedQuickScriptSourceInNotepad(false);
         }
 
-        private void findReplaceMenuItem_Click(object sender, EventArgs e)
+        private void findMenuItem_Click(object sender, EventArgs e)
         {
             ScriptEditor.FindAndReplaceForm.ShowFor(false);
         }
 
-        
+        private void replaceMenuItem_Click(object sender, EventArgs e)
+        {
+            ScriptEditor.FindAndReplaceForm.ShowFor(true);
+        }
+
         private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
         {
             // DisplayExpandedQuickScriptSourceInNotepad(true);

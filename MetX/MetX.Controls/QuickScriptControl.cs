@@ -294,7 +294,7 @@ namespace MetX.Controls
                         FindAndReplaceForm.ShowFor(false);
                     }
                     break;
-                case Keys.R:
+                case Keys.H:
                     if (e.Control)
                     {
                         FindAndReplaceForm.ShowFor(true);
