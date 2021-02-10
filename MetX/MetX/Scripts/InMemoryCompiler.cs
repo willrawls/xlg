@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
+using System.Drawing;
+
 using MetX.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -60,12 +62,19 @@ namespace MetX.Scripts
                 GetReference(typeof(GCSettings)),
                 GetReference(typeof(InMemoryCompiler<TResultType>)),
                 GetReference(typeof(System.Windows.Forms.Application)),
+                GetReference(typeof(System.IO.File)),
+                GetReference(typeof(System.Diagnostics.Process)),
+                GetReference(typeof(System.ComponentModel.Component)),
+                
                 GetSharedReference("System.Runtime"),
-                //GetSharedReference("System.Windows.Forms"),
+                GetSharedReference("System.Drawing.Primitives"),
             };
 
-            references.AddRange(AdditionalReferenceTypes.Select(GetReference));
-            references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
+            if(AdditionalReferenceTypes?.Count > 0)
+                references.AddRange(AdditionalReferenceTypes.Select(GetReference));
+            
+            if(AdditionalSharedReferences?.Count > 0)
+                references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
             
             references = references.Distinct(new ReferenceEqualityComparer()).ToList();
             references.Sort((reference, metadataReference) => string.Compare(

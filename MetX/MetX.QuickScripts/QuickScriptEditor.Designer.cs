@@ -38,7 +38,7 @@ namespace XLG.QuickScripts
             this.InputParam = new System.Windows.Forms.ToolStripTextBox();
             this.EditInputFilePath = new System.Windows.Forms.ToolStripButton();
             this.BrowseInputFilePath = new System.Windows.Forms.ToolStripButton();
-            this.OutputOutputs = new System.Windows.Forms.ToolStrip();
+            this.OutputOptions = new System.Windows.Forms.ToolStrip();
             this.OutputLabel = new System.Windows.Forms.ToolStripLabel();
             this.DestinationList = new System.Windows.Forms.ToolStripComboBox();
             this.OutputPathLabel = new System.Windows.Forms.ToolStripLabel();
@@ -83,14 +83,14 @@ namespace XLG.QuickScripts
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.testFuncToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.RunningLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ScriptEditor = new MetX.Controls.QuickScriptControl();
-            this.replaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputOptions.SuspendLayout();
-            this.OutputOutputs.SuspendLayout();
+            this.OutputOptions.SuspendLayout();
             this.MainStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -114,7 +114,7 @@ namespace XLG.QuickScripts
             this.InputOptions.Location = new System.Drawing.Point(0, 63);
             this.InputOptions.Name = "InputOptions";
             this.InputOptions.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.InputOptions.Size = new System.Drawing.Size(769, 27);
+            this.InputOptions.Size = new System.Drawing.Size(827, 27);
             this.InputOptions.TabIndex = 2;
             this.InputOptions.Text = "toolStrip2";
             // 
@@ -186,24 +186,24 @@ namespace XLG.QuickScripts
             // 
             // OutputOutputs
             // 
-            this.OutputOutputs.AutoSize = false;
-            this.OutputOutputs.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.OutputOutputs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.OutputOutputs.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.OutputOutputs.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.OutputOutputs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OutputOptions.AutoSize = false;
+            this.OutputOptions.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.OutputOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.OutputOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.OutputOptions.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.OutputOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OutputLabel,
             this.DestinationList,
             this.OutputPathLabel,
             this.DestinationParam,
             this.EditDestinationFilePath,
             this.BrowseDestinationFilePath});
-            this.OutputOutputs.Location = new System.Drawing.Point(0, 90);
-            this.OutputOutputs.Name = "OutputOutputs";
-            this.OutputOutputs.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.OutputOutputs.Size = new System.Drawing.Size(769, 26);
-            this.OutputOutputs.TabIndex = 3;
-            this.OutputOutputs.Text = "toolStrip3";
+            this.OutputOptions.Location = new System.Drawing.Point(0, 90);
+            this.OutputOptions.Name = "OutputOptions";
+            this.OutputOptions.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.OutputOptions.Size = new System.Drawing.Size(827, 26);
+            this.OutputOptions.TabIndex = 3;
+            this.OutputOptions.Text = "toolStrip3";
             // 
             // OutputLabel
             // 
@@ -285,7 +285,7 @@ namespace XLG.QuickScripts
             this.MainStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainStrip.Location = new System.Drawing.Point(0, 32);
             this.MainStrip.Name = "MainStrip";
-            this.MainStrip.Size = new System.Drawing.Size(769, 31);
+            this.MainStrip.Size = new System.Drawing.Size(827, 31);
             this.MainStrip.TabIndex = 1;
             this.MainStrip.Text = "toolStrip3";
             // 
@@ -427,7 +427,7 @@ namespace XLG.QuickScripts
             this.replaceMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(769, 32);
+            this.MainMenu.Size = new System.Drawing.Size(827, 32);
             this.MainMenu.TabIndex = 22;
             this.MainMenu.Text = "menuStrip1";
             this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
@@ -618,6 +618,15 @@ namespace XLG.QuickScripts
             this.findMenuItem.Text = "Find";
             this.findMenuItem.Click += new System.EventHandler(this.findMenuItem_Click);
             // 
+            // replaceMenuItem
+            // 
+            this.replaceMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("replaceMenuItem.Image")));
+            this.replaceMenuItem.Name = "replaceMenuItem";
+            this.replaceMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.replaceMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.replaceMenuItem.Text = "Replace";
+            this.replaceMenuItem.Click += new System.EventHandler(this.replaceMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -626,7 +635,7 @@ namespace XLG.QuickScripts
             this.ProgressLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 621);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(769, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(827, 25);
             this.statusStrip1.TabIndex = 23;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -658,27 +667,18 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Location = new System.Drawing.Point(0, 116);
             this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(769, 530);
+            this.ScriptEditor.Size = new System.Drawing.Size(827, 530);
             this.ScriptEditor.TabIndex = 0;
-            // 
-            // replaceMenuItem
-            // 
-            this.replaceMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("replaceMenuItem.Image")));
-            this.replaceMenuItem.Name = "replaceMenuItem";
-            this.replaceMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.replaceMenuItem.Size = new System.Drawing.Size(98, 28);
-            this.replaceMenuItem.Text = "Replace";
-            this.replaceMenuItem.Click += new System.EventHandler(this.replaceMenuItem_Click);
             // 
             // QuickScriptEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(769, 646);
+            this.ClientSize = new System.Drawing.Size(827, 646);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ScriptEditor);
-            this.Controls.Add(this.OutputOutputs);
+            this.Controls.Add(this.OutputOptions);
             this.Controls.Add(this.InputOptions);
             this.Controls.Add(this.MainStrip);
             this.Controls.Add(this.MainMenu);
@@ -692,8 +692,8 @@ namespace XLG.QuickScripts
             this.ResizeEnd += new System.EventHandler(this.QuickScriptEditor_ResizeEnd);
             this.InputOptions.ResumeLayout(false);
             this.InputOptions.PerformLayout();
-            this.OutputOutputs.ResumeLayout(false);
-            this.OutputOutputs.PerformLayout();
+            this.OutputOptions.ResumeLayout(false);
+            this.OutputOptions.PerformLayout();
             this.MainStrip.ResumeLayout(false);
             this.MainStrip.PerformLayout();
             this.MainMenu.ResumeLayout(false);
@@ -708,7 +708,7 @@ namespace XLG.QuickScripts
         #endregion
 
         private System.Windows.Forms.ToolStrip InputOptions;
-        private System.Windows.Forms.ToolStrip OutputOutputs;
+        private System.Windows.Forms.ToolStrip OutputOptions;
         private System.Windows.Forms.ToolStripLabel OutputPathLabel;
         private System.Windows.Forms.ToolStripTextBox DestinationParam;
         private System.Windows.Forms.ToolStripButton EditDestinationFilePath;

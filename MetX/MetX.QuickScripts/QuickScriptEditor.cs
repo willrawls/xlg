@@ -681,7 +681,7 @@
             ShowInputOutputOptions.Checked = !ShowInputOutputOptions.Checked;
 
             InputOptions.Visible = ShowInputOutputOptions.Checked;
-            OutputOutputs.Visible = ShowInputOutputOptions.Checked;
+            OutputOptions.Visible = ShowInputOutputOptions.Checked;
         }
 
         private void testFuncToolStripMenuItem_Click(object sender, EventArgs e)

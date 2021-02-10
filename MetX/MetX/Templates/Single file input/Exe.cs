@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.ComponentModel.Primitives;
 using MetX;
 using MetX.IO;
 using MetX.Data;
@@ -78,7 +79,7 @@ namespace MetX.Scripts.Executable
     public class QuickScriptProcessor
     {
         public readonly StringBuilder OutputStringBuilder = new StringBuilder();
-        public readonly StreamBuilder Output = new StreamBuilder(OutputStringBuilder);
+        public readonly StreamBuilder Output;
         public readonly List<string> Files = new List<string>();
         public List<string> Lines = new List<string>();
         public string AllText;
@@ -87,6 +88,11 @@ namespace MetX.Scripts.Executable
         public int LineCount;
         public bool OpenNotepad;
 
+        public QuickScriptProcessor()
+        {
+            Output = new StreamBuilder(OutputStringBuilder);
+        }
+        
         //~~ClassMembers~~//
 
         public bool Start()
@@ -129,11 +135,14 @@ namespace MetX.Scripts.Executable
                         break;
 
                     default:
+                        /*
                         if (InputFilePath.StartsWith("http"))
                         {
                             AllText = MetX.IO.HTTP.GetURL(InputFilePath);
                         }
                         else if (!File.Exists(InputFilePath))
+                        */
+                        if (!File.Exists(InputFilePath))
                         {
                             Console.WriteLine("Input file missing: " + InputFilePath);
                             return false;
