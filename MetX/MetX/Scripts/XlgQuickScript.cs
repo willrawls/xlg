@@ -68,9 +68,9 @@ namespace MetX.Scripts
 
         public static InMemoryCompiler<string> CompileSource(
             string source, 
-            bool asExecutable, 
-            List<Type> additionalReferences,
-            List<string> additionalSharedReferences)
+            bool asExecutable = false, 
+            List<Type> additionalReferences = null,
+            List<string> additionalSharedReferences = null)
         {
             var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences);
             return compiler;
