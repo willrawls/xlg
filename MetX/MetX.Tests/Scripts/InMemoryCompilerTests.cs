@@ -34,8 +34,9 @@ namespace MetX.Tests.Scripts
         public void Build_Exe_Simple()
         {
 
-            var result = XlgQuickScript.CompileSource(Sources.Source_WriteStaticLine, true);
-            result.
+            InMemoryCompiler<string> result = XlgQuickScript.CompileSource(Sources.Source_WriteStaticLine, true);
+            Assert.IsTrue(result.CompiledSuccessfully);
+
         }
     }
 }

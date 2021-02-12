@@ -1,4 +1,6 @@
-﻿#pragma warning disable 414
+﻿using System.Reflection;
+
+#pragma warning disable 414
 namespace MetX.Controls
 {
     using System;
@@ -42,28 +44,78 @@ namespace MetX.Controls
                 return null;
             }
             
+            if (BuildQuickScriptProcessor(scriptToRun, compiler, out var generatedQuickScriptLineProcessor)) 
+                return generatedQuickScriptLineProcessor;
+
+            var forDisplay = compiler.Failures.ForDisplay(source.Lines());
+            QuickScriptWorker.ViewTextInNotepad(source, true);
+            QuickScriptWorker.ViewTextInNotepad(forDisplay, true);
+            return null;
+        }
+
+        public static bool BuildQuickScriptProcessor(XlgQuickScript scriptToRun, InMemoryCompiler<string> compiler,
+            out BaseLineProcessor generateQuickScriptLineProcessor)
+        {
             if (compiler.CompiledSuccessfully)
             {
                 if (!ReferenceEquals(compiler.CompiledAssembly, null))
                 {
                     var quickScriptProcessor = compiler
                             .CompiledAssembly
-                            .CreateInstance("MetX.Scripts.QuickScriptProcessor") 
+                            .CreateInstance("MetX.Scripts.QuickScriptProcessor")
                         as BaseLineProcessor;
 
-                    if (quickScriptProcessor == null) return null;
-                
+                    if (quickScriptProcessor == null)
+                    {
+                        generateQuickScriptLineProcessor = null;
+                        return true;
+                    }
+
                     quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
                     quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
 
-                    return quickScriptProcessor;
+                    {
+                        generateQuickScriptLineProcessor = quickScriptProcessor;
+                        return true;
+                    }
                 }
             }
 
-            var forDisplay = compiler.Failures.ForDisplay(source.Lines());
-            QuickScriptWorker.ViewTextInNotepad(source, true);
-            QuickScriptWorker.ViewTextInNotepad(forDisplay, true);
-            return null;
+            return false;
+        }
+
+        public static bool BuildExecutable(XlgQuickScript scriptToRun, InMemoryCompiler<string> compiler,
+            out BaseLineProcessor generatedExecutable)
+        {
+            if (compiler.CompiledSuccessfully)
+            {
+                if (!ReferenceEquals(compiler.CompiledAssembly, null))
+                {
+                    compiler.CompiledAssembly.GetEntryAssembly().EntryPoint.
+                        .GetReferencedAssemblies().Add(Assembly..Location);
+
+                    var quickScriptProcessor = compiler
+                            .CompiledAssembly
+                            .CreateInstance("MetX.Scripts.QuickScriptProcessor")
+                        as BaseLineProcessor;
+
+                    if (quickScriptProcessor == null)
+                    {
+                        generatedExecutable = null;
+                        return true;
+                    }
+
+                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
+                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
+
+                    {
+                        generatedExecutable = quickScriptProcessor;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static List<Type> DefaultTypesForCompiler()
