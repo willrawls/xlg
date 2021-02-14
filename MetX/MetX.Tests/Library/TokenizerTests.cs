@@ -1,5 +1,9 @@
-﻿using MetX.Library;
+﻿using System;
+using System.Linq;
+using MetX.Library;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable StringLiteralTypo
 
 namespace MetX.Tests.Library
 {
@@ -8,6 +12,23 @@ namespace MetX.Tests.Library
     {
         string _sample = "Fred goes home";
 
+        [TestMethod]
+        public void UpdateTokensBetween_Basic()
+        {
+            var sample1 = "a//~~b\nc\n~~//f\nd\ne";
+            var tokenProcessor = new Func<string, string>(delegate(string target)
+            {
+                var modifiedLines = target
+                    .Replace("\r", "")
+                    .AllTokens("\n")
+                    .Select( s => "~~:" + s)
+                    ;
+                return string.Join('\n', modifiedLines);
+            });
+            Assert.AreEqual("a~~:b\n~~:c\n~~:f\nd\ne", sample1.UpdateTokensBetween("//~~", "~~//", true, tokenProcessor));
+            Assert.AreEqual("a//~~b\nc\n~~//f\nd\ne", sample1.UpdateTokensBetween("//~~", "~~//", false, tokenProcessor));
+        }
+        
         [TestMethod]
         public void TokenAt_Basic()
         {

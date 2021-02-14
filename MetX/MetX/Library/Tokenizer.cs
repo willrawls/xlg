@@ -1,5 +1,8 @@
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Text;
+
 // ReSharper disable UnusedMember.Global
 
 namespace MetX.Library
@@ -167,6 +170,47 @@ namespace MetX.Library
                 return string.Empty;
             var leftPart = TokenAt(target, 2, leftDelimiter, compare);
             return TokenAt(leftPart, 1, rightDelimiter, compare);
+        }
+
+        public static string UpdateTokensBetween(this string target, 
+            string leftDelimiter, string rightDelimiter,
+            bool consumeDelimiters,
+            Func<string, string> tokenProcessor)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+            
+            if (!target.Contains(leftDelimiter, StringComparison.InvariantCultureIgnoreCase)
+                && !target.Contains(rightDelimiter, StringComparison.InvariantCultureIgnoreCase))
+                return target;
+
+            var parts = target
+                .Replace(rightDelimiter, leftDelimiter)
+                .Split(leftDelimiter);
+            
+            var result = new StringBuilder();
+            
+            for (var i = 0; i < parts.Length; i++)
+            {
+                if (i % 2 == 0) // Even
+                {
+                    result.Append(parts[i]);
+                    if (!consumeDelimiters && i != parts.Length)
+                    {
+                        result.Append(leftDelimiter);
+                    }
+                }
+                else  // Odd
+                {
+                    if(!consumeDelimiters)
+                    {
+                        result.Append(rightDelimiter);
+                    }
+                    // Each odd pieces gets updated
+                    result.Append(tokenProcessor(parts[i]));
+                }
+            }
+            return result.ToString();
         }
 
         /// <summary>Returns the number of tokens in a string</summary>

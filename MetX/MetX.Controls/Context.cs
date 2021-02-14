@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.CodeAnalysis;
 
 #pragma warning disable 414
 namespace MetX.Controls
@@ -60,30 +61,31 @@ namespace MetX.Controls
             {
                 if (!ReferenceEquals(compiler.CompiledAssembly, null))
                 {
-                    var quickScriptProcessor = compiler
-                            .CompiledAssembly
+                    var processor = compiler.CompiledAssembly
                             .CreateInstance("MetX.Scripts.QuickScriptProcessor")
                         as BaseLineProcessor;
 
-                    if (quickScriptProcessor == null)
+                    if (processor == null)
                     {
                         generateQuickScriptLineProcessor = null;
                         return true;
                     }
 
-                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
-                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
+                    processor.InputFilePath = scriptToRun.InputFilePath;
+                    processor.DestinationFilePath = scriptToRun.DestinationFilePath;
 
                     {
-                        generateQuickScriptLineProcessor = quickScriptProcessor;
+                        generateQuickScriptLineProcessor = processor;
                         return true;
                     }
                 }
             }
-
+            
+            generateQuickScriptLineProcessor = null;
             return false;
         }
 
+        /*
         public static bool BuildExecutable(XlgQuickScript scriptToRun, InMemoryCompiler<string> compiler,
             out BaseLineProcessor generatedExecutable)
         {
@@ -91,8 +93,7 @@ namespace MetX.Controls
             {
                 if (!ReferenceEquals(compiler.CompiledAssembly, null))
                 {
-                    compiler.CompiledAssembly.GetEntryAssembly().EntryPoint.
-                        .GetReferencedAssemblies().Add(Assembly..Location);
+                    compiler.CompiledAssembly.
 
                     var quickScriptProcessor = compiler
                             .CompiledAssembly
@@ -117,6 +118,7 @@ namespace MetX.Controls
 
             return false;
         }
+        */
 
         public static List<Type> DefaultTypesForCompiler()
         {

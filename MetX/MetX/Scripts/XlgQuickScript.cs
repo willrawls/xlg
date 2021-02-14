@@ -1,5 +1,9 @@
 //using NArrange.Core.Configuration;
 
+// ReSharper disable InconsistentNaming
+
+using System.Linq;
+
 namespace MetX.Scripts
 {
     using System;
@@ -68,9 +72,9 @@ namespace MetX.Scripts
 
         public static InMemoryCompiler<string> CompileSource(
             string source, 
-            bool asExecutable = false, 
-            List<Type> additionalReferences = null,
-            List<string> additionalSharedReferences = null)
+            bool asExecutable, 
+            List<Type> additionalReferences,
+            List<string> additionalSharedReferences)
         {
             var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences);
             return compiler;
@@ -366,5 +370,31 @@ namespace MetX.Scripts
         {
             return Name;
         }
+
+        public string HandleSlashSlashBlock()
+        {
+            const string leftDelimiter = "//~~";
+            const string rightDelimiter = "~~//";
+            
+            if (!Script.Contains(leftDelimiter) || !Script.Contains(rightDelimiter))
+                return Script;
+
+            var expanded = Script.UpdateTokensBetween(
+                leftDelimiter, rightDelimiter, true, 
+                QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
+            
+            return expanded;
+        }
+        
+        public string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
+        {
+            var modifiedLines = target
+                    .Replace("\r", "")
+                    .AllTokens("\n")
+                    .Select(s => "~~:" + s)
+                ;
+            return string.Join('\n', modifiedLines);
+        }
+        
     }
 }

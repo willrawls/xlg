@@ -10,19 +10,19 @@ namespace MetX.Scripts
     {
         public XlgQuickScriptTemplate Template;
         private readonly bool _mIndependent;
-        private readonly XlgQuickScript _mQuick;
-        private GenArea _mCurrArea;
+        private readonly XlgQuickScript _targetScript;
+        private GenArea _targetGenArea;
 
         public GenInstance(XlgQuickScript quick, XlgQuickScriptTemplate template, bool independent)
         {
-            _mQuick = quick;
+            _targetScript = quick;
             _mIndependent = independent;
             Template = template;
 
-            _mCurrArea = new GenArea("ProcessLine");
+            _targetGenArea = new GenArea("ProcessLine");
             AddRange(new[]
             {
-                _mCurrArea,
+                _targetGenArea,
                 new GenArea("Usings"),
                 new GenArea("ClassMembers", 8),
                 new GenArea("Start"),
@@ -36,13 +36,15 @@ namespace MetX.Scripts
             get
             {
                 var originalArea = string.Empty;
-                foreach (var currScriptLine in _mQuick.Script.Lines())
+                var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~~ xyz ~~//
+                
+                foreach (var currScriptLine in _targetScript.Script.Lines())
                 {
                     var indent = currScriptLine.Length - currScriptLine.Trim().Length;
-
+                    
                     if (currScriptLine.Trim() == string.Empty)
                     {
-                        _mCurrArea.Lines.Add(string.Empty);
+                        _targetGenArea.Lines.Add(string.Empty);
                     }
                     else if (currScriptLine.Contains("~~To:"))
                     {
@@ -90,7 +92,7 @@ namespace MetX.Scripts
                     else if (currScriptLine.Contains("~~BeginString:"))
                     {
                         if (!ProcessBeginString(currScriptLine)) continue;
-                        originalArea = _mCurrArea.Name;
+                        originalArea = _targetGenArea.Name;
                     }
                     else if (currScriptLine.Contains("~~EndString:"))
                     {
@@ -100,26 +102,26 @@ namespace MetX.Scripts
                     }
                     else if (currScriptLine.Contains("~~:"))
                     {
-                        if (_mCurrArea.Name == "Using" || _mCurrArea.Name == "Usings")
+                        if (_targetGenArea.Name == "Using" || _targetGenArea.Name == "Usings")
                         {
-                            _mCurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
+                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
                         }
-                        else if (_mCurrArea.Name == "ClassMembers")
+                        else if (_targetGenArea.Name == "ClassMembers")
                         {
-                            _mCurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
+                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
                         }
                         else
                         {
-                            _mCurrArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
+                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
                         }
                     }
                     else if (originalArea != null)
                     {
-                        _mCurrArea.Lines.Add(currScriptLine);
+                        _targetGenArea.Lines.Add(currScriptLine);
                     }
                     else
                     {
-                        _mCurrArea.Lines.Add(new string(' ', indent + _mCurrArea.Indent) + currScriptLine);
+                        _targetGenArea.Lines.Add(new string(' ', indent + _targetGenArea.Indent) + currScriptLine);
                     }
                 }
 
@@ -131,11 +133,11 @@ namespace MetX.Scripts
 
                 if (_mIndependent)
                 {
-                    sb.Replace("//~~InputFilePath~~//", "\"" + _mQuick.InputFilePath.LastToken(@"\") + "\"");
-                    sb.Replace("//~~Namespace~~//", (_mQuick.Name + "_" + DateTime.UtcNow.ToString("G") + "z").AsFilename());
-                    sb.Replace("//~~NameInstance~~//", _mQuick.Name + " at " + DateTime.Now.ToString("G"));
+                    sb.Replace("//~~InputFilePath~~//", "\"" + _targetScript.InputFilePath.LastToken(@"\") + "\"");
+                    sb.Replace("//~~Namespace~~//", (_targetScript.Name + "_" + DateTime.UtcNow.ToString("G") + "z").AsFilename());
+                    sb.Replace("//~~NameInstance~~//", _targetScript.Name + " at " + DateTime.Now.ToString("G"));
 
-                    switch (_mQuick.Destination)
+                    switch (_targetScript.Destination)
                     {
                         case QuickScriptDestination.TextBox:
                         case QuickScriptDestination.Clipboard:
@@ -144,7 +146,7 @@ namespace MetX.Scripts
                             break;
 
                         case QuickScriptDestination.File:
-                            sb.Replace("//~~DestinationFilePath~~//", "\"" + _mQuick.DestinationFilePath.LastToken(@"\") + "\"");
+                            sb.Replace("//~~DestinationFilePath~~//", "\"" + _targetScript.DestinationFilePath.LastToken(@"\") + "\"");
                             break;
                     }
                 }
@@ -163,34 +165,34 @@ namespace MetX.Scripts
             if (string.IsNullOrEmpty(stringName))
                 return false;
 
-            _mCurrArea.Lines.Add($"string {stringName} = //~~String {stringName}~~//;");
+            _targetGenArea.Lines.Add($"string {stringName} = //~~String {stringName}~~//;");
             SetArea("String " + stringName);
             return true;
         }
 
         private void ProcessEndString()
         {
-            if (_mCurrArea.Lines.IsEmpty())
+            if (_targetGenArea.Lines.IsEmpty())
             {
-                _mCurrArea.Lines.Add("string.Empty");
+                _targetGenArea.Lines.Add("string.Empty");
             }
-            else if (!_mCurrArea.Lines.Any(x => x.Contains("\"")))
+            else if (!_targetGenArea.Lines.Any(x => x.Contains("\"")))
             {
-                _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[^1] += "\"";
+                _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
+                _targetGenArea.Lines[^1] += "\"";
             }
-            else if (!_mCurrArea.Lines.Any(x => x.Contains("`")))
+            else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
-                _mCurrArea.Lines.TransformAllNotEmpty(line => line.Replace("\"", "``"));
-                _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines.TransformAllNotEmpty(line => line.Replace("\"", "``"));
+                _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
+                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
-            else if (!_mCurrArea.Lines.Any(x => x.Contains("`")))
+            else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
-                _mCurrArea.Lines.TransformAllNotEmpty(line =>
+                _targetGenArea.Lines.TransformAllNotEmpty(line =>
                     "\t\"" + line.Replace("\"", "\\\"") + "\" + Environment.NewLine;" + Environment.NewLine);
-                _mCurrArea.Lines[0] = "@\"" + _mCurrArea.Lines[0];
-                _mCurrArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
+                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
         }
 
@@ -207,15 +209,15 @@ namespace MetX.Scripts
                 || specialInstruction.Contains("destination")
                 || specialInstruction == "*")
             {
-                if(_mQuick.DestinationFilePath.IsNotEmpty())
-                    _mCurrArea.Lines.Add($"Output.AppendTo(@\"{_mQuick.DestinationFilePath}\");");
+                if(_targetScript.DestinationFilePath.IsNotEmpty())
+                    _targetGenArea.Lines.Add($"Output.AppendTo(@\"{_targetScript.DestinationFilePath}\");");
                 else
-                    _mCurrArea.Lines.Add("// ~~To found nothing to do");
+                    _targetGenArea.Lines.Add("// ~~To found nothing to do");
             }
             else
             {
                 var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
-                _mCurrArea.Lines.Add($"Output.SwitchTo(@\"{resolvedFilePath}\");");
+                _targetGenArea.Lines.Add($"Output.SwitchTo(@\"{resolvedFilePath}\");");
             }
         }
 
@@ -233,15 +235,15 @@ namespace MetX.Scripts
                 || specialInstruction.Contains("destination")
                 || specialInstruction == "*")
             {
-                if(_mQuick.DestinationFilePath.IsNotEmpty())
-                    _mCurrArea.Lines.Add($"Output.AppendTo(@\"{_mQuick.DestinationFilePath}\");");
+                if(_targetScript.DestinationFilePath.IsNotEmpty())
+                    _targetGenArea.Lines.Add($"Output.AppendTo(@\"{_targetScript.DestinationFilePath}\");");
                 else
-                    _mCurrArea.Lines.Add("// ~~To found nothing to do");
+                    _targetGenArea.Lines.Add("// ~~To found nothing to do");
             }
             else
             {
                 var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
-                _mCurrArea.Lines.Add($"Output.AppendTo(@\"{resolvedFilePath}\");");
+                _targetGenArea.Lines.Add($"Output.AppendTo(@\"{resolvedFilePath}\");");
             }
         }
 
@@ -255,7 +257,7 @@ namespace MetX.Scripts
 
             var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
 
-            _mCurrArea.Lines.Add($"{lineFunction}(@\"{resolvedFilePath}\");");
+            _targetGenArea.Lines.Add($"{lineFunction}(@\"{resolvedFilePath}\");");
             return resolvedFilePath;
         }
 
@@ -263,11 +265,11 @@ namespace MetX.Scripts
         {
             foreach (var area in this.Where(area => area.Name == areaName))
             {
-                _mCurrArea = area;
+                _targetGenArea = area;
                 return;
             }
-            _mCurrArea = new GenArea(areaName);
-            Add(_mCurrArea);
+            _targetGenArea = new GenArea(areaName);
+            Add(_targetGenArea);
         }
     }
 }
