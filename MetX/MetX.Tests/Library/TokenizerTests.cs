@@ -14,9 +14,30 @@ namespace MetX.Tests.Library
     {
         string _sample = "Fred goes home";
 
+        /*
         [DataTestMethod]
+        [DataRow("[", "]", "a[b]c[d]e", new[] { "a", "b", "c", "d", "e"})]
         [DataRow("[","]","a[b]c", new[] { "a", "b", "c" })]
-        [DataRow("//~~", "~~//", "abc//~~def~~//ghi", new[] { "abc", "def", "ghi" })]
+        [DataRow("//~{", "}~//", "abc//~{def}~//ghi", new[] { "abc", "def", "ghi" })]
+        public void Tear_Basic(string left, string right, string data, string[] expected)
+        {
+            var actual = data.Tear(left, right).ToArray();
+            Assert.IsNotNull(actual);
+            Assert.IsFalse(actual.IsEmpty());
+            
+            Assert.AreEqual(expected.Length, actual.Length, actual.AsString());
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i], actual.AsString());
+            }
+        }
+        */
+        
+        [DataTestMethod]
+        [DataRow("[", "]", "a[b]c[d]e", new[] { "a", "b", "c", "d", "e"})]
+        [DataRow("[","]","a[b]c", new[] { "a", "b", "c" })]
+        [DataRow("//~{", "}~//", "abc//~{def}~//ghi", new[] { "abc", "def", "ghi" })]
         public void Splice_Basic(string left, string right, string data, string[] expected)
         {
             var actual = data.Splice(left, right).ToArray();
@@ -32,14 +53,15 @@ namespace MetX.Tests.Library
         }
         
         [DataTestMethod]
-        [DataRow("//~~~~//","~~:", true)]
-        [DataRow("//~~~~//","//~~~~//", false)]
-        [DataRow("//~~a~~//","~~:a", true)]
-        [DataRow("//~~~~//","//~~~~:a~~//", false)]
+        [DataRow("//~{}~//","~~:", true)]
+        [DataRow("//~{}~//","//~{}~//", false)]
+        [DataRow("//~{a}~//","~~:a", true)]
+        [DataRow("//~{}~//","//~{~~:a}~//", false)]
         public void UpdateTokensBetween_Basic2(string data, string expected, bool eliminateDelimiters)
         {
             Assert.AreEqual("\n[" + expected + "]\n", 
-                "\n[" + data.UpdateTokensBetween("//~~", "~~//", eliminateDelimiters, XlgQuickScript
+                "\n[" + data.UpdateTokensBetween(
+                    "//~{", "}~//", eliminateDelimiters, XlgQuickScript
                     .QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
         }
         

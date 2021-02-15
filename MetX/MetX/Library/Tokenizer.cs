@@ -1,6 +1,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 // ReSharper disable UnusedMember.Global
@@ -172,13 +173,62 @@ namespace MetX.Library
             return TokenAt(leftPart, 1, rightDelimiter, compare);
         }
 
+        public static IEnumerable<string> Splice(this string target, string leftDelimiter, string rightDelimiter)
+        {
+            if (target.IsEmpty())
+            {
+                yield break;
+            }
+
+            if (leftDelimiter.IsEmpty() || rightDelimiter.IsEmpty())
+            {
+                yield break;
+            }
+
+            var leftIndexes = target.TokenIndexes(leftDelimiter).ToArray();
+            var rightIndexes = target.TokenIndexes(rightDelimiter).ToArray();
+            
+            var currentLocation = 0;
+            //var result = new List<string>();
+
+            for (int i = 0, j = 0; i < leftIndexes.Length && j < rightIndexes.Length; i++, j++)
+            {
+                if (currentLocation >= target.Length) break;
+                
+                var length = leftIndexes[i] - currentLocation;
+                if(length > 0)
+                {
+                    //result.Add(target.Substring(currentLocation, length));
+                    yield return target.Substring(currentLocation, length);
+                    currentLocation = leftIndexes[i] + leftDelimiter.Length;
+                }                
+                if (currentLocation >= target.Length) break;
+                
+                length = rightIndexes[j] - currentLocation;
+                if(length > 0)
+                {
+                    //result.Add(target.Substring(currentLocation, rightIndexes[j] - currentLocation));
+                    yield return target.Substring(currentLocation, rightIndexes[j] - currentLocation);
+                    currentLocation = rightIndexes[j] + rightDelimiter.Length;
+                }   
+                if (currentLocation >= target.Length) break;
+            }
+            
+            if(currentLocation < target.Length)
+                yield return target.Substring(currentLocation);
+                //result.Add(target.Substring(currentLocation));
+            
+            //return result;
+        }
+        
         public static string UpdateTokensBetween(this string target, string leftDelimiter, string rightDelimiter,
             bool consumeDelimiters, Func<string, string> tokenProcessor)
         {
             if (target.IsEmpty())
                 return string.Empty;
+
+
             
-            Tokenizer.TokenIndex()
             if (!target.Contains(leftDelimiter, StringComparison.InvariantCultureIgnoreCase)
                 && !target.Contains(rightDelimiter, StringComparison.InvariantCultureIgnoreCase))
                 return target;

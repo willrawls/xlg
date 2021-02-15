@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 // ReSharper disable UnusedMember.Global
@@ -87,6 +89,13 @@ namespace MetX.Library
             if (value == null || value == DBNull.Value || value.Equals(string.Empty))
                 return defaultValue;
             return value is Guid ? Convert.ToString(value) : value.ToString()?.Trim();
+        }
+
+        public static string AsString(this IList<string> target, string delimiter = " ", string defaultValue = "")
+        {
+            if (target.IsEmpty())
+                return defaultValue;
+            return string.Join(delimiter, target);
         }
 
 	    public static char AsChar(object value)
