@@ -227,8 +227,31 @@ namespace MetX.Library
             if (target.IsEmpty())
                 return string.Empty;
 
+            var result = new StringBuilder();
+            var odd = false;
+            foreach (var piece in target.Splice(leftDelimiter, rightDelimiter))
+            {
+                if (odd)
+                {
+                    if (!consumeDelimiters)
+                    {
+                        result.Append(leftDelimiter);
+                    }
+                    result.Append(tokenProcessor(piece));
+                }
+                else
+                {
+                    result.Append(piece);
+                    if (!consumeDelimiters)
+                    {
+                        result.Append(rightDelimiter);
+                    }
+                }
 
+                odd = !odd;
+            }
             
+            /*
             if (!target.Contains(leftDelimiter, StringComparison.InvariantCultureIgnoreCase)
                 && !target.Contains(rightDelimiter, StringComparison.InvariantCultureIgnoreCase))
                 return target;
@@ -259,6 +282,7 @@ namespace MetX.Library
                     result.Append(tokenProcessor(parts[i]));
                 }
             }
+        */
             return result.ToString();
         }
 

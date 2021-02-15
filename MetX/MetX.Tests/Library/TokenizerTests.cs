@@ -55,8 +55,8 @@ namespace MetX.Tests.Library
         [DataTestMethod]
         [DataRow("//~{}~//","~~:", true)]
         [DataRow("//~{}~//","//~{}~//", false)]
-        [DataRow("//~{a}~//","~~:a", true)]
-        [DataRow("//~{}~//","//~{~~:a}~//", false)]
+        [DataRow("//~{a}~//","\n~~:a\n", true)]
+        [DataRow("//~{b}~//","//~{\n~~:b\n}~//", false)]
         public void UpdateTokensBetween_Basic2(string data, string expected, bool eliminateDelimiters)
         {
             Assert.AreEqual("\n[" + expected + "]\n", 
