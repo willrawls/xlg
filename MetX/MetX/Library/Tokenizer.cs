@@ -172,14 +172,13 @@ namespace MetX.Library
             return TokenAt(leftPart, 1, rightDelimiter, compare);
         }
 
-        public static string UpdateTokensBetween(this string target, 
-            string leftDelimiter, string rightDelimiter,
-            bool consumeDelimiters,
-            Func<string, string> tokenProcessor)
+        public static string UpdateTokensBetween(this string target, string leftDelimiter, string rightDelimiter,
+            bool consumeDelimiters, Func<string, string> tokenProcessor)
         {
             if (target.IsEmpty())
                 return string.Empty;
             
+            Tokenizer.TokenIndex()
             if (!target.Contains(leftDelimiter, StringComparison.InvariantCultureIgnoreCase)
                 && !target.Contains(rightDelimiter, StringComparison.InvariantCultureIgnoreCase))
                 return target;
@@ -290,6 +289,36 @@ namespace MetX.Library
                 return index + delimiter.Length;
             // Tokens past a string are the last character of the string
             return target.Length;
+        }
+
+        public static IEnumerable<int> TokenIndexes(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            //  Empty target means no index
+            if (string.IsNullOrEmpty(target))
+                yield break;
+
+            //  Empty delimiter means no index
+            if (string.IsNullOrEmpty(delimiter))
+                yield break;
+
+            var index = target.IndexOf(delimiter, compare);
+            if (index == -1)
+                yield break;
+
+            yield return index;
+            
+            while (index < target.Length)
+            {
+                index = target.IndexOf(delimiter, index + delimiter.Length, compare);
+                if (index < 0)
+                    yield break;
+                yield return index;
+            }
+
+            if (index > -1 && index < target.Length)
+                yield return index + delimiter.Length;
+
+            yield break;
         }
 
         /// <summary>Returns all tokens after the indicated token.</summary>
@@ -410,6 +439,37 @@ namespace MetX.Library
         {
             var tokenCount = target.TokenCount(delimiter, compare);
             return target.TokensBefore(tokenCount, delimiter, compare);
+        }
+
+        /// <summary>
+        /// Splits the string first into a string array delimited by 'left'.
+        /// Then splits each of those by 'right'.
+        /// Returns a single IEnumerable of the pieces, with out the left and right delimiters
+        /// So 'x[[y]]z' becomes 'x', 'y', 'z'
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> Splice(this string target, string left, string right, StringSplitOptions options = StringSplitOptions.None)
+        {
+            if (target.IsEmpty())
+                yield return null;
+
+            var slices = target.Split(left, options);
+            foreach(var slice in slices)
+            {
+                if(!slice.Contains(right, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    yield return slice;
+                }
+                else
+                {
+                    var dices = slice.Split(right);
+                    foreach (var dice in dices)
+                        yield return dice;
+                }
+            }
         }
     }
 }

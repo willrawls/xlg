@@ -386,7 +386,7 @@ namespace MetX.Scripts
             return expanded;
         }
         
-        public string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
+        public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
         {
             var modifiedLines = target
                     .Replace("\r", "")

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MetX.Library;
+using MetX.Scripts;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable StringLiteralTypo
@@ -12,21 +14,33 @@ namespace MetX.Tests.Library
     {
         string _sample = "Fred goes home";
 
-        [TestMethod]
-        public void UpdateTokensBetween_Basic()
+        [DataTestMethod]
+        [DataRow("[","]","a[b]c", new[] { "a", "b", "c" })]
+        [DataRow("//~~", "~~//", "abc//~~def~~//ghi", new[] { "abc", "def", "ghi" })]
+        public void Splice_Basic(string left, string right, string data, string[] expected)
         {
-            var sample1 = "a//~~b\nc\n~~//f\nd\ne";
-            var tokenProcessor = new Func<string, string>(delegate(string target)
+            var actual = data.Splice(left, right).ToArray();
+            Assert.IsNotNull(actual);
+            Assert.IsFalse(actual.IsEmpty());
+            
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
             {
-                var modifiedLines = target
-                    .Replace("\r", "")
-                    .AllTokens("\n")
-                    .Select( s => "~~:" + s)
-                    ;
-                return string.Join('\n', modifiedLines);
-            });
-            Assert.AreEqual("a~~:b\n~~:c\n~~:f\nd\ne", sample1.UpdateTokensBetween("//~~", "~~//", true, tokenProcessor));
-            Assert.AreEqual("a//~~b\nc\n~~//f\nd\ne", sample1.UpdateTokensBetween("//~~", "~~//", false, tokenProcessor));
+                Assert.AreEqual(expected[i], actual[i]);
+            }
+        }
+        
+        [DataTestMethod]
+        [DataRow("//~~~~//","~~:", true)]
+        [DataRow("//~~~~//","//~~~~//", false)]
+        [DataRow("//~~a~~//","~~:a", true)]
+        [DataRow("//~~~~//","//~~~~:a~~//", false)]
+        public void UpdateTokensBetween_Basic2(string data, string expected, bool eliminateDelimiters)
+        {
+            Assert.AreEqual("\n[" + expected + "]\n", 
+                "\n[" + data.UpdateTokensBetween("//~~", "~~//", eliminateDelimiters, XlgQuickScript
+                    .QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
         }
         
         [TestMethod]

@@ -60,6 +60,11 @@ namespace MetX.Library
             return target == null || target.Count == 0;
         }
 
+        public static bool IsNotEmpty<T>(this IList<T> target)
+        {
+            return target?.Count > 0;
+        }
+
         public static bool IsEmpty(this string target)
         {
             return string.IsNullOrEmpty(target);
