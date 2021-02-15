@@ -36,7 +36,7 @@ namespace MetX.Scripts
             get
             {
                 var originalArea = string.Empty;
-                var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~~ xyz ~~//
+                var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~{ xyz ~//
                 
                 foreach (var currScriptLine in _targetScript.Script.Lines())
                 {
