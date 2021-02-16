@@ -91,14 +91,19 @@ namespace MetX.Library
 
         public static string[] Lines(this string target, StringSplitOptions options = StringSplitOptions.None)
         {
-            if (string.IsNullOrEmpty(target)) return new[] { string.Empty };
-            return target.Split(new[] { Environment.NewLine }, options);
+            if (string.IsNullOrEmpty(target)) 
+                return new[] { string.Empty };
+            
+            return target
+                .Replace("\r", "\n")
+                .Split('\n', options);
         }
 
         public static string Flatten<T>(this IList<T> target)
         {
-            if (target.IsEmpty()) return string.Empty;
-            return string.Join(Environment.NewLine, target);
+            return target.IsEmpty() 
+                ? string.Empty 
+                : string.Join(Environment.NewLine, target);
         }
 
         public static string AsFilename(this string target)

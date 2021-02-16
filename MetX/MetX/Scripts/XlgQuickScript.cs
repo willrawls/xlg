@@ -388,10 +388,24 @@ namespace MetX.Scripts
         
         public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
         {
-            var modifiedLines = target.Lines().Select(s => "~~:" + s)
-                ;
-            return "\n" + string.Join('\n', modifiedLines) + "\n";
+            if (target.IsEmpty())
+                return string.Empty;
+
+            var result = target.Replace("\r", "");
+            var append = target.EndsWith("\n")
+                ? "\n~~:\n"
+                : "\n";
+                
+            if(target.Contains("\n"))
+            {
+                if (target.StartsWith("\n"))
+                {
+                    return "\n~~:" + target.Replace("\n", "\n~~:") + append;
+                }
+                return "\n" + target.Replace("\n", "\n~~:") + append;
+            } 
+            
+            return "\n~~:" + target + append;
         }
-        
     }
 }
