@@ -177,28 +177,50 @@ namespace MetX.Library
         {
             if (target.IsEmpty())
             {
+                yield return "";
                 yield break;
             }
 
             if (leftDelimiter.IsEmpty() || rightDelimiter.IsEmpty())
             {
+                yield return "";
+                yield break;
+            }
+
+            if (target == leftDelimiter || target == rightDelimiter || target == leftDelimiter + rightDelimiter)
+            {
+                yield return "";
                 yield break;
             }
 
             var leftIndexes = target.TokenIndexes(leftDelimiter).ToArray();
             var rightIndexes = target.TokenIndexes(rightDelimiter).ToArray();
+
+            if (leftIndexes.Length == 1)
+            {
+                // Right will be as well
+                yield return target.TokenBetween(leftDelimiter, rightDelimiter);
+                yield break;
+            }
             
             var currentLocation = 0;
-            //var result = new List<string>();
-
+            
             for (int i = 0, j = 0; i < leftIndexes.Length && j < rightIndexes.Length; i++, j++)
             {
                 if (currentLocation >= target.Length) break;
+
+                if (leftIndexes[i] == 0 && currentLocation == 0) // Special case
+                {
+                    if (rightIndexes[i] == target.Length) // Special case
+                    {
+                        yield return "";
+                        yield break;
+                    }
+                }
                 
                 var length = leftIndexes[i] - currentLocation;
                 if(length > 0)
                 {
-                    //result.Add(target.Substring(currentLocation, length));
                     yield return target.Substring(currentLocation, length);
                     currentLocation = leftIndexes[i] + leftDelimiter.Length;
                 }                
@@ -207,7 +229,6 @@ namespace MetX.Library
                 length = rightIndexes[j] - currentLocation;
                 if(length > 0)
                 {
-                    //result.Add(target.Substring(currentLocation, rightIndexes[j] - currentLocation));
                     yield return target.Substring(currentLocation, rightIndexes[j] - currentLocation);
                     currentLocation = rightIndexes[j] + rightDelimiter.Length;
                 }   
@@ -221,7 +242,7 @@ namespace MetX.Library
             //return result;
         }
         
-        public static string UpdateTokensBetween(this string target, string leftDelimiter, string rightDelimiter,
+        public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
             bool consumeDelimiters, Func<string, string> tokenProcessor)
         {
             if (target.IsEmpty())

@@ -379,7 +379,7 @@ namespace MetX.Scripts
             if (!Script.Contains(leftDelimiter) || !Script.Contains(rightDelimiter))
                 return Script;
 
-            var expanded = Script.UpdateTokensBetween(
+            var expanded = Script.UpdateBetweenTokens(
                 leftDelimiter, rightDelimiter, true, 
                 QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
             
@@ -389,23 +389,16 @@ namespace MetX.Scripts
         public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
         {
             if (target.IsEmpty())
-                return string.Empty;
+                return "~~:\n";
 
             var result = target.Replace("\r", "");
-            var append = target.EndsWith("\n")
-                ? "\n~~:\n"
-                : "\n";
                 
-            if(target.Contains("\n"))
+            if(result.Contains("\n"))
             {
-                if (target.StartsWith("\n"))
-                {
-                    return "\n~~:" + target.Replace("\n", "\n~~:") + append;
-                }
-                return "\n" + target.Replace("\n", "\n~~:") + append;
+                return "~~:" + result.Replace("\n", "\n~~:");
             } 
             
-            return "\n~~:" + target + append;
+            return "~~:" + result + "\n";
         }
     }
 }

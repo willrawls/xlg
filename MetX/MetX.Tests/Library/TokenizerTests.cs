@@ -53,17 +53,17 @@ namespace MetX.Tests.Library
         }
         
         [DataTestMethod]
-        [DataRow("123", "\n~~:123\n")]
+        [DataRow("a\nb\nc\n", "~~:a\n~~:b\n~~:c\n~~:")]
+        [DataRow("123", "~~:123\n")]
         [DataRow(null, "")]
         [DataRow("", "")]
-        [DataRow("\nd\ne\nf", "\n~~:\n~~:d\n~~:e\n~~:f\n")]
-        [DataRow("a\nb\nc\n", "\n~~:a\n~~:b\n~~:c\n~~:\n")]
+        [DataRow("\nd\ne\nf", "~~:\n~~:d\n~~:e\n~~:f")]
         public void QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine_Basic1(string data, string expected)
         {
 
             var actual = XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(data);
             Assert.AreEqual(
-                "\n[" + expected + "]\n", 7
+                "\n[" + expected + "]\n", 
                 "\n[" + actual + "]\n");
         }
         
@@ -74,8 +74,7 @@ namespace MetX.Tests.Library
         [DataRow("--b==","--\n~~:b\n==", false)]
         public void UpdateTokensBetween_Basic3(string data, string expected, bool eliminateDelimiters)
         {
-            var actual = data.UpdateTokensBetween(
-                "--", "==", eliminateDelimiters, XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
+            var actual = data.UpdateBetweenTokens("--", "==", eliminateDelimiters, XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
             Assert.AreEqual(
                 "\n[" + expected + "]\n", 
                 "\n[" + actual + "]\n");
@@ -89,9 +88,7 @@ namespace MetX.Tests.Library
         public void UpdateTokensBetween_Basic2(string data, string expected, bool eliminateDelimiters)
         {
             Assert.AreEqual("\n[" + expected + "]\n", 
-                "\n[" + data.UpdateTokensBetween(
-                    "//~{", "}~//", eliminateDelimiters, XlgQuickScript
-                    .QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
+                "\n[" + data.UpdateBetweenTokens("//~{", "}~//", eliminateDelimiters, XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
         }
         
         [TestMethod]
