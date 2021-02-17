@@ -237,9 +237,6 @@ namespace MetX.Library
             
             if(currentLocation < target.Length)
                 yield return target.Substring(currentLocation);
-                //result.Add(target.Substring(currentLocation));
-            
-            //return result;
         }
         
         public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,

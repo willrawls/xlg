@@ -38,13 +38,17 @@ namespace MetX.Tests.Library
         [DataRow("[", "]", "a[b]c[d]e", new[] { "a", "b", "c", "d", "e"})]
         [DataRow("[","]","a[b]c", new[] { "a", "b", "c" })]
         [DataRow("//~{", "}~//", "abc//~{def}~//ghi", new[] { "abc", "def", "ghi" })]
+        [DataRow("[","]","[", new[] { "" })]
+        [DataRow("[","]","]", new[] { "" })]
+        [DataRow("[","]","[]", new[] { "" })]
+        [DataRow("[","]","h[i]j", new[] { "h", "i", "j" })]
         public void Splice_Basic(string left, string right, string data, string[] expected)
         {
             var actual = data.Splice(left, right).ToArray();
             Assert.IsNotNull(actual);
             Assert.IsFalse(actual.IsEmpty());
             
-            Assert.AreEqual(expected.Length, actual.Length);
+            Assert.AreEqual(expected.Length, actual.Length, actual.AsString());
 
             for (var i = 0; i < expected.Length; i++)
             {
