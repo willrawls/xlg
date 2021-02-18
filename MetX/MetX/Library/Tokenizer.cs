@@ -198,8 +198,18 @@ namespace MetX.Library
 
             if (leftIndexes.Length == 1)
             {
-                // Right will be as well
-                yield return target.TokenBetween(leftDelimiter, rightDelimiter);
+                if(leftIndexes[0] != 0)
+                {
+                    yield return target.Substring(0, leftIndexes[0]);
+                }
+                var firstLeft = leftIndexes[0] + leftDelimiter.Length;
+                var firstLength = rightIndexes[0] - firstLeft;
+                if(firstLength > 0)
+                {
+                    yield return target.Substring(firstLeft, firstLength);
+                }
+                var secondLeft = rightIndexes[0] + rightDelimiter.Length;
+                yield return target.Substring(secondLeft);
                 yield break;
             }
             
@@ -247,60 +257,33 @@ namespace MetX.Library
 
             var result = new StringBuilder();
             var odd = false;
-            foreach (var piece in target.Splice(leftDelimiter, rightDelimiter))
+            var pieces = target
+                .Splice(leftDelimiter, rightDelimiter)
+                .Where( s => s.Length > 0)
+                .ToList();
+            foreach (var piece in pieces)
             {
-                if (odd)
+                if (!consumeDelimiters)
                 {
-                    if (!consumeDelimiters)
-                    {
-                        result.Append(leftDelimiter);
-                    }
-                    result.Append(tokenProcessor(piece));
+                    result.Append(leftDelimiter);
                 }
-                else
+                if (odd) // Token between the current leftDelimiter and rightDelimiter
+                {
+                    if(piece.IsNotEmpty())
+                        result.Append(tokenProcessor(piece));
+                }
+                else if(piece.IsNotEmpty())
                 {
                     result.Append(piece);
-                    if (!consumeDelimiters)
-                    {
-                        result.Append(rightDelimiter);
-                    }
+                }
+                if (!consumeDelimiters)
+                {
+                    result.Append(rightDelimiter);
                 }
 
                 odd = !odd;
             }
             
-            /*
-            if (!target.Contains(leftDelimiter, StringComparison.InvariantCultureIgnoreCase)
-                && !target.Contains(rightDelimiter, StringComparison.InvariantCultureIgnoreCase))
-                return target;
-
-            var parts = target
-                .Replace(rightDelimiter, leftDelimiter)
-                .Split(leftDelimiter);
-            
-            var result = new StringBuilder();
-            
-            for (var i = 0; i < parts.Length; i++)
-            {
-                if (i % 2 == 0) // Even
-                {
-                    result.Append(parts[i]);
-                    if (!consumeDelimiters && i != parts.Length)
-                    {
-                        result.Append(leftDelimiter);
-                    }
-                }
-                else  // Odd
-                {
-                    if(!consumeDelimiters)
-                    {
-                        result.Append(rightDelimiter);
-                    }
-                    // Each odd pieces gets updated
-                    result.Append(tokenProcessor(parts[i]));
-                }
-            }
-        */
             return result.ToString();
         }
 
