@@ -75,7 +75,7 @@ namespace MetX.Tests.Library
         [DataRow("--==","", true)]
         [DataRow("--==","--==", false)]
         [DataRow("--a==","~~:a\n", true)]
-        [DataRow("--b==","--\n~~:b\n==", false)]
+        [DataRow("--b==","--~~:b\n==", false)]
         public void UpdateTokensBetween_Basic3(string data, string expected, bool eliminateDelimiters)
         {
             var actual = data.UpdateBetweenTokens("--", "==", eliminateDelimiters, XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
@@ -85,10 +85,10 @@ namespace MetX.Tests.Library
         }
         
         [DataTestMethod]
-        [DataRow("//~{}~//","~~:", true)]
+        [DataRow("//~{}~//","", true)]
         [DataRow("//~{}~//","//~{}~//", false)]
-        [DataRow("//~{a}~//","\n~~:a\n", true)]
-        [DataRow("//~{b}~//","//~{\n~~:b\n}~//", false)]
+        [DataRow("//~{a}~//","~~:a\n", true)]
+        [DataRow("//~{b}~//","//~{~~:b\n}~//", false)]
         public void UpdateTokensBetween_Basic2(string data, string expected, bool eliminateDelimiters)
         {
             Assert.AreEqual("\n[" + expected + "]\n", 

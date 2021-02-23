@@ -253,6 +253,39 @@ namespace MetX.Library
             bool consumeDelimiters, Func<string, string> tokenProcessor)
         {
             if (target.IsEmpty())
+                return tokenProcessor(string.Empty);
+
+            var result = new StringBuilder();
+
+            var majorPieces = target.Split(leftDelimiter);
+            result.Append(majorPieces[0]);
+            foreach (var majorPiece in majorPieces.Skip(1))
+            {
+                if (!consumeDelimiters)
+                {
+                    result.Append(leftDelimiter);
+                }
+                var minorPieces = majorPiece.Split(rightDelimiter);
+                result.Append(tokenProcessor(minorPieces[0]));
+                if (!consumeDelimiters)
+                {
+                    result.Append(rightDelimiter);
+                }
+
+                if (minorPieces.Length > 1)
+                {
+                    result.Append(minorPieces[1]);
+                }
+            }
+            
+            return result.ToString();
+        }
+        
+        /*
+        public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
+            bool consumeDelimiters, Func<string, string> tokenProcessor)
+        {
+            if (target.IsEmpty())
                 return string.Empty;
 
             var result = new StringBuilder();
@@ -286,6 +319,7 @@ namespace MetX.Library
             
             return result.ToString();
         }
+        */
 
         /// <summary>Returns the number of tokens in a string</summary>
         /// <param name="target">The string to parse</param>

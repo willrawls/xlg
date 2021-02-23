@@ -7,22 +7,46 @@ namespace MetX.Tests.Scripts
     public static class Sources
     {
         // // //
-        public static readonly string Source_WriteStaticLine = BuildMain(@"System.Console.WriteLine(""Build_Exe_Simple"")");
+        public static readonly string Source_WriteStaticLine = BuildMain(
+            @"
+        System.Console.WriteLine(""Build_Exe_Simple"");
+");
 
         // // //
         public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
         {
-            return $"namespace {namespaceName} {{\n{source}\n}}";
+            return $@"
+namespace {namespaceName} 
+{{
+    {source}
+}}";
         }
 
         public static string WrapWithVoidMain(this string source)
         {
-            return WrapWithNamespace($"public void main() {{ \n{source}\n}}");
+            return WrapWithNamespace(
+                WrapWithClass("Program",
+                    $@"
+        // [STAThread]
+        public static void Main() 
+        {{
+        {source}
+        }}"));
+        }
+
+        public static string WrapWithClass(string className, string code)
+        {
+            return $@"
+    public class {className}
+    {{
+        {code}
+    }}
+";
         }
 
         public static string BuildMain(this string sourceInsideVoidMain)
         {
-            return WrapWithNamespace(WrapWithVoidMain(sourceInsideVoidMain));
+            return WrapWithVoidMain(sourceInsideVoidMain);
         }
     }
 
@@ -33,10 +57,16 @@ namespace MetX.Tests.Scripts
         [TestMethod]
         public void Build_Exe_Simple()
         {
-
-            InMemoryCompiler<string> result = XlgQuickScript.CompileSource(Sources.Source_WriteStaticLine, true, null, null);
-            Assert.IsTrue(result.CompiledSuccessfully);
-
+            var source = Sources.Source_WriteStaticLine;
+            var result = XlgQuickScript
+                .CompileSource(
+                source, true, null, null);
+            Assert.IsTrue(result.CompiledSuccessfully, source);
+            Assert.IsNotNull(result.CompiledAssembly );
+            var entryPoint = result.CompiledAssembly.EntryPoint;
+            Assert.IsNotNull(entryPoint);
+            
+            entryPoint.Invoke(null, null); // new object[] { new string[] { "arg1", "arg2", "etc" } } );
         }
     }
 }
