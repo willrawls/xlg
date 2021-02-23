@@ -35,6 +35,7 @@ namespace MetX.Controls
             var source = scriptToRun.ToCSharp(false);
 
             var assemblies = DefaultTypesForCompiler();
+            
             var shared = new List<string>();
             
             var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared);
@@ -84,42 +85,7 @@ namespace MetX.Controls
             generateQuickScriptLineProcessor = null;
             return false;
         }
-
-        /*
-        public static bool BuildExecutable(XlgQuickScript scriptToRun, InMemoryCompiler<string> compiler,
-            out BaseLineProcessor generatedExecutable)
-        {
-            if (compiler.CompiledSuccessfully)
-            {
-                if (!ReferenceEquals(compiler.CompiledAssembly, null))
-                {
-                    compiler.CompiledAssembly.
-
-                    var quickScriptProcessor = compiler
-                            .CompiledAssembly
-                            .CreateInstance("MetX.Scripts.QuickScriptProcessor")
-                        as BaseLineProcessor;
-
-                    if (quickScriptProcessor == null)
-                    {
-                        generatedExecutable = null;
-                        return true;
-                    }
-
-                    quickScriptProcessor.InputFilePath = scriptToRun.InputFilePath;
-                    quickScriptProcessor.DestinationFilePath = scriptToRun.DestinationFilePath;
-
-                    {
-                        generatedExecutable = quickScriptProcessor;
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-        */
-
+        
         public static List<Type> DefaultTypesForCompiler()
         {
             var assemblies = new List<Type>
@@ -127,6 +93,8 @@ namespace MetX.Controls
                 typeof(ChooseOrderDialog),
                 typeof(InMemoryCache<>), // MetX.Library
                 typeof(Context),         // MetX.Controls
+                typeof(Application),
+                typeof(Microsoft.CSharp.CSharpCodeProvider),
             };
             return assemblies;
         }

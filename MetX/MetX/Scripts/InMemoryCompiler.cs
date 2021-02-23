@@ -68,6 +68,7 @@ namespace MetX.Scripts
                 
                 GetSharedReference("System.Runtime"),
                 GetSharedReference("System.Drawing.Primitives"),
+                GetSharedReference("System.Windows"),
             };
 
             if(AdditionalReferenceTypes?.Count > 0)

@@ -4,12 +4,13 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.ComponentModel.Primitives;
+using System.Windows.Forms.VisualStyles;
 using MetX;
 using MetX.IO;
 using MetX.Data;
 using MetX.Scripts;
 using MetX.Library;
+using Microsoft.CSharp;
 
 //~~Usings~~//
 
@@ -158,6 +159,8 @@ namespace MetX.Scripts.Executable
                                     string sideFile = null;
                                     FileInfo inputFile = new FileInfo(InputFilePath);
                                     InputFilePath = inputFile.FullName;
+                                    // TODO Find another way to do the Excel thing
+/* 
                                     Type ExcelType = Type.GetTypeFromProgID("Excel.Application");
                                     dynamic excel = Activator.CreateInstance(ExcelType);
                                     try
@@ -189,6 +192,7 @@ namespace MetX.Scripts.Executable
                                         return false;
                                     }
                                     excel.Quit();
+*/
                                     GC.Collect(5);
                                     AllText = File.ReadAllText(Files[0]);
                                     break;
@@ -243,6 +247,16 @@ namespace MetX.Scripts.Executable
 
         public static DialogResult Ask(string title, string promptText, ref string value)
         {
+            Console.WriteLine("---------------------");
+            Console.WriteLine(title);
+            Console.WriteLine();
+            Console.WriteLine(promptText);
+
+            value = Console.ReadLine().AsString().Trim();
+            DialogResult dialogResult = value.IsNotEmpty() ? DialogResult.OK : DialogResult.Cancel;
+            return dialogResult;
+            
+            /*
             Form form = new Form();
             Label label = new Label();
             TextBox textBox = new TextBox();
@@ -280,7 +294,7 @@ namespace MetX.Scripts.Executable
 
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
-            return dialogResult;
+        */
         }
     }
 }
