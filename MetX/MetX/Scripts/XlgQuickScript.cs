@@ -280,7 +280,9 @@ namespace MetX.Scripts
                                 }
                 */
                 var sb = new StringBuilder();
-                foreach (var line in rawScript.Lines())
+                var lines = rawScript.LineList();
+//                var lines = rawScript.Lines();
+                foreach (var line in lines)
                 {
                     if (line.StartsWith("~~QuickScriptDefault:"))
                     {
@@ -373,8 +375,8 @@ namespace MetX.Scripts
 
         public string HandleSlashSlashBlock()
         {
-            const string leftDelimiter = "//~~";
-            const string rightDelimiter = "~~//";
+            const string leftDelimiter = "~~{";
+            const string rightDelimiter = "}~~";
             
             if (!Script.Contains(leftDelimiter) || !Script.Contains(rightDelimiter))
                 return Script;

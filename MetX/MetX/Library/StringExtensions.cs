@@ -95,7 +95,7 @@ namespace MetX.Library
                 return new[] { string.Empty };
             
             return target
-                .Replace("\r", "\n")
+                .Replace("\r", string.Empty)
                 .Split('\n', options);
         }
 

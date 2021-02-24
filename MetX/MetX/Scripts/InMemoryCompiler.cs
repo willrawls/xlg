@@ -10,6 +10,7 @@ using System.Drawing;
 using MetX.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace MetX.Scripts
 {
@@ -127,7 +128,9 @@ namespace MetX.Scripts
                 throw new InvalidOperationException();
 
             using var memoryStream = new MemoryStream();
-            var emitResult = CSharpCompiler.Emit(memoryStream);
+            string outputNameOverride = "frank.exe";
+            var emitOptions = new EmitOptions(outputNameOverride:outputNameOverride);
+            var emitResult = CSharpCompiler.Emit(memoryStream, options: emitOptions);
 
             if (!emitResult.Success)
             {
@@ -143,6 +146,18 @@ namespace MetX.Scripts
             }
             else
             {
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                if (File.Exists("frank2.exe"))
+                {
+                    File.SetAttributes("frank2.exe", FileAttributes.Normal);
+                    File.Delete("frank2.exe");
+                }
+                using var fileStream = File.OpenWrite("frank2.exe");
+                {
+                    fileStream.Write(memoryStream.GetBuffer());
+                    fileStream.Flush();
+                }
+                
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 CompiledAssembly = Assembly.Load(memoryStream.ToArray());
             }

@@ -1,4 +1,7 @@
-﻿namespace XLG.QuickScripts
+﻿using System.Reflection;
+using System.Reflection.Emit;
+
+namespace XLG.QuickScripts
 {
     using System;
     using System.Collections.Generic;
@@ -78,6 +81,7 @@
 
             var source = scriptToRun.ToCSharp(true);
             var additionalReferences = Context.DefaultTypesForCompiler();
+            
             var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null);
 
             if (compilerResults.CompiledSuccessfully)
@@ -120,6 +124,7 @@
                     if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
                     if (File.Exists(csFilePath)) File.Delete(csFilePath);
 
+                    
                     File.Copy(assembly.Location, exeFilePath);
                     if (!File.Exists(metXDllPathDest))
                         File.Copy(metXDllPathSource, metXDllPathDest);
@@ -407,7 +412,8 @@
         private void LoadQuickScriptsFile(string filePath)
         {
             Context ??= new Context();
-            Context.Scripts = XlgQuickScriptFile.Load(filePath);
+            var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
+            Context.Scripts = xlgQuickScriptFile;
 
             if (Context.Scripts.Count == 0)
             {
