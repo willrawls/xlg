@@ -70,13 +70,13 @@ namespace MetX.Scripts
             Template = "Single file input";
         }
 
-        public static InMemoryCompiler<string> CompileSource(
-            string source, 
-            bool asExecutable, 
+        public static InMemoryCompiler<string> CompileSource(string source,
+            bool asExecutable,
             List<Type> additionalReferences,
-            List<string> additionalSharedReferences)
+            List<string> additionalSharedReferences, 
+            string filePathForAssembly)
         {
-            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences);
+            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences, filePathForAssembly);
             return compiler;
         }
         

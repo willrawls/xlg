@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using MetX.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,11 +59,16 @@ namespace {namespaceName}
         public void Build_Exe_Simple()
         {
             var source = Sources.Source_WriteStaticLine;
-            var result = XlgQuickScript
-                .CompileSource(
-                source, true, null, null);
+            var outputFilePath = "fake.exe";
+
+            if (File.Exists(outputFilePath))
+            {
+                File.Delete(outputFilePath);
+            }
+            
+            var result = XlgQuickScript.CompileSource(source, true, null, null, outputFilePath);
             Assert.IsTrue(result.CompiledSuccessfully, source);
-            Assert.IsNotNull(result.CompiledAssembly );
+            Assert.IsNotNull(result.CompiledAssembly, source);
             var entryPoint = result.CompiledAssembly.EntryPoint;
             Assert.IsNotNull(entryPoint);
             

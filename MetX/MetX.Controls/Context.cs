@@ -38,7 +38,7 @@ namespace MetX.Controls
             
             var shared = new List<string>();
             
-            var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared);
+            var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared, null);
 
             if (compiler == null)
             {

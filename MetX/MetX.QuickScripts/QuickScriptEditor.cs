@@ -81,14 +81,18 @@ namespace XLG.QuickScripts
 
             var source = scriptToRun.ToCSharp(true);
             var additionalReferences = Context.DefaultTypesForCompiler();
-            
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null);
+            var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+            parentDestination = Path.Combine(parentDestination, "bin");
+            var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+            var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
+            var csFilePath = exeFilePath.Replace(".exe", ".cs");
 
+            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, exeFilePath);
+            
             if (compilerResults.CompiledSuccessfully)
             {
                 var assembly = compilerResults.CompiledAssembly;
-
-                var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
 
                 if (string.IsNullOrEmpty(parentDestination)
                     && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
@@ -100,37 +104,25 @@ namespace XLG.QuickScripts
                 if (string.IsNullOrEmpty(parentDestination))
                     parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
 
-                if (string.IsNullOrEmpty(parentDestination))
-                    if (assembly is not null)
-                        parentDestination = assembly.Location.TokensBeforeLast(@"\");
+                if (string.IsNullOrEmpty(parentDestination)) 
+                    parentDestination = assembly.Location.TokensBeforeLast(@"\");
 
+                /*
                 if (!Directory.Exists(parentDestination))
                 {
-                    if (assembly is not null) return assembly.Location;
+                    return assembly.Location;
                 }
+                */
 
-                if (assembly is not null)
-                {
-                    var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
+                Directory.CreateDirectory(parentDestination);
 
-                    parentDestination = Path.Combine(parentDestination, "bin");
-                    var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+                //if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
+                if (File.Exists(csFilePath)) File.Delete(csFilePath);
 
-                    var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
-                    var csFilePath = exeFilePath.Replace(".exe", ".cs");
-
-                    Directory.CreateDirectory(parentDestination);
-
-                    if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
-                    if (File.Exists(csFilePath)) File.Delete(csFilePath);
-
-                    
-                    File.Copy(assembly.Location, exeFilePath);
-                    if (!File.Exists(metXDllPathDest))
-                        File.Copy(metXDllPathSource, metXDllPathDest);
-                    File.WriteAllText(csFilePath, source);
-                    return exeFilePath;
-                }
+                if (!File.Exists(metXDllPathDest))
+                    File.Copy(metXDllPathSource, metXDllPathDest);
+                File.WriteAllText(csFilePath, source);
+                return exeFilePath;
             }
 
             /*
@@ -828,7 +820,7 @@ namespace XLG.QuickScripts
                 if (DialogResult.Yes == MessageBox.Show(this,
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
-                    "Would you like to run it now? (No will open the generated file).", "RUN EXE?",
+                    "Would you like to run it now? (Will not open the generated file).", "RUN EXE?",
                     MessageBoxButtons.YesNo))
                 {
                     Process.Start(new ProcessStartInfo(location)

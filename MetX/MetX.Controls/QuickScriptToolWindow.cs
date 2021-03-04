@@ -142,7 +142,7 @@ namespace MetX.Controls
 
             var source = CurrentScript.ToCSharp(true);
             var additionalReferences = Context.DefaultTypesForCompiler();
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null);
+            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, null);
 
             if (compilerResults.Failures != null && compilerResults.Failures.Length <= 0)
             {

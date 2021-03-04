@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace MetX.Scripts
 {
     public class InMemoryCompiler<TResultType> where TResultType : class
     {
+        private string FilePathForAssembly;
         public string? PathToSharedRoslyn { get; set; }
         public bool AsExecutable { get; set; }
         public List<Type> AdditionalReferenceTypes { get; set; }
@@ -38,9 +40,11 @@ namespace MetX.Scripts
             }
         }
 
-        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes, List<string> additionalSharedReferences)
+        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes,
+            List<string> additionalSharedReferences, string filePathForAssembly = null!)
         {
             AsExecutable = asExecutable;
+            FilePathForAssembly = filePathForAssembly;
             AdditionalReferenceTypes = additionalReferenceTypes;
             AdditionalSharedReferences = additionalSharedReferences;
             SyntaxTree = CSharpSyntaxTree.ParseText(code);
@@ -68,6 +72,7 @@ namespace MetX.Scripts
                 GetReference(typeof(System.ComponentModel.Component)),
                 
                 GetSharedReference("System.Runtime"),
+                GetSharedReference("System.Private.CoreLib"),
                 GetSharedReference("System.Drawing.Primitives"),
                 GetSharedReference("System.Windows"),
             };
@@ -128,8 +133,7 @@ namespace MetX.Scripts
                 throw new InvalidOperationException();
 
             using var memoryStream = new MemoryStream();
-            string outputNameOverride = "frank.exe";
-            var emitOptions = new EmitOptions(outputNameOverride:outputNameOverride);
+            var emitOptions = new EmitOptions(outputNameOverride:Path.GetFileName(FilePathForAssembly));
             var emitResult = CSharpCompiler.Emit(memoryStream, options: emitOptions);
 
             if (!emitResult.Success)
@@ -147,19 +151,26 @@ namespace MetX.Scripts
             else
             {
                 memoryStream.Seek(0, SeekOrigin.Begin);
-                if (File.Exists("frank2.exe"))
+                if (FilePathForAssembly.IsNotEmpty())
                 {
-                    File.SetAttributes("frank2.exe", FileAttributes.Normal);
-                    File.Delete("frank2.exe");
-                }
-                using var fileStream = File.OpenWrite("frank2.exe");
-                {
-                    fileStream.Write(memoryStream.GetBuffer());
-                    fileStream.Flush();
-                }
+                    Directory.CreateDirectory(Path.GetDirectoryName(FilePathForAssembly));
+                    if (File.Exists(FilePathForAssembly))
+                    {
+                        File.SetAttributes(FilePathForAssembly, FileAttributes.Normal);
+                        File.Delete(FilePathForAssembly);
+                    }
+                    using var fileStream = File.OpenWrite(FilePathForAssembly);
+                    {
+                        fileStream.Write(memoryStream.GetBuffer());
+                        fileStream.Flush();
+                        fileStream.Close();
+                    }
                 
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                CompiledAssembly = Assembly.Load(memoryStream.ToArray());
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    CompiledAssembly = Assembly.LoadFile(FilePathForAssembly);
+                }
+                else
+                    CompiledAssembly = Assembly.Load(memoryStream.ToArray());
             }
 
             return 0;
