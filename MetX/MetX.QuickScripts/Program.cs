@@ -27,5 +27,15 @@ namespace XLG.QuickScripts
             }
             Application.Run(new QuickScriptEditor(filePath));
         }
+        
+        
+        public class SomeClassInMyCode
+        {
+            public void SomeMethodIHave()
+            {
+                
+                HelloWorldGenerated.HelloWorld.SayHello(); // calls Console.WriteLine("Hello World!") and then prints out syntax trees
+            }
+        }        
     }
 }
