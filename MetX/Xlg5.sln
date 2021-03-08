@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Techniques.Tests", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Generators", "MetX.Generators\MetX.Generators.csproj", "{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,18 @@ Global
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|x86.ActiveCfg = Release|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|x86.Build.0 = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
