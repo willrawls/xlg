@@ -7,11 +7,11 @@ namespace XLG.QuickScripts
 {
     static class Program
     {
-        // static Henry _henry;
-
         [STAThread]
         static void Main(string[] args)
         {
+            XLG.QuickScripts.
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -29,13 +29,5 @@ namespace XLG.QuickScripts
         }
         
         
-        public class SomeClassInMyCode
-        {
-            public void SomeMethodIHave()
-            {
-                
-                HelloWorldGenerated.HelloWorld.SayHello(); // calls Console.WriteLine("Hello World!") and then prints out syntax trees
-            }
-        }        
     }
 }
