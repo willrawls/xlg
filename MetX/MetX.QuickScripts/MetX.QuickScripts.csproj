@@ -36,8 +36,12 @@
 </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
     </ProjectReference>
+    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" 
+                      OutputItemType="Analyzer" 
+                      ReferenceOutputAssembly="false"/>
     <ProjectReference Include="..\MetX\MetX.csproj">
     </ProjectReference>
   </ItemGroup>

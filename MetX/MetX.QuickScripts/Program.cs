@@ -10,8 +10,6 @@ namespace XLG.QuickScripts
         [STAThread]
         static void Main(string[] args)
         {
-            XLG.QuickScripts.
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
