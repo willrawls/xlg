@@ -1,0 +1,13 @@
+﻿<xlgDoc IncludeNamespace="true" ConnectionStringName="[Default]">
+  <Render>
+    <Xsls Path="~" UrlExtension="aspx">
+      <Include Name="*" />
+    </Xsls>
+	  <Tables>
+      <Include Name="*" />
+    </Tables>
+	  <StoredProcedures>
+      <Include Name="*" />
+    </StoredProcedures>
+  </Render>
+</xlgDoc>
