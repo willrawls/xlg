@@ -15,33 +15,12 @@
     <DelaySign>false</DelaySign>
     <StartupObject>XLG.QuickScripts.Program</StartupObject>
   </PropertyGroup>
-<ItemGroup>
-  <None Include="Properties\Settings.settings">
-    <Generator>SettingsSingleFileGenerator</Generator>
-    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-  </None>
-  <Compile Update="Properties\Resources.Designer.cs">
-    <DesignTime>True</DesignTime>
-    <AutoGen>True</AutoGen>
-    <DependentUpon>Resources.resx</DependentUpon>
-  </Compile>
-  <Compile Update="Properties\Settings.Designer.cs">
-    <AutoGen>True</AutoGen>
-    <DependentUpon>Settings.settings</DependentUpon>
-    <DesignTimeSharedInput>True</DesignTimeSharedInput>
-  </Compile>
-  <None Include="QuickScript.xshd">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </None>
-</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
     </ProjectReference>
-    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" 
-                      OutputItemType="Analyzer" 
-                      ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" />
     <ProjectReference Include="..\MetX\MetX.csproj">
     </ProjectReference>
   </ItemGroup>

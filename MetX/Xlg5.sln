@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Generators", "MetX.Generators\MetX.Generators.csproj", "{6C03FD7F-77FC-4ADB-BD2B-BDC2D7550BF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Aspects", "MetX.Aspects\MetX.Aspects.csproj", "{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Aspects", "MetX.Aspects\MetX.Aspects.csproj", "{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Generators.Samples.Client", "MetX.Generators.Samples.Client\MetX.Generators.Samples.Client.csproj", "{6D147476-A274-40D6-B61F-777B5A8779BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +130,18 @@ Global
 		{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}.Release|x86.Build.0 = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D147476-A274-40D6-B61F-777B5A8779BE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
