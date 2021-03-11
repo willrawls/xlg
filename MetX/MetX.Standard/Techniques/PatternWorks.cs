@@ -1,10 +1,10 @@
-﻿using MetX.Library;
-using System;
+﻿using System;
 using System.Xml.Serialization;
+using MetX.Standard.Library;
 
 #pragma warning disable 1591
 
-namespace MetX.Techniques
+namespace MetX.Standard.Techniques
 {
     [Serializable]
     public class PatternWorks

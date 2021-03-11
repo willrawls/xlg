@@ -6,10 +6,11 @@ using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
     /// <summary>
     ///     Provides methods to send email via smtp, with out CDO SYS installed.

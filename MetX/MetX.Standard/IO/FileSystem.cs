@@ -2,10 +2,10 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using MetX.Library;
-using MetX.Pipelines;
+using MetX.Standard.Library;
+using MetX.Standard.Pipelines;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
@@ -153,7 +153,7 @@ namespace MetX.IO
             return dir.Parent.AsString();
         }
 
-        public static string InsureFolderExists(string path, bool stripOffFilename)
+        public static string InsureFolderExists(IGenerationHost host, string path, bool stripOffFilename)
         {
             var ret = string.Empty;
             if (!Directory.Exists(path))
@@ -163,9 +163,8 @@ namespace MetX.IO
                     : path;
                 if (!Directory.Exists(folder))
                 {
-                    if (
-                        MessageBox.Show("The folder '" + folder + "' does not exist.\n\n\tCreate it now?",
-                            "CREATE FOLDER?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (host.MessageBox.Show("The folder '" + folder + "' does not exist.\n\n\tCreate it now?",
+                            "CREATE FOLDER?", MessageBoxChoices.YesNo) == MessageBoxResult.Yes)
                     {
                         Directory.CreateDirectory(folder);
                         ret = folder.EndsWith(@"\") ? folder : folder + @"\";

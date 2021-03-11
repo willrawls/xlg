@@ -2,9 +2,9 @@ using System.Configuration.Provider;
 using System.Data;
 using System.IO;
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     public abstract class DataProvider : ProviderBase
     {

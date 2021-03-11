@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Techniques
+namespace MetX.Standard.Techniques
 {
     [Serializable]
     public enum ParticleType

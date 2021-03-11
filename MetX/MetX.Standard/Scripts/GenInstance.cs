@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     public class GenInstance : List<GenArea>
     {
@@ -179,20 +179,20 @@ namespace MetX.Scripts
             else if (!_targetGenArea.Lines.Any(x => x.Contains("\"")))
             {
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[^1] += "\"";
+                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\"";
             }
             else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
                 _targetGenArea.Lines.TransformAllNotEmpty(line => line.Replace("\"", "``"));
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
             }
             else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
                 _targetGenArea.Lines.TransformAllNotEmpty(line =>
                     "\t\"" + line.Replace("\"", "\\\"") + "\" + Environment.NewLine;" + Environment.NewLine);
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
             }
         }
 

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     #region enums
 

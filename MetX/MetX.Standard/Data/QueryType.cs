@@ -1,4 +1,4 @@
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>C#CD: </summary>
     public enum QueryType

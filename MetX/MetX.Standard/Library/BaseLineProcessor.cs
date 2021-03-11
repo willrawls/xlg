@@ -1,13 +1,13 @@
-﻿namespace MetX.Library
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using MetX.Standard.IO;
+using MetX.Standard.Pipelines;
+using MetX.Standard.Scripts;
+
+namespace MetX.Standard.Library
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-
-    using IO;
-    using Scripts;
-
     public abstract class BaseLineProcessor
     {
         public int CurrentInputFileIndex;
@@ -18,6 +18,13 @@
         public bool OpenNotepad;
         public StreamBuilder Output;
         public StringBuilder OutputStringBuilder;
+
+        public BaseLineProcessor(IGenerationHost host)
+        {
+            Gui = host;
+        }
+
+        public IGenerationHost Gui { get; set; }
 
         public virtual FileInfo CurrentInputFile
         {
@@ -58,28 +65,32 @@
                     return true;
 
                 case "clipboard":
+                    throw new NotImplementedException();
+                    /*
                     var bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
                     InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
+                    */
 
                 case "databasequery":
                     throw new NotImplementedException("Database query is not yet implemented.");
 
                 case "webaddress":
-                    bytes = Encoding.UTF8.GetBytes(Http.GetUrl(InputFilePath));
+                    var bytes = Encoding.UTF8.GetBytes(Http.GetUrl(InputFilePath));
                     InputStream = new StreamReader(new MemoryStream(bytes));
                     break;
 
                 case "file":
                     if (string.IsNullOrEmpty(InputFilePath))
                     {
-                        MessageBox.Show("Please supply an input filename.", "INPUT FILE PATH REQUIRED");
+                        
+                        Gui.MessageBox.Show("Please supply an input filename.", "INPUT FILE PATH REQUIRED");
                         return null;
                     }
 
                     if (!File.Exists(InputFilePath))
                     {
-                        MessageBox.Show("The supplied input filename does not exist.", "INPUT FILE DOES NOT EXIST");
+                        Gui.MessageBox.Show("The supplied input filename does not exist.", "INPUT FILE DOES NOT EXIST");
                         return null;
                     }
 
@@ -87,7 +98,8 @@
                     {
                         case ".xls":
                         case ".xlsx":
-                            string sideFile;
+                            throw new NotImplementedException();
+                            /*string sideFile;
                             var inputFile = new FileInfo(InputFilePath);
                             InputFilePath = inputFile.FullName;
                             var excelType = Type.GetTypeFromProgID("Excel.Application");
@@ -129,6 +141,7 @@
                             if (CurrentInputFile == null || !CurrentInputFile.Exists) return false;
                             InputStream = new StreamReader(CurrentInputFile.OpenRead());
                             break;
+                            */
 
                         default:
                             InputFiles = new List<FileInfo> {
@@ -145,7 +158,7 @@
 
             if (InputStream == StreamReader.Null || InputStream.BaseStream.Length < 1 || InputStream.EndOfStream)
             {
-                MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
+                Gui.MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;
             }
 
@@ -158,7 +171,7 @@
 
                         if (Lines.Count <= 0)
                         {
-                            MessageBox.Show("The supplied input has no non-blank lines.", "INPUT FILE EMPTY");
+                            Gui.MessageBox.Show("The supplied input has no non-blank lines.", "INPUT FILE EMPTY");
                             return false;
                         }
                         LineCount = Lines.Count;
@@ -194,7 +207,7 @@
 
             if (!Output.IsOpenAndReady)
             {
-                MessageBox.Show("Couldn't create/open the output file");
+                Gui.MessageBox.Show("Couldn't create/open the output file");
                 return false;
             }
 

@@ -1,7 +1,7 @@
 using System.Text;
-using MetX.IO;
+using MetX.Standard.IO;
 
-namespace MetX.Data.Factory
+namespace MetX.Standard.Data.Factory
 {
     public class PowerShellGatherer : GatherProvider
     {

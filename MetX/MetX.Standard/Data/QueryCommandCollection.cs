@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     public class QueryCommandCollection : List<QueryCommand> { }
 }

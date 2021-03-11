@@ -1,6 +1,6 @@
-using MetX.Scripts;
+using MetX.Standard.Scripts;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     public class ContextBase
     {

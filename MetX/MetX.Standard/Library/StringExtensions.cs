@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     /// <summary>Provides simple methods for retrieving tokens from a string.
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
@@ -96,7 +96,7 @@ namespace MetX.Library
             
             return target
                 .Replace("\r", string.Empty)
-                .Split('\n', options);
+                .Split(new[] { '\n' }, options);
         }
 
         public static string Flatten<T>(this IList<T> target)

@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
 using System.Xml.Serialization;
-using MetX.Scripts;
+using MetX.Standard.Scripts;
 
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
@@ -25,7 +24,7 @@ namespace MetX.Pipelines
         [XmlAttribute]
         public string Filename;
         [XmlIgnore]
-        public Form Gui;
+        public IGenerationHost Gui;
 
         [XmlArray("Sources", Namespace = "", IsNullable = false),
          XmlArrayItem("Source", Namespace = "", IsNullable = false)]
@@ -36,7 +35,7 @@ namespace MetX.Pipelines
             /* XmlSerilizer */
         }
 
-        public XlgSettings(Form gui)
+        public XlgSettings(IGenerationHost gui)
         {
             Gui = gui;
         }
@@ -66,7 +65,7 @@ namespace MetX.Pipelines
             return FromXml(File.ReadAllText(filename));
         }
 
-        public int Generate(Form gui)
+        public int Generate(IGenerationHost gui)
         {
             var genCount = 0;
             foreach (var currSource in Sources)
@@ -82,7 +81,7 @@ namespace MetX.Pipelines
             return genCount;
         }
 
-        public int Regenerate(Form gui)
+        public int Regenerate(IGenerationHost gui)
         {
             var genCount = 0;
             foreach (var currSource in Sources)

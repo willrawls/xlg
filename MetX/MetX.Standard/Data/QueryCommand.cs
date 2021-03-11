@@ -3,7 +3,7 @@ using System.Data;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     [Serializable]
     public class QueryCommand

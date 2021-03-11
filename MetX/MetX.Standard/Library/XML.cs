@@ -4,9 +4,10 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
 // // using MetX.Web;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     /// <summary>Helper functions for dealing with xml strings</summary>
 	public class Xml

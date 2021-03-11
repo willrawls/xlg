@@ -1,13 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Xml;
 using System.Data.SqlClient;
-using System.Text;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
+using System.Xml;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
 	
 	/// <summary>Helper functions to simplify working with sql connections</summary>

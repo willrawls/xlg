@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     public static class ScriptExtensions
     {

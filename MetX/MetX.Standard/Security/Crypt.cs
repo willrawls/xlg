@@ -5,11 +5,12 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Security
+namespace MetX.Standard.Security
 {
     public static class Crypt
     {

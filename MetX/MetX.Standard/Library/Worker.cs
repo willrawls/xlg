@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
 	
 	/// <summary>General helper functions</summary>
@@ -65,7 +65,7 @@ namespace MetX.Library
 
             if (builder[0] != '^')
                 builder.Insert(0, "^");
-            if (builder[^1] != '$')
+            if (builder[builder.Length - 1] != '$')
                 builder.Append("$");
 
             return builder.ToString();

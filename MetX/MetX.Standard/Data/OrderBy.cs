@@ -1,4 +1,4 @@
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>
     /// Creates an ORDER BY statement for ANSI SQL

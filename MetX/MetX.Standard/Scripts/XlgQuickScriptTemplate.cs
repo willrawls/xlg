@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     [Serializable]
     public class XlgQuickScriptTemplate

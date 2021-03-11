@@ -1,9 +1,9 @@
 using System;
 using System.Data;
 using System.Xml.Serialization;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     [Serializable]
     public class QueryParameter

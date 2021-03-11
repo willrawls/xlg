@@ -1,12 +1,11 @@
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     /// <summary>
     ///     String extension methods for finding and returning a substring based on delimiter placement and position.
@@ -257,7 +256,7 @@ namespace MetX.Library
 
             var result = new StringBuilder();
 
-            var majorPieces = target.Split(leftDelimiter);
+            var majorPieces = target.Split(new string[]{ leftDelimiter }, StringSplitOptions.None);
             result.Append(majorPieces[0]);
             foreach (var majorPiece in majorPieces.Skip(1))
             {
@@ -265,7 +264,7 @@ namespace MetX.Library
                 {
                     result.Append(leftDelimiter);
                 }
-                var minorPieces = majorPiece.Split(rightDelimiter);
+                var minorPieces = majorPiece.Split(new string[]{ rightDelimiter }, StringSplitOptions.None);
                 result.Append(tokenProcessor(minorPieces[0]));
                 if (!consumeDelimiters)
                 {
@@ -559,22 +558,23 @@ namespace MetX.Library
         /// <param name="target"></param>
         /// <param name="left"></param>
         /// <param name="right"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public static IEnumerable<string> Splice(this string target, string left, string right, StringSplitOptions options = StringSplitOptions.None)
         {
             if (target.IsEmpty())
                 yield return null;
 
-            var slices = target.Split(left, options);
+            var slices = target.Split(new []{ left }, options);
             foreach(var slice in slices)
             {
-                if(!slice.Contains(right, StringComparison.InvariantCultureIgnoreCase))
+                if(!slice.ToLower().Contains(right.ToLower()))
                 {
                     yield return slice;
                 }
                 else
                 {
-                    var dices = slice.Split(right);
+                    var dices = slice.Split(new []{ right }, options);
                     foreach (var dice in dices)
                         yield return dice;
                 }

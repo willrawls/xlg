@@ -1,9 +1,9 @@
 using System;
-using System.Data;
 using System.Collections.Generic;
-using MetX.Library;
+using System.Data;
+using MetX.Standard.Library;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
     /// <summary>Given two strings (such as a unique userid and the path to a web page),
     /// StateCollection allows for an arbitrary number of name/value pairs to be quickly loaded and saved to the StateCollection table.</summary>

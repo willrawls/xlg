@@ -1,8 +1,8 @@
 using System;
-using System.Threading;
 using System.Net.Mail;
+using System.Threading;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
 	/// <summary>
 	/// Allows for the sending of a simple emamil asynchronously on another thread.

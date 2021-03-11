@@ -1,19 +1,16 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
-using System.DirectoryServices;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
-using System.Drawing;
-
-using MetX.Library;
+using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Emit;
+using Microsoft.CodeAnalysis.Emit; //using System.DirectoryServices;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     public class InMemoryCompiler<TResultType> where TResultType : class
     {
@@ -66,7 +63,7 @@ namespace MetX.Scripts
                 GetReference(typeof(Console)),
                 GetReference(typeof(GCSettings)),
                 GetReference(typeof(InMemoryCompiler<TResultType>)),
-                GetReference(typeof(System.Windows.Forms.Application)),
+                //GetReference(typeof(System.Windows.Forms.Application)),
                 GetReference(typeof(System.IO.File)),
                 GetReference(typeof(System.Diagnostics.Process)),
                 GetReference(typeof(System.ComponentModel.Component)),
@@ -161,7 +158,7 @@ namespace MetX.Scripts
                     }
                     using var fileStream = File.OpenWrite(FilePathForAssembly);
                     {
-                        fileStream.Write(memoryStream.GetBuffer());
+                        fileStream.Write(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
                         fileStream.Flush();
                         fileStream.Close();
                     }

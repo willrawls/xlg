@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     public class InMemoryCache<T> where T : class
     {

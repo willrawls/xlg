@@ -1,7 +1,7 @@
 using System.Data;
 using System.Text;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     public class StoredProcedureResult
     {

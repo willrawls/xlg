@@ -1,5 +1,5 @@
 // ReSharper disable UnusedType.Global
-namespace MetX.Web.Virtual.xsl
+namespace MetX.Standard.Web.Virtual.xsl
 {
     /// <summary>C#CD: </summary>
     public static class Resource

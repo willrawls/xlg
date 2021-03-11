@@ -1,6 +1,6 @@
-using MetX.Data;
+using MetX.Standard.Data;
 
-namespace MetX.Interfaces
+namespace MetX.Standard.Interfaces
 {
     public interface IProvide
     {

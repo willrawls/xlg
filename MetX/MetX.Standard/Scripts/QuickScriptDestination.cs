@@ -1,4 +1,4 @@
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     public enum QuickScriptDestination
     {

@@ -1,13 +1,14 @@
 using System;
-using System.Text;
-using System.IO;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
 // ReSharper disable PublicConstructorInAbstractClass
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>
     /// Base class for persisting objects. Follows the "Active Record Design Pattern".

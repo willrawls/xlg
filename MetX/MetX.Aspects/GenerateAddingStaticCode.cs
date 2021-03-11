@@ -3,7 +3,7 @@
 namespace MetX.Aspects
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class GenerateGloveAlpha : Attribute 
+    public class GenerateAddingStaticCode : Attribute 
     {
         
     }

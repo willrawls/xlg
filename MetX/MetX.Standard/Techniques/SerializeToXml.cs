@@ -1,7 +1,7 @@
 using System.IO;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Techniques
+namespace MetX.Standard.Techniques
 {
     public abstract class SerializeToXml<T>
         where T : SerializeToXml<T>, new()

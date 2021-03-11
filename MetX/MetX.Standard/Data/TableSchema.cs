@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable UnassignedField.Global
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>C#CD: </summary>
     [Serializable]

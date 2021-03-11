@@ -1,6 +1,6 @@
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable UnusedType.Global
-namespace MetX.Web.Virtual.xsl {
+namespace MetX.Standard.Web.Virtual.xsl {
    /// <summary>Provides access to static virtual file content for files</summary>
    public partial class EditMenuUrl {
        /// <summary>The static contents of the file: "C:\data\code\wmr\MetX\Web\Virtual\xsl\editMenuUrl.xsl" as it existed at compile time.</summary>

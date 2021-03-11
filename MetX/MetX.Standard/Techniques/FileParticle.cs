@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace MetX.Techniques
+namespace MetX.Standard.Techniques
 {
     [Serializable]
     public class FileParticle : Particle

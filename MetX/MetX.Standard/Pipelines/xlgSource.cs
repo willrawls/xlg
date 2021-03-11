@@ -4,11 +4,11 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Data;
-using MetX.Interfaces;
-using MetX.Library;
+using MetX.Standard.Data;
+using MetX.Standard.Interfaces;
+using MetX.Standard.Library;
 
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     /// <summary>
     /// Represents a library to generate
@@ -83,9 +83,9 @@ namespace MetX.Pipelines
         private class OpParams
         {
             public int Op;
-            public System.Windows.Forms.Form Gui;
+            public IGenerationHost Gui;
 
-            public OpParams(int op, System.Windows.Forms.Form gui)
+            public OpParams(int op, IGenerationHost gui)
             {
                 Op = op;
                 Gui = gui;
@@ -94,11 +94,11 @@ namespace MetX.Pipelines
 
         private void InternalOp(object @params) { var o = (OpParams)@params; if (o.Op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
-        public void RegenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, gui)); }
+        public void RegenerateAsynch(IGenerationHost gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, gui)); }
 
-        public void GenerateAsynch(System.Windows.Forms.Form gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, gui)); }
+        public void GenerateAsynch(IGenerationHost gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, gui)); }
 
-        public int Regenerate(System.Windows.Forms.Form gui)
+        public int Regenerate(IGenerationHost gui)
         {
             if (_mGenInProgress) return 0;
             lock (_mSyncRoot)
@@ -118,7 +118,7 @@ namespace MetX.Pipelines
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                    gui.MessageBox.Show(ex.ToString());
                 }
                 finally
                 {
@@ -129,7 +129,7 @@ namespace MetX.Pipelines
             return -1;
         }
 
-        public int Generate(System.Windows.Forms.Form gui)
+        public int Generate(IGenerationHost gui)
         {
             if (_mGenInProgress) return 0;
             lock (_mSyncRoot)
@@ -153,7 +153,7 @@ namespace MetX.Pipelines
                             {
                                 gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui)
                                 {
-                                    OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true)
+                                    OutputFolder = IO.FileSystem.InsureFolderExists(gui, OutputFilename, true)
                                 };
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
@@ -190,7 +190,7 @@ namespace MetX.Pipelines
 
                         case ProviderTypeEnum.Data:
                             gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
-                            gen.OutputFolder = IO.FileSystem.InsureFolderExists(OutputFilename, true);
+                            gen.OutputFolder = IO.FileSystem.InsureFolderExists(gui, OutputFilename, true);
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
                             File.WriteAllText(OutputFilename, gen.GenerateCode());
@@ -233,7 +233,7 @@ namespace MetX.Pipelines
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                    Host.MessageBox.Show(ex.ToString());
                 }
                 finally
                 {
@@ -243,6 +243,8 @@ namespace MetX.Pipelines
             }
             return -1;
         }
+
+        public IGenerationHost Host { get; set; } = new GenerationHost();
 
         public XlgSource() { /* XmlSerializer */ }
 

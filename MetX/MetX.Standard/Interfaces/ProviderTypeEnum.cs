@@ -1,4 +1,4 @@
-namespace MetX.Interfaces
+namespace MetX.Standard.Interfaces
 {
     public enum ProviderTypeEnum
     {

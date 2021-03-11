@@ -5,10 +5,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using MetX.Library;
+using MetX.Standard.Library;
+
 //using Microsoft.VisualBasic;
 
-namespace MetX.Data.Factory
+namespace MetX.Standard.Data.Factory
 {
     /// <summary>C#CD: </summary>
     public class SqlDataProvider : DataProvider

@@ -2,7 +2,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
 	/// <summary>Provides static methods to common web based tasks</summary>
 	public static class Http

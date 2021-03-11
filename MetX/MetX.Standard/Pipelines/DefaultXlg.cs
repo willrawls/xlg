@@ -1,4 +1,4 @@
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     /// <summary>Provides access to static virtual file content for files</summary>
     public static class DefaultXlg

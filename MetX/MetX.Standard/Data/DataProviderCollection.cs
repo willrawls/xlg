@@ -1,7 +1,7 @@
 using System;
 using System.Configuration.Provider;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     public class DataProviderCollection : ProviderCollection
     {

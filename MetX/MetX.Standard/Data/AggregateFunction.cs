@@ -1,4 +1,4 @@
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>
     /// Enum for General SQL Functions

@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>MetX</RootNamespace>
-    <AssemblyName>MetX</AssemblyName>
+    <RootNamespace>MetX.Standard</RootNamespace>
+    <AssemblyName>MetX.Standard</AssemblyName>
     <ApplicationIcon>batfile.ico</ApplicationIcon>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
@@ -106,6 +106,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager">

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     [Serializable]
     [XmlType(Namespace = "", AnonymousType = true)]

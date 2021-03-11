@@ -1,7 +1,7 @@
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data.Factory
+namespace MetX.Standard.Data.Factory
 {
     public class SqlToXmlGatherer : GatherProvider
     {

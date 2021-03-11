@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
     /// <summary>Represents the xlg section in a configuration file</summary>
     // ReSharper disable UnusedMember.Global

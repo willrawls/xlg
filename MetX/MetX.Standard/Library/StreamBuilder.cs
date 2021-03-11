@@ -2,9 +2,10 @@
 using System.IO;
 using System.Text;
 using System.Threading;
+
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     public class StreamBuilder
     {

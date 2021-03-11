@@ -1,7 +1,7 @@
 using System;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>
     /// Creates an aggregate function call for ANSI SQL

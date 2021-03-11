@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     /// <summary>
     /// Represents a library to generate

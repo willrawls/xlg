@@ -1,12 +1,13 @@
 using System;
-using System.IO;
-using System.Text;
 using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using System.Text;
+
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Security
+namespace MetX.Standard.Security
 {
     public class PartnerCrypt : IDisposable
     {

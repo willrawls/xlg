@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Xml.XPath;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
 
     /// <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.
@@ -358,14 +358,12 @@ namespace MetX.Library
         /// <returns>true if the date is between 00:00am and 11:59pm today</returns>
         public bool IsToday(string dateStringToTest)
         {
-            if (Microsoft.VisualBasic.Information.IsDate(dateStringToTest))
+            if (DateTime.TryParse(dateStringToTest, out var convertedDateTime))
             {
-                return (Convert.ToDateTime(dateStringToTest) >= DateTime.Today) & (Convert.ToDateTime(dateStringToTest) < DateTime.Today.AddDays(1));
+                return convertedDateTime >= DateTime.Today 
+                       && convertedDateTime < DateTime.Today.AddDays(1);
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         /// <summary>Determines if a date is in the past</summary>
@@ -373,8 +371,10 @@ namespace MetX.Library
         /// <returns>true if the date is in the past (even by a second)</returns>
         public bool IsInThePast(string dateStringToTest)
         {
-            if (Microsoft.VisualBasic.Information.IsDate(dateStringToTest))
-                return Convert.ToDateTime(dateStringToTest).CompareTo(DateTime.Now) < 0;
+            if (DateTime.TryParse(dateStringToTest, out var convertedDateTime))
+            {
+                return DateTime.Now.Subtract(convertedDateTime).TotalSeconds < 0;
+            }
             return false;
         }
 
@@ -383,16 +383,7 @@ namespace MetX.Library
         /// <returns>The proper case string</returns>
         public string ProperCase(string text)
         {
-            var ret = string.Empty;
-            try
-            {
-                ret = Microsoft.VisualBasic.Strings.StrConv(text, Microsoft.VisualBasic.VbStrConv.ProperCase);
-            }
-            catch
-            {
-                //Ignored
-            }
-            return ret;
+            return text.ProperCase();
         }
 
 
@@ -508,6 +499,8 @@ namespace MetX.Library
             }
             return sb.ToString();
         }
+        
+        /*
         /// <summary>Converts an xml date/time into a javascript compatible date</summary>
         /// <param name="xmlDate">The date/time to convert</param>
         /// <param name="defaultValue">The value to return if the date passed is blank or invalid</param>
@@ -521,8 +514,10 @@ namespace MetX.Library
             }
             return defaultValue;
         }
+        */
 
 
+        /*
         /// <summary>Converts an xml date/time into a displayable date (MM/dd/YYYY format)</summary>
         /// <param name="xmlDate">The date to convert</param>
         /// <returns>The displayable date</returns>
@@ -535,6 +530,7 @@ namespace MetX.Library
             }
             return string.Empty;
         }
+        */
 
 
         /// <summary>Converts an xml date/time into a displayable date/time value ("MM/dd/YYYY hh:mm tt" format)</summary>
@@ -557,7 +553,7 @@ namespace MetX.Library
         /// <returns>The formatted string</returns>
         public string Format(float value, string formatString)
         {
-            return Microsoft.VisualBasic.Strings.Format(value, formatString);
+            return $"{value.ToString(formatString)}";
         }
 
 

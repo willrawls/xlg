@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     /// <summary>
     /// Represents a file

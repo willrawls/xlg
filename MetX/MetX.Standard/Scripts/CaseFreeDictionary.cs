@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     public class CaseFreeDictionary : Dictionary<string, string>
     {

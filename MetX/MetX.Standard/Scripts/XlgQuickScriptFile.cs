@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
     [Serializable]
     [XmlType(Namespace = "", AnonymousType = true)]

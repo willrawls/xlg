@@ -2,17 +2,15 @@
 
 // ReSharper disable InconsistentNaming
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml.Serialization;
+using MetX.Standard.Library;
 
-namespace MetX.Scripts
+namespace MetX.Standard.Scripts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Xml.Serialization;
-
-    using Library;
-
     //using Microsoft.CSharp;
 
     //using NArrange.ConsoleApplication;
@@ -166,7 +164,7 @@ namespace MetX.Scripts
                 {
                     if (attempts == 2)
                     {
-                        MessageBox.Show(ex.ToString());
+                        Gui.MessageBox.Show(ex.ToString());
                         return code;
                     }
                 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using MetX.Standard.Pipelines;
 
-namespace MetX.Library
+namespace MetX.Standard.Library
 {
     public class QuickScriptWorker
     {
-        public static Exception ViewTextInNotepad(string source, bool isCSharpCode)
+        public static Exception ViewTextInNotepad(IGenerationHost host, string source, bool isCSharpCode)
         {
             try
             {
@@ -23,7 +24,7 @@ namespace MetX.Library
             return null;
         }
 
-        public static void ViewFileInNotepad(string filePath)
+        public static void ViewFileInNotepad(IGenerationHost host, string filePath)
         {
             try
             {
@@ -32,7 +33,7 @@ namespace MetX.Library
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                host.MessageBox.Show(ex.ToString());
             }
         }
 

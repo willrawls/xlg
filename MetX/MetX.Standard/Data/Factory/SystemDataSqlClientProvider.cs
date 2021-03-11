@@ -1,6 +1,6 @@
-using MetX.Interfaces;
+using MetX.Standard.Interfaces;
 
-namespace MetX.Data.Factory
+namespace MetX.Standard.Data.Factory
 {
     public class SystemDataSqlClientProvider : IProvide
     {

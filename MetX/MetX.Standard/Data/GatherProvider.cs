@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     public abstract class GatherProvider
     {

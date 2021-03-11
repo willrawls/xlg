@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration.Provider;
 using System.Configuration;
+using System.Configuration.Provider;
 using System.Data;
 using System.Reflection;
-using MetX.Interfaces;
+using MetX.Standard.Interfaces;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     
     public class DataService

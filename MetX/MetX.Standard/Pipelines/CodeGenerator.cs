@@ -6,16 +6,15 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using System.Xml;
 using System.Xml.Xsl;
-using MetX.Data;
-using MetX.IO;
-using MetX.Library;
+using MetX.Standard.Data;
+using MetX.Standard.IO;
+using MetX.Standard.Library;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
 
-namespace MetX.Pipelines
+namespace MetX.Standard.Pipelines
 {
     /// <summary>Generates Data and xlg specific code</summary>
     public class CodeGenerator
@@ -456,17 +455,18 @@ namespace MetX.Pipelines
                 {
                     if (Gui != null)
                     {
-                        switch (MessageBox.Show(Gui, "Unable to get a schema for table: " + table + "\n\n\tAdd table to skip list and continue ?", "CONTINUE ?", MessageBoxButtons.YesNoCancel,
-                                MessageBoxIcon.Error, MessageBoxDefaultButton.Button1))
+                        switch (Gui.MessageBox.Show("Unable to get a schema for table: " + table + "\n\n\tAdd table to skip list and continue ?", 
+                            "CONTINUE ?", MessageBoxChoices.YesNoCancel,
+                            MessageBoxStatus.Error, MessageBoxDefault.Button1))
                         {
-                            case DialogResult.Yes:
+                            case MessageBoxResult.Yes:
                                 AddElement(_mTablesToRender, "Exclude", "Name", table);
                                 break;
 
-                            case DialogResult.No:
+                            case MessageBoxResult.No:
                                 break;
 
-                            case DialogResult.Cancel:
+                            case MessageBoxResult.Cancel:
                                 return null;
                         }
                     }
@@ -1230,6 +1230,47 @@ namespace MetX.Pipelines
 
     public interface IGenerationHost
     {
-        
+        IMessageBox MessageBox { get; set; }
+    }
+
+    public interface IMessageBox
+    {
+        MessageBoxResult Show(string message);
+        MessageBoxResult Show(string message, string title);
+        MessageBoxResult Show(string message, string title, MessageBoxChoices choices);
+        MessageBoxResult Show(string message, string title, MessageBoxChoices choices, MessageBoxStatus status, MessageBoxDefault @default);
+    }
+
+    public enum MessageBoxDefault
+    {
+        Button1
+    }
+    
+    public enum MessageBoxStatus
+    {
+        Unknown,
+
+        Error
+    }
+    
+    public enum MessageBoxChoices
+    {
+        Unknown,
+        YesNo,
+        YesNoCancel
+    }
+    
+    public enum MessageBoxResult
+    {
+        Unknown,
+        Yes,
+        No,
+        Okay,
+        Cancel
+    }
+
+    public class GenerationHost : IGenerationHost
+    {
+        public IMessageBox MessageBox { get; set; }
     }
 }

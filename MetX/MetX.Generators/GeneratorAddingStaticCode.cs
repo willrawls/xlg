@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace MetX.Generators
 {
     [Generator]
-    public class GloveAlpha : ISourceGenerator
+    public class GeneratorAddingStaticCode : ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context) {}
 

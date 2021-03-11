@@ -232,7 +232,7 @@ namespace MetX.Scripts.Executable
         public static string Ask(string title, string promptText, string defaultValue)
         {
             string value = defaultValue;
-            return Ask(title, promptText, ref value) == DialogResult.Cancel
+            return Ask(title, promptText, ref value) == MessageBoxResult.Cancel
                 ? null
                 : value;
         }
@@ -240,12 +240,12 @@ namespace MetX.Scripts.Executable
         public static string Ask(string promptText, string defaultValue = "")
         {
             string value = defaultValue;
-            return Ask("ENTER VALUE", promptText, ref value) == DialogResult.Cancel
+            return Ask("ENTER VALUE", promptText, ref value) == MessageBoxResult.Cancel
                 ? null
                 : value;
         }
 
-        public static DialogResult Ask(string title, string promptText, ref string value)
+        public static MessageBoxResult Ask(string title, string promptText, ref string value)
         {
             Console.WriteLine("---------------------");
             Console.WriteLine(title);
@@ -253,11 +253,11 @@ namespace MetX.Scripts.Executable
             Console.WriteLine(promptText);
 
             value = Console.ReadLine().AsString().Trim();
-            DialogResult dialogResult = value.IsNotEmpty() ? DialogResult.OK : DialogResult.Cancel;
-            return dialogResult;
+            MessageBoxResult MessageBoxResult = value.IsNotEmpty() ? MessageBoxResult.OK : MessageBoxResult.Cancel;
+            return MessageBoxResult;
             
             /*
-            Form form = new Form();
+            IGenerationHost form = new GenerationHost();
             Label label = new Label();
             TextBox textBox = new TextBox();
             Button buttonOk = new Button();
@@ -269,8 +269,8 @@ namespace MetX.Scripts.Executable
 
             buttonOk.Text = "OK";
             buttonCancel.Text = "Cancel";
-            buttonOk.DialogResult = DialogResult.OK;
-            buttonCancel.DialogResult = DialogResult.Cancel;
+            buttonOk.MessageBoxResult = MessageBoxResult.OK;
+            buttonCancel.MessageBoxResult = MessageBoxResult.Cancel;
 
             label.SetBounds(9, 20, 372, 13);
             textBox.SetBounds(12, 36, 372, 20);
@@ -292,7 +292,7 @@ namespace MetX.Scripts.Executable
             form.AcceptButton = buttonOk;
             form.CancelButton = buttonCancel;
 
-            DialogResult dialogResult = form.ShowDialog();
+            MessageBoxResult MessageBoxResult = form.ShowDialog();
             value = textBox.Text;
         */
         }

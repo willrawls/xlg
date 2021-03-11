@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using MetX.Library;
+using MetX.Standard.Library;
 
-namespace MetX.Data
+namespace MetX.Standard.Data
 {
     /// <summary>
     /// Creates a WHERE clause for a SQL Statement

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace MetX.Techniques
+namespace MetX.Standard.Techniques
 {
     [Serializable]
     public class ParticleList<T> : List<T> where T : Particle, new()

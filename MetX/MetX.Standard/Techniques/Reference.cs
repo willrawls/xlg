@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using MetX.Standard.Techniques;
 
 namespace MetX.Techniques
 {
