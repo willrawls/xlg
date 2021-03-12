@@ -19,6 +19,7 @@ namespace MetX.Generated
         public static void GMethod()
         {
             // generated code
+            System.Console.WriteLine(""Ding 1"");
         }
     }
 }", Encoding.UTF8));
