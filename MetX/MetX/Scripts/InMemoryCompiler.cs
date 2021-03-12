@@ -153,12 +153,20 @@ namespace MetX.Scripts
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 if (FilePathForAssembly.IsNotEmpty())
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(FilePathForAssembly));
+                    var directoryName = Path.GetDirectoryName(FilePathForAssembly);
+                    if(directoryName.IsEmpty())
+                    {
+                        directoryName = AppDomain.CurrentDomain.BaseDirectory;
+                        FilePathForAssembly = Path.Combine(directoryName, FilePathForAssembly);
+                    }
+                    Directory.CreateDirectory(directoryName);
+                    
                     if (File.Exists(FilePathForAssembly))
                     {
                         File.SetAttributes(FilePathForAssembly, FileAttributes.Normal);
                         File.Delete(FilePathForAssembly);
                     }
+
                     using var fileStream = File.OpenWrite(FilePathForAssembly);
                     {
                         fileStream.Write(memoryStream.GetBuffer());
