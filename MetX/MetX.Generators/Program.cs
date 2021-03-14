@@ -8,7 +8,6 @@ using System.Xml.XPath;
 using CommandLine;
 using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
-using Project = CsProjEditor.Project;
 
 namespace MetX.Generators
 {
@@ -34,67 +33,7 @@ namespace MetX.Generators
 
         public static void AddGeneratorAsAnalyzer(Options options)
         {
-// load csproj
-            var project = Project.Load(options.AddTo);
 
-// edit
-            var document = project.Root.Document;
-            XElement propertyGroup = document.XPathSelectElement("/Project/PropertyGroup");;
-            if (propertyGroup == null)
-            {
-                propertyGroup = new XElement("PropertyGroup");
-                document.Add(propertyGroup);
-            }
-
-            XElement node = document.XPathSelectElement("/Project/PropertyGroup/EmitCompilerGeneratedFiles");
-            if (node == null)
-            {
-                propertyGroup.Add(new XElement("EmitCompilerGeneratedFiles", "true"));
-                propertyGroup.Add(new XElement("EmitCompilerGeneratedFiles", "true"));
-                
-            }
-            
-            document.XPathEvaluate("/root/@a");  
-            Console.WriteLine(att.Cast<XAttribute>().FirstOrDefault());  
-            
-            if (!project.ExistsNode(targetGroup, addSourceGeneratedFiles))
-            {
-                
-                
-                project.InsertGroup(targetGroup);
-                project.InsertNode(targetGroup, name, addSourceGeneratedFiles);
-                project.SetAttributeValue("Project", targetGroup, name, addSourceGeneratedFiles);
-                project.SetAttributeValue("Project", targetGroup, afterTargets, "CoreCompile");
-                project.InsertNode(targetGroup, "ItemGroup", null);
-                project.InsertNode("ItemGroup");
-                //project.InsertNode(targetGroup, afterTargets, "CoreCompile" );
-
-            }
-            if (!project.ExistsGroup(propertyGroup))
-            {
-                project.InsertGroup(propertyGroup);
-            }
-            
-            project.InsertNode(propertyGroup, "EmitCompilerGeneratedFiles", "true");
-            project.InsertNode(propertyGroup, "CompilerGeneratedFilesOutputPath", "true");
-            project.InsertNode(propertyGroup, "OutputType", "Exe");
-            project.InsertNode(propertyGroup, "LangVersion", "Latest");
-            project.InsertNode(propertyGroup, "LangVersion", "Latest");
-
-            project.InsertNode(propertyGroup, "PackageCertificateThumbprint", thumbprint);
-            project.InsertNode(propertyGroup, "GenerateAppInstallerFile", "False");
-            project.InsertNode(propertyGroup, "AppxAutoIncrementPackageRevision", "True");
-            project.InsertNode(propertyGroup, "AppxSymbolPackageEnabled", "False");
-            project.InsertNode(propertyGroup, "AppxBundle", "Always");
-            project.InsertNode(propertyGroup, "AppxBundlePlatforms", "x86");
-            project.InsertNode(propertyGroup, "AppInstallerUpdateFrequency", "1");
-            project.InsertNode(propertyGroup, "AppInstallerCheckForUpdateFrequency", "OnApplicationRun");
-            project.InsertAttribute("ItemGroup", "None", "Include", pfx, e => !e.HasAttributes);
-            project.InsertAttribute("ItemGroup", "None", "Include", "Package.StoreAssociation.xml",
-                e => !e.HasAttributes);
-
-// save
-            project.Save(path);
         }
         //  Generates generator in current folder
         //  MetX.Generators.exe -generate Namespace.GeneratorName 

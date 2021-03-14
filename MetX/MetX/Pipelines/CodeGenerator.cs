@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Xsl;
-using MetX.Data;
+using MetX.Standard.Data;
 using MetX.IO;
 using MetX.Library;
 using Mvp.Xml.Common.Xsl;
@@ -98,7 +98,7 @@ namespace MetX.Pipelines
             }
         }
 
-        /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
+        /// <summary>Internally sets VirtualPat13h, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
         public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, Form gui)
             : this()
         {

@@ -10,7 +10,7 @@ namespace MetX.Controls
     using System.Threading;
     using System.Windows.Forms;
 
-    using Interfaces;
+    using Standard.Interfaces;
     using Library;
     using Scripts;
 
