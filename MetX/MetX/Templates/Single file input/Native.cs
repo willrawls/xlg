@@ -4,10 +4,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text;
 using MetX;
-using MetX.IO;
-using MetX.Data;
-using MetX.Scripts;
-using MetX.Library;
+using MetX.Standard.IO;
+using MetX.Standard.Data;
+using MetX.Standard.Scripts;
+using MetX.Standard.Library;
 
 //~~Usings~~//
 

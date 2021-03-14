@@ -17,26 +17,27 @@
   <ItemGroup>
     <Compile Remove="Data\**" />
     <Compile Remove="Interfaces\**" />
+    <Compile Remove="IO\**" />
     <Compile Remove="Library\Obsolete\**" />
     <Compile Remove="Pipelines\**" />
     <Compile Remove="Scripts\**" />
     <Compile Remove="Security\**" />
     <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="IO\**" />
     <EmbeddedResource Remove="Library\Obsolete\**" />
     <EmbeddedResource Remove="Pipelines\**" />
     <EmbeddedResource Remove="Scripts\**" />
     <EmbeddedResource Remove="Security\**" />
     <None Remove="Data\**" />
     <None Remove="Interfaces\**" />
+    <None Remove="IO\**" />
     <None Remove="Library\Obsolete\**" />
     <None Remove="Pipelines\**" />
     <None Remove="Scripts\**" />
     <None Remove="Security\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="IO\DatabaseUpdates.cs" />
-    <Compile Remove="IO\Element.cs" />
     <Compile Remove="Library\ExampleXslUrn.cs" />
     <Compile Remove="Templates\Single file input\Exe.cs" />
     <Compile Remove="Templates\Single file input\Native.cs" />

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using MetX.IO;
+using MetX.Standard.IO;
 using MetX.Library;
 using MetX.Standard.Pipelines;
 using XLG.Pipeliner.Properties;
@@ -463,7 +463,7 @@ namespace XLG.Pipeliner
                     {
                         newSource.BasePath = AppData.BasePath + itemName + @"\";
                     }
-                    FileSystem.InsureFolderExists(newSource.BasePath, false);
+                    FileSystem.InsureFolderExists(Host, newSource.BasePath, false);
                     // NewSource.ConfigFilename = CurrSource.ConfigFilename;
 
                     if (_mCurrSource != null)
@@ -535,7 +535,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textXlgFile.Text, true);
+                FileSystem.InsureFolderExists(Host, textXlgFile.Text, true);
                 if (!File.Exists(textXlgFile.Text))
                 {
                     File.WriteAllText(textXlgFile.Text,
@@ -553,7 +553,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textAppXlgXsl.Text, true);
+                FileSystem.InsureFolderExists(Host, textAppXlgXsl.Text, true);
                 Process.Start(AppData.TextEditor, textAppXlgXsl.Text);
             }
             catch (Exception ex)
@@ -566,7 +566,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textOutput.Text, true);
+                FileSystem.InsureFolderExists(Host, textOutput.Text, true);
                 Process.Start(AppData.TextEditor, textOutput.Text);
             }
             catch (Exception ex)
@@ -584,7 +584,7 @@ namespace XLG.Pipeliner
                     textOutputXml.Text = textOutput.Text.Substring(0,
                         textOutput.Text.Length - Path.GetExtension(textOutput?.Text ?? "").Length) + ".xml";
                 }
-                FileSystem.InsureFolderExists(textOutputXml.Text, true);
+                FileSystem.InsureFolderExists(Host, textOutputXml.Text, true);
                 Process.Start(AppData.TextEditor, textOutputXml.Text);
             }
             catch (Exception ex)

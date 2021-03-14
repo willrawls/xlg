@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using MetX;
-using MetX.IO;
+using MetX.Standard.IO;
 using MetX.Data;
 using MetX.Scripts;
 using MetX.Library;

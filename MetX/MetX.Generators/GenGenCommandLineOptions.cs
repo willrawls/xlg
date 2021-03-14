@@ -44,16 +44,19 @@ namespace MetX.Generators
         [Option('a', "attribute", Required = true, HelpText = "Name of generate attribute ()")]
         public string AttributeName { get; set; }
 
-        [Option('f', "folder", Required = false,
-            HelpText = "Root folder for generation (default is the current directory)")]
+        [Option('f', "folder", Required = false, HelpText = "Root folder for generation (default is the current directory)")]
         public string RootFolder { get; set; }
 
-        [Option('t', "template", Required = false,
-            HelpText = "Path to a marked up csproj file used when creating a new generator and client")]
-        public string RootFolder { get; set; }
+        [Option('x', "client", Required = false, HelpText = "Path to a template for the client project (default is to use the built in template)")]
+        public string ClientTemplate { get; set; }
 
-        [Option('p', "client project", Required = false,
-            HelpText = "Path to csproj the generator should be added as an analyzer (Default is the csproj of the same name as the folder parameter)")]
+        [Option('y', "generator", Required = false, HelpText = "Path to a template (or template folder) for the generator project (default is to use the built in template)")]
+        public string GeneratorTemplate { get; set; }
+
+        [Option('z', "aspects", Required = false, HelpText = "Path to a template for the aspects (attribute) project (default is to use the built in template)")]
+        public string AspectsTemplate { get; set; }
+
+        [Option('p', "client project", Required = false, HelpText = "Path to csproj the generator should be added as an analyzer (Default is the csproj of the same name as the folder parameter)")]
         public string AddTo { get; set; }
 
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
