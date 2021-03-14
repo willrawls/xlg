@@ -24,13 +24,16 @@ namespace XLG.Pipeliner
         private bool _mRefreshingList;
         public XlgSettings Settings;
 
-        public WinFormMessageBoxHost<GloveMain> FormHost;
+        public IGenerationHost Host { get; set; }
+        public WinFormMessageBoxHost<GloveMain> MessageBoxHost;
         
         public GloveMain()
         {
             InitializeComponent();
 
-            FormHost = new WinFormMessageBoxHost<GloveMain>(this);
+            Host = new GenerationHost();
+            MessageBoxHost = new WinFormMessageBoxHost<GloveMain>(this, Host);
+            Host.MessageBox = MessageBoxHost;
             
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
@@ -48,7 +51,7 @@ namespace XLG.Pipeliner
             try
             {
                 UpdateCurrentSource();
-                Settings.Generate(this);
+                Settings.Generate(MessageBoxHost.Host);
             }
             catch (Exception ex)
             {
@@ -145,7 +148,7 @@ namespace XLG.Pipeliner
             Enabled = false;
             try
             {
-                Settings.Regenerate(this);
+                Settings.Regenerate(Host);
             }
             catch (Exception ex)
             {
@@ -202,7 +205,7 @@ namespace XLG.Pipeliner
                 {
                     Settings = XlgSettings.Load(xlgSourceFilename);
                     Settings.Filename = xlgSourceFilename;
-                    Settings.Gui = this;
+                    Settings.Gui = Host;
                     MetadataSources.Items.Clear();
                     foreach (var currSource in Settings.Sources)
                     {
@@ -226,10 +229,10 @@ namespace XLG.Pipeliner
                     if (!Directory.Exists(appDataXlg))
                         Directory.CreateDirectory(appDataXlg);
                     
-                    Settings = new XlgSettings(this)
+                    Settings = new XlgSettings(Host)
                     {
                         Filename = Path.Combine(appDataXlg, "Default.xlgs"), 
-                        Gui = this,
+                        Gui = Host,
                     };
                     AppData.LastXlgsFile = Settings.Filename;
                     AppData.Save();
@@ -617,7 +620,7 @@ namespace XLG.Pipeliner
             try
             {
                 var t = Settings;
-                Settings = new XlgSettings(this)
+                Settings = new XlgSettings(Host)
                 {
                     Sources = new List<XlgSource>(),
                     DefaultConnectionString = t.DefaultConnectionString,
@@ -663,7 +666,7 @@ namespace XLG.Pipeliner
                     return;
                 }
 
-                Settings ??= new XlgSettings(this);
+                Settings ??= new XlgSettings(Host);
                 Settings.Filename = saveFileDialog1.FileName;
                 
                 buttonSave_Click(null, null);
