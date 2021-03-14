@@ -19,20 +19,25 @@
     <Compile Remove="Interfaces\**" />
     <Compile Remove="Library\Obsolete\**" />
     <Compile Remove="Pipelines\**" />
+    <Compile Remove="Scripts\**" />
+    <Compile Remove="Security\**" />
     <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="Library\Obsolete\**" />
     <EmbeddedResource Remove="Pipelines\**" />
+    <EmbeddedResource Remove="Scripts\**" />
+    <EmbeddedResource Remove="Security\**" />
     <None Remove="Data\**" />
     <None Remove="Interfaces\**" />
     <None Remove="Library\Obsolete\**" />
     <None Remove="Pipelines\**" />
+    <None Remove="Scripts\**" />
+    <None Remove="Security\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="IO\DatabaseUpdates.cs" />
     <Compile Remove="IO\Element.cs" />
     <Compile Remove="Library\ExampleXslUrn.cs" />
-    <Compile Remove="Scripts\NArrangeTestLogger.cs" />
     <Compile Remove="Templates\Single file input\Exe.cs" />
     <Compile Remove="Templates\Single file input\Native.cs" />
     <Compile Remove="Web\HttpAppErrHandler.cs" />
@@ -90,9 +95,6 @@
     <None Include="Properties\cross_48.png" />
     <None Include="Properties\cancel_48.png" />
     <None Include="Properties\add_48.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />

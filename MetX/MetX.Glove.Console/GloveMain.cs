@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using MetX.IO;
 using MetX.Library;
-using MetX.Pipelines;
+using MetX.Standard.Pipelines;
 using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner
@@ -23,10 +24,14 @@ namespace XLG.Pipeliner
         private bool _mRefreshingList;
         public XlgSettings Settings;
 
+        public WinFormMessageBoxHost<GloveMain> FormHost;
+        
         public GloveMain()
         {
             InitializeComponent();
 
+            FormHost = new WinFormMessageBoxHost<GloveMain>(this);
+            
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
                 RefreshList(AppData.LastXlgsFile);
@@ -695,12 +700,52 @@ namespace XLG.Pipeliner
             var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
             if (!File.Exists(exePath))
             {
-                MessageBox.Show(this, "Quick scripts missing: " + exePath);
+                MessageBox.Show("Quick scripts missing: " + exePath);
             }
             else
             {
                 Process.Start(exePath, string.Empty);
             }
+        }
+    }
+    
+    public class WinFormMessageBoxHost<TForm> : IMessageBox where TForm : Form
+    {
+        public TForm Parent { get; set; }
+        public IGenerationHost Host { get; set; }
+
+        public WinFormMessageBoxHost(TForm parent, IGenerationHost host)
+        {
+            Host = host;
+            Parent = parent;
+        }
+
+        public MessageBoxResult Show(string message)
+        {
+            
+            return MessageBox.Show(Parent, message).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title)
+        {
+            return MessageBox.Show(Parent, message, title).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices)
+        {
+            return MessageBox.Show(Parent, message, title, choices.As<MessageBoxButtons>()).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices, MessageBoxStatus status,
+            MessageBoxDefault @default)
+        {
+            return MessageBox.Show(
+                Parent, message, title, 
+                choices
+                    .As<MessageBoxButtons>(), status
+                    .As<MessageBoxIcon>(), @default
+                    .As<MessageBoxDefaultButton>())
+                .As<MessageBoxResult>();
         }
     }
 }

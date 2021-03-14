@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using MetX.IO;
 using MetX.Library;
-using MetX.Pipelines;
+using MetX.Standard.Pipelines;
 
 namespace XLG.Pipeliner
 {

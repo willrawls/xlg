@@ -95,9 +95,6 @@
     <None Include="Properties\add_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
 

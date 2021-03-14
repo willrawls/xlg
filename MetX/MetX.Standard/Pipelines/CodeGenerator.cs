@@ -1235,6 +1235,7 @@ namespace MetX.Standard.Pipelines
 
     public interface IMessageBox
     {
+        IGenerationHost Host { get; }
         MessageBoxResult Show(string message);
         MessageBoxResult Show(string message, string title);
         MessageBoxResult Show(string message, string title, MessageBoxChoices choices);
@@ -1249,24 +1250,29 @@ namespace MetX.Standard.Pipelines
     public enum MessageBoxStatus
     {
         Unknown,
-
         Error
     }
     
     public enum MessageBoxChoices
     {
-        Unknown,
+        OK,
+        OKCancel,
+        AbortRetryIgnore,
+        YesNoCancel,
         YesNo,
-        YesNoCancel
+        RetryCancel,
     }
     
     public enum MessageBoxResult
     {
-        Unknown,
+        None,
+        OK,
+        Cancel,
+        Abort,
+        Retry,
+        Ignore,
         Yes,
         No,
-        Okay,
-        Cancel
     }
 
     public class GenerationHost : IGenerationHost

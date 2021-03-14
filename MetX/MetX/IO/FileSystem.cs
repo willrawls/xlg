@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using MetX.Library;
-using MetX.Pipelines;
+using MetX.Standard.Pipelines;
 
 namespace MetX.IO
 {

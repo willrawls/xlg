@@ -10,7 +10,7 @@ namespace MetX.Controls
 
     using Properties;
     using Library;
-    using Scripts;
+    using MetX.Standard.Scripts;
 
     public partial class QuickScriptControl : TextEditorControl
     {

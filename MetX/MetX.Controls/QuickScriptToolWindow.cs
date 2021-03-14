@@ -12,7 +12,7 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
     using Library;
-    using Scripts;
+    using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
 

@@ -11,7 +11,7 @@ namespace XLG.QuickScripts
 
     using MetX.Controls;
     using MetX.Library;
-    using MetX.Scripts;
+    using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
 

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using MetX.Standard.Scripts;
 using Microsoft.CodeAnalysis;
 
 #pragma warning disable 414
@@ -12,7 +13,7 @@ namespace MetX.Controls
 
     using Standard.Interfaces;
     using Library;
-    using Scripts;
+    using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
 
