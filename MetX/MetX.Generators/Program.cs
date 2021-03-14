@@ -11,13 +11,14 @@ using Microsoft.CodeAnalysis;
 
 namespace MetX.Generators
 {
-    public class Program
+    public partial class Program
     {
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
+            Parser.Default.ParseArguments<GenGenCommandLineOptions>(args)
                 .WithParsed(options =>
                 {
+                    
                     if (options.AddTo.IsNotEmpty())
                     {
                         //  MetX.Generators.exe -addto "PathTo.csproj the generator should be added as an analyzer"
@@ -31,7 +32,7 @@ namespace MetX.Generators
                 });
         }
 
-        public static void AddGeneratorAsAnalyzer(Options options)
+        public static void AddGeneratorAsAnalyzer(GenGenCommandLineOptions options)
         {
 
         }
@@ -59,30 +60,5 @@ namespace MetX.Generators
         //      
         //  MetX.Generators.exe -just Namespace.GeneratorName -addto "PathTo.csproj the generator should be added as an analyzer"
         //      Find and modify/update the csproj of the client
-
-        public class Options
-        {
-            /*
-            [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
-            public bool Verbose { get; set; }
-            */
-
-            [Option('n', "namespace", Required = true, HelpText = "Namespace of generator")]
-            public string Namespace { get; set; }
-
-            [Option('c', "generatorname", Required = true, HelpText = "Class name of generator")]
-            public string GeneratorName { get; set; }
-
-            [Option('f', "folder", Required = false,
-                HelpText = "Root folder for generation (default is the current directory)")]
-            public string RootFolder { get; set; }
-
-            [Option('a', "addto", Required = false,
-                HelpText = "Path to csproj the generator should be added as an analyzer")]
-            public string AddTo { get; set; }
-
-            [Option('j', "just", Required = false, HelpText = "Just add/update the Namespace.GeneratorName")]
-            public string Just { get; set; }
-        }
     }
 }
