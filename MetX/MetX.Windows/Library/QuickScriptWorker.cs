@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using MetX.Standard.Pipelines;
+using MetX.Windows.WinApi;
 
 namespace MetX.Standard.Library
 {
@@ -29,7 +30,8 @@ namespace MetX.Standard.Library
             try
             {
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
-                Process.Start("notepad", filePath);
+                var notepadProcess = Process.Start("notepad", filePath);
+                ActiveWindow.Move(notepadProcess);
             }
             catch (Exception ex)
             {

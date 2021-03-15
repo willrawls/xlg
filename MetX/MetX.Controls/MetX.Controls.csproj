@@ -22,13 +22,11 @@
   <ItemGroup>
     <EmbeddedResource Remove="TechniquesEditor.resx" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MetX\MetX.Windows.csproj">
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="FindAndReplaceForm.cs">

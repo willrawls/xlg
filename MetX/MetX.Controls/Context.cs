@@ -98,6 +98,8 @@ namespace MetX.Controls
                 typeof(Context),         // MetX.Controls
                 typeof(Application),
                 typeof(Microsoft.CSharp.CSharpCodeProvider),
+                typeof(MetX.Standard.Library.BaseLineProcessor),
+                typeof(MetX.Windows.Library.AskForStringDialog),
             };
             return assemblies;
         }

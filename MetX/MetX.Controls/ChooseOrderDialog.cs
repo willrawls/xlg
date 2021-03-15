@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Windows.Forms;
-using MetX.Library;
 using MetX.Standard.Library;
+using MetX.Windows.Library;
 
 namespace MetX.Controls
 {
