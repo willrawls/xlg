@@ -1231,6 +1231,7 @@ namespace MetX.Standard.Pipelines
     public interface IGenerationHost
     {
         IMessageBox MessageBox { get; set; }
+        MessageBoxResult InputBoxRef(string title, string description, ref string itemName);
     }
 
     public interface IMessageBox
@@ -1244,7 +1245,10 @@ namespace MetX.Standard.Pipelines
 
     public enum MessageBoxDefault
     {
-        Button1
+        Unknown,
+        Button1,
+        Button2,
+        Button3,
     }
     
     public enum MessageBoxStatus
@@ -1255,6 +1259,7 @@ namespace MetX.Standard.Pipelines
     
     public enum MessageBoxChoices
     {
+        Unknown,
         OK,
         OKCancel,
         AbortRetryIgnore,
@@ -1265,6 +1270,7 @@ namespace MetX.Standard.Pipelines
     
     public enum MessageBoxResult
     {
+        Unknown,
         None,
         OK,
         Cancel,
@@ -1273,10 +1279,15 @@ namespace MetX.Standard.Pipelines
         Ignore,
         Yes,
         No,
+
     }
 
     public class GenerationHost : IGenerationHost
     {
         public IMessageBox MessageBox { get; set; }
+        public virtual MessageBoxResult InputBoxRef(string title, string description, ref string itemName)
+        {
+            return MessageBoxResult.Unknown;
+        }
     }
 }
