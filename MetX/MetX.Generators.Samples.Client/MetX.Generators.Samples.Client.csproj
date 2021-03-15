@@ -22,11 +22,7 @@
       <Compile Include="Generated\**" />
     </ItemGroup>
   </Target>
-  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Compile Remove="Generated\**" />
-    </ItemGroup>
-  </Target>
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />

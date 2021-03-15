@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX", "MetX\MetX.csproj", "{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX\MetX.Windows.csproj", "{FF6EC6B3-5AA7-4CD6-B7C1-B4C2BCBE7051}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.QuickScripts", "MetX.QuickScripts\MetX.QuickScripts.csproj", "{D554998C-4943-4167-8D2C-A7320A9E5A2F}"
 EndProject
@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Generators", "MetX.Gen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Aspects", "MetX.Aspects\MetX.Aspects.csproj", "{FE6DD18A-0BF0-4B43-9996-74493CA0DC46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Generators.Samples.Client", "MetX.Generators.Samples.Client\MetX.Generators.Samples.Client.csproj", "{6D147476-A274-40D6-B61F-777B5A8779BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Generators.Samples.Client", "MetX.Generators.Samples.Client\MetX.Generators.Samples.Client.csproj", "{6D147476-A274-40D6-B61F-777B5A8779BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard", "MetX.Standard\MetX.Standard.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
 EndProject

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX\MetX.csproj" />
+    <ProjectReference Include="..\MetX\MetX.Windows.csproj" />
   </ItemGroup>
 
 </Project>
