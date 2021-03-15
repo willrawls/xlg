@@ -1,4 +1,7 @@
 ﻿// ReSharper disable UnusedVariable
+
+using MetX.Library;
+
 namespace MetX.Controls
 {
     using System;
@@ -9,7 +12,7 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
     using Properties;
-    using Library;
+    using MetX.Standard.Library;
     using MetX.Standard.Scripts;
 
     public partial class QuickScriptControl : TextEditorControl

@@ -22,6 +22,9 @@
     <Compile Remove="Pipelines\**" />
     <Compile Remove="Scripts\**" />
     <Compile Remove="Security\**" />
+    <Compile Remove="Techniques\**" />
+    <Compile Remove="Templates\**" />
+    <Compile Remove="Web\**" />
     <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="IO\**" />
@@ -29,6 +32,9 @@
     <EmbeddedResource Remove="Pipelines\**" />
     <EmbeddedResource Remove="Scripts\**" />
     <EmbeddedResource Remove="Security\**" />
+    <EmbeddedResource Remove="Techniques\**" />
+    <EmbeddedResource Remove="Templates\**" />
+    <EmbeddedResource Remove="Web\**" />
     <None Remove="Data\**" />
     <None Remove="Interfaces\**" />
     <None Remove="IO\**" />
@@ -36,25 +42,29 @@
     <None Remove="Pipelines\**" />
     <None Remove="Scripts\**" />
     <None Remove="Security\**" />
+    <None Remove="Techniques\**" />
+    <None Remove="Templates\**" />
+    <None Remove="Web\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Library\BaseLineProcessor.cs" />
+    <Compile Remove="Library\BaseRuntimeFunctions.cs" />
     <Compile Remove="Library\ExampleXslUrn.cs" />
-    <Compile Remove="Templates\Single file input\Exe.cs" />
-    <Compile Remove="Templates\Single file input\Native.cs" />
-    <Compile Remove="Web\HttpAppErrHandler.cs" />
-    <Compile Remove="Web\SecureHandler.cs" />
-    <Compile Remove="Web\SecurePage.cs" />
-    <Compile Remove="Web\SecureXslHandler.cs" />
-    <Compile Remove="Web\SecureXslPage.cs" />
-    <Compile Remove="Web\Virtual\viewtempdatafile.cs" />
-    <Compile Remove="Web\xlgHandler.cs" />
-    <Compile Remove="Web\xlgHandlerFactory.cs" />
-    <Compile Remove="Web\xlgPage.cs" />
-    <Compile Remove="Web\xlgPathProvider.cs" />
-    <Compile Remove="Web\xlgVirtualDirectory.cs" />
-    <Compile Remove="Web\xlgVirtualFile.cs" />
-    <Compile Remove="Web\XslHandler.cs" />
-    <Compile Remove="Web\XslPage.cs" />
+    <Compile Remove="Library\InMemoryCache.cs" />
+    <Compile Remove="Library\QuickScriptWorker.cs" />
+    <Compile Remove="Library\RunResult.cs" />
+    <Compile Remove="Library\SerializesToXml.cs" />
+    <Compile Remove="Library\SortedStringList.cs" />
+    <Compile Remove="Library\StreamBuilder.cs" />
+    <Compile Remove="Library\StringExtensions.cs" />
+    <Compile Remove="Library\StringWriterWithEncoding.cs" />
+    <Compile Remove="Library\Tokenizer.cs" />
+    <Compile Remove="Library\UI.cs" />
+    <Compile Remove="Library\Worker.cs" />
+    <Compile Remove="Library\Xhtml.cs" />
+    <Compile Remove="Library\xlgUrn.cs" />
+    <Compile Remove="Library\XML.cs" />
+    <Compile Remove="Library\xsl.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,12 +76,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Templates\Single file input\Exe.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Single file input\Native.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>

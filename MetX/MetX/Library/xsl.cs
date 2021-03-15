@@ -8,6 +8,7 @@ using System.Xml.XPath;
 using System.Xml.Xsl;
 using MetX.Standard.IO;
 using MetX.Standard.IO;
+using MetX.Standard.Library;
 
 // ReSharper disable UnusedType.Global
 

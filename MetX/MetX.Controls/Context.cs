@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using MetX.Standard.Library;
 using MetX.Standard.Scripts;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 #pragma warning disable 414
 namespace MetX.Controls
@@ -12,7 +14,7 @@ namespace MetX.Controls
     using System.Windows.Forms;
 
     using Standard.Interfaces;
-    using Library;
+    using MetX.Standard.Library;
     using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
@@ -51,8 +53,8 @@ namespace MetX.Controls
                 return generatedQuickScriptLineProcessor;
 
             var forDisplay = compiler.Failures.ForDisplay(source.Lines());
-            QuickScriptWorker.ViewTextInNotepad(source, true);
-            QuickScriptWorker.ViewTextInNotepad(forDisplay, true);
+            QuickScriptWorker.ViewTextInNotepad(@base.Host, source, true);
+            QuickScriptWorker.ViewTextInNotepad(@base.Host, forDisplay, true);
             return null;
         }
 
@@ -205,8 +207,7 @@ namespace MetX.Controls
                         case QuickScriptDestination.Notepad:
 
                             // QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
-                            QuickScriptWorker.ViewFileInNotepad(
-                                runResult.QuickScriptProcessor.Output.FilePath);
+                            QuickScriptWorker.ViewFileInNotepad(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
 
                             // QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
                             break;
@@ -214,7 +215,7 @@ namespace MetX.Controls
                         case QuickScriptDestination.File:
                             runResult.QuickScriptProcessor.Output?.Finish();
                             runResult.QuickScriptProcessor.Output = null;
-                            QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            QuickScriptWorker.ViewFileInNotepad(caller.Host, scriptToRun.DestinationFilePath);
 
                             // File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             break;

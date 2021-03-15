@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
+using MetX.Standard.Pipelines;
 
 namespace XLG.QuickScripts
 {
@@ -10,7 +11,7 @@ namespace XLG.QuickScripts
     using System.Windows.Forms;
 
     using MetX.Controls;
-    using MetX.Library;
+    using MetX.Standard.Library;
     using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
@@ -18,9 +19,7 @@ namespace XLG.QuickScripts
     public partial class QuickScriptEditor : ScriptRunningWindow
     {
         public bool DestinationParamAlreadyFocused;
-
         public bool InputParamAlreadyFocused;
-
         public bool Updating;
 
         public QuickScriptEditor(string filePath)
@@ -51,7 +50,7 @@ namespace XLG.QuickScripts
                 var source = ScriptEditor.Current.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
-                    QuickScriptWorker.ViewTextInNotepad(source, true);
+                    QuickScriptWorker.ViewTextInNotepad(Host, source, true);
                 }
             }
             catch (Exception e)
@@ -156,8 +155,8 @@ namespace XLG.QuickScripts
             */
 
             var lines = new List<string>(source.LineList());
-            QuickScriptWorker.ViewTextInNotepad(source, true);
-            QuickScriptWorker.ViewTextInNotepad(compilerResults.Failures.ForDisplay(lines), true);
+            QuickScriptWorker.ViewTextInNotepad(Host, source, true);
+            QuickScriptWorker.ViewTextInNotepad(Host, compilerResults.Failures.ForDisplay(lines), true);
 
             return null;
         }
@@ -334,12 +333,12 @@ namespace XLG.QuickScripts
 
         private void EditDestinationFilePath_Click(object sender, EventArgs e)
         {
-            QuickScriptWorker.ViewFileInNotepad(DestinationParam.Text);
+            QuickScriptWorker.ViewFileInNotepad(Host, DestinationParam.Text);
         }
 
         private void EditInputFilePath_Click(object sender, EventArgs e)
         {
-            QuickScriptWorker.ViewFileInNotepad(InputParam.Text);
+            QuickScriptWorker.ViewFileInNotepad(Host, InputParam.Text);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -434,9 +433,9 @@ namespace XLG.QuickScripts
             if (Context.Scripts != null)
             {
                 var name = string.Empty;
-                var answer = Ui.InputBoxRef("New Script Name", "Please enter the name for the new script.",
+                var answer = Host.InputBoxRef("New Script Name", "Please enter the name for the new script.",
                     ref name);
-                if (answer != DialogResult.OK || (name ?? string.Empty).Trim() == string.Empty)
+                if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty)
                 {
                     return;
                 }
@@ -445,14 +444,13 @@ namespace XLG.QuickScripts
                 XlgQuickScript newScript = null;
                 if (ScriptEditor.Current != null)
                 {
-                    answer = MessageBox.Show(this, "Would you like to clone the current script?", "CLONE SCRIPT?",
-                        MessageBoxButtons.YesNoCancel);
+                    answer = Host.MessageBox.Show("Would you like to clone the current script?", "CLONE SCRIPT?", MessageBoxChoices.YesNoCancel);
                     switch (answer)
                     {
-                        case DialogResult.Cancel:
+                        case MessageBoxResult.Cancel:
                             return;
 
-                        case DialogResult.Yes:
+                        case MessageBoxResult.Yes:
                             UpdateScriptFromForm();
 
                             // script = Current.Script;
@@ -831,7 +829,7 @@ namespace XLG.QuickScripts
                 }
                 else
                 {
-                    QuickScriptWorker.ViewFileInNotepad(location.Replace(".exe", ".cs"));
+                    QuickScriptWorker.ViewFileInNotepad(Host, location.Replace(".exe", ".cs"));
                 }
             }
             catch (Exception exception)

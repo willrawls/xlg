@@ -1,11 +1,10 @@
 using System.Linq;
+using System.Windows.Forms;
+using MetX.Library;
+using MetX.Standard.Library;
 
 namespace MetX.Controls
 {
-    using System.Windows.Forms;
-
-    using Library;
-
     public class ChooseOrderDialog : GeneralQuestionDialog<OrderedSelector, string[]>
     {
         public string[] Items;

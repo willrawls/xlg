@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using MetX.Standard.IO;
-using MetX.Library;
+using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
 using XLG.Pipeliner.Properties;
 
@@ -25,16 +25,16 @@ namespace XLG.Pipeliner
         public XlgSettings Settings;
 
         public IGenerationHost Host { get; set; }
-        public WinFormMessageBoxHost<GloveMain> MessageBoxHost;
         
         public GloveMain()
         {
             InitializeComponent();
 
-            Host = new GenerationHost();
-            MessageBoxHost = new WinFormMessageBoxHost<GloveMain>(this, Host);
-            Host.MessageBox = MessageBoxHost;
-            
+            Host = new GenerationHost
+            {
+                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host)
+            };
+
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
                 RefreshList(AppData.LastXlgsFile);
@@ -51,7 +51,7 @@ namespace XLG.Pipeliner
             try
             {
                 UpdateCurrentSource();
-                Settings.Generate(MessageBoxHost.Host);
+                Settings.Generate(Host);
             }
             catch (Exception ex)
             {
@@ -427,9 +427,9 @@ namespace XLG.Pipeliner
             try
             {
                 var itemName = "CLONE";
-
-                if (Ui.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
-                    == DialogResult.Cancel
+                
+                if (this.Host.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                    == MessageBoxResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {
                     return;
