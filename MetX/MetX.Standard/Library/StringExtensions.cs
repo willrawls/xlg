@@ -72,7 +72,7 @@ namespace MetX.Standard.Library
 
         public static bool IsNotEmpty(this string target)
         {
-            return !string.IsNullOrEmpty(target);
+            return string.IsNullOrEmpty(target);
         }
 
         public static List<string> AsList(this string[] target)

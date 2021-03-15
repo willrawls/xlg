@@ -150,7 +150,12 @@ namespace MetX.Standard.Scripts
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 if (FilePathForAssembly.IsNotEmpty())
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(FilePathForAssembly));
+                    var directoryName = Path.GetDirectoryName(FilePathForAssembly);
+                    if(directoryName.IsNotEmpty() && !Directory.Exists(directoryName))
+                    {
+                        Directory.CreateDirectory(directoryName!);
+                    }
+                    
                     if (File.Exists(FilePathForAssembly))
                     {
                         File.SetAttributes(FilePathForAssembly, FileAttributes.Normal);
