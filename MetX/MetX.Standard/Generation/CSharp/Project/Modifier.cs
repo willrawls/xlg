@@ -1,33 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml;
-using System.Xml.XPath;
 using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class ProjectModifier
-    {
-        public ProjectModifier(Modifier modifier)
-        {
-            
-        }
-    }
-
-    public static class XPaths
-    {
-        public const string Project = "/Project";
-        public const string PropertyGroup = Project + "/PropertyGroup";
-        public const string EmitCompilerGeneratedFiles = PropertyGroup + "/EmitCompilerGeneratedFiles";
-    }
-
-    public class PropertyGroup
-    {
-            
-    }
-    
     public class Modifier
     {
         
@@ -36,10 +12,8 @@ namespace MetX.Standard.Generation.CSharp.Project
         
         public string FilePath { get; set; }
         public XmlDocument Document { get; set; }
-        public string Contents { get; set; }
+        //public string Contents { get; set; }
 
-        
-        
         public static Modifier LoadFile(string filePath)
         {
             var document = new XmlDocument();
@@ -47,7 +21,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             var modifier = new Modifier
             {
                 Document = document,
-                Contents = document.InnerXml,
+                //Contents = document.InnerXml,
                 FilePath = filePath,
             };
             modifier.PropertyGroups = new PropertyGroups(modifier);
@@ -107,31 +81,6 @@ namespace MetX.Standard.Generation.CSharp.Project
         public void UpdateInnerText(string xpath, bool value)
         {
             UpdateInnerText(xpath, value ? "true" : "false");
-        }
-    }
-
-    public class PropertyGroups
-    {
-        public Modifier Parent;
-        public XmlNodeList Nodes => Parent.Document.SelectNodes(XPaths.PropertyGroup);
-
-        public PropertyGroups(Modifier parent)
-        {
-            Parent = parent;
-        }
-
-        public bool EmitCompilerGeneratedFilesMissing => Parent.NodeIsMissing(XPaths.EmitCompilerGeneratedFiles);
-
-        public bool EmitCompilerGeneratedFiles
-        {
-            get
-            {
-                var node = Parent.Document.SelectSingleNode(XPaths.EmitCompilerGeneratedFiles);
-                if (node == null)
-                    return false;
-                return node.InnerText == "true";
-            }
-            set => Parent.UpdateInnerText(XPaths.EmitCompilerGeneratedFiles, value);
         }
     }
 }
