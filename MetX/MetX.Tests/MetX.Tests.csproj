@@ -23,4 +23,23 @@
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Generators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Standard\ProjectPieces\FullClient.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\WithEmitFalse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\WithEmitTrue.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\WithoutEmit.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

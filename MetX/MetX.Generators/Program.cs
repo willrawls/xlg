@@ -15,7 +15,7 @@ namespace MetX.Generators
     {
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<GenGenCommandLineOptions>(args)
+            Parser.Default.ParseArguments<CommandLineOptions>(args)
                 .WithParsed(options =>
                 {
                     
@@ -32,7 +32,7 @@ namespace MetX.Generators
                 });
         }
 
-        public static void AddGeneratorAsAnalyzer(GenGenCommandLineOptions options)
+        public static void AddGeneratorAsAnalyzer(CommandLineOptions options)
         {
 
         }

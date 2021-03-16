@@ -2,7 +2,7 @@
 
 namespace MetX.Generators
 {
-    public class GenGenCommandLineOptions
+    public class CommandLineOptions
     {
         [Option('m', "mode", Required = false, HelpText = @"
     NOTE: When this parameter is missing, 'create' is assumed,
@@ -26,12 +26,13 @@ namespace MetX.Generators
             NOTE: Only from the 'Generated' folder this program 
                   adds to the client project
 
-        remove (Delete the generator and aspect projects)
+        remove (Delete the generator and aspect projects. Remove reference from client)
             NOTE: Will not delete the folders 
                   or any files that would not have been created
 ")]
-        public GenGenMode Mode { get; set; }
+        public GenGen.Operation Operation { get; set; }
         
+        // Operation
         [Option('b', "build", Required = true, HelpText = "Build generator and client when done")]
         public bool Build { get; set; }
         
