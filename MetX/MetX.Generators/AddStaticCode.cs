@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace MetX.Generators
 {
     [Generator]
-    public class GeneratorAddingStaticCode : ISourceGenerator
+    public class AddStaticCode : ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context) {}
 

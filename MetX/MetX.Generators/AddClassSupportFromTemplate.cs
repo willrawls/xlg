@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace MetX.Generators
 {
     [Generator]
-    public class GeneratorFromTemplate : ISourceGenerator
+    public class AddClassSupportFromTemplate : ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context) {}
 

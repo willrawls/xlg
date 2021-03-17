@@ -9,7 +9,14 @@ namespace MetX.Tests.Standard
         public const string PiecesDirectory = @"Standard\ProjectPieces";
         
         [TestMethod]
-        public void CheckForEmit_Missing()
+        public void CheckForEmit_EmitMissing()
+        {
+            var project = Modifier.LoadFile($@"{PiecesDirectory}\WithoutEmit.xml");
+            Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
+        }
+        
+        [TestMethod]
+        public void CheckForEmit_PropertyGroupMissing()
         {
             var project = Modifier.LoadFile($@"{PiecesDirectory}\WithoutEmit.xml");
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);

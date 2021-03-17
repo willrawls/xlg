@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using CommandLine;
+using MetX.Generators.GenGen;
 using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 
@@ -15,7 +16,7 @@ namespace MetX.Generators
     {
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<CommandLineOptions>(args)
+            Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(options =>
                 {
                     
@@ -32,7 +33,7 @@ namespace MetX.Generators
                 });
         }
 
-        public static void AddGeneratorAsAnalyzer(CommandLineOptions options)
+        public static void AddGeneratorAsAnalyzer(Options options)
         {
 
         }

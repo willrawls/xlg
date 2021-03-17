@@ -1,14 +1,14 @@
 ﻿using CommandLine;
 
-namespace MetX.Generators
+namespace MetX.Generators.GenGen
 {
-    public class CommandLineOptions
+    public class Options
     {
-        [Option('m', "mode", Required = false, HelpText = @"
+        public const string HelpText = @"
     NOTE: When this parameter is missing, 'create' is assumed,
 
-        create (generate a new generator, new attribute, and new client projects)
-        gengen (generate a generator and attribute projects only)
+        create (generate new generator, attribute, and client projects)
+        gengen (generate the generator and attribute projects only)
         client (generate only a new client project)
 
         update (Update a previously created generator as needed),
@@ -29,7 +29,9 @@ namespace MetX.Generators
         remove (Delete the generator and aspect projects. Remove reference from client)
             NOTE: Will not delete the folders 
                   or any files that would not have been created
-")]
+";
+
+        [Option('o', "operation`", Required = false, HelpText = HelpText)]
         public GenGen.Operation Operation { get; set; }
         
         // Operation
