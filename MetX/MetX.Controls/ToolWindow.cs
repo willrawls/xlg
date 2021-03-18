@@ -1,11 +1,14 @@
-﻿using MetX.Library;
+﻿using MetX.Standard.Library;
 using System;
 using System.Windows.Forms;
+using MetX.Standard.Pipelines;
 
 namespace MetX.Controls
 {
     public partial class ToolWindow : Form //: DockContent
     {
+        public IGenerationHost Host;
+
         public static Context Context
         {
             get
@@ -17,7 +20,7 @@ namespace MetX.Controls
                 ContextBase.Default = new Context();
                 return (Context)ContextBase.Default;
             }
-            set { ContextBase.Default = value; }
+            set => ContextBase.Default = value;
         }
 
         public ToolWindow()

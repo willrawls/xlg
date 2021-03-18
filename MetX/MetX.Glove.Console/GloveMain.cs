@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using MetX.IO;
-using MetX.Library;
-using MetX.Pipelines;
+using System.Windows.Forms.VisualStyles;
+using MetX.Standard.IO;
+using MetX.Standard.Library;
+using MetX.Standard.Pipelines;
 using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner
@@ -23,9 +24,16 @@ namespace XLG.Pipeliner
         private bool _mRefreshingList;
         public XlgSettings Settings;
 
+        public IGenerationHost Host { get; set; }
+        
         public GloveMain()
         {
             InitializeComponent();
+
+            Host = new GenerationHost
+            {
+                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host)
+            };
 
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
@@ -43,7 +51,7 @@ namespace XLG.Pipeliner
             try
             {
                 UpdateCurrentSource();
-                Settings.Generate(this);
+                Settings.Generate(Host);
             }
             catch (Exception ex)
             {
@@ -140,7 +148,7 @@ namespace XLG.Pipeliner
             Enabled = false;
             try
             {
-                Settings.Regenerate(this);
+                Settings.Regenerate(Host);
             }
             catch (Exception ex)
             {
@@ -197,7 +205,7 @@ namespace XLG.Pipeliner
                 {
                     Settings = XlgSettings.Load(xlgSourceFilename);
                     Settings.Filename = xlgSourceFilename;
-                    Settings.Gui = this;
+                    Settings.Gui = Host;
                     MetadataSources.Items.Clear();
                     foreach (var currSource in Settings.Sources)
                     {
@@ -221,10 +229,10 @@ namespace XLG.Pipeliner
                     if (!Directory.Exists(appDataXlg))
                         Directory.CreateDirectory(appDataXlg);
                     
-                    Settings = new XlgSettings(this)
+                    Settings = new XlgSettings(Host)
                     {
                         Filename = Path.Combine(appDataXlg, "Default.xlgs"), 
-                        Gui = this,
+                        Gui = Host,
                     };
                     AppData.LastXlgsFile = Settings.Filename;
                     AppData.Save();
@@ -419,9 +427,9 @@ namespace XLG.Pipeliner
             try
             {
                 var itemName = "CLONE";
-
-                if (Ui.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
-                    == DialogResult.Cancel
+                
+                if (this.Host.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                    == MessageBoxResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {
                     return;
@@ -455,7 +463,7 @@ namespace XLG.Pipeliner
                     {
                         newSource.BasePath = AppData.BasePath + itemName + @"\";
                     }
-                    FileSystem.InsureFolderExists(newSource.BasePath, false);
+                    FileSystem.InsureFolderExists(Host, newSource.BasePath, false);
                     // NewSource.ConfigFilename = CurrSource.ConfigFilename;
 
                     if (_mCurrSource != null)
@@ -527,7 +535,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textXlgFile.Text, true);
+                FileSystem.InsureFolderExists(Host, textXlgFile.Text, true);
                 if (!File.Exists(textXlgFile.Text))
                 {
                     File.WriteAllText(textXlgFile.Text,
@@ -545,7 +553,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textAppXlgXsl.Text, true);
+                FileSystem.InsureFolderExists(Host, textAppXlgXsl.Text, true);
                 Process.Start(AppData.TextEditor, textAppXlgXsl.Text);
             }
             catch (Exception ex)
@@ -558,7 +566,7 @@ namespace XLG.Pipeliner
         {
             try
             {
-                FileSystem.InsureFolderExists(textOutput.Text, true);
+                FileSystem.InsureFolderExists(Host, textOutput.Text, true);
                 Process.Start(AppData.TextEditor, textOutput.Text);
             }
             catch (Exception ex)
@@ -576,7 +584,7 @@ namespace XLG.Pipeliner
                     textOutputXml.Text = textOutput.Text.Substring(0,
                         textOutput.Text.Length - Path.GetExtension(textOutput?.Text ?? "").Length) + ".xml";
                 }
-                FileSystem.InsureFolderExists(textOutputXml.Text, true);
+                FileSystem.InsureFolderExists(Host, textOutputXml.Text, true);
                 Process.Start(AppData.TextEditor, textOutputXml.Text);
             }
             catch (Exception ex)
@@ -612,7 +620,7 @@ namespace XLG.Pipeliner
             try
             {
                 var t = Settings;
-                Settings = new XlgSettings(this)
+                Settings = new XlgSettings(Host)
                 {
                     Sources = new List<XlgSource>(),
                     DefaultConnectionString = t.DefaultConnectionString,
@@ -658,7 +666,7 @@ namespace XLG.Pipeliner
                     return;
                 }
 
-                Settings ??= new XlgSettings(this);
+                Settings ??= new XlgSettings(Host);
                 Settings.Filename = saveFileDialog1.FileName;
                 
                 buttonSave_Click(null, null);
@@ -695,12 +703,52 @@ namespace XLG.Pipeliner
             var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
             if (!File.Exists(exePath))
             {
-                MessageBox.Show(this, "Quick scripts missing: " + exePath);
+                MessageBox.Show("Quick scripts missing: " + exePath);
             }
             else
             {
                 Process.Start(exePath, string.Empty);
             }
+        }
+    }
+    
+    public class WinFormMessageBoxHost<TForm> : IMessageBox where TForm : Form
+    {
+        public TForm Parent { get; set; }
+        public IGenerationHost Host { get; set; }
+
+        public WinFormMessageBoxHost(TForm parent, IGenerationHost host)
+        {
+            Host = host;
+            Parent = parent;
+        }
+
+        public MessageBoxResult Show(string message)
+        {
+            
+            return MessageBox.Show(Parent, message).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title)
+        {
+            return MessageBox.Show(Parent, message, title).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices)
+        {
+            return MessageBox.Show(Parent, message, title, choices.As<MessageBoxButtons>()).As<MessageBoxResult>();
+        }
+
+        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices, MessageBoxStatus status,
+            MessageBoxDefault @default)
+        {
+            return MessageBox.Show(
+                Parent, message, title, 
+                choices
+                    .As<MessageBoxButtons>(), status
+                    .As<MessageBoxIcon>(), @default
+                    .As<MessageBoxDefaultButton>())
+                .As<MessageBoxResult>();
         }
     }
 }

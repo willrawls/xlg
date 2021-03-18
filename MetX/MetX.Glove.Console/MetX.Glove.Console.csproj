@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX\MetX.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="batfile.ico" />
     <None Include="Resources\126Edit.ico" />
     <None Include="Resources\107259NewContentPage32x32.png" />
@@ -69,6 +65,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Windows.Forms;
 
-    using Library;
+    using MetX.Standard.Library;
 
     public partial class OrderedSelector : UserControl
     {

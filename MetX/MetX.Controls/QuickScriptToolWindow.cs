@@ -1,4 +1,7 @@
 // ReSharper disable UnusedParameter.Local
+
+using MetX.Standard.Pipelines;
+
 namespace MetX.Controls
 {
     using System;
@@ -11,8 +14,8 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-    using Library;
-    using Scripts;
+    using MetX.Standard.Library;
+    using MetX.Standard.Scripts;
 
     using Microsoft.Win32;
 
@@ -21,15 +24,15 @@ namespace MetX.Controls
         public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
         public CodeCompletionWindow CompletionWindow;
-
         public XlgQuickScript CurrentScript;
-
         public bool Updating;
+        public IGenerationHost Host;
 
         private TextArea _textArea;
 
-        public QuickScriptToolWindow(XlgQuickScript script)
+        public QuickScriptToolWindow(IGenerationHost host, XlgQuickScript script)
         {
+            Host = host;
             InitializeComponent();
             InitializeEditor();
             CurrentScript = script;
@@ -117,7 +120,7 @@ namespace MetX.Controls
                 var source = CurrentScript.ToCSharp(independent);
                 if (!string.IsNullOrEmpty(source))
                 {
-                    QuickScriptWorker.ViewTextInNotepad(source, true);
+                    QuickScriptWorker.ViewTextInNotepad(Host, source, true);
                 }
             }
             catch (Exception e)
@@ -215,7 +218,7 @@ namespace MetX.Controls
                 + Environment.NewLine + Environment.NewLine
                 + errorOutput);
             
-            QuickScriptWorker.ViewTextInNotepad(lines.Flatten(), true);
+            QuickScriptWorker.ViewTextInNotepad(Host, lines.Flatten(), true);
 
             return null;
         }
@@ -501,7 +504,7 @@ namespace MetX.Controls
                 }
                 else
                 {
-                    QuickScriptWorker.ViewFileInNotepad(location.Replace(".exe", ".cs"));
+                    QuickScriptWorker.ViewFileInNotepad(Host, location.Replace(".exe", ".cs"));
                 }
             }
             catch (Exception exception)

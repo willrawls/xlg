@@ -38,6 +38,7 @@
     <Compile Remove="Scripts\NArrangeTestLogger.cs" />
     <Compile Remove="Templates\Single file input\Exe.cs" />
     <Compile Remove="Templates\Single file input\Native.cs" />
+    <Compile Remove="Templates\Single file input\qscriptd3cdf9.cs" />
     <Compile Remove="Web\HttpAppErrHandler.cs" />
     <Compile Remove="Web\SecureHandler.cs" />
     <Compile Remove="Web\SecurePage.cs" />
@@ -69,6 +70,7 @@
     <None Include="Templates\Single file input\Native.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\Single file input\qscriptd3cdf9.cs" />
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -95,14 +97,11 @@
     <None Include="Properties\add_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
 
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
-    <PackageReference Include="Microsoft.Net.Compilers" Version="3.8.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="3.9.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

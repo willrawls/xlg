@@ -14,13 +14,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX\MetX.csproj" />
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Standard\ProjectPieces\ClientWithoutGenerationSupport.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\FullClient.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\Emit\EqualsFalse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\Emit\EqualsTrue.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\EqualsGenerated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\EqualsBlank.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\Missing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\WithoutPropertyGroup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\Emit\Missing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 
 namespace MetX.Standard.Library
@@ -8,7 +9,8 @@ namespace MetX.Standard.Library
 
         public XlgQuickScriptFile Scripts;
         public XlgQuickScriptTemplateList Templates = new();
-
+        public IGenerationHost Host;
+        
         public void SetPropertiesFocus(string propertyName)
         {
             // TODO

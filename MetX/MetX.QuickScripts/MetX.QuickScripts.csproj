@@ -21,8 +21,8 @@
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
     </ProjectReference>
     <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" />
-    <ProjectReference Include="..\MetX\MetX.csproj">
-    </ProjectReference>
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+    <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ICSharpCode.TextEditorEx" Version="1.1.0" />
