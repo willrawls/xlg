@@ -34,16 +34,25 @@
     <None Update="Standard\ProjectPieces\FullClient.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Standard\ProjectPieces\WithEmitFalse.xml">
+    <None Update="Standard\ProjectPieces\Emit\EqualsFalse.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Standard\ProjectPieces\WithEmitTrue.xml">
+    <None Update="Standard\ProjectPieces\Emit\EqualsTrue.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\EqualsGenerated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\EqualsBlank.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Standard\ProjectPieces\GenerateToPath\Missing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Standard\ProjectPieces\WithoutPropertyGroup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Standard\ProjectPieces\WithoutEmit.xml">
+    <None Update="Standard\ProjectPieces\Emit\Missing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

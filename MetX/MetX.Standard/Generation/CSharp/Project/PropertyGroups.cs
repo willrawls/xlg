@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
@@ -14,42 +15,33 @@ namespace MetX.Standard.Generation.CSharp.Project
             Parent = parent;
         }
 
-        public bool PropertyGroupForGeneratorsMissing => Parent.Document.SelectSingleNode(XPaths.EmitCompilerGeneratedFiles) == null;
+        public bool PropertyGroupForGeneratorsMissing => Parent.IsElementMissing(XPaths.EmitCompilerGeneratedFiles);
         public XmlElement PropertyGroupForGenerators
         {
             get
             {
-                var node = Parent.Document.SelectSingleNode(XPaths.EmitCompilerGeneratedFiles) 
-                           ?? Parent.MakeXPath(XPaths.EmitCompilerGeneratedFiles);
-                return (XmlElement) node;
+                var node = Parent.GetNodeFromCacheOrDocument(XPaths.EmitCompilerGeneratedFiles, false);
+                if (node != null) 
+                    return (XmlElement) node.ParentNode;
+                
+                node = Parent.MakeXPath(XPaths.EmitCompilerGeneratedFiles);
+                node.InnerText = "true";
+                return (XmlElement) node.ParentNode;
             }
         }
         
-        public bool EmitCompilerGeneratedFilesMissing => Parent.NodeIsMissing(XPaths.EmitCompilerGeneratedFiles);
+        public bool EmitCompilerGeneratedFilesMissing => Parent.IsElementMissing(XPaths.EmitCompilerGeneratedFiles);
         public bool EmitCompilerGeneratedFiles
         {
-            get
-            {
-                var node = Parent.Document.SelectSingleNode(XPaths.EmitCompilerGeneratedFiles);
-                if (node == null)
-                    return false;
-                return node.InnerText == "true";
-            }
-            set => Parent.UpdateInnerText(XPaths.EmitCompilerGeneratedFiles, value);
+            get => Parent.InnerTextAt(XPaths.EmitCompilerGeneratedFiles).AsString().ToLower() == "true";
+            set => Parent.SetElementInnerText(XPaths.EmitCompilerGeneratedFiles, value);
         }
         
-        public bool CompilerGeneratedFilesOutputPathMissing => Parent.NodeIsMissing(XPaths.CompilerGeneratedFilesOutputPath);
+        public bool CompilerGeneratedFilesOutputPathMissing => Parent.IsElementMissing(XPaths.CompilerGeneratedFilesOutputPath);
         public string CompilerGeneratedFilesOutputPath
         {
-            get
-            {
-                var node = Parent.Document.SelectSingleNode(XPaths.CompilerGeneratedFilesOutputPath);
-                if (node == null)
-                    return "";
-                return node.InnerText;
-            }
-            set => Parent.UpdateInnerText(XPaths.CompilerGeneratedFilesOutputPath, value);
+            get => Parent.InnerTextAt(XPaths.CompilerGeneratedFilesOutputPath).BlankToNull();
+            set => Parent.SetElementInnerText(XPaths.CompilerGeneratedFilesOutputPath, value.BlankToNull());
         }
-        
     }
 }

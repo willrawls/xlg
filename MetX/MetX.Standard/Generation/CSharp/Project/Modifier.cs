@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using MetX.Standard.Library;
 
@@ -7,7 +8,7 @@ namespace MetX.Standard.Generation.CSharp.Project
     public class Modifier
     {
         
-        public XmlNode Node => Document.SelectSingleNode(XPaths.Project);
+        public XmlNode Node => GetNodeFromCacheOrDocument(XPaths.Project, false);
         public PropertyGroups PropertyGroups { get; set; }
         
         public string FilePath { get; set; }
@@ -37,14 +38,26 @@ namespace MetX.Standard.Generation.CSharp.Project
             return this;
         }
 
-        public Modifier UpdateInnerText(string xpath, string innerText)
+        public void SetElementInnerText(string xpath, bool value)
         {
-            var node = Document.SelectSingleNode(xpath) 
-                       ?? MakeXPath(Document, xpath);
-            node.InnerText = innerText;
-            return this;
+            SetElementInnerText(xpath, value ? "true" : "false");
         }
-        
+
+        public void SetElementInnerText(string xpath, string innerText)
+        {
+            var node = (XmlElement) GetNodeFromCacheOrDocument(xpath, true) 
+                       ?? MakeXPath(Document, xpath);
+            node.InnerText = innerText ?? "";
+        }
+
+        public string InnerTextAt(string xpath, bool blankMeansNull = true)
+        {
+            var node = GetNodeFromCacheOrDocument(xpath, false);
+            if(node == null) 
+                return blankMeansNull ? null : "";
+            return node.InnerText;
+        }
+
         public XmlNode MakeXPath(string xpath)
         {
             if (xpath.IsEmpty())
@@ -55,15 +68,24 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public XmlNode MakeXPath(XmlNode parent, string xpath)
         {
+            var originalXPath = xpath;
             while (true)
             {
                 // grab the next node name in the xpath; or return parent if empty
                 var partsOfXPath = xpath.Trim('/').Split('/');
                 var nextNodeInXPath = partsOfXPath.First();
-                if (string.IsNullOrEmpty(nextNodeInXPath)) return parent;
+                if (string.IsNullOrEmpty(nextNodeInXPath))
+                {
+                    AddToCache(originalXPath, parent);
+                    return parent;
+                }
 
                 // get or create the node from the name
-                var node = parent.SelectSingleNode(nextNodeInXPath) ?? parent.AppendChild(Document.CreateElement(nextNodeInXPath));
+                var node = parent.SelectSingleNode(nextNodeInXPath);
+                if (node == null)
+                {
+                    node = parent.AppendChild(Document.CreateElement(nextNodeInXPath));
+                }
 
                 // rejoin the remainder of the array as an xpath expression and recurse
                 var rest = string.Join("/", partsOfXPath.Skip(1).ToArray());
@@ -72,15 +94,63 @@ namespace MetX.Standard.Generation.CSharp.Project
             }
         }
 
-        public bool NodeIsMissing(string xpath)
+        public Dictionary<string, XmlNode> NodeCache = new();
+        public XmlNode AddToCache(string xpath, XmlNode node)
         {
-            var node = Document.SelectSingleNode(XPaths.EmitCompilerGeneratedFiles);
+            if (xpath.IsEmpty())
+                return null;
+            
+            if (node == null)
+            {
+                RemoveFromCache(xpath);
+                return null;
+            }
+            
+            var key = xpath.ToLower();
+            if (NodeCache.ContainsKey(key))
+                NodeCache[key] = node;
+            else
+                NodeCache.Add(key, node);
+            return node;
+        }
+        public void RemoveFromCache(string xpath)
+        {
+            if (xpath.IsEmpty())
+                return;
+
+            var key = xpath.ToLower();
+            if (NodeCache.ContainsKey(key))
+                NodeCache.Remove(key);
+        }
+        public XmlNode GetNodeFromCacheOrDocument(string xpath, bool addIfMissing)
+        {
+            if (xpath.IsEmpty())
+                return null;
+            
+            var key = xpath.ToLower();
+            if (NodeCache.ContainsKey(key))
+                return NodeCache[key];
+
+            var node = Document.SelectSingleNode(xpath);
+            if (node == null)
+            {
+                if(addIfMissing)
+                {
+                    node = MakeXPath(xpath);
+                }
+            }
+            else
+            {
+                node = AddToCache(xpath, node);
+            }
+            return node;
+        }
+
+        public bool IsElementMissing(string xpath)
+        {
+            var node = GetNodeFromCacheOrDocument(xpath, false);
             return node == null;
         }
 
-        public void UpdateInnerText(string xpath, bool value)
-        {
-            UpdateInnerText(xpath, value ? "true" : "false");
-        }
     }
 }
