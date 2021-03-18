@@ -26,14 +26,14 @@ namespace MetX.Security
         private static ICryptoTransform _encryptorFixed;
         private static ICryptoTransform _decryptorFixed;
 
-        public static void Reset()
+        public static void Reset(byte[] keyBytes])
         {
             lock (SyncRoot)
             {
                 using (SymmetricAlgorithm sa = new RijndaelManaged())
                 {
                     sa.BlockSize = 128;
-                    sa.Key = new byte[] {141, 125, 54, 46, 254, 82, 171, 89, 151, 12, 180, 150, 58, 132, 61, 70};
+                    sa.Key = keyBytes;
                     sa.IV = sa.Key;
                     _encryptorFixed = sa.CreateEncryptor();
                     _decryptorFixed = sa.CreateDecryptor();
