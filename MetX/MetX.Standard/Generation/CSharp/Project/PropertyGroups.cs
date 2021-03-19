@@ -43,5 +43,12 @@ namespace MetX.Standard.Generation.CSharp.Project
             get => Parent.InnerTextAt(XPaths.CompilerGeneratedFilesOutputPath).BlankToNull();
             set => Parent.SetElementInnerText(XPaths.CompilerGeneratedFilesOutputPath, value.BlankToNull());
         }
+        
+        public bool LangVersionMissing => Parent.IsElementMissing(XPaths.LangVersion);
+        public string LangVersion
+        {
+            get => Parent.InnerTextAt(XPaths.LangVersion).BlankToNull();
+            set => Parent.SetElementInnerText(XPaths.LangVersion, value.BlankToNull());
+        }
     }
 }

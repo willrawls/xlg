@@ -8,12 +8,12 @@ namespace MetX.Standard.Generation.CSharp.Project
     public class Modifier
     {
         
-        public XmlNode Node => GetNodeFromCacheOrDocument(XPaths.Project, false);
+        public XmlNode ProjectNode => GetNodeFromCacheOrDocument(XPaths.Project, false);
         public PropertyGroups PropertyGroups { get; set; }
+        public Targets Targets { get; set; }
         
         public string FilePath { get; set; }
         public XmlDocument Document { get; set; }
-        //public string Contents { get; set; }
 
         public static Modifier LoadFile(string filePath)
         {
@@ -26,6 +26,8 @@ namespace MetX.Standard.Generation.CSharp.Project
                 FilePath = filePath,
             };
             modifier.PropertyGroups = new PropertyGroups(modifier);
+            modifier.Targets = new Targets(modifier);
+            
             return modifier;
         }
 
@@ -97,6 +99,8 @@ namespace MetX.Standard.Generation.CSharp.Project
         public Dictionary<string, XmlNode> NodeCache = new();
         public XmlNode AddToCache(string xpath, XmlNode node)
         {
+            return node;
+            
             if (xpath.IsEmpty())
                 return null;
             
@@ -128,8 +132,10 @@ namespace MetX.Standard.Generation.CSharp.Project
                 return null;
             
             var key = xpath.ToLower();
+            /*
             if (NodeCache.ContainsKey(key))
                 return NodeCache[key];
+                */
 
             var node = Document.SelectSingleNode(xpath);
             if (node == null)

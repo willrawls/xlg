@@ -3,10 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Properties\**" />
     <EmbeddedResource Remove="Properties\**" />
     <None Remove="Properties\**" />
   </ItemGroup>
+  <!-- From https://github.com/dotnet/roslyn/issues/44093 -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
+  </PropertyGroup>
 </Project>

@@ -2,21 +2,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Properties\**" />
     <EmbeddedResource Remove="Properties\**" />
     <None Remove="Properties\**" />
   </ItemGroup>
+
   <!-- From https://github.com/dotnet/roslyn/issues/44093 -->
   <PropertyGroup>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
     <OutputType>Exe</OutputType>
     <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
   </PropertyGroup>
-
   <Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
     <ItemGroup>
       <Compile Include="Generated\**" />

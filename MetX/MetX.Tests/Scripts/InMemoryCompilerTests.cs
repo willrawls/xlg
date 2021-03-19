@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -59,7 +60,7 @@ namespace {namespaceName}
         public void Build_Exe_Simple()
         {
             var source = Sources.Source_WriteStaticLine;
-            var outputFilePath = "fake.exe";
+            var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test_Build_Exe_Simple.exe");
 
             if (File.Exists(outputFilePath))
             {
