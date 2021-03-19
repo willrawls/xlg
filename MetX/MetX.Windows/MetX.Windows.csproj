@@ -4,7 +4,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX.Windows</RootNamespace>
-    <AssemblyName>MetX</AssemblyName>
+    <AssemblyName>MetX.Windows</AssemblyName>
     <ApplicationIcon>batfile.ico</ApplicationIcon>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
@@ -12,60 +12,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>I:\OneDrive\Data\code\xlgGallery\xlg\MetX\MetX\MetX.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Data\**" />
-    <Compile Remove="Interfaces\**" />
-    <Compile Remove="IO\**" />
-    <Compile Remove="Library\Obsolete\**" />
-    <Compile Remove="Pipelines\**" />
-    <Compile Remove="Scripts\**" />
-    <Compile Remove="Security\**" />
-    <Compile Remove="Techniques\**" />
-    <Compile Remove="Templates\**" />
-    <Compile Remove="Web\**" />
-    <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <EmbeddedResource Remove="IO\**" />
-    <EmbeddedResource Remove="Library\Obsolete\**" />
-    <EmbeddedResource Remove="Pipelines\**" />
-    <EmbeddedResource Remove="Scripts\**" />
-    <EmbeddedResource Remove="Security\**" />
-    <EmbeddedResource Remove="Techniques\**" />
-    <EmbeddedResource Remove="Templates\**" />
-    <EmbeddedResource Remove="Web\**" />
-    <None Remove="Data\**" />
-    <None Remove="Interfaces\**" />
-    <None Remove="IO\**" />
-    <None Remove="Library\Obsolete\**" />
-    <None Remove="Pipelines\**" />
-    <None Remove="Scripts\**" />
-    <None Remove="Security\**" />
-    <None Remove="Techniques\**" />
-    <None Remove="Templates\**" />
-    <None Remove="Web\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Library\BaseLineProcessor.cs" />
-    <Compile Remove="Library\BaseRuntimeFunctions.cs" />
-    <Compile Remove="Library\ExampleXslUrn.cs" />
-    <Compile Remove="Library\InMemoryCache.cs" />
-    <Compile Remove="Library\RunResult.cs" />
-    <Compile Remove="Library\SerializesToXml.cs" />
-    <Compile Remove="Library\SortedStringList.cs" />
-    <Compile Remove="Library\StreamBuilder.cs" />
-    <Compile Remove="Library\StringExtensions.cs" />
-    <Compile Remove="Library\StringWriterWithEncoding.cs" />
-    <Compile Remove="Library\Tokenizer.cs" />
-    <Compile Remove="Library\UI.cs" />
-    <Compile Remove="Library\Worker.cs" />
-    <Compile Remove="Library\Xhtml.cs" />
-    <Compile Remove="Library\xlgUrn.cs" />
-    <Compile Remove="Library\XML.cs" />
-    <Compile Remove="Library\xsl.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
