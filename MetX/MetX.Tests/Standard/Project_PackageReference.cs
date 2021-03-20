@@ -41,10 +41,10 @@ namespace MetX.Tests.Standard
             
             Assert.AreEqual(2, packageReference.ChildNodes.Count);
             Assert.AreEqual("PrivateAssets", packageReference.ChildNodes[0]?.Name);
-            Assert.AreEqual(privateAssets, packageReference.ChildNodes[0]?.Value);
+            Assert.AreEqual(privateAssets, packageReference.ChildNodes[0]?.InnerText);
             
             Assert.AreEqual("IncludeAssets", packageReference.ChildNodes[1]?.Name);
-            Assert.AreEqual(includeAssets, packageReference.ChildNodes[1]?.Value);
+            Assert.AreEqual(includeAssets, packageReference.ChildNodes[1]?.InnerText);
         }
         
         [TestMethod]
