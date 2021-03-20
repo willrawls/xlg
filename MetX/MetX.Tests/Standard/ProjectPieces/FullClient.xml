@@ -17,12 +17,15 @@
     <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
   </PropertyGroup>
 
+  <Target Name="SomePreExistingTarget1" />
   <Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
     <ItemGroup>
       <Compile Include="Generated\**" />
     </ItemGroup>
   </Target>
+  <Target Name="SomePreExistingTarget2" />
   <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile" />
+  <Target Name="SomePreExistingTarget3" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />

@@ -8,9 +8,9 @@
     <EmbeddedResource Remove="Properties\**" />
     <None Remove="Properties\**" />
   </ItemGroup>
-  <!-- From https://github.com/dotnet/roslyn/issues/44093 -->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
   </PropertyGroup>
+  <Target Name="SomePreExistingTarget1" />
 </Project>

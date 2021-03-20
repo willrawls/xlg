@@ -72,11 +72,8 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public void Remove()
         {
-            if(TargetElement != null)
-            {
-                Parent.ProjectNode.RemoveChild(TargetElement);
-                TargetElement?.ParentNode?.RemoveChild(TargetElement);
-            }
+            //Parent.ProjectNode.RemoveChild(TargetElement);
+            TargetElement?.ParentNode?.RemoveChild(TargetElement);
 
             ItemGroup = null;
             TargetElement = null;
@@ -96,8 +93,9 @@ namespace MetX.Standard.Generation.CSharp.Project
             RemoveSourceGeneratedFiles = new Target(Parent, (XmlElement) Parent.Document.SelectSingleNode(XPaths.RemoveSourceGeneratedFiles));
         }
 
-        public void Setup()
+        public void Insert()
         {
+            Remove();            
             AddSourceGeneratedFiles = new Target(Parent, true);
             RemoveSourceGeneratedFiles = new Target(Parent, false);
         }

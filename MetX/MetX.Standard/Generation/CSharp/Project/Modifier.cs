@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml;
 using MetX.Standard.Library;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
@@ -14,6 +15,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         
         public string FilePath { get; set; }
         public XmlDocument Document { get; set; }
+        public ItemGroup ItemGroup { get; set; }
 
         public static Modifier LoadFile(string filePath)
         {
@@ -22,11 +24,11 @@ namespace MetX.Standard.Generation.CSharp.Project
             var modifier = new Modifier
             {
                 Document = document,
-                //Contents = document.InnerXml,
                 FilePath = filePath,
             };
             modifier.PropertyGroups = new PropertyGroups(modifier);
             modifier.Targets = new Targets(modifier);
+            modifier.ItemGroup = new ItemGroup(modifier);
             
             return modifier;
         }
@@ -159,4 +161,78 @@ namespace MetX.Standard.Generation.CSharp.Project
         }
 
     }
+
+    public class ItemGroup
+    {
+        public Modifier Parent { get; }
+        public PackageReference PackageReference;
+
+        public ItemGroup(Modifier parent)
+        {
+            Parent = parent;
+            PackageReference = new PackageReference(parent);
+        }
+    }
+
+    public class PackageReference
+    {
+        public Modifier Parent { get; }
+
+        public PackageReference(Modifier parent)
+        {
+            Parent = parent;
+        }
+
+        public XmlElement GetOrInsert(string packageName, string version, string privateAssets = null, string includeAssets = null)
+        {
+            var packageReference = 
+                (XmlElement) Parent.Document
+                    .SelectSingleNode(XPaths
+                        .PackageReferenceByNameAndVersion(packageName, version));
+
+            if (packageReference == null)
+            {
+                var itemGroup = Parent.Document.SelectSingleNode(XPaths.ItemGroupWithAtLeastOnePackageReference);
+                if (itemGroup == null)
+                {
+                    itemGroup = Parent.Document.CreateElement("ItemGroup");
+                    Parent.Document.DocumentElement.AppendChild(itemGroup);
+                }
+
+                packageReference = Parent.Document.CreateElement("PackageReference");
+                var includeAttribute = Parent.Document.CreateAttribute("Include");
+                var versionAttribute = Parent.Document.CreateAttribute("Version");
+
+                itemGroup.AppendChild(packageReference);
+
+                includeAttribute.Value = packageName;
+                versionAttribute.Value = version;
+                packageReference.Attributes.Append(includeAttribute);
+                packageReference.Attributes.Append(versionAttribute);
+
+                if (privateAssets.IsNotEmpty())
+                {
+                    var privateAssetsElement = Parent.Document.CreateElement("PrivateAssets");
+                    privateAssetsElement.InnerText = privateAssets;
+                    packageReference.AppendChild(privateAssetsElement);
+                }
+
+                if (includeAssets.IsNotEmpty())
+                {
+                    var includeAssetsElement = Parent.Document.CreateElement("IncludeAssets");
+                    includeAssetsElement.InnerText = includeAssets;
+                    packageReference.AppendChild(includeAssetsElement);
+                }
+            }
+            return packageReference;
+        }
+    }
+
+    /*
+    public class PackageReference
+    {
+        public string PackageName { get; set; }
+        public string Version { get; set; }
+    }
+*/
 }
