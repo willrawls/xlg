@@ -15,7 +15,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void InsertOne_NotPresent()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             var packageName = "Microsoft.CodeAnalysis.Common";
             var version = "3.9.0";
             var packageReference = modifier.ItemGroup.PackageReference.GetOrInsert(packageName, version);
@@ -28,7 +28,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void InsertOne_NotPresentWithAssets()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             var packageName = "Microsoft.CodeAnalysis.Analyzers";
             var version = "3.3.2";
             var privateAssets = "all";
@@ -50,7 +50,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void InsertOne_Present()
         {
-            var modifier = Piece.Get("Full", null);
+            var modifier = Piece.Get("FullClient", null);
             var packageName = "Microsoft.CodeAnalysis.Common";
             var version = "3.9.0";
             var packageReference = modifier.ItemGroup.PackageReference.GetOrInsert(packageName, version);
@@ -63,7 +63,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_RemovesWhenNotPresent()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Remove(); 
             
             Assert.IsNull(modifier.Targets.AddSourceGeneratedFiles);
@@ -80,7 +80,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_InsertsWhenNotPresent()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Insert(); 
             
             Assert.IsNotNull(modifier.Targets);
@@ -98,7 +98,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_GeneratesCorrectInnerXml()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Insert();
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles);
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles.TargetElement);

@@ -19,5 +19,17 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
             Assert.IsTrue(File.Exists(filePath), $"Can't find: {filePath}");
             return Modifier.LoadFile(filePath);
         }
+
+        public static Modifier EmptyClient()
+        {
+            return Get("EmptyClient", null);
+            
+        }
+
+        public static Modifier FullClient()
+        {
+            return Get("FullClient", null);
+            
+        }
     }
 }

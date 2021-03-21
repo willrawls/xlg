@@ -9,13 +9,10 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     [TestClass]
     public class ModifierTests_Target_AddSource
     {
-        public const string EmptyClientXmlFilePath = @"Standard\ProjectPieces\EmptyClient.xml";
-        public const string FullClientXmlFilePath = @"Standard\ProjectPieces\FullClient.xml";
-        
         [TestMethod]
         public void Target_FromScratch_RemovesWhenPresent()
         {
-            var modifier = Piece.Get("Full", null);
+            var modifier = Piece.Get("FullClient", null);
             modifier.Targets.Insert();
             modifier.Targets.Remove(); 
             
@@ -35,7 +32,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_RemovesWhenNotPresent()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Remove(); 
             
             Assert.IsNull(modifier.Targets.AddSourceGeneratedFiles);
@@ -52,7 +49,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_InsertsWhenNotPresent()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Insert(); 
             
             Assert.IsNotNull(modifier.Targets);
@@ -70,7 +67,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_GeneratesCorrectInnerXml()
         {
-            var modifier = Piece.Get("Empty", null);
+            var modifier = Piece.EmptyClient();
             modifier.Targets.Insert();
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles);
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles.TargetElement);
