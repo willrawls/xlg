@@ -9,9 +9,6 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     [TestClass]
     public class ModifierTests_PackageReference
     {
-        public const string EmptyClientXmlFilePath = @"Standard\ProjectPieces\EmptyClient.xml";
-        public const string FullClientXmlFilePath = @"Standard\ProjectPieces\FullClient.xml";
-        
         [TestMethod]
         public void InsertOne_NotPresent()
         {
@@ -50,7 +47,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void InsertOne_Present()
         {
-            var modifier = Piece.Get("FullClient", null);
+            var modifier = Piece.FullClient();
             var packageName = "Microsoft.CodeAnalysis.Common";
             var version = "3.9.0";
             var packageReference = modifier.ItemGroup.PackageReference.GetOrInsert(packageName, version);

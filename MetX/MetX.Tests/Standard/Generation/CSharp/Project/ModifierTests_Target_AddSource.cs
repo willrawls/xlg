@@ -12,7 +12,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_RemovesWhenPresent()
         {
-            var modifier = Piece.Get("FullClient", null);
+            var modifier = Piece.FullClient();
             modifier.Targets.Insert();
             modifier.Targets.Remove(); 
             
