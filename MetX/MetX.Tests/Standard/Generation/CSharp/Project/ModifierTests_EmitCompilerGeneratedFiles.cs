@@ -1,31 +1,32 @@
 ﻿using System.IO;
 using MetX.Standard.Generation.CSharp.Project;
+using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     // ReSharper disable once InconsistentNaming
-    public class CSharpProjectModifierTests_EmitCompilerGeneratedFiles
+    public class ModifierTests_EmitCompilerGeneratedFiles
     {
-        public const string PiecesDirectory = @"Standard\ProjectPieces\Emit";
+        public const string Area = @"Emit";
         
         [TestMethod]
         public void CheckForEmit_EmitMissing()
         {
-            Assert.IsTrue(GetProjectPiece("Missing").PropertyGroups.EmitCompilerGeneratedFilesMissing);
+            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.EmitCompilerGeneratedFilesMissing);
         }
         
         [TestMethod]
         public void CheckForEmit_PropertyGroupMissing()
         {
-            Assert.IsTrue(GetProjectPiece("Missing").PropertyGroups.EmitCompilerGeneratedFilesMissing);
+            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.EmitCompilerGeneratedFilesMissing);
         }
 
         [TestMethod]
         public void CheckForEmit_False()
         {
-            var project = GetProjectPiece("EqualsFalse");
+            var project = Piece.Get("EqualsFalse", Area);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
         }
@@ -33,7 +34,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void CheckForEmit_True()
         {
-            var project = GetProjectPiece("EqualsTrue");
+            var project = Piece.Get("EqualsTrue", Area);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFiles);
         }
@@ -41,7 +42,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetEmit_FromFalseToTrue()
         {
-            var project = GetProjectPiece("EqualsFalse");
+            var project = Piece.Get("EqualsFalse", Area);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
             project.PropertyGroups.EmitCompilerGeneratedFiles = true;
@@ -52,19 +53,12 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetEmitWhenMissing_True()
         {
-            var project = GetProjectPiece("Missing");
+            var project = Piece.Get("Missing", Area);
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
             project.PropertyGroups.EmitCompilerGeneratedFiles = true;
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFiles);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
-        }
-
-        private static Modifier GetProjectPiece(string pieceName)
-        {
-            var filePath = $@"{PiecesDirectory}\{pieceName}.xml";
-            Assert.IsTrue(File.Exists(filePath));
-            return Modifier.LoadFile(filePath);
         }
 
     }

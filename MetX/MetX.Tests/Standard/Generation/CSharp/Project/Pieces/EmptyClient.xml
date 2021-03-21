@@ -10,7 +10,7 @@
   </ItemGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
+    <StartupObject>Example.Program</StartupObject>
   </PropertyGroup>
   <Target Name="SomePreExistingTarget1" />
 </Project>

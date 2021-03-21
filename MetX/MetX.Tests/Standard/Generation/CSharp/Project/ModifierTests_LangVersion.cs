@@ -1,33 +1,34 @@
 ﻿using System.IO;
 using MetX.Standard.Generation.CSharp.Project;
+using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     // ReSharper disable once InconsistentNaming
-    public class CSharpProjectModifierTests_LangVersion
+    public class ModifierTests_LangVersion
     {
-        public const string PiecesDirectory = @"Standard\ProjectPieces\LangVersion";
+        public const string Area = @"LangVersion";
         
         [TestMethod]
         public void LangVersion_GenerateToPathMissing()
         {
-            Assert.IsTrue(GetProjectPiece("Missing").PropertyGroups.LangVersionMissing);
-            Assert.IsNull(GetProjectPiece("Missing").PropertyGroups.LangVersion);
+            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.LangVersionMissing);
+            Assert.IsNull(Piece.Get("Missing", Area).PropertyGroups.LangVersion);
         }
         
         [TestMethod]
         public void LangVersion_PropertyGroupMissing()
         {
-            Assert.IsTrue(GetProjectPiece("Missing").PropertyGroups.LangVersionMissing);
-            Assert.IsNull(GetProjectPiece("Missing").PropertyGroups.LangVersion);
+            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.LangVersionMissing);
+            Assert.IsNull(Piece.Get("Missing", Area).PropertyGroups.LangVersion);
         }
 
         [TestMethod]
         public void LangVersion_EqualsXyz()
         {
-            var project = GetProjectPiece("EqualsXyz");
+            var project = Piece.Get("EqualsXyz", Area);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             Assert.AreEqual("Xyz", project.PropertyGroups.LangVersion);
         }
@@ -35,7 +36,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void LangVersion_Blank()
         {
-            var project = GetProjectPiece("EqualsBlank");
+            var project = Piece.Get("EqualsBlank", Area);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
         }
@@ -43,7 +44,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetLangVersion_XyzToBlank() // Blank or null means remove that node
         {
-            var project = GetProjectPiece("EqualsXyz");
+            var project = Piece.Get("EqualsXyz", Area);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = "";
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
@@ -53,7 +54,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetLangVersion_XyzToNullAsBlank()
         {
-            var project = GetProjectPiece("EqualsXyz");
+            var project = Piece.Get("EqualsXyz", Area);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = null;
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
@@ -63,7 +64,7 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetLangVersion_MissingToXyz()
         {
-            var project = GetProjectPiece("Missing");
+            var project = Piece.Get("Missing", Area);
             Assert.IsTrue(project.PropertyGroups.LangVersionMissing);
             var Xyz = "Xyz";
             project.PropertyGroups.LangVersion = Xyz;
@@ -74,18 +75,11 @@ namespace MetX.Tests.Standard
         [TestMethod]
         public void SetGenerateToPathWhen_MissingToNull() // Don't add it if there's no value
         {
-            var project = GetProjectPiece("Missing");
+            var project = Piece.Get("Missing", Area);
             Assert.IsTrue(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = "";
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
-        }
-
-        private static Modifier GetProjectPiece(string pieceName)
-        {
-            var filePath = $@"{PiecesDirectory}\{pieceName}.xml";
-            Assert.IsTrue(File.Exists(filePath));
-            return Modifier.LoadFile(filePath);
         }
 
     }
