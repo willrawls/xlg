@@ -9,24 +9,22 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     // ReSharper disable once InconsistentNaming
     public class ModifierTests_EmitCompilerGeneratedFiles
     {
-        public const string Area = @"Emit";
-        
         [TestMethod]
         public void CheckForEmit_EmitMissing()
         {
-            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.EmitCompilerGeneratedFilesMissing);
+            Assert.IsTrue(Piece.Get(Piece.Missing, Piece.Emit).PropertyGroups.EmitCompilerGeneratedFilesMissing);
         }
         
         [TestMethod]
         public void CheckForEmit_PropertyGroupMissing()
         {
-            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.EmitCompilerGeneratedFilesMissing);
+            Assert.IsTrue(Piece.Get(Piece.Missing, Piece.Emit).PropertyGroups.EmitCompilerGeneratedFilesMissing);
         }
 
         [TestMethod]
         public void CheckForEmit_False()
         {
-            var project = Piece.Get("EqualsFalse", Area);
+            var project = Piece.Get("EqualsFalse", Piece.Emit);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
         }
@@ -34,7 +32,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void CheckForEmit_True()
         {
-            var project = Piece.Get("EqualsTrue", Area);
+            var project = Piece.Get("EqualsTrue", Piece.Emit);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFiles);
         }
@@ -42,7 +40,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetEmit_FromFalseToTrue()
         {
-            var project = Piece.Get("EqualsFalse", Area);
+            var project = Piece.Get("EqualsFalse", Piece.Emit);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
             project.PropertyGroups.EmitCompilerGeneratedFiles = true;
@@ -53,7 +51,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetEmitWhenMissing_True()
         {
-            var project = Piece.Get("Missing", Area);
+            var project = Piece.Get(Piece.Missing, Piece.Emit);
             Assert.IsTrue(project.PropertyGroups.EmitCompilerGeneratedFilesMissing);
             Assert.IsFalse(project.PropertyGroups.EmitCompilerGeneratedFiles);
             project.PropertyGroups.EmitCompilerGeneratedFiles = true;

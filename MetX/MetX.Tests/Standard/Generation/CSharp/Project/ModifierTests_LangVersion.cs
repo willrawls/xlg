@@ -9,26 +9,24 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     // ReSharper disable once InconsistentNaming
     public class ModifierTests_LangVersion
     {
-        public const string Area = @"LangVersion";
-        
         [TestMethod]
         public void LangVersion_GenerateToPathMissing()
         {
-            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.LangVersionMissing);
-            Assert.IsNull(Piece.Get("Missing", Area).PropertyGroups.LangVersion);
+            Assert.IsTrue(Piece.Get(Piece.Missing, Piece.LangVersion).PropertyGroups.LangVersionMissing);
+            Assert.IsNull(Piece.Get(Piece.Missing, Piece.LangVersion).PropertyGroups.LangVersion);
         }
         
         [TestMethod]
         public void LangVersion_PropertyGroupMissing()
         {
-            Assert.IsTrue(Piece.Get("Missing", Area).PropertyGroups.LangVersionMissing);
-            Assert.IsNull(Piece.Get("Missing", Area).PropertyGroups.LangVersion);
+            Assert.IsTrue(Piece.Get(Piece.Missing, Piece.LangVersion).PropertyGroups.LangVersionMissing);
+            Assert.IsNull(Piece.Get(Piece.Missing, Piece.LangVersion).PropertyGroups.LangVersion);
         }
 
         [TestMethod]
         public void LangVersion_EqualsXyz()
         {
-            var project = Piece.Get("EqualsXyz", Area);
+            var project = Piece.Get("EqualsXyz", Piece.LangVersion);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             Assert.AreEqual("Xyz", project.PropertyGroups.LangVersion);
         }
@@ -36,7 +34,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void LangVersion_Blank()
         {
-            var project = Piece.Get("EqualsBlank", Area);
+            var project = Piece.Get("EqualsBlank", Piece.LangVersion);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
         }
@@ -44,7 +42,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetLangVersion_XyzToBlank() // Blank or null means remove that node
         {
-            var project = Piece.Get("EqualsXyz", Area);
+            var project = Piece.Get("EqualsXyz", Piece.LangVersion);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = "";
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
@@ -54,7 +52,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetLangVersion_XyzToNullAsBlank()
         {
-            var project = Piece.Get("EqualsXyz", Area);
+            var project = Piece.Get("EqualsXyz", Piece.LangVersion);
             Assert.IsFalse(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = null;
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);
@@ -64,7 +62,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetLangVersion_MissingToXyz()
         {
-            var project = Piece.Get("Missing", Area);
+            var project = Piece.Get(Piece.Missing, Piece.LangVersion);
             Assert.IsTrue(project.PropertyGroups.LangVersionMissing);
             var Xyz = "Xyz";
             project.PropertyGroups.LangVersion = Xyz;
@@ -75,7 +73,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void SetGenerateToPathWhen_MissingToNull() // Don't add it if there's no value
         {
-            var project = Piece.Get("Missing", Area);
+            var project = Piece.Get(Piece.Missing, Piece.LangVersion);
             Assert.IsTrue(project.PropertyGroups.LangVersionMissing);
             project.PropertyGroups.LangVersion = "";
             Assert.AreEqual(null, project.PropertyGroups.LangVersion);

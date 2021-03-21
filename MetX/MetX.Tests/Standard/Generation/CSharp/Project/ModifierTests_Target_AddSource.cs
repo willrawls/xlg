@@ -12,7 +12,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_RemovesWhenPresent()
         {
-            var modifier = Piece.FullClient();
+            var modifier = Piece.GetFullClient();
             modifier.Targets.Insert();
             modifier.Targets.Remove(); 
             
@@ -32,7 +32,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_RemovesWhenNotPresent()
         {
-            var modifier = Piece.EmptyClient();
+            var modifier = Piece.GetEmptyClient();
             modifier.Targets.Remove(); 
             
             Assert.IsNull(modifier.Targets.AddSourceGeneratedFiles);
@@ -49,7 +49,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_InsertsWhenNotPresent()
         {
-            var modifier = Piece.EmptyClient();
+            var modifier = Piece.GetEmptyClient();
             modifier.Targets.Insert(); 
             
             Assert.IsNotNull(modifier.Targets);
@@ -67,7 +67,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void Target_FromScratch_GeneratesCorrectInnerXml()
         {
-            var modifier = Piece.EmptyClient();
+            var modifier = Piece.GetEmptyClient();
             modifier.Targets.Insert();
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles);
             Assert.IsNotNull(modifier.Targets.AddSourceGeneratedFiles.TargetElement);

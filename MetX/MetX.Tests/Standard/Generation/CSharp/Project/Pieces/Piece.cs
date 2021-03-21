@@ -8,6 +8,8 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
 {
     public static class Piece
     {
+        public const string Missing = "Missing";
+        public const string LangVersion = @"LangVersion";
         public const string PiecesDirectory = @"Standard\Generation\CSharp\Project\Pieces\";
 
         public static Modifier Get(string pieceName, string area)
@@ -20,16 +22,24 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
             return Modifier.LoadFile(filePath);
         }
 
-        public static Modifier EmptyClient()
+        public static Modifier GetEmptyClient()
         {
             return Get("EmptyClient", null);
             
         }
 
-        public static Modifier FullClient()
+        public static Modifier GetFullClient()
         {
             return Get("FullClient", null);
             
         }
+
+        public const string GenerateToPath = @"GenerateToPath";
+        public const string Emit = @"Emit";
     }
+
+        public static class Area
+        {
+
+        }
 }

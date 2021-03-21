@@ -183,7 +183,12 @@ namespace MetX.Standard.Generation.CSharp.Project
             Parent = parent;
         }
 
-        public XmlElement GetOrInsert(string packageName, string version, string privateAssets = null, string includeAssets = null)
+        public List<PackageReference> InsertAllForGeneration()
+        {
+
+        }
+        
+        public XmlElement InsertOrUpdate(string packageName, string version, string privateAssets = null, string includeAssets = null)
         {
             var packageReference = 
                 (XmlElement) Parent.Document
