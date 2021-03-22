@@ -14,7 +14,9 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
             Modifier modifier = Modifier.FromScratch(CSharpProjectForGeneratorClientOptions.Defaults);
 
             Assert.IsNotNull(modifier);
-            Assert.IsFalse(modifier.Document.OuterXml.Contains("~~"));
+            var actual = modifier.Document.OuterXml;
+            Assert.IsFalse(actual.Contains("~~"));
+            Assert.IsTrue(actual.Contains("net-5.0windows"));
         }
         
     }
