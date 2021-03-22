@@ -12,9 +12,16 @@
         public const string LangVersion = PropertyGroup + "/LangVersion";
         public const string ItemGroup = Project + "/ItemGroup";
         public const string PackageReference = ItemGroup + "/PackageReference";
+        public const string ProjectReference = ItemGroup + "/ProjectReference";
+        public const string Reference = ItemGroup + "/Reference";
         public const string ItemGroupWithAtLeastOnePackageReference = ItemGroup + "[PackageReference]";
+        public const string ItemGroupWithAtLeastOneReference = ItemGroup + "[Reference]";
 
         public static string TargetByName(string name) => Target + $"[@Name='{name}']";
         public static string PackageReferenceByNameAndVersion(string name, string version) => ItemGroup + $"[@Name='{name}' and @Version='{version}']";
+        
+        public static string ReferenceByInclude(string include) => Reference + $"[@Include='{include}']";
+        
+        public static string ProjectReferenceByInclude(string include) => ProjectReference + $"[@Include='{include}']";
     }
 }

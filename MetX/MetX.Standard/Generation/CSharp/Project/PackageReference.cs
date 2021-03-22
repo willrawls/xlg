@@ -3,7 +3,14 @@ using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class PackageReference
+    public interface IRefer
+    {
+        Modifier Parent { get; set; }
+        XmlElement Remove();
+        XmlElement InsertOrUpdate();
+    }
+
+    public class PackageReference : IRefer
     {
         public Modifier Parent { get; set; }
         public string PackageName { get; set; }
