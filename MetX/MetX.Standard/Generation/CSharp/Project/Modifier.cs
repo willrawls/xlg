@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
+using MetX.Aspects;
 using MetX.Standard.Library;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -16,6 +18,16 @@ namespace MetX.Standard.Generation.CSharp.Project
         public string FilePath { get; set; }
         public XmlDocument Document { get; set; }
         public ItemGroup ItemGroup { get; set; }
+
+        public Modifier()
+        {
+        }
+
+        public Modifier(CSharpProjectForGeneratorClientOptions options, XmlDocument document = null)
+        {
+            FilePath = Path.Combine(options.BasePath, options.Filename);
+            Document = document;
+        }
 
         public static Modifier LoadFile(string filePath)
         {
@@ -160,5 +172,15 @@ namespace MetX.Standard.Generation.CSharp.Project
             return node == null;
         }
 
+        public static Modifier FromScratch(CSharpProjectForGeneratorClientOptions options)
+        {
+            var template = File.ReadAllText(@"Templates\CSharp\Project\ClientFromScratchA.csproj");
+            var resolved = options.Resolve(template);
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(resolved);
+            var modifier = new Modifier(options, xmlDocument);
+            return modifier;
+
+        }
     }
 }

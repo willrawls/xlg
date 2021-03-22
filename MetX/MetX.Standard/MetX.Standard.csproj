@@ -64,6 +64,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Templates\CSharp\Project\ClientFromScratch.csproj">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <None Include="Templates\CSharp\Project\ClientFromScratchA.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Single file input\Exe.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -14,7 +14,6 @@ namespace MetX.Standard.Generation.CSharp.Project
             Parent = parent;
             Include = include;
             
-            
             if (hintPath.IsEmpty())
             {
                 // Maybe don't need a hint path most of the time
@@ -66,11 +65,19 @@ namespace MetX.Standard.Generation.CSharp.Project
                 var itemGroup = GetOrCreateItemGroupElement(XPaths.ItemGroupWithAtLeastOneReference);
 
                 referenceElement = Parent.Document.CreateElement("Reference");
-                var includeAttribute = Parent.Document.CreateAttribute("Include");
-
+                referenceElement.SetAttribute("Include", Include);
                 itemGroup.AppendChild(referenceElement);
-                includeAttribute.Value = Include;
 
+                if (HintPath.IsNotEmpty())
+                {
+                    
+                    var hintPathElement = Parent.Document.CreateElement("HintPath");
+                    referenceElement.AppendChild(hintPathElement);
+                    hintPathElement.InnerText = HintPath;
+                }
+            }
+            else if (referenceElement.FirstChild == null)
+            {
                 if (HintPath.IsNotEmpty())
                 {
                     var hintPathElement = Parent.Document.CreateElement("HintPath");
@@ -78,7 +85,10 @@ namespace MetX.Standard.Generation.CSharp.Project
                     hintPathElement.InnerText = HintPath;
                 }
             }
-
+            else
+            {
+                referenceElement.FirstChild.InnerText = HintPath;
+            }
             return referenceElement;
         }
     }
