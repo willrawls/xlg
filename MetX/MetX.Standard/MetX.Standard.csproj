@@ -67,7 +67,11 @@
     <Resource Include="Templates\CSharp\Project\ClientFromScratch.csproj">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <None Include="Templates\CSharp\Project\ClientFromScratchA.csproj">
+    <None Include="Templates\CSharp\A\Namespace.AspectsName\Namespace.AspectsName.csproj" />
+    <None Include="Templates\CSharp\A\Namespace.GeneratorsName\Namespace.GeneratorsName.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\CSharp\A\Namespace.ClientName\Namespace.ClientName.csproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Single file input\Exe.cs">
