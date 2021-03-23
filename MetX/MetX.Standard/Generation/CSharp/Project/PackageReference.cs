@@ -5,20 +5,20 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public interface IRefer
     {
-        Modifier Parent { get; set; }
+        ClientCsProjGenerator Parent { get; set; }
         XmlElement Remove();
         XmlElement InsertOrUpdate();
     }
 
     public class PackageReference : IRefer
     {
-        public Modifier Parent { get; set; }
+        public ClientCsProjGenerator Parent { get; set; }
         public string PackageName { get; set; }
         public string Version { get; set; }
         public string PrivateAssets { get; set; }
         public string IncludeAssets { get; set; }
 
-        public PackageReference(Modifier parent, string packageName, string version, string privateAssets = null, string includeAssets = null)
+        public PackageReference(ClientCsProjGenerator parent, string packageName, string version, string privateAssets = null, string includeAssets = null)
         {
             Parent = parent;
             PackageName = packageName;

@@ -9,15 +9,30 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     public class ModifierTests_FromScratch
     {
         [TestMethod]
-        public void FromScratchXmlIsAsExpected()
+        public void ClientFromScratchXmlIsAsExpected()
         {
-            Modifier modifier = Modifier.FromScratch(CSharpProjectForGeneratorClientOptions.Defaults);
+            ClientCsProjGenerator clientCsProjGenerator = ClientCsProjGenerator.FromScratch(GenGenOptions.Defaults);
 
-            Assert.IsNotNull(modifier);
-            var actual = modifier.Document.OuterXml;
+            Assert.IsNotNull(clientCsProjGenerator);
+            var actual = clientCsProjGenerator.Document.OuterXml;
             Assert.IsFalse(actual.Contains("~~"));
             Assert.IsTrue(actual.Contains("net-5.0windows"));
         }
-        
+
+        [TestMethod]
+        public void TESTNAME_Simple()
+        {
+            var data = new ClientCsProjGenerator(options)
+            {
+                
+            };
+
+            var expected = "EXPECTED";
+            var actual = data.METHODNAME();
+
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

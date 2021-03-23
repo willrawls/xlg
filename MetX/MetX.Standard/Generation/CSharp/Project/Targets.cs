@@ -5,12 +5,12 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class Targets
     {
-        public Modifier Parent;
+        public ClientCsProjGenerator Parent;
 
         public Target AddSourceGeneratedFiles { get; set; }
         public Target RemoveSourceGeneratedFiles { get; set; }
 
-        public Targets(Modifier parent)
+        public Targets(ClientCsProjGenerator parent)
         {
             Parent = parent;
             AddSourceGeneratedFiles = new Target(Parent, (XmlElement) Parent.Document.SelectSingleNode(XPaths.AddSourceGeneratedFiles));

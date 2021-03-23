@@ -5,7 +5,7 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class Target
     {
-        public Modifier Parent { get; set; }
+        public ClientCsProjGenerator Parent { get; set; }
         public XmlElement TargetElement { get; set; }
         public string Name { get; set; }
         public string AfterTargets { get; set; }
@@ -14,7 +14,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         
         public XmlElement ItemGroup { get; set; }
 
-        public Target(Modifier parent, XmlElement element)
+        public Target(ClientCsProjGenerator parent, XmlElement element)
         {
             Parent = parent;
             TargetElement = element;
@@ -37,10 +37,10 @@ namespace MetX.Standard.Generation.CSharp.Project
             }
         }
 
-        public Target(Modifier parent, bool addSource) : this(parent, addSource ? "Generated" : "")
+        public Target(ClientCsProjGenerator parent, bool addSource) : this(parent, addSource ? "Generated" : "")
         {
         }
-        public Target(Modifier parent, string generationPath)
+        public Target(ClientCsProjGenerator parent, string generationPath)
         {
             Parent = parent;
             TargetElement = Parent.Document.CreateElement("Target");

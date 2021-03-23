@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class Modifier
+    public class ClientCsProjGenerator
     {
         
         public XmlNode ProjectNode => GetNodeFromCacheOrDocument(XPaths.Project, false);
@@ -19,21 +19,21 @@ namespace MetX.Standard.Generation.CSharp.Project
         public XmlDocument Document { get; set; }
         public ItemGroup ItemGroup { get; set; }
 
-        public Modifier()
+        public ClientCsProjGenerator()
         {
         }
 
-        public Modifier(CSharpProjectForGeneratorClientOptions options, XmlDocument document = null)
+        public ClientCsProjGenerator(GenGenOptions options, XmlDocument document = null)
         {
             FilePath = Path.Combine(options.BasePath, options.Filename);
             Document = document;
         }
 
-        public static Modifier LoadFile(string filePath)
+        public static ClientCsProjGenerator LoadFile(string filePath)
         {
             var document = new XmlDocument();
             document.Load(filePath);
-            var modifier = new Modifier
+            var modifier = new ClientCsProjGenerator
             {
                 Document = document,
                 FilePath = filePath,
@@ -45,7 +45,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             return modifier;
         }
 
-        public Modifier SaveToFile()
+        public ClientCsProjGenerator SaveToFile()
         {
             if (FilePath.IsEmpty())
                 return this;
@@ -172,13 +172,13 @@ namespace MetX.Standard.Generation.CSharp.Project
             return node == null;
         }
 
-        public static Modifier FromScratch(CSharpProjectForGeneratorClientOptions options)
+        public static ClientCsProjGenerator FromScratch(GenGenOptions options)
         {
             var template = File.ReadAllText(@"Templates\CSharp\Project\ClientFromScratchA.csproj");
             var resolved = options.Resolve(template);
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(resolved);
-            var modifier = new Modifier(options, xmlDocument);
+            var modifier = new ClientCsProjGenerator(options, xmlDocument);
             return modifier;
 
         }

@@ -4,7 +4,7 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class ItemGroup
     {
-        public Modifier Parent { get; set; }
+        public ClientCsProjGenerator Parent { get; set; }
 
         // Microsoft.CodeAnalysis.Analyzers
         public PackageReference Analyzers { get; set; }
@@ -33,7 +33,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         public ProjectReference AspectProjectReference { get; set;  }
         public ProjectReference MetXGeneratorsProjectReference { get; set;  }
 
-        public ItemGroup(Modifier parent)
+        public ItemGroup(ClientCsProjGenerator parent)
         {
             Parent = parent;
             

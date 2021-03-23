@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Aspects
 {
-    public class CSharpProjectForGeneratorClientOptions
+    public class GenGenOptions
     {
         public string BasePath;
         public string ClientName;
@@ -15,7 +15,7 @@ namespace MetX.Aspects
         public string GeneratorsName;
         public GenFramework Framework;
 
-        public static CSharpProjectForGeneratorClientOptions Defaults => new()
+        public static GenGenOptions Defaults => new()
             {
                 BasePath = @".\",
                 ClientName = "Client",
