@@ -30,10 +30,10 @@ namespace MetX.Aspects
                 BaseOutputPath = @".\",
             };
 
-        public string Target { get; set; }
+        public string TargetTemplate { get; set; }
         public string Language { get; set; } = "CSharp";
 
-        public string ResolvePath(string pathTemplate)
+        public string PathResolved(string pathTemplate)
         {
             var resolved = pathTemplate
                     .Replace("GenerationSet", GenerationSet)
@@ -43,12 +43,10 @@ namespace MetX.Aspects
                     .Replace("Namespace", Namespace)
                     .Replace("AspectsName", AspectsName)
                     .Replace("GeneratorsName", GeneratorsName)
-                    .Replace("Target", Target)
+                    .Replace("Target", TargetTemplate)
                     .Replace("Framework", FrameworkValue())
                     .Replace("\r", "")
                 ;
-            Filename = Path.Combine(BaseOutputPath, Target, Target + ".csproj");
-            resolved = resolved.TokensAfterFirst("\n");
             return resolved;
         }
         
@@ -62,12 +60,12 @@ namespace MetX.Aspects
                     .Replace("~~Namespace~~", Namespace)
                     .Replace("~~AspectsName~~", AspectsName)
                     .Replace("~~GeneratorsName~~", GeneratorsName)
-                    .Replace("~~Target~~", Target)
+                    .Replace("~~Target~~", TargetTemplate)
                     .Replace("~~Framework~~", FrameworkValue())
                     .Replace("\r", "")
                 ;
-            Filename = Path.Combine(BaseOutputPath, Target, Target + ".csproj");
-            resolved = resolved.TokensAfterFirst("\n");
+            //Filename = Path.Combine(BaseOutputPath, TargetTemplate, TargetTemplate + ".csproj");
+            //resolved = resolved.TokensAfterFirst("\n");
             return resolved;
         }
 
@@ -89,37 +87,62 @@ namespace MetX.Aspects
             }
         }
 
-        public string ResolvedCsProjectTemplatePath()
+        public string TemplateFilePath()
         {
             return Path.Combine(
                 TemplatesRootPath,
                     Language,
                         GenerationSet,
-                            Target,
-                                Target + ".csproj");
+                            TargetTemplate,
+                                TargetTemplate + ".csproj");
         }
 
-        public string ResolvedCsProjectOutputPath()
+        public string OutputFilePathResolved()
         {
-            if (Target.IsEmpty())
+            var resolved = PathResolved(TargetTemplate);
+            return Path.Combine(
+                OutputPathResolved(),
+                    resolved,
+                        resolved + ".csproj");
+        }
+
+        public string TargetTemplateResolved()
+        {
+            return PathResolved(TargetTemplate);
+        }
+        
+        public string OutputPathResolved()
+        {
+            if (TargetTemplate.IsEmpty())
                 return BaseOutputPath;
             
-            return Path.Combine(BaseOutputPath, Target);
+            return Path.Combine(BaseOutputPath, TargetTemplateResolved());
         }
 
-        public bool ResolveTemplate()
+        public bool TryResolveAndSave()
         {
-            var templateFilePath = ResolvedCsProjectTemplatePath();
+            if (!TryFullResolve(out var contents))
+            {
+                return false;
+            }
+
+            var outputPath = OutputPathResolved();
+            var outputFilePath = OutputFilePathResolved();
+            
+            Directory.CreateDirectory(outputPath);
+            return Standard.IO.FileSystem.TryWriteAllText(outputFilePath, contents);
+        }
+
+        public bool TryFullResolve(out string contents)
+        {
+            contents = null;
+            var templateFilePath = TemplateFilePath();
             if (!File.Exists(templateFilePath))
                 throw new FileNotFoundException(templateFilePath);
 
             var template = File.ReadAllText(templateFilePath);
-            var contents = ResolveContents(template);
-            var outputPath = ResolvedCsProjectOutputPath();
-            var outputFilePath = ResolvedCsProjectFilePath();
-            
-            Directory.CreateDirectory(outputPath);
-            Standard.IO.FileSystem.TryWriteAllText(outputFilePath, contents);
+            contents = ResolveContents(template);
+            return true;
         }
     }
 }

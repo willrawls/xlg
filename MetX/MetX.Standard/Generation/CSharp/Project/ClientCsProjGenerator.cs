@@ -7,7 +7,7 @@ using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class ClientCsProjGenerator : CsProjGeneratorBase
+    public class ClientCsProjGenerator : CsProjGenerator
     {
         public ClientCsProjGenerator() : base()
         {

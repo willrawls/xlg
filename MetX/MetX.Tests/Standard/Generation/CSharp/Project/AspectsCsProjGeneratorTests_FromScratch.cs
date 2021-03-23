@@ -10,19 +10,20 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     public class AspectsCsProjGeneratorTests_FromScratch
     {
         [TestMethod]
-        public void ClientFromScratchXmlIsAsExpected()
+        public void FromScratchXmlIsAsExpected()
         {
             var genGenOptions = GenGenOptions.Defaults;
             genGenOptions.BaseOutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");
             genGenOptions.TemplatesRootPath = @"..\..\..\..\MetX.Generators\Templates";
             
-            var clientCsProjGenerator = new ClientCsProjGenerator(genGenOptions);
+            var generator = new CsProjGenerator(genGenOptions, "Namespace.AspectsName");
 
-            Assert.IsNotNull(clientCsProjGenerator);
-            var actual = clientCsProjGenerator.Document.OuterXml;
+            Assert.IsNotNull(generator);
+            var actual = generator.Document.OuterXml;
             Assert.IsFalse(actual.Contains("~~"));
-            Assert.IsTrue(actual.Contains("net-5.0windows"));
-            Assert.IsTrue(actual.Contains("Analyzer"));
+            
+            Assert.IsTrue(actual.Contains(GenFramework.Standard20.ToTargetFramework()));
+            Assert.IsFalse(actual.Contains("Analyzer"));
         }
     }
 }

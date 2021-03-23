@@ -1,26 +1,25 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Xml;
 using MetX.Aspects;
 using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class CsProjGeneratorBase : IGenerateCsProj
+    public class CsProjGenerator : IGenerateCsProj
     {
-        public CsProjGeneratorBase()
+        public CsProjGenerator()
         {
         }
 
-        public CsProjGeneratorBase(GenGenOptions options, XmlDocument document = null)
+        public CsProjGenerator(GenGenOptions options, XmlDocument document = null)
         {
             FilePath = Path.Combine(options.BaseOutputPath, options.Filename);
             Document = document;
         }
 
-        public CsProjGeneratorBase(string filePath)
+        public CsProjGenerator(string filePath)
         {
             var document = new XmlDocument();
             document.Load(filePath);
@@ -31,7 +30,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             ItemGroup = new ItemGroup(this);
         }
 
-        public CsProjGeneratorBase(GenGenOptions options, string target)
+        public CsProjGenerator(GenGenOptions options, string target)
         {
             if (options.GenerationSet.IsEmpty())
                 options.GenerationSet = "Default";
@@ -42,18 +41,14 @@ namespace MetX.Standard.Generation.CSharp.Project
             if (!Directory.Exists(options.BaseOutputPath))
                 Directory.CreateDirectory(options.BaseOutputPath);
 
-            if(target.IsNotEmpty())
-                options.Target = target;
+            if (target.IsNotEmpty())
+                options.TargetTemplate = target;
 
-            if (options.Target.IsEmpty())
+            if (options.TargetTemplate.IsEmpty())
                 throw new ArgumentException("Either options.Target or target must be set");
-            
-            options.ResolveTemplate();
-
-            FilePath = Path.Combine(options.BaseOutputPath, options.Filename);
 
             Document = new XmlDocument();
-            Document.LoadXml(resolved);
+            if (options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
         }
 
         public XmlNode ProjectNode => GetOrCreateElement(XPaths.Project, false);
@@ -119,11 +114,7 @@ namespace MetX.Standard.Generation.CSharp.Project
                 // grab the next node name in the xpath; or return parent if empty
                 var partsOfXPath = xpath.Trim('/').Split('/');
                 var nextNodeInXPath = partsOfXPath.First();
-                if (string.IsNullOrEmpty(nextNodeInXPath))
-                {
-                    
-                    return parent;
-                }
+                if (string.IsNullOrEmpty(nextNodeInXPath)) return parent;
 
                 // get or create the node from the name
                 var node = parent.SelectSingleNode(nextNodeInXPath);
