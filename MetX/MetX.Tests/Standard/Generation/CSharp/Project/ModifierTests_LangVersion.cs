@@ -7,7 +7,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     // ReSharper disable once InconsistentNaming
-    public class ModifierTests_LangVersion
+    public class ClientCsProjGeneratorTests_LangVersion
     {
         [TestMethod]
         public void LangVersion_GenerateToPathMissing()

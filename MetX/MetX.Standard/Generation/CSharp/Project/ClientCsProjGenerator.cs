@@ -8,9 +8,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class ClientCsProjGenerator
+    public class ClientCsProjGenerator : IGenerateCsProj
     {
-        
         public XmlNode ProjectNode => GetNodeFromCacheOrDocument(XPaths.Project, false);
         public PropertyGroups PropertyGroups { get; set; }
         public Targets Targets { get; set; }
@@ -29,29 +28,24 @@ namespace MetX.Standard.Generation.CSharp.Project
             Document = document;
         }
 
-        public static ClientCsProjGenerator LoadFile(string filePath)
+        public ClientCsProjGenerator(string filePath)
         {
             var document = new XmlDocument();
             document.Load(filePath);
-            var modifier = new ClientCsProjGenerator
-            {
-                Document = document,
-                FilePath = filePath,
-            };
-            modifier.PropertyGroups = new PropertyGroups(modifier);
-            modifier.Targets = new Targets(modifier);
-            modifier.ItemGroup = new ItemGroup(modifier);
-            
-            return modifier;
+            Document = document;
+            FilePath = filePath;
+            PropertyGroups = new PropertyGroups(this);
+            Targets = new Targets(this);
+            ItemGroup = new ItemGroup(this);
         }
 
-        public ClientCsProjGenerator SaveToFile()
+        public bool Save()
         {
             if (FilePath.IsEmpty())
-                return this;
+                return false;
             
             Document?.Save(FilePath);
-            return this;
+            return File.Exists(FilePath);
         }
 
         public void SetElementInnerText(string xpath, bool value)
@@ -172,7 +166,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             return node == null;
         }
 
-        public static ClientCsProjGenerator FromScratch(GenGenOptions options)
+        public ClientCsProjGenerator(GenGenOptions options)
         {
             if (options.GenerationSet.IsEmpty())
                 options.GenerationSet = "Default";
@@ -190,10 +184,11 @@ namespace MetX.Standard.Generation.CSharp.Project
             
             var template = File.ReadAllText(clientCsProjPath);
             var resolved = options.Resolve(template);
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(resolved);
-            var modifier = new ClientCsProjGenerator(options, xmlDocument);
-            return modifier;
+
+            FilePath = Path.Combine(options.BaseOutputPath, options.Filename);
+
+            Document = new XmlDocument();
+            Document.LoadXml(resolved);
         }
     }
 }

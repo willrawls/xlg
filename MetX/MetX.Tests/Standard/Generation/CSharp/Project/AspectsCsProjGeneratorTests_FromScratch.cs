@@ -2,13 +2,12 @@
 using System.IO;
 using MetX.Aspects;
 using MetX.Standard.Generation.CSharp.Project;
-using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
-    public class ClientCsProjGeneratorTests_FromScratch
+    public class AspectsCsProjGeneratorTests_FromScratch
     {
         [TestMethod]
         public void ClientFromScratchXmlIsAsExpected()

@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
-    public class ModifierTests_Target_AddSource
+    public class ClientCsProjGeneratorTests_Target_AddSource
     {
         [TestMethod]
         public void Target_FromScratch_RemovesWhenPresent()

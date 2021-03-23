@@ -19,7 +19,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
             
             var filePath = $@"{AppDomain.CurrentDomain.BaseDirectory}{PiecesDirectory}{area}{pieceName}.xml";
             Assert.IsTrue(File.Exists(filePath), $"Can't find: {filePath}");
-            return ClientCsProjGenerator.LoadFile(filePath);
+            return new ClientCsProjGenerator(filePath);
         }
 
         public static ClientCsProjGenerator GetEmptyClient()
