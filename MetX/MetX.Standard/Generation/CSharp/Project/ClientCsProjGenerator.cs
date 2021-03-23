@@ -25,7 +25,7 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public ClientCsProjGenerator(GenGenOptions options, XmlDocument document = null)
         {
-            FilePath = Path.Combine(options.BasePath, options.Filename);
+            FilePath = Path.Combine(options.BaseOutputPath, options.Filename);
             Document = document;
         }
 
@@ -174,13 +174,26 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public static ClientCsProjGenerator FromScratch(GenGenOptions options)
         {
-            var template = File.ReadAllText(@"Templates\CSharp\Project\ClientFromScratchA.csproj");
+            if (options.GenerationSet.IsEmpty())
+                options.GenerationSet = "Default";
+
+            if (options.BaseOutputPath.IsEmpty())
+                options.BaseOutputPath = @".\";
+
+            if (!Directory.Exists(options.BaseOutputPath))
+                Directory.CreateDirectory(options.BaseOutputPath);
+            
+            var clientCsProjPath = Path.Combine(options.TemplatesRootPath, "CSharp", options.GenerationSet, "Namespace.ClientName", "Namespace.ClientName.csproj");
+
+            if (!File.Exists(clientCsProjPath))
+                throw new FileNotFoundException(clientCsProjPath);
+            
+            var template = File.ReadAllText(clientCsProjPath);
             var resolved = options.Resolve(template);
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(resolved);
             var modifier = new ClientCsProjGenerator(options, xmlDocument);
             return modifier;
-
         }
     }
 }

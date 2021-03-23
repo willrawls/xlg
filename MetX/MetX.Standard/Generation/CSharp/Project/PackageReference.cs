@@ -3,13 +3,6 @@ using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public interface IRefer
-    {
-        ClientCsProjGenerator Parent { get; set; }
-        XmlElement Remove();
-        XmlElement InsertOrUpdate();
-    }
-
     public class PackageReference : IRefer
     {
         public ClientCsProjGenerator Parent { get; set; }

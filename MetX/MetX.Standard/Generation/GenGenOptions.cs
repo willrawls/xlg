@@ -8,29 +8,34 @@ namespace MetX.Aspects
 {
     public class GenGenOptions
     {
-        public string BasePath;
-        public string ClientName;
-        public string Namespace;
-        public string AspectsName;
-        public string GeneratorsName;
-        public GenFramework Framework;
+        public string GenerationSet { get; set; }
+        public string TemplatesRootPath { get; set; }
+        public string BaseOutputPath { get; set; }
+        public string ClientName { get; set; }
+        public string Namespace { get; set; }
+        public string AspectsName { get; set; }
+        public string GeneratorsName { get; set; }
+        public string Filename { get; set; }
+        public GenFramework Framework { get; set; }
 
         public static GenGenOptions Defaults => new()
             {
-                BasePath = @".\",
+                TemplatesRootPath = @"Templates\",
+                GenerationSet = "Default",
                 ClientName = "Client",
                 Namespace = "GenGen",
                 AspectsName = "Aspects",
                 GeneratorsName = "Generators",
                 Framework = GenFramework.Net50Windows,
+                BaseOutputPath = @".\",
             };
-
-        public string Filename { get; set; }
 
         public string Resolve(string template)
         {
             var resolved = template
-                    .Replace("~~BasePath~~", BasePath)
+                    .Replace("~~GenerationSet~~", GenerationSet)
+                    .Replace("~~BasePath~~", BaseOutputPath)
+                    .Replace("~~TemplatesRootPath~~", TemplatesRootPath)
                     .Replace("~~ClientName~~", ClientName)
                     .Replace("~~Namespace~~", Namespace)
                     .Replace("~~AspectsName~~", AspectsName)
@@ -38,7 +43,7 @@ namespace MetX.Aspects
                     .Replace("~~Framework~~", FrameworkValue())
                     .Replace("\r", "")
                 ;
-            Filename = Path.Combine(BasePath, ClientName, ClientName + ".csproj");
+            Filename = Path.Combine(BaseOutputPath, ClientName, ClientName + ".csproj");
             resolved = resolved.TokensAfterFirst("\n");
             return resolved;
         }

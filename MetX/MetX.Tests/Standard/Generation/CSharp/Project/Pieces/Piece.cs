@@ -37,9 +37,4 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
         public const string GenerateToPath = @"GenerateToPath";
         public const string Emit = @"Emit";
     }
-
-        public static class Area
-        {
-
-        }
 }

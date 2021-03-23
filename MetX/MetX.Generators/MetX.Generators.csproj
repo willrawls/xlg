@@ -5,6 +5,15 @@
     <OutputType>Exe</OutputType>
     <StartupObject>MetX.Generators.Program</StartupObject>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Templates\CSharp\Project\**" />
+    <EmbeddedResource Remove="Templates\CSharp\Project\**" />
+    <None Remove="Templates\CSharp\Project\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs" />
+    <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
@@ -24,6 +33,28 @@
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\CSharp\Default\Namespace.AspectsName\Namespace.AspectsName.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\CSharp\Default\Namespace.ClientName\Namespace.ClientName.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\CSharp\Default\Namespace.GeneratorsName\Namespace.GeneratorsName.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
