@@ -18,5 +18,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         XmlNode MakeXPath(string xpath);
         XmlNode MakeXPath(XmlNode parent, string xpath);
         bool IsElementMissing(string xpath);
+
+        XmlNode GetOrCreateElement(string xpath, bool addIfMissing);
     }
 }

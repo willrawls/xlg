@@ -7,10 +7,10 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class PropertyGroups
     {
-        public ClientCsProjGenerator Parent;
+        public IGenerateCsProj Parent;
         public XmlNodeList Nodes => Parent.Document.SelectNodes(XPaths.PropertyGroup);
 
-        public PropertyGroups(ClientCsProjGenerator parent)
+        public PropertyGroups(IGenerateCsProj parent)
         {
             Parent = parent;
         }
@@ -20,7 +20,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         {
             get
             {
-                var node = Parent.GetNodeFromCacheOrDocument(XPaths.EmitCompilerGeneratedFiles, false);
+                var node = Parent.GetOrCreateElement(XPaths.EmitCompilerGeneratedFiles, false);
                 if (node != null) 
                     return (XmlElement) node.ParentNode;
                 

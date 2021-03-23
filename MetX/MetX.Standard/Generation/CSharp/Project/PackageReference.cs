@@ -5,13 +5,13 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class PackageReference : IRefer
     {
-        public ClientCsProjGenerator Parent { get; set; }
+        public IGenerateCsProj Parent { get; set; }
         public string PackageName { get; set; }
         public string Version { get; set; }
         public string PrivateAssets { get; set; }
         public string IncludeAssets { get; set; }
 
-        public PackageReference(ClientCsProjGenerator parent, string packageName, string version, string privateAssets = null, string includeAssets = null)
+        public PackageReference(IGenerateCsProj parent, string packageName, string version, string privateAssets = null, string includeAssets = null)
         {
             Parent = parent;
             PackageName = packageName;

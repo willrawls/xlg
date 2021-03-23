@@ -6,12 +6,12 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class ProjectReference : IRefer
     {
-        public ClientCsProjGenerator Parent { get; set; }
+        public IGenerateCsProj Parent { get; set; }
         public string Include { get; set; }
         public string OutputItemType { get; set; }
         public bool? ReferenceOutputAssembly { get; set; }
 
-        public ProjectReference(ClientCsProjGenerator parent, string include, string outputItemType = null, bool? referenceOutputAssembly = null)
+        public ProjectReference(IGenerateCsProj parent, string include, string outputItemType = null, bool? referenceOutputAssembly = null)
         {
             Parent = parent;
             Include = include;

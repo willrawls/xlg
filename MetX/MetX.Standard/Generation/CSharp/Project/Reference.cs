@@ -5,11 +5,11 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class Reference : IRefer
     {
-        public ClientCsProjGenerator Parent { get; set; }
+        public IGenerateCsProj Parent { get; set; }
         public string Include { get; set; }
         public string HintPath { get; set; }
 
-        public Reference(ClientCsProjGenerator parent, string include, string hintPath = null)
+        public Reference(IGenerateCsProj parent, string include, string hintPath = null)
         {
             Parent = parent;
             Include = include;

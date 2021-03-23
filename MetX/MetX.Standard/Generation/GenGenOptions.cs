@@ -30,9 +30,31 @@ namespace MetX.Aspects
                 BaseOutputPath = @".\",
             };
 
-        public string Resolve(string template)
+        public string Target { get; set; }
+        public string Language { get; set; } = "CSharp";
+
+        public string ResolvePath(string pathTemplate)
         {
-            var resolved = template
+            var resolved = pathTemplate
+                    .Replace("GenerationSet", GenerationSet)
+                    .Replace("BasePath", BaseOutputPath)
+                    .Replace("TemplatesRootPath", TemplatesRootPath)
+                    .Replace("ClientName", ClientName)
+                    .Replace("Namespace", Namespace)
+                    .Replace("AspectsName", AspectsName)
+                    .Replace("GeneratorsName", GeneratorsName)
+                    .Replace("Target", Target)
+                    .Replace("Framework", FrameworkValue())
+                    .Replace("\r", "")
+                ;
+            Filename = Path.Combine(BaseOutputPath, Target, Target + ".csproj");
+            resolved = resolved.TokensAfterFirst("\n");
+            return resolved;
+        }
+        
+        public string ResolveContents(string contentsTemplate)
+        {
+            var resolved = contentsTemplate
                     .Replace("~~GenerationSet~~", GenerationSet)
                     .Replace("~~BasePath~~", BaseOutputPath)
                     .Replace("~~TemplatesRootPath~~", TemplatesRootPath)
@@ -40,10 +62,11 @@ namespace MetX.Aspects
                     .Replace("~~Namespace~~", Namespace)
                     .Replace("~~AspectsName~~", AspectsName)
                     .Replace("~~GeneratorsName~~", GeneratorsName)
+                    .Replace("~~Target~~", Target)
                     .Replace("~~Framework~~", FrameworkValue())
                     .Replace("\r", "")
                 ;
-            Filename = Path.Combine(BaseOutputPath, ClientName, ClientName + ".csproj");
+            Filename = Path.Combine(BaseOutputPath, Target, Target + ".csproj");
             resolved = resolved.TokensAfterFirst("\n");
             return resolved;
         }
@@ -64,6 +87,39 @@ namespace MetX.Aspects
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public string ResolvedCsProjectTemplatePath()
+        {
+            return Path.Combine(
+                TemplatesRootPath,
+                    Language,
+                        GenerationSet,
+                            Target,
+                                Target + ".csproj");
+        }
+
+        public string ResolvedCsProjectOutputPath()
+        {
+            if (Target.IsEmpty())
+                return BaseOutputPath;
+            
+            return Path.Combine(BaseOutputPath, Target);
+        }
+
+        public bool ResolveTemplate()
+        {
+            var templateFilePath = ResolvedCsProjectTemplatePath();
+            if (!File.Exists(templateFilePath))
+                throw new FileNotFoundException(templateFilePath);
+
+            var template = File.ReadAllText(templateFilePath);
+            var contents = ResolveContents(template);
+            var outputPath = ResolvedCsProjectOutputPath();
+            var outputFilePath = ResolvedCsProjectFilePath();
+            
+            Directory.CreateDirectory(outputPath);
+            Standard.IO.FileSystem.TryWriteAllText(outputFilePath, contents);
         }
     }
 }
