@@ -12,15 +12,15 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void FromScratchXmlIsAsExpected()
         {
-            var genGenOptions = GenGenOptions.Defaults;
-            genGenOptions.BaseOutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");
-            genGenOptions.TemplatesRootPath = @"..\..\..\..\MetX.Generators\Templates";
+            var genGenOptions = CsProjGeneratorOptions.Defaults(GenFramework.Standard20);
+            genGenOptions.OutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");
+            genGenOptions.PathToTemplatesFolder = @"..\..\..\..\MetX.Generators\Templates";
             
-            var generator = new CsProjGenerator(genGenOptions, "Namespace.AspectsName");
+            var generator = new AspectsCsProjGenerator(genGenOptions);
 
             Assert.IsNotNull(generator);
             var actual = generator.Document.OuterXml;
-            Assert.IsFalse(actual.Contains("~~"));
+            Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter));
             
             Assert.IsTrue(actual.Contains(GenFramework.Standard20.ToTargetFramework()));
             Assert.IsFalse(actual.Contains("Analyzer"));

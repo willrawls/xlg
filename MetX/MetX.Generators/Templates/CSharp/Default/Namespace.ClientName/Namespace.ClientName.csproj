@@ -36,8 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="~~BasePath~~\~~AspectsName~~\~~AspectsName~~.csproj" />
-    <ProjectReference Include="~~BasePath~~\~~GeneratorsName~~\~~GeneratorsName~~.csproj"
+    <ProjectReference Include="~~OutputPath~~\~~AspectsName~~\~~AspectsName~~.csproj" />
+    <ProjectReference Include="~~OutputPath~~\~~GeneratorsName~~\~~GeneratorsName~~.csproj"
                       OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false" />
   </ItemGroup>

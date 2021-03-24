@@ -7,7 +7,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     // ReSharper disable once InconsistentNaming
-    public class ClientCsProjGeneratorTests_EmitCompilerGeneratedFiles
+    public class ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles
     {
         [TestMethod]
         public void CheckForEmit_EmitMissing()

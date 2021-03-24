@@ -36,10 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

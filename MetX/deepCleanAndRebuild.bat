@@ -9,15 +9,22 @@ CLS
 rmdir /s /q MetX\bin
 rmdir /s /q MetX.Aspects\bin
 rmdir /s /q MetX.Controls\bin
+
 rmdir /s /q MetX.Generators\bin
 rmdir /s /q MetX.Generators\Generated
 rmdir /s /q MetX.Generators.Samples.Client\bin
+rmdir /s /q MetX.Generators.Samples.Client\Generated
+
 rmdir /s /q MetX.Glove.Console\bin
+rmdir /s /q MetX.Glove.Console\Generated
 rmdir /s /q MetX.QuickScripts\bin
+rmdir /s /q MetX.QuickScripts\Generated
 rmdir /s /q MetX.Standard\bin
 rmdir /s /q MetX.Techniques.Tests\bin
 rmdir /s /q MetX.Tests\bin
+rmdir /s /q MetX.Tests\Generated
 rmdir /s /q MetX.Windows\bin
+rmdir /s /q MetX.Windows\Generated
 
 rmdir /s /q MetX\obj
 rmdir /s /q MetX.Aspects\obj

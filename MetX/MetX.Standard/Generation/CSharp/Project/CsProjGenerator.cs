@@ -7,19 +7,19 @@ using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
-    public class CsProjGenerator : IGenerateCsProj
+    public abstract class CsProjGenerator : IGenerateCsProj
     {
-        public CsProjGenerator()
+        protected CsProjGenerator()
         {
         }
 
-        public CsProjGenerator(GenGenOptions options, XmlDocument document = null)
+        protected CsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null)
         {
-            FilePath = Path.Combine(options.BaseOutputPath, options.Filename);
+            FilePath = Path.Combine(options.OutputPath, options.Filename);
             Document = document;
         }
 
-        public CsProjGenerator(string filePath)
+        protected CsProjGenerator(string filePath)
         {
             var document = new XmlDocument();
             document.Load(filePath);
@@ -30,16 +30,16 @@ namespace MetX.Standard.Generation.CSharp.Project
             ItemGroup = new ItemGroup(this);
         }
 
-        public CsProjGenerator(GenGenOptions options, string target)
+        protected CsProjGenerator(CsProjGeneratorOptions options, string target)
         {
             if (options.GenerationSet.IsEmpty())
                 options.GenerationSet = "Default";
 
-            if (options.BaseOutputPath.IsEmpty())
-                options.BaseOutputPath = @".\";
+            if (options.OutputPath.IsEmpty())
+                options.OutputPath = @".\";
 
-            if (!Directory.Exists(options.BaseOutputPath))
-                Directory.CreateDirectory(options.BaseOutputPath);
+            if (!Directory.Exists(options.OutputPath))
+                Directory.CreateDirectory(options.OutputPath);
 
             if (target.IsNotEmpty())
                 options.TargetTemplate = target;

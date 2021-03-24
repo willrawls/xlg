@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
-    public class ClientCsProjGeneratorTests_PackageReference
+    public class ConsoleClientCsProjGeneratorTests_PackageReference
     {
         [TestMethod]
         public void InsertOne_NotPresent()

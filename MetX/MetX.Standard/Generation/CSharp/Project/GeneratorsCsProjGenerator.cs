@@ -9,7 +9,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         {
         }
 
-        public GeneratorsCsProjGenerator(GenGenOptions options, XmlDocument document = null) : base(options, document)
+        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null) : base(options, document)
         {
         }
 
@@ -17,7 +17,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         {
         }
 
-        public GeneratorsCsProjGenerator(GenGenOptions options) : base(options, "Namespace.GeneratorsName")
+        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options) : base(options, "Namespace.GeneratorsName")
         {
             
         }

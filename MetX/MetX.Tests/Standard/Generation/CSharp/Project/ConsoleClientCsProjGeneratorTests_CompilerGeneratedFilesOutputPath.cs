@@ -6,7 +6,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     // ReSharper disable once InconsistentNaming
-    public class ClientCsProjGeneratorTests_CompilerGeneratedFilesOutputPath
+    public class ConsoleClientCsProjGeneratorTests_CompilerGeneratedFilesOutputPath
     {
         [TestMethod]
         public void CompilerGeneratedFilesOutputPath_GenerateToPathMissing()

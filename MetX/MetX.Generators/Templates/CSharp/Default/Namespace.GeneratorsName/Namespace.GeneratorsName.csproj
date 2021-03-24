@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>~~TargetFramework~~</TargetFramework>
     <LangVersion>Latest</LangVersion>
     <OutputType>~~OutputType~~</OutputType>
-    <StartupObject>~~Namespace~~.Program</StartupObject>
+    <StartupObject>~~Namespace~~.~~GeneratorsName~~.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />
@@ -21,10 +21,10 @@
   <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager" />
     <Reference Include="MetX.Standard">
-      <HintPath>~~MetXBinPath~~\MetX.Standard.dll</HintPath>
+      <HintPath>~~MetXPath~~\MetX.Standard.dll</HintPath>
     </Reference>
     <Reference Include="MetX.Generators">
-      <HintPath>~~MetXBinPath~~\MetX.Generators.dll</HintPath>
+      <HintPath>~~MetXPath~~\MetX.Generators.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
