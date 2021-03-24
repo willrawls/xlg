@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using MetX.Aspects;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {
@@ -20,5 +21,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         bool IsElementMissing(string xpath);
 
         XmlNode GetOrCreateElement(string xpath, bool addIfMissing);
+
+        IGenerateCsProj WithOptions(CsProjGeneratorOptions options);
     }
 }

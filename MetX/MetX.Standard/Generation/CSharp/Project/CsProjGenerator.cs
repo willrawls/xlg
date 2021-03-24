@@ -49,7 +49,11 @@ namespace MetX.Standard.Generation.CSharp.Project
 
             Document = new XmlDocument();
             if (options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
+
+            Options = options;
         }
+
+        public CsProjGeneratorOptions Options { get; set; }
 
         public XmlNode ProjectNode => GetOrCreateElement(XPaths.Project, false);
         public PropertyGroups PropertyGroups { get; set; }
@@ -67,6 +71,11 @@ namespace MetX.Standard.Generation.CSharp.Project
             if (node == null && addIfMissing)
                 node = MakeXPath(xpath);
             return node;
+        }
+
+        public IGenerateCsProj WithOptions(CsProjGeneratorOptions options)
+        {
+            Options = options;
         }
 
         public bool Save()

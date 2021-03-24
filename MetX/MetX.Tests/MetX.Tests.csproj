@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generators\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Standard\Generation\CSharp\Project\Pieces\EmptyClient.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

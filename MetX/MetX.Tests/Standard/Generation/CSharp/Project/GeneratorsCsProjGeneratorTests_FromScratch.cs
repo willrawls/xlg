@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
-    public class GeneratorsCsProjGeneratorTests_FromScratch
+    public class GeneratorsCsProjGeneratorTests
     {
         [TestMethod]
         public void FromScratchXmlIsAsExpected()
@@ -21,7 +21,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 
             Assert.IsNotNull(generator);
             var actual = generator.Document.OuterXml;
-            Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual.TokenAt(2, "~~"));
+            Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual.TokenAt(2, CsProjGeneratorOptions.Delimiter));
             
             Assert.IsTrue(actual.Contains(GenFramework.Standard20.ToTargetFramework()), actual);
             Assert.IsTrue(actual.Contains("Analyzer"), actual);

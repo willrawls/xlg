@@ -8,11 +8,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    public class ConsoleClientCsProjGeneratorTests_PackageReference
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
-        public void InsertOne_NotPresent()
+        public void PackageReference_InsertOne_NotPresent()
         {
             var modifier = Piece.GetEmptyClient();
             var element = modifier.ItemGroup.Common.InsertOrUpdate();
@@ -23,7 +22,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         }
         
         [TestMethod]
-        public void InsertOneWithAssets_NotPresent()
+        public void PackageReference_InsertOneWithAssets_NotPresent()
         {
             var modifier = Piece.GetEmptyClient();
             var element = modifier.ItemGroup.Analyzers.InsertOrUpdate();
@@ -41,7 +40,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         }
         
         [TestMethod]
-        public void InsertOne_Present()
+        public void PackageReference_InsertOne_Present()
         {
             var modifier = Piece.GetFullClient();
             var element = modifier.ItemGroup.Common.InsertOrUpdate();
@@ -49,7 +48,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         }
         
         [TestMethod]
-        public void InsertOneWithAssets_Present()
+        public void PackageReference_InsertOneWithAssets_Present()
         {
             var modifier = Piece.GetFullClient();
             var element = modifier.ItemGroup.Analyzers.InsertOrUpdate();

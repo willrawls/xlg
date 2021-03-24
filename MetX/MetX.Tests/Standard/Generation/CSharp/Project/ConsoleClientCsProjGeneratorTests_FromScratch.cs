@@ -9,11 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    public class ConsoleClientCsProjGeneratorTests_FromScratch
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
-        public void ClientFromScratchXmlIsAsExpected()
+        public void FromScratchXmlIsAsExpected()
         {
             var genGenOptions = CsProjGeneratorOptions.Defaults(GenFramework.Net50Windows);
             genGenOptions.OutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");

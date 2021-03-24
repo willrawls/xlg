@@ -6,8 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
-    // ReSharper disable once InconsistentNaming
-    public class ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
         public void CheckForEmit_EmitMissing()

@@ -5,9 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    // ReSharper disable once InconsistentNaming
-    public class ConsoleClientCsProjGeneratorTests_LangVersion
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
         public void LangVersion_GenerateToPathMissing()
@@ -71,7 +69,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         }
         
         [TestMethod]
-        public void SetGenerateToPathWhen_MissingToNull() // Don't add it if there's no value
+        public void SetLangVersion_MissingToNull() // Don't add it if there's no value
         {
             var project = Piece.Get(Piece.Missing, Piece.LangVersion);
             Assert.IsTrue(project.PropertyGroups.LangVersionMissing);

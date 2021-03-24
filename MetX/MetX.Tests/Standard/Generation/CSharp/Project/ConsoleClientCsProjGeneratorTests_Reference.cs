@@ -6,8 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    public class ConsoleClientCsProjGeneratorTests_Reference
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
         public void InsertOneWithoutHintPath_NotPresent()

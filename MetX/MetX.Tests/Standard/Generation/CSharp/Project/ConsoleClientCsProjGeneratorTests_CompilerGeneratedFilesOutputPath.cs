@@ -4,9 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    // ReSharper disable once InconsistentNaming
-    public class ConsoleClientCsProjGeneratorTests_CompilerGeneratedFilesOutputPath
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
         public void CompilerGeneratedFilesOutputPath_GenerateToPathMissing()

@@ -6,8 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
-    [TestClass]
-    public class ConsoleClientCsProjGeneratorTests_Target_AddSource
+    public partial class ConsoleClientCsProjGeneratorTests
     {
         [TestMethod]
         public void Target_FromScratch_RemovesWhenPresent()
