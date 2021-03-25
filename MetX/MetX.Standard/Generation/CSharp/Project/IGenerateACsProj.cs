@@ -11,6 +11,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         string FilePath { get; set; }
         XmlDocument Document { get; set; }
         ItemGroup ItemGroup { get; set; }
+        CsProjGeneratorOptions Options { get; set; }
         
         bool Save();
         void SetElementInnerText(string xpath, bool value);

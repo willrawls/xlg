@@ -76,6 +76,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         public IGenerateCsProj WithOptions(CsProjGeneratorOptions options)
         {
             Options = options;
+            return this;
         }
 
         public bool Save()

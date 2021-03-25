@@ -7,14 +7,16 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public class TestHelpers
     {
-        public static IGenerateCsProj Setup<T>() where T : class, IGenerateCsProj, new()
+        public static IGenerateCsProj SetupGenerator<T>() where T : class, IGenerateCsProj, new()
         {
-            var genGenOptions = CsProjGeneratorOptions.Defaults(GenFramework.Standard20);
-            genGenOptions.OutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");
-            genGenOptions.PathToTemplatesFolder = @"..\..\..\..\MetX.Generators\Templates";
+            var options = CsProjGeneratorOptions
+                .Defaults()
+                .WithFramework(GenFramework.Standard20)
+                .WithPathToTemplatesFolder(@"..\..\..\..\MetX.Generators\Templates")
+                .WithOutputPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product"))
+                ;
 
-            var generator = new T()
-                .WithOptions(genGenOptions);
+            var generator = new T().WithOptions(options);
             return generator;
         }
 

@@ -23,7 +23,7 @@ namespace MetX.Aspects
         public GenOutputType OutputType { get; set; }
         public string Language { get; set; } = "CSharp";
 
-        public static CsProjGeneratorOptions Defaults(GenFramework framework)
+        public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
         {
             return new()
             {
@@ -145,6 +145,24 @@ namespace MetX.Aspects
             var template = File.ReadAllText(templateFilePath);
             contents = ResolveContents(template);
             return true;
+        }
+
+        public CsProjGeneratorOptions WithOutputPath(string outputPath)
+        {
+            OutputPath = outputPath;
+            return this;
+        }
+
+        public CsProjGeneratorOptions WithPathToTemplatesFolder(string pathToTemplatesFolder)
+        {
+            PathToTemplatesFolder = pathToTemplatesFolder;
+            return this;
+        }
+
+        public CsProjGeneratorOptions WithFramework(GenFramework targetFramework)
+        {
+            TargetFramework = targetFramework;
+            return this;
         }
     }
 }
