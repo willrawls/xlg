@@ -9,6 +9,8 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class ClientCsProjGenerator : CsProjGenerator
     {
+        public const string DefaultTargetTemplate = "Namespace.ClientName";
+        
         public ClientCsProjGenerator() : base()
         {
         }
@@ -21,7 +23,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         {
         }
 
-        public ClientCsProjGenerator(CsProjGeneratorOptions options) : base(options, "Namespace.ClientName")
+        public ClientCsProjGenerator(CsProjGeneratorOptions options) : base(options)
         {
             
         }

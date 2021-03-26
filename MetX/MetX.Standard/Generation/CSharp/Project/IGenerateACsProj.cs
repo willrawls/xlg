@@ -24,5 +24,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         XmlNode GetOrCreateElement(string xpath, bool addIfMissing);
 
         IGenerateCsProj WithOptions(CsProjGeneratorOptions options);
+        IGenerateCsProj WithTarget(string target);
+        IGenerateCsProj Setup();
     }
 }

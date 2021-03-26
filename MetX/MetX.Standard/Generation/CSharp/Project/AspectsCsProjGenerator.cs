@@ -5,7 +5,9 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class AspectsCsProjGenerator : CsProjGenerator
     {
-        public AspectsCsProjGenerator() : base()
+        public const string DefaultTargetTemplate = "Namespace.AspectsName";
+
+        public AspectsCsProjGenerator() 
         {
         }
 
@@ -15,11 +17,6 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public AspectsCsProjGenerator(string filePath) : base(filePath)
         {
-        }
-
-        public AspectsCsProjGenerator(CsProjGeneratorOptions options) : base(options, "Namespace.AspectsName")
-        {
-            
         }
     }
 }

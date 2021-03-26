@@ -5,6 +5,8 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class GeneratorsCsProjGenerator : CsProjGenerator
     {
+        public const string DefaultTargetTemplate = "Namespace.GeneratorsName";
+        
         public GeneratorsCsProjGenerator() : base()
         {
         }
@@ -17,7 +19,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         {
         }
 
-        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options) : base(options, "Namespace.GeneratorsName")
+        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options) : base(options)
         {
             
         }

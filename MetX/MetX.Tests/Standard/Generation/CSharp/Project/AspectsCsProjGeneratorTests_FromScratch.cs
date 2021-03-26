@@ -10,7 +10,9 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void FromScratchXmlIsAsExpected()
         {
-            var generator = TestHelpers.SetupGenerator<AspectsCsProjGenerator>();
+            var generator = TestHelpers
+                .SetupGenerator<AspectsCsProjGenerator>(AspectsCsProjGenerator
+                    .DefaultTargetTemplate);
 
             Assert.IsNotNull(generator);
             var actual = generator.Document.OuterXml;

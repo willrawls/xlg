@@ -30,27 +30,34 @@ namespace MetX.Standard.Generation.CSharp.Project
             ItemGroup = new ItemGroup(this);
         }
 
+        /*
         protected CsProjGenerator(CsProjGeneratorOptions options, string target)
         {
-            if (options.GenerationSet.IsEmpty())
-                options.GenerationSet = "Default";
+            WithOptions(options);
+            WithTarget(target);
+            Setup();
+        }
+        */
 
-            if (options.OutputPath.IsEmpty())
-                options.OutputPath = @".\";
+        public IGenerateCsProj Setup()
+        {
+            if (Options.GenerationSet.IsEmpty())
+                Options.GenerationSet = "Default";
 
-            if (!Directory.Exists(options.OutputPath))
-                Directory.CreateDirectory(options.OutputPath);
+            if (Options.OutputPath.IsEmpty())
+                Options.OutputPath = @".\";
 
-            if (target.IsNotEmpty())
-                options.TargetTemplate = target;
+            if (!Directory.Exists(Options.OutputPath))
+                Directory.CreateDirectory(Options.OutputPath);
 
-            if (options.TargetTemplate.IsEmpty())
+            if (Options.TargetTemplate.IsEmpty())
                 throw new ArgumentException("Either options.Target or target must be set");
 
             Document = new XmlDocument();
-            if (options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
+            if (Options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
 
-            Options = options;
+            Options = Options;
+            return this;
         }
 
         public CsProjGeneratorOptions Options { get; set; }
@@ -76,6 +83,12 @@ namespace MetX.Standard.Generation.CSharp.Project
         public IGenerateCsProj WithOptions(CsProjGeneratorOptions options)
         {
             Options = options;
+            return this;
+        }
+
+        public IGenerateCsProj WithTarget(string target)
+        {
+            Options.TargetTemplate = target;
             return this;
         }
 
