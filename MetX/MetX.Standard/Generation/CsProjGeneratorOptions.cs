@@ -25,7 +25,7 @@ namespace MetX.Aspects
 
         public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
         {
-            return new()
+            CsProjGeneratorOptions generatorOptions = new()
             {
                 PathToTemplatesFolder = @"Templates\",
                 GenerationSet = "Default",
@@ -37,6 +37,7 @@ namespace MetX.Aspects
                 OutputPath = @".\Generated\",
                 MetXPath = GetMetXPath()
             };
+            return generatorOptions;
         }
 
         public static string GetMetXPath()

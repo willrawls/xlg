@@ -5,6 +5,8 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public interface IGenerateCsProj
     {
+        string DefaultTargetTemplate { get; set; }
+        
         XmlNode ProjectNode { get; }
         PropertyGroups PropertyGroups { get; set; }
         Targets Targets { get; set; }
@@ -26,5 +28,6 @@ namespace MetX.Standard.Generation.CSharp.Project
         IGenerateCsProj WithOptions(CsProjGeneratorOptions options);
         IGenerateCsProj WithTarget(string target);
         IGenerateCsProj Setup();
+        IGenerateCsProj Generate();
     }
 }

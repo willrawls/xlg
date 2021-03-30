@@ -10,6 +10,17 @@ namespace MetX.Standard.Library
     /// </summary>
     public static class ForStrings
     {
+        public static string AsFormattedXml(this string target)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+
+            var result = target
+                    .Replace("><", ">\n\t<")
+                ;
+            return result;
+        }
+        
         public static string BlankToNull(this string target)
         {
             return target == string.Empty ? null : target;

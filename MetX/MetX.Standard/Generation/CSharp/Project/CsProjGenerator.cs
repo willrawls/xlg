@@ -11,6 +11,7 @@ namespace MetX.Standard.Generation.CSharp.Project
     {
         protected CsProjGenerator()
         {
+            
         }
 
         protected CsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null)
@@ -30,15 +31,6 @@ namespace MetX.Standard.Generation.CSharp.Project
             ItemGroup = new ItemGroup(this);
         }
 
-        /*
-        protected CsProjGenerator(CsProjGeneratorOptions options, string target)
-        {
-            WithOptions(options);
-            WithTarget(target);
-            Setup();
-        }
-        */
-
         public IGenerateCsProj Setup()
         {
             if (Options.GenerationSet.IsEmpty())
@@ -51,17 +43,21 @@ namespace MetX.Standard.Generation.CSharp.Project
                 Directory.CreateDirectory(Options.OutputPath);
 
             if (Options.TargetTemplate.IsEmpty())
-                throw new ArgumentException("Either options.Target or target must be set");
+            {
+                Options.TargetTemplate = DefaultTargetTemplate;
+            }
 
             Document = new XmlDocument();
-            if (Options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
 
             Options = Options;
             return this;
         }
 
+        public abstract IGenerateCsProj Generate();
+
         public CsProjGeneratorOptions Options { get; set; }
 
+        public string DefaultTargetTemplate { get; set; }
         public XmlNode ProjectNode => GetOrCreateElement(XPaths.Project, false);
         public PropertyGroups PropertyGroups { get; set; }
         public Targets Targets { get; set; }
@@ -155,5 +151,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             var node = Document.SelectSingleNode(xpath);
             return node == null;
         }
+
+        public abstract IGenerateCsProj WithDefaultTargetTemplate();
     }
 }

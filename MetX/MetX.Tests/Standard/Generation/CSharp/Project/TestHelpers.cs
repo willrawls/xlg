@@ -7,7 +7,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public class TestHelpers
     {
-        public static IGenerateCsProj SetupGenerator<T>(string target) where T : class, IGenerateCsProj, new()
+        public static IGenerateCsProj SetupGenerator<T>() where T : class, IGenerateCsProj, new()
         {
             var options = CsProjGeneratorOptions
                 .Defaults()
@@ -18,7 +18,6 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 
             var generator = new T()
                 .WithOptions(options)
-                .WithTarget(target)
                 .Setup();
             return generator;
         }
