@@ -1,4 +1,4 @@
-﻿namespace MetX.Generators.GenGen
+﻿namespace MetX.Standard.Generators.GenGen
 {
     public enum Operation
     {

@@ -3,7 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>Latest</LangVersion>
     <OutputType>Exe</OutputType>
-    <StartupObject>MetX.Generators.Program</StartupObject>
+    <StartupObject>MetX.Standard.Generators.Program</StartupObject>
+    <RootNamespace>MetX.Standard.Generators</RootNamespace>
+    <AssemblyName>GenGen</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Templates\CSharp\Project\**" />

@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
-namespace MetX.Generators
+namespace MetX.Standard.Generators
 {
     [Generator]
     public class AddStaticCode : ISourceGenerator

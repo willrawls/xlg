@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
+    <ProjectReference Include="..\MetX.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
   </ItemGroup>
 

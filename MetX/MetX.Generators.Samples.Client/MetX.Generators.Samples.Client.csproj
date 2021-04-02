@@ -37,6 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\MetX.Generators\MetX.Standard.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,10 @@
-﻿using CommandLine;
+﻿using System;
+using System.IO;
+using CommandLine;
 
-namespace MetX.Generators.GenGen
+namespace MetX.Standard.Generators.GenGen
 {
-    public class Options
+    public class GenGenOptions
     {
         public const string HelpText = @"
     NOTE: When this parameter is missing, 'create' is assumed,
@@ -31,25 +33,29 @@ namespace MetX.Generators.GenGen
                   or any files that would not have been created
 ";
 
-        [Option('o', "operation`", Required = false, HelpText = HelpText)]
-        public GenGen.Operation Operation { get; set; }
+        [Option('o', "operation", Required = false, HelpText = HelpText)]
+        public GenGen.Operation Operation { get; set; } = Operation.Create;
         
-        // Operation
-        [Option('b', "build", Required = true, HelpText = "Build generator and client when done")]
-        public bool Build { get; set; }
-        
-        [Option('s', "namespace", Required = true, HelpText = "Namespace of generator")]
-        public string Namespace { get; set; }
+        [Option('b', "build", Required = true, HelpText = "Build generator and client when done (Default is true)")]
+        public bool Build { get; set; } = true;
 
-        [Option('c', "class", Required = true, HelpText = "Class name of generator")]
-        public string GeneratorName { get; set; }
+        [Option('s', "namespace", Required = true, HelpText = "Namespace of generator (Current folder name plus '.Generators')")]
+        public string Namespace { get; set; } = Path.GetDirectoryName(Environment.CurrentDirectory).Replace(".", "_").Replace(" ", "-") + ".Generators";
 
-        [Option('a', "attribute", Required = true, HelpText = "Name of generate attribute ()")]
-        public string AttributeName { get; set; }
+        [Option('c', "class", Required = true, HelpText = "Class name of generator (Default is 'FromTemplateGenerator')")]
+        public string GeneratorName { get; set; } = "FromTemplateGenerator";
 
-        [Option('f', "folder", Required = false, HelpText = "Root folder for generation (default is the current directory)")]
-        public string RootFolder { get; set; }
+        [Option('a', "attribute", Required = true, HelpText = "Name of generate attribute (Default is 'GenerateFromTemplate')")]
+        public string AttributeName { get; set; } = "GenerateFromTemplate";
 
+        [Option('f', "folder", Required = false,
+            HelpText = "Root folder for generation (default is the current directory)")]
+        public string RootFolder { get; set; } = Environment.CurrentDirectory;
+
+        [Option('t', "templates", Required = false, HelpText = "Path to the set of templates to use (Default is the 'Templates' folder in the folder with GenGen.exe)")]
+        public string TemplatesPath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
+
+        /*
         [Option('x', "client", Required = false, HelpText = "Path to a template for the client project (default is to use the built in template)")]
         public string ClientTemplate { get; set; }
 
@@ -61,9 +67,10 @@ namespace MetX.Generators.GenGen
 
         [Option('p', "client project", Required = false, HelpText = "Path to csproj the generator should be added as an analyzer (Default is the csproj of the same name as the folder parameter)")]
         public string AddTo { get; set; }
+        */
 
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
-        public bool Verbose { get; set; }
-        
+        public bool Verbose { get; set; } = true;
+
     }
 }
