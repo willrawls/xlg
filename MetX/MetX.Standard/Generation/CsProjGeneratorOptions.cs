@@ -3,7 +3,7 @@ using System.IO;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 
-namespace MetX.Aspects
+namespace MetX.Standard.Generation
 {
     public class CsProjGeneratorOptions
     {

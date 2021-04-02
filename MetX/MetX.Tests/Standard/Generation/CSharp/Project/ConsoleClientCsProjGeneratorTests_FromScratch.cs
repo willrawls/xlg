@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Accessibility;
-using MetX.Aspects;
+using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
 using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;

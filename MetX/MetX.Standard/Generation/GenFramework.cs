@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Aspects
+namespace MetX.Standard.Generation
 {
     public enum GenFramework
     {

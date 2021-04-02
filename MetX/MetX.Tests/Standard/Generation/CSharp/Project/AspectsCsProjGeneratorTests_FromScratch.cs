@@ -1,4 +1,4 @@
-﻿using MetX.Aspects;
+﻿using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

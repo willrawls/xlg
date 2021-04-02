@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Xml;
-using MetX.Aspects;
 using MetX.Standard.Library;
 
 namespace MetX.Standard.Generation.CSharp.Project

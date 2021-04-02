@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Aspects
+namespace MetX.Standard.Aspects
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class GenerateFromTemplate : Attribute 

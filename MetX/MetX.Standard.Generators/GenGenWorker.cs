@@ -29,19 +29,7 @@ namespace MetX.Standard.Generators
                 Errors.Add("Couldn't figure out where everything should go");
                 return;
             }
-
-            /*
-            if (genGenOptions.AddTo.IsNotEmpty())
-            {
-                //  GenGen.exe -addto "PathTo.csproj the generator should be added as an analyzer"
-                //  No generators generated, just adding the reference
-                if (File.Exists(genGenOptions.AddTo)) AddGeneratorAsAnalyzer(genGenOptions);
-            }
-            else
-            {
-                if (genGenOptions.RootFolder.IsEmpty()) genGenOptions.RootFolder = Environment.CurrentDirectory;
-            }
-            */
+            
         }
 
         private bool FigureOutWhereEverythingWillGo()
@@ -60,7 +48,7 @@ namespace MetX.Standard.Generators
         }
 
         //  Generates generator in current folder
-        //  MetX.Generators.exe -generate Namespace.GeneratorName 
+        //  MetX.Standard.Generators.exe -generate Namespace.GeneratorName 
         //  When sub folders are missing or are empty
         //      Creates 2 sub folders
         //          Namespace
@@ -79,9 +67,9 @@ namespace MetX.Standard.Generators
         //          Namespace.Aspects
         //              Namespace.Name.Aspects.csproj
         //              NextGeneratorNameAttribute.cs
-        //  MetX.Generators.exe -addto "PathTo.csproj the generator should be added as an analyzer"
+        //  MetX.Standard.Generators.exe -addto "PathTo.csproj the generator should be added as an analyzer"
         //      
-        //  MetX.Generators.exe -just Namespace.GeneratorName -addto "PathTo.csproj the generator should be added as an analyzer"
+        //  MetX.Standard.Generators.exe -just Namespace.GeneratorName -addto "PathTo.csproj the generator should be added as an analyzer"
         //      Find and modify/update the csproj of the client
     }
 }

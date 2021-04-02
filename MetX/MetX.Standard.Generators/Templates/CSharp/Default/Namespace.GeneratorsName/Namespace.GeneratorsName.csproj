@@ -23,8 +23,8 @@
     <Reference Include="MetX.Standard">
       <HintPath>~~MetXPath~~\MetX.Standard.dll</HintPath>
     </Reference>
-    <Reference Include="MetX.Generators">
-      <HintPath>~~MetXPath~~\MetX.Generators.dll</HintPath>
+    <Reference Include="MetX.Standard.Generators">
+      <HintPath>~~MetXPath~~\MetX.Standard.Generators.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

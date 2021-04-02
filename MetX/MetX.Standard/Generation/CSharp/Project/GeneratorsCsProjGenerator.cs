@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml;
-using MetX.Aspects;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {

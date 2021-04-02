@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using MetX.Aspects;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Generators;
 using MetX.Standard.Generators.GenGen;
@@ -20,16 +19,18 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
             var worker = new GenGenWorker();
             var workerOptions = new GenGenOptions();
             worker.Go(workerOptions);
-            Assert.IsTrue(Directory.Exists("net5.0-windows.Aspects"));
-            Assert.IsTrue(File.Exists(@"net5.0-windows.Aspects\net5.0-windows.Aspects.csproj"));
-            Assert.IsTrue(File.Exists(@"net5.0-windows.Aspects\GenerateFromTemplate.cs"));
+
+            var rootFolder = AppDomain.CurrentDomain.BaseDirectory;
+            Assert.IsTrue(Directory.Exists($"{rootFolder}net5.0-windows.Aspects"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Aspects\net5.0-windows.Aspects.csproj"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Aspects\GenerateFromTemplate.cs"));
             
             Assert.IsTrue(Directory.Exists("net5.0-windows.Client"));
-            Assert.IsTrue(File.Exists(@"net5.0-windows.Client\net5.0-windows.Client.csproj"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Client\net5.0-windows.Client.csproj"));
             
             Assert.IsTrue(Directory.Exists("net5.0-windows.Generators"));
-            Assert.IsTrue(File.Exists(@"net5.0-windows.Generators\net5.0-windows.Generators.csproj"));
-            Assert.IsTrue(File.Exists(@"net5.0-windows.Generators\FromTemplateGenerator.cs"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Generators\net5.0-windows.Generators.csproj"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Generators\FromTemplateGenerator.cs"));
         }
         
         [TestMethod]

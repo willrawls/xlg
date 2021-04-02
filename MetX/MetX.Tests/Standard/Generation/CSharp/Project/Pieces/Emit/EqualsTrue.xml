@@ -16,7 +16,7 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
     <OutputType>Exe</OutputType>
-    <StartupObject>MetX.Generators.Samples.Client.Program</StartupObject>
+    <StartupObject>MetX.Standard.Generators.Samples.Client.Program</StartupObject>
   </PropertyGroup>
   <Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
     <ItemGroup>
@@ -38,6 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Generators.Samples.Client
+namespace MetX.Standard.Generators.Samples.Client
 {
     class Program
     {

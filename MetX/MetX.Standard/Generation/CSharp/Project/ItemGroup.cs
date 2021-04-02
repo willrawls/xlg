@@ -27,7 +27,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         /*
   <ItemGroup>
     <ProjectReference Include="..\MetX.Aspects\MetX.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Generators\MetX.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>         
          */
         public ProjectReference AspectProjectReference { get; set;  }
@@ -46,7 +46,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             ConfigurationManager = new Reference(Parent, "System.Configuration.ConfigurationManager");
 
             AspectProjectReference = new ProjectReference(Parent, $@"..\MetX.Aspects\MetX.Aspects.csproj");
-            MetXGeneratorsProjectReference = new ProjectReference(Parent, $@"..\MetX.Generators\MetX.Generators.csproj", "Analyzer", false);
+            MetXGeneratorsProjectReference = new ProjectReference(Parent, $@"..\MetX.Standard.Generators\MetX.Standard.Generators.csproj", "Analyzer", false);
         }
     }
 }

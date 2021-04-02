@@ -1,6 +1,6 @@
 ﻿// ReSharper disable UnusedVariable
 
-using MetX.Aspects;
+using MetX.Standard.Generation;
 using MetX.Windows.Library;
 
 namespace MetX.Controls

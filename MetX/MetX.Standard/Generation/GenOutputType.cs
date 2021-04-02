@@ -1,4 +1,4 @@
-﻿namespace MetX.Aspects
+﻿namespace MetX.Standard.Generation
 {
     public enum GenOutputType
     {

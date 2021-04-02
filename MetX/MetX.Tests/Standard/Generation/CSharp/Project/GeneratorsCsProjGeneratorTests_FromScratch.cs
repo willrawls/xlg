@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using MetX.Aspects;
+using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,7 +28,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
             Assert.IsTrue(actual.Contains("Microsoft.CodeAnalysis.CSharp.Workspaces"), actual);
             Assert.IsTrue(actual.Contains("GenGen.Aspects"), actual);
             Assert.IsTrue(actual.Contains("MetX.Standard"), actual);
-            Assert.IsTrue(actual.Contains("MetX.Generators"), actual);
+            Assert.IsTrue(actual.Contains("MetX.Standard.Generators"), actual);
             Assert.IsTrue(actual.Contains("Library"), actual);
         }
     }
