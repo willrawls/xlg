@@ -13,18 +13,23 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         [TestMethod]
         public void FromScratchXmlIsAsExpected()
         {
-            var options = CsProjGeneratorOptions.Defaults(GenFramework.Standard20);
-            options.OutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product");
-            options.PathToTemplatesFolder = @"..\..\..\..\MetX.Generators\Templates";
-            
-            var generator = new GeneratorsCsProjGenerator(options);
-
+            var generator = TestHelpers.SetupGenerator<GeneratorsCsProjGenerator>(GenFramework.Standard20);
             Assert.IsNotNull(generator);
-            var actual = generator.Document.OuterXml;
-            Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual.TokenAt(2, CsProjGeneratorOptions.Delimiter));
+            generator.Generate();
             
+            var actual = generator.Document.OuterXml.AsFormattedXml();
+            Assert.IsNotNull(actual);
+            
+            Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual.TokenAt(2, CsProjGeneratorOptions.Delimiter));
             Assert.IsTrue(actual.Contains(GenFramework.Standard20.ToTargetFramework()), actual);
             Assert.IsTrue(actual.Contains("Analyzer"), actual);
+            Assert.IsTrue(actual.Contains("Microsoft.CodeAnalysis.Common"), actual);
+            Assert.IsTrue(actual.Contains("Microsoft.CodeAnalysis.Analyzers"), actual);
+            Assert.IsTrue(actual.Contains("Microsoft.CodeAnalysis.CSharp.Workspaces"), actual);
+            Assert.IsTrue(actual.Contains("GenGen.Aspects"), actual);
+            Assert.IsTrue(actual.Contains("MetX.Standard"), actual);
+            Assert.IsTrue(actual.Contains("MetX.Generators"), actual);
+            Assert.IsTrue(actual.Contains("Library"), actual);
         }
     }
 }

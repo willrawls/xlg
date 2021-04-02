@@ -12,16 +12,15 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
         public void FromScratchXmlIsAsExpected()
         {
             var generator = TestHelpers
-                .SetupGenerator<AspectsCsProjGenerator>();
-
+                .SetupGenerator<AspectsCsProjGenerator>(GenFramework.Standard20);
             Assert.IsNotNull(generator);
-
             generator.Generate();
             var actual = generator.Document.OuterXml.AsFormattedXml();
+            
             Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual);
             Assert.IsFalse(actual.Contains("Analyzer"), actual);
             Assert.IsTrue(actual.Contains(GenFramework.Standard20.ToTargetFramework()), actual);
-            Assert.IsTrue(actual.Contains(generator.Options.AspectsName), actual);
+            Assert.IsFalse(actual.Contains(generator.Options.AspectsName), actual);
         }
     }
 }

@@ -7,11 +7,11 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public class TestHelpers
     {
-        public static IGenerateCsProj SetupGenerator<T>() where T : class, IGenerateCsProj, new()
+        public static IGenerateCsProj SetupGenerator<T>(GenFramework genFramework) where T : class, IGenerateCsProj, new()
         {
             var options = CsProjGeneratorOptions
                 .Defaults()
-                .WithFramework(GenFramework.Standard20)
+                .WithFramework(genFramework)
                 .WithPathToTemplatesFolder(@"..\..\..\..\MetX.Generators\Templates")
                 .WithOutputPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product"))
                 ;

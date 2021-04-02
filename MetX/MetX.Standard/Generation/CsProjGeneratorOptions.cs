@@ -20,7 +20,7 @@ namespace MetX.Aspects
         public GenFramework TargetFramework { get; set; }
         public string MetXPath { get; set; }
         public string TargetTemplate { get; set; }
-        public GenOutputType OutputType { get; set; }
+        public GenOutputType OutputType { get; set; } = GenOutputType.Library;
         public string Language { get; set; } = "CSharp";
 
         public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
