@@ -14,7 +14,6 @@ namespace MetX.Standard.Generation.CSharp.Project
         ItemGroup ItemGroup { get; set; }
         CsProjGeneratorOptions Options { get; set; }
         
-        bool Save();
         void SetElementInnerText(string xpath, bool value);
         void SetElementInnerText(string xpath, string innerText);
         string InnerTextAt(string xpath, bool blankMeansNull = true);
@@ -28,5 +27,6 @@ namespace MetX.Standard.Generation.CSharp.Project
         IGenerateCsProj WithTarget(string target);
         IGenerateCsProj Setup();
         IGenerateCsProj Generate();
+        IGenerateCsProj Save();
     }
 }

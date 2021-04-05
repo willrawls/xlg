@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Xml;
 using MetX.Standard.Library;
@@ -10,11 +9,12 @@ namespace MetX.Standard.Generation.CSharp.Project
     {
         protected CsProjGenerator()
         {
-            
         }
 
         protected CsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null)
         {
+            options.AssertValid();
+
             FilePath = Path.Combine(options.OutputPath, options.Filename);
             Document = document;
         }
@@ -30,6 +30,8 @@ namespace MetX.Standard.Generation.CSharp.Project
             ItemGroup = new ItemGroup(this);
         }
 
+        public abstract IGenerateCsProj WithDefaultTargetTemplate();
+
         public IGenerateCsProj Setup()
         {
             if (Options.GenerationSet.IsEmpty())
@@ -41,10 +43,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             if (!Directory.Exists(Options.OutputPath))
                 Directory.CreateDirectory(Options.OutputPath);
 
-            if (Options.TargetTemplate.IsEmpty())
-            {
-                Options.TargetTemplate = DefaultTargetTemplate;
-            }
+            if (Options.TargetTemplate.IsEmpty()) Options.TargetTemplate = DefaultTargetTemplate;
 
             Document = new XmlDocument();
 
@@ -87,13 +86,13 @@ namespace MetX.Standard.Generation.CSharp.Project
             return this;
         }
 
-        public bool Save()
+        public IGenerateCsProj Save()
         {
             if (FilePath.IsEmpty())
-                return false;
+                return this;
 
             Document?.Save(FilePath);
-            return File.Exists(FilePath);
+            return this;
         }
 
         public void SetElementInnerText(string xpath, bool value)
@@ -150,7 +149,5 @@ namespace MetX.Standard.Generation.CSharp.Project
             var node = Document.SelectSingleNode(xpath);
             return node == null;
         }
-
-        public abstract IGenerateCsProj WithDefaultTargetTemplate();
     }
 }

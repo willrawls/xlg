@@ -85,6 +85,13 @@ namespace MetX.Standard.Library
             return string.IsNullOrEmpty(target);
         }
 
+        public static bool ThrowIfEmpty(this string target, string targetsName)
+        {
+            if (string.IsNullOrEmpty(target))
+                throw new ArgumentException(targetsName);
+            return false;
+        }
+
         public static bool IsNotEmpty(this string target)
         {
             return !string.IsNullOrEmpty(target);

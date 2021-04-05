@@ -18,10 +18,16 @@ namespace MetX.Standard.Generation
         public string GeneratorsName { get; set; }
         public string Filename { get; set; }
         public GenFramework TargetFramework { get; set; }
-        public string MetXPath { get; set; }
+        public string PathToMetXStandardDll { get; set; }
         public string TargetTemplate { get; set; }
         public GenOutputType OutputType { get; set; } = GenOutputType.Library;
         public string Language { get; set; } = "CSharp";
+
+
+        public CsProjGeneratorOptions()
+        {
+            
+        }
 
         public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
         {
@@ -35,7 +41,7 @@ namespace MetX.Standard.Generation
                 GeneratorsName = "Generators",
                 TargetFramework = framework,
                 OutputPath = @".\Generated\",
-                MetXPath = GetMetXPath()
+                PathToMetXStandardDll = GetMetXPath(),
             };
             return generatorOptions;
         }
@@ -68,7 +74,7 @@ namespace MetX.Standard.Generation
                     .Replace(delimiter + "AspectsName" + delimiter, AspectsName)
                     .Replace(delimiter + "GeneratorsName" + delimiter, GeneratorsName)
                     .Replace(delimiter + "Target" + delimiter, TargetTemplate)
-                    .Replace(delimiter + "MetXPath" + delimiter, MetXPath)
+                    .Replace(delimiter + "MetXPath" + delimiter, PathToMetXStandardDll)
                     .Replace(delimiter + "Framework" + delimiter, FrameworkValue())
                     .Replace("\r", "")
                 ;
@@ -154,6 +160,12 @@ namespace MetX.Standard.Generation
             return this;
         }
 
+        public CsProjGeneratorOptions WithFilename(string filename)
+        {
+            Filename = filename;
+            return this;
+        }
+
         public CsProjGeneratorOptions WithPathToTemplatesFolder(string pathToTemplatesFolder)
         {
             PathToTemplatesFolder = pathToTemplatesFolder;
@@ -165,5 +177,38 @@ namespace MetX.Standard.Generation
             TargetFramework = targetFramework;
             return this;
         }
-    }
+ 
+        public bool AssertValid()
+        {
+            GeneratorsName.ThrowIfEmpty("GeneratorsName");
+            PathToTemplatesFolder.ThrowIfEmpty("PathToTemplatesFolder");
+            ClientName.ThrowIfEmpty("ClientName");
+            Namespace.ThrowIfEmpty("Namespace");
+            AspectsName.ThrowIfEmpty("AspectsName");
+            GeneratorsName.ThrowIfEmpty("GeneratorsName");
+            PathToMetXStandardDll.ThrowIfEmpty("PathToMetXStandardDll");
+            //TargetTemplate.ThrowIfEmpty("TargetTemplate");  << This will be null at this point but is immediately set elsewhere
+            Language.ThrowIfEmpty("Language");
+
+            OutputPath.ThrowIfEmpty("OutputPath");
+            //Filename.ThrowIfEmpty("Filename");
+
+            if (TargetFramework == GenFramework.Unknown)
+                throw new ArgumentOutOfRangeException("TargetFramework");
+            if(OutputType == GenOutputType.Unknown)
+                throw new ArgumentOutOfRangeException("OutputType");
+
+            if (!Directory.Exists(PathToTemplatesFolder))
+                throw new ArgumentOutOfRangeException("PathToTemplatesFolder");
+            if (!File.Exists(PathToMetXStandardDll))
+            {
+                var secondChance = Path.Combine(PathToMetXStandardDll, "MetX.Standard.dll");
+                if(!File.Exists(secondChance))
+                    throw new ArgumentOutOfRangeException("PathToMetXStandardDll");
+                PathToMetXStandardDll = secondChance;
+            }
+            
+            return true;
+        }
+   }
 }

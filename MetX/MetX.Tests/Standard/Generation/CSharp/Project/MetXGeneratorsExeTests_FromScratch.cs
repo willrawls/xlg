@@ -32,24 +32,6 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
             Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Generators\net5.0-windows.Generators.csproj"));
             Assert.IsTrue(File.Exists($@"{rootFolder}net5.0-windows.Generators\FromTemplateGenerator.cs"));
         }
-        
-        [TestMethod]
-        public void xDefaultParametersGenerateWithDefaultTemplatesNamesAndLocations()
-        {
-            var worker = new GenGenWorker();
-            var workerOptions = new GenGenOptions
-            {
-                GeneratorName = "Fred",
-                AttributeName = "George", 
-                Namespace = "Mary.Kay",
-                RootFolder = Path.Combine(".", Guid.NewGuid().AsString()),
-                Build = false,
-                Operation = Operation.Create,
-                TemplatesPath = "Templates",
-                Verbose = true,
-            };
-            worker.Go(workerOptions);
-            
-        }
+       
     }
 }

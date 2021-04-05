@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using CommandLine;
+using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Generators.GenGen;
 using MetX.Standard.Library;
@@ -10,39 +11,51 @@ namespace MetX.Standard.Generators
 {
     public class GenGenWorker
     {
+        public GenGenOptions Options;
         public List<string> Errors = new List<string>();
         
         public AspectsCsProjGenerator AspectsProjectGenerator;
         public GeneratorsCsProjGenerator GeneratorsProjectGenerator;
         public ClientCsProjGenerator ClientProjectGenerator;
         
-        public void Go(GenGenOptions genGenOptions)
+        public void Go(GenGenOptions options)
         {
-            if (!FigureOutWhereEverythingIs())
-            {
-                Errors.Add("Couldn't figure out where everything is");
-                return;
-            }
+            Options = options;
             
-            if(!FigureOutWhereEverythingWillGo())
+            switch (options.Operation)
             {
-                Errors.Add("Couldn't figure out where everything should go");
-                return;
+                case Operation.Create:
+                    Directory.CreateDirectory(options.RootFolder);
+                    AspectsProjectGenerator = new AspectsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard20));
+                    GeneratorsProjectGenerator = new GeneratorsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard20));
+                    ClientProjectGenerator = new ClientCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Net50));
+                    
+                    AspectsProjectGenerator.Generate().Save();
+                    GeneratorsProjectGenerator.Generate().Save();
+                    ClientProjectGenerator.Generate().Save();
+                    break;
+
+                case Operation.GenGen:
+                    break;
+                case Operation.Client:
+                    break;
+                case Operation.Update:
+                    break;
+                case Operation.Inject:
+                    break;
+                case Operation.Check:
+                    break;
+                case Operation.Remove:
+                    break;
+                case Operation.Clean:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            
+      
         }
 
-        private bool FigureOutWhereEverythingWillGo()
-        {
-            return true;
-        }
-
-        private bool FigureOutWhereEverythingIs()
-        {
-            return true;
-        }
-
-        public static void AddGeneratorAsAnalyzer(GenGenOptions genGenOptions)
+        public static void AddGeneratorAsAnalyzer(GenGenOptions options)
         {
 
         }

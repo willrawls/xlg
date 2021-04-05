@@ -6,6 +6,7 @@ namespace MetX.Standard.Generation.CSharp.Project
     public class AspectsCsProjGenerator : CsProjGenerator
     {
         private CsProjGenerator _csProjGeneratorImplementation;
+        public static string InitialDefaultTargetTemplate = "Namespace.AspectsName";
 
         public AspectsCsProjGenerator() 
         {
@@ -23,13 +24,15 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public sealed override IGenerateCsProj WithDefaultTargetTemplate()
         {
-            DefaultTargetTemplate = "Namespace.AspectsName";
+            DefaultTargetTemplate = InitialDefaultTargetTemplate;
             return this;
         }
 
-        public AspectsCsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null) : base(options, document)
+        public AspectsCsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null) 
+            : base(options.WithFilename($"{options.Namespace}.{options.AspectsName}"), document)
         {
             WithDefaultTargetTemplate();
+            
         }
 
         public AspectsCsProjGenerator(string filePath) : base(filePath)

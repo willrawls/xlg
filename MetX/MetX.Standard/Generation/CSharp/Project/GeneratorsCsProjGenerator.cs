@@ -10,7 +10,8 @@ namespace MetX.Standard.Generation.CSharp.Project
             WithDefaultTargetTemplate();
         }
 
-        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null) : base(options, document)
+        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options, XmlDocument document = null) 
+            : base(options.WithFilename($"{options.Namespace}.{options.ClientName}"), document)
         {
             WithDefaultTargetTemplate();
         }
@@ -20,7 +21,8 @@ namespace MetX.Standard.Generation.CSharp.Project
             WithDefaultTargetTemplate();
         }
 
-        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options) : base(options)
+        public GeneratorsCsProjGenerator(CsProjGeneratorOptions options) 
+            : base(options.WithFilename($"{options.Namespace}.{options.ClientName}"))
         {
             WithDefaultTargetTemplate();
         }

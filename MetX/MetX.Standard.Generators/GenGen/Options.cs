@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using CommandLine;
+using MetX.Standard.Generation;
+using MetX.Standard.Library;
 
 namespace MetX.Standard.Generators.GenGen
 {
@@ -40,7 +42,20 @@ namespace MetX.Standard.Generators.GenGen
         public bool Build { get; set; } = true;
 
         [Option('s', "namespace", Required = true, HelpText = "Namespace of generator (Current folder name plus '.Generators')")]
-        public string Namespace { get; set; } = Path.GetDirectoryName(Environment.CurrentDirectory).Replace(".", "_").Replace(" ", "-") + ".Generators";
+        public string Namespace { get; set; } = DetermineNamspaceOfGenerator();
+
+        private static string DetermineNamspaceOfGenerator()
+        {
+            var directory = Environment.CurrentDirectory;
+            var namespacePart1 = directory.LastToken(@"\");
+            var namespacePart2 = namespacePart1
+                                     .Replace("-", "")
+                                     .Replace(".", "")
+                                     .Replace(" ", "") 
+                                     .ProperCase()
+                                 + ".Generators";
+            return namespacePart2;
+        }
 
         [Option('c', "class", Required = true, HelpText = "Class name of generator (Default is 'FromTemplateGenerator')")]
         public string GeneratorName { get; set; } = "FromTemplateGenerator";
@@ -72,5 +87,25 @@ namespace MetX.Standard.Generators.GenGen
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; } = true;
 
+        public CsProjGeneratorOptions ToCsProjGeneratorOptions(GenFramework targetFramework)
+        {
+            var options = new CsProjGeneratorOptions
+            {
+                Namespace = Namespace,
+                Language = "C#",
+                OutputPath = RootFolder,
+                TargetFramework = targetFramework,
+                PathToTemplatesFolder = TemplatesPath,
+                OutputType = GenOutputType.Library,
+                PathToMetXStandardDll = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MetX.Standard.dll"),
+                TargetTemplate = "Default",
+                AspectsName = "Aspects",
+                ClientName = "Client",
+                GeneratorsName = "Generators",
+                Filename = null,        // ??
+                GenerationSet = null,   // ??
+            };
+            return options;
+        }
     }
 }
