@@ -492,7 +492,7 @@ namespace XLG.Pipeliner
             this.buttonChoosetextOutputXml.TabIndex = 6;
             this.buttonChoosetextOutputXml.Text = "...";
             this.buttonChoosetextOutputXml.UseVisualStyleBackColor = true;
-            this.buttonChoosetextOutputXml.Click += new System.EventHandler(this.buttonChoosetextOutputXml_Click);
+            this.buttonChoosetextOutputXml.Click += new System.EventHandler(this.buttonChooseTextOutputXml_Click);
             // 
             // buttonViewtextOutputXml
             // 
@@ -610,9 +610,9 @@ namespace XLG.Pipeliner
             "System.Data.SqlClient",
             "Sybase.Data.AseClient",
             "MySql.Data.MySqlClient",
-            "MetX.Data.Factory.CommandLineProvider",
-            "MetX.Data.Factory.PowerShellProvider",
-            "MetX.Data.Factory.FileSystemProvider"});
+            "MetX.Standard.Data.Factory.CommandLineProvider",
+            "MetX.Standard.Data.Factory.PowerShellProvider",
+            "MetX.Standard.Data.Factory.FileSystemProvider"});
             this.comboProviderName.Location = new System.Drawing.Point(130, 218);
             this.comboProviderName.Name = "comboProviderName";
             this.comboProviderName.Size = new System.Drawing.Size(231, 21);

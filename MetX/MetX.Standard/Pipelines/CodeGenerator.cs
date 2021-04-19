@@ -224,7 +224,7 @@ namespace MetX.Standard.Pipelines
             {
                 throw new Exception("xlg.xsl missing (2).");
             }
-            //xlgXsl = MetX.Data.xlg.xsl;
+            //xlgXsl = MetX.Standard.Data.xlg.xsl;
             return Helper.GenerateViaXsl(xmlDoc, xlgXsl).ToString();
         }
 

@@ -34,7 +34,9 @@
     &lt;/Reference&gt;
     &lt;Reference Include="<xsl:value-of select="/xlgDoc/@MetXProviderAssemblyString" />, processorArchitecture=MSIL"&gt;
       &lt;SpecificVersion&gt;False&lt;/SpecificVersion&gt;
-      &lt;HintPath&gt;..\..\MetX\MetX.Glove.Console\bin\Debug\MetX.Data.Factory.System_Data_SqlClient.dll&lt;/HintPath&gt;
+      &lt;!--
+	    &lt;HintPath&gt;..\..\MetX\MetX.Glove.Console\bin\Debug\MetX.Standard.dll&lt;/HintPath&gt;
+	  --&gt;
     &lt;/Reference&gt;
     &lt;Reference Include="System" /&gt;
     &lt;Reference Include="System.configuration" /&gt;

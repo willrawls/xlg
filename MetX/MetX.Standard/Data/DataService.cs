@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Configuration.Provider;
 using System.Data;
 using System.Reflection;
+using MetX.Standard.Data.Factory;
 using MetX.Standard.Interfaces;
 
 namespace MetX.Standard.Data
@@ -39,8 +40,11 @@ namespace MetX.Standard.Data
             IProvide metXProvider;
             if (!MProviders.ContainsKey(Settings.ProviderName.ToLower()))
             {
-                MetXObjectName = "MetX.Data.Factory." + Settings.ProviderName.Replace(".", "_");
-                var metXProviderAssembly = Assembly.Load(MetXObjectName);
+                MetXObjectName = "MetX.Standard.Data.Factory." + Settings.ProviderName.Replace(".", "");
+                if (!MetXObjectName.ToLower().EndsWith("Provider"))
+                    MetXObjectName += "Provider";
+
+                var metXProviderAssembly = typeof(IProvide).Assembly; //Assembly.Load(MetXObjectName);
                 var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
                 
                 metXProvider = Activator
@@ -75,28 +79,6 @@ namespace MetX.Standard.Data
             _mServices.Add(Settings.Name, this);
             if (Instance == null)
                 Instance = this;
-
-            /*
-            switch(Settings.ProviderName)
-            {
-                case "System.Data.SqlClient":
-                    Provider = new SqlDataProvider(Settings.ConnectionString);
-                    Provider.Initialize("SqlDataProvider", new System.Collections.Specialized.NameValueCollection());
-                    break;
-                //case "MySql.Data.MySqlClient":
-                //    Provider = new MySqlDataProvider(Settings.ConnectionString);
-                //    Provider.Initialize("MySqlDataProvider", new System.Collections.Specialized.NameValueCollection());                    
-                //    break;
-                case "Sybase.Data.AseClient":
-                    Provider = new SybaseDataProvider(Settings.ConnectionString);
-                    Provider.Initialize("SybaseDataProvider", new System.Collections.Specialized.NameValueCollection());                    
-                    break;
-                //case "MetX.Data.FWTClient":
-                //    Provider = new MetX.Data.FWTDataProvider(Settings.ConnectionString);
-                //    Provider.Initialize("FWTDataProvider", new System.Collections.Specialized.NameValueCollection());
-                //    break;
-            }
-            */
         }
 
         /// <summary>
