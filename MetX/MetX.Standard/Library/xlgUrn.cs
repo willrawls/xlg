@@ -720,6 +720,88 @@ namespace MetX.Standard.Library
             return ret;
         }
 
+        // True if not empty and = true or any integer value != 0
+        public bool IsTrue(string target)
+        {
+            if(target.IsEmpty())
+                return false;
+
+            return target.ToLower() == "true"
+                   || target.AsInteger() != 0;
+        }
+
+        // True if not empty and = true or any integer value != 0
+        public string IfTrue(string target, string whenTrue, string whenFalse)
+        {
+            if (IsTrue(target))
+                return whenTrue ?? "";
+            return whenFalse;
+        }
+
+        // True if not empty and = true or any integer value != 0
+        public string Expand1(string target)
+        {
+            var expanded = target
+                    .Replace("tbl_", "")
+                    .Replace("prgms", "Programs")
+                    .Replace("acad", "Academic")
+                    .Replace("appl", "Application")
+                    .Replace("crse", "Course")
+                    .Replace("sect", "Section")
+                    .Replace("no_sched", "Not Scheduled")
+                    .Replace("sched", "Scheduled")
+                    .Replace("grd", "Grade")
+                    .Replace("scl", "SCL?")
+                    .Replace("qstn", "Question")
+                    .Replace("faclty_", "Faculty ")
+                    .Replace("_unavail", " Unavailable")
+                    .Replace("_avail", " Available")
+                    .Replace("_scr", " Score")
+                    .Replace("ind_", "Individual ")
+                    .Replace("_hist", " History")
+                    .Replace("_cmnts", " Comments")
+                    .Replace("proj_", "Project ")
+                    .Replace("_hist", " History")
+                    .Replace("oryory", " ory")
+                    .Replace("vrsn_", "Version ")
+                    .Replace("mltpl", "Multiple")
+                    .Replace("chc", "Choice")
+                    .Replace("_fac", " Faculty")
+                    .Replace("stdnt", "Student")
+                    .Replace("assmbly", "Assembly")
+                    .Replace("tblkp_", "Lookup ")
+                    .Replace("rqst", "Request")
+                    .Replace("typ", "Type")
+                    .Replace("Typee", "Type")
+                    .Replace("flo_", "FLO? ")
+                    .Replace("faclty", "Faculty")
+                    .Replace("ilr", "ILR?")
+                    .Replace("ind_", "Individual ")
+                    .Replace("src", "Source")
+                    .Replace("_id", " ID")
+                    .Replace("lvl", "Level")
+                    .Replace("nm_", "name_")
+                    .Replace("mil_", "Military ")
+                    .Replace("srvc", "Service")
+                    .Replace("cert_", "Certification ")
+                    .Replace("rsn", "Reason")
+                    .Replace("proj_", "Project ")
+                    .Replace("stdnt", "Student")
+                    .Replace("tmp", "Temporary ")
+                    .Replace("wrk_", "Work ")
+                    .Replace("opi", "OPI")
+                    .Replace("_exam", " Exam")
+                    .Replace("suppt", "Support")
+
+                    .Replace("evnt", "Event")
+                    .Replace("T OPIc", "Topic")
+
+                    .Replace("_", " ")
+                ;
+            expanded = expanded.ProperCase();
+            return expanded;
+        }
+
         public bool IsIn(string attributeName, string toFind, XPathNodeIterator nodeSet)
         {
             if (nodeSet.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
