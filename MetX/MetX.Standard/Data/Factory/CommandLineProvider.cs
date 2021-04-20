@@ -9,7 +9,7 @@ namespace MetX.Standard.Data.Factory
 
         public string ProviderName => "CommandLineProvider";
 
-        public string ObjectName => "MetX.Data.Factory.CommandLineProvider";
+        public string ObjectName => "MetX.Standard.Data.Factory.CommandLineProvider";
 
         public string ProviderAssemblyString => string.Empty;
 

@@ -54,8 +54,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-using MetX;
-using MetX.Data;
+using MetX.Standard;
+using MetX.Standard.Data;
 using <xsl:value-of select="$Namespace" />;
 
 public partial class <xsl:value-of select="$ClassName" /> : System.Web.UI.Page

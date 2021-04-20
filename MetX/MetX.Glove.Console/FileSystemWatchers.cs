@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
@@ -36,14 +37,21 @@ namespace XLG.Pipeliner
 
             foreach (var directory in directories)
             {
-                var fsw = new FileSystemWatcher(directory);
-                fsw.Changed += onchange;
-                fsw.Created += onchange;
-                fsw.Deleted += onchange;
-                fsw.Error += onerror;
-                fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
-                fsw.EnableRaisingEvents = true;
-                Add(fsw);
+                if(Directory.Exists(directory))
+                {
+                    var fsw = new FileSystemWatcher(directory);
+                    fsw.Changed += onchange;
+                    fsw.Created += onchange;
+                    fsw.Deleted += onchange;
+                    fsw.Error += onerror;
+                    fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
+                    fsw.EnableRaisingEvents = true;
+                    Add(fsw);
+                }
+                else
+                {
+                    Debug.WriteLine($"FileSystemWatchers: Begin: Directory not found: {directory}");
+                }
             }
             IsActive = true;
         }

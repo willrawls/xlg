@@ -10,6 +10,17 @@ namespace MetX.Standard.Library
     /// </summary>
     public static class ForStrings
     {
+        public static string AsFormattedXml(this string target)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+
+            var result = target
+                    .Replace("><", ">\n\t<")
+                ;
+            return result;
+        }
+        
         public static string BlankToNull(this string target)
         {
             return target == string.Empty ? null : target;
@@ -72,6 +83,13 @@ namespace MetX.Standard.Library
         public static bool IsEmpty(this string target)
         {
             return string.IsNullOrEmpty(target);
+        }
+
+        public static bool ThrowIfEmpty(this string target, string targetsName)
+        {
+            if (string.IsNullOrEmpty(target))
+                throw new ArgumentException(targetsName);
+            return false;
         }
 
         public static bool IsNotEmpty(this string target)

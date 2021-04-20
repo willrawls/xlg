@@ -10,6 +10,44 @@ namespace MetX.Standard.IO
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
     {
+        
+        /// <summary>
+        /// Warning: When newFileContents is null, any existing file is DELETED (as intended)
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="newFileContents"></param>
+        /// <returns></returns>
+        public static bool TryWriteAllText(string filePath, string newFileContents = null)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.SetAttributes(filePath, FileAttributes.Normal);
+                    try
+                    {
+                        File.Delete(filePath);
+                    }
+                    catch
+                    {
+                        // Ignored
+                    }
+                }
+
+                if (newFileContents.IsNotEmpty())
+                {
+                    File.WriteAllText(filePath, newFileContents);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+            return false;
+        }
+        
         //private static StringBuilder _outputResult;
 
         /// <summary>Deletes all files in a folder older than a certain number of minutes.</summary>

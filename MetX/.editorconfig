@@ -5,3 +5,12 @@ dotnet_diagnostic.CS1591.severity = none
 
 # CA1416: Validate platform compatibility
 dotnet_diagnostic.CA1416.severity = silent
+
+# CS0101: The namespace 'MetX.Generated' already contains a definition for 'FredExampleOne'
+dotnet_diagnostic.CS0101.severity = warning
+
+# CS0111: Type 'FredExampleOne' already defines a member called 'Go' with the same parameter types
+dotnet_diagnostic.CS0111.severity = warning
+
+# CS0117: 'ClientCsProjGenerator' does not contain a definition for 'LoadFile'
+dotnet_diagnostic.CS0117.severity = error

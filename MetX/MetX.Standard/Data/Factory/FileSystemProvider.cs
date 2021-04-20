@@ -9,7 +9,7 @@ namespace MetX.Standard.Data.Factory
 
         public string ProviderName => "FileSystemProvider";
 
-        public string ObjectName => "MetX.Data.Factory.FileSystemProvider";
+        public string ObjectName => "MetX.Standard.Data.Factory.FileSystemProvider";
 
         public string ProviderAssemblyString => string.Empty;
 

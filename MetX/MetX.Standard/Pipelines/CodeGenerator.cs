@@ -224,7 +224,7 @@ namespace MetX.Standard.Pipelines
             {
                 throw new Exception("xlg.xsl missing (2).");
             }
-            //xlgXsl = MetX.Data.xlg.xsl;
+            //xlgXsl = MetX.Standard.Data.xlg.xsl;
             return Helper.GenerateViaXsl(xmlDoc, xlgXsl).ToString();
         }
 
@@ -254,7 +254,7 @@ namespace MetX.Standard.Pipelines
         private void ParseDataXml()
         {
             _mXlgDataXmlDoc = new XmlDocument();
-            if (XlgDataXml == null || XlgDataXml.StartsWith("*"))
+            if (XlgDataXml == null || XlgDataXml.StartsWith("*") || XlgDataXml.Trim() == "")
             {
                 _mXlgDataXmlDoc.LoadXml(DefaultXlg.Xml.Replace("[Default]", Namespace));
             }

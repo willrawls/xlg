@@ -11,7 +11,7 @@ namespace MetX.Standard.Pipelines
     [Serializable, XmlRoot(Namespace = "", IsNullable = false)]
     public class XlgSettings
     {
-        private static XmlSerializer _mSettingsSerializer = new(typeof(XlgSettings));
+        private static XmlSerializer _mSettingsSerializer;
 
         [XmlArray("QuickScripts", Namespace = "", IsNullable = false),
          XmlArrayItem("QuickScript", Namespace = "", IsNullable = false)]
@@ -29,6 +29,11 @@ namespace MetX.Standard.Pipelines
         [XmlArray("Sources", Namespace = "", IsNullable = false),
          XmlArrayItem("Source", Namespace = "", IsNullable = false)]
         public List<XlgSource> Sources = new();
+
+        static XlgSettings()
+        {
+            _mSettingsSerializer = new XmlSerializer(typeof(XlgSettings));
+        }
 
         public XlgSettings()
         {
@@ -65,15 +70,17 @@ namespace MetX.Standard.Pipelines
             return FromXml(File.ReadAllText(filename));
         }
 
-        public int Generate(IGenerationHost gui)
+        public int Generate(IGenerationHost host)
         {
             var genCount = 0;
             foreach (var currSource in Sources)
             {
                 if (currSource.Selected)
                 {
-                    int lastGen;
-                    lastGen = currSource.RegenerateOnly ? currSource.Regenerate(gui) : currSource.Generate(gui);
+                    currSource.Host = host;
+                    var lastGen = currSource.RegenerateOnly 
+                        ? currSource.Regenerate(host) 
+                        : currSource.Generate(host);
                     if (lastGen == -1) return -genCount;
                     genCount++;
                 }

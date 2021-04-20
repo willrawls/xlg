@@ -8,7 +8,7 @@ namespace MetX.Standard.Data.Factory
 
         public string ProviderName => "PowerShellProvider";
 
-        public string ObjectName => "MetX.Data.Factory.PowerShellProvider";
+        public string ObjectName => "MetX.Standard.Data.Factory.PowerShellProvider";
 
         public string ProviderAssemblyString => string.Empty;
 

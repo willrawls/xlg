@@ -1,5 +1,6 @@
 ﻿// ReSharper disable UnusedVariable
 
+using MetX.Standard.Generation;
 using MetX.Windows.Library;
 
 namespace MetX.Controls
@@ -204,7 +205,7 @@ namespace MetX.Controls
             switch (ch)
             {
                 case '~':
-                    if (LineAtCaret == "~~")
+                    if (LineAtCaret == CsProjGeneratorOptions.Delimiter)
                     {
                         InsertMissingSections();
                         return true;

@@ -83,7 +83,9 @@ namespace MetX.Standard.Pipelines
         private class OpParams
         {
             public int Op;
-            public IGenerationHost Gui;
+
+            [XmlIgnore]
+            public IGenerationHost Gui { get; set; }
 
             public OpParams(int op, IGenerationHost gui)
             {
@@ -94,12 +96,13 @@ namespace MetX.Standard.Pipelines
 
         private void InternalOp(object @params) { var o = (OpParams)@params; if (o.Op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
-        public void RegenerateAsynch(IGenerationHost gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, gui)); }
+        public void RegenerateAsynch(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, host)); }
 
-        public void GenerateAsynch(IGenerationHost gui) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, gui)); }
+        public void GenerateAsynch(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, host)); }
 
-        public int Regenerate(IGenerationHost gui)
+        public int Regenerate(IGenerationHost host)
         {
+            Host ??= host;
             if (_mGenInProgress) return 0;
             lock (_mSyncRoot)
             {
@@ -111,14 +114,14 @@ namespace MetX.Standard.Pipelines
                     Environment.CurrentDirectory = OutputPath;
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
-                    var gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                    var gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
                     File.WriteAllText(OutputFilename, gen.RegenerateCode(LoadXlgDoc()));
                     LastRegenerated = DateTime.Now;
                     return 1;
                 }
                 catch (Exception ex)
                 {
-                    gui.MessageBox.Show(ex.ToString());
+                    host.MessageBox.Show(ex.ToString());
                 }
                 finally
                 {
@@ -129,8 +132,9 @@ namespace MetX.Standard.Pipelines
             return -1;
         }
 
-        public int Generate(IGenerationHost gui)
+        public int Generate(IGenerationHost host)
         {
+            Host ??= host;
             if (_mGenInProgress) return 0;
             lock (_mSyncRoot)
             {
@@ -151,9 +155,9 @@ namespace MetX.Standard.Pipelines
                         case ProviderTypeEnum.DataAndGather:
                             if (string.IsNullOrEmpty(SqlToXml))
                             {
-                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui)
+                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host)
                                 {
-                                    OutputFolder = IO.FileSystem.InsureFolderExists(gui, OutputFilename, true)
+                                    OutputFolder = IO.FileSystem.InsureFolderExists(host, OutputFilename, true)
                                 };
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
@@ -170,7 +174,7 @@ namespace MetX.Standard.Pipelines
                                 output = sb.ToString();
                                 if (output.StartsWith("<?xml "))
                                 {
-                                    gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                                    gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
                                     gen.CodeXmlDocument = new XmlDocument();
                                     gen.CodeXmlDocument.LoadXml(output);
                                     gen.CodeXmlDocument.Save(OutputXml);
@@ -189,8 +193,8 @@ namespace MetX.Standard.Pipelines
                             break;
 
                         case ProviderTypeEnum.Data:
-                            gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
-                            gen.OutputFolder = IO.FileSystem.InsureFolderExists(gui, OutputFilename, true);
+                            gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
+                            gen.OutputFolder = IO.FileSystem.InsureFolderExists(host, OutputFilename, true);
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
                             File.WriteAllText(OutputFilename, gen.GenerateCode());
@@ -202,7 +206,7 @@ namespace MetX.Standard.Pipelines
                             output = sb.ToString();
                             if (output.StartsWith("<?xml "))
                             {
-                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, gui);
+                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
                                 gen.CodeXmlDocument = new XmlDocument();
                                 gen.CodeXmlDocument.LoadXml(output);
                                 File.WriteAllText(OutputFilename, gen.RegenerateCode(gen.CodeXmlDocument));
@@ -244,6 +248,7 @@ namespace MetX.Standard.Pipelines
             return -1;
         }
 
+        [XmlIgnore]
         public IGenerationHost Host { get; set; } = new GenerationHost();
 
         public XlgSource() { /* XmlSerializer */ }

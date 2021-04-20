@@ -4,7 +4,7 @@ using System.IO;
 using MetX.Standard.Pipelines;
 using MetX.Windows.WinApi;
 
-namespace MetX.Standard.Library
+namespace MetX.Windows.Library
 {
     public class QuickScriptWorker
     {

@@ -39,7 +39,7 @@ using System.IO;
 using MetX;
 using MetX.IO;
 using MetX.Security;
-using MetX.Data;
+using MetX.Standard.Data;
 
 namespace <xsl:value-of select="@Namespace" />
 {
@@ -277,11 +277,11 @@ using System.Runtime.InteropServices;
   </xsl:choose></xsl:variable>
   <xsl:variable name="BaseItemClass"><xsl:choose>
     <xsl:when test="/xlgDoc/@BaseItemClass"><xsl:value-of select="/xlgDoc/@BaseItemClass"/></xsl:when>
-    <xsl:otherwise>MetX.Data.ActiveRecord</xsl:otherwise>
+    <xsl:otherwise>MetX.Standard.Data.ActiveRecord</xsl:otherwise>
   </xsl:choose></xsl:variable>
   <xsl:variable name="BaseListClass"><xsl:choose>
     <xsl:when test="/xlgDoc/@BaseListClass"><xsl:value-of select="/xlgDoc/@BaseListClass"/></xsl:when>
-    <xsl:otherwise>MetX.Data.ActiveList&lt;<xsl:value-of select="$BaseItemClass"/>&gt;</xsl:otherwise>
+    <xsl:otherwise>MetX.Standard.Data.ActiveList&lt;<xsl:value-of select="$BaseItemClass"/>&gt;</xsl:otherwise>
   </xsl:choose></xsl:variable>
 <!-- This next line (exsl:template) causes all xsl output from inside the exsl:document tag to be written to the named file. -->
 <exsl:document href="{$OutputFolder}\{$Namespace}.{$ClassName}.Glove.cs" method="text" omit-xml-declaration="yes">
@@ -302,7 +302,7 @@ using System.IO;
 using MetX;
 using MetX.IO;
 using MetX.Security;
-using MetX.Data;
+using MetX.Standard.Data;
 
 namespace <xsl:value-of select="$Namespace" />
 {

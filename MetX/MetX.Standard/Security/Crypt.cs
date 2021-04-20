@@ -27,14 +27,23 @@ namespace MetX.Standard.Security
         private static ICryptoTransform _encryptorFixed;
         private static ICryptoTransform _decryptorFixed;
 
+        public static readonly byte[] DefaultKeyBytes = new byte[] {41, 12, 51, 6, 54, 8, 111, 89, 150, 12, 80, 10, 8, 12, 1, 170};
+        public static byte[] KeyBytes = DefaultKeyBytes;
+
         public static void Reset()
         {
             lock (SyncRoot)
             {
+                if (KeyBytes == null || KeyBytes.Length != 16)
+                    throw new CryptographicException("16 byte key required. Set the KeyBytes field");
+                
+                var bytes = new byte[16];
+                Array.Copy(KeyBytes, bytes, 16);
+                    
                 using (SymmetricAlgorithm sa = new RijndaelManaged())
                 {
                     sa.BlockSize = 128;
-                    sa.Key = new byte[] {141, 125, 54, 46, 254, 82, 171, 89, 151, 12, 180, 150, 58, 132, 61, 70};
+                    sa.Key = bytes;
                     sa.IV = sa.Key;
                     _encryptorFixed = sa.CreateEncryptor();
                     _decryptorFixed = sa.CreateDecryptor();

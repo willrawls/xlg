@@ -18,7 +18,7 @@ namespace MetX.Standard.Data.Factory
 
         public string ProviderName => "SqlDataProvider";
 
-        public string ObjectName => "MetX.Data.SqlDataProvider";
+        public string ObjectName => "MetX.Standard.Data.Factory.SqlDataProvider";
 
         public string ProviderAssemblyString => "System.Data";
 

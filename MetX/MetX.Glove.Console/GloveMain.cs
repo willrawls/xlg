@@ -215,6 +215,7 @@ namespace XLG.Pipeliner
                     if (Settings.Filename != AppData.LastXlgsFile)
                     {
                         AppData.LastXlgsFile = Settings.Filename;
+                        AppData.CheckIfTextEditorExistsAndAskIfNot(Host);
                         AppData.Save();
                     }
 
@@ -541,7 +542,8 @@ namespace XLG.Pipeliner
                     File.WriteAllText(textXlgFile.Text,
                         DefaultXlg.Xml.Replace("[Default]", textConnectionStringName.Text));
                 }
-                Process.Start(AppData.TextEditor, textXlgFile.Text);
+                
+                Process.Start(AppData.CheckIfTextEditorExistsAndAskIfNot(Host), textXlgFile.Text);
             }
             catch (Exception ex)
             {
@@ -554,7 +556,7 @@ namespace XLG.Pipeliner
             try
             {
                 FileSystem.InsureFolderExists(Host, textAppXlgXsl.Text, true);
-                Process.Start(AppData.TextEditor, textAppXlgXsl.Text);
+                Process.Start(AppData.CheckIfTextEditorExistsAndAskIfNot(Host), textAppXlgXsl.Text);
             }
             catch (Exception ex)
             {
@@ -567,7 +569,7 @@ namespace XLG.Pipeliner
             try
             {
                 FileSystem.InsureFolderExists(Host, textOutput.Text, true);
-                Process.Start(AppData.TextEditor, textOutput.Text);
+                Process.Start(AppData.CheckIfTextEditorExistsAndAskIfNot(Host), textOutput.Text);
             }
             catch (Exception ex)
             {
@@ -585,7 +587,7 @@ namespace XLG.Pipeliner
                         textOutput.Text.Length - Path.GetExtension(textOutput?.Text ?? "").Length) + ".xml";
                 }
                 FileSystem.InsureFolderExists(Host, textOutputXml.Text, true);
-                Process.Start(AppData.TextEditor, textOutputXml.Text);
+                Process.Start(AppData.CheckIfTextEditorExistsAndAskIfNot(Host), textOutputXml.Text);
             }
             catch (Exception ex)
             {
@@ -593,7 +595,7 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void buttonChoosetextOutputXml_Click(object sender, EventArgs e)
+        private void buttonChooseTextOutputXml_Click(object sender, EventArgs e)
         {
             try
             {
@@ -709,46 +711,6 @@ namespace XLG.Pipeliner
             {
                 Process.Start(exePath, string.Empty);
             }
-        }
-    }
-    
-    public class WinFormMessageBoxHost<TForm> : IMessageBox where TForm : Form
-    {
-        public TForm Parent { get; set; }
-        public IGenerationHost Host { get; set; }
-
-        public WinFormMessageBoxHost(TForm parent, IGenerationHost host)
-        {
-            Host = host;
-            Parent = parent;
-        }
-
-        public MessageBoxResult Show(string message)
-        {
-            
-            return MessageBox.Show(Parent, message).As<MessageBoxResult>();
-        }
-
-        public MessageBoxResult Show(string message, string title)
-        {
-            return MessageBox.Show(Parent, message, title).As<MessageBoxResult>();
-        }
-
-        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices)
-        {
-            return MessageBox.Show(Parent, message, title, choices.As<MessageBoxButtons>()).As<MessageBoxResult>();
-        }
-
-        public MessageBoxResult Show(string message, string title, MessageBoxChoices choices, MessageBoxStatus status,
-            MessageBoxDefault @default)
-        {
-            return MessageBox.Show(
-                Parent, message, title, 
-                choices
-                    .As<MessageBoxButtons>(), status
-                    .As<MessageBoxIcon>(), @default
-                    .As<MessageBoxDefaultButton>())
-                .As<MessageBoxResult>();
         }
     }
 }

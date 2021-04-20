@@ -36,9 +36,6 @@
     <Compile Remove="IO\Element.cs" />
     <Compile Remove="Library\ExampleXslUrn.cs" />
     <Compile Remove="Scripts\NArrangeTestLogger.cs" />
-    <Compile Remove="Templates\Single file input\Exe.cs" />
-    <Compile Remove="Templates\Single file input\Native.cs" />
-    <Compile Remove="Templates\Single file input\qscriptd3cdf9.cs" />
     <Compile Remove="Web\HttpAppErrHandler.cs" />
     <Compile Remove="Web\SecureHandler.cs" />
     <Compile Remove="Web\SecurePage.cs" />
@@ -64,13 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Templates\Single file input\Exe.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Single file input\Native.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Single file input\qscriptd3cdf9.cs" />
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>

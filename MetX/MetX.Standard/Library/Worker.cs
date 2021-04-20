@@ -91,6 +91,13 @@ namespace MetX.Standard.Library
             return value is Guid ? Convert.ToString(value) : value.ToString()?.Trim();
         }
 
+        public static string AsString(this Guid value)
+        {
+            if (value == Guid.Empty)
+                return "";
+            return value.ToString("N");
+        }
+
         public static string AsString(this IList<string> target, string delimiter = " ", string defaultValue = "")
         {
             if (target.IsEmpty())
