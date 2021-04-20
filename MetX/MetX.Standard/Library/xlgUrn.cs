@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.XPath;
@@ -738,66 +739,39 @@ namespace MetX.Standard.Library
             return whenFalse;
         }
 
+        private string _lastExpandFilename;
+        private string[] _lastExpansions;
+
         // True if not empty and = true or any integer value != 0
-        public string Expand1(string target)
+        public string ExpandToProperCase(string target, string filename)
         {
-            var expanded = target
-                    .Replace("tbl_", "")
-                    .Replace("prgms", "Programs")
-                    .Replace("acad", "Academic")
-                    .Replace("appl", "Application")
-                    .Replace("crse", "Course")
-                    .Replace("sect", "Section")
-                    .Replace("no_sched", "Not Scheduled")
-                    .Replace("sched", "Scheduled")
-                    .Replace("grd", "Grade")
-                    .Replace("scl", "SCL?")
-                    .Replace("qstn", "Question")
-                    .Replace("faclty_", "Faculty ")
-                    .Replace("_unavail", " Unavailable")
-                    .Replace("_avail", " Available")
-                    .Replace("_scr", " Score")
-                    .Replace("ind_", "Individual ")
-                    .Replace("_hist", " History")
-                    .Replace("_cmnts", " Comments")
-                    .Replace("proj_", "Project ")
-                    .Replace("_hist", " History")
-                    .Replace("oryory", " ory")
-                    .Replace("vrsn_", "Version ")
-                    .Replace("mltpl", "Multiple")
-                    .Replace("chc", "Choice")
-                    .Replace("_fac", " Faculty")
-                    .Replace("stdnt", "Student")
-                    .Replace("assmbly", "Assembly")
-                    .Replace("tblkp_", "Lookup ")
-                    .Replace("rqst", "Request")
-                    .Replace("typ", "Type")
-                    .Replace("Typee", "Type")
-                    .Replace("flo_", "FLO? ")
-                    .Replace("faclty", "Faculty")
-                    .Replace("ilr", "ILR?")
-                    .Replace("ind_", "Individual ")
-                    .Replace("src", "Source")
-                    .Replace("_id", " ID")
-                    .Replace("lvl", "Level")
-                    .Replace("nm_", "name_")
-                    .Replace("mil_", "Military ")
-                    .Replace("srvc", "Service")
-                    .Replace("cert_", "Certification ")
-                    .Replace("rsn", "Reason")
-                    .Replace("proj_", "Project ")
-                    .Replace("stdnt", "Student")
-                    .Replace("tmp", "Temporary ")
-                    .Replace("wrk_", "Work ")
-                    .Replace("opi", "OPI")
-                    .Replace("_exam", " Exam")
-                    .Replace("suppt", "Support")
+            if (_lastExpandFilename.IsEmpty() || filename != _lastExpandFilename)
+            {
+                if (!File.Exists(filename))
+                    return target;
 
-                    .Replace("evnt", "Event")
-                    .Replace("T OPIc", "Topic")
+                _lastExpandFilename = filename;
+                _lastExpansions = File
+                    .ReadAllLines(filename)
+                    .Where(l => l.IsNotEmpty())
+                    .Where(l => !l.StartsWith("# "))
+                    .ToArray();
+            }
 
-                    .Replace("_", " ")
-                ;
+            if (_lastExpansions.IsEmpty())
+                return target;
+
+            var expanded = target;
+            foreach (var line in _lastExpansions)
+            {
+                var toFind = line.TokenAt(1, ",");
+                var replaceWith = line.TokensAfter(1, ",");
+
+                if (toFind.IsNotEmpty())
+                {
+                    expanded = expanded.Replace(toFind, replaceWith);
+                }
+            }
             expanded = expanded.ProperCase();
             return expanded;
         }
