@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using MetX.Standard.IO;
@@ -285,26 +286,30 @@ namespace XLG.Pipeliner
             {
                 return;
             }
-            try
+
+            if(Monitor.TryEnter(_mSyncRoot))
             {
-                lock (_mSyncRoot)
+                try
                 {
+
                     if (_mAutoGenActive)
                     {
                         return;
                     }
+
                     _mAutoGenActive = true;
+                    Invoke(new MethodInvoker(SynchAutoRegenerate));
                 }
-                Invoke(new MethodInvoker(SynchAutoRegenerate));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                _mAutoGenActive = false;
-                _mFsWs.EnableRaisingEvents = true;
+                catch (Exception ex)
+                {
+                    Host.MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    _mAutoGenActive = false;
+                    _mFsWs.EnableRaisingEvents = true;
+                    Monitor.Exit(_mSyncRoot);
+                }
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.XPath;
@@ -718,6 +719,61 @@ namespace MetX.Standard.Library
             var ret = new XPathNavigator[retNodes.Count];
             retNodes.Values.CopyTo(ret, 0);
             return ret;
+        }
+
+        // True if not empty and = true or any integer value != 0
+        public bool IsTrue(string target)
+        {
+            if(target.IsEmpty())
+                return false;
+
+            return target.ToLower() == "true"
+                   || target.AsInteger() != 0;
+        }
+
+        // True if not empty and = true or any integer value != 0
+        public string IfTrue(string target, string whenTrue, string whenFalse)
+        {
+            if (IsTrue(target))
+                return whenTrue ?? "";
+            return whenFalse;
+        }
+
+        private string _lastExpandFilename;
+        private string[] _lastExpansions;
+
+        // True if not empty and = true or any integer value != 0
+        public string ExpandToProperCase(string target, string filename)
+        {
+            if (_lastExpandFilename.IsEmpty() || filename != _lastExpandFilename)
+            {
+                if (!File.Exists(filename))
+                    return target;
+
+                _lastExpandFilename = filename;
+                _lastExpansions = File
+                    .ReadAllLines(filename)
+                    .Where(l => l.IsNotEmpty())
+                    .Where(l => !l.StartsWith("# "))
+                    .ToArray();
+            }
+
+            if (_lastExpansions.IsEmpty())
+                return target;
+
+            var expanded = target;
+            foreach (var line in _lastExpansions)
+            {
+                var toFind = line.TokenAt(1, ",");
+                var replaceWith = line.TokensAfter(1, ",");
+
+                if (toFind.IsNotEmpty())
+                {
+                    expanded = expanded.Replace(toFind, replaceWith);
+                }
+            }
+            expanded = expanded.ProperCase();
+            return expanded;
         }
 
         public bool IsIn(string attributeName, string toFind, XPathNodeIterator nodeSet)
