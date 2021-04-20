@@ -32,7 +32,12 @@ namespace MetX.Standard.Generation.CSharp.Project
 
         public abstract IGenerateCsProj WithDefaultTargetTemplate();
 
-        public IGenerateCsProj Setup()
+        public virtual IGenerateCsProj Setup()
+        {
+            return BaseSetup();
+        }
+
+        public IGenerateCsProj BaseSetup()
         {
             if (Options.GenerationSet.IsEmpty())
                 Options.GenerationSet = "Default";
@@ -91,7 +96,24 @@ namespace MetX.Standard.Generation.CSharp.Project
             if (FilePath.IsEmpty())
                 return this;
 
-            Document?.Save(FilePath);
+            if (!Directory.Exists(FilePath))
+                Directory.CreateDirectory(FilePath);
+            
+            var filename = Path.Combine(FilePath, Options.Filename + ".csproj");
+            Document?.Save(filename);
+
+            var otherFiles = Directory.GetFiles(Options.PathToTemplatesFolder).Where(f => !f.EndsWith(".csproj"));
+            foreach (var otherFile in otherFiles)
+            {
+                var destination = Path.Combine(FilePath, otherFile.LastPathToken());
+                if (File.Exists(destination))
+                {
+                    File.SetAttributes(destination, FileAttributes.Normal);
+                    File.Delete(destination);
+                }
+                File.Copy(otherFile, destination);
+            }
+
             return this;
         }
 

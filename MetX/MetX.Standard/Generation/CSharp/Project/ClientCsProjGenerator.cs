@@ -29,6 +29,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             : base(options.WithFilename($"{options.Namespace}.{options.ClientName}"))
         {
             WithDefaultTargetTemplate();
+            Options = options;
         }
 
         public sealed override IGenerateCsProj WithDefaultTargetTemplate()
@@ -44,6 +45,12 @@ namespace MetX.Standard.Generation.CSharp.Project
             
             if (Options.TryFullResolve(out var resolvedContents)) Document.LoadXml(resolvedContents);
             return this;
+        }
+
+        public override IGenerateCsProj Setup()
+        {
+            Options.TargetTemplate = "Namespace.ClientName";
+            return base.Setup();
         }
     }
 }

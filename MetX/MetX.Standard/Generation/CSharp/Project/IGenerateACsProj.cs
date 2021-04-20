@@ -26,6 +26,7 @@ namespace MetX.Standard.Generation.CSharp.Project
         IGenerateCsProj WithOptions(CsProjGeneratorOptions options);
         IGenerateCsProj WithTarget(string target);
         IGenerateCsProj Setup();
+        IGenerateCsProj BaseSetup();
         IGenerateCsProj Generate();
         IGenerateCsProj Save();
     }
