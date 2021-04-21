@@ -254,9 +254,9 @@ namespace MetX.Standard.Data.Factory
             TableSchema.Table tableSchema;
             var columns = new TableSchema.TableColumnCollection();
 
-            var cmd = new QueryCommand(TableColumnSql + ";" + IndexSql);
-            cmd.AddParameter("@tblName", tableName);
-            using (var reader = GetReader(cmd))
+            var command = new QueryCommand(TableColumnSqlWithDescription + ";" + IndexSql);
+            command.AddParameter("@tblName", tableName);
+            using (var reader = GetReader(command))
             {
                 //get information about both the table and it's columns
 
@@ -267,6 +267,7 @@ namespace MetX.Standard.Data.Factory
                     column = new TableSchema.TableColumn
                     {
                         ColumnName = reader["ColumnName"].ToString(),
+                        Description = reader["Description"].ToString(),
                         DataType = GetDbType((reader["DataType"].ToString() ?? string.Empty).ToLower()),
                         SourceType = reader["DataType"].ToString(),
                         AutoIncrement = reader["isIdentity"].ToString() == "1",
@@ -300,9 +301,9 @@ namespace MetX.Standard.Data.Factory
                 }
             }
 
-            cmd = new QueryCommand(CompleteIndexInfoSql);
-            cmd.AddParameter("@tblName", tableName);
-            using (var rdr = GetReader(cmd))
+            command = new QueryCommand(CompleteIndexInfoSql);
+            command.AddParameter("@tblName", tableName);
+            using (var rdr = GetReader(command))
             {
                 if (rdr.Read())
                 {
@@ -638,6 +639,24 @@ namespace MetX.Standard.Data.Factory
         private const string SpSql = " SELECT name FROM dbo.sysobjects WHERE (type = 'P')";
         // private const string SP_SQL = " SELECT SPECIFIC_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE='PROCEDURE'";
 
+        private const string TableColumnSqlWithDescription = @"
+select
+	TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
+	ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, info.IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName,
+	CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity,
+	NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale,         
+	sep.value As [DESCRIPTION]
+    from sys.tables st
+    inner join sys.columns sc on st.object_id = sc.object_id
+    left join sys.extended_properties sep on st.object_id = sep.major_id
+                                         and sc.column_id = sep.minor_id
+                                         and sep.name = 'MS_Description'
+	left join INFORMATION_SCHEMA.COLUMNS info on info.TABLE_NAME = st.name 
+										and info.COLUMN_NAME = sc.Name
+    WHERE     (info.TABLE_NAME = @tblName)
+";
+
+        /* old without description
         private const string TableColumnSql = @"
 SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
  ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName,
@@ -645,6 +664,7 @@ SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableNa
  NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale
  FROM         INFORMATION_SCHEMA.COLUMNS
  WHERE     (TABLE_NAME = @tblName) ";
+ */
 
         private const string TableSql = "SELECT     TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS Name, TABLE_TYPE " +
                                          "FROM         INFORMATION_SCHEMA.TABLES " +
