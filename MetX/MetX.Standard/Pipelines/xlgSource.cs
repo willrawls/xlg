@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml;
@@ -149,10 +150,13 @@ namespace MetX.Standard.Pipelines
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
                     DataService.Instance = DataService.GetDataServiceManually(ConnectionName, ConnectionString, ProviderName);
+                    
                     CodeGenerator gen = null;
                     StringBuilder sb;
                     string output;
                     Environment.CurrentDirectory = OutputPath;
+
+                    var gatherParameters = GatherParameters();
                     switch (DataService.Instance.ProviderType)
                     {
                         case ProviderTypeEnum.DataAndGather:
@@ -173,7 +177,7 @@ namespace MetX.Standard.Pipelines
                             else
                             {
                                 sb = new StringBuilder();
-                                DataService.Instance.Gatherer.GatherNow(sb, new[] { ConnectionName, ConnectionString, SqlToXml });
+                                DataService.Instance.Gatherer.GatherNow(sb, gatherParameters);
                                 output = sb.ToString();
                                 if (output.StartsWith("<?xml "))
                                 {
@@ -205,7 +209,11 @@ namespace MetX.Standard.Pipelines
 
                         case ProviderTypeEnum.Gather:
                             sb = new StringBuilder();
-                            DataService.Instance.Gatherer.GatherNow(sb, new[] { ConnectionName, ConnectionString, SqlToXml });
+                            
+                            if(ConnectionName.IsEmpty())
+                                DataService.Instance.Gatherer.GatherNow(sb, gatherParameters);
+                            
+                            DataService.Instance.Gatherer.GatherNow(sb, gatherParameters);
                             output = sb.ToString();
                             if (output.StartsWith("<?xml "))
                             {
@@ -249,6 +257,14 @@ namespace MetX.Standard.Pipelines
                 }
             }
             return -1;
+        }
+
+        private string[] GatherParameters()
+        {
+            return new[] { ConnectionName, ConnectionString, SqlToXml }
+                .Where(p => p
+                    .IsNotEmpty())
+                .ToArray();
         }
 
         [XmlIgnore]

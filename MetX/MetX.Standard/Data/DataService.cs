@@ -6,6 +6,7 @@ using System.Data;
 using System.Reflection;
 using MetX.Standard.Data.Factory;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library;
 
 namespace MetX.Standard.Data
 {
@@ -27,58 +28,69 @@ namespace MetX.Standard.Data
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
         private static Dictionary<string, DataService> _mServices = new();
-        private static readonly Dictionary<string, IProvide> MProviders = new();
+        private static readonly Dictionary<string, IProvide> InMemoryProviders = new();
+
+        public DataService(string providerName, string parameter1, string parameter2)
+        {
+            Settings = null;
+            WithSetup(providerName, parameter1, parameter2);
+        }
 
         public DataService(ConnectionStringSettings connectionSettings)
         {
             Settings = connectionSettings;
-            Setup();
+            WithSetup(connectionSettings.ProviderName, connectionSettings.ConnectionString, connectionSettings.ConnectionString);
         }
 
-        public void Setup()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="providerName"></param>
+        /// <param name="name">usually connection name or folder path</param>
+        /// <param name="detail">usually connection string or commands</param>
+        public DataService WithSetup(string providerName, string name, string detail)
         {
             IProvide metXProvider;
-            if (!MProviders.ContainsKey(Settings.ProviderName.ToLower()))
+            if (!InMemoryProviders.ContainsKey(providerName.ToLower()))
             {
-                MetXObjectName = "MetX.Standard.Data.Factory." + Settings.ProviderName.Replace(".", "");
-                if (!MetXObjectName.ToLower().EndsWith("Provider"))
-                    MetXObjectName += "Provider";
+                MetXObjectName = providerName;
+                if (!MetXObjectName.ToLower().EndsWith("provider"))
+                    MetXObjectName = $"{MetXObjectName.Replace(".", "")}Provider";
 
-                var metXProviderAssembly = typeof(IProvide).Assembly; //Assembly.Load(MetXObjectName);
+                var metXProviderAssembly = typeof(IProvide).Assembly;
                 var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
                 
                 metXProvider = Activator
-                    .CreateInstance(metXProviderType 
-                                    ?? throw new InvalidOperationException(), true) 
+                    .CreateInstance(metXProviderType ?? throw new InvalidOperationException(), true) 
                     as IProvide;
                 
                 if (metXProvider == null) throw new ProviderException("Unable to instantiate: " + metXProviderType.FullName);
-                MProviders.Add(Settings.ProviderName.ToLower(), metXProvider);
+                InMemoryProviders.Add(providerName.ToLower(), metXProvider);
                 MetXProviderAssemblyString = metXProvider.ProviderAssemblyString;
                 ProviderAssemblyString = metXProviderAssembly.FullName;
             }
             else
-                metXProvider = MProviders[Settings.ProviderName.ToLower()];
+                metXProvider = InMemoryProviders[providerName.ToLower()];
 
             ProviderType = metXProvider.ProviderType;
             if (metXProvider.ProviderType == ProviderTypeEnum.Data || metXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
             {
-                Provider = metXProvider.GetNewDataProvider(Settings.ConnectionString);
+                Provider = metXProvider.GetNewDataProvider(detail);
                 Provider.Initialize(metXProvider.ProviderName, new System.Collections.Specialized.NameValueCollection());
 
                 if (Provider == null)
-                    throw new ProviderException("Unknown provider: " + Settings.ProviderName);
+                    throw new ProviderException("Unknown provider: " + providerName);
             }
-            if (metXProvider.ProviderType == ProviderTypeEnum.Gather || metXProvider.ProviderType == ProviderTypeEnum.DataAndGather)
+            else if (metXProvider.ProviderType == ProviderTypeEnum.Gather)
             {
                 Gatherer = metXProvider.GetNewGatherProvider();
                 if (Gatherer == null)
-                    throw new ProviderException("Unknown gatherer: " + Settings.ProviderName);
+                    throw new ProviderException("Unknown gatherer: " + providerName);
             }
 
-            _mServices.Add(Settings.Name, this);
-            if (Instance == null)
-                Instance = this;
+            _mServices.Add(name, this);
+            Instance ??= this;
+            return this;
         }
 
         /// <summary>
@@ -98,26 +110,31 @@ namespace MetX.Standard.Data
             {
                 Settings = ConnectionStrings[connectionStringName]
             };
-            if (ret.Settings == null) 
+            if (ret.Settings == null)
+            {
                 return null;
+            }
 
-            ret.Setup();
+            ret.WithSetup(ret.Settings.ProviderName, ret.Settings.Name, ret.Settings.ConnectionString);
             return ret;
         }
 
         /// <summary>
         /// Typically used to generate code when an app.config or web.config isn't available or desired.
         /// </summary>
-        /// <param name="connectionStringName"></param>
-        /// <param name="connectionString"></param>
+        /// <param name="name"></param>
+        /// <param name="detail"></param>
         /// <param name="providerName"></param>
         /// <returns></returns>
-        public static DataService GetDataServiceManually(string connectionStringName, string connectionString, string providerName)
+        public static DataService GetDataServiceManually(string name, string detail, string providerName)
         {
-            if (_mServices.ContainsKey(connectionStringName))
-                return _mServices[connectionStringName];
+            if (name.IsNotEmpty() && _mServices.ContainsKey(name))
+                return _mServices[name];
 
-            return new DataService(new ConnectionStringSettings(connectionStringName, connectionString, providerName));
+            if (name.IsEmpty())
+                return new DataService().WithSetup(providerName, name, detail);
+
+            return new DataService(new ConnectionStringSettings(name, detail, providerName));
         }
 
         public DataService()
