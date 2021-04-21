@@ -29,10 +29,10 @@ namespace MetX.Standard.Generators
                     AspectsProjectGenerator = new AspectsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard20));
                     GeneratorsProjectGenerator = new GeneratorsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard20));
                     ClientProjectGenerator = new ClientCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Net50));
-                    
-                    AspectsProjectGenerator.Generate().Save();
-                    GeneratorsProjectGenerator.Generate().Save();
-                    ClientProjectGenerator.Generate().Save();
+
+                    AspectsProjectGenerator.Setup().Generate().Save();
+                    GeneratorsProjectGenerator.Setup().Generate().Save();
+                    ClientProjectGenerator.Setup().Generate().Save();
                     break;
 
                 case Operation.GenGen:

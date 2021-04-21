@@ -13,6 +13,12 @@ namespace MetX.Standard.Generation.CSharp.Project
             WithDefaultTargetTemplate();
         }
 
+        public override IGenerateCsProj Setup()
+        {
+            Options.TargetTemplate = "Namespace.AspectsName";
+            return base.Setup();
+        }
+
         public override IGenerateCsProj Generate()
         {
             if (Document == null)
@@ -32,7 +38,7 @@ namespace MetX.Standard.Generation.CSharp.Project
             : base(options.WithFilename($"{options.Namespace}.{options.AspectsName}"), document)
         {
             WithDefaultTargetTemplate();
-            
+            Options = options;
         }
 
         public AspectsCsProjGenerator(string filePath) : base(filePath)

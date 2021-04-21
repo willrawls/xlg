@@ -92,7 +92,7 @@ namespace MetX.Standard.Generators.GenGen
             var options = new CsProjGeneratorOptions
             {
                 Namespace = Namespace,
-                Language = "C#",
+                Language = "CSharp",
                 OutputPath = RootFolder,
                 TargetFramework = targetFramework,
                 PathToTemplatesFolder = TemplatesPath,
@@ -102,8 +102,8 @@ namespace MetX.Standard.Generators.GenGen
                 AspectsName = "Aspects",
                 ClientName = "Client",
                 GeneratorsName = "Generators",
-                Filename = null,        // ??
-                GenerationSet = null,   // ??
+                Filename = "DefaultFilename",        // ??
+                GenerationSet = "Default",   // ??
             };
             return options;
         }

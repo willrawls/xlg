@@ -33,6 +33,8 @@ namespace XLG.Pipeliner
             {
                 AddIfDifferent(directories, setting.BasePath);
                 AddIfDifferent(directories, Path.GetDirectoryName(setting.OutputFilename));
+                AddIfDifferent(directories, Path.GetDirectoryName(setting.XslFilename));
+                AddIfDifferent(directories, Path.GetDirectoryName(setting.XlgDocFilename));
             }
 
             foreach (var directory in directories)

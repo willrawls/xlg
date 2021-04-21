@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -50,7 +51,7 @@ namespace MetX.Standard.Pipelines
             "enum", "namespace", "string"
         });
 
-        public readonly IGenerationHost Gui;
+        public readonly IGenerationHost Host;
         public XmlDocument CodeXmlDocument;
 
         /// <summary>The namespace that should be passed into the XSL</summary>
@@ -98,10 +99,10 @@ namespace MetX.Standard.Pipelines
         }
 
         /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
-        public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, IGenerationHost gui)
+        public CodeGenerator(string xlgFilePath, string xlgXslFilePath, string settingsFilePath, IGenerationHost host)
             : this()
         {
-            Gui = gui;
+            Host = host;
             Initialize(xlgFilePath, xlgXslFilePath, settingsFilePath);
         }
 
@@ -165,7 +166,6 @@ namespace MetX.Standard.Pipelines
                     root.AppendChild(xmlDoc.ImportNode(currChild, true));
                 }
 
-                // AddAttribute(root, "xmlDoc", xmlDoc.InnerXml.Replace("><", ">\n<"));
                 return xmlDoc;
             }
         }
@@ -446,16 +446,17 @@ namespace MetX.Standard.Pipelines
                     continue;
                 }
 
-                TableSchema.Table tbl;
+                TableSchema.Table tableSchema;
                 try
                 {
-                    tbl = DataService.Instance.GetTableSchema(table);
+                    tableSchema = DataService.Instance.GetTableSchema(table);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    if (Gui != null)
+                    Debug.WriteLine(ex);
+                    if (Host != null)
                     {
-                        switch (Gui.MessageBox.Show("Unable to get a schema for table: " + table + "\n\n\tAdd table to skip list and continue ?", 
+                        switch (Host.MessageBox.Show("Unable to get a schema for table: " + table + "\n\n\tAdd table to skip list and continue ?", 
                             "CONTINUE ?", MessageBoxChoices.YesNoCancel,
                             MessageBoxStatus.Error, MessageBoxDefault.Button1))
                         {
@@ -470,30 +471,39 @@ namespace MetX.Standard.Pipelines
                                 return null;
                         }
                     }
-                    tbl = null;
+                    tableSchema = null;
                 }
 
-                if (tbl == null)
+                if (tableSchema == null)
                 {
                     continue;
                 }
 
                 var xmlTable = xmlDoc.CreateElement("Table");
-                AddAttribute(xmlTable, "TableName", tbl.Name);
-                AddAttribute(xmlTable, "ClassName", GetClassName(tbl.Name));
+                AddAttribute(xmlTable, "TableName", tableSchema.Name);
+                AddAttribute(xmlTable, "ClassName", GetClassName(tableSchema.Name));
                 AddAttribute(xmlTable, "PrimaryKeyColumnName",
-                    tbl.PrimaryKey != null
-                        ? GetProperName(tbl.Name, tbl.PrimaryKey.ColumnName, "Field")
+                    tableSchema.PrimaryKey != null
+                        ? GetProperName(tableSchema.Name, tableSchema.PrimaryKey.ColumnName, "Field")
                         : string.Empty);
+
+                int count = -1;
+                try
+                {
+                    var command = new QueryCommand(tableSchema.CountSql);
+                    count = (int) DataService.Instance.ExecuteScalar(command);
+                } catch { /* Ignored */ }
+
+                AddAttribute(xmlTable, "RowCount", count.ToString());
 
                 var xmlColumns = xmlDoc.CreateElement("Columns");
                 xmlTable.AppendChild(xmlColumns);
-                for (var index = 0; index < tbl.Columns.Count; index++)
+                for (var index = 0; index < tableSchema.Columns.Count; index++)
                 {
-                    var col = tbl.Columns[index];
+                    var col = tableSchema.Columns[index];
                     var xmlColumn = xmlDoc.CreateElement("Column");
                     AddAttribute(xmlColumn, "ColumnName", col.ColumnName);
-                    AddAttribute(xmlColumn, "PropertyName", GetProperName(tbl.Name, col.ColumnName, "Field", true));
+                    AddAttribute(xmlColumn, "PropertyName", GetProperName(tableSchema.Name, col.ColumnName, "Field", true));
                     AddAttribute(xmlColumn, "CSharpVariableType", GetCSharpVariableType(col.DataType));
                     AddAttribute(xmlColumn, "Location", (index + 1).ToString());
                     AddAttribute(xmlColumn, "IsDotNetObject", GetIsDotNetObject(col.DataType).ToString());
@@ -512,15 +522,16 @@ namespace MetX.Standard.Pipelines
                     AddAttribute(xmlColumn, "DomainName", col.DomainName);
                     AddAttribute(xmlColumn, "Precision", col.Precision.ToString());
                     AddAttribute(xmlColumn, "Scale", col.Scale.ToString());
+                    AddAttribute(xmlColumn, "Description", col.Description);
                     xmlColumns.AppendChild(xmlColumn);
                 }
-                if (tbl.Keys.Count > 0)
+                if (tableSchema.Keys.Count > 0)
                 {
                     var xmlKeys = xmlDoc.CreateElement("Keys");
                     xmlTable.AppendChild(xmlKeys);
-                    for (var index = 0; index < tbl.Keys.Count; index++)
+                    for (var index = 0; index < tableSchema.Keys.Count; index++)
                     {
-                        var key = tbl.Keys[index];
+                        var key = tableSchema.Keys[index];
                         var xmlKey = xmlDoc.CreateElement("Key");
                         AddAttribute(xmlKey, "Name", key.Name);
                         AddAttribute(xmlKey, "IsPrimary", key.IsPrimary.ToString());
@@ -542,20 +553,20 @@ namespace MetX.Standard.Pipelines
                         xmlKeys.AppendChild(xmlKey);
                     }
                 }
-                if (tbl.Indexes.Count > 0)
+                if (tableSchema.Indexes.Count > 0)
                 {
                     var xmlIndexes = xmlDoc.CreateElement("Indexes");
                     xmlTable.AppendChild(xmlIndexes);
-                    for (var i = 0; i < tbl.Indexes.Count; i++)
+                    for (var i = 0; i < tableSchema.Indexes.Count; i++)
                     {
-                        var index = tbl.Indexes[i];
+                        var index = tableSchema.Indexes[i];
                         var xmlIndex = xmlDoc.CreateElement("Index");
                         AddAttribute(xmlIndex, "IndexName", index.Name);
                         AddAttribute(xmlIndex, "IsClustered", index.IsClustered.ToString());
                         AddAttribute(xmlIndex, "SingleColumnIndex", index.Columns.Count == 1
                             ? "True"
                             : "False");
-                        AddAttribute(xmlIndex, "PropertyName", GetProperName(tbl.Name, index.Name, "Index"));
+                        AddAttribute(xmlIndex, "PropertyName", GetProperName(tableSchema.Name, index.Name, "Index"));
                         AddAttribute(xmlIndex, "Location", i.ToString());
                         var xmlIndexColumns = xmlDoc.CreateElement("IndexColumns");
                         xmlIndex.AppendChild(xmlIndexColumns);
@@ -565,7 +576,7 @@ namespace MetX.Standard.Pipelines
                             var xmlIndexColumn = xmlDoc.CreateElement("IndexColumn");
                             AddAttribute(xmlIndexColumn, "IndexColumnName", indexColumn);
                             AddAttribute(xmlIndexColumn, "Location", columnIndex.ToString());
-                            AddAttribute(xmlIndexColumn, "PropertyName", GetProperName(tbl.Name, indexColumn, "Field"));
+                            AddAttribute(xmlIndexColumn, "PropertyName", GetProperName(tableSchema.Name, indexColumn, "Field"));
                             xmlIndexColumns.AppendChild(xmlIndexColumn);
                         }
                         xmlIndexes.AppendChild(xmlIndex);

@@ -65,7 +65,10 @@ namespace MetX.Standard.Pipelines
         public XmlDocument LoadXlgDoc()
         {
             var ret = new XmlDocument();
-            ret.Load(OutputXml);
+            if(File.Exists(OutputXml))
+            {
+                ret.Load(OutputXml);
+            }
             return ret;
         }
 

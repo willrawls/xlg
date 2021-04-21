@@ -85,6 +85,16 @@ namespace MetX.Standard.Library
             return string.IsNullOrEmpty(target);
         }
 
+        public static int AsInteger(this string target, int defaultValue = 0)
+        {
+            if (target.IsEmpty())
+                return defaultValue;
+
+            return int.TryParse(target, out var integerValue) 
+                ? integerValue 
+                : defaultValue;
+        }
+
         public static bool ThrowIfEmpty(this string target, string targetsName)
         {
             if (string.IsNullOrEmpty(target))
