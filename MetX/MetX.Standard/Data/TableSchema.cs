@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using MetX.Standard.Library;
 
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable UnassignedField.Global
@@ -61,7 +62,12 @@ namespace MetX.Standard.Data
             public TableColumn PrimaryKey => Columns?.GetPrimaryKey();
 
             /// <summary>The basic SELECT sql statement used for Select, Count, Exists and paging type queries</summary>
-            public string SelectSql => "SELECT " + FieldList + " FROM [" + Name + "] ";
+            public string FromClause => 
+                Schema.IsEmpty()
+                    ? " FROM [" + Name + "] "
+                    : " FROM [" + Schema + "].[" + Name + "] ";
+            public string SelectSql => "SELECT " + FieldList + FromClause;
+            public string CountSql => "SELECT COUNT(*) " + FromClause;
         }
 
         /// <summary>
@@ -72,6 +78,7 @@ namespace MetX.Standard.Data
         {
             public bool AutoIncrement;
             public string ColumnName;
+            public string Description;
             public DbType DataType;
             public string DomainName;
             public bool IsForeignKey;
