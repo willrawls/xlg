@@ -27,7 +27,7 @@ namespace MetX.Standard.Data
 
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
-        private static Dictionary<string, DataService> _mServices = new();
+        private static Dictionary<string, DataService> InMemoryDataServices = new();
         private static readonly Dictionary<string, IProvide> InMemoryProviders = new();
 
         public DataService(string providerName, string parameter1, string parameter2)
@@ -88,7 +88,11 @@ namespace MetX.Standard.Data
                     throw new ProviderException("Unknown gatherer: " + providerName);
             }
 
-            _mServices.Add(name, this);
+            if (InMemoryDataServices.ContainsKey(name))
+                InMemoryDataServices[name] = this;
+            else
+                InMemoryDataServices.Add(name, this);
+
             Instance ??= this;
             return this;
         }
@@ -100,8 +104,8 @@ namespace MetX.Standard.Data
         /// <returns></returns>
         public static DataService GetDataService(string connectionStringName)
         {
-            if (_mServices.ContainsKey(connectionStringName))
-                return _mServices[connectionStringName];
+            if (InMemoryDataServices.ContainsKey(connectionStringName))
+                return InMemoryDataServices[connectionStringName];
 
             if (ConnectionStrings == null)
                 ConnectionStrings = ConfigurationManager.ConnectionStrings;
@@ -128,8 +132,8 @@ namespace MetX.Standard.Data
         /// <returns></returns>
         public static DataService GetDataServiceManually(string name, string detail, string providerName)
         {
-            if (name.IsNotEmpty() && _mServices.ContainsKey(name))
-                return _mServices[name];
+            if (name.IsNotEmpty() && InMemoryDataServices.ContainsKey(name))
+                return InMemoryDataServices[name];
 
             if (name.IsEmpty())
                 return new DataService().WithSetup(providerName, name, detail);

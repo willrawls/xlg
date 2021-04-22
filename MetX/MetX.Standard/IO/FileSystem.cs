@@ -226,19 +226,20 @@ namespace MetX.Standard.IO
         /// </param>
         /// <returns>Both the regular and error output by the executable</returns>
         public static string GatherOutput(string filename, string arguments, string workingFolder = null,
-            int waitTime = 60)
+            int waitTime = 60, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
         {
             var p = new Process
             {
                 StartInfo =
                 {
+                    WorkingDirectory = Path.GetDirectoryName(filename),
                     FileName = filename,
                     Arguments = arguments,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = false,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    CreateNoWindow = true,
+                    WindowStyle = windowStyle,
+                    CreateNoWindow = windowStyle == ProcessWindowStyle.Hidden,
                 }
             };
 
@@ -253,7 +254,6 @@ namespace MetX.Standard.IO
             waitTime *= 1000;
 
             p.Start();
-
             var output = p.StandardOutput.ReadToEnd();
             if (!p.WaitForExit(waitTime))
             {
