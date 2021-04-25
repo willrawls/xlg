@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
@@ -270,5 +271,29 @@ namespace MetX.Standard.IO
             return ret;
         }
 
+        public static string FindExecutableAlongPath(string toFind)
+        {
+            var pathToExecutable = toFind;
+            if (!File.Exists(pathToExecutable)
+                && !pathToExecutable.Contains("\\"))
+            {
+                var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
+                if(fullPath.IsNotEmpty())
+                {
+                    var paths = fullPath.Split(';').Distinct().ToArray();
+                    foreach (var path in paths)
+                    {
+                        var potentialLocation = Path.Combine(path, pathToExecutable);
+                        if (File.Exists(potentialLocation))
+                        {
+                            pathToExecutable = potentialLocation;
+                        }
+                    }
+                }
+                
+            }
+
+            return pathToExecutable;
+        }
     }
 }
