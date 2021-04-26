@@ -1,4 +1,6 @@
-﻿namespace MetX.Standard.Metadata
+﻿using MetX.Standard.Library;
+
+namespace MetX.Standard.Metadata
 {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
@@ -7,7 +9,8 @@
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
-    public partial class xlgDoc {
+    public partial class xlgDoc : SerializesToXml<xlgDoc>
+    {
         
         private Tables[] tablesField;
         
