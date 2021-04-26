@@ -17,12 +17,15 @@
   <ItemGroup>
     <Compile Remove="Data\Obsolete\**" />
     <Compile Remove="Library\Obsolete\**" />
+    <Compile Remove="Metadata\**" />
     <Compile Remove="Pipelines\Obsolete\**" />
     <EmbeddedResource Remove="Data\Obsolete\**" />
     <EmbeddedResource Remove="Library\Obsolete\**" />
+    <EmbeddedResource Remove="Metadata\**" />
     <EmbeddedResource Remove="Pipelines\Obsolete\**" />
     <None Remove="Data\Obsolete\**" />
     <None Remove="Library\Obsolete\**" />
+    <None Remove="Metadata\**" />
     <None Remove="Pipelines\Obsolete\**" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +53,26 @@
     <Compile Remove="Web\xlgVirtualFile.cs" />
     <Compile Remove="Web\XslHandler.cs" />
     <Compile Remove="Web\XslPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Metadata\Column.cs" />
+    <Compile Include="Metadata\Columns.cs" />
+    <Compile Include="Metadata\Exclude.cs" />
+    <Compile Include="Metadata\Include.cs" />
+    <Compile Include="Metadata\Index.cs" />
+    <Compile Include="Metadata\IndexColumn.cs" />
+    <Compile Include="Metadata\Key.cs" />
+    <Compile Include="Metadata\NewDataSet.cs" />
+    <Compile Include="Metadata\Parameter.cs" />
+    <Compile Include="Metadata\StoredProcedure.cs" />
+    <Compile Include="Metadata\StoredProcedures.cs" />
+    <Compile Include="Metadata\Table.cs" />
+    <Compile Include="Metadata\Tables.cs" />
+    <Compile Include="Metadata\xlgDocManual.cs" />
+    <Compile Include="Metadata\xlgDocRender.cs" />
+    <Compile Include="Metadata\xlgDocRenderXsls.cs" />
+    <Compile Include="Metadata\XlgDocumentDataSet.cs" />
+    <Compile Include="Metadata\XslEndpoints.cs" />
   </ItemGroup>
 
   <ItemGroup>

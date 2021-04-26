@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MetX.Five\MetX.Five.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
@@ -60,10 +61,6 @@
     <None Update="Standard\Generation\CSharp\Project\Pieces\Emit\Missing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Standard\Metadata\" />
   </ItemGroup>
 
 </Project>
