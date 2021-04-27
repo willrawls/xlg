@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MetX.Five.Metadata;
 using MetX.Standard.Library;
 
 namespace MetX.Standard.Metadata
@@ -23,9 +22,12 @@ namespace MetX.Standard.Metadata
         [XmlAttribute] public string VDirName;
         [XmlAttribute] public string XlgInstanceID;
 
-        public List<StoredProcedures> StoredProcedures;
-        public List<XslEndpoints> XslEndpoints;
-        public List<xlgDocRender> Render;
-        public List<Tables> Tables;
+        [XmlArray(ElementName = "Tables")]
+        [XmlArrayItem(typeof(Table), ElementName = "Table")]
+        public List<Table> Tables;
+
+        [XmlArray(ElementName = "StoredProcedures")]
+        [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
+        public List<StoredProcedure> StoredProcedures;
     }
 }

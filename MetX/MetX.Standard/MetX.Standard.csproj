@@ -56,18 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Metadata\Column.cs" />
-    <Compile Include="Metadata\Columns.cs" />
-    <Compile Include="Metadata\Exclude.cs" />
-    <Compile Include="Metadata\Include.cs" />
     <Compile Include="Metadata\Index.cs" />
     <Compile Include="Metadata\IndexColumn.cs" />
     <Compile Include="Metadata\Key.cs" />
-    <Compile Include="Metadata\NewDataSet.cs" />
     <Compile Include="Metadata\Parameter.cs" />
     <Compile Include="Metadata\StoredProcedure.cs" />
-    <Compile Include="Metadata\StoredProcedures.cs" />
     <Compile Include="Metadata\Table.cs" />
-    <Compile Include="Metadata\Tables.cs" />
     <Compile Include="Metadata\xlgDocManual.cs" />
     <Compile Include="Metadata\xlgDocRender.cs" />
     <Compile Include="Metadata\xlgDocRenderXsls.cs" />

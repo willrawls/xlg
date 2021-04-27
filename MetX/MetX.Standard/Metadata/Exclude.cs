@@ -1,11 +1,11 @@
-using System;
+/*using System;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class Exclude
     {
         [XmlAttribute] public string Name;
     }
-}
+}*/

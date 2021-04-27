@@ -1,8 +1,8 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class xlgDocRenderXsls
@@ -13,4 +13,4 @@ namespace MetX.Five.Metadata
         public List<Include> Include;
         public List<Exclude> Exclude;
     }
-}
+}*/

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Xml.Serialization;
 using MetX.Standard.Library;
 
 // ReSharper disable NotAccessedField.Global
@@ -309,6 +310,8 @@ namespace MetX.Standard.Data
         [Serializable]
         public class TableKey
         {
+            [XmlArray(ElementName = "Columns")]
+            [XmlArrayItem(typeof(TableKeyColumn), ElementName = "Column")]
             public List<TableKeyColumn> Columns = new();
             public bool IsForeign;
             public bool IsPrimary;

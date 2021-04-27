@@ -1,9 +1,9 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class xlgDocRender
@@ -14,4 +14,4 @@ namespace MetX.Five.Metadata
         [XmlElement("Tables")] public List<Tables> Tables;
         [XmlElement("StoredProcedures")] public List<StoredProcedures> StoredProcedures;
     }
-}
+}*/

@@ -1,14 +1,14 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class Columns
     {
-        [XmlElement("Column", Form = XmlSchemaForm.Unqualified)]
+        [XmlArray(ElementName = "Columns")]
         public List<Column> Column;
     }
-}
+}*/

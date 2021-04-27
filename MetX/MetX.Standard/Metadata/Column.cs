@@ -1,47 +1,30 @@
 using System;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
+    [Serializable]
+    public class KeyColumn
+    {
+        [XmlAttribute] public string Column;
+        [XmlAttribute] public string Location;
+    }
+
     [Serializable]
     public class Column
     {
         [XmlAttribute] public string AuditField;
-
-
         [XmlAttribute] public string AutoIncrement;
-
-
         [XmlAttribute] public string ColumnName;
-
-
         [XmlAttribute] public string CovertToPart;
-
-
         [XmlAttribute] public string CSharpVariableType;
-
-
         [XmlAttribute] public string DbType;
-
-
         [XmlAttribute] public string Description;
-
-
         [XmlAttribute] public string DomainName;
-
-
         [XmlAttribute] public string IsDotNetObject;
-
-
         [XmlAttribute] public string IsForeignKey;
-
-
         [XmlAttribute] public string IsIdentity;
-
-
         [XmlAttribute] public string IsIndexed;
-
-
         [XmlAttribute] public string IsNullable;
 
 

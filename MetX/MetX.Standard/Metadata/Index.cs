@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class Index
@@ -14,7 +13,8 @@ namespace MetX.Five.Metadata
         [XmlAttribute] public string PropertyName;
         [XmlAttribute] public string SingleColumnIndex;
 
-        [XmlArrayItem("IndexColumn")]
+        [XmlArray(ElementName = "IndexColumns")]
+        [XmlArrayItem("IndexColumn", typeof(IndexColumn))]
         public List<IndexColumn> IndexColumns;
     }
 }

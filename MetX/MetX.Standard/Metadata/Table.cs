@@ -1,31 +1,27 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class Table
     {
         [XmlAttribute] public string ClassName;
+        [XmlAttribute] public string PrimaryKeyColumnName;
+        [XmlAttribute] public string RowCount;
+        [XmlAttribute] public string TableName;
 
-        [XmlArrayItem("Column", typeof(Column))]
+        [XmlArray(ElementName = "Columns")]
+        [XmlArrayItem(typeof(Column), ElementName = "Column")]
         public List<Column> Columns;
         
-        [XmlArrayItem("Index", typeof(Index))]
+        [XmlArray(ElementName = "Indexes")]
+        [XmlArrayItem(typeof(Index), ElementName = "Index")]
         public List<Index> Indexes;
 
+        [XmlArray(ElementName = "Keys")]
         [XmlArrayItem("Key", typeof(Key))]
         public List<Key> Keys;
-
-
-        [XmlAttribute] public string PrimaryKeyColumnName;
-
-
-        [XmlAttribute] public string RowCount;
-
-
-        [XmlAttribute] public string TableName;
     }
 }

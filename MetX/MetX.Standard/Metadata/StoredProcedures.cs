@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class StoredProcedures
     {
         [XmlAttribute] public string ClassName;
 
-
-        [XmlElement("StoredProcedure",
-            Form = XmlSchemaForm.Unqualified)]
+        [XmlArray("StoredProcedures")]
+        [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedure;
-
-        [XmlElement("Include")] public List<Include> Include;
-        [XmlElement("Exclude")] public List<Exclude> Exclude;
     }
 }

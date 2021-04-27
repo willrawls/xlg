@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MetX.Five.Metadata
+namespace MetX.Standard.Metadata
 {
     [Serializable]
     public class StoredProcedure
     {
+        [XmlAttribute] public string StoredProcedureName;
         [XmlAttribute] public string Location;
-
-
         [XmlAttribute] public string MethodName;
 
-
-        [XmlArray(Form = XmlSchemaForm.Unqualified)]
-        [XmlArrayItem("Parameter",
-            typeof(Parameter),
-            Form = XmlSchemaForm.Unqualified, IsNullable = false)]
+        [XmlArray(ElementName = "Parameters")]
+        [XmlArrayItem("Parameter", typeof(Parameter))]
         public List<Parameter> Parameters;
-
-
-        [XmlAttribute] public string StoredProcedureName;
     }
 }
