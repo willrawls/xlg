@@ -48,7 +48,7 @@ namespace XLG.Pipeliner
                 try
                 {
                     var gen = new CodeGenerator(gloveFilename, xslFilename, configFilename, null);
-                    var generatedCode = gen.GenerateCode();
+                    var generatedCode = gen.GenerateCode("TODO figure out connectionString at this point in code");
                     if (string.IsNullOrEmpty(generatedCode)) return;
                     FileSystem.StringToFile(outputFilename, generatedCode);
                     Console.Write("--- SUCCESS: " + outputFilename);

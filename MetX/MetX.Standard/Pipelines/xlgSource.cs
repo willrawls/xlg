@@ -169,7 +169,7 @@ namespace MetX.Standard.Pipelines
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
 
-                                var generatedCode = gen.GenerateCode();
+                                var generatedCode = gen.GenerateCode(ConnectionString);
                                 if (generatedCode == null)
                                     return -1;
                                 File.WriteAllText(OutputFilename, generatedCode);
@@ -204,7 +204,7 @@ namespace MetX.Standard.Pipelines
                             gen.OutputFolder = IO.FileSystem.InsureFolderExists(host, OutputFilename, true);
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
-                            File.WriteAllText(OutputFilename, gen.GenerateCode());
+                            File.WriteAllText(OutputFilename, gen.GenerateCode(ConnectionString));
                             break;
 
                         case ProviderTypeEnum.Gather:

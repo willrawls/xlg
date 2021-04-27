@@ -109,72 +109,74 @@ namespace MetX.Standard.Pipelines
         /// <summary>
         /// Returns an XmlDocument containing a xlgData document with the child elements: Tables, StoredProcedures, and Xsls relative to the list indicated by the supplied include/skip lists.
         /// </summary>
-        public XmlDocument DataXml
+        public XmlDocument GetDataXml(string connectionString)
         {
-            get
+            ParseDataXml(connectionString);
+            var xmlDoc = new XmlDocument();
+            var root = xmlDoc.CreateElement("xlgDoc");
+
+            if (_mXlgDataXmlDoc.DocumentElement == null)
             {
-                ParseDataXml();
-                var xmlDoc = new XmlDocument();
-                var root = xmlDoc.CreateElement("xlgDoc");
-
-                if (_mXlgDataXmlDoc.DocumentElement == null)
-                {
-                    return null;
-                }
-
-                foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
-                {
-                    root.SetAttribute(currAttribute.Name, currAttribute.Value);
-                }
-
-                root.SetAttribute("Namespace", Namespace);
-                root.SetAttribute("VDirName", VDirName);
-                if (DataService.Instance != null)
-                {
-                    root.SetAttribute("DatabaseProvider", DataService.Instance.Provider.Name);
-                    root.SetAttribute("ConnectionStringName", DataService.Instance.Settings.Name);
-                    root.SetAttribute("ProviderName", DataService.Instance.Settings.ProviderName);
-                    root.SetAttribute("MetXObjectName", DataService.Instance.MetXObjectName);
-                    root.SetAttribute("MetXProviderAssemblyString", DataService.Instance.MetXProviderAssemblyString);
-                    root.SetAttribute("ProviderAssemblyString", DataService.Instance.ProviderAssemblyString);
-                }
-                root.SetAttribute("OutputFolder", OutputFolder);
-                root.SetAttribute("Now", DateTime.Now.ToString("s"));
-                root.SetAttribute("XlgInstanceID", XlgInstanceId.ToString().ToUpper());
-
-                root.SetAttribute("MetXAssemblyString", MetXAssemblyString);
-
-                xmlDoc.AppendChild(root);
-                foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
-                {
-                    root.SetAttribute(currAttribute.Name, currAttribute.Value);
-                }
-                if (_mTablesToRender != null)
-                {
-                    if (TablesXml(xmlDoc) == null) return null;
-                    if (ViewsXml(xmlDoc) == null) return null;
-                }
-                if (_mStoredProceduresToRender != null)
-                {
-                    StoredProceduresXml(xmlDoc);
-                }
-                if (_mXslsToRender != null)
-                {
-                    XslXml(xmlDoc);
-                }
-                foreach (XmlElement currChild in _mXlgDataXmlDoc.DocumentElement.ChildNodes)
-                {
-                    root.AppendChild(xmlDoc.ImportNode(currChild, true));
-                }
-
-                return xmlDoc;
+                return null;
             }
+
+            foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
+            {
+                root.SetAttribute(currAttribute.Name, currAttribute.Value);
+            }
+
+            root.SetAttribute("Namespace", Namespace);
+            root.SetAttribute("VDirName", VDirName);
+            if (DataService.Instance != null)
+            {
+                root.SetAttribute("DatabaseProvider", DataService.Instance.Provider.Name);
+                root.SetAttribute("ConnectionStringName", DataService.Instance.Settings.Name);
+                root.SetAttribute("ProviderName", DataService.Instance.Settings.ProviderName);
+                root.SetAttribute("MetXObjectName", DataService.Instance.MetXObjectName);
+                root.SetAttribute("MetXProviderAssemblyString", DataService.Instance.MetXProviderAssemblyString);
+                root.SetAttribute("ProviderAssemblyString", DataService.Instance.ProviderAssemblyString);
+            }
+
+            root.SetAttribute("OutputFolder", OutputFolder);
+            root.SetAttribute("Now", DateTime.Now.ToString("s"));
+            root.SetAttribute("XlgInstanceID", XlgInstanceId.ToString().ToUpper());
+
+            root.SetAttribute("MetXAssemblyString", MetXAssemblyString);
+
+            xmlDoc.AppendChild(root);
+            foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
+            {
+                root.SetAttribute(currAttribute.Name, currAttribute.Value);
+            }
+
+            if (_mTablesToRender != null)
+            {
+                if (TablesXml(xmlDoc) == null) return null;
+                if (ViewsXml(xmlDoc) == null) return null;
+            }
+
+            if (_mStoredProceduresToRender != null)
+            {
+                StoredProceduresXml(xmlDoc);
+            }
+
+            if (_mXslsToRender != null)
+            {
+                XslXml(xmlDoc);
+            }
+
+            foreach (XmlElement currChild in _mXlgDataXmlDoc.DocumentElement.ChildNodes)
+            {
+                root.AppendChild(xmlDoc.ImportNode(currChild, true));
+            }
+
+            return xmlDoc;
         }
 
         public string MetXAssemblyString => _mFullName;
 
         /// <summary>Causes generation and returns the code/contents generated</summary>
-        public string GenerateCode()
+        public string GenerateCode(string connectionString)
         {
             var xlgXsl = GetVirtualFile(XlgFilename);
             if (xlgXsl == null || xlgXsl.Length < 5)
@@ -182,7 +184,7 @@ namespace MetX.Standard.Pipelines
                 throw new Exception("xlg.xsl missing (1).");
             }
             XlgInstanceId = Guid.NewGuid();
-            CodeXmlDocument = DataXml;
+            CodeXmlDocument = GetDataXml(connectionString);
             if (CodeXmlDocument == null) return null;
             return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
         }
@@ -252,7 +254,7 @@ namespace MetX.Standard.Pipelines
             return path.Replace("/xsl/", "/").ToLower();
         }
 
-        private void ParseDataXml()
+        private void ParseDataXml(string connectionString)
         {
             _mXlgDataXmlDoc = new XmlDocument();
             if (XlgDataXml == null || XlgDataXml.StartsWith("*") || XlgDataXml.Trim() == "")
@@ -269,16 +271,12 @@ namespace MetX.Standard.Pipelines
             _mXslsToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Xsls");
 
             var connectionStringName = Dav(_mXlgDataXmlDoc, "ConnectionStringName", "Default");
-            //if (xlgDataXmlDoc.DocumentElement.Attributes["ConnectionStringName"] == null)
-            //    ConnectionStringName = "Default";
-            //else
-            //    ConnectionStringName = xlgDataXmlDoc.DocumentElement.Attributes["ConnectionStringName"].Value;
+            DataService.ConnectionStrings = new ConnectionStringSettingsCollection
+            {
+                new ConnectionStringSettings(connectionStringName, connectionString)
+            };
+
             DataService.Instance = DataService.GetDataService(connectionStringName);
-
-            DataService.ConnectionStrings = new ConnectionStringSettingsCollection();
-
-
-
             if (DataService.Instance == null)
             {
                 throw new Exception("No valid connection name (from xlgd): " + connectionStringName);
@@ -437,13 +435,14 @@ namespace MetX.Standard.Pipelines
         public XmlDocument ViewsXml(XmlDocument xmlDoc)
         {
             var root = xmlDoc.DocumentElement;
-            var xmlViews = xmlDoc.CreateElement("Tables");
             if (root == null)
             {
                 return null;
             }
 
+            var xmlViews = xmlDoc.CreateElement("Views");
             root.AppendChild(xmlViews);
+
             var views = DataService.Instance.GetViews();
             foreach (var view in views)
             {
@@ -451,6 +450,7 @@ namespace MetX.Standard.Pipelines
                 AddAttribute(xmlView, "ViewName", view.Name);
                 AddAttribute(xmlView, "SchemaName", view.Schema);
                 AddAttribute(xmlView, "TSQL", view.TSQL);
+                xmlViews.AppendChild(xmlView);
             }
 
             return xmlDoc;
