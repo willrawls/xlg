@@ -152,6 +152,7 @@ namespace MetX.Standard.Pipelines
                 if (_mTablesToRender != null)
                 {
                     if (TablesXml(xmlDoc) == null) return null;
+                    if (ViewsXml(xmlDoc) == null) return null;
                 }
                 if (_mStoredProceduresToRender != null)
                 {
@@ -425,6 +426,28 @@ namespace MetX.Standard.Pipelines
                     xmlStoredProcedures.AppendChild(xmlStoredProcedure);
                 }
             }
+            return xmlDoc;
+        }
+
+        public XmlDocument ViewsXml(XmlDocument xmlDoc)
+        {
+            var root = xmlDoc.DocumentElement;
+            var xmlViews = xmlDoc.CreateElement("Tables");
+            if (root == null)
+            {
+                return null;
+            }
+
+            root.AppendChild(xmlViews);
+            var views = DataService.Instance.GetViews();
+            foreach (var view in views)
+            {
+                var xmlView = xmlDoc.CreateElement("View");
+                AddAttribute(xmlView, "ViewName", view.Name);
+                AddAttribute(xmlView, "SchemaName", view.Schema);
+                AddAttribute(xmlView, "TSQL", view.TSQL);
+            }
+
             return xmlDoc;
         }
 

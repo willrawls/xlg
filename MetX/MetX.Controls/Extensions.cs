@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -6,67 +7,15 @@ namespace MetX.Controls
 {
     public static class Extensions
     {
-        /*
-        public static IEnumerable<ToolStripItem> BasicFileActions(this MenuActionType actionType)
+        public static TEnumOut As<TEnumOut>(this Enum target) where TEnumOut : struct
         {
-            return BuildActionMenuItems(actionType,
-                new[] { "Add new file", "Add existing file", "Duplicate", "Remove" });
-        }
-
-        public static IEnumerable<ToolStripItem> BasicItemActions(this MenuActionType actionType)
-        {
-            return BuildActionMenuItems(actionType, new[] { "New item", "Add", "Copy", "Remove" });
-        }
-
-        public static IEnumerable<ToolStripItem> BuildActionMenuItems(this MenuActionType actionType, string[] names)
-        {
-            return names.Select(item => new TechniqueEditorToolStripMenuItem(actionType, item));
-        }
-
-        public static ContextMenuStrip BuildContextMenu(this MenuActionType actionType, string name)
-        {
-            var items = new List<ToolStripItem>();
-            switch (actionType)
+            if (Enum.TryParse(typeof(TEnumOut), target.ToString(), true, out object? translated))
             {
-                case MenuActionType.TechniqueFile:
-                    items.AddRange(BasicFileActions(actionType));
-                    break;
-
-                case MenuActionType.QuickScriptFiles:
-                case MenuActionType.QuickScriptFile:
-                    items.AddRange(BasicFileActions(actionType));
-                    break;
-
-                case MenuActionType.PipelineFiles:
-                case MenuActionType.PipelineFile:
-                    items.AddRange(BasicFileActions(actionType));
-                    break;
-
-                case MenuActionType.Connections:
-                case MenuActionType.Connection:
-                    items.AddRange(BasicItemActions(actionType));
-                    break;
-
-                case MenuActionType.Directorys:
-                case MenuActionType.Directory:
-                    items.AddRange(BasicItemActions(actionType));
-                    break;
-
-                case MenuActionType.XslTemplates:
-                case MenuActionType.XslTemplate:
-                    items.AddRange(BasicFileActions(actionType));
-                    break;
-
-                case MenuActionType.Providers:
-                case MenuActionType.Provider:
-                    items.AddRange(BasicItemActions(actionType));
-                    items.AddRange(ProviderActions(actionType));
-                    break;
+                return (TEnumOut?) translated ?? default(TEnumOut);
             }
-            var ret = BuildContextMenu(name, items);
-            return ret;
+
+            return default(TEnumOut);
         }
-        */
 
         public static ContextMenuStrip BuildContextMenu(string name, List<ToolStripItem> items = null)
         {

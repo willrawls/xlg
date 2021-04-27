@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using MetX.Standard.Library;
+using MetX.Standard.Metadata;
 
 //using Microsoft.VisualBasic;
 
@@ -243,6 +245,27 @@ namespace MetX.Standard.Data.Factory
             var ret = sList.Split('|');
             Array.Sort(ret);
             return ret;
+        }
+
+        /// <summary>C#CD: </summary>
+        /// <returns>C#CD: </returns>
+        public override View[] GetViews()
+        {
+            var command = new QueryCommand(ViewsSql);
+            var views = new List<View>();
+            using var reader = GetReader(command);
+            while (reader.Read())
+            {
+                // schema_name, view_name, definition
+                views.Add(new View
+                {
+                    Schema = reader["schema_name"].AsString(),
+                    Name = reader["view_name"].AsString(),
+                    TSQL = reader["definition"].AsString()
+                });
+            }
+            reader.Close();
+            return views.ToArray();
         }
 
         /// <summary>C#CD: </summary>
@@ -656,20 +679,17 @@ select
     WHERE     (info.TABLE_NAME = @tblName)
 ";
 
-        /* old without description
-        private const string TableColumnSql = @"
-SELECT TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS TableName, COLUMN_NAME AS ColumnName,
- ORDINAL_POSITION AS OrdinalPosition, COLUMN_DEFAULT AS DefaultSetting, IS_NULLABLE AS IsNullable, DATA_TYPE AS DataType, DOMAIN_NAME As DomainName,
- CHARACTER_MAXIMUM_LENGTH AS MaxLength, DATETIME_PRECISION AS DatePrecision,COLUMNPROPERTY(object_id(TABLE_NAME), COLUMN_NAME, 'IsIdentity') as IsIdentity,
- NUMERIC_PRECISION As [Precision], NUMERIC_SCALE As Scale
- FROM         INFORMATION_SCHEMA.COLUMNS
- WHERE     (TABLE_NAME = @tblName) ";
- */
-
         private const string TableSql = "SELECT     TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS Name, TABLE_TYPE " +
                                          "FROM         INFORMATION_SCHEMA.TABLES " +
                                          "WHERE     (TABLE_TYPE = 'BASE TABLE') AND (TABLE_NAME <> N'sysdiagrams') " +
                                          "ORDER BY TABLE_NAME";
+
+        private const string ViewsSql = 
+@"select schema_name(v.schema_id) as schema_name, v.name as view_name, m.definition
+from sys.views v 
+    join sys.sql_modules m 
+		on m.object_id = v.object_id
+ order by schema_name, view_name; ";
 
         #endregion Schema Bits
     }

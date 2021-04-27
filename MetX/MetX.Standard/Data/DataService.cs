@@ -7,6 +7,7 @@ using System.Reflection;
 using MetX.Standard.Data.Factory;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
+using MetX.Standard.Metadata;
 
 namespace MetX.Standard.Data
 {
@@ -219,6 +220,12 @@ namespace MetX.Standard.Data
         public string[] GetTables()
         {
             return Provider.GetTableList();
+        }
+        
+        /// <returns>C#CD: Returns a sorted list of views and their TSQL(s)</returns>
+        public View[] GetViews()
+        {
+            return Provider.GetViews();
         }
         
         /// <returns>C#CD: </returns>

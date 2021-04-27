@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using MetX.Standard.Library;
+using MetX.Standard.Metadata;
 
 namespace MetX.Standard.Data
 {
@@ -54,8 +55,8 @@ namespace MetX.Standard.Data
         public abstract TableSchema.Table GetTableSchema(string tableName);
 
         public abstract string[] GetSpList();
-
         public abstract string[] GetTableList();
+        public abstract View[] GetViews();
 
         public abstract IDataReader GetSpParams(string spName);
 

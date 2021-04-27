@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using MetX.Standard.Pipelines;
 
-namespace XLG.Pipeliner
+namespace MetX.Controls
 {
     public class WinFormMessageBoxHost<TForm> : IMessageBox where TForm : Form
     {

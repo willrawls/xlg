@@ -26,8 +26,21 @@ namespace MetX.Standard.Metadata
         [XmlArrayItem(typeof(Table), ElementName = "Table")]
         public List<Table> Tables;
 
+        [XmlArray(ElementName = "Views")]
+        [XmlArrayItem(typeof(View), ElementName = "View")]
+        public List<View> Views;
+
         [XmlArray(ElementName = "StoredProcedures")]
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
+
+    }
+
+    [Serializable]
+    public class View
+    {
+        public string Schema { get; set; }
+        public string Name { get; set; }
+        public string TSQL { get; set; }
     }
 }

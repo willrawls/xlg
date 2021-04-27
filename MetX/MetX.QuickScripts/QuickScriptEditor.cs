@@ -22,6 +22,7 @@ namespace XLG.QuickScripts
         public bool DestinationParamAlreadyFocused;
         public bool InputParamAlreadyFocused;
         public bool Updating;
+        public IGenerationHost Host { get; set; }
 
         public QuickScriptEditor(string filePath)
         {
@@ -32,6 +33,12 @@ namespace XLG.QuickScripts
 
             DestinationParam.GotFocus += DestinationParam_GotFocus;
             DestinationParam.LostFocus += DestinationParam_LostFocus;
+
+            Host = new GenerationHost
+            {
+                MessageBox = new WinFormMessageBoxHost<QuickScriptEditor>(this, Host)
+            };
+
 
             LoadQuickScriptsFile(filePath);
         }
