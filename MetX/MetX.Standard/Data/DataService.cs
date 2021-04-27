@@ -59,7 +59,9 @@ namespace MetX.Standard.Data
                     MetXObjectName = $"{MetXObjectName.Replace(".", "")}Provider";
 
                 var metXProviderAssembly = typeof(IProvide).Assembly;
-                var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
+
+                var metXProviderType = typeof(Factory.SystemDataSqlClientProvider);
+                //var metXProviderType = metXProviderAssembly.GetType(MetXObjectName, true);
                 
                 metXProvider = Activator
                     .CreateInstance(metXProviderType ?? throw new InvalidOperationException(), true) 
@@ -109,7 +111,10 @@ namespace MetX.Standard.Data
                 return InMemoryDataServices[connectionStringName];
 
             if (ConnectionStrings == null)
-                ConnectionStrings = ConfigurationManager.ConnectionStrings;
+            {
+                throw new Exception("Data Service: ConnectionStrings collection missing");
+                //ConnectionStrings = ConfigurationManager.ConnectionStrings;
+            }
 
             var ret = new DataService
             {

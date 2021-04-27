@@ -274,6 +274,11 @@ namespace MetX.Standard.Pipelines
             //else
             //    ConnectionStringName = xlgDataXmlDoc.DocumentElement.Attributes["ConnectionStringName"].Value;
             DataService.Instance = DataService.GetDataService(connectionStringName);
+
+            DataService.ConnectionStrings = new ConnectionStringSettingsCollection();
+
+
+
             if (DataService.Instance == null)
             {
                 throw new Exception("No valid connection name (from xlgd): " + connectionStringName);
