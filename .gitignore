@@ -243,3 +243,4 @@ MetX/MetX/Library/Obsolete/2016-03-31/BaseLineProcessor.cs
 *.manifest
 *.v2
 MetX/MetX/MetX.xml
+MetX/MetX.Controls/LocalDB.lnk
