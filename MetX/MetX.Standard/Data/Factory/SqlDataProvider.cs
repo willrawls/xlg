@@ -166,17 +166,31 @@ namespace MetX.Standard.Data.Factory
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
-        public override string[] GetSpList()
+        public override StoredProcedure[] GetStoredProcedureList()
         {
-            var cmd = new QueryCommand(SpSql);
-            var list = new List<string>();
-            using var rdr = GetReader(cmd);
-            while (rdr.Read())
+            var cmd = new QueryCommand(StoredProceduresSql);
+            var list = new List<StoredProcedure>();
+            using var reader = GetReader(cmd);
+            while (reader.Read())
             {
-                list.Add(rdr[0].AsString());
+                // ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_DEFINITION, ROUTINE_BODY
+                var schema = reader["ROUTINE_SCHEMA"].AsString();
+                var name = reader["ROUTINE_NAME"].AsString();
+                var definition = reader["ROUTINE_DEFINITION"].AsString();
+                var body = reader["ROUTINE_BODY"].AsString();
+
+                var storedProcedure = new StoredProcedure
+                {
+                    StoredProcedureName = name,
+                    SchemaName = schema,
+                    Definition = definition,
+                    Body = body,
+                };
+
+                list.Add(storedProcedure);
             }
-            rdr.Close();
-            rdr.Dispose();
+            reader.Close();
+            reader.Dispose();
             return list.ToArray();
         }
 
@@ -659,8 +673,13 @@ namespace MetX.Standard.Data.Factory
                                             "FROM         INFORMATION_SCHEMA.PARAMETERS " +
                                             "WHERE SPECIFIC_NAME=@spName";
 
-        private const string SpSql = " SELECT name FROM dbo.sysobjects WHERE (type = 'P')";
-        // private const string SP_SQL = " SELECT SPECIFIC_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE='PROCEDURE'";
+        //private const string StoredProceduresSql = " SELECT name FROM dbo.sysobjects WHERE (type = 'P')";
+        private const string StoredProceduresSql = @"
+SELECT ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_DEFINITION, ROUTINE_BODY
+  FROM INFORMATION_SCHEMA.ROUTINES
+ WHERE ROUTINE_TYPE = 'PROCEDURE' 
+   AND LEFT(ROUTINE_NAME, 3) NOT IN ('sp_', 'xp_', 'ms_')
+";
 
         private const string TableColumnSqlWithDescription = @"
 select

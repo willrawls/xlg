@@ -234,9 +234,9 @@ namespace MetX.Standard.Data
         }
         
         /// <returns>C#CD: </returns>
-        public string[] GetSpList()
+        public StoredProcedure[] GetStoredProcedureList()
         {
-            return Provider.GetSpList();
+            return Provider.GetStoredProcedureList();
         }
         
         /// <param name="fkColumn">C#CD: </param>

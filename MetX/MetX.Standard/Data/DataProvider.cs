@@ -54,7 +54,7 @@ namespace MetX.Standard.Data
 
         public abstract TableSchema.Table GetTableSchema(string tableName);
 
-        public abstract string[] GetSpList();
+        public abstract StoredProcedure[] GetStoredProcedureList();
         public abstract string[] GetTableList();
         public abstract View[] GetViews();
 

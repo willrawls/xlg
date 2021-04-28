@@ -12,6 +12,7 @@ using System.Xml.Xsl;
 using MetX.Standard.Data;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
+using MetX.Standard.Metadata;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
 
@@ -352,7 +353,7 @@ namespace MetX.Standard.Pipelines
         private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
         {
             //get the SP list from the DB
-            var sPs = DataService.Instance.GetSpList();
+            var storedProcedureList = DataService.Instance.GetStoredProcedureList();
             var root = xmlDoc.DocumentElement;
 
             var xmlStoredProcedures = xmlDoc.CreateElement("StoredProcedures");
@@ -361,18 +362,22 @@ namespace MetX.Standard.Pipelines
             root.AppendChild(xmlStoredProcedures);
 
             var sprocIndex = 1;
-            foreach (var spName in sPs)
+            foreach (var storedProcedure in storedProcedureList)
             {
                 // Make sure there is a stored proc to process
                 //  (is blank when there are no stored procedures in the database)
-                if (spName.Length > 0 && !spName.StartsWith("dt_") && IsIncluded(_mStoredProceduresToRender, spName))
+                if (storedProcedure.StoredProcedureName.Length > 0 && !storedProcedure.StoredProcedureName.StartsWith("dt_") && IsIncluded(_mStoredProceduresToRender, storedProcedure.StoredProcedureName))
                 {
                     var xmlStoredProcedure = xmlDoc.CreateElement("StoredProcedure");
-                    AddAttribute(xmlStoredProcedure, "StoredProcedureName", spName);
-                    AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, spName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
+                    AddAttribute(xmlStoredProcedure, "StoredProcedureName", storedProcedure.StoredProcedureName);
                     AddAttribute(xmlStoredProcedure, "Location", (sprocIndex++).ToString());
+                    AddAttribute(xmlStoredProcedure, "MethodName", GetProperName(string.Empty, storedProcedure.StoredProcedureName, string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty));
+                    AddAttribute(xmlStoredProcedure, "SchemaName", storedProcedure.SchemaName);
+                    AddAttribute(xmlStoredProcedure, "Body", storedProcedure.Body);
+                    AddAttribute(xmlStoredProcedure, "Definition", storedProcedure.Definition);
+
                     //grab the parameters
-                    var paramReader = DataService.Instance.GetSpParams(spName);
+                    var paramReader = DataService.Instance.GetSpParams(storedProcedure.StoredProcedureName);
 
                     var xmlParameters = xmlDoc.CreateElement("Parameters");
                     xmlStoredProcedure.AppendChild(xmlParameters);

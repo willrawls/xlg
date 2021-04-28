@@ -15,5 +15,9 @@ namespace MetX.Standard.Metadata
         [XmlArray(ElementName = "Parameters")]
         [XmlArrayItem("Parameter", typeof(Parameter))]
         public List<Parameter> Parameters;
+
+        [XmlAttribute] public string SchemaName;
+        [XmlAttribute] public string Definition;
+        [XmlAttribute] public string Body;
     }
 }
