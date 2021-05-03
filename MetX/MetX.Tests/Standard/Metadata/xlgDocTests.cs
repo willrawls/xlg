@@ -71,6 +71,12 @@ namespace MetX.Tests.Standard.Metadata
             Assert.AreEqual(1, actualTable.Indexes.Count);
             Assert.AreEqual("Harry", actualTable.Indexes[0].IndexName);
             Assert.AreEqual("Aby", actualTable.Indexes[0].IndexColumns[0].IndexColumnName);
+
+            Assert.IsNotNull(actual.Views);
+            Assert.AreEqual(2, actual.Views.Count);
+            Assert.AreEqual("bob", actual.Views[0].Name);
+            Assert.IsNotNull(actual.Views[0].TSQL);
+            Assert.AreEqual("select George from Fred", actual.Views[1].TSQL);
         }
 
         string FredsXml = @"
@@ -96,6 +102,10 @@ namespace MetX.Tests.Standard.Metadata
         </Indexes>
     </Table>
   </Tables>
+  <Views>
+    <View Name=""bob"" TSQL=""bob_sql"" />
+    <View Name=""mandy"" TSQL=""select George from Fred"" />
+  </Views>
 </xlgDoc>
 ";
 

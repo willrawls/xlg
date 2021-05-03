@@ -39,8 +39,8 @@ namespace MetX.Standard.Metadata
     [Serializable]
     public class View
     {
-        public string Schema { get; set; }
-        public string Name { get; set; }
-        public string TSQL { get; set; }
+        [XmlAttribute] public string Schema { get; set; }
+        [XmlAttribute] public string Name { get; set; }
+        [XmlAttribute] public string TSQL { get; set; }
     }
 }
