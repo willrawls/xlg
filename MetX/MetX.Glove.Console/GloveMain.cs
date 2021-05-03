@@ -709,6 +709,7 @@ namespace XLG.Pipeliner
         private void EditQuickScript_Click(object sender, EventArgs e)
         {
             var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
+            exePath = FileSystem.FindExecutableAlongPath(exePath, new string[] { @"..\..\..\..");
             if (!File.Exists(exePath))
             {
                 MessageBox.Show("Quick scripts missing: " + exePath);

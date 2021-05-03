@@ -271,22 +271,34 @@ namespace MetX.Standard.IO
             return ret;
         }
 
-        public static string FindExecutableAlongPath(string toFind)
+        public static string FindExecutableAlongPath(string toFind, string[] alsoCheck = null)
         {
             var pathToExecutable = toFind;
-            if (!File.Exists(pathToExecutable)
-                && !pathToExecutable.Contains("\\"))
+            if (!File.Exists(pathToExecutable)) // && pathToExecutable.Contains("\\"))
             {
+                var executableFilename = Path.GetFileName(pathToExecutable);
+                if (alsoCheck.IsNotEmpty())
+                {
+                    foreach (var path in alsoCheck)
+                    {
+                        var potentialLocation = Path.Combine(path, executableFilename);
+                        if (File.Exists(potentialLocation))
+                        {
+                            return potentialLocation;
+                        }
+                    }
+                }
+
                 var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
                 if(fullPath.IsNotEmpty())
                 {
                     var paths = fullPath.Split(';').Distinct().ToArray();
                     foreach (var path in paths)
                     {
-                        var potentialLocation = Path.Combine(path, pathToExecutable);
+                        var potentialLocation = Path.Combine(path, executableFilename);
                         if (File.Exists(potentialLocation))
                         {
-                            pathToExecutable = potentialLocation;
+                            return potentialLocation;
                         }
                     }
                 }
