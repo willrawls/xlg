@@ -40,7 +40,7 @@ namespace MetX.Standard.Metadata
     public class View
     {
         [XmlAttribute] public string Schema { get; set; }
-        [XmlAttribute] public string Name { get; set; }
+        [XmlAttribute] public string ViewName { get; set; }
         [XmlAttribute] public string TSQL { get; set; }
     }
 }

@@ -74,7 +74,7 @@ namespace MetX.Tests.Standard.Metadata
 
             Assert.IsNotNull(actual.Views);
             Assert.AreEqual(2, actual.Views.Count);
-            Assert.AreEqual("bob", actual.Views[0].Name);
+            Assert.AreEqual("bob", actual.Views[0].ViewName);
             Assert.IsNotNull(actual.Views[0].TSQL);
             Assert.AreEqual("select George from Fred", actual.Views[1].TSQL);
         }
@@ -103,8 +103,8 @@ namespace MetX.Tests.Standard.Metadata
     </Table>
   </Tables>
   <Views>
-    <View Name=""bob"" TSQL=""bob_sql"" />
-    <View Name=""mandy"" TSQL=""select George from Fred"" />
+    <View ViewName=""bob"" TSQL=""bob_sql"" />
+    <View ViewName=""mandy"" TSQL=""select George from Fred"" />
   </Views>
 </xlgDoc>
 ";
