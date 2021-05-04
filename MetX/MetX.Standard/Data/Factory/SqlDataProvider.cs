@@ -274,7 +274,7 @@ namespace MetX.Standard.Data.Factory
                 views.Add(new View
                 {
                     Schema = reader["schema_name"].AsString(),
-                    Name = reader["view_name"].AsString(),
+                    ViewName = reader["view_name"].AsString(),
                     TSQL = reader["definition"].AsString()
                 });
             }

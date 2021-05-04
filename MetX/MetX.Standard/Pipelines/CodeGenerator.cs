@@ -452,7 +452,7 @@ namespace MetX.Standard.Pipelines
             foreach (var view in views)
             {
                 var xmlView = xmlDoc.CreateElement("View");
-                AddAttribute(xmlView, "ViewName", view.Name);
+                AddAttribute(xmlView, "ViewName", view.ViewName);
                 AddAttribute(xmlView, "SchemaName", view.Schema);
                 AddAttribute(xmlView, "TSQL", view.TSQL);
                 xmlViews.AppendChild(xmlView);
