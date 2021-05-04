@@ -286,6 +286,15 @@ namespace MetX.Standard.IO
                         {
                             return potentialLocation;
                         }
+                        else
+                        {
+                            potentialLocation = (AppDomain.CurrentDomain.BaseDirectory + potentialLocation)
+                                .Replace(@"\\", @"\");
+                            if (File.Exists(potentialLocation))
+                            {
+                                return potentialLocation;
+                            }
+                        }
                     }
                 }
 
