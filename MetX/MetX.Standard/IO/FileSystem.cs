@@ -140,7 +140,11 @@ namespace MetX.Standard.IO
                 {
                     var fi = (FileInfo) currSource;
                     target.Files.Add(
-                        new XlgFile(fi.FullName, fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
+                        new XlgFile(
+                            fi.FullName.EndsWith(fi.Name)
+                                ? fi.FullName.TokensBeforeLast(@"\")
+                                : fi.FullName, 
+                            fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
                 }
             }
             return target;

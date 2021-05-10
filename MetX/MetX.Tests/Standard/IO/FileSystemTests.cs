@@ -1,4 +1,5 @@
-﻿using MetX.Standard.IO;
+﻿using System.IO;
+using MetX.Standard.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests
@@ -15,6 +16,14 @@ namespace MetX.Tests
             Assert.IsNotNull(actual);
             actual = actual.ToLower();
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void DeepContents_PathShouldNotHaveTheFilenameInIt()
+        {
+            var directoryInfo = new DirectoryInfo(@"Standard\Generation\CSharp\Project\Pieces\");
+            var actual = FileSystem.DeepContents(directoryInfo);
+            Assert.IsFalse(actual.Files[0].Path.Contains(actual.Files[0].Name));
         }
     }
 }
