@@ -3,10 +3,72 @@
     public static class Sources
     {
         // // //
-        public static readonly string Source_WriteStaticLine = BuildMain(
+        public static readonly string WriteStaticLine = BuildMain(
             @"
         System.Console.WriteLine(""Build_Exe_Simple"");
 ");
+
+        public static readonly string FirstScript = @"
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using MetX.Windows;
+using MetX.Windows.Library;
+using MetX.Standard;
+using MetX.Standard.IO;
+using MetX.Standard.Data;
+using MetX.Standard.Scripts;
+using MetX.Standard.Library;
+namespace MetX.Scripts
+{
+    public class QuickScriptProcessor : BaseLineProcessor
+    {
+        public override bool? ReadInput(string inputType)
+        {
+            return base.ReadInput(inputType);
+        }
+        public override bool Start()
+        {
+            return true;
+        }
+        public override bool ProcessLine(string line, int number)
+        {
+            if (string.IsNullOrEmpty(line) && number > -1) return true;
+
+            if(line.Length < 20)
+	            Output.AppendLine(line);
+            else
+	            Output.AppendLine(line.Substring(0, 20));
+
+            return true;    // true = keep going
+        }
+        public override bool Finish()
+        {
+            Output.Finish();
+            return true;
+        }
+    }
+}";
+
+        public static string CalculateSomething = @"
+    using System;
+
+    namespace Foo
+    {
+        public sealed class Bar 
+        {
+            public static void Main()
+            {
+                Console.WriteLine($""Square root of 42 is {CalculateSomething()}"");
+            }
+
+            public static int CalculateSomething()
+            {
+                return (int) Math.Sqrt(42);
+            }
+        }
+    }";
 
         // // //
         public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
