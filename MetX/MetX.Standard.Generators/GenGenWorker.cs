@@ -30,7 +30,7 @@ namespace MetX.Standard.Generators
                     GeneratorsProjectGenerator = new GeneratorsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard20));
                     ClientProjectGenerator = new ClientCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Net50));
 
-                    AspectsProjectGenerator.Setup().Generate().Save();
+                    var aspectsFolder = AspectsProjectGenerator.Setup().Generate().Save().Options.OutputPathResolved();
                     GeneratorsProjectGenerator.Setup().Generate().Save();
                     ClientProjectGenerator.Setup().Generate().Save();
                     break;
