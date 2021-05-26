@@ -1,14 +1,18 @@
+using System;
 using System.Windows.Forms;
 using MetX.Standard.Library;
+using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library
 {
     public class ChooseOneDialog : GeneralQuestionDialog<ComboBox, int>
     {
+        public IntPtr WindowHandle { get; }
         public string[] Choices;
 
-        public ChooseOneDialog()
+        public ChooseOneDialog(IntPtr? windowHandle = null)
         {
+            WindowHandle = windowHandle ?? ActiveWindow.GetForegroundWindow();
             ValueToReturnOnCancel = -1;
         }
 
@@ -21,7 +25,18 @@ namespace MetX.Windows.Library
             int defaultValue = 0)
         {
             Choices = choices;
-            return Ask(promptText, title, defaultValue);
+
+            Initialize(promptText, title, defaultValue, 110, 400);
+            if(WindowHandle == IntPtr.Zero)
+            {
+                Result = ConstructedForm.ShowDialog();
+            }
+            else
+            {
+                var win32Window = new Win32Window(WindowHandle);
+                Result = ConstructedForm.ShowDialog(win32Window);
+            }
+            return SelectedValue;
         }
 
         public override void SetupEntryArea()
@@ -41,6 +56,8 @@ namespace MetX.Windows.Library
             {
                 EntryArea.SelectedIndex = DefaultValue;
             }
+
+            EntryArea.DropDownStyle = ComboBoxStyle.DropDownList;
         }
     }
 }

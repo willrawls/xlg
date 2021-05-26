@@ -1,7 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
+using NHotkey;
+using NHotkey.WindowsForms;
 
 namespace XLG.QuickScripts
 {
@@ -39,9 +42,68 @@ namespace XLG.QuickScripts
                 InputText = Clipboard.GetText,
             };
 
-
             LoadQuickScriptsFile(filePath);
+            InitializeHotKeys();
         }
+
+
+        private void InitializeHotKeys()
+        {
+            HotkeyManager.Current.AddOrReplace("RunCurrentQuickScript", Keys.Control | Keys.Alt | Keys.Oemtilde, OnRunCurrentQuickScript);
+            HotkeyManager.Current.AddOrReplace("PickAndRunQuickScript", Keys.Control | Keys.Alt | Keys.Shift | Keys.Oemtilde, OnPickAndRunQuickScript);
+            
+        }
+
+        private void OnRunCurrentQuickScript(object? sender, HotkeyEventArgs e)
+        {
+            try
+            {
+                // Same as clicking the Run button
+                RunQuickScript_Click(null, null);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            e.Handled = true;
+        }
+
+        public int LastChoice { get; set; } = 0;
+
+        private void OnPickAndRunQuickScript(object? sender, HotkeyEventArgs e)
+        {
+            try
+            {
+                if (ScriptEditor.Current == null)
+                {
+                    return;
+                }
+
+                UpdateScriptFromForm();
+
+                var chooseQuickScript = new ChooseOneDialog();
+                var choices = Context.Scripts.ScriptNames();
+                if (LastChoice > choices.Length)
+                {
+                    LastChoice = 0;
+                }
+                var choice = chooseQuickScript.Ask(choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN", LastChoice);
+                if (choice >= 0)
+                {
+                    LastChoice = choice;
+                    var selectedScript = Context.Scripts[choice];
+                    RunQuickScript(this, selectedScript, null);
+                }
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+
+            e.Handled = true;
+        }
+
 
         public XlgQuickScript SelectedScript => QuickScriptList.SelectedItem as XlgQuickScript;
 

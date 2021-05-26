@@ -82,5 +82,16 @@ namespace MetX.Standard.Scripts
             }
             return ret;
         }
+
+        public string[] ScriptNames()
+        {
+            var names = new string[Count];
+            for (var i = 0; i < Count; i++)
+            {
+                names[i] = this[i].Name;
+            }
+
+            return names;
+        }
     }
 }

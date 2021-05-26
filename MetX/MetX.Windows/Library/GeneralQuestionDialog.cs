@@ -81,6 +81,7 @@ namespace MetX.Windows.Library
             ConstructedForm.MaximizeBox = false;
             ConstructedForm.AcceptButton = OkButton;
             ConstructedForm.CancelButton = CancelButton;
+
         }
 
         public abstract void SetupEntryArea();

@@ -1,13 +1,44 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace MetX.Windows.WinApi
 {
+    public class Win32Window : System.Windows.Forms.IWin32Window
+    {
+        public IntPtr Handle { get; }
+
+        public Win32Window(IntPtr handle)
+        {
+            Handle = handle;
+        }
+    }
+
     public class ActiveWindow
     {
         public static int CurrentMoveWindowOffset = -20;
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        public static string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            var Buff = new StringBuilder(nChars);
+            var handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
         public static void Move(Process process)
         {
             try
