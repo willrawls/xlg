@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using ICSharpCode.TextEditor.Actions;
 using MetX.Controls;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
@@ -34,7 +35,8 @@ namespace XLG.Pipeliner
 
             Host = new GenerationHost
             {
-                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host)
+                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host),
+                InputText = Clipboard.GetText,
             };
 
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))

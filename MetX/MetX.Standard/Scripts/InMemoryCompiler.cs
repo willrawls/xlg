@@ -72,6 +72,7 @@ namespace MetX.Standard.Scripts
                 GetSharedReference("System.Private.CoreLib"),
                 GetSharedReference("System.Drawing.Primitives"),
                 GetSharedReference("System.Windows"),
+                GetSharedReference("netstandard"),
             };
 
             if(AdditionalReferenceTypes?.Count > 0)

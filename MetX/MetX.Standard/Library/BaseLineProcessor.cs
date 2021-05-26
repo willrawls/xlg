@@ -21,10 +21,11 @@ namespace MetX.Standard.Library
 
         public BaseLineProcessor(IGenerationHost host)
         {
-            Gui = host;
+            Host = host;
         }
 
-        public IGenerationHost Gui { get; set; }
+        //public IGenerationHost Gui { get; set; }
+        public IGenerationHost Host { get; set; }
 
         public virtual FileInfo CurrentInputFile
         {
@@ -65,12 +66,13 @@ namespace MetX.Standard.Library
                     return true;
 
                 case "clipboard":
-                    throw new NotImplementedException();
-                    /*
-                    var bytes = Encoding.UTF8.GetBytes(Clipboard.GetText());
-                    InputStream = new StreamReader(new MemoryStream(bytes));
+                {
+                    //throw new NotImplementedException();
+                    
+                    var clipboardBytes = Encoding.UTF8.GetBytes(Host.InputText());
+                    InputStream = new StreamReader(new MemoryStream(clipboardBytes));
                     break;
-                    */
+                }                    
 
                 case "databasequery":
                     throw new NotImplementedException("Database query is not yet implemented.");
@@ -84,13 +86,13 @@ namespace MetX.Standard.Library
                     if (string.IsNullOrEmpty(InputFilePath))
                     {
                         
-                        Gui.MessageBox.Show("Please supply an input filename.", "INPUT FILE PATH REQUIRED");
+                        Host.MessageBox.Show("Please supply an input filename.", "INPUT FILE PATH REQUIRED");
                         return null;
                     }
 
                     if (!File.Exists(InputFilePath))
                     {
-                        Gui.MessageBox.Show("The supplied input filename does not exist.", "INPUT FILE DOES NOT EXIST");
+                        Host.MessageBox.Show("The supplied input filename does not exist.", "INPUT FILE DOES NOT EXIST");
                         return null;
                     }
 
@@ -158,7 +160,7 @@ namespace MetX.Standard.Library
 
             if (InputStream == StreamReader.Null || InputStream.BaseStream.Length < 1 || InputStream.EndOfStream)
             {
-                Gui.MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
+                Host.MessageBox.Show("The supplied input is empty.", "INPUT FILE EMPTY");
                 return false;
             }
 
@@ -207,7 +209,7 @@ namespace MetX.Standard.Library
 
             if (!Output.IsOpenAndReady)
             {
-                Gui.MessageBox.Show("Couldn't create/open the output file");
+                Host.MessageBox.Show("Couldn't create/open the output file");
                 return false;
             }
 

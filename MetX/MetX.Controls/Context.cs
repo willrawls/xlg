@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MetX.Standard.Library;
+using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows.Library;
 using Microsoft.CodeAnalysis;
@@ -27,7 +28,8 @@ namespace MetX.Controls
         private static bool _scriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
-        public static BaseLineProcessor GenerateQuickScriptLineProcessor(ContextBase @base, XlgQuickScript scriptToRun)
+        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base,
+            XlgQuickScript scriptToRun)
         {
             if (@base.Templates.Count == 0 ||
                 string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
@@ -50,7 +52,7 @@ namespace MetX.Controls
                 return null;
             }
             
-            if (BuildQuickScriptProcessor(scriptToRun, compiler, out var generatedQuickScriptLineProcessor)) 
+            if (BuildQuickScriptProcessor(host, scriptToRun, compiler, out var generatedQuickScriptLineProcessor)) 
                 return generatedQuickScriptLineProcessor;
 
             var forDisplay = compiler.Failures.ForDisplay(source.Lines());
@@ -59,15 +61,19 @@ namespace MetX.Controls
             return null;
         }
 
-        public static bool BuildQuickScriptProcessor(XlgQuickScript scriptToRun, InMemoryCompiler<string> compiler,
+        public static bool BuildQuickScriptProcessor(
+            IGenerationHost host, 
+            XlgQuickScript scriptToRun,
+            InMemoryCompiler<string> compiler,
             out BaseLineProcessor generateQuickScriptLineProcessor)
         {
             if (compiler.CompiledSuccessfully)
             {
                 if (!ReferenceEquals(compiler.CompiledAssembly, null))
                 {
+                    var arguments = new object[]{ host };
                     var processor = compiler.CompiledAssembly
-                            .CreateInstance("MetX.Scripts.QuickScriptProcessor")
+                            .CreateInstance("MetX.Scripts.QuickScriptProcessor", false, BindingFlags.CreateInstance, null, arguments, null, null)
                         as BaseLineProcessor;
 
                     if (processor == null)
@@ -190,7 +196,9 @@ namespace MetX.Controls
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
-                                    runResult.QuickScriptProcessor.Output.ToString());
+                                    runResult.QuickScriptProcessor.OutputStringBuilder != null
+                                        ? runResult.QuickScriptProcessor.OutputStringBuilder.ToString()
+                                        : runResult.QuickScriptProcessor.Output.ToString());
                             }
                             else
                             {
@@ -244,7 +252,7 @@ namespace MetX.Controls
         {
             var result = new RunResult
             {
-                QuickScriptProcessor = GenerateQuickScriptLineProcessor(@base, scriptToRun)
+                QuickScriptProcessor = GenerateQuickScriptLineProcessor(caller.Window.Host, @base, scriptToRun)
             };
             if (result.QuickScriptProcessor == null)
             {
@@ -252,6 +260,7 @@ namespace MetX.Controls
                 return result;
             }
 
+            result.QuickScriptProcessor.Host = caller.Window.Host;
             var inputResult = result.QuickScriptProcessor.ReadInput(scriptToRun.Input);
             switch (inputResult)
             {

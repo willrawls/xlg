@@ -8,15 +8,12 @@ namespace MetX.Controls
     {
         public void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
         {
-            if (caller == null)
-            {
-                caller = this;
-            }
+            caller ??= this;
+            Window.Host ??= Host;
             Context.RunQuickScript(caller, scriptToRun, targetOutput);
         }
 
-        public ToolWindow Window { get { return this; } set { } }
-
+        public ToolWindow Window { get => this; set { } }
         public void RunQuickScript(XlgQuickScript currentScript) { RunQuickScript(null, currentScript, null); }
         public virtual void Progress(int index = -1) { }
     }

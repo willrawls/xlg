@@ -19,6 +19,10 @@ namespace MetX.Scripts
     {
 //~~ClassMembers~~//
 
+        public QuickScriptProcessor(MetX.Standard.Pipelines.IGenerationHost host) : base(host)
+        {
+        }
+
         public override bool? ReadInput(string inputType)
         {
 //~~ReadInput~~//

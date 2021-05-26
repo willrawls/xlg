@@ -7,7 +7,7 @@ namespace MetX.Controls
 {
     public partial class ToolWindow : Form //: DockContent
     {
-        public IGenerationHost Host;
+        public IGenerationHost Host { get; set; }
 
         public static Context Context
         {

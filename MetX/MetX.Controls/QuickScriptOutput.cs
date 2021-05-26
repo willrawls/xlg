@@ -22,16 +22,24 @@ namespace MetX.Controls
             Output.Text = output;
             Script = script;
             Scriptr = scriptr;
-
+            Host = scriptr.Window.Host;
             if (!string.IsNullOrEmpty(script.InputFilePath))
             {
                 watchForChangesToolStripMenuItem.Enabled = true;
             }
         }
 
-        public string Title { get { return Text; } set { Text = value; } }
+        public string Title
+        {
+            get => Text;
+            set => Text = value;
+        }
 
-        public string TextToShow { get { return Output.Text; } set { Output.Text = value; } }
+        public string TextToShow
+        {
+            get => Output.Text;
+            set => Output.Text = value;
+        }
 
         private void QuickScriptOutput_Load(object sender, EventArgs e)
         {
@@ -78,6 +86,7 @@ namespace MetX.Controls
         {
             try
             {
+                Window.Host ??= Host;
                 Context.RunQuickScript(this, Script, null);
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
@@ -134,6 +143,7 @@ namespace MetX.Controls
             {
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
+                    Window.Host ??= Host;
                     Scriptr.RunQuickScript(this, Script, this);
                 }
                 else

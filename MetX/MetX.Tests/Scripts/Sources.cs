@@ -13,8 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MetX.Windows;
-using MetX.Windows.Library;
 using MetX.Standard;
 using MetX.Standard.IO;
 using MetX.Standard.Data;
@@ -22,8 +20,20 @@ using MetX.Standard.Scripts;
 using MetX.Standard.Library;
 namespace MetX.Scripts
 {
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(""Ding FirstScript"");
+        }
+    }
+
     public class QuickScriptProcessor : BaseLineProcessor
     {
+        public QuickScriptProcessor(MetX.Standard.Pipelines.IGenerationHost host) : base(host)
+        {
+        }
+
         public override bool? ReadInput(string inputType)
         {
             return base.ReadInput(inputType);

@@ -28,7 +28,6 @@ namespace MetX.Controls
         public CodeCompletionWindow CompletionWindow;
         public XlgQuickScript CurrentScript;
         public bool Updating;
-        public IGenerationHost Host;
 
         private TextArea _textArea;
 
@@ -323,6 +322,7 @@ namespace MetX.Controls
                 }
 
                 UpdateScriptFromForm();
+                Window.Host ??= Host;
                 Context.RunQuickScript(this, CurrentScript, null);
             }
             catch (Exception exception)

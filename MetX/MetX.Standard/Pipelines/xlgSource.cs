@@ -268,7 +268,7 @@ namespace MetX.Standard.Pipelines
         }
 
         [XmlIgnore]
-        public IGenerationHost Host { get; set; } = new GenerationHost();
+        public IGenerationHost Host { get; set; }
 
         public XlgSource() { /* XmlSerializer */ }
 
