@@ -4,13 +4,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using ICSharpCode.TextEditor.Actions;
+
 using MetX.Controls;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
+using NHotkey;
 using XLG.Pipeliner.Properties;
+
+using NHotkey.WindowsForms;
 
 namespace XLG.Pipeliner
 {
@@ -28,7 +30,9 @@ namespace XLG.Pipeliner
         public XlgSettings Settings;
 
         public IGenerationHost Host { get; set; }
-        
+
+        public HotkeyManager HotKeyManager { get; set; }
+
         public GloveMain()
         {
             InitializeComponent();
@@ -47,6 +51,27 @@ namespace XLG.Pipeliner
             {
                 RefreshList();
             }
+
+            InitializeHotKeys();
+        }
+
+        private void InitializeHotKeys()
+        {
+            HotkeyManager.Current.AddOrReplace("RegenerateNow", Keys.Control | Keys.Shift | Keys.Oemtilde, OnHotKeyRegenerateNow);
+            
+        }
+
+        private void OnHotKeyRegenerateNow(object? sender, HotkeyEventArgs e)
+        {
+            try
+            {
+                SynchAutoRegenerate();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            e.Handled = true;
         }
 
         private void buttonGo_Click(object sender, EventArgs e)

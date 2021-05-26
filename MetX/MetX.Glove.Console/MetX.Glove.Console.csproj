@@ -65,6 +65,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <PackageReference Include="NHotkey.WindowsForms" Version="2.1.0" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
