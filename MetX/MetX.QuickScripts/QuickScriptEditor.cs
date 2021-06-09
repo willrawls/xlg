@@ -5,6 +5,9 @@ using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
 using NHotkey;
 using NHotkey.WindowsForms;
+using NHotPhrase.Keyboard;
+using NHotPhrase.Phrase;
+using NHotPhrase.WindowsForms;
 
 namespace XLG.QuickScripts
 {
@@ -25,6 +28,8 @@ namespace XLG.QuickScripts
         public bool DestinationParamAlreadyFocused;
         public bool InputParamAlreadyFocused;
         public bool Updating;
+
+        public HotPhraseManagerForWinForms Manager { get; set; } = new();
 
         public QuickScriptEditor(string filePath)
         {
@@ -49,28 +54,11 @@ namespace XLG.QuickScripts
 
         private void InitializeHotKeys()
         {
-            HotkeyManager.Current.AddOrReplace("RunCurrentQuickScript", Keys.Control | Keys.Alt | Keys.Oemtilde, OnRunCurrentQuickScript);
-            HotkeyManager.Current.AddOrReplace("PickAndRunQuickScript", Keys.Control | Keys.Alt | Keys.Shift | Keys.Oemtilde, OnPickAndRunQuickScript);
-            
+            Manager.Keyboard.AddOrReplace("RunCurrentQuickScript", new() { PKey.Control, PKey.Shift, PKey.Shift }, OnRunCurrentQuickScript);
+            Manager.Keyboard.AddOrReplace("PickAndRunQuickScript", new() { PKey.Control, PKey.Alt, PKey.Alt }, OnPickAndRunQuickScript);
         }
 
-        private void OnRunCurrentQuickScript(object? sender, HotkeyEventArgs e)
-        {
-            try
-            {
-                // Same as clicking the Run button
-                RunQuickScript_Click(null, null);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
-            e.Handled = true;
-        }
-
-        public int LastChoice { get; set; } = 0;
-
-        private void OnPickAndRunQuickScript(object? sender, HotkeyEventArgs e)
+        private void OnPickAndRunQuickScript(object? sender, PhraseEventArguments e)
         {
             try
             {
@@ -101,8 +89,24 @@ namespace XLG.QuickScripts
                 MessageBox.Show(exception.ToString());
             }
 
+            e.Handled = true;            
+        }
+
+        private void OnRunCurrentQuickScript(object sender, PhraseEventArguments e)
+        {
+            try
+            {
+                // Same as clicking the Run button
+                RunQuickScript_Click(null, null);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
             e.Handled = true;
         }
+
+        public int LastChoice { get; set; } = 0;
 
 
         public XlgQuickScript SelectedScript => QuickScriptList.SelectedItem as XlgQuickScript;

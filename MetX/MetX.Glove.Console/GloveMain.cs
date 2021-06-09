@@ -9,10 +9,13 @@ using MetX.Controls;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
-using NHotkey;
+
 using XLG.Pipeliner.Properties;
 
-using NHotkey.WindowsForms;
+using NHotPhrase;
+using NHotPhrase.Keyboard;
+using NHotPhrase.Phrase;
+using NHotPhrase.WindowsForms;
 
 namespace XLG.Pipeliner
 {
@@ -31,7 +34,7 @@ namespace XLG.Pipeliner
 
         public IGenerationHost Host { get; set; }
 
-        public HotkeyManager HotKeyManager { get; set; }
+        public HotPhraseManagerForWinForms Manager { get; set; } = new();
 
         public GloveMain()
         {
@@ -57,11 +60,10 @@ namespace XLG.Pipeliner
 
         private void InitializeHotKeys()
         {
-            HotkeyManager.Current.AddOrReplace("RegenerateNow", Keys.Control | Keys.Shift | Keys.Oemtilde, OnHotKeyRegenerateNow);
-            
+            Manager.Keyboard.AddOrReplace("RegenerateNow", new() { PKey.Control, PKey.Control, PKey.Control }, OnHotKeyRegenerateNow);
         }
 
-        private void OnHotKeyRegenerateNow(object? sender, HotkeyEventArgs e)
+        private void OnHotKeyRegenerateNow(object sender, PhraseEventArguments e)
         {
             try
             {
