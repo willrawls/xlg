@@ -6,7 +6,7 @@ namespace MetX.Standard.Generators
     public class AddStaticCode : BaseRoslynCodeGenerator, ISourceGenerator
     {
         public AddStaticCode() :  base(
-            @"..\..\..\..\MetX.Standard.Generators.Actual\bin\Debug\netstandard2.0\MetX.Standard.Generators.Actual.AddStaticCodeActual.dll", 
+            @"..\..\..\..\MetX.Standard.Generators.Actual\bin\Debug\netstandard2.0\MetX.Standard.Generators.Actual.dll", 
             @"MetX.Standard.Generators.Actual.AddStaticCodeActual")
         { }
 

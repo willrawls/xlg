@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Controls", "MetX.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Techniques.Tests", "MetX.Techniques.Tests\MetX.Techniques.Tests.csproj", "{7D1582F4-534A-4607-989A-3A56759780A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests2", "MetX.Tests\MetX.Tests2.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard", "MetX.Standard\MetX.Standard.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
 EndProject
@@ -24,9 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Library", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators", "MetX.Standard.Generators\MetX.Standard.Generators.csproj", "{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Standard.Generators.Actual", "MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj", "{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Actual", "MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj", "{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Standard.Generators.Support", "MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj", "{81885A46-2601-4366-91DF-FCE182426740}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Support", "MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj", "{81885A46-2601-4366-91DF-FCE182426740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

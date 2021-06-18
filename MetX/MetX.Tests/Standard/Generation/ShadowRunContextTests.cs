@@ -1,4 +1,5 @@
-﻿using MetX.Standard.Aspects;
+﻿using System.Reflection;
+using MetX.Standard.Aspects;
 using MetX.Standard.Generators;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,8 @@ namespace MetX.Tests.Standard.Generation
             var data = new AddStaticCode();
             var actual = data.InitializeShadowRunContext();
             Assert.IsTrue(actual);
-
+            Assembly x;
+            
             Assert.IsTrue(data.FullNameOfActual.IsNotEmpty());
             Assert.IsNotNull(data.ShadowRunContext);
             Assert.IsTrue(data.PathToActual.IsNotEmpty());

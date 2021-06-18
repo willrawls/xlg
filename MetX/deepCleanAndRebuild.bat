@@ -44,4 +44,4 @@ rmdir /s /q MetX.Windows\obj
 
 devenv /clean
 
-devenv /build Debug
+devenv Xlg5.sln /build Debug
