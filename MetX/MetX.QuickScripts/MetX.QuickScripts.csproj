@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>Preview</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,7 +26,6 @@
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
     </ProjectReference>
     <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
     <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>

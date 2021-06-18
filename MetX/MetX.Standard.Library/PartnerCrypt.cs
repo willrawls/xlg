@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -7,7 +6,7 @@ using System.Text;
 
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Standard.Security
+namespace MetX.Standard.Library
 {
     public class PartnerCrypt : IDisposable
     {
@@ -35,8 +34,8 @@ namespace MetX.Standard.Security
 		public PartnerCrypt()
 		{
             _cryptoService = new RijndaelManaged {KeySize = 256};
-            Key = ConfigurationManager.AppSettings["Crypt.Key"];
-			Vector = ConfigurationManager.AppSettings["Crypt.Vector"];
+            Key = Crypt.CryptKey;
+			Vector = Crypt.CryptVector;
 			InternalSetup();
 		}
 

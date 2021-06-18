@@ -1,28 +1,26 @@
-﻿using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
+﻿using Microsoft.CodeAnalysis;
 
 namespace MetX.Standard.Generators
 {
     [Generator]
-    public class AddStaticCode : ISourceGenerator
+    public class AddStaticCode : BaseRoslynCodeGenerator, ISourceGenerator
     {
-        public void Initialize(GeneratorInitializationContext context) {}
+        public AddStaticCode() :  base(
+            @"..\..\..\..\MetX.Standard.Generators.Actual\bin\Debug\netstandard2.0\MetX.Standard.Generators.Actual.AddStaticCodeActual.dll", 
+            @"MetX.Standard.Generators.Actual.AddStaticCodeActual")
+        { }
+
+        public void Initialize(GeneratorInitializationContext context)
+        {
+            InitializeContextIfNeeded();
+            ShadowRunContext?.Initialize(context);
+        }
 
         public void Execute(GeneratorExecutionContext context)
         {
-            context.AddSource("myGeneratedFile.cs", SourceText.From(@"
-namespace MetX.Generated
-{
-    public static class GClass
-    {
-        public static void GMethod()
-        {
-            // generated code
-            System.Console.WriteLine(""Ding 1"");
-        }
-    }
-}", Encoding.UTF8));
+            InitializeContextIfNeeded();
+            ShadowRunContext?.Execute(context);
+            Cleanup();
         }
     }
 }

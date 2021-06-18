@@ -115,6 +115,9 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>

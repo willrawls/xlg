@@ -5,7 +5,7 @@
     <OutputType>Exe</OutputType>
     <StartupObject>MetX.Standard.Generators.Program</StartupObject>
     <RootNamespace>MetX.Standard.Generators</RootNamespace>
-    <AssemblyName>GenGen</AssemblyName>
+    <AssemblyName>MetX.Standard.Generators</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Templates\CSharp\Project\**" />
@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
   </ItemGroup>
 

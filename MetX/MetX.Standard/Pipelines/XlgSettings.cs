@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.Interfaces;
 using MetX.Standard.Scripts;
 
 namespace MetX.Standard.Pipelines

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using MetX.Controls;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;

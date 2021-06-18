@@ -1,4 +1,5 @@
 using System;
+using MetX.Standard.Interfaces;
 
 namespace MetX.Standard.Pipelines
 {

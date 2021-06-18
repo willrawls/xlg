@@ -1,6 +1,7 @@
 using System;
+using MetX.Standard.Pipelines;
 
-namespace MetX.Standard.Pipelines
+namespace MetX.Standard.Interfaces
 {
     public interface IGenerationHost
     {

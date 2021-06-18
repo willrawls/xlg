@@ -1,3 +1,4 @@
+/*
 /// <summary>Part of the XLG MetX Library</summary>
 /// <author>William M. Rawls</author>
 using System;
@@ -120,3 +121,4 @@ namespace MetX.Data
 		}
 	}
 }
+*/

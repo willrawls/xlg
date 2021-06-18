@@ -3,7 +3,7 @@ using System.Text;
 namespace MetX.Standard.Library
 {
     /// <summary>
-    /// Basic implmentation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
+    /// Basic implementation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
     /// </summary>
     public class SortedStringList : System.Collections.Generic.SortedList<string, string>
     {

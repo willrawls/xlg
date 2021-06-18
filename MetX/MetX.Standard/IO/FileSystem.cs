@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
 

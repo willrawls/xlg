@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;

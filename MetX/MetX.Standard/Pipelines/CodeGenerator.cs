@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Xsl;
 using MetX.Standard.Data;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Metadata;

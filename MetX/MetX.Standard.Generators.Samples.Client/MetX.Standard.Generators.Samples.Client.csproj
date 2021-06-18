@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>Latest</LangVersion>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject>MetX.Standard.Generators.Samples.Client.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,20 +12,6 @@
     <EmbeddedResource Remove="Properties\**" />
     <None Remove="Properties\**" />
   </ItemGroup>
-
-  <!-- From https://github.com/dotnet/roslyn/issues/44093 -->
-  <PropertyGroup>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
-    <OutputType>Exe</OutputType>
-    <StartupObject>MetX.Standard.Generators.Samples.Client.Program</StartupObject>
-  </PropertyGroup>
-  <Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
-    <ItemGroup>
-      <Compile Include="Generated\**" />
-    </ItemGroup>
-  </Target>
-  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />
@@ -36,8 +25,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
+    <Reference Include="MetX.Standard">
+      <HintPath>..\MetX.Standard.Generators\bin\Debug\netstandard2.0\MetX.Standard.dll</HintPath>
+    </Reference>
+    <Reference Include="MetX.Standard.Aspects">
+      <HintPath>..\MetX.Standard.Generators\bin\Debug\netstandard2.0\MetX.Standard.Aspects.dll</HintPath>
+    </Reference>
+    <Reference Include="MetX.Standard.Library">
+      <HintPath>..\MetX.Standard.Generators\bin\Debug\netstandard2.0\MetX.Standard.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.ConfigurationManager">
+      <HintPath>..\MetX.Standard.Generators\bin\Debug\netstandard2.0\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <!--
+    <Reference Include="MetX.Standard.Generators" OutputItemType="Analyzer" ReferenceOutputAssembly="false">
+      <HintPath>..\MetX.Standard.Generators\bin\Debug\netstandard2.0\MetX.Standard.Generators.dll</HintPath>
+    </Reference>
+  -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Analyzer Include="..\MetX.Standard.Generators\bin\Debug\netstandard2.0\MetX.Standard.Generators.dll"/>
   </ItemGroup>
 </Project>

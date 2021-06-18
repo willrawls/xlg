@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MetX.Standard.Generators.Actual</RootNamespace>
+    <AssemblyName>MetX.Standard.Generators.Actual</AssemblyName>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

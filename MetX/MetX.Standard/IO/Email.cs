@@ -5,7 +5,7 @@ using System.Threading;
 namespace MetX.Standard.IO
 {
 	/// <summary>
-	/// Allows for the sending of a simple emamil asynchronously on another thread.
+	/// Allows for the sending of a simple email asynchronously on another thread.
 	/// </summary>
 	public class Email
 	{

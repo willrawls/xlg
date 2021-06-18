@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Standard.Library;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Standard.Security
+namespace MetX.Standard.Library
 {
     public static class Crypt
     {
@@ -29,6 +27,9 @@ namespace MetX.Standard.Security
 
         public static readonly byte[] DefaultKeyBytes = new byte[] {41, 12, 51, 6, 54, 8, 111, 89, 150, 12, 80, 10, 8, 12, 1, 170};
         public static byte[] KeyBytes = DefaultKeyBytes;
+
+        public static string CryptKey { get; set; }
+        public static string CryptVector { get; set; }
 
         public static void Reset()
         {
@@ -50,10 +51,10 @@ namespace MetX.Standard.Security
                 }
 
                 _cryptoService = new RijndaelManaged {KeySize = 256};
-                _key = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Crypt.Key"]
+                _key = Encoding.ASCII.GetBytes(CryptKey
                         ?? throw new InvalidOperationException());
                 
-                var theVector = ConfigurationManager.AppSettings["Crypt.Vector"];
+                var theVector = CryptVector;
                 _vector = Encoding.ASCII.GetBytes(
                     (theVector != null && theVector.Length > _cryptoService.BlockSize / 8
                         ? theVector.Substring(0, _cryptoService.BlockSize / 8)

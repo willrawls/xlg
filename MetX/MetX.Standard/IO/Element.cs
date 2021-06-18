@@ -1,16 +1,9 @@
+/*
 using System;
-using System.Configuration;
-using System.Data;
-using System.Xml;
-using System.Data.SqlClient;
 using System.Text;
-using System.Collections;
-using System.Diagnostics;
-using System.Web;
+using MetX.Standard.Library;
 
-using MetX.IO;
-
-namespace MetX.IO
+namespace MetX.Standard.IO
 {
 	
 	/// <summary>Static functions providing simplified access to several of the XLG Meta Data pattern features.</summary>
@@ -25,7 +18,7 @@ namespace MetX.IO
 		/// <example><c>Append(xmlChildNotifications(Security.UserID))</c></example>
 		public static string xmlChildNotifications(string sNotificationID)
 		{
-			return sql.ToXml("ChildNotifications", string.Empty, "SELECT * FROM Notification WHERE ParentNotificationID=\'" + sNotificationID + "\'");
+			return Sql.ToXml("ChildNotifications", string.Empty, "SELECT * FROM Notification WHERE ParentNotificationID=\'" + sNotificationID + "\'");
 		}
 		
         /// <summary>Uses Note table returns all details of each note for NotificationID</summary>
@@ -38,7 +31,7 @@ namespace MetX.IO
         public static string xmlRelatedNotes(string sNotificationID)
 		{
             if (sNotificationID != null && sNotificationID.Length > 16)
-                return sql.ToXml("Notes", string.Empty, "SELECT * FROM Note Where NotificationID='" + sNotificationID + "'");
+                return Sql.ToXml("Notes", string.Empty, "SELECT * FROM Note Where NotificationID='" + sNotificationID + "'");
             return string.Empty;
 		}
 
@@ -50,7 +43,7 @@ namespace MetX.IO
         public static string xmlRelatedLinks(string sNotificationID)
 		{
 			if(sNotificationID != null && sNotificationID.Length > 16)
-				return sql.ToXml("Links", string.Empty, "SELECT * FROM Link Where NotificationID='" + sNotificationID + "'");
+				return Sql.ToXml("Links", string.Empty, "SELECT * FROM Link Where NotificationID='" + sNotificationID + "'");
 			return string.Empty;
 		}
 		
@@ -71,7 +64,7 @@ namespace MetX.IO
 			StringBuilder Output = new StringBuilder();
             Output.AppendLine("<" + ElementName + "s>");
             foreach (string CurrNode in Items)
-                Output.Append("<" + ElementName + " Name=\"" + xml.AttributeEncode(CurrNode) + "\"/>\r\n");
+                Output.Append("<" + ElementName + " Name=\"" + Xml.AttributeEncode(CurrNode) + "\"/>\r\n");
             Output.AppendLine("</" + ElementName + "s>");
             return Output.ToString();
 		}
@@ -83,7 +76,7 @@ namespace MetX.IO
         /// <example><c>AppendLine(xmlUniqueList("Category"))</c></example>
         public static string xmlUniqueList(string FieldName)
 		{
-			return sql.ToXml(FieldName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + FieldName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') ORDER BY " + FieldName);
+			return Sql.ToXml(FieldName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + FieldName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') ORDER BY " + FieldName);
 		}
 
 
@@ -95,7 +88,7 @@ namespace MetX.IO
         /// <example><c>AppendLine(xmlUniqueList("Category"))</c></example>
         public static string xmlUniqueList(string NotifyingMessageName, string FieldName)
 		{
-			return sql.ToXml(FieldName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + FieldName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') AND NotifyingMessageName='" + NotifyingMessageName + "' ORDER BY " + FieldName);
+			return Sql.ToXml(FieldName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + FieldName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') AND NotifyingMessageName='" + NotifyingMessageName + "' ORDER BY " + FieldName);
 		}
 
         /// <summary>Builds an xml string from the distinct contents of a field in the Notification table limited by a particular type of notification.</summary>
@@ -108,8 +101,8 @@ namespace MetX.IO
         public static string xmlUniqueList(string NotifyingMessageName, string FieldName, string TagName)
 		{
             if(NotifyingMessageName != null && NotifyingMessageName.Length > 0)
-			    return sql.ToXml(TagName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + TagName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') AND NotifyingMessageName='" + NotifyingMessageName + "' ORDER BY " + FieldName);
-            return sql.ToXml(TagName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + TagName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') ORDER BY " + FieldName);
+			    return Sql.ToXml(TagName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + TagName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') AND NotifyingMessageName='" + NotifyingMessageName + "' ORDER BY " + FieldName);
+            return Sql.ToXml(TagName + "s", string.Empty, "SELECT DISTINCT " + FieldName + " As Name FROM Notification " + TagName + " WHERE (NOT " + FieldName + " Is NULL) AND (NOT " + FieldName + "='') ORDER BY " + FieldName);
 		}
 
 		/// <summary>A distinct list of the values in the NotifyingMessageName field in the Notification table</summary>
@@ -118,7 +111,7 @@ namespace MetX.IO
 		/// <example><c>AppendLine(xmlNotifyingMessageNames())</c></example>
 		public static string xmlNotifyingMessageNames()
 		{
-			return sql.ToXml("NotifyingMessageNames", string.Empty, "SELECT DISTINCT NotifyingMessageName Name FROM Notification NotifyingMessageName WHERE (NOT NotifyingMessageName IS NULL) AND (NotifyingMessageName != '') ORDER BY NotifyingMessageName");
+			return Sql.ToXml("NotifyingMessageNames", string.Empty, "SELECT DISTINCT NotifyingMessageName Name FROM Notification NotifyingMessageName WHERE (NOT NotifyingMessageName IS NULL) AND (NotifyingMessageName != '') ORDER BY NotifyingMessageName");
 		}
 
         /// <summary>A distinct list of the values in the Notifier field in the Notification table</summary>
@@ -127,7 +120,7 @@ namespace MetX.IO
         /// <example><c>AppendLine(xmlNotifiers())</c></example>
         public static string xmlNotifiers()
 		{
-			return sql.ToXml("Notifiers", string.Empty, "SELECT DISTINCT Notifier As Name FROM Notification Notifier WHERE (NOT Notifier IS NULL) AND (Notifier != '') ORDER BY Notifier");
+			return Sql.ToXml("Notifiers", string.Empty, "SELECT DISTINCT Notifier As Name FROM Notification Notifier WHERE (NOT Notifier IS NULL) AND (Notifier != '') ORDER BY Notifier");
 		}
 
         /// <summary>Builds an xml string of "Notification" and child "Related" elements from the Notification table using the passed WHERE and ORDER BY clauses to limit and order the elements. Related records are child records.</summary>
@@ -157,7 +150,7 @@ namespace MetX.IO
                 OrderByClause = "";
             else if (OrderByClause.Length > 0)
                 OrderByClause = " ORDER BY " + OrderByClause;
-            return sql.ToXml("SELECT * FROM Notification LEFT JOIN Notification Related ON " + OnClause + " WHERE " + WhereClause + OrderByClause);
+            return Sql.ToXml("SELECT * FROM Notification LEFT JOIN Notification Related ON " + OnClause + " WHERE " + WhereClause + OrderByClause);
 		}
 
 
@@ -176,7 +169,8 @@ namespace MetX.IO
 		{
 			if(WhereClause == null || WhereClause.Length == 0)
 				return string.Empty;
-			return sql.ToXml("SELECT * FROM Notification WHERE " + WhereClause);
+			return Sql.ToXml("SELECT * FROM Notification WHERE " + WhereClause);
 		}
 	}
 }
+*/

@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using MetX.Standard.Interfaces;
 using MetX.Standard.Pipelines;
 
 namespace MetX.Controls
