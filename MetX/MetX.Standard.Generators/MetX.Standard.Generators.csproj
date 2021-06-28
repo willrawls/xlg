@@ -30,10 +30,11 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.10.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Aspects.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Aspects\MetX.Standard.Generators.Aspects.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace MetX.Tests.Scripts
+﻿namespace MetX.Tests2.Scripts
 {
     public static class Sources
     {

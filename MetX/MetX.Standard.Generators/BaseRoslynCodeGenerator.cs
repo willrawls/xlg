@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Runtime.Loader;
 using MetX.Standard.Generators.Support;
 
 namespace MetX.Standard.Generators
@@ -81,5 +83,21 @@ namespace MetX.Standard.Generators
         {
             Cleanup();
         }
+
+
+
     }
+    public class CollectibleAssemblyLoadContext : AssemblyLoadContext
+    {
+        public CollectibleAssemblyLoadContext() : base()
+        {
+            
+        }
+ 
+        protected override Assembly Load(AssemblyName assemblyName)
+        {
+            return null;
+        }
+    }
+
 }
