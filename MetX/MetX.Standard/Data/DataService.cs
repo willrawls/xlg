@@ -215,14 +215,14 @@ namespace MetX.Standard.Data
         
         /// <param name="tableName">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public TableSchema.Table GetTableSchema(string tableName)
+        public TableSchema.Table GetTableSchema(OwnerTablePair pair)
         {
-            return Provider.GetTableSchema(tableName);
+            return Provider.GetTableSchema(pair);
         }
 
         
         /// <returns>C#CD: Returns a sorted list of tables</returns>
-        public string[] GetTables()
+        public List<OwnerTablePair> GetTables()
         {
             return Provider.GetTableList();
         }
