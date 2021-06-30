@@ -26,7 +26,7 @@ table {
 		<xsl:sort select="@TableName"/>
 		<xsl:variable name="TableName" select="@TableName" />
 
-<h3><xsl:value-of select="$TableName"/></h3>
+<h3 id="table{$TableName}"><xsl:value-of select="$TableName"/></h3>
 	<table>
 		<thead>
 			<th>Name</th>
@@ -35,12 +35,19 @@ table {
 			<th>Nullable</th>
 			<th>Increments</th>
 			<th>Foreign key</th>
-			<th>Identity</th>
-			<th>Primary key</th>
 			<th>Indexed</th>
 			<th>Description</th>
 		</thead>
-		<xsl:for-each select="Columns/Column">
+		<xsl:for-each select="Columns/Column[not(
+				   @ColumnName='CreatedBy' 
+				or @ColumnName='CreatedDate' 
+				or @ColumnName='CreatedDt' 
+				or @ColumnName='CreateDate' 
+				or @ColumnName='UpdatedBy' 
+				or @ColumnName='UpdatedDate'
+				or @ColumnName='UpdatedDt'
+				or @ColumnName='UpdateDate'
+				)]">
 			<xsl:sort select="@Location" data-type="number"/>
 			<xsl:variable name="ColumnName" select="@ColumnName" />
 		<tr>
@@ -49,19 +56,35 @@ table {
 				<xsl:value-of select="$ColumnName" />
 			</td>
 			<td><xsl:value-of select="@SourceType" /></td>
-			<td><xsl:if test="not(@MaxLength='0')"><xsl:value-of select="@MaxLength" /></xsl:if></td>
+			<td>
+				<xsl:choose>
+				<xsl:when test="@MaxLength='-1'">Max</xsl:when>
+				<xsl:when test="not(@MaxLength='0')"><xsl:value-of select="@MaxLength" /></xsl:when>
+				</xsl:choose>
+			</td>
 			<td><xsl:if test="@IsNullable='True'"><xsl:value-of select="@IsNullable" /></xsl:if></td>
 			<td><xsl:if test="@AutoIncrement='True'"><xsl:value-of select="@AutoIncrement" /></xsl:if></td>
-			
+		
 			<td>
 				<xsl:if test="@IsForeignKey='True'">
-					<b style='color: blue;' />
-					<xsl:value-of select='../../Keys/Key[Columns/Column/@Column=$ColumnName]/@Name' />	
+					<xsl:variable name='rawFKT' select='../../Keys/Key[Columns/Column/@Column=$ColumnName]/@Name' />
+					<xsl:choose>
+					<xsl:when test="contains($rawFKT, 'FK_')">
+						<xsl:variable name='minorFKT' select='xlg:SReplace($rawFKT, "FK_","")' />
+						<xsl:variable name='FKT' select='xlg:SReplace($minorFKT, concat($TableName, "_"), "")' />
+						<xsl:variable name='anchorName' select='concat("table", $FKT)' />
+						<a href="#{$anchorName}">
+							<b style='color: blue;' />
+							<xsl:value-of select='$FKT' />	
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<b style='color: blue;' />
+						<xsl:value-of select='$rawFKT' />	
+					</xsl:otherwise>
+					</xsl:choose>
 				</xsl:if>
 			</td>
-
-			<td><xsl:if test="@IsIdentity='True'"><xsl:value-of select="@IsIdentity" /></xsl:if></td>
-			<td><xsl:if test="@IsPrimaryKey='True'"><xsl:value-of select="@IsPrimaryKey" /></xsl:if></td>
 			<td><xsl:if test="@IsIndexed='True'"><xsl:value-of select="@IsIndexed" /></xsl:if></td>
 			<td><xsl:if test="not(@Description='')"><xsl:value-of select="@Description" /></xsl:if></td>		
 		</tr>
