@@ -30,7 +30,7 @@ namespace MetX.Scripts
 
     public class QuickScriptProcessor : BaseLineProcessor
     {
-        public QuickScriptProcessor(MetX.Standard.Pipelines.IGenerationHost host) : base(host)
+        public QuickScriptProcessor(MetX.Standard.Interfaces.IGenerationHost host) : base(host)
         {
         }
 
