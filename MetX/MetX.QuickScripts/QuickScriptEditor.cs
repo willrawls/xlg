@@ -41,11 +41,9 @@ namespace XLG.QuickScripts
             DestinationParam.GotFocus += DestinationParam_GotFocus;
             DestinationParam.LostFocus += DestinationParam_LostFocus;
 
-            Host = new GenerationHost
-            {
-                MessageBox = new WinFormMessageBoxHost<QuickScriptEditor>(this, Host),
-                InputText = Clipboard.GetText,
-            };
+            Host = new WinFormGenerationHost(this);
+            Host.MessageBox = new WinFormMessageBoxHost<QuickScriptEditor>(this, Host);
+            Host.InputText = Clipboard.GetText;
 
             LoadQuickScriptsFile(filePath);
             InitializeHotKeys();

@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard", "MetX.Stand
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX.Windows\MetX.Windows.csproj", "{0F4912CC-39DB-4D7D-A788-C9DD949117F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Aspects", "MetX.Standard.Aspects\MetX.Standard.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Aspects", "MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Five", "MetX.Five\MetX.Five.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
 EndProject
@@ -27,6 +27,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Actual", "MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj", "{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Support", "MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj", "{81885A46-2601-4366-91DF-FCE182426740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,6 +190,18 @@ Global
 		{81885A46-2601-4366-91DF-FCE182426740}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{81885A46-2601-4366-91DF-FCE182426740}.Release|x86.ActiveCfg = Release|Any CPU
 		{81885A46-2601-4366-91DF-FCE182426740}.Release|x86.Build.0 = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|x86.Build.0 = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|x86.ActiveCfg = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

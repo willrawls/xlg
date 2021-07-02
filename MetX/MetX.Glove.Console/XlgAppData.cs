@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Mime;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Xml.Serialization;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
@@ -35,19 +36,28 @@ namespace XLG.Pipeliner
                 ParentNamespace = "xlg.dal",
             };
             ret.LastXlgsFile = ret.SupportPath + "Default.xlgs";
-            ret.TextEditor = Environment.ExpandEnvironmentVariables(@"$SystemRoot%\Notepad.exe");
+            ret.TextEditor = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\Notepad.exe");
             ret.Save();
             return ret;
         }
 
         public string CheckIfTextEditorExistsAndAskIfNot(IGenerationHost host)
         {
+            if (TextEditor.Contains("$SystemRoot"))
+                TextEditor = TextEditor.Replace("$SystemRoot", "%SystemRoot");
+
             if (File.Exists(TextEditor)) return TextEditor;
 
             if (TextEditor.ToLower().Contains("notepad2"))
             {
                 TextEditor = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\Notepad.exe");
             }
+            else if (File.Exists(@"c:\Program Files (x86)\Notepad++\notepad++.exe"))
+            {
+                TextEditor = @"c:\Program Files (x86)\Notepad++\notepad++.exe";
+                return TextEditor;
+            }
+
             if (File.Exists(TextEditor)) return TextEditor;
 
             var textEditorPath = TextEditor;

@@ -2,7 +2,7 @@
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests
+namespace MetX.Tests2
 {
     [TestClass]
     public class StreamBuilderTests
