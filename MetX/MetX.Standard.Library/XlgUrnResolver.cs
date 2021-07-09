@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace MetX.Standard.IO
+namespace MetX.Standard.Library
 {
     /// <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
     public class XlgUrnResolver : XmlResolver

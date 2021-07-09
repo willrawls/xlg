@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using MetX.Standard.Generation;
+﻿using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard.Generation.CSharp.Project
+namespace MetX.Tests2.Standard.Generation.CSharp.Project
 {
     [TestClass]
     public class GeneratorsCsProjGeneratorTests

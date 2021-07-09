@@ -1,15 +1,12 @@
 using System;
-using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
-using MetX.Standard.IO;
 
 // ReSharper disable UnusedType.Global
-
 namespace MetX.Standard.Library
 {
 	/// <summary>Helper functions for dealing with xsl transformation</summary>
@@ -22,7 +19,11 @@ namespace MetX.Standard.Library
 		/// <summary>Set this value when you wish your page's xslt compilation to be cached differently (say per theme, in this case the theme name will be sufficient).</summary>
 		public string PageCacheSubKey = ".";
 
-        public static readonly InMemoryCache<XslCompiledTransform> PageCache = new();
+        public static readonly InMemoryCache<XslCompiledTransform> PageCache = new InMemoryCache<XslCompiledTransform>();
+
+        public string AdditionalUrnName { get; set; }
+        public string AdditionalUrnClass { get; set; }
+
 
         /// <summary>Performs an XSL Transformation on an XmlDocument</summary>
         /// <param name="xmlDocument">The XmlDocument object to transform</param>
@@ -204,7 +205,7 @@ namespace MetX.Standard.Library
             set => _mXlgUrn = value;
         }
 
-		/// <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.UrnName and xlgSecurity.UrnClass.
+		/// <summary>Returns XsltArgumentList containing a xlgUrn object and an optional object named in xlgSecurity.AdditionalUrnName and xlgSecurity.AdditionalUrnClass.
 		/// <para>NOTE: You can set this property in PreBuild() or BuildXml() to override it with your own implementation.</para>
 		/// </summary>
 		public XsltArgumentList Urns
@@ -217,24 +218,22 @@ namespace MetX.Standard.Library
 				var argsList = new XsltArgumentList();
 				argsList.AddExtensionObject("urn:xlg", XlgUrn);
 
-				var urnName = ConfigurationManager.AppSettings["xlgSecurity.UrnName"];
-				var urnClass = ConfigurationManager.AppSettings["xlgSecurity.UrnClass"];
-				if (urnName != null && urnClass != null && urnName.Length > 0 & urnClass.Length > 0)
+				if (AdditionalUrnName != null && AdditionalUrnClass != null && AdditionalUrnName.Length > 0 & AdditionalUrnClass.Length > 0)
 				{
 					Assembly a;
-					if (urnClass.IndexOf(",", StringComparison.Ordinal) > -1)
+					if (AdditionalUrnClass.IndexOf(",", StringComparison.Ordinal) > -1)
 					{
-						var assemblyName = urnClass.Substring(urnClass.IndexOf(",", StringComparison.Ordinal) + 1).Trim();
-						urnClass = urnClass.Substring(0, urnClass.IndexOf(",", StringComparison.Ordinal)).Trim();
+						var assemblyName = AdditionalUrnClass.Substring(AdditionalUrnClass.IndexOf(",", StringComparison.Ordinal) + 1).Trim();
+						AdditionalUrnClass = AdditionalUrnClass.Substring(0, AdditionalUrnClass.IndexOf(",", StringComparison.Ordinal)).Trim();
 						a = Assembly.Load(assemblyName);
 					}
 					else
 					{
 						a = Assembly.GetCallingAssembly();
 					}
-					var o = a.CreateInstance(urnClass);
+					var o = a.CreateInstance(AdditionalUrnClass);
 					if (o != null)
-						argsList.AddExtensionObject("urn:" + urnName, o);
+						argsList.AddExtensionObject("urn:" + AdditionalUrnName, o);
 				}
 				return argsList;
 			}

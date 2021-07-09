@@ -236,29 +236,27 @@ namespace MetX.Standard.Data.Factory
             }
             return ret;
         }
+        
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
-        public override string[] GetTableList()
+        public override List<OwnerTablePair> GetTableList()
         {
+            var result = new List<OwnerTablePair>();
             var cmd = new QueryCommand(TableSql);
-            var sList = string.Empty;
-            using (var rdr = GetReader(cmd))
+            using var rdr = GetReader(cmd);
+            while (rdr.Read())
             {
-                while (rdr.Read())
+                var pair = new OwnerTablePair
                 {
-                    sList += rdr["Name"] + "|";
-                }
-                rdr.Close();
-                rdr.Dispose();
-                if (sList.Length > 0)
-                {
-                    sList = sList.Remove(sList.Length - 1, 1);
-                }
+                    Owner = rdr["Owner"].AsString("dbo"),
+                    TableName = rdr["Name"].AsString(),
+                };
+                result.Add(pair);
             }
-            var ret = sList.Split('|');
-            Array.Sort(ret);
-            return ret;
+            rdr.Close();
+            rdr.Dispose();
+            return result;
         }
 
         /// <summary>C#CD: </summary>
@@ -285,14 +283,15 @@ namespace MetX.Standard.Data.Factory
         /// <summary>C#CD: </summary>
         /// <param name="tableName">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override TableSchema.Table GetTableSchema(string tableName)
+        public override TableSchema.Table GetTableSchema(OwnerTablePair pair)
         {
             string schemaName = null;
             TableSchema.Table tableSchema;
             var columns = new TableSchema.TableColumnCollection();
 
             var command = new QueryCommand(TableColumnSqlWithDescription + ";" + IndexSql);
-            command.AddParameter("@tblName", tableName);
+            command.AddParameter("@ownerName", pair.Owner);
+            command.AddParameter("@tblName", pair.TableName);
             using (var reader = GetReader(command))
             {
                 //get information about both the table and it's columns
@@ -315,11 +314,11 @@ namespace MetX.Standard.Data.Factory
                         MaxLength = maxLength,
                     };
                     columns.Add(column);
-                    schemaName ??= reader["Owner"].ToString();
+                    //schemaName ??= reader["Owner"].ToString();
                 }
                 reader.NextResult();
 
-                tableSchema = new TableSchema.Table(tableName, schemaName);
+                tableSchema = new TableSchema.Table(pair.TableName, pair.Owner);
 
                 while (reader.Read())
                 {
@@ -339,7 +338,9 @@ namespace MetX.Standard.Data.Factory
             }
 
             command = new QueryCommand(CompleteIndexInfoSql);
-            command.AddParameter("@tblName", tableName);
+            command.AddParameter("@ownerName", pair.Owner);
+            command.AddParameter("@tblName", pair.TableName);
+
             using (var rdr = GetReader(command))
             {
                 if (rdr.Read())
@@ -695,13 +696,13 @@ select
                                          and sep.name = 'MS_Description'
 	left join INFORMATION_SCHEMA.COLUMNS info on info.TABLE_NAME = st.name 
 										and info.COLUMN_NAME = sc.Name
-    WHERE     (info.TABLE_NAME = @tblName)
+    WHERE TABLE_SCHEMA = @ownerName and info.TABLE_NAME = @tblName
 ";
 
         private const string TableSql = "SELECT     TABLE_CATALOG AS [Database], TABLE_SCHEMA AS Owner, TABLE_NAME AS Name, TABLE_TYPE " +
                                          "FROM         INFORMATION_SCHEMA.TABLES " +
                                          "WHERE     (TABLE_TYPE = 'BASE TABLE') AND (TABLE_NAME <> N'sysdiagrams') " +
-                                         "ORDER BY TABLE_NAME";
+                                         "ORDER BY TABLE_SCHEMA, TABLE_NAME";
 
         private const string ViewsSql = 
 @"select schema_name(v.schema_id) as schema_name, v.name as view_name, m.definition

@@ -65,7 +65,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <PackageReference Include="NHotPhrase.WindowsForms" Version="1.0.0" />
+    <PackageReference Include="NHotPhrase.WindowsForms" Version="1.0.1" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
     <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">

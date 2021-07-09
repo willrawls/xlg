@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Scripts
+namespace MetX.Tests2.Scripts
 {
     [TestClass]
     public class InMemoryCompilerTests

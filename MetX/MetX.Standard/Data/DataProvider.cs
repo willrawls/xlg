@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Data;
 using System.IO;
 using System.Text;
+using MetX.Standard.Data.Factory;
 using MetX.Standard.Library;
 using MetX.Standard.Metadata;
 
@@ -52,10 +54,10 @@ namespace MetX.Standard.Data
 
         public abstract int ExecuteQuery(QueryCommand cmd);
 
-        public abstract TableSchema.Table GetTableSchema(string tableName);
+        public abstract TableSchema.Table GetTableSchema(OwnerTablePair pair);
 
         public abstract StoredProcedure[] GetStoredProcedureList();
-        public abstract string[] GetTableList();
+        public abstract List<OwnerTablePair> GetTableList();
         public abstract View[] GetViews();
 
         public abstract IDataReader GetSpParams(string spName);

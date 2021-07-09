@@ -1,4 +1,6 @@
-namespace MetX.Standard.Pipelines
+using MetX.Standard.Pipelines;
+
+namespace MetX.Standard.Interfaces
 {
     public interface IMessageBox
     {

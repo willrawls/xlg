@@ -7,8 +7,8 @@ namespace MetX.Standard.Generators.Samples.Client
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Generated.GClass.GMethod();
-            Generated.FredExampleOne.Go();
+            MetX.Generated.GClass.GMethod();
+            MetX.Generated.FredExampleOne.Go();
         }
     }
 }

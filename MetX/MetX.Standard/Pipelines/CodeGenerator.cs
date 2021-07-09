@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Xsl;
 using MetX.Standard.Data;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Metadata;
@@ -472,9 +473,9 @@ namespace MetX.Standard.Pipelines
 
             root.AppendChild(xmlTables);
             var tables = DataService.Instance.GetTables();
-            foreach (var table in tables)
+            foreach (var pair in tables)
             {
-                if (string.IsNullOrEmpty(table) || !IsInList(table))
+                if (string.IsNullOrEmpty(pair.TableName) || !IsInList(pair.TableName))
                 {
                     continue;
                 }
@@ -482,19 +483,19 @@ namespace MetX.Standard.Pipelines
                 TableSchema.Table tableSchema;
                 try
                 {
-                    tableSchema = DataService.Instance.GetTableSchema(table);
+                    tableSchema = DataService.Instance.GetTableSchema(pair);
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
                     if (Host != null)
                     {
-                        switch (Host.MessageBox.Show("Unable to get a schema for table: " + table + "\n\n\tAdd table to skip list and continue ?", 
+                        switch (Host.MessageBox.Show("Unable to get a schema for table: " + pair.ToString() + "\n\n\tAdd table to skip list and continue ?", 
                             "CONTINUE ?", MessageBoxChoices.YesNoCancel,
                             MessageBoxStatus.Error, MessageBoxDefault.Button1))
                         {
                             case MessageBoxResult.Yes:
-                                AddElement(_mTablesToRender, "Exclude", "Name", table);
+                                AddElement(_mTablesToRender, "Exclude", "Name", pair.ToString());
                                 break;
 
                             case MessageBoxResult.No:
