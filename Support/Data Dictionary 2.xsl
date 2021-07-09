@@ -22,11 +22,18 @@ table {
 </style>
 <body>
 <h1>Tables</h1>
-	<xsl:for-each select="Tables/Table">
+	<xsl:for-each select="Tables/Table[not(@RowCount = 0)]">
 		<xsl:sort select="@TableName"/>
 		<xsl:variable name="TableName" select="@TableName" />
 
-<h3 id="table{$TableName}"><xsl:value-of select="$TableName"/></h3>
+<h3 id="table{$TableName}">
+	Table: <xsl:value-of select="$TableName"/>
+	<span style="padding: 10px; font-size: 14px;">
+	
+		: with <xsl:value-of select='format-number(@RowCount, "###,###,###")' /> rows
+	</span>
+</h3>
+
 	<table>
 		<thead>
 			<th>Name</th>
@@ -73,7 +80,7 @@ table {
 						<xsl:variable name='minorFKT' select='xlg:SReplace($rawFKT, "FK_","")' />
 						<xsl:variable name='FKT' select='xlg:SReplace($minorFKT, concat($TableName, "_"), "")' />
 						<xsl:variable name='anchorName' select='concat("table", $FKT)' />
-						<a href="#{$anchorName}">
+						<a href="#{$anchorName}" title="{$rawFKT}">
 							<b style='color: blue;' />
 							<xsl:value-of select='$FKT' />	
 						</a>
@@ -100,7 +107,7 @@ table {
 		<xsl:sort select="@StoredProcedureName"/>
 		<xsl:variable name="StoredProcedureName" select="@StoredProcedureName" />
 
-<h3><xsl:value-of select="$StoredProcedureName"/></h3>
+<h3>Procedure: <xsl:value-of select="$StoredProcedureName"/></h3>
 	<xsl:choose>
 	<xsl:when test='not(Parameters/Parameter)'>No parameters</xsl:when>
 	<xsl:otherwise>
