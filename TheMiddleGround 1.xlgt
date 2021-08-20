@@ -1,0 +1,71 @@
+~~Settings:
+	VariableDelmiter: %%
+	BeginAreaNameDelimiter: //~
+	EndAreaNameDelimiter: ~//
+	AreaNodePlacedholder: ?
+	QuickResolveDelimiters: =,~
+	InputFolder: .
+	OutputFolder: .\Output\%RunID%
+	TemplateProcessor: XlgDoc Database Metadata
+	ResetValuesBeforeEachTable=true   <<< So like ColumnNames gets clears between tables
+
+~~Members:
+	public string ShortName = "xx";
+	public string WhoAmI = GatherOutput("whoami");
+	public string At = DateTime.Now.ToString("s");
+	
+	string _description;
+	public string Description()
+	{
+		if(_description.IsEmpty())
+			_description = Ask("What is the description of the retrieve sproc?", 
+								"Retrieves x from %TableName%".ResolveVariables());
+
+~~Template: Read
+~~[
+
+-- Created By:		%WhoAmI%
+-- Created Date:	%At%
+-- Description:		%Description()%
+-- 
+CREATE PROCEDURE sp_Read_%TableName%_%Description.ToParameterName()% (
+//~Read Parameters~//
+) AS BEGIN
+	SET NOCOUNT ON;
+
+	SELECT 
+//~ColumnNames~//
+	FROM [%SchemaName%].[%TableName%] [%ShortName%]
+	-- TODO: Add settings in .xlgs to describe joins
+	-- TODO: Add settings in .xlgs to describe WHERE (which would then describe the parameters)
+	;
+END
+GO
+]~~
+
+~~BeginProcessing: %Parameter Input%
+
+~~On: Table
+	_description = null;
+	ClearArea("ColumnNames");
+	ShortName = TableName.GetShortName();
+
+~~On: Column
+	~~Area: ColumnNames
+	if(Position == 1)
+		~~: %ShortName%.[%ColumnName]
+	else
+		~~: ,%ShortName%.[%ColumnName]
+
+~~On: Table Index
+~~On: Table Key
+~~On: Table Key Column
+~~On: View
+~~On: View Table
+~~On: SPROC
+
+~~Extension: ToParameterName
+return name.ToLower()[0] + name.Substring(1);
+
+~~Extension: GetShortName
+return name.ToLower().Substring(2);
