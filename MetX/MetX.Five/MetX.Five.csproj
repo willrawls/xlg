@@ -3,12 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Metadata\**" />
     <EmbeddedResource Remove="Metadata\**" />
     <None Remove="Metadata\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
   </ItemGroup>
 
 </Project>
