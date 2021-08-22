@@ -10,7 +10,7 @@ using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
-
+using MetX.Windows.Library;
 using XLG.Pipeliner.Properties;
 
 using NHotPhrase;
@@ -41,7 +41,7 @@ namespace XLG.Pipeliner
         {
             InitializeComponent();
 
-            Host = new GenerationHost
+            Host = new WinFormGenerationHost(this)
             {
                 MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host),
                 InputText = Clipboard.GetText,
