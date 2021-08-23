@@ -7,6 +7,22 @@ namespace MetX.Tests
     [TestClass]
     public class FiverParserTests
     {
+        private const string Fiver_TemplateAreaBeginProcessingArea = @"
+~~Template:
+    string x = ""Ding"";
+
+~~Area: Fred
+    string y = ""Fred"";
+    y = y.Trim();
+
+~~BeginProcessing: %Input%
+
+~~Area: George
+    string z = ""George"";
+    z += ""z"";
+    z += ""Mary"";
+";
+
         [TestMethod]
         public void Parse_Simple()
         {
@@ -51,6 +67,29 @@ namespace MetX.Tests
             
             Assert.IsTrue(data.Areas[0].Lines[0].Contains("Fred"));
             Assert.IsTrue(data.Areas[1].Lines[0].Contains("George"));
+        }
+        
+        [TestMethod]
+        public void Parse_Simple_AreasAfterBeginProcessingAreMarkedAsProcessingAreas()
+        {
+            var data = new FiverParser();
+            data.Parse(Fiver_TemplateAreaBeginProcessingArea);
+            Assert.AreEqual(1, data.Areas.Count);
+            Assert.AreEqual(2, data.Activities.Count);
+            Assert.AreEqual(1, data.Templates.Count);
+            Assert.IsFalse(data.Areas[0].IsAreaForProcessing);
+            Assert.IsTrue(data.Activities[0].IsAreaForProcessing);
+            Assert.IsTrue(data.Activities[1].IsAreaForProcessing);
+        }
+        
+        [TestMethod]
+        public void Parse_Simple_AreasAfterBeginProcessingArePutInActivities()
+        {
+            var data = new FiverParser();
+            data.Parse(Fiver_TemplateAreaBeginProcessingArea);
+            Assert.AreEqual(2, data.Activities.Count);
+            Assert.AreEqual(InstructionType.BeginProcessing, data.Activities[0].InstructionType);
+            Assert.AreEqual(InstructionType.Area, data.Activities[1].InstructionType);
         }
 
         

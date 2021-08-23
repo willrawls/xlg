@@ -30,7 +30,8 @@ namespace MetX.Five
             Name = line
                 .TokensAfterFirst(":")
                 .Replace("\r", "")
-                .FirstToken("\n");
+                .FirstToken("\n")
+                .Trim();
 
             Arguments = Name.WordList();
             TemplateType = TemplateType.NotATemplate;

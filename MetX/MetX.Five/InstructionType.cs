@@ -13,6 +13,7 @@
         Extension,
         Extensions,
         BeginProcessing,
-        Template
+        Template,
+        Settings
     }
 }
