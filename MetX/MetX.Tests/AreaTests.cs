@@ -7,13 +7,6 @@ namespace MetX.Tests
     public class AreaTests
     {
         [TestMethod]
-        public void Test()
-        {
-            //TestCop				
-            Assert.Fail("WriteMe");
-        }
-
-        [TestMethod]
         public void New_TemplateInstruction_TableQuestionMark()
         {
             var processingAlreadyBeganPreviously = false;
