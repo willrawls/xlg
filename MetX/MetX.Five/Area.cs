@@ -27,11 +27,17 @@ namespace MetX.Five
             if (possibleInstructionType != null)
                 InstructionType = (InstructionType) possibleInstructionType;
 
-            Name = line.TokensAfterFirst(":");
+            Name = line
+                .TokensAfterFirst(":")
+                .Replace("\r", "")
+                .FirstToken("\n");
+
             Arguments = Name.WordList();
-            
+            TemplateType = TemplateType.NotATemplate;
+
             if (InstructionType == InstructionType.Template)
             {
+                TemplateType = TemplateType.Unknown;
                 if (!Enum.TryParse(typeof(TemplateType), Arguments[0], true, out var possibleTemplateType)) 
                     possibleTemplateType = TemplateType.Default;
 

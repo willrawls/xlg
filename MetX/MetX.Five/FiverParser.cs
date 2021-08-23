@@ -6,7 +6,7 @@ using MetX.Standard.Library;
 
 namespace MetX.Five
 {
-    public class FiverProcessor
+    public class FiverParser
     {
         public string Filename { get; set; }
 
@@ -17,7 +17,7 @@ namespace MetX.Five
 
         public Areas Areas { get; set; } = new();
 
-        public FiverProcessor(string filename = null)
+        public FiverParser(string filename = null)
         {
             Filename = filename;
             if (filename.IsNotEmpty() && File.Exists(filename))
@@ -50,7 +50,10 @@ namespace MetX.Five
                 if (instruction.Length > 0)
                 {
                     currentArea = new Area(instruction, line, ref processingAlreadyBeganPreviously);
-                    Areas.Add(currentArea);
+                    if(currentArea.TemplateType == TemplateType.NotATemplate)
+                        Areas.Add(currentArea);
+                    else
+                        Templates.Add(currentArea);
                 }
                 else if (line.Trim().Length == 0)
                 {
@@ -67,15 +70,17 @@ namespace MetX.Five
                 }
             }
 
-            Templates = Areas
-                .Where(a => a.InstructionType is InstructionType.Template)
-                .ToList();
-
-            MainTemplate = Templates.FirstOrDefault(t => t
-                .IsAreaForProcessing == false && t
-                .InstructionType == InstructionType.Template && t
-                .Arguments.Count == 0);
-            
+            if (Templates.Count == 1)
+            {
+                MainTemplate = Templates[0];
+            }
+            else if(Templates.Count > 1)
+            {
+                MainTemplate = Templates.FirstOrDefault(t => t
+                    .IsAreaForProcessing == false && t
+                    .InstructionType == InstructionType.Template && t
+                    .Arguments.Count == 0);
+            }
             return true;
         }
     }

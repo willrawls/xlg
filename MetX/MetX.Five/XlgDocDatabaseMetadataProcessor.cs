@@ -10,10 +10,10 @@ namespace MetX.Five
     {
         public XlgDocDatabaseMetadataProcessor(string templateFilePath)
         {
-            Template = new FiverProcessor(templateFilePath);
+            Template = new FiverParser(templateFilePath);
         }
 
-        public FiverProcessor Template { get; set; }
+        public FiverParser Template { get; set; }
 
         public ProcessingResult Go()
         {
