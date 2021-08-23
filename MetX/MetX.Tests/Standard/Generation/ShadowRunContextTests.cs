@@ -3,7 +3,7 @@ using MetX.Standard.Generators;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.Generation
+namespace MetX.Tests.Standard.Generation
 {
     [TestClass]
     public class ShadowRunContextTests

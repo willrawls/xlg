@@ -2,7 +2,7 @@
 using MetX.Standard.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.IO
+namespace MetX.Tests.Standard.IO
 {
     [TestClass]
     public class FileSystemTests

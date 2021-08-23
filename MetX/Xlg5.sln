@@ -8,9 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.QuickScripts", "MetX.Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Controls", "MetX.Controls\MetX.Controls.csproj", "{1E449E05-F155-4952-BF75-F8268E8695CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Techniques.Tests", "MetX.Techniques.Tests\MetX.Techniques.Tests.csproj", "{7D1582F4-534A-4607-989A-3A56759780A2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests2", "MetX.Tests\MetX.Tests2.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard", "MetX.Standard\MetX.Standard.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
 EndProject
@@ -28,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Support", "MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj", "{81885A46-2601-4366-91DF-FCE182426740}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,16 +70,6 @@ Global
 		{1E449E05-F155-4952-BF75-F8268E8695CF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1E449E05-F155-4952-BF75-F8268E8695CF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1E449E05-F155-4952-BF75-F8268E8695CF}.Release|x86.ActiveCfg = Release|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7D1582F4-534A-4607-989A-3A56759780A2}.Release|x86.ActiveCfg = Release|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

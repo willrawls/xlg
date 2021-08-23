@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+// ReSharper disable InconsistentNaming
 
 namespace MetX.Standard.Metadata
 {

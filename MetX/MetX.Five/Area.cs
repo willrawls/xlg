@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using MetX.Standard.Library;
 
 namespace MetX.Five
 {
     public class Area
     {
+        public string Name { get; set; }
+        public InstructionType InstructionType { get; set; }
+        public bool IsAreaForProcessing { get; set; }
+        public TemplateType TemplateType { get; set; }
+        public string Target { get; set; }
+
+        public List<string> Lines { get; set; } = new();
+        public List<string> Arguments { get; set; } = new();
+
         public Area(bool isAreaForProcessing)
         {
             IsAreaForProcessing = isAreaForProcessing;
@@ -14,14 +22,29 @@ namespace MetX.Five
 
         public Area(string instruction, string line, ref bool processingAlreadyBeganPreviously)
         {
-            if (!Enum.TryParse(typeof(InstructionType), instruction, true, out object possibleInstructionType)) return;
+            if (!Enum.TryParse(typeof(InstructionType), instruction, true, out var possibleInstructionType)) return;
 
-            if (possibleInstructionType != null) 
-                Instruction = (InstructionType) possibleInstructionType;
+            if (possibleInstructionType != null)
+                InstructionType = (InstructionType) possibleInstructionType;
+
+            Name = line.TokensAfterFirst(":");
+            Arguments = Name.WordList();
             
-            InstructionArguments = line.TokensAfterFirst(":").Trim().Split(' ').Where(a => a.IsNotEmpty()).ToList();
+            if (InstructionType == InstructionType.Template)
+            {
+                if (!Enum.TryParse(typeof(TemplateType), Arguments[0], true, out var possibleTemplateType)) 
+                    possibleTemplateType = TemplateType.Default;
 
-            if (Instruction == InstructionType.BeginProcessing)
+                if (possibleTemplateType != null)
+                    TemplateType = (TemplateType) possibleTemplateType;
+
+                if (TemplateType != TemplateType.Unknown && Arguments.Count > 1) 
+                    Target = Arguments[1];
+
+                if (Name.IsEmpty())
+                    Name = "Default";
+            }
+            else if (InstructionType == InstructionType.BeginProcessing)
             {
                 IsAreaForProcessing = true;
                 processingAlreadyBeganPreviously = true;
@@ -30,13 +53,6 @@ namespace MetX.Five
             {
                 IsAreaForProcessing = processingAlreadyBeganPreviously;
             }
-
         }
-
-        public List<string> InstructionArguments { get; set; }
-        public InstructionType Instruction { get; set; }
-        public List<string> Lines { get; set; }
-        public bool IsAreaForProcessing { get; set; }
-
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 
-namespace MetX.Tests2.Standard.Generation.CSharp.Project
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public class TestHelpers
     {

@@ -3,7 +3,7 @@ using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.Generation.CSharp.Project
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     public partial class AspectsCsProjGeneratorTests

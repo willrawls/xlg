@@ -4,7 +4,7 @@ using MetX.Standard.Generators;
 using MetX.Standard.Generators.GenGen;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.Generation.CSharp.Project
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     [TestClass]
     public class MetXGeneratorsExeTests

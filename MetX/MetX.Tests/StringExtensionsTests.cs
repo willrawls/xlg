@@ -1,7 +1,7 @@
 ﻿using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2
+namespace MetX.Tests
 {
 
 
