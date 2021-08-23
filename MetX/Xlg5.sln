@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX.Window
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Aspects", "MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Five", "MetX.Five\MetX.Five.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Fiver", "MetX.Five\MetX.Fiver.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Library", "MetX.Standard.Library\MetX.Standard.Library.csproj", "{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}"
 EndProject
