@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using MetX.Standard.Library;
+﻿using System;
+using System.Collections.Generic;
 
-namespace MetX.Tests.Library
+namespace MetX.Standard.Library
 {
     public class AssocArray 
     {
         public string Name { get; }
         public AssocArrayList Parent { get; }
 
-        public AssocArray(AssocArrayList parent, string name)
+        public AssocArray(AssocArrayList parent = null, string name = null, bool createParentIfNeeded = true)
         {
-            Name = name;
-            Parent = parent;
+            Name = name ?? Guid.NewGuid().ToString("N");
+            Parent = parent ?? (createParentIfNeeded ? new AssocArrayList() : null);
         }
 
         public object SyncRoot = new();

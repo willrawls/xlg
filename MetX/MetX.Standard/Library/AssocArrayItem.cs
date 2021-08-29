@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Tests.Library
+namespace MetX.Standard.Library
 {
     public class AssocArrayItem
     {

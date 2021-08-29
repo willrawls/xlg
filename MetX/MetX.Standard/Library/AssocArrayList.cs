@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using MetX.Standard.Library;
+﻿using System;
+using System.Collections.Generic;
 
-namespace MetX.Tests.Library
+namespace MetX.Standard.Library
 {
     public class AssocArrayList<T> : List<AssocArray<T>> where T : class, new()
     {
@@ -12,9 +12,9 @@ namespace MetX.Tests.Library
         public string Name { get; set; }
         public object SyncRoot = new();
 
-        public AssocArrayList(string name)
+        public AssocArrayList(string name = null)
         {
-            Name = name;
+            Name = name ?? Guid.NewGuid().ToString("N");
         }
 
         protected SortedDictionary<string, AssocArray> Pairs = new();
