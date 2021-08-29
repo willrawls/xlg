@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MetX Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("William M. Rawls")]
+[assembly: AssemblyCompany("William Rawls")]
 [assembly: AssemblyProduct("XLG")]
 [assembly: AssemblyCopyright("MIT License 2021 - William Rawls")]
 [assembly: AssemblyTrademark("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 [assembly: PermissionSet(SecurityAction.RequestMinimum, Unrestricted = true)]
 */
 
-[assembly: AssemblyDescriptionAttribute("XLG Core Functionality Library")]
+[assembly: AssemblyDescriptionAttribute("XLG Core 5.0 functionality")]
 [assembly: CLSCompliant(false)]

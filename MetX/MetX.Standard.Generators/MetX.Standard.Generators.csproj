@@ -6,6 +6,16 @@
     <StartupObject>MetX.Standard.Generators.Program</StartupObject>
     <RootNamespace>MetX.Standard.Generators</RootNamespace>
     <AssemblyName>MetX.Standard.Generators</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>5.0.1</Version>
+    <Authors>William Rawls</Authors>
+    <Company>William Rawls</Company>
+    <Product>XLG</Product>
+    <Description>XLG .net 5 Code Generator and genertor generators</Description>
+    <Copyright>MIT 2.0 - William Rawls</Copyright>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Templates\CSharp\Project\**" />

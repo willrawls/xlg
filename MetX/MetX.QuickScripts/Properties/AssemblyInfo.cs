@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 
 [assembly: AssemblyTitle("XLG Quick Scripts")]
-[assembly: AssemblyDescription("XML Library Generator - Quick Script Code Generation Development Environment (GDE)")]
+[assembly: AssemblyDescription("XML Quick Scripter - Quickly write line processing executables to process lines on the clipboard or in files.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("William M. Rawls")]
+[assembly: AssemblyCompany("William Rawls")]
 [assembly: AssemblyProduct("XLG")]
 [assembly: AssemblyCopyright("MIT License 2021 - William Rawls")]
 [assembly: AssemblyTrademark("")]

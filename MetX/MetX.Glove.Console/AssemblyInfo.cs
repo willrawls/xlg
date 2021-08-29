@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("XLG Pipeliner")]
-[assembly: AssemblyDescription("XML Library Generator - Pipeline Tool")]
+[assembly: AssemblyDescription("Extracts metadata from databases and folder structures and turns them into code, html and/or SQL")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("William M. Rawls")]
+[assembly: AssemblyCompany("William Rawls")]
 [assembly: AssemblyProduct("XLG")]
 [assembly: AssemblyCopyright("MIT License 2021 - William Rawls")]
 [assembly: AssemblyTrademark("")]

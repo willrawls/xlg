@@ -10,6 +10,8 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>William Rawls</Authors>
 
   </PropertyGroup>
 

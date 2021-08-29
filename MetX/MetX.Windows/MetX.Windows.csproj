@@ -10,6 +10,10 @@
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>William Rawls</Authors>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>

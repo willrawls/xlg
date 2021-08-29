@@ -10,6 +10,10 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>William Rawls</Authors>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

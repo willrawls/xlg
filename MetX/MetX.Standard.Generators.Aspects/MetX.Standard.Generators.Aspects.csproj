@@ -2,5 +2,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>5.0.1</Version>
+    <Authors>William Rawls</Authors>
+    <Product>XLG</Product>
+    <Description>XLG .net 5 generator attributes</Description>
+    <Copyright>MIT 2.0 - William Rawls</Copyright>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
   </PropertyGroup>
 </Project>

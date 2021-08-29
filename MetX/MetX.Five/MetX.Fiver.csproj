@@ -8,6 +8,13 @@
     <StartupObject>MetX.Five.Program</StartupObject>
     <AssemblyName>Fiver</AssemblyName>
     <RootNamespace>MetX.Five</RootNamespace>
+    <Version>5.0.1</Version>
+    <Authors>William Rawls</Authors>
+    <Product>XLG</Product>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
