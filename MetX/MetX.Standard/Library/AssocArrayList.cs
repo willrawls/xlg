@@ -25,7 +25,7 @@ namespace MetX.Standard.Library
                 lock(SyncRoot)
                 {
                     AssocArray assocArray;
-                    var k = KeyToLegalKey(key);
+                    var k = key.ToAssocKey();
                     if (!Pairs.ContainsKey(k))
                         Pairs[k] = assocArray = new AssocArray(this, key);
                     else
@@ -37,7 +37,7 @@ namespace MetX.Standard.Library
             {
                 lock(SyncRoot)
                 {
-                    var k = KeyToLegalKey(key);
+                    var k = key.ToAssocKey();
                     if (Pairs.ContainsKey(k))
                         Pairs[k] = value;
                     else
@@ -45,11 +45,5 @@ namespace MetX.Standard.Library
                 }
             }
         }
-
-        public string KeyToLegalKey(string k)
-        {
-            return k.AsString().ToLowerInvariant();
-        }
-
     }
 }

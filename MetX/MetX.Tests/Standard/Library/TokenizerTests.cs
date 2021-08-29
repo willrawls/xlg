@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable StringLiteralTypo
 
-namespace MetX.Tests.Library
+namespace MetX.Tests.Standard.Library
 {
     [TestClass]
     public class TokenizerTests
