@@ -9,11 +9,9 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArray_Simple()
         {
-            var data = new AssocArray(null, "Mary")
-            {
-                ["Fred"] = "George"
-            };
-            Assert.AreEqual("George", data["Fred"]);
+            var data = new AssocArray(null, "Mary");
+            data["Fred"].Value = "George";
+            Assert.AreEqual("George", data["Fred"].Value);
         }
     }
 }

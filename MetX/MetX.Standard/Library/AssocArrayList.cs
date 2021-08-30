@@ -1,47 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using MetX.Standard.Library.Generics;
 
 namespace MetX.Standard.Library
 {
-    public class AssocArrayList<T> : List<AssocArray<T>> where T : class, new()
+    [Serializable]
+    public class AssocArrayList : AssocItem
     {
-    }
+        public object SyncRoot { get; }= new();
+        public AssocArray<AssocArray> Pairs { get; set; } = new();
 
-    public class AssocArrayList
-    {
-        public string Name { get; set; }
-        public object SyncRoot = new();
+        public AssocArrayList(){ }
 
-        public AssocArrayList(string name = null)
+        public AssocArrayList(string key, string name = null, string value = null, Guid? id = null, IAssocItem parent = null) 
+            : base(key, value, id, name, parent)
         {
-            Name = name ?? Guid.NewGuid().ToString("N");
         }
 
-        protected SortedDictionary<string, AssocArray> Pairs = new();
         public AssocArray this[string key]
         {
             get
             {
                 lock(SyncRoot)
                 {
-                    AssocArray assocArray;
-                    var k = key.ToAssocKey();
-                    if (!Pairs.ContainsKey(k))
-                        Pairs[k] = assocArray = new AssocArray(this, key);
-                    else
-                        assocArray = Pairs[k];
-                    return assocArray;
+                    return Pairs[key].Item;
                 }
             }
             set
             {
                 lock(SyncRoot)
                 {
-                    var k = key.ToAssocKey();
-                    if (Pairs.ContainsKey(k))
-                        Pairs[k] = value;
-                    else
-                        Pairs.Add(k, new AssocArray(this, key));
+                    Pairs[key].Item = value;
                 }
             }
         }

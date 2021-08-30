@@ -11,21 +11,21 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArrayList_Simple()
         {
-            var data = new AssocArrayList("Beth");
-            Assert.AreEqual(data.Name, "Beth");
+            var data = new AssocArrayList("Beth", "Dolly");
+            Assert.AreEqual(data.Key, "Beth");
+            Assert.AreEqual(data.Name, "Dolly");
 
-            data["Mary"]["Fred"] = "George";
-            Assert.AreEqual("George", data["Mary"]["Fred"]);
+            data["Mary"]["Fred"].Value = "George";
+            Assert.AreEqual("George", data["Mary"]["Fred"].Value);
 
-            data["Mary"]["Frank"] = "Tim";
-            Assert.AreEqual("Tim", data["Mary"]["Frank"]);
-            Assert.AreEqual("George", data["Mary"]["Fred"]);
+            data["Mary"]["Frank"].Value = "Tim";
+            Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
         }
 
         [TestMethod]
         public void AssocArrayList_Simple2()
         {
-            var data = new AssocArrayList("Beth");
+            var data = new AssocArrayList("Beth", "Dolly");
             var watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < 100; i++)
@@ -34,7 +34,7 @@ namespace MetX.Tests.Standard.Library
                 for (int j = 0; j < 100; j++)
                 {
                     var key1 = $"key{i++}.{j++}";
-                    assocArray[$"{key1} item"] = $"{key1} value";
+                    assocArray[$"{key1} item"].Value = $"{key1} value";
                 }
             }
             watch.Stop();

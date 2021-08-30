@@ -3,33 +3,28 @@ using System.Collections.Generic;
 
 namespace MetX.Standard.Library
 {
-    public class AssocArray 
+    [Serializable]
+    public class AssocArray : AssocItem
     {
-        public string Name { get; }
-        public AssocArrayList Parent { get; }
+        public object SyncRoot { get; }= new();
+        protected SortedDictionary<string, AssocItem> Pairs = new();
 
-        public AssocArray(AssocArrayList parent = null, string name = null, bool createParentIfNeeded = true)
-        {
-            Name = name ?? Guid.NewGuid().ToString("N");
-            Parent = parent ?? (createParentIfNeeded ? new AssocArrayList() : null);
-        }
+        public AssocArray() { }
+        public AssocArray(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) : base(key, value, id, name, parent) { }
 
-        public object SyncRoot = new();
-
-        protected SortedDictionary<string, AssocArrayItem> Pairs = new();
-        public string this[string key]
+        public AssocItem this[string key]
         {
             get
             {
                 lock(SyncRoot)
                 {
-                    AssocArrayItem assocArrayItem;
+                    AssocItem assocItem;
                     var k = key.ToAssocKey();
                     if (!Pairs.ContainsKey(k))
-                        Pairs[k] = assocArrayItem = new AssocArrayItem(key);
+                        Pairs[k] = assocItem = new AssocItem(key);
                     else
-                        assocArrayItem = Pairs[k];
-                    return assocArrayItem.Item;
+                        assocItem = Pairs[k];
+                    return assocItem;
                 }
             }
             set
@@ -38,49 +33,9 @@ namespace MetX.Standard.Library
                 {
                     var k = key.ToAssocKey();
                     if (Pairs.ContainsKey(k))
-                        Pairs[k].Item = value;
+                        Pairs[k] = value;
                     else
-                        Pairs.Add(k, new AssocArrayItem(this, key, value));
-                }
-            }
-        }
-    }
-
-    public class AssocArray<T> where T : class, new()
-    {
-        public object SyncRoot = new();
-        public AssocArrayList<T> Parent { get; }
-        protected SortedDictionary<string, AssocArrayItem<T>> Pairs = new();
-
-        public AssocArray(AssocArrayList<T> parent = null)
-        {
-            Parent = parent;
-        }
-        
-        public T this[string key]
-        {
-            get
-            {
-                lock (SyncRoot)
-                {
-                    AssocArrayItem<T> assocArrayItem;
-                    var k = key.ToAssocKey();
-                    if (!Pairs.ContainsKey(k))
-                        Pairs[k] = assocArrayItem = new AssocArrayItem<T>(key);
-                    else
-                        assocArrayItem = Pairs[k];
-                    return assocArrayItem.Item;
-                }
-            }
-            set
-            {
-                lock (SyncRoot)
-                {
-                    var k = key.ToAssocKey();
-                    if (Pairs.ContainsKey(k))
-                        Pairs[k].Item = value;
-                    else
-                        Pairs.Add(k, new AssocArrayItem<T>(key, value));
+                        Pairs.Add(k, value);
                 }
             }
         }

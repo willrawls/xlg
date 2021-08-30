@@ -14,7 +14,6 @@ namespace MetX.Tests.Standard.Generation
             var data = new AddStaticCode();
             var actual = data.InitializeShadowRunContext();
             Assert.IsTrue(actual);
-            Assembly x;
             
             Assert.IsTrue(data.FullNameOfActual.IsNotEmpty());
             Assert.IsNotNull(data.ShadowRunContext);
