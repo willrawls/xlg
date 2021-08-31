@@ -68,13 +68,19 @@ namespace MetX.Standard.Scripts
             Template = "Single file input";
         }
 
-        public static InMemoryCompiler<string> CompileSource(string source,
-            bool asExecutable,
-            List<Type> additionalReferences,
-            List<string> additionalSharedReferences, 
-            string filePathForAssembly)
+        public static InMemoryCompiler<string> CompileSource(string source, bool asExecutable,
+            string frameworkFolder,
+            string outputFolder,
+            string outputFilename,
+            List<Type> additionalReferences, 
+            List<string> additionalSharedReferences)
         {
-            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences, filePathForAssembly);
+            var compiler = new InMemoryCompiler<string>(source, asExecutable, 
+                frameworkFolder,
+                outputFolder,
+                outputFilename,
+                additionalReferences, 
+                additionalSharedReferences);
             return compiler;
         }
         
@@ -399,6 +405,22 @@ namespace MetX.Standard.Scripts
             if (!result.EndsWith("\n"))
                 result += "\n";
             return result;
+        }
+
+        public static class OfficialFrameworkPath
+        {
+            public static string Root = @"C:\Program Files (x86)\dotnet\shared\";
+            public static string LatestVersion = "5.0.9";
+
+            public static string LatestCore50()
+            {
+                return @$"{Root}\Microsoft.NETCore.App\{LatestVersion}";
+            }
+            public static string LatestWindows50()
+            {
+                return @$"{Root}\Microsoft.WindowsDesktop.App\{LatestVersion}";
+            }
+
         }
     }
 }
