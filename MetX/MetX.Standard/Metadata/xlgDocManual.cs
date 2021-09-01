@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+// ReSharper disable InconsistentNaming
 
 namespace MetX.Standard.Metadata
 {
@@ -34,13 +35,5 @@ namespace MetX.Standard.Metadata
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
 
-    }
-
-    [Serializable]
-    public class View
-    {
-        [XmlAttribute] public string Schema { get; set; }
-        [XmlAttribute] public string ViewName { get; set; }
-        [XmlAttribute] public string TSQL { get; set; }
     }
 }

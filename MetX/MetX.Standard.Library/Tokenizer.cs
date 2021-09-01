@@ -36,6 +36,74 @@ namespace MetX.Standard.Library
             return result;
         }
 
+        public static List<string> AllTokensIgnoreCase(this string target, string delimiter = " ")
+        {
+            var indexes = TokenIndexes(target, delimiter, StringComparison
+                    .InvariantCultureIgnoreCase)
+                .ToArray();
+            int delimiterLength = delimiter.Length;
+            return target.Carve(indexes, delimiterLength).ToList();
+        }
+
+        public static string[] Carve(this string target, int[] indexes, int delimiterLength)
+        {
+            if (delimiterLength < 0)
+                delimiterLength = 0;
+
+            if (target.IsEmpty())
+                return new string[0];
+
+            if (indexes == null || indexes.Length == 0)
+                return new[] {target};
+            
+            var firstCarvePoint = 0;
+            while (indexes[firstCarvePoint] < 0 && firstCarvePoint < indexes.Length) firstCarvePoint++;
+            
+            var lastCarvePoint = indexes.Length - 1;
+            while (lastCarvePoint > firstCarvePoint && indexes[lastCarvePoint] > target.Length) lastCarvePoint--;
+            
+            if(lastCarvePoint < 0)
+                return new[] { target };
+
+            var lengthOfArray = lastCarvePoint - firstCarvePoint + 2;
+            if(lengthOfArray < 1)
+                return new[] { target };
+            var result = new string[lengthOfArray];
+
+            int r = 1, startIndex = indexes[0];
+            result[0] = target.Substring(0, startIndex);
+            startIndex += delimiterLength;
+            for (int i = 1; i <= lastCarvePoint; i++, r++)
+            {
+                if (indexes[i] < target.Length)
+                {
+                    var length = indexes[i] - startIndex;
+                    result[r] = target.Substring(startIndex, length);
+                }
+                else
+                    result[r] = target.Substring(startIndex);
+
+                startIndex = indexes[i] + delimiterLength;
+            }
+
+            if (startIndex <= target.Length)
+                result[r] = target.Substring(startIndex);
+            
+            /*
+            int previousCarvePoint = 0;
+            for(int resultIndex = 0, indexesIndex = firstCarvePoint; indexesIndex <= lastCarvePoint; indexesIndex++, resultIndex++)
+            {
+                result[resultIndex] = target.Substring(previousCarvePoint, indexes[indexesIndex] - previousCarvePoint);
+                previousCarvePoint = indexes[resultIndex] + 1;
+            }
+
+            if (previousCarvePoint < target.Length)
+                result[lengthOfArray - 1] = target.Substring(previousCarvePoint - 1);
+                */
+
+            return result;
+        }
+
         /// <summary>Returns the first delimited token in the indicated string</summary>
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
@@ -399,7 +467,7 @@ namespace MetX.Standard.Library
             return target.Length;
         }
 
-        public static IEnumerable<int> TokenIndexes(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        public static IEnumerable<int> TokenIndexes(this string target, string delimiter = " ", StringComparison compare = StringComparison.InvariantCultureIgnoreCase)
         {
             //  Empty target means no index
             if (string.IsNullOrEmpty(target))

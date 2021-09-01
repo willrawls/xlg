@@ -116,11 +116,6 @@ namespace MetX.Standard.Library
 
         public static List<string> Dice(this string target) { return target.AllTokens(" ", StringSplitOptions.RemoveEmptyEntries); }
 
-        public static List<string> LineList(this string target, StringSplitOptions options = StringSplitOptions.None)
-        {
-            return target.Lines(options).AsList();
-        }
-
         public static string[] Lines(this string target, StringSplitOptions options = StringSplitOptions.None)
         {
             if (string.IsNullOrEmpty(target)) 
@@ -129,6 +124,25 @@ namespace MetX.Standard.Library
             return target
                 .Replace("\r", string.Empty)
                 .Split(new[] { '\n' }, options);
+        }
+
+        public static List<string> LineList(this string target, StringSplitOptions options = StringSplitOptions.None)
+        {
+            return target.Lines(options).AsList();
+        }
+
+        public static string[] Words(this string target, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+        {
+            if (string.IsNullOrEmpty(target)) 
+                return new[] { string.Empty };
+            
+            return target.Trim()
+                .Split(new[] { ' ' }, options);
+        }
+
+        public static List<string> WordList(this string target, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+        {
+            return target.Words(options).AsList();
         }
 
         public static string Flatten<T>(this IList<T> target)

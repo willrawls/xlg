@@ -3,7 +3,7 @@ using System.IO;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Scripts
+namespace MetX.Tests.Scripts
 {
     [TestClass]
     public class InMemoryCompilerTests

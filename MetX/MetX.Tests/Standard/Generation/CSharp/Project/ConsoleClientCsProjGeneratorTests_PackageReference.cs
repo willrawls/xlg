@@ -1,10 +1,10 @@
 ﻿using System.Xml;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
-using MetX.Tests2.Standard.Generation.CSharp.Project.Pieces;
+using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.Generation.CSharp.Project
+namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public partial class ConsoleClientCsProjGeneratorTests
     {

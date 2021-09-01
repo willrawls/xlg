@@ -10,6 +10,11 @@
     <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>William Rawls</Authors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
@@ -59,9 +64,11 @@
     <Compile Include="Metadata\Index.cs" />
     <Compile Include="Metadata\IndexColumn.cs" />
     <Compile Include="Metadata\Key.cs" />
+    <Compile Include="Metadata\KeyColumn.cs" />
     <Compile Include="Metadata\Parameter.cs" />
     <Compile Include="Metadata\StoredProcedure.cs" />
     <Compile Include="Metadata\Table.cs" />
+    <Compile Include="Metadata\View.cs" />
     <Compile Include="Metadata\xlgDocManual.cs" />
     <Compile Include="Metadata\xlgDocRender.cs" />
     <Compile Include="Metadata\xlgDocRenderXsls.cs" />

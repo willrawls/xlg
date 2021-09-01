@@ -1,4 +1,4 @@
-﻿namespace MetX.Tests2.Standard.Generation.CSharp.Project.Pieces
+﻿namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
 {
     public static class Area
     {

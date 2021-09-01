@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using MetX.Standard.Metadata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests2.Standard.Metadata
+namespace MetX.Tests.Standard.Metadata
 {
     [TestClass]
     public class xlgDocTests
