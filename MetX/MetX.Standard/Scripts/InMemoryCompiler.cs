@@ -19,9 +19,9 @@ namespace MetX.Standard.Scripts
         public Guid Id { get; } = Guid.NewGuid();
         public string FrameworkFolder { get; set; }
         public string OutputFolder { get; set; }
-        public string OutputFilename{ get; set; }
-        public string OutputFilePath => 
-            OutputFolder.IsNotEmpty() 
+        public string OutputFilename { get; set; }
+        public string OutputFilePath =>
+            OutputFolder.IsNotEmpty()
                 ? Path.Combine(OutputFolder, OutputFilename)
                 : OutputFilename ?? $"{Id:N}.{(AsExecutable ? "exe" : "dll")}";
 
@@ -40,7 +40,7 @@ namespace MetX.Standard.Scripts
 
         public bool CompiledSuccessfully => Failures is not { Length: > 0 } && CompiledAssembly != null;
 
-        public InMemoryCompiler(string code, bool asExecutable, 
+        public InMemoryCompiler(string code, bool asExecutable,
             string frameworkFolder,
             string outputFolder,
             string outputFilename,
@@ -71,6 +71,7 @@ namespace MetX.Standard.Scripts
             string? assemblyName = Path.GetRandomFileName();
             List<MetadataReference>? references;
 
+            /*
             if(OutputFilePath == null)
             {
                 // This way of doing reference is depricated. See below
@@ -101,38 +102,50 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                references = new List<MetadataReference>
-                {
-                    GetFrameworkReference(OutputFilePath, "System"),
-                    GetFrameworkReference(OutputFilePath, "System.IO"),
-                    GetFrameworkReference(OutputFilePath, "System.Linq"),
-                    GetFrameworkReference(OutputFilePath, "System.Data"),
-                    GetFrameworkReference(OutputFilePath, "System.Linq.Queryable"),
-                    GetFrameworkReference(OutputFilePath, "System.Runtime"),
-                    GetFrameworkReference(OutputFilePath, "System.Collections"),
-                    GetFrameworkReference(OutputFilePath, "System.Collections.Generic"),
-                    GetFrameworkReference(OutputFilePath, "System.Diagnostics"),
-                    GetFrameworkReference(OutputFilePath, "System.Drawing.Primitives"),
-                    GetFrameworkReference(OutputFilePath, "System.ComponentModel"),
-                    GetFrameworkReference(OutputFilePath, "System.Windows"),
-                    GetFrameworkReference(OutputFilePath, "netstandard"),
-                    CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
-                    CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
-                };
+                */
 
-                if (AdditionalReferenceTypes?.Count > 0)
-                {
-                    foreach (Type additionalReferenceType in AdditionalReferenceTypes)
-                        references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, additionalReferenceType));
-                }
+            references = new List<MetadataReference>
+            {
+                GetFrameworkReference(FrameworkFolder, "System"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading.Tasks"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading.Thread"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml.Serialization"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml.XPath"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading"),
+                GetFrameworkReference(FrameworkFolder, "System.IO"),
+                GetFrameworkReference(FrameworkFolder, "System.Data"),
+                GetFrameworkReference(FrameworkFolder, "System.Text.Json"),
+                GetFrameworkReference(FrameworkFolder, "System.Text.RegularExpressions"),
+                GetFrameworkReference(FrameworkFolder, "System.Linq"),
+                GetFrameworkReference(FrameworkFolder, "System.Linq.Expressions"),
+                GetFrameworkReference(FrameworkFolder, "System.Linq.Queryable"),
+                GetFrameworkReference(FrameworkFolder, "System.Runtime"),
+                GetFrameworkReference(FrameworkFolder, "System.Collections"),
+                GetFrameworkReference(FrameworkFolder, "System.Collections.Immutable"),
+                GetFrameworkReference(FrameworkFolder, "System.Collections.NonGeneric"),
+                GetFrameworkReference(FrameworkFolder, "System.Collections.Specialized"),
+                // GetFrameworkReference(FrameworkFolder, "System.Diagnostics"),
+                GetFrameworkReference(FrameworkFolder, "System.Drawing.Primitives"),
+                GetFrameworkReference(FrameworkFolder, "System.ComponentModel"),
+                GetFrameworkReference(FrameworkFolder, "System.Windows"),
+                GetFrameworkReference(FrameworkFolder, "netstandard"),
+                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
+                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
+            };
 
-                if (AdditionalSharedReferences?.Count > 0)
-                {
-                    foreach (var sharedReference in AdditionalSharedReferences)
-                        references.Add(GetFrameworkReference(OutputFilePath, sharedReference));
-                }
-                
+            if (AdditionalReferenceTypes?.Count > 0)
+            {
+                foreach (Type additionalReferenceType in AdditionalReferenceTypes)
+                    references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, additionalReferenceType));
             }
+
+            if (AdditionalSharedReferences?.Count > 0)
+            {
+                foreach (var sharedReference in AdditionalSharedReferences)
+                    references.Add(GetFrameworkReference(OutputFilePath, sharedReference));
+            }
+            // }
 
             references = references.Distinct(new ReferenceEqualityComparer()).ToList();
             references.Sort((reference, metadataReference) => string.Compare(
@@ -142,7 +155,7 @@ namespace MetX.Standard.Scripts
 
             CSharpCompiler = CSharpCompilation.Create(
                 assemblyName,
-                new[] {SyntaxTree},
+                new[] { SyntaxTree },
                 references,
                 new CSharpCompilationOptions(AsExecutable
                     ? OutputKind.ConsoleApplication
@@ -156,33 +169,25 @@ namespace MetX.Standard.Scripts
             if (!Directory.Exists(outputFolder))
                 Directory.CreateDirectory(outputFolder);
 
-            if (File.Exists(customAssemblyDestinationPath))
+            if (!File.Exists(customAssemblyDestinationPath))
             {
-                if (File.Exists(customAssemblyDestinationPath))
-                {
-                    File.SetAttributes(customAssemblyDestinationPath, FileAttributes.Normal);
-                    File.Delete(customAssemblyDestinationPath);
-                }
+                File.Copy(customType.Assembly.Location, customAssemblyDestinationPath);
             }
-
-            File.Copy(customType.Assembly.Location, destinationCustomAssemblyFilename);
 
             Console.WriteLine($"Custom assembly copied to {destinationCustomAssemblyFilename} from {customType.Assembly.Location}");
             PortableExecutableReference reference = MetadataReference.CreateFromFile(destinationCustomAssemblyFilename);
 
             string customPdbSourcePath = Path.Combine(customType.Assembly.Location.TokensBeforeLast(".") + ".pdb");
-            if(File.Exists(customPdbSourcePath))
+            if (File.Exists(customPdbSourcePath))
             {
                 string customPdbDestinationPath = Path.Combine(outputFolder,
                     destinationCustomAssemblyFilename.TokensBeforeLast(".") + ".pdb");
-                if (File.Exists(customPdbDestinationPath))
+                if (!File.Exists(customPdbDestinationPath))
                 {
-                    File.SetAttributes(customPdbDestinationPath, FileAttributes.Normal);
-                    File.Delete(customPdbDestinationPath);
+                    File.Copy(customPdbSourcePath, customPdbDestinationPath);
                 }
-                File.Copy(customPdbSourcePath, customPdbDestinationPath);
             }
-            
+
             return reference;
 
         }
@@ -194,7 +199,7 @@ namespace MetX.Standard.Scripts
             var systemRuntimeDll = Path.Combine(PathToSharedRoslynAsThisProcess, "System.Runtime.DLL");
             if (!File.Exists(systemRuntimeDll))
                 throw new ArgumentException(nameof(name));
-            
+
             var fullAssemblyPath = Path.Combine(PathToSharedRoslynAsThisProcess, name);
             if (!fullAssemblyPath.EndsWith(".dll"))
                 fullAssemblyPath += ".dll";
@@ -222,9 +227,12 @@ namespace MetX.Standard.Scripts
             var filename = Path.Combine(targetFrameworkFolder, assemblyFilePath);
 
             if (!File.Exists(filename))
+            {
+                Console.WriteLine($"Can't find framework assembly at {filename}");
                 return null;
+            }
 
-            Console.WriteLine($"Assembly at {filename}");
+            Console.WriteLine($"Adding reference to framework assembly at {filename}");
             var reference = MetadataReference.CreateFromFile(filename);
             return reference;
         }
@@ -238,7 +246,7 @@ namespace MetX.Standard.Scripts
                 throw new InvalidOperationException();
 
             using var memoryStream = new MemoryStream();
-            var emitOptions = new EmitOptions(outputNameOverride:Path.GetFileName(OutputFilePath));
+            var emitOptions = new EmitOptions(outputNameOverride: Path.GetFileName(OutputFilePath));
             var emitResult = CSharpCompiler.Emit(memoryStream, options: emitOptions);
 
             if (!emitResult.Success)
@@ -259,11 +267,11 @@ namespace MetX.Standard.Scripts
                 if (OutputFilePath.IsNotEmpty())
                 {
                     var directoryName = Path.GetDirectoryName(OutputFilePath);
-                    if(directoryName.IsNotEmpty() && !Directory.Exists(directoryName))
+                    if (directoryName.IsNotEmpty() && !Directory.Exists(directoryName))
                     {
                         Directory.CreateDirectory(directoryName!);
                     }
-                    
+
                     if (File.Exists(OutputFilePath))
                     {
                         File.SetAttributes(OutputFilePath, FileAttributes.Normal);
@@ -271,11 +279,11 @@ namespace MetX.Standard.Scripts
                     }
                     using var fileStream = File.OpenWrite(OutputFilePath);
                     {
-                        fileStream.Write(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
+                        fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
                         fileStream.Flush();
                         fileStream.Close();
                     }
-                
+
                     memoryStream.Seek(0, SeekOrigin.Begin);
                     CompiledAssembly = Assembly.LoadFile(OutputFilePath);
                 }
