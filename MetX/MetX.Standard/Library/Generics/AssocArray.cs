@@ -19,11 +19,11 @@ namespace MetX.Standard.Library.Generics
                 lock (SyncRoot)
                 {
                     AssocItem<T> assocItem;
-                    var k = key.ToAssocKey();
-                    if (!Items.ContainsKey(k))
-                        Items[k] = assocItem = new AssocItem<T>(key);
+                    var assocKey = key.ToAssocKey();
+                    if (!Items.ContainsKey(assocKey))
+                        Items[assocKey] = assocItem = new AssocItem<T>(key);
                     else
-                        assocItem = Items[k];
+                        assocItem = Items[assocKey];
                     return assocItem;
                 }
             }
@@ -31,11 +31,11 @@ namespace MetX.Standard.Library.Generics
             {
                 lock (SyncRoot)
                 {
-                    var k = key.ToAssocKey();
-                    if (Items.ContainsKey(k))
-                        Items[k] = value;
+                    var assocKey = key.ToAssocKey();
+                    if (!Items.ContainsKey(assocKey))
+                        Items.Add(assocKey, new AssocItem<T>(key, value?.Item));
                     else
-                        Items.Add(k, new AssocItem<T>(key, value?.Item));
+                        Items[assocKey] = value;
                 }
             }
         }

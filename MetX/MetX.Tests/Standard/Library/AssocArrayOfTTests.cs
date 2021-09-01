@@ -8,7 +8,7 @@ namespace MetX.Tests.Standard.Library
     public class AssocArrayOfTTests
     {
         [TestMethod]
-        public void Simple()
+        public void AssocArrayOfT_Simple()
         {
             var item = new Fred();
             var data = new AssocArray<Fred>
@@ -22,7 +22,7 @@ namespace MetX.Tests.Standard.Library
         }
 
         [TestMethod]
-        public void Simple_AssocTypeInt()
+        public void AssocArrayOfT_AssocTypeOfInt()
         {
             var assocType = new AssocType<int>(12);
             var data = new AssocArray<AssocType<int>>
@@ -33,6 +33,15 @@ namespace MetX.Tests.Standard.Library
                 }
             };
             Assert.AreEqual(assocType.Target, data["Fred"].Item.Target);
+        }
+        [TestMethod]
+        public void AssocArrayOfAssocArrayOfT_Simple()
+        {
+            var fred = new Fred();
+            var data = new AssocArray<AssocArray<Fred>>();
+            data["Fred"].Item = new AssocArray<Fred>();
+            data["Fred"].Item["George"].Item = fred;
+            Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George"].Item.TestGuid);
         }
     }
 }
