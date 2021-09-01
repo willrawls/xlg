@@ -13,12 +13,12 @@ namespace MetX.Standard.Library
         public Guid Id { get; set; }
 
         public AssocItem() { }
-        public AssocItem(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null)
+        public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
         {
-            Key = key.IsEmpty() ? AssocSupport.KeyWhenThereIsNoKey() : key;
             Parent = parent;
-            Value = value;
-            Name = name;
+            Key = key.IsEmpty() ? AssocSupport.KeyWhenThereIsNoKey() : key;
+            Value = value ?? "";
+            Name = name ?? "";
             Id = id ?? Guid.NewGuid();
         }
     }

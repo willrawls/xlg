@@ -8,7 +8,7 @@ namespace MetX.Standard.Library
     public class AssocArrayList : AssocItem
     {
         public object SyncRoot { get; }= new();
-        public AssocArray<AssocArray> Pairs { get; set; } = new();
+        protected SortedDictionary<string, AssocArray> Pairs = new();
 
         public AssocArrayList(){ }
 
@@ -17,6 +17,40 @@ namespace MetX.Standard.Library
         {
         }
 
+        public AssocArray this[string key]
+        {
+            get
+            {
+                lock(SyncRoot)
+                {
+                    AssocArray assocArray;
+                    var assocKey = key.ToAssocKey();
+                    if (!Pairs.ContainsKey(assocKey))
+                    {
+                        assocArray = new AssocArray(key);
+                        Pairs.Add(assocKey, assocArray);
+                    }
+                    else
+                    {
+                        assocArray = Pairs[assocKey];
+                    }
+                    return assocArray;
+                }
+            }
+            set
+            {
+                lock(SyncRoot)
+                {
+                    var assocKey = key.ToAssocKey();
+                    if (Pairs.ContainsKey(assocKey))
+                        Pairs[assocKey] = value;
+                    else
+                        Pairs.Add(assocKey, value);
+                }
+            }
+        }
+
+/*
         public AssocArray this[string key]
         {
             get
@@ -34,5 +68,6 @@ namespace MetX.Standard.Library
                 }
             }
         }
+    */
     }
 }

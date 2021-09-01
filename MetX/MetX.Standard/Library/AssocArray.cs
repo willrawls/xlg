@@ -10,7 +10,8 @@ namespace MetX.Standard.Library
         protected SortedDictionary<string, AssocItem> Pairs = new();
 
         public AssocArray() { }
-        public AssocArray(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) : base(key, value, id, name, parent) { }
+        public AssocArray(string key, string value = "", Guid? id = null, string name = "", IAssocItem parent = null) 
+            : base(key, value, id, name, parent) { }
 
         public AssocItem this[string key]
         {
@@ -19,11 +20,14 @@ namespace MetX.Standard.Library
                 lock(SyncRoot)
                 {
                     AssocItem assocItem;
-                    var k = key.ToAssocKey();
-                    if (!Pairs.ContainsKey(k))
-                        Pairs[k] = assocItem = new AssocItem(key);
+                    var assocKey = key.ToAssocKey();
+                    if (!Pairs.ContainsKey(assocKey))
+                    {
+                        assocItem = new AssocItem(key, "");
+                        Pairs.Add(assocKey, assocItem);
+                    }
                     else
-                        assocItem = Pairs[k];
+                        assocItem = Pairs[assocKey];
                     return assocItem;
                 }
             }
@@ -31,11 +35,11 @@ namespace MetX.Standard.Library
             {
                 lock(SyncRoot)
                 {
-                    var k = key.ToAssocKey();
-                    if (Pairs.ContainsKey(k))
-                        Pairs[k] = value;
+                    var assocKey = key.ToAssocKey();
+                    if (!Pairs.ContainsKey(assocKey))
+                        Pairs.Add(assocKey, value);
                     else
-                        Pairs.Add(k, value);
+                        Pairs[assocKey] = value;
                 }
             }
         }
