@@ -12,13 +12,13 @@ namespace MetX.Tests.Scripts
         public void Build_Exe_CalculateSomething()
         {
             var source = Sources.CalculateSomething;
-            string exeName = "Test_Build_Exe_CalculateSomething.exe";
+            var exeName = "Test_Build_Exe_CalculateSomething.exe";
             BuildCommonToFreshFolder(exeName, source, false);
         }
 
         public static InMemoryCompiler<string> BuildCommonToFreshFolder(string exeName, string source, bool cleanupFolderAfter)
         {
-            string outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid().ToString("N"));
+            var outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid().ToString("N"));
             var outputFilePath = Path.Combine(outputPath, exeName);
             Console.WriteLine(outputFilePath);
 

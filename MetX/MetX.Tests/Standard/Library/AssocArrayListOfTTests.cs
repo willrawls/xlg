@@ -13,12 +13,13 @@ namespace MetX.Tests.Standard.Library
         {
             var fred = new Fred();
             var data = new AssocArrayList<Fred>();
-            data["Fred"]["George"].Item = fred;
-            
-            Assert.AreEqual("George", data["Mary"]["Fred"].Value);
 
-            data["Mary"]["Frank"].Value = "Tim";
-            Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
+            data["Mary"]["Fred"].Value = "Harry";
+            Assert.AreEqual("Harry", data["Mary"]["Fred"].Value);
+
+            data["Fred"]["George"].Item = fred;
+            Assert.IsNotNull(data["Fred"]["George"].Item);
+            Assert.AreEqual(fred.TestGuid, data["Fred"]["George"].Item.TestGuid);
         }
 
         [TestMethod]

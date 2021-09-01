@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
@@ -320,6 +321,36 @@ namespace MetX.Standard.IO
             }
 
             return pathToExecutable;
+        }
+
+        public static string ToLegalFilename(string name, string extensionToAdd = null)
+        {
+            if (name.IsEmpty())
+            {
+                var legalFilename = Guid.NewGuid().ToString("N");
+                if (!extensionToAdd.IsEmpty()) 
+                    return legalFilename;
+                if(extensionToAdd.StartsWith("."))
+                    legalFilename += extensionToAdd;
+                else
+                    legalFilename += "." + extensionToAdd;
+                return legalFilename;
+            }
+
+            name = name.RemoveAll("<>:\"/\\|?*".ToCharArray());
+
+            if (name.IsNotEmpty()) return name;
+            {
+                var legalFilename = Guid.NewGuid().ToString("N");
+                if (extensionToAdd.IsEmpty()) 
+                    return legalFilename;
+                if(extensionToAdd.StartsWith("."))
+                    legalFilename += extensionToAdd;
+                else
+                    legalFilename += "." + extensionToAdd;
+                return legalFilename;
+            }
+
         }
     }
 }

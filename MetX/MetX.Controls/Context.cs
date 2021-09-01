@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using MetX.Standard.Generation;
 using MetX.Standard.Library;
 using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
@@ -28,8 +29,7 @@ namespace MetX.Controls
         private static bool _scriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
-        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base,
-            XlgQuickScript scriptToRun)
+        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base, XlgQuickScript scriptToRun)
         {
             if (@base.Templates.Count == 0 ||
                 string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
@@ -40,12 +40,16 @@ namespace MetX.Controls
 
             var source = scriptToRun.ToCSharp(false);
 
-            var assemblies = DefaultTypesForCompiler();
+            var additionalFrameworkReferences = DefaultTypesForCompiler();
             
-            var shared = new List<string>();
-            
-            var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared, null);
+            var additionalSharedReferences = new List<string>();
 
+            
+            var outputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetX", "QuickScripter", Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(outputPath);
+            var exeName = Standard.IO.FileSystem.ToLegalFilename(scriptToRun.Name.Replace(" ", "_"), ".QuickScripter.exe");
+
+            var compiler = XlgQuickScript.CompileSource(source, false, XlgQuickScript.OfficialFrameworkPath.LatestCore50(), outputPath, exeName, additionalFrameworkReferences, additionalSharedReferences);
             if (compiler == null)
             {
                 MessageBox.Show("Failed to create and compile (internal not due to script). This should never happen. Call Will");

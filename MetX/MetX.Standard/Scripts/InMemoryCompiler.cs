@@ -28,8 +28,8 @@ namespace MetX.Standard.Scripts
         public string PathToSharedRoslynAsThisProcess { get; set; }
 
         public bool AsExecutable { get; set; }
-        public List<Type> AdditionalReferenceTypes { get; set; }
-        public List<string> AdditionalSharedReferences { get; set; }
+        public List<Type> AdditionalFrameworkReferences { get; set; }
+        public List<string> AdditionalCustomReferences { get; set; }
         public Assembly? CompiledAssembly { get; set; }
         public Type? CompiledType { get; set; }
         public CSharpCompilation? CSharpCompiler { get; set; }
@@ -44,8 +44,8 @@ namespace MetX.Standard.Scripts
             string frameworkFolder,
             string outputFolder,
             string outputFilename,
-            List<Type> additionalReferenceTypes,
-            List<string> additionalSharedReferences)
+            List<Type> additionalFrameworkReferences,
+            List<string> additionalCustomReferences)
         {
             if (frameworkFolder.IsEmpty()) throw new ArgumentNullException(nameof(frameworkFolder));
             if (outputFolder.IsEmpty()) throw new ArgumentNullException(nameof(outputFolder));
@@ -54,8 +54,8 @@ namespace MetX.Standard.Scripts
             FrameworkFolder = frameworkFolder;
             OutputFolder = outputFolder;
             OutputFilename = outputFilename;
-            AdditionalReferenceTypes = additionalReferenceTypes;
-            AdditionalSharedReferences = additionalSharedReferences;
+            AdditionalFrameworkReferences = additionalFrameworkReferences;
+            AdditionalCustomReferences = additionalCustomReferences;
             SyntaxTree = CSharpSyntaxTree.ParseText(code);
             BuildCompiledAssembly();
         }
@@ -69,83 +69,47 @@ namespace MetX.Standard.Scripts
             CompiledAssembly = null!;
 
             string? assemblyName = Path.GetRandomFileName();
-            List<MetadataReference>? references;
 
-            /*
-            if(OutputFilePath == null)
+            var references = new List<MetadataReference>
             {
-                // This way of doing reference is depricated. See below
-                references = new List<MetadataReference>
-                {
-                    // The loaded framework (.net standard 2.0)
-                    GetReference(typeof(object)),
-                    GetReference(typeof(Enumerable)),
-                    GetReference(typeof(Console)),
-                    GetReference(typeof(GCSettings)),
-                    GetReference(typeof(StreamBuilder)),
-                    GetReference(typeof(InMemoryCompiler<TResultType>)),
-                    GetReference(typeof(System.IO.File)),
-                    GetReference(typeof(System.Diagnostics.Process)),
-                    GetReference(typeof(System.ComponentModel.Component)),
-
-                    GetSharedReference("System.Runtime"),
-                    GetSharedReference("System.Drawing.Primitives"),
-                    GetSharedReference("System.Windows"),
-                    GetSharedReference("netstandard"),
-                };
-
-                if (AdditionalReferenceTypes?.Count > 0)
-                    references.AddRange(AdditionalReferenceTypes.Select(GetReference));
-
-                if (AdditionalSharedReferences?.Count > 0)
-                    references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
-            }
-            else
-            {
-                */
-
-            references = new List<MetadataReference>
-            {
+                GetFrameworkReference(FrameworkFolder, "netstandard"),
+                GetFrameworkReference(FrameworkFolder, "System.Runtime"),
                 GetFrameworkReference(FrameworkFolder, "System"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading.Tasks"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading.Thread"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml.Serialization"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml.XPath"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading"),
                 GetFrameworkReference(FrameworkFolder, "System.IO"),
                 GetFrameworkReference(FrameworkFolder, "System.Data"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading.Tasks"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading.Thread"),
+                GetFrameworkReference(FrameworkFolder, "System.Threading"),
                 GetFrameworkReference(FrameworkFolder, "System.Text.Json"),
                 GetFrameworkReference(FrameworkFolder, "System.Text.RegularExpressions"),
                 GetFrameworkReference(FrameworkFolder, "System.Linq"),
                 GetFrameworkReference(FrameworkFolder, "System.Linq.Expressions"),
                 GetFrameworkReference(FrameworkFolder, "System.Linq.Queryable"),
-                GetFrameworkReference(FrameworkFolder, "System.Runtime"),
                 GetFrameworkReference(FrameworkFolder, "System.Collections"),
                 GetFrameworkReference(FrameworkFolder, "System.Collections.Immutable"),
                 GetFrameworkReference(FrameworkFolder, "System.Collections.NonGeneric"),
                 GetFrameworkReference(FrameworkFolder, "System.Collections.Specialized"),
-                // GetFrameworkReference(FrameworkFolder, "System.Diagnostics"),
                 GetFrameworkReference(FrameworkFolder, "System.Drawing.Primitives"),
                 GetFrameworkReference(FrameworkFolder, "System.ComponentModel"),
                 GetFrameworkReference(FrameworkFolder, "System.Windows"),
-                GetFrameworkReference(FrameworkFolder, "netstandard"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml.Serialization"),
+                GetFrameworkReference(FrameworkFolder, "System.Xml.XPath"),
                 CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
                 CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
             };
 
-            if (AdditionalReferenceTypes?.Count > 0)
+            if (AdditionalFrameworkReferences?.Count > 0)
             {
-                foreach (Type additionalReferenceType in AdditionalReferenceTypes)
-                    references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, additionalReferenceType));
+                foreach (Type referenceType in AdditionalFrameworkReferences)
+                    references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, referenceType));
             }
 
-            if (AdditionalSharedReferences?.Count > 0)
+            if (AdditionalCustomReferences?.Count > 0)
             {
-                foreach (var sharedReference in AdditionalSharedReferences)
-                    references.Add(GetFrameworkReference(OutputFilePath, sharedReference));
+                foreach (var filePath in AdditionalCustomReferences)
+                    references.Add(GetFrameworkReference(OutputFilePath, filePath));
             }
-            // }
 
             references = references.Distinct(new ReferenceEqualityComparer()).ToList();
             references.Sort((reference, metadataReference) => string.Compare(

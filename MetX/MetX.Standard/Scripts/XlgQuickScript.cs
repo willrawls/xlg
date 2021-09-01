@@ -4,18 +4,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+#pragma warning disable 8625
+#pragma warning disable 8618
 
 namespace MetX.Standard.Scripts
 {
-    //using Microsoft.CSharp;
-
-    //using NArrange.ConsoleApplication;
-    //using NArrange.Core;
-
     /// <summary>
     ///     Represents a clipboard processing script
     /// </summary>
@@ -72,15 +70,15 @@ namespace MetX.Standard.Scripts
             string frameworkFolder,
             string outputFolder,
             string outputFilename,
-            List<Type> additionalReferences, 
-            List<string> additionalSharedReferences)
+            List<Type> additionalFrameworkReferences = null, 
+            List<string> additionalCustomReferences = null)
         {
             var compiler = new InMemoryCompiler<string>(source, asExecutable, 
                 frameworkFolder,
                 outputFolder,
                 outputFilename,
-                additionalReferences, 
-                additionalSharedReferences);
+                additionalFrameworkReferences, 
+                additionalCustomReferences);
             return compiler;
         }
         
@@ -97,8 +95,8 @@ namespace MetX.Standard.Scripts
                               .Replace(" + \"\")", ")")
                               .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
             currScriptLine = (indent > 0
-                ? new string(' ', indent + 12)
-                : string.Empty) +
+                                 ? new string(' ', indent + 12)
+                                 : string.Empty) +
                              currScriptLine
                                  .Replace(" + \"\" + ", string.Empty)
                                  .Replace("\"\" + ", string.Empty)
@@ -421,6 +419,61 @@ namespace MetX.Standard.Scripts
                 return @$"{Root}\Microsoft.WindowsDesktop.App\{LatestVersion}";
             }
 
+        }
+
+        public static bool CompileSourceToExe(XlgQuickScript scriptToRun, out string source, out InMemoryCompiler<string> compilerResults, out string csFilePath, out string exeFilePath)
+        {
+            source = scriptToRun.ToCSharp(true);
+            //var additionalReferences = Context.DefaultTypesForCompiler();
+            //var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
+            var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+            parentDestination = Path.Combine(parentDestination, "bin");
+            var exeFolder = Path.Combine(parentDestination, DateTime
+                .Now.ToString("s")
+                .RemoveAll("-:".ToCharArray())
+                .Replace("T", " "));
+            var exeFilename = scriptToRun.Name.AsFilename() + ".exe";
+            exeFilePath = Path.Combine(exeFolder, exeFilename);
+            csFilePath = exeFilePath.Replace(".exe", ".cs");
+
+            compilerResults = XlgQuickScript.CompileSource(source, true, XlgQuickScript.OfficialFrameworkPath.LatestCore50(),
+                exeFolder, exeFilename);
+
+            if (compilerResults.CompiledSuccessfully)
+            {
+                File.WriteAllText(csFilePath, source);
+                return true;
+            }
+            /*
+            var sb =
+                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
+                                  + Environment.NewLine);
+            var lines = new List<string>(source.LineList());
+            for (var index = 0; index < compilerResults.Failures.Length; index++)
+            {
+                var error = compilerResults.Failures[index].ToString();
+                if (error.Contains("("))
+                {
+                    error = error.TokensAfterFirst("(").Replace(")", string.Empty);
+                }
+
+                sb.AppendLine(index + 1 + ": Line " + error);
+                sb.AppendLine();
+                if (error.Contains(Environment.NewLine))
+                {
+                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                }
+                else if (compilerResults.Failures[index].Location.Line() == 0)
+                {
+                    lines[0] += "\t// " + error;
+                }
+                else
+                {
+                    lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
+                }
+            }
+            */
+            return false;
         }
     }
 }
