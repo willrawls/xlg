@@ -134,94 +134,28 @@ namespace MetX.Controls
         public string GenerateIndependentQuickScriptExe(string templateName)
         {
             if (InvokeRequired)
-            {
                 return (string)Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
-            }
 
-            if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
+            if (Context.Templates.Count == 0 || string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
                 return null;
             }
 
-            var source = CurrentScript.ToCSharp(true);
-            var additionalReferences = Context.DefaultTypesForCompiler();
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, null);
-
-            if (compilerResults.Failures != null && compilerResults.Failures.Length <= 0)
+            var builder = new XlgQuickScriptExecutableBuilder(CurrentScript);
+            if (!builder.FinishedSuccessfully)
             {
-                var assembly = compilerResults.CompiledAssembly;
+                var lines = new List<string>(builder.Source.LineList());
+                var errorOutput = builder.Compiler.Failures.ForDisplay(lines);
 
-                var parentDestination = CurrentScript.DestinationFilePath.TokensBeforeLast(@"\");
+                MessageBox.Show(
+                    "Compilation failure. Errors found include:" 
+                    + Environment.NewLine + Environment.NewLine
+                    + errorOutput);
 
-                if (string.IsNullOrEmpty(parentDestination)
-                    && !string.IsNullOrEmpty(CurrentScript.InputFilePath)
-                    && CurrentScript.Input != "Web Address")
-                {
-                    parentDestination = CurrentScript.InputFilePath.TokensBeforeLast(@"\");
-                }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                {
-                    parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
-                }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                {
-                    if (!ReferenceEquals(assembly, null)) 
-                        parentDestination = assembly.Location.TokensBeforeLast(@"\");
-                }
-
-                if (!Directory.Exists(parentDestination))
-                {
-                    if (!ReferenceEquals(assembly, null)) 
-                        return assembly.Location;
-                }
-
-                if (!ReferenceEquals(assembly, null))
-                {
-                    var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
-
-                    parentDestination = Path.Combine(parentDestination, "bin");
-                    var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-
-                    var exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
-                    var csFilePath = exeFilePath.Replace(".exe", ".cs");
-
-                    Directory.CreateDirectory(parentDestination);
-
-                    if (File.Exists(exeFilePath))
-                    {
-                        File.Delete(exeFilePath);
-                    }
-
-                    if (File.Exists(csFilePath))
-                    {
-                        File.Delete(csFilePath);
-                    }
-
-                    File.Copy(assembly.Location, exeFilePath);
-                    if (!File.Exists(metXDllPathDest))
-                    {
-                        File.Copy(metXDllPathSource, metXDllPathDest);
-                    }
-
-                    File.WriteAllText(csFilePath, source);
-                    return exeFilePath;
-                }
+                QuickScriptWorker.ViewTextInNotepad(Host, lines.Flatten(), true);
             }
-
-            var lines = new List<string>(source.LineList());
-            var errorOutput = compilerResults.Failures.ForDisplay(lines);
-
-            MessageBox.Show(
-                "Compilation failure. Errors found include:" 
-                + Environment.NewLine + Environment.NewLine
-                + errorOutput);
             
-            QuickScriptWorker.ViewTextInNotepad(Host, lines.Flatten(), true);
-
             return null;
         }
         

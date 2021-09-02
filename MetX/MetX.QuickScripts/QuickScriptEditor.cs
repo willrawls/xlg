@@ -138,22 +138,24 @@ namespace XLG.QuickScripts
 
             if (Context.Templates.Count == 0 || string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Views["Exe"]))
             {
-                Host.MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
+                Host.MessageBox.Show("Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;
             }
 
             if (scriptToRun == null)
                 return null;
 
-            if (XlgQuickScript.CompileSourceToExe(scriptToRun, out var source, out var compilerResults, out var csFilePath, out var exeFilePath))
+            var builder = new XlgQuickScriptExecutableBuilder(scriptToRun);
+            builder.Compile();
+            if (builder.FinishedSuccessfully)
             {
-                QuickScriptWorker.ViewFileInNotepad(Host, csFilePath);
-                return exeFilePath;
+                QuickScriptWorker.ViewFileInNotepad(Host, builder.CsFilePath);
+                return builder.ExeFilePath;
             }
 
-            var lines = new List<string>(source.LineList());
-            QuickScriptWorker.ViewTextInNotepad(Host, source, true);
-            QuickScriptWorker.ViewTextInNotepad(Host, compilerResults.Failures.ForDisplay(lines), true);
+            var lines = new List<string>(builder.Source.LineList());
+            QuickScriptWorker.ViewTextInNotepad(Host, builder.Source, true);
+            QuickScriptWorker.ViewTextInNotepad(Host, builder.Compiler.Failures.ForDisplay(lines), true);
 
             return null;
         }
@@ -810,7 +812,7 @@ namespace XLG.QuickScripts
                 var location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
                 if (location.IsEmpty()) return;
 
-                if (MessageBoxResult.Yes == MessageBox.Show(this,
+                if (MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
                     "Would you like to run it now? (Will not open the generated file).", "RUN EXE?",

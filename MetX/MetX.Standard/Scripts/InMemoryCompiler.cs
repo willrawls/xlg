@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
 using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -68,12 +71,12 @@ namespace MetX.Standard.Scripts
             CompiledType = null!;
             CompiledAssembly = null!;
 
-            string? assemblyName = Path.GetRandomFileName();
+            var assemblyName = Path.GetRandomFileName();
 
             var references = new List<MetadataReference>
             {
-                GetFrameworkReference(FrameworkFolder, "netstandard"),
                 GetFrameworkReference(FrameworkFolder, "System.Runtime"),
+                GetFrameworkReference(FrameworkFolder, "mscorlib"),
                 GetFrameworkReference(FrameworkFolder, "System"),
                 GetFrameworkReference(FrameworkFolder, "System.IO"),
                 GetFrameworkReference(FrameworkFolder, "System.Data"),
@@ -101,7 +104,7 @@ namespace MetX.Standard.Scripts
 
             if (AdditionalFrameworkReferences?.Count > 0)
             {
-                foreach (Type referenceType in AdditionalFrameworkReferences)
+                foreach (var referenceType in AdditionalFrameworkReferences)
                     references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, referenceType));
             }
 
@@ -111,40 +114,49 @@ namespace MetX.Standard.Scripts
                     references.Add(GetFrameworkReference(OutputFilePath, filePath));
             }
 
-            references = references.Distinct(new ReferenceEqualityComparer()).ToList();
+            references = references.Where(r => r != null).Distinct(new ReferenceEqualityComparer()).ToList();
             references.Sort((reference, metadataReference) => string.Compare(
                 reference.Display,
                 metadataReference.Display,
                 StringComparison.OrdinalIgnoreCase));
 
+            var cSharpCompilationOptions = new CSharpCompilationOptions(AsExecutable
+                ? OutputKind.ConsoleApplication
+                : OutputKind.DynamicallyLinkedLibrary);
+
+            
             CSharpCompiler = CSharpCompilation.Create(
                 assemblyName,
                 new[] { SyntaxTree },
                 references,
-                new CSharpCompilationOptions(AsExecutable
-                    ? OutputKind.ConsoleApplication
-                    : OutputKind.DynamicallyLinkedLibrary));
+                cSharpCompilationOptions);
+
+            File.WriteAllText(
+                Path.ChangeExtension(OutputFilePath, "runtimeconfig.json"),
+                GenerateRuntimeConfig()
+            );
         }
 
         public static MetadataReference CopyAssemblyAndGetCustomReference(string outputFolder, Type customType)
         {
-            string destinationCustomAssemblyFilename = customType.Assembly.Location.LastPathToken();
-            string customAssemblyDestinationPath = Path.Combine(outputFolder, destinationCustomAssemblyFilename);
+            var destinationCustomAssemblyFilename = customType.Assembly.Location.LastPathToken();
+            var customAssemblyDestinationPath = Path.Combine(outputFolder, destinationCustomAssemblyFilename);
             if (!Directory.Exists(outputFolder))
                 Directory.CreateDirectory(outputFolder);
 
-            if (!File.Exists(customAssemblyDestinationPath))
+            if (File.Exists(customAssemblyDestinationPath))
             {
-                File.Copy(customType.Assembly.Location, customAssemblyDestinationPath);
+                return null;
             }
 
-            Console.WriteLine($"Custom assembly copied to {destinationCustomAssemblyFilename} from {customType.Assembly.Location}");
-            PortableExecutableReference reference = MetadataReference.CreateFromFile(destinationCustomAssemblyFilename);
+            File.Copy(customType.Assembly.Location, customAssemblyDestinationPath);
+            Console.WriteLine($"+Assembly {destinationCustomAssemblyFilename}");
+            var reference = MetadataReference.CreateFromFile(destinationCustomAssemblyFilename);
 
-            string customPdbSourcePath = Path.Combine(customType.Assembly.Location.TokensBeforeLast(".") + ".pdb");
+            var customPdbSourcePath = Path.Combine(customType.Assembly.Location.TokensBeforeLast(".") + ".pdb");
             if (File.Exists(customPdbSourcePath))
             {
-                string customPdbDestinationPath = Path.Combine(outputFolder,
+                var customPdbDestinationPath = Path.Combine(outputFolder,
                     destinationCustomAssemblyFilename.TokensBeforeLast(".") + ".pdb");
                 if (!File.Exists(customPdbDestinationPath))
                 {
@@ -154,32 +166,6 @@ namespace MetX.Standard.Scripts
 
             return reference;
 
-        }
-
-        internal MetadataReference GetSharedReference(string name)
-        {
-            PathToSharedRoslynAsThisProcess ??= typeof(object).Assembly.Location.TokensBeforeLast(@"\");
-
-            var systemRuntimeDll = Path.Combine(PathToSharedRoslynAsThisProcess, "System.Runtime.DLL");
-            if (!File.Exists(systemRuntimeDll))
-                throw new ArgumentException(nameof(name));
-
-            var fullAssemblyPath = Path.Combine(PathToSharedRoslynAsThisProcess, name);
-            if (!fullAssemblyPath.EndsWith(".dll"))
-                fullAssemblyPath += ".dll";
-
-            Console.WriteLine($"Shared: {name}  @  {fullAssemblyPath}");
-
-            var reference = MetadataReference.CreateFromFile(fullAssemblyPath);
-            return reference;
-        }
-
-        public MetadataReference GetReference(Type type)
-        {
-            Console.WriteLine($"{type.Assembly.FullName}  @  {type.Assembly.Location}");
-
-            var reference = MetadataReference.CreateFromFile(type.Assembly.Location);
-            return reference;
         }
 
         public MetadataReference? GetFrameworkReference(string targetFrameworkFolder, string assemblyFilePath)
@@ -196,9 +182,31 @@ namespace MetX.Standard.Scripts
                 return null;
             }
 
-            Console.WriteLine($"Adding reference to framework assembly at {filename}");
+            Console.WriteLine($"+Framework: {filename}");
             var reference = MetadataReference.CreateFromFile(filename);
             return reference;
+        }
+
+        public string GenerateRuntimeConfig()
+        {
+            using var stream = new MemoryStream();
+            using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions()
+                {
+                    Indented = true
+                }
+            ))
+            {
+                writer.WriteStartObject();
+                    writer.WriteStartObject("runtimeOptions");
+                        writer.WriteStartObject("framework");
+                        writer.WriteString("name", "Microsoft.NETCore.App");
+                        writer.WriteString("version", XlgQuickScript.OfficialFrameworkPath.LatestVersion);
+                        writer.WriteEndObject();
+                    writer.WriteEndObject();
+                writer.WriteEndObject();
+            }
+
+            return Encoding.UTF8.GetString(stream.ToArray());
         }
 
         public int BuildCompiledAssembly()

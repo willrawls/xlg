@@ -420,60 +420,70 @@ namespace MetX.Standard.Scripts
             }
 
         }
+    }
 
-        public static bool CompileSourceToExe(XlgQuickScript scriptToRun, out string source, out InMemoryCompiler<string> compilerResults, out string csFilePath, out string exeFilePath)
+    public class XlgQuickScriptExecutableBuilder
+    {
+        public XlgQuickScript ScriptToRun { get; set; }
+        public string Source { get; set; }
+        public InMemoryCompiler<string> Compiler { get; set; }
+        public string CsFilePath { get; set; }
+        public string ExeFilePath { get; set; }
+        public bool FinishedSuccessfully => Compiler?.CompiledSuccessfully == true;
+        public string ParentDestination { get; set; }
+        public string ExeFolder { get; set; }
+        public string ExeFilename { get; set; }
+
+        public XlgQuickScriptExecutableBuilder(XlgQuickScript scriptToRun)
         {
-            source = scriptToRun.ToCSharp(true);
-            //var additionalReferences = Context.DefaultTypesForCompiler();
-            //var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-            var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-            parentDestination = Path.Combine(parentDestination, "bin");
-            var exeFolder = Path.Combine(parentDestination, DateTime
+            ScriptToRun = scriptToRun;
+            Source = scriptToRun.ToCSharp(true);
+            var result = new XlgQuickScriptExecutableBuilder(scriptToRun);
+
+            ParentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+            ParentDestination = Path.Combine(ParentDestination, "bin");
+            ExeFolder = Path.Combine(ParentDestination, DateTime
                 .Now.ToString("s")
                 .RemoveAll("-:".ToCharArray())
                 .Replace("T", " "));
-            var exeFilename = scriptToRun.Name.AsFilename() + ".exe";
-            exeFilePath = Path.Combine(exeFolder, exeFilename);
-            csFilePath = exeFilePath.Replace(".exe", ".cs");
+            ExeFilename = scriptToRun.Name.AsFilename() + ".exe";
+            ExeFilePath = Path.Combine(ExeFolder, ExeFilename);
+            CsFilePath = ExeFilePath.Replace(".exe", ".cs");
+        }
 
-            compilerResults = XlgQuickScript.CompileSource(source, true, XlgQuickScript.OfficialFrameworkPath.LatestCore50(),
-                exeFolder, exeFilename);
+        public void Compile()
+        {
+            Compiler = XlgQuickScript.CompileSource(Source, true, XlgQuickScript.OfficialFrameworkPath.LatestCore50(), ExeFolder, ExeFilename);
 
-            if (compilerResults.CompiledSuccessfully)
+            if (Compiler.CompiledSuccessfully)
             {
-                File.WriteAllText(csFilePath, source);
-                return true;
+                File.WriteAllText(CsFilePath, Source);
             }
-            /*
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
-            var lines = new List<string>(source.LineList());
-            for (var index = 0; index < compilerResults.Failures.Length; index++)
+            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
+            var lines = new List<string>(Source.LineList());
+            for (var index = 0; index < Compiler.Failures.Length; index++)
             {
-                var error = compilerResults.Failures[index].ToString();
+                var error = Compiler.Failures[index].ToString();
                 if (error.Contains("("))
                 {
                     error = error.TokensAfterFirst("(").Replace(")", string.Empty);
                 }
-
+    
                 sb.AppendLine(index + 1 + ": Line " + error);
                 sb.AppendLine();
                 if (error.Contains(Environment.NewLine))
                 {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
+                    lines[Compiler.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
                 }
-                else if (compilerResults.Failures[index].Location.Line() == 0)
+                else if (Compiler.Failures[index].Location.Line() == 0)
                 {
                     lines[0] += "\t// " + error;
                 }
                 else
                 {
-                    lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
+                    lines[Compiler.Failures[index].Location.Line()] += "\t// " + error;
                 }
             }
-            */
-            return false;
         }
     }
 }
