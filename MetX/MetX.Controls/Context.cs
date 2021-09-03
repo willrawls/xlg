@@ -40,16 +40,18 @@ namespace MetX.Controls
 
             var source = scriptToRun.ToCSharp(false);
 
-            var additionalFrameworkReferences = DefaultTypesForCompiler();
+            var additionalTypeReferences = DefaultCustomTypesForCompiler();
             
-            var additionalSharedReferences = new List<string>();
+            var additionalFrameworkAssemblyNames = new List<string>();
 
             
             var outputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetX", "QuickScripter", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(outputPath);
             var exeName = Standard.IO.FileSystem.ToLegalFilename(scriptToRun.Name.Replace(" ", "_"), ".QuickScripter.exe");
 
-            var compiler = XlgQuickScript.CompileSource(source, false, XlgQuickScript.OfficialFrameworkPath.LatestCore50(), outputPath, exeName, additionalFrameworkReferences, additionalSharedReferences);
+            var compiler = XlgQuickScript.CompileSource(source, false, 
+                OfficialFrameworkPath.NETCore, outputPath, exeName,
+                additionalFrameworkAssemblyNames, additionalTypeReferences);
             if (compiler == null)
             {
                 MessageBox.Show("Failed to create and compile (internal not due to script). This should never happen. Call Will");
@@ -100,7 +102,7 @@ namespace MetX.Controls
             return false;
         }
         
-        public static List<Type> DefaultTypesForCompiler()
+        public static List<Type> DefaultCustomTypesForCompiler()
         {
             var assemblies = new List<Type>
             {

@@ -20,15 +20,17 @@ namespace MetX.Tests.Scripts
         {
             var outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid().ToString("N"));
             var outputFilePath = Path.Combine(outputPath, exeName);
-            Console.WriteLine(outputFilePath);
-
-            var result = XlgQuickScript.CompileSource(source, true, XlgQuickScript.OfficialFrameworkPath.LatestCore50(), outputPath, exeName, null, null);
+            var result = XlgQuickScript.CompileSource(source, true, OfficialFrameworkPath.NETCore, outputPath, exeName, null, null);
         
             if(cleanupFolderAfter)
                 Directory.Delete(outputPath, true);
 
             Assert.IsTrue(result.CompiledSuccessfully);
             Assert.IsNotNull(result.CompiledAssembly);
+
+            Console.WriteLine(outputFilePath);
+            Console.WriteLine();
+
             return result;
         }
 

@@ -9,6 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+#pragma warning disable 8603
+
 #pragma warning disable 8625
 #pragma warning disable 8618
 
@@ -70,15 +74,15 @@ namespace MetX.Standard.Scripts
             string frameworkFolder,
             string outputFolder,
             string outputFilename,
-            List<Type> additionalFrameworkReferences = null, 
-            List<string> additionalCustomReferences = null)
+            List<string> additionalFrameworkAssemblyNames = null, 
+            List<Type> additionalCustomTypeReferences = null)
         {
             var compiler = new InMemoryCompiler<string>(source, asExecutable, 
                 frameworkFolder,
                 outputFolder,
                 outputFilename,
-                additionalFrameworkReferences, 
-                additionalCustomReferences);
+                additionalFrameworkAssemblyNames, 
+                additionalCustomTypeReferences);
             return compiler;
         }
         
@@ -404,86 +408,68 @@ namespace MetX.Standard.Scripts
                 result += "\n";
             return result;
         }
-
-        public static class OfficialFrameworkPath
-        {
-            public static string Root = @"C:\Program Files (x86)\dotnet\shared\";
-            public static string LatestVersion = "5.0.9";
-
-            public static string LatestCore50()
-            {
-                return @$"{Root}\Microsoft.NETCore.App\{LatestVersion}";
-            }
-            public static string LatestWindows50()
-            {
-                return @$"{Root}\Microsoft.WindowsDesktop.App\{LatestVersion}";
-            }
-
-        }
     }
 
-    public class XlgQuickScriptExecutableBuilder
+    public static class OfficialFrameworkPath
     {
-        public XlgQuickScript ScriptToRun { get; set; }
-        public string Source { get; set; }
-        public InMemoryCompiler<string> Compiler { get; set; }
-        public string CsFilePath { get; set; }
-        public string ExeFilePath { get; set; }
-        public bool FinishedSuccessfully => Compiler?.CompiledSuccessfully == true;
-        public string ParentDestination { get; set; }
-        public string ExeFolder { get; set; }
-        public string ExeFilename { get; set; }
+        public static string Root = @"C:\Program Files (x86)\dotnet\shared";
 
-        public XlgQuickScriptExecutableBuilder(XlgQuickScript scriptToRun)
+        private static string _latestVersion;
+        public static string LatestVersion
         {
-            ScriptToRun = scriptToRun;
-            Source = scriptToRun.ToCSharp(true);
-            var result = new XlgQuickScriptExecutableBuilder(scriptToRun);
+            get { return _latestVersion ?? DetermineLatestVersion(); }
+            set
+            {
+                if (value.IsNotEmpty()) return;
 
-            ParentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-            ParentDestination = Path.Combine(ParentDestination, "bin");
-            ExeFolder = Path.Combine(ParentDestination, DateTime
-                .Now.ToString("s")
-                .RemoveAll("-:".ToCharArray())
-                .Replace("T", " "));
-            ExeFilename = scriptToRun.Name.AsFilename() + ".exe";
-            ExeFilePath = Path.Combine(ExeFolder, ExeFilename);
-            CsFilePath = ExeFilePath.Replace(".exe", ".cs");
+                if (_latestVersion.IsEmpty())
+                    _latestVersion = DetermineLatestVersion();
+            }
         }
 
-        public void Compile()
-        {
-            Compiler = XlgQuickScript.CompileSource(Source, true, XlgQuickScript.OfficialFrameworkPath.LatestCore50(), ExeFolder, ExeFilename);
+        public static string SelectedVersion { get; set; } = LatestVersion;
 
-            if (Compiler.CompiledSuccessfully)
+        public static string DetermineLatestVersion()
+        {
+            if (_latestVersion.IsNotEmpty())
+                return _latestVersion;
+            var versions = Directory.GetDirectories(Path.Combine(Root, "Microsoft.NETCore.App"));
+            for (int i = 0; i < versions.Length; i++)
             {
-                File.WriteAllText(CsFilePath, Source);
+                versions[i] = versions[i]
+                    .LastPathToken()
+                    .Replace(".", ".A");
             }
-            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
-            var lines = new List<string>(Source.LineList());
-            for (var index = 0; index < Compiler.Failures.Length; index++)
-            {
-                var error = Compiler.Failures[index].ToString();
-                if (error.Contains("("))
-                {
-                    error = error.TokensAfterFirst("(").Replace(")", string.Empty);
-                }
-    
-                sb.AppendLine(index + 1 + ": Line " + error);
-                sb.AppendLine();
-                if (error.Contains(Environment.NewLine))
-                {
-                    lines[Compiler.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                }
-                else if (Compiler.Failures[index].Location.Line() == 0)
-                {
-                    lines[0] += "\t// " + error;
-                }
-                else
-                {
-                    lines[Compiler.Failures[index].Location.Line()] += "\t// " + error;
-                }
-            }
+                    
+            Array.Sort(versions);
+            Array.Reverse(versions);
+            _latestVersion = versions[0].Replace(".A", ".");
+            return _latestVersion;
+
+        }
+
+        public static string NETCore => @$"{Root}\Microsoft.NETCore.App\{SelectedVersion}";
+        public static string WindowsDesktop => @$"{Root}\Microsoft.WindowsDesktop.App\{SelectedVersion}";
+        public static string AspNetCore => @$"{Root}\Microsoft.AspNetCore.App\{SelectedVersion}";
+            
+
+        public static string GetFrameworkAssemblyPath(string assemblyName)
+        {
+            if (!assemblyName.ToLower().EndsWith(".dll") && !assemblyName.ToLower().EndsWith(".exe"))
+                assemblyName += ".dll";
+            var location = Path.Combine(NETCore, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            location = Path.Combine(WindowsDesktop, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            location = Path.Combine(AspNetCore, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            return null;
         }
     }
 }

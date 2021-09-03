@@ -12,6 +12,7 @@ using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit; //using System.DirectoryServices;
+#pragma warning disable 8601
 #pragma warning disable 8618
 #pragma warning disable 8604
 
@@ -31,8 +32,8 @@ namespace MetX.Standard.Scripts
         public string PathToSharedRoslynAsThisProcess { get; set; }
 
         public bool AsExecutable { get; set; }
-        public List<Type> AdditionalFrameworkReferences { get; set; }
-        public List<string> AdditionalCustomReferences { get; set; }
+        public List<string> AdditionalFrameworkAssemblyNames { get; set; }
+        public List<Type> AdditionalCustomTypeReferences { get; set; }
         public Assembly? CompiledAssembly { get; set; }
         public Type? CompiledType { get; set; }
         public CSharpCompilation? CSharpCompiler { get; set; }
@@ -47,8 +48,8 @@ namespace MetX.Standard.Scripts
             string frameworkFolder,
             string outputFolder,
             string outputFilename,
-            List<Type> additionalFrameworkReferences,
-            List<string> additionalCustomReferences)
+            List<string> additionalFrameworkAssemblyNames,
+            List<Type> additionalCustomTypeReferences)
         {
             if (frameworkFolder.IsEmpty()) throw new ArgumentNullException(nameof(frameworkFolder));
             if (outputFolder.IsEmpty()) throw new ArgumentNullException(nameof(outputFolder));
@@ -57,8 +58,8 @@ namespace MetX.Standard.Scripts
             FrameworkFolder = frameworkFolder;
             OutputFolder = outputFolder;
             OutputFilename = outputFilename;
-            AdditionalFrameworkReferences = additionalFrameworkReferences;
-            AdditionalCustomReferences = additionalCustomReferences;
+            AdditionalFrameworkAssemblyNames = additionalFrameworkAssemblyNames;
+            AdditionalCustomTypeReferences = additionalCustomTypeReferences;
             SyntaxTree = CSharpSyntaxTree.ParseText(code);
             BuildCompiledAssembly();
         }
@@ -73,45 +74,69 @@ namespace MetX.Standard.Scripts
 
             var assemblyName = Path.GetRandomFileName();
 
-            var references = new List<MetadataReference>
+            var references = new List<MetadataReference>();
+
+            references.AddRange(new MetadataReference[]
             {
-                GetFrameworkReference(FrameworkFolder, "System.Runtime"),
-                GetFrameworkReference(FrameworkFolder, "mscorlib"),
-                GetFrameworkReference(FrameworkFolder, "System"),
-                GetFrameworkReference(FrameworkFolder, "System.IO"),
-                GetFrameworkReference(FrameworkFolder, "System.Data"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading.Tasks"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading.Thread"),
-                GetFrameworkReference(FrameworkFolder, "System.Threading"),
-                GetFrameworkReference(FrameworkFolder, "System.Text.Json"),
-                GetFrameworkReference(FrameworkFolder, "System.Text.RegularExpressions"),
-                GetFrameworkReference(FrameworkFolder, "System.Linq"),
-                GetFrameworkReference(FrameworkFolder, "System.Linq.Expressions"),
-                GetFrameworkReference(FrameworkFolder, "System.Linq.Queryable"),
-                GetFrameworkReference(FrameworkFolder, "System.Collections"),
-                GetFrameworkReference(FrameworkFolder, "System.Collections.Immutable"),
-                GetFrameworkReference(FrameworkFolder, "System.Collections.NonGeneric"),
-                GetFrameworkReference(FrameworkFolder, "System.Collections.Specialized"),
-                GetFrameworkReference(FrameworkFolder, "System.Drawing.Primitives"),
-                GetFrameworkReference(FrameworkFolder, "System.ComponentModel"),
-                GetFrameworkReference(FrameworkFolder, "System.Windows"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml.Serialization"),
-                GetFrameworkReference(FrameworkFolder, "System.Xml.XPath"),
+                // The loaded framework (.net standard 2.0)
+                GetReference(typeof(object)),
+                GetReference(typeof(Enumerable)),
+                GetReference(typeof(Console)),
+                GetReference(typeof(GCSettings)),
+                GetReference(typeof(StreamBuilder)),
+                GetReference(typeof(InMemoryCompiler<TResultType>)),
+                GetReference(typeof(System.IO.File)),
+                GetReference(typeof(System.Diagnostics.Process)),
+                GetReference(typeof(System.ComponentModel.Component)),
+            });
+
+            references.AddRange(new MetadataReference[]
+            {
+                GetFrameworkReference("System.Private.CoreLib"),
+                GetFrameworkReference("mscorlib"),
+                GetFrameworkReference("netstandard"),
+                GetFrameworkReference("System.Runtime"),
+                GetFrameworkReference("System"),
+                GetFrameworkReference("System.IO"),
+                GetFrameworkReference("System.Data"),
+                GetFrameworkReference("System.Threading.Tasks"),
+                GetFrameworkReference("System.Threading.Thread"),
+                GetFrameworkReference("System.Threading"),
+                GetFrameworkReference("System.Text.Json"),
+                GetFrameworkReference("System.Text.RegularExpressions"),
+                GetFrameworkReference("System.Linq"),
+                GetFrameworkReference("System.Linq.Expressions"),
+                GetFrameworkReference("System.Linq.Queryable"),
+                GetFrameworkReference("System.Collections"),
+                GetFrameworkReference("System.Collections.Immutable"),
+                GetFrameworkReference("System.Collections.NonGeneric"),
+                GetFrameworkReference("System.Collections.Specialized"),
+                GetFrameworkReference("System.Drawing.Primitives"),
+                GetFrameworkReference("System.ComponentModel"),
+                GetFrameworkReference("System.Windows"),
+                GetFrameworkReference("System.Xml"),
+                GetFrameworkReference("System.Xml.Serialization"),
+                GetFrameworkReference("System.Xml.XPath"),
+            });
+
+            references.AddRange(new MetadataReference[]
+            {
                 CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
                 CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
-            };
+            });
 
-            if (AdditionalFrameworkReferences?.Count > 0)
+            references.AddRange(DefaultCustomTypesForCompiler());
+
+            if (AdditionalFrameworkAssemblyNames?.Count > 0)
             {
-                foreach (var referenceType in AdditionalFrameworkReferences)
-                    references.Add(CopyAssemblyAndGetCustomReference(OutputFolder, referenceType));
+                foreach (var referenceType in AdditionalFrameworkAssemblyNames)
+                    GetFrameworkReference(assemblyName);
             }
 
-            if (AdditionalCustomReferences?.Count > 0)
+            if (AdditionalCustomTypeReferences?.Count > 0)
             {
-                foreach (var filePath in AdditionalCustomReferences)
-                    references.Add(GetFrameworkReference(OutputFilePath, filePath));
+                foreach (Type customType in AdditionalCustomTypeReferences)
+                    references.Add(CopyAssemblyAndGetCustomReference(OutputFilePath, customType));
             }
 
             references = references.Where(r => r != null).Distinct(new ReferenceEqualityComparer()).ToList();
@@ -136,6 +161,27 @@ namespace MetX.Standard.Scripts
                 GenerateRuntimeConfig()
             );
         }
+
+        public static List<MetadataReference> DefaultCustomTypesForCompiler()
+        {
+            var assemblies = new List<MetadataReference>
+            {
+                GetReference(typeof(InMemoryCache<>)), // MetX.Library
+                GetReference(typeof(Microsoft.CSharp.CSharpCodeProvider)),
+                GetReference(typeof(MetX.Standard.Library.BaseLineProcessor)),
+            };
+            return assemblies;
+        }
+
+
+        public static MetadataReference GetReference(Type type)
+        {
+            Console.WriteLine($"++{type.Assembly.FullName}  @  {type.Assembly.Location}");
+
+            var reference = MetadataReference.CreateFromFile(type.Assembly.Location);
+            return reference;
+        }
+
 
         public static MetadataReference CopyAssemblyAndGetCustomReference(string outputFolder, Type customType)
         {
@@ -168,17 +214,12 @@ namespace MetX.Standard.Scripts
 
         }
 
-        public MetadataReference? GetFrameworkReference(string targetFrameworkFolder, string assemblyFilePath)
+        public MetadataReference? GetFrameworkReference(string assemblyName)
         {
-            if (!assemblyFilePath.ToLower().EndsWith(".dll") && !assemblyFilePath.ToLower().EndsWith(".exe"))
+            var filename = OfficialFrameworkPath.GetFrameworkAssemblyPath(assemblyName);
+            if (filename.IsEmpty())
             {
-                assemblyFilePath += ".dll";
-            }
-            var filename = Path.Combine(targetFrameworkFolder, assemblyFilePath);
-
-            if (!File.Exists(filename))
-            {
-                Console.WriteLine($"Can't find framework assembly at {filename}");
+                Console.WriteLine($"Can't find framework assembly named {assemblyName}");
                 return null;
             }
 
@@ -200,7 +241,7 @@ namespace MetX.Standard.Scripts
                     writer.WriteStartObject("runtimeOptions");
                         writer.WriteStartObject("framework");
                         writer.WriteString("name", "Microsoft.NETCore.App");
-                        writer.WriteString("version", XlgQuickScript.OfficialFrameworkPath.LatestVersion);
+                        writer.WriteString("version", OfficialFrameworkPath.LatestVersion);
                         writer.WriteEndObject();
                     writer.WriteEndObject();
                 writer.WriteEndObject();
