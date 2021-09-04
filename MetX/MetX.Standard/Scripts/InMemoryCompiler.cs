@@ -1,24 +1,39 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
 using MetX.Standard.Library;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit; //using System.DirectoryServices;
+#pragma warning disable 8601
+#pragma warning disable 8618
+#pragma warning disable 8604
 
 namespace MetX.Standard.Scripts
 {
     public class InMemoryCompiler<TResultType> where TResultType : class
     {
-        private string FilePathForAssembly;
-        public string? PathToSharedRoslyn { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
+        public string FrameworkFolder { get; set; }
+        public string OutputFolder { get; set; }
+        public string OutputFilename { get; set; }
+        public string OutputFilePath =>
+            OutputFolder.IsNotEmpty()
+                ? Path.Combine(OutputFolder, OutputFilename)
+                : OutputFilename ?? $"{Id:N}.{(AsExecutable ? "exe" : "dll")}";
+
+        public string PathToSharedRoslynAsThisProcess { get; set; }
+
         public bool AsExecutable { get; set; }
-        public List<Type> AdditionalReferenceTypes { get; set; }
-        public List<string> AdditionalSharedReferences { get; set; }
+        public List<string> AdditionalFrameworkAssemblyNames { get; set; }
+        public List<Type> AdditionalCustomTypeReferences { get; set; }
         public Assembly? CompiledAssembly { get; set; }
         public Type? CompiledType { get; set; }
         public CSharpCompilation? CSharpCompiler { get; set; }
@@ -27,26 +42,28 @@ namespace MetX.Standard.Scripts
         public SyntaxTree SyntaxTree { get; set; }
         public Diagnostic[]? Failures { get; set; }
 
-        public bool CompiledSuccessfully
-        {
-            get
-            {
-                if (Failures != null && Failures.Length > 0)
-                    return false;
-                return CompiledAssembly != null;
-            }
-        }
+        public bool CompiledSuccessfully => Failures is not { Length: > 0 } && CompiledAssembly != null;
 
-        public InMemoryCompiler(string code, bool asExecutable, List<Type> additionalReferenceTypes,
-            List<string> additionalSharedReferences, string filePathForAssembly = null!)
+        public InMemoryCompiler(string code, bool asExecutable,
+            string frameworkFolder,
+            string outputFolder,
+            string outputFilename,
+            List<string> additionalFrameworkAssemblyNames,
+            List<Type> additionalCustomTypeReferences)
         {
+            if (frameworkFolder.IsEmpty()) throw new ArgumentNullException(nameof(frameworkFolder));
+            if (outputFolder.IsEmpty()) throw new ArgumentNullException(nameof(outputFolder));
+
             AsExecutable = asExecutable;
-            FilePathForAssembly = filePathForAssembly;
-            AdditionalReferenceTypes = additionalReferenceTypes;
-            AdditionalSharedReferences = additionalSharedReferences;
+            FrameworkFolder = frameworkFolder;
+            OutputFolder = outputFolder;
+            OutputFilename = outputFilename;
+            AdditionalFrameworkAssemblyNames = additionalFrameworkAssemblyNames;
+            AdditionalCustomTypeReferences = additionalCustomTypeReferences;
             SyntaxTree = CSharpSyntaxTree.ParseText(code);
             BuildCompiledAssembly();
         }
+
 
         public void SetupCompiler()
         {
@@ -56,70 +73,181 @@ namespace MetX.Standard.Scripts
             CompiledAssembly = null!;
 
             var assemblyName = Path.GetRandomFileName();
-            var references = new List<MetadataReference>
+
+            var references = new List<MetadataReference>();
+
+            references.AddRange(new MetadataReference[]
             {
+                // The loaded framework (.net standard 2.0)
                 GetReference(typeof(object)),
                 GetReference(typeof(Enumerable)),
                 GetReference(typeof(Console)),
                 GetReference(typeof(GCSettings)),
+                GetReference(typeof(StreamBuilder)),
                 GetReference(typeof(InMemoryCompiler<TResultType>)),
-                //GetReference(typeof(System.Windows.Forms.Application)),
                 GetReference(typeof(System.IO.File)),
                 GetReference(typeof(System.Diagnostics.Process)),
                 GetReference(typeof(System.ComponentModel.Component)),
-                
-                GetSharedReference("System.Runtime"),
-                GetSharedReference("System.Private.CoreLib"),
-                GetSharedReference("System.Drawing.Primitives"),
-                GetSharedReference("System.Windows"),
-                GetSharedReference("netstandard"),
-            };
+            });
 
-            if(AdditionalReferenceTypes?.Count > 0)
-                references.AddRange(AdditionalReferenceTypes.Select(GetReference));
-            
-            if(AdditionalSharedReferences?.Count > 0)
-                references.AddRange(AdditionalSharedReferences.Select(GetSharedReference));
-            
-            references = references.Distinct(new ReferenceEqualityComparer()).ToList();
+            references.AddRange(new MetadataReference[]
+            {
+                GetFrameworkReference("System.Private.CoreLib"),
+                GetFrameworkReference("mscorlib"),
+                GetFrameworkReference("netstandard"),
+                GetFrameworkReference("System.Runtime"),
+                GetFrameworkReference("System"),
+                GetFrameworkReference("System.IO"),
+                GetFrameworkReference("System.Data"),
+                GetFrameworkReference("System.Threading.Tasks"),
+                GetFrameworkReference("System.Threading.Thread"),
+                GetFrameworkReference("System.Threading"),
+                GetFrameworkReference("System.Text.Json"),
+                GetFrameworkReference("System.Text.RegularExpressions"),
+                GetFrameworkReference("System.Linq"),
+                GetFrameworkReference("System.Linq.Expressions"),
+                GetFrameworkReference("System.Linq.Queryable"),
+                GetFrameworkReference("System.Collections"),
+                GetFrameworkReference("System.Collections.Immutable"),
+                GetFrameworkReference("System.Collections.NonGeneric"),
+                GetFrameworkReference("System.Collections.Specialized"),
+                GetFrameworkReference("System.Drawing.Primitives"),
+                GetFrameworkReference("System.ComponentModel"),
+                GetFrameworkReference("System.Windows"),
+                GetFrameworkReference("System.Xml"),
+                GetFrameworkReference("System.Xml.Serialization"),
+                GetFrameworkReference("System.Xml.XPath"),
+            });
+
+            references.AddRange(new MetadataReference[]
+            {
+                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
+                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
+            });
+
+            references.AddRange(DefaultCustomTypesForCompiler());
+
+            if (AdditionalFrameworkAssemblyNames?.Count > 0)
+            {
+                foreach (var referenceType in AdditionalFrameworkAssemblyNames)
+                    GetFrameworkReference(assemblyName);
+            }
+
+            if (AdditionalCustomTypeReferences?.Count > 0)
+            {
+                foreach (Type customType in AdditionalCustomTypeReferences)
+                    references.Add(CopyAssemblyAndGetCustomReference(OutputFilePath, customType));
+            }
+
+            references = references.Where(r => r != null).Distinct(new ReferenceEqualityComparer()).ToList();
             references.Sort((reference, metadataReference) => string.Compare(
                 reference.Display,
                 metadataReference.Display,
                 StringComparison.OrdinalIgnoreCase));
 
+            var cSharpCompilationOptions = new CSharpCompilationOptions(AsExecutable
+                ? OutputKind.ConsoleApplication
+                : OutputKind.DynamicallyLinkedLibrary);
+
+            
             CSharpCompiler = CSharpCompilation.Create(
                 assemblyName,
-                new[] {SyntaxTree},
+                new[] { SyntaxTree },
                 references,
-                new CSharpCompilationOptions(AsExecutable
-                    ? OutputKind.ConsoleApplication
-                    : OutputKind.DynamicallyLinkedLibrary));
+                cSharpCompilationOptions);
+
+            File.WriteAllText(
+                Path.ChangeExtension(OutputFilePath, "runtimeconfig.json"),
+                GenerateRuntimeConfig()
+            );
         }
 
-        internal MetadataReference GetSharedReference(string name)
+        public static List<MetadataReference> DefaultCustomTypesForCompiler()
         {
-            PathToSharedRoslyn ??= typeof(object).Assembly.Location.TokensBeforeLast(@"\");
-
-            var systemRuntimeDll = Path.Combine(PathToSharedRoslyn, "System.Runtime.DLL");
-            if (!File.Exists(systemRuntimeDll))
-                throw new ArgumentException(nameof(name));
-            
-            var fullAssemblyPath = Path.Combine(PathToSharedRoslyn, name);
-            if (!fullAssemblyPath.EndsWith(".dll"))
-                fullAssemblyPath += ".dll";
-
-            Console.WriteLine($"Shared: {name}  @  {fullAssemblyPath}");
-
-            var reference = MetadataReference.CreateFromFile(fullAssemblyPath);
-            return reference;
+            var assemblies = new List<MetadataReference>
+            {
+                GetReference(typeof(InMemoryCache<>)), // MetX.Library
+                GetReference(typeof(Microsoft.CSharp.CSharpCodeProvider)),
+                GetReference(typeof(MetX.Standard.Library.BaseLineProcessor)),
+            };
+            return assemblies;
         }
 
-        internal MetadataReference GetReference(Type type)
+
+        public static MetadataReference GetReference(Type type)
         {
-            Console.WriteLine($"{type.Assembly.FullName}  @  {type.Assembly.Location}");
+            Console.WriteLine($"++{type.Assembly.FullName}  @  {type.Assembly.Location}");
 
             var reference = MetadataReference.CreateFromFile(type.Assembly.Location);
             return reference;
+        }
+
+
+        public static MetadataReference CopyAssemblyAndGetCustomReference(string outputFolder, Type customType)
+        {
+            var destinationCustomAssemblyFilename = customType.Assembly.Location.LastPathToken();
+            var customAssemblyDestinationPath = Path.Combine(outputFolder, destinationCustomAssemblyFilename);
+            if (!Directory.Exists(outputFolder))
+                Directory.CreateDirectory(outputFolder);
+
+            if (File.Exists(customAssemblyDestinationPath))
+            {
+                return null;
+            }
+
+            File.Copy(customType.Assembly.Location, customAssemblyDestinationPath);
+            Console.WriteLine($"+Assembly {destinationCustomAssemblyFilename}");
+            var reference = MetadataReference.CreateFromFile(destinationCustomAssemblyFilename);
+
+            var customPdbSourcePath = Path.Combine(customType.Assembly.Location.TokensBeforeLast(".") + ".pdb");
+            if (File.Exists(customPdbSourcePath))
+            {
+                var customPdbDestinationPath = Path.Combine(outputFolder,
+                    destinationCustomAssemblyFilename.TokensBeforeLast(".") + ".pdb");
+                if (!File.Exists(customPdbDestinationPath))
+                {
+                    File.Copy(customPdbSourcePath, customPdbDestinationPath);
+                }
+            }
+
+            return reference;
+
+        }
+
+        public MetadataReference? GetFrameworkReference(string assemblyName)
+        {
+            var filename = OfficialFrameworkPath.GetFrameworkAssemblyPath(assemblyName);
+            if (filename.IsEmpty())
+            {
+                Console.WriteLine($"Can't find framework assembly named {assemblyName}");
+                return null;
+            }
+
+            Console.WriteLine($"+Framework: {filename}");
+            var reference = MetadataReference.CreateFromFile(filename);
+            return reference;
+        }
+
+        public string GenerateRuntimeConfig()
+        {
+            using var stream = new MemoryStream();
+            using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions()
+                {
+                    Indented = true
+                }
+            ))
+            {
+                writer.WriteStartObject();
+                    writer.WriteStartObject("runtimeOptions");
+                        writer.WriteStartObject("framework");
+                        writer.WriteString("name", "Microsoft.NETCore.App");
+                        writer.WriteString("version", OfficialFrameworkPath.LatestVersion);
+                        writer.WriteEndObject();
+                    writer.WriteEndObject();
+                writer.WriteEndObject();
+            }
+
+            return Encoding.UTF8.GetString(stream.ToArray());
         }
 
         public int BuildCompiledAssembly()
@@ -131,7 +259,7 @@ namespace MetX.Standard.Scripts
                 throw new InvalidOperationException();
 
             using var memoryStream = new MemoryStream();
-            var emitOptions = new EmitOptions(outputNameOverride:Path.GetFileName(FilePathForAssembly));
+            var emitOptions = new EmitOptions(outputNameOverride: Path.GetFileName(OutputFilePath));
             var emitResult = CSharpCompiler.Emit(memoryStream, options: emitOptions);
 
             if (!emitResult.Success)
@@ -149,28 +277,28 @@ namespace MetX.Standard.Scripts
             else
             {
                 memoryStream.Seek(0, SeekOrigin.Begin);
-                if (FilePathForAssembly.IsNotEmpty())
+                if (OutputFilePath.IsNotEmpty())
                 {
-                    var directoryName = Path.GetDirectoryName(FilePathForAssembly);
-                    if(directoryName.IsNotEmpty() && !Directory.Exists(directoryName))
+                    var directoryName = Path.GetDirectoryName(OutputFilePath);
+                    if (directoryName.IsNotEmpty() && !Directory.Exists(directoryName))
                     {
                         Directory.CreateDirectory(directoryName!);
                     }
-                    
-                    if (File.Exists(FilePathForAssembly))
+
+                    if (File.Exists(OutputFilePath))
                     {
-                        File.SetAttributes(FilePathForAssembly, FileAttributes.Normal);
-                        File.Delete(FilePathForAssembly);
+                        File.SetAttributes(OutputFilePath, FileAttributes.Normal);
+                        File.Delete(OutputFilePath);
                     }
-                    using var fileStream = File.OpenWrite(FilePathForAssembly);
+                    using var fileStream = File.OpenWrite(OutputFilePath);
                     {
-                        fileStream.Write(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
+                        fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
                         fileStream.Flush();
                         fileStream.Close();
                     }
-                
+
                     memoryStream.Seek(0, SeekOrigin.Begin);
-                    CompiledAssembly = Assembly.LoadFile(FilePathForAssembly);
+                    CompiledAssembly = Assembly.LoadFile(OutputFilePath);
                 }
                 else
                     CompiledAssembly = Assembly.Load(memoryStream.ToArray());

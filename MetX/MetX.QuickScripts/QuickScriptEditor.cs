@@ -84,7 +84,7 @@ namespace XLG.QuickScripts
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
 
             e.Handled = true;            
@@ -127,108 +127,35 @@ namespace XLG.QuickScripts
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                Host.MessageBox.Show(e.ToString());
             }
         }
 
         public string GenerateIndependentQuickScriptExe(XlgQuickScript scriptToRun)
         {
             if (InvokeRequired)
-            {
                 return (string)Invoke(new Func<XlgQuickScript, string>(GenerateIndependentQuickScriptExe), scriptToRun);
-            }
 
-            if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Views["Exe"]))
+            if (Context.Templates.Count == 0 || string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Views["Exe"]))
             {
-                MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
+                Host.MessageBox.Show("Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;
             }
 
             if (scriptToRun == null)
-            {
                 return null;
-            }
 
-            var source = scriptToRun.ToCSharp(true);
-            var additionalReferences = Context.DefaultTypesForCompiler();
-            var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-            parentDestination = Path.Combine(parentDestination, "bin");
-            var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-            var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
-            var csFilePath = exeFilePath.Replace(".exe", ".cs");
-
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, exeFilePath);
-            
-            if (compilerResults.CompiledSuccessfully)
+            var builder = new XlgQuickScriptExecutableBuilder(scriptToRun);
+            builder.Compile();
+            if (builder.FinishedSuccessfully)
             {
-                var assembly = compilerResults.CompiledAssembly;
-                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
-
-                if (string.IsNullOrEmpty(parentDestination)
-                    && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
-                    && scriptToRun.Input != "Web Address")
-                {
-                    parentDestination = scriptToRun.InputFilePath.TokensBeforeLast(@"\");
-                }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                    parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
-
-                if (string.IsNullOrEmpty(parentDestination)) 
-                    parentDestination = assembly.Location.TokensBeforeLast(@"\");
-
-                /*
-                if (!Directory.Exists(parentDestination))
-                {
-                    return assembly.Location;
-                }
-                */
-
-                Directory.CreateDirectory(parentDestination);
-
-                //if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
-                if (File.Exists(csFilePath)) File.Delete(csFilePath);
-
-                if (!File.Exists(metXDllPathDest))
-                    File.Copy(metXDllPathSource, metXDllPathDest);
-                File.WriteAllText(csFilePath, source);
-                return exeFilePath;
+                QuickScriptWorker.ViewFileInNotepad(Host, builder.CsFilePath);
+                return builder.ExeFilePath;
             }
 
-            /*
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
-            var lines = new List<string>(source.LineList());
-            for (var index = 0; index < compilerResults.Failures.Length; index++)
-            {
-                var error = compilerResults.Failures[index].ToString();
-                if (error.Contains("("))
-                {
-                    error = error.TokensAfterFirst("(").Replace(")", string.Empty);
-                }
-
-                sb.AppendLine(index + 1 + ": Line " + error);
-                sb.AppendLine();
-                if (error.Contains(Environment.NewLine))
-                {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                }
-                else if (compilerResults.Failures[index].Location.Line() == 0)
-                {
-                    lines[0] += "\t// " + error;
-                }
-                else
-                {
-                    lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
-                }
-            }
-            */
-
-            var lines = new List<string>(source.LineList());
-            QuickScriptWorker.ViewTextInNotepad(Host, source, true);
-            QuickScriptWorker.ViewTextInNotepad(Host, compilerResults.Failures.ForDisplay(lines), true);
+            var lines = new List<string>(builder.Source.LineList());
+            QuickScriptWorker.ViewTextInNotepad(Host, builder.Source, true);
+            QuickScriptWorker.ViewTextInNotepad(Host, builder.Compiler.Failures.ForDisplay(lines), true);
 
             return null;
         }
@@ -316,11 +243,9 @@ namespace XLG.QuickScripts
             {
                 return;
             }
-
-            var answer = MessageBox.Show(this,
-                "This will permanently delete the current script.\n\tAre you sure this is what you want to do?",
-                "DELETE SCRIPT", MessageBoxButtons.YesNo);
-            if (answer == DialogResult.Yes)
+            
+            var answer = Host.MessageBox.Show("This will permanently delete the current script.\n\tAre you sure this is what you want to do?", "DELETE SCRIPT", MessageBoxChoices.YesNo);
+            if (answer == MessageBoxResult.Yes)
             {
                 Updating = true;
                 var script = ScriptEditor.Current;
@@ -887,11 +812,11 @@ namespace XLG.QuickScripts
                 var location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
                 if (location.IsEmpty()) return;
 
-                if (DialogResult.Yes == MessageBox.Show(this,
+                if (MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
                     "Would you like to run it now? (Will not open the generated file).", "RUN EXE?",
-                    MessageBoxButtons.YesNo))
+                    MessageBoxChoices.YesNo))
                 {
                     Process.Start(new ProcessStartInfo(location)
                     {

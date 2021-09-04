@@ -4,18 +4,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+#pragma warning disable 8603
+
+#pragma warning disable 8625
+#pragma warning disable 8618
 
 namespace MetX.Standard.Scripts
 {
-    //using Microsoft.CSharp;
-
-    //using NArrange.ConsoleApplication;
-    //using NArrange.Core;
-
     /// <summary>
     ///     Represents a clipboard processing script
     /// </summary>
@@ -68,13 +70,19 @@ namespace MetX.Standard.Scripts
             Template = "Single file input";
         }
 
-        public static InMemoryCompiler<string> CompileSource(string source,
-            bool asExecutable,
-            List<Type> additionalReferences,
-            List<string> additionalSharedReferences, 
-            string filePathForAssembly)
+        public static InMemoryCompiler<string> CompileSource(string source, bool asExecutable,
+            string frameworkFolder,
+            string outputFolder,
+            string outputFilename,
+            List<string> additionalFrameworkAssemblyNames = null, 
+            List<Type> additionalCustomTypeReferences = null)
         {
-            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences, filePathForAssembly);
+            var compiler = new InMemoryCompiler<string>(source, asExecutable, 
+                frameworkFolder,
+                outputFolder,
+                outputFilename,
+                additionalFrameworkAssemblyNames, 
+                additionalCustomTypeReferences);
             return compiler;
         }
         
@@ -91,8 +99,8 @@ namespace MetX.Standard.Scripts
                               .Replace(" + \"\")", ")")
                               .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
             currScriptLine = (indent > 0
-                ? new string(' ', indent + 12)
-                : string.Empty) +
+                                 ? new string(' ', indent + 12)
+                                 : string.Empty) +
                              currScriptLine
                                  .Replace(" + \"\" + ", string.Empty)
                                  .Replace("\"\" + ", string.Empty)
@@ -399,6 +407,69 @@ namespace MetX.Standard.Scripts
             if (!result.EndsWith("\n"))
                 result += "\n";
             return result;
+        }
+    }
+
+    public static class OfficialFrameworkPath
+    {
+        public static string Root = @"C:\Program Files (x86)\dotnet\shared";
+
+        private static string _latestVersion;
+        public static string LatestVersion
+        {
+            get { return _latestVersion ?? DetermineLatestVersion(); }
+            set
+            {
+                if (value.IsNotEmpty()) return;
+
+                if (_latestVersion.IsEmpty())
+                    _latestVersion = DetermineLatestVersion();
+            }
+        }
+
+        public static string SelectedVersion { get; set; } = LatestVersion;
+
+        public static string DetermineLatestVersion()
+        {
+            if (_latestVersion.IsNotEmpty())
+                return _latestVersion;
+            var versions = Directory.GetDirectories(Path.Combine(Root, "Microsoft.NETCore.App"));
+            for (int i = 0; i < versions.Length; i++)
+            {
+                versions[i] = versions[i]
+                    .LastPathToken()
+                    .Replace(".", ".A");
+            }
+                    
+            Array.Sort(versions);
+            Array.Reverse(versions);
+            _latestVersion = versions[0].Replace(".A", ".");
+            return _latestVersion;
+
+        }
+
+        public static string NETCore => @$"{Root}\Microsoft.NETCore.App\{SelectedVersion}";
+        public static string WindowsDesktop => @$"{Root}\Microsoft.WindowsDesktop.App\{SelectedVersion}";
+        public static string AspNetCore => @$"{Root}\Microsoft.AspNetCore.App\{SelectedVersion}";
+            
+
+        public static string GetFrameworkAssemblyPath(string assemblyName)
+        {
+            if (!assemblyName.ToLower().EndsWith(".dll") && !assemblyName.ToLower().EndsWith(".exe"))
+                assemblyName += ".dll";
+            var location = Path.Combine(NETCore, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            location = Path.Combine(WindowsDesktop, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            location = Path.Combine(AspNetCore, assemblyName);
+            if (File.Exists(location))
+                return location;
+
+            return null;
         }
     }
 }

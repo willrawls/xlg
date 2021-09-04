@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿/*
+
+    Unfortunately AppDomains not supported by .net 5 :( 
+
+using System.Reflection;
 using MetX.Standard.Generators;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,4 +25,4 @@ namespace MetX.Tests.Standard.Generation
             Assert.IsTrue(data.ShadowDomainName.IsNotEmpty());
         }
     }
-}
+}*/
