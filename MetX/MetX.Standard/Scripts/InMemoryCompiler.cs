@@ -121,8 +121,8 @@ namespace MetX.Standard.Scripts
 
             references.AddRange(new MetadataReference[]
             {
-                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(GenInstance)),
-                CopyAssemblyAndGetCustomReference(OutputFolder, typeof(AssocArray)),
+                CopyAssemblyAndGetReference(OutputFolder, typeof(GenInstance)),
+                CopyAssemblyAndGetReference(OutputFolder, typeof(AssocArray)),
             });
 
             references.AddRange(DefaultCustomTypesForCompiler());
@@ -136,7 +136,7 @@ namespace MetX.Standard.Scripts
             if (AdditionalCustomTypeReferences?.Count > 0)
             {
                 foreach (Type customType in AdditionalCustomTypeReferences)
-                    references.Add(CopyAssemblyAndGetCustomReference(OutputFilePath, customType));
+                    references.Add(CopyAssemblyAndGetReference(OutputFilePath, customType));
             }
 
             references = references.Where(r => r != null).Distinct(new ReferenceEqualityComparer()).ToList();
@@ -183,32 +183,30 @@ namespace MetX.Standard.Scripts
         }
 
 
-        public static MetadataReference CopyAssemblyAndGetCustomReference(string outputFolder, Type customType)
+        public static MetadataReference CopyAssemblyAndGetReference(string outputFolder, Type customType)
         {
-            var destinationCustomAssemblyFilename = customType.Assembly.Location.LastPathToken();
-            var customAssemblyDestinationPath = Path.Combine(outputFolder, destinationCustomAssemblyFilename);
+            return CopyAssemblyAndGetReference(outputFolder, customType.Assembly.Location);
+        }
+
+        public static MetadataReference CopyAssemblyAndGetReference(string outputFolder, string assemblyLocation)
+        {
+            var assemblyFilename = assemblyLocation.LastPathToken();
+            var fullPathToDestinationAssembly = Path.Combine(outputFolder, assemblyFilename);
             if (!Directory.Exists(outputFolder))
                 Directory.CreateDirectory(outputFolder);
 
-            if (File.Exists(customAssemblyDestinationPath))
-            {
-                return null;
-            }
+            if (File.Exists(fullPathToDestinationAssembly))
+                return MetadataReference.CreateFromFile(assemblyFilename);
 
-            File.Copy(customType.Assembly.Location, customAssemblyDestinationPath);
-            Console.WriteLine($"+Assembly {destinationCustomAssemblyFilename}");
-            var reference = MetadataReference.CreateFromFile(destinationCustomAssemblyFilename);
+            File.Copy(assemblyLocation, fullPathToDestinationAssembly);
+            Console.WriteLine($"+Assembly {fullPathToDestinationAssembly}");
+            var reference = MetadataReference.CreateFromFile(fullPathToDestinationAssembly);
 
-            var customPdbSourcePath = Path.Combine(customType.Assembly.Location.TokensBeforeLast(".") + ".pdb");
-            if (File.Exists(customPdbSourcePath))
-            {
-                var customPdbDestinationPath = Path.Combine(outputFolder,
-                    destinationCustomAssemblyFilename.TokensBeforeLast(".") + ".pdb");
-                if (!File.Exists(customPdbDestinationPath))
-                {
-                    File.Copy(customPdbSourcePath, customPdbDestinationPath);
-                }
-            }
+            var fullPathToPdb = Path.Combine(assemblyLocation.TokensBeforeLast(".") + ".pdb");
+            if (!File.Exists(fullPathToPdb)) return reference;
+
+            var fullPathToDestinationPdb = Path.Combine(outputFolder, assemblyFilename.TokensBeforeLast(".") + ".pdb");
+            if (!File.Exists(fullPathToDestinationPdb)) File.Copy(fullPathToPdb, fullPathToDestinationPdb);
 
             return reference;
 
@@ -223,9 +221,10 @@ namespace MetX.Standard.Scripts
                 return null;
             }
 
-            Console.WriteLine($"+Framework: {filename}");
-            var reference = MetadataReference.CreateFromFile(filename);
-            return reference;
+            return CopyAssemblyAndGetReference(OutputFolder, filename);
+            //Console.WriteLine($"+Framework: {filename}");
+            //var reference = MetadataReference.CreateFromFile(filename);
+            //return reference;
         }
 
         public string GenerateRuntimeConfig()
@@ -241,7 +240,7 @@ namespace MetX.Standard.Scripts
                     writer.WriteStartObject("runtimeOptions");
                         writer.WriteStartObject("framework");
                         writer.WriteString("name", "Microsoft.NETCore.App");
-                        writer.WriteString("version", OfficialFrameworkPath.LatestVersion);
+                        writer.WriteString("version", OfficialFrameworkPath.SelectedVersion());
                         writer.WriteEndObject();
                     writer.WriteEndObject();
                 writer.WriteEndObject();

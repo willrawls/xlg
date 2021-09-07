@@ -414,27 +414,17 @@ namespace MetX.Standard.Scripts
     {
         public static string Root = @"C:\Program Files (x86)\dotnet\shared";
 
-        private static string _latestVersion;
-        public static string LatestVersion
-        {
-            get { return _latestVersion ?? DetermineLatestVersion(); }
-            set
-            {
-                if (value.IsNotEmpty()) return;
+        private static string _latestVersion = null;
+        public static string LatestVersion() => "5.0.7";
+        public static string SelectedVersion() => LatestVersion();
 
-                if (_latestVersion.IsEmpty())
-                    _latestVersion = DetermineLatestVersion();
-            }
-        }
-
-        public static string SelectedVersion { get; set; } = LatestVersion;
-
+        /*
         public static string DetermineLatestVersion()
         {
             if (_latestVersion.IsNotEmpty())
                 return _latestVersion;
             var versions = Directory.GetDirectories(Path.Combine(Root, "Microsoft.NETCore.App"));
-            for (int i = 0; i < versions.Length; i++)
+            for (var i = 0; i < versions.Length; i++)
             {
                 versions[i] = versions[i]
                     .LastPathToken()
@@ -447,10 +437,11 @@ namespace MetX.Standard.Scripts
             return _latestVersion;
 
         }
+        */
 
-        public static string NETCore => @$"{Root}\Microsoft.NETCore.App\{SelectedVersion}";
-        public static string WindowsDesktop => @$"{Root}\Microsoft.WindowsDesktop.App\{SelectedVersion}";
-        public static string AspNetCore => @$"{Root}\Microsoft.AspNetCore.App\{SelectedVersion}";
+        public static string NETCore => @$"{Root}\Microsoft.NETCore.App\{SelectedVersion()}";
+        public static string WindowsDesktop => @$"{Root}\Microsoft.WindowsDesktop.App\{SelectedVersion()}";
+        public static string AspNetCore => @$"{Root}\Microsoft.AspNetCore.App\{SelectedVersion()}";
             
 
         public static string GetFrameworkAssemblyPath(string assemblyName)
