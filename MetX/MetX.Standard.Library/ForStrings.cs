@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MetX.Standard.Library
@@ -75,14 +76,15 @@ namespace MetX.Standard.Library
             return target == null || target.Count == 0;
         }
 
+        [NotNull()]
         public static bool IsNotEmpty<T>(this IList<T> target)
         {
             return target?.Count > 0;
         }
 
-        public static bool IsEmpty(this string target)
+        public static bool IsEmpty([NotNullWhen(false)] this string target)
         {
-            return string.IsNullOrEmpty(target);
+            return (value == null || 0u >= (uint)value.Length) ? true : false;
         }
 
         public static int AsInteger(this string target, int defaultValue = 0)
