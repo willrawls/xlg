@@ -21,7 +21,9 @@ namespace MetX.Standard.Library.Generics
                     AssocItem<T> assocItem;
                     var assocKey = key.ToAssocKey();
                     if (!Items.ContainsKey(assocKey))
+                    {
                         Items[assocKey] = assocItem = new AssocItem<T>(key);
+                    }
                     else
                         assocItem = Items[assocKey];
                     return assocItem;

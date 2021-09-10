@@ -15,7 +15,9 @@ namespace MetX.Tests.Standard.Library
             var data = new AssocArrayList<Fred>();
             data["Fred"]["George"].Item = fred;
             
-            Assert.AreEqual("George", data["Mary"]["Fred"].Value);
+            Assert.AreEqual("Fred", data["Fred"].Key);
+            Assert.AreEqual("George", data["Fred"]["George"].Key);
+            Assert.AreEqual(fred.TestGuid, data["Fred"]["George"].Item.TestGuid);
 
             data["Mary"]["Frank"].Value = "Tim";
             Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);

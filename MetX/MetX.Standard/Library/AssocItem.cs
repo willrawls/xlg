@@ -19,7 +19,17 @@ namespace MetX.Standard.Library
             Key = key.IsEmpty() ? AssocSupport.KeyWhenThereIsNoKey() : key;
             Value = value ?? "";
             Name = name ?? "";
-            Id = id ?? Guid.NewGuid();
+
+            if(id.HasValue)
+            {
+                if (id.Value == Guid.Empty)
+                    Id = Guid.NewGuid();
+                Id = id.Value;
+            }
+            else
+            {
+                Id = Guid.NewGuid();
+            }
         }
     }
 }

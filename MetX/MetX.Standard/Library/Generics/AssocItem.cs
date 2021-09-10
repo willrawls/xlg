@@ -8,7 +8,8 @@ namespace MetX.Standard.Library.Generics
         public T Item { get; set; }
 
         public AssocItem() { }
-        public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) : base(key, value, id, name, parent)
+        public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) 
+            : base(key, value, id, name, parent)
         {
             Item = item;
         }
