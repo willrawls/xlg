@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using MetX.Standard.Library.Generics;
 
 namespace MetX.Standard.Library
@@ -7,8 +8,9 @@ namespace MetX.Standard.Library
     [Serializable]
     public class AssocArrayList : AssocItem
     {
+        [XmlIgnore]
         public object SyncRoot { get; }= new();
-        protected SortedDictionary<string, AssocArray> Pairs = new();
+        public SortedDictionary<string, AssocArray> Pairs = new();
 
         public AssocArrayList(){ }
 
@@ -50,24 +52,5 @@ namespace MetX.Standard.Library
             }
         }
 
-/*
-        public AssocArray this[string key]
-        {
-            get
-            {
-                lock(SyncRoot)
-                {
-                    return Pairs[key].Item;
-                }
-            }
-            set
-            {
-                lock(SyncRoot)
-                {
-                    Pairs[key].Item = value;
-                }
-            }
-        }
-    */
     }
 }

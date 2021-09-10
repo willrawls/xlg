@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace MetX.Tests.Standard.Library
         public void AssocArrayListOfT_Simple()
         {
             var fred = new Fred();
-            var data = new AssocArrayList<Fred>();
+            var data = new AssocArrayList<Fred>("Mike");
             data["Fred"]["George"].Item = fred;
             
             Assert.AreEqual("Fred", data["Fred"].Key);
@@ -21,6 +22,8 @@ namespace MetX.Tests.Standard.Library
 
             data["Mary"]["Frank"].Value = "Tim";
             Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
+
+            Console.WriteLine(data["Fred"].ToText());
         }
 
         [TestMethod]

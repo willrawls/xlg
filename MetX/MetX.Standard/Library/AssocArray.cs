@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace MetX.Standard.Library
 {
     [Serializable]
     public class AssocArray : AssocItem
     {
-        public object SyncRoot { get; }= new();
-        protected SortedDictionary<string, AssocItem> Pairs = new();
+        [XmlIgnore] public object SyncRoot { get; }= new();
+        public SortedDictionary<string, AssocItem> Pairs = new();
 
         public AssocArray() { }
         public AssocArray(string key, string value = "", Guid? id = null, string name = "", IAssocItem parent = null) 
@@ -42,6 +44,21 @@ namespace MetX.Standard.Library
                         Pairs[assocKey] = value;
                 }
             }
+        }
+
+        public new string ToText(int indent = 0)
+        {
+            var sb = new StringBuilder();
+            var indentation = indent == 0 ? "" : new string(' ', indent);
+            lock (SyncRoot)
+            {
+                sb.AppendLine(base.ToText(indent));
+                foreach (var pair in Pairs)
+                {
+                    sb.AppendLine(pair.Value.ToText(indent + 1));
+                }
+            }
+            return sb.ToString();
         }
     }
 }

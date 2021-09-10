@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Xml.Serialization;
+using MetX.Standard.Web.Virtual.xsl;
 
 namespace MetX.Standard.Library.Generics
 {

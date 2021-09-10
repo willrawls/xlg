@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace MetX.Standard.Library.Generics
 {
     [Serializable]
     public class AssocArray<T> : AssocItem<T> where T : class, new()
     {
-        public object SyncRoot = new();
+        [XmlIgnore] public object SyncRoot = new();
         public SortedDictionary<string, AssocItem<T>> Items = new();
 
         public AssocArray() { }

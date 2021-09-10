@@ -4,6 +4,6 @@ namespace MetX.Tests.Standard.Library
 {
     public class Fred
     {
-        public readonly Guid TestGuid = Guid.NewGuid();
+        public Guid TestGuid { get; set; } = Guid.NewGuid();
     }
 }
