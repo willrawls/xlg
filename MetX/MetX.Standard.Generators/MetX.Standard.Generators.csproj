@@ -23,6 +23,9 @@
     <None Remove="Templates\CSharp\Project\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="QuickScripter\Single file input\Exe\Program.cs" />
+    <Compile Remove="QuickScripter\Single file input\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="QuickScripter\Single file input\Native.cs" />
     <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs" />
     <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName.cs" />
   </ItemGroup>
@@ -50,6 +53,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="QuickScripter\Single file input\Exe\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="QuickScripter\Single file input\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="QuickScripter\Single file input\Native.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -63,6 +75,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\CSharp\Default\Namespace.GeneratorsName\Namespace.GeneratorsName.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="QuickScripter\Single file input\Exe\_csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="QuickScripter\Single file input\Exe\_sln">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

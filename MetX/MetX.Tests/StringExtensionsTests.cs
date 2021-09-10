@@ -3,8 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests
 {
-
-
     [TestClass]
     public class StringExtensionsTests
     {

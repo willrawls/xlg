@@ -76,15 +76,14 @@ namespace MetX.Standard.Library
             return target == null || target.Count == 0;
         }
 
-        [NotNull()]
         public static bool IsNotEmpty<T>(this IList<T> target)
         {
             return target?.Count > 0;
         }
 
-        public static bool IsEmpty([NotNullWhen(false)] this string target)
+        public static bool IsEmpty(this string target)
         {
-            return (value == null || 0u >= (uint)value.Length) ? true : false;
+            return target == null || 0u >= (uint)target.Length;
         }
 
         public static int AsInteger(this string target, int defaultValue = 0)

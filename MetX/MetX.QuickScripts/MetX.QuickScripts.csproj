@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
@@ -21,9 +18,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Templates\Single file input\Exe.cs" />
+    <Compile Remove="Templates\Single file input\Exe\Program.cs" />
+    <Compile Remove="Templates\Single file input\Exe\QuickScriptProcessor.cs" />
     <Compile Remove="Templates\Single file input\Native.cs" />
-    <Compile Remove="Templates\Single file input\qscriptd3cdf9.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,13 +51,23 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\Single file input\Exe.cs">
+    <None Include="Templates\Single file input\Exe\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Single file input\Exe\QuickScriptProcessor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Single file input\Native.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Single file input\qscriptd3cdf9.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Templates\Single file input\Exe\_csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Templates\Single file input\Exe\_sln">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

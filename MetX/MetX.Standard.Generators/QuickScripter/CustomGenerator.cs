@@ -4,13 +4,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace XLG.QuickScripts.Generators
+namespace MetX.Standard.Generators.QuickScripter
 {
     [Generator]
     public class CustomGenerator : ISourceGenerator
     {
-        public void Initialize(GeneratorInitializationContext context) =>
-            context.RegisterForSyntaxNotifications(() => new MapToReceiver());
+        public void Initialize(GeneratorInitializationContext context) => context.RegisterForSyntaxNotifications(() => new MapToReceiver());
 
         public void Execute(GeneratorExecutionContext context)
         {
