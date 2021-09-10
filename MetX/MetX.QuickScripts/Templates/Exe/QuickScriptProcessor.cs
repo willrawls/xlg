@@ -30,29 +30,29 @@ namespace QuickScripts
 
         public bool OpenNotepad;
 
+        //~~ClassMembers~~//
+
         public QuickScriptProcessor()
         {
             Output = new StreamBuilder(OutputStringBuilder);
         }
         
-        //~~ClassMembers~~//
-
         public bool Start()
         {
-            //~~Start~~//
+//~~Start~~//
             return true;
         }
 
         public bool ProcessLine(string line, int number)
         {
             if (string.IsNullOrEmpty(line) && number > -1) return true;
-            //~~ProcessLine~~//
+//~~ProcessLine~~//
             return true;
         }
 
         public bool Finish()
         {
-            //~~Finish~~//
+//~~Finish~~//
             return true;
         }
 

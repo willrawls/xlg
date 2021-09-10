@@ -139,7 +139,7 @@ namespace MetX.Controls
             }
 
             if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
+                string.IsNullOrEmpty(Context.Templates[templateName].Assets["Exe"]))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
                 return null;

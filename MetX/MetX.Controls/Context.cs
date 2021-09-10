@@ -32,7 +32,7 @@ namespace MetX.Controls
             XlgQuickScript scriptToRun)
         {
             if (@base.Templates.Count == 0 ||
-                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Views["Native"]))
+                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Assets["Native"]))
             {
                 MessageBox.Show("Quick script template 'Native' missing: " + scriptToRun.Template);
                 return null;

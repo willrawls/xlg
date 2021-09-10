@@ -9,7 +9,7 @@ namespace MetX.Standard.Scripts
     {
         public string Name;
         public string TemplatePath;
-        public CaseFreeDictionary Views = new();
+        public AssocArray Assets = new();
 
         public XlgQuickScriptTemplate(string templatePath)
         {
@@ -19,12 +19,23 @@ namespace MetX.Standard.Scripts
 
             foreach (var file in Directory.GetFiles(TemplatePath))
             {
-                var name = file.LastPathToken().ToLower();
-                if (name.EndsWith(".cs"))
-                    name = name.TokensBeforeLast(".cs") + "__cs";
-
-                Views.Add(name, File.ReadAllText(file));
+                var name = file.LastPathToken();
+                Assets[name].Value = File.ReadAllText(file);
             }
         }
+
+        public void Actualize(Actualization actual)
+        {
+            Directory.CreateDirectory(actual.OutputFolder);
+            foreach (var asset in Assets)
+            {
+
+            }
+        }
+    }
+
+    public class Actualization
+    {
+
     }
 }

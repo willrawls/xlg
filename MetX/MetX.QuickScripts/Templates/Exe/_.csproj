@@ -5,7 +5,6 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>QuickScripts</RootNamespace>
-    <ApplicationIcon />
     <StartupObject>QuickScripts.Program</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <Authors>William Rawls</Authors>
@@ -21,18 +20,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="MetX.Controls.dll" /><None Remove="MetX.Controls.pdb" />
     <None Remove="MetX.Standard.dll" /><None Remove="MetX.Standard.pdb" />
     <None Remove="MetX.Standard.Library.dll" /><None Remove="MetX.Standard.Library.pdb" />
     <None Remove="MetX.Windows.dll" /><None Remove="MetX.Windows.pdb" />
+    <None Remove="MetX.Controls.dll" /><None Remove="MetX.Controls.pdb" />
     <None Remove="MetX.Standard.Generators.Aspects.dll" /><None Remove="MetX.Standard.Generators.Aspects.pdb" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MetX.Controls"><HintPath>MetX.Controls.dll</HintPath></Reference>
     <Reference Include="MetX.Standard"><HintPath>MetX.Standard.dll</HintPath></Reference>
     <Reference Include="MetX.Standard.Library"><HintPath>MetX.Standard.Library.dll</HintPath></Reference>
     <Reference Include="MetX.Windows"><HintPath>MetX.Windows.dll</HintPath></Reference>
+    <Reference Include="MetX.Controls"><HintPath>MetX.Controls.dll</HintPath></Reference>
     <Reference Include="MetX.Standard.Generators.Aspects"><HintPath>MetX.Standard.Generators.Aspects.dll</HintPath></Reference>
   </ItemGroup>
 

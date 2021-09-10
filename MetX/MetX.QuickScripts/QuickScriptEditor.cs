@@ -139,7 +139,7 @@ namespace XLG.QuickScripts
             }
 
             if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Views["Exe"]))
+                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Assets["Exe"]))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;
