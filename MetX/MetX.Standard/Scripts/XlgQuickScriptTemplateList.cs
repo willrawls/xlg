@@ -11,15 +11,14 @@ namespace MetX.Standard.Scripts
     {
         public string TemplatesPath;
 
-        public XlgQuickScriptTemplateList()
+        public XlgQuickScriptTemplateList(string rootTemplatesPath)
         {
-            TemplatesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
-            if (Directory.Exists(TemplatesPath))
+            TemplatesPath = Path.Combine(rootTemplatesPath, "Templates");
+            if (!Directory.Exists(TemplatesPath)) return;
+
+            foreach (var directory in Directory.GetDirectories(TemplatesPath))
             {
-                foreach (var directory in Directory.GetDirectories(TemplatesPath))
-                {
-                    Add(new XlgQuickScriptTemplate(directory));
-                }
+                Add(new XlgQuickScriptTemplate(directory));
             }
         }
 

@@ -22,13 +22,6 @@
     <EmbeddedResource Remove="Templates\CSharp\Project\**" />
     <None Remove="Templates\CSharp\Project\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="QuickScripter\Single file input\Exe\Program.cs" />
-    <Compile Remove="QuickScripter\Single file input\Exe\QuickScriptProcessor.cs" />
-    <Compile Remove="QuickScripter\Single file input\Native.cs" />
-    <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs" />
-    <Compile Remove="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
@@ -53,38 +46,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="QuickScripter\Single file input\Exe\Program.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Resource Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName__cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <None Include="Templates\CSharp\Default\Namespace.AspectsName\Namespace.AspectsName__csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="QuickScripter\Single file input\Exe\QuickScriptProcessor.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Templates\CSharp\Default\Namespace.ClientName\Namespace.ClientName__csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="QuickScripter\Single file input\Native.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\CSharp\Default\Namespace.AspectsName\Namespace.AspectsName.csproj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\CSharp\Default\Namespace.ClientName\Namespace.ClientName.csproj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\CSharp\Default\Namespace.GeneratorsName\Namespace.GeneratorsName.csproj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Templates\CSharp\Default\Namespace.GeneratorsName\Namespace.GeneratorsName__csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="QuickScripter\Single file input\Exe\_csproj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="Templates\CSharp\Default\Namespace.AspectsName\GenerateFromTemplate__cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="QuickScripter\Single file input\Exe\_sln">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="Templates\CSharp\Default\Namespace.AspectsName\GenerateGeneratorName__cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

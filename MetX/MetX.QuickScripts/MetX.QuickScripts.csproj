@@ -16,6 +16,11 @@
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Templates\Exe\Program.cs" />
+    <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="Templates\Native\Native.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">
@@ -32,6 +37,17 @@
     <Content Include="Settings.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates\Exe\Program.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Native\Native.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -43,6 +59,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Templates\Exe\_csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Templates\Exe\_sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

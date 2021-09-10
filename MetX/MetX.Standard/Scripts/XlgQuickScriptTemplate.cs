@@ -15,12 +15,15 @@ namespace MetX.Standard.Scripts
         {
             TemplatePath = templatePath;
             Name = TemplatePath.LastPathToken();
-            if (Directory.Exists(TemplatePath))
+            if (!Directory.Exists(TemplatePath)) return;
+
+            foreach (var file in Directory.GetFiles(TemplatePath))
             {
-                foreach (var file in Directory.GetFiles(TemplatePath, "*.cs"))
-                {
-                    Views.Add(file.LastPathToken().ToLower().TokensBeforeLast(".cs"), File.ReadAllText(file));
-                }
+                var name = file.LastPathToken().ToLower();
+                if (name.EndsWith(".cs"))
+                    name = name.TokensBeforeLast(".cs") + "__cs";
+
+                Views.Add(name, File.ReadAllText(file));
             }
         }
     }
