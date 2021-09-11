@@ -11,6 +11,30 @@ namespace MetX.Standard.Library
     /// </summary>
     public static class ForStrings
     {
+        public static string RemoveAll(this string target, string[] stringsToRemove)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+            if (stringsToRemove.IsEmpty())
+                return target;
+            return stringsToRemove
+                .Aggregate(target, (current, stringToRemove) 
+                    => current
+                        .Replace(stringToRemove, string.Empty));
+        }
+
+        public static string RemoveAll(this string target, char[] charsToRemove)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+            if (charsToRemove.IsEmpty())
+                return target;
+            return charsToRemove
+                .Aggregate(target, (current, charToRemove) 
+                    => current
+                        .Replace(charToRemove.ToString(), string.Empty));
+        }
+
         public static string AsFormattedXml(this string target)
         {
             if (target.IsEmpty())
