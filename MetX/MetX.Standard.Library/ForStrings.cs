@@ -166,6 +166,22 @@ namespace MetX.Standard.Library
             return target.Substring(0, length);
         }
 
+        public static string Right(this string target, int length)
+        {
+            // 01234
+            // ABCDE
+            //    DE
+            // "ABCDE".Right(2) == "DE"
+            // "ABCDE".Right(0) == ""
+
+            if (string.IsNullOrEmpty(target) || length < 1) 
+                return string.Empty;
+
+            return length >= target.Length 
+                ? target 
+                : target.Substring(target.Length - length);
+        }
+
         public static string Mid(this string target, int startAt, int length)
         {
             if (string.IsNullOrEmpty(target) || length < 1 || startAt > target.Length || startAt > target.Length) return string.Empty;

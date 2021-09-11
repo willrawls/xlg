@@ -16,6 +16,8 @@ namespace MetX.Tests.Standard.Library
             Assert.AreEqual(data.Name, "Dolly");
 
             data["Mary"]["Fred"].Value = "George";
+            var id = data["Mary"]["Fred"].Id;
+            Assert.AreEqual(id, data["Mary"]["Fred"].Id);
             Assert.AreEqual("George", data["Mary"]["Fred"].Value);
 
             data["Mary"]["Frank"].Value = "Tim";

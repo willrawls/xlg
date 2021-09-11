@@ -125,7 +125,7 @@ namespace MetX.Standard.Scripts
                     }
                 }
 
-                var sb = new StringBuilder(Template.Assets[_mIndependent ? "Exe" : "Native"]);
+                var sb = new StringBuilder(Template.Assets[_mIndependent ? "Exe" : "Native"].Value);
                 foreach (var area in this)
                 {
                     sb.Replace("//~~" + area.Name + "~~//", string.Join(Environment.NewLine, area.Lines));

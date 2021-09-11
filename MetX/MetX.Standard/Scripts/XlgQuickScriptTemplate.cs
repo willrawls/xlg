@@ -36,6 +36,6 @@ namespace MetX.Standard.Scripts
 
     public class Actualization
     {
-
+        public string OutputFolder { get; set; }
     }
 }
