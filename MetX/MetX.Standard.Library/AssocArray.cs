@@ -15,8 +15,9 @@ namespace MetX.Standard.Library
         public IAssocItem Parent { get; set; }
         public string Value { get; set; }
         public string Name { get; set; }
-        public Guid Id { get; set; }
-
+        public Guid ID { get; set; }
+        public string Category { get; set; }
+        
         public string[] Values
         {
             get
@@ -50,13 +51,13 @@ namespace MetX.Standard.Library
             }
         }
 
-        public Guid[] IDs
+        public Guid[] Ids
         {
             get
             {
                 if (Count == 0)
                     return new Guid[0];
-                var answer = this.Select(i => i.Id).ToArray();
+                var answer = this.Select(i => i.ID).ToArray();
                 return answer;
             }
         }
@@ -99,9 +100,22 @@ namespace MetX.Standard.Library
         {
             Key = key;
             Value = value;
-            Id = id ?? Guid.NewGuid();
+            ID = id ?? Guid.NewGuid();
             Name = name;
             Parent = parent;
+        }
+
+        public string ToXml()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine($"<AssocArray{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{Name.ToXmlAttribute("Name")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Count") : "")}{Category.ToXmlAttribute("Category")}>");
+            foreach (var item in this)
+            {
+                sb.AppendLine(item.ToXml());
+            }
+            sb.AppendLine("</AssocArray>");
+            return sb.ToString();
         }
     }
 }

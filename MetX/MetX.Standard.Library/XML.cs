@@ -4,14 +4,16 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using MetX.Standard.Library.Extensions;
 
 // // using MetX.Web;
 
 namespace MetX.Standard.Library
 {
     /// <summary>Helper functions for dealing with xml strings</summary>
-	public class Xml
+	public static class Xml
     {
 		/// <summary>The ?xml directive that should be at the top of each file</summary>
 		public const string Declaration = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
@@ -329,5 +331,14 @@ namespace MetX.Standard.Library
 
             return xmlSerializer;
 		}
+
+        public static string ToXmlAttribute(this string value, string name)
+        {
+            if (value.IsEmpty())
+                return string.Empty;
+
+            var attributeString = $" {new XAttribute(name, value)}";
+            return attributeString;
+        }
     }
 }

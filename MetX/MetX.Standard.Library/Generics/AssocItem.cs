@@ -22,7 +22,7 @@ namespace MetX.Standard.Library.Generics
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"      {Key}={Value ?? "nil"}, {Id:N}, {Name ?? "nil"}");
+            sb.AppendLine($"      {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
             if(Item != null)
             {
                 sb.AppendLine(Item.ToString());

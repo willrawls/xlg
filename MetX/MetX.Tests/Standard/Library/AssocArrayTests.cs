@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Generics;
@@ -14,9 +15,63 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArray_Simple()
         {
-            var data = new AssocArray(null, "Mary");
-            data["Fred"].Value = "George";
+            var data = new AssocArray(null, "Mary") {["Fred"] = {Value = "George"}};
             Assert.AreEqual("George", data["Fred"].Value);
+        }
+
+        [TestMethod]
+        public void AssocArray_ToString()
+        {
+            var arrayId = Guid.NewGuid();
+            var itemId = Guid.NewGuid();
+            var itemId2 = Guid.NewGuid();
+
+            var data = new AssocArray("Array Key", "Array Value", arrayId, "Array Name")
+            {
+                new AssocItem("Item Key", "Item Value", itemId, "Item Name"),
+                new AssocItem("Item Key2", "Item Value2", itemId2, "Item Name2"),
+            };
+
+            var expected = 
+$@"
+~~~~~~~~~ {arrayId:N}   Array Key
+Name:     Array Name
+Category: Array Category
+Array Value
+
+~~~~      {itemId:N}    Item Key
+Name:     Item Name
+Item Value
+
+~~~~      {itemId2:N}   Item Key2
+Name:     Item Name2
+Item Value2
+
+~~~~
+";
+            var actual = data.ToString();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void AssocArray_ToXml()
+        {
+            var arrayId = Guid.NewGuid();
+            var itemId = Guid.NewGuid();
+
+            var data = new AssocArray("Array Key", "Array Value", arrayId, "Array Name")
+            {
+                new AssocItem("Item Key", "Item Value", itemId, "Item Name"),
+            };
+
+            var expected = 
+$@"
+<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Count=""1"">
+    <AssocItem Key=""Item Key"" Value=""Item Value"" ID=""{itemId:N}"" Name=""Item Name"" />
+</AssocArray>
+";
+            var actual = data.ToXml();
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -50,10 +105,10 @@ namespace MetX.Tests.Standard.Library
         public void AssocArray_IDsArray_Simple()
         {
             var data = new AssocArray {["Fred"] = {Name = "Henry"}, ["George"] = {Name = "Mary"}};
-            Assert.IsNotNull(data.IDs);
-            Assert.AreEqual(2, data.IDs.Length);
-            Assert.AreEqual(data.IDs[0], data["Fred"].Id);
-            Assert.AreEqual(data.IDs[1], data["George"].Id);
+            Assert.IsNotNull(data.Ids);
+            Assert.AreEqual(2, data.Ids.Length);
+            Assert.AreEqual(data.Ids[0], data["Fred"].ID);
+            Assert.AreEqual(data.Ids[1], data["George"].ID);
         }
 
         [TestMethod]

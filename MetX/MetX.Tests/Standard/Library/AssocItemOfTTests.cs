@@ -20,9 +20,9 @@ namespace MetX.Tests.Standard.Library
             
             Assert.AreEqual("Fred", data.Key);
             Assert.AreEqual("George", data.Value);
-            Assert.AreEqual(testGuid, data.Id);
+            Assert.AreEqual(testGuid, data.ID);
             Assert.AreEqual("Mary", data.Name);
-            Assert.AreEqual(otherItem.Id, data.Parent.Id);
+            Assert.AreEqual(otherItem.ID, data.Parent.ID);
         }
     }
 }

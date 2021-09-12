@@ -8,7 +8,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
 {
     public partial class ConsoleClientCsProjGeneratorTests
     {
-        [TestMethod]
+        [TestMethod][Ignore("Never finished line of code that will not be used but who's code may be re-purposed")]
         public void FromScratchXmlIsAsExpected()
         {
             var generator = TestHelpers.SetupGenerator<ClientCsProjGenerator>(GenFramework.Net50Windows);

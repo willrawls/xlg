@@ -13,7 +13,7 @@ namespace MetX.Standard.Library.Generics
         public IAssocItem Parent { get; set; }
         public string Value { get; set; }
         public string Name { get; set; }
-        public Guid Id { get; set; }
+        public Guid ID { get; set; }
 
         public string[] Values
         {
@@ -54,7 +54,7 @@ namespace MetX.Standard.Library.Generics
             {
                 if (Count == 0)
                     return new Guid[0];
-                var answer = this.Select(i => i.Id).ToArray();
+                var answer = this.Select(i => i.ID).ToArray();
                 return answer;
             }
         }
@@ -79,7 +79,7 @@ namespace MetX.Standard.Library.Generics
         {
             Key = key;
             Value = value;
-            Id = id ?? Guid.NewGuid();
+            ID = id ?? Guid.NewGuid();
             Name = name;
             Parent = parent;
         }
@@ -120,7 +120,7 @@ namespace MetX.Standard.Library.Generics
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"  {Key}={Value ?? "nil"}, {Id:N}, {Name ?? "nil"}");
+            sb.AppendLine($"  {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
             foreach (AssocItem<T> item in this)
             {
                 sb.AppendLine(item.ToString());

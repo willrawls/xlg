@@ -8,13 +8,13 @@ namespace MetX.Standard.Library
     [Serializable]
     public class AssocItem : IAssocItem
     {
+        [XmlIgnore]
+        public IAssocItem Parent { get; set; }
+
         [XmlAttribute] public string Key { get; }
         [XmlAttribute] public string Value { get; set; }
         [XmlAttribute] public string Name { get; set; }
-        [XmlAttribute] public Guid Id { get; set; }
-
-        [XmlIgnore]
-        public IAssocItem Parent { get; set; }
+        [XmlAttribute] public Guid ID { get; set; }
 
         [XmlAttribute] public int Count { get; set; }
         [XmlAttribute] public string Category { get; set; }
@@ -30,12 +30,12 @@ namespace MetX.Standard.Library
             if(id.HasValue)
             {
                 if (id.Value == Guid.Empty)
-                    Id = Guid.NewGuid();
-                Id = id.Value;
+                    ID = Guid.NewGuid();
+                ID = id.Value;
             }
             else
             {
-                Id = Guid.NewGuid();
+                ID = Guid.NewGuid();
             }
         }
 
@@ -47,9 +47,13 @@ namespace MetX.Standard.Library
             sb.AppendLine($"{indentation}Key:   {Key}");
             sb.AppendLine($"{indentation}Value: {Value}");
             sb.AppendLine($"{indentation}Name:  {Name}");
-            sb.AppendLine($"{indentation}ID:    {Id:N}");
+            sb.AppendLine($"{indentation}ID:    {ID:N}");
             return sb.ToString();
         }
 
+        public string ToXml()
+        {
+            return $"    <AssocItem{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Count") : "")}{Name.ToXmlAttribute("Name")}{Category.ToXmlAttribute("Category")} />";
+        }
     }
 }
