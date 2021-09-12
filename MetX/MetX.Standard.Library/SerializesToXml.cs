@@ -4,8 +4,8 @@ using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Library
 {
-    public abstract class SerializesToXml<T>
-        where T : SerializesToXml<T>, new()
+
+    public abstract class SerializesToXml<T> : ISerializeToXml<T> where T : SerializesToXml<T>, new()
     {
         public static T FromXml(string xml)
         {

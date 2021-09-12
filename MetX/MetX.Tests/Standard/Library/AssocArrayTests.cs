@@ -65,8 +65,7 @@ Item Value2
             };
 
             var expected = 
-$@"
-<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Count=""1"">
+$@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Count=""1"">
     <AssocItem Key=""Item Key"" Value=""Item Value"" ID=""{itemId:N}"" Name=""Item Name"" />
 </AssocArray>
 ";
