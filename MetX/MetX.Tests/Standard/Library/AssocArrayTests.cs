@@ -38,8 +38,12 @@ namespace MetX.Tests.Standard.Library
         public void AssocArray_NamesArray_Simple()
         {
             var data = new AssocArray {["Fred"] = {Name = "Henry"}, ["George"] = {Name = "Mary"}};
-            Assert.IsNotNull(data.Names);
-            CollectionAssert.AreEqual(new string[] { "Henry", "George"}, data.Names);
+            string[] dataNames = data.Names;
+            Assert.IsNotNull(dataNames);
+
+            string dataNameString = string.Join(", ", dataNames);
+            Assert.AreEqual(2, dataNames.Length);
+            CollectionAssert.AreEqual(new string[] { "Henry", "Mary"}, dataNames, dataNameString);
         }
 
         [TestMethod]

@@ -8,8 +8,20 @@ namespace MetX.Standard.Library.Extensions
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
     /// <para>Asking for a token beyond the end of a string returns a blank string. Asking for the zeroth or a negative token returns a blank string.</para>
     /// </summary>
-    public static class ForString
+    public static class ForStrings
     {
+        public static string RemoveBlankLines(this string target)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+
+            var result = target
+                .Lines()
+                .Where(l => l.Replace("\t", "").Trim().IsNotEmpty()).ToArray();
+
+            return string.Join("\n", result);
+        }
+
         public static string RemoveAll(this string target, string[] stringsToRemove)
         {
             if (target.IsEmpty())

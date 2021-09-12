@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MetX.Standard.Library;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,11 +22,24 @@ namespace MetX.Tests.Scripts
             Assert.AreEqual(4, data.Assets.Items.Length);
             CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, data.Assets.Keys);
 
-            var settings = new ActualizationSettings(data, Guid.NewGuid().ToString("N"), true);
+            var settings = new ActualizationSettings(data, Guid.NewGuid().ToString("N"), "Freddy", true);
+
             settings.Answers["DestinationFilePath"].Value = "AAA";
             settings.Answers["InputFilePath"].Value = "BBB";
             settings.Answers["NameInstance"].Value = "CCC";
             settings.Answers["Usings"].Value = "using DDD.D;\n";
+
+            settings.Answers["ClassMembers"].Value = "string fred;";
+            settings.Answers["Finish"].Value = "fred = \"finish\";";
+            settings.Answers["ProcessLine"].Value = "fred = line;";
+            settings.Answers["ReadInput"].Value = "return true;";
+            settings.Answers["Start"].Value = "~~:Starting";
+            settings.Answers["Project Name"].Value = settings.ProjectName;
+            settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\");
+            settings.Answers["Guid Config"].Value = Guid.NewGuid().ToString("N");
+            settings.Answers["Guid Project 1"].Value = Guid.NewGuid().ToString("N");
+            settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("N");
+            settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("N");
 
             var actual = data.Actualize(settings);
 
@@ -33,7 +47,17 @@ namespace MetX.Tests.Scripts
             Assert.IsNull(actual.ErrorText);
             Assert.AreEqual(4, actual.OutputFiles.Count);
             Assert.IsFalse(actual.OutputFiles["_.csproj"].Name?.Contains("_"));
+
+            if (actual.Warnings.Count == 0)
+                return;
+
             Console.WriteLine(actual.Settings.OutputFolder);
+            Console.WriteLine();
+            Console.WriteLine("----- Warnings ------");
+            Console.WriteLine();
+            foreach(var warning in actual.Warnings)
+                Console.WriteLine($"{warning}");
+            Console.WriteLine();
         }
     }
 }
