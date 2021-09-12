@@ -2,6 +2,7 @@
 
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
 
@@ -139,7 +140,7 @@ namespace MetX.Controls
             }
 
             if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[templateName].Assets["Exe"]))
+                string.IsNullOrEmpty(Context.Templates[templateName].Assets["Exe"].Value))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
                 return null;

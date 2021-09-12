@@ -4,10 +4,10 @@ using System.IO;
 using System.Text;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
-using MetX.Standard.Pipelines;
-using MetX.Standard.Scripts;
+using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Scripts
 {
     public abstract class BaseLineProcessor
     {

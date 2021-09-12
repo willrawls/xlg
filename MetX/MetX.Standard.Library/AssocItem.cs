@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Library
 {
@@ -14,6 +15,9 @@ namespace MetX.Standard.Library
 
         [XmlIgnore]
         public IAssocItem Parent { get; set; }
+
+        [XmlAttribute] public int Count { get; set; }
+        [XmlAttribute] public string Category { get; set; }
 
         public AssocItem() { }
         public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)

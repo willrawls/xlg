@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Scripts
 {

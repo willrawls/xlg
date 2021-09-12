@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.XPath;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Library
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Scripts
 {
     public class RunResult
     {

@@ -23,7 +23,7 @@ namespace MetX.Tests.Standard.Library
             data["Mary"]["Frank"].Value = "Tim";
             Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
 
-            Console.WriteLine(data["Fred"].ToText());
+            Console.WriteLine(data["Fred"].ToString());
         }
 
         [TestMethod]

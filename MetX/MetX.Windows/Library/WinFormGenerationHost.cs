@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 
 namespace MetX.Windows.Library

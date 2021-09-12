@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 

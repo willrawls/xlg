@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Drawing;
 using ICSharpCode.TextEditor.Document;
+using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Controls
 {

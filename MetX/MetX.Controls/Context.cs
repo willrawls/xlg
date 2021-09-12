@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using MetX.Standard;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows.Library;
@@ -32,7 +34,7 @@ namespace MetX.Controls
             XlgQuickScript scriptToRun)
         {
             if (@base.Templates.Count == 0 ||
-                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Assets["Native"]))
+                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Assets["Native"].Value))
             {
                 MessageBox.Show("Quick script template 'Native' missing: " + scriptToRun.Template);
                 return null;
@@ -105,7 +107,7 @@ namespace MetX.Controls
                 typeof(Context),         // MetX.Controls
                 typeof(Application),
                 typeof(Microsoft.CSharp.CSharpCodeProvider),
-                typeof(MetX.Standard.Library.BaseLineProcessor),
+                typeof(BaseLineProcessor),
                 typeof(MetX.Windows.Library.AskForStringDialog),
             };
             return assemblies;

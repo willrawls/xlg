@@ -2,6 +2,7 @@
 using System.IO;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces

@@ -17,6 +17,50 @@ namespace MetX.Standard.Library
         public string Name { get; set; }
         public Guid Id { get; set; }
 
+        public string[] Values
+        {
+            get
+            {
+                if (Count == 0)
+                    return new string[0];
+                var answer = this.Select(i => i.Value).ToArray();
+                return answer;
+            }
+        }
+
+        public string[] Names
+        {
+            get
+            {
+                if (Count == 0)
+                    return new string[0];
+                var answer = this.Select(i => i.Name).ToArray();
+                return answer;
+            }
+        }
+
+        public string[] Keys
+        {
+            get
+            {
+                if (Count == 0)
+                    return new string[0];
+                var answer = this.Select(i => i.Key).ToArray();
+                return answer;
+            }
+        }
+
+        public Guid[] IDs
+        {
+            get
+            {
+                if (Count == 0)
+                    return new Guid[0];
+                var answer = this.Select(i => i.Id).ToArray();
+                return answer;
+            }
+        }
+
         public AssocItem this[string key]
         {
             get
@@ -59,20 +103,5 @@ namespace MetX.Standard.Library
             Name = name;
             Parent = parent;
         }
-
-        /*
-        public string ToText(int indent = 0)
-        {
-            var sb = new StringBuilder();
-            var indentation = indent == 0 ? "" : new string(' ', indent);
-            lock (SyncRoot)
-            {
-                sb.AppendLine(base.ToText(indent));
-                foreach (var pair in Pairs) sb.AppendLine(pair.Value.ToText(indent + 1));
-            }
-
-            return sb.ToString();
-        }
-    */
     }
 }

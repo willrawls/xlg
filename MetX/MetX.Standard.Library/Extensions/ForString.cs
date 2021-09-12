@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Extensions
 {
     /// <summary>Provides simple methods for retrieving tokens from a string.
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
     /// <para>Asking for a token beyond the end of a string returns a blank string. Asking for the zeroth or a negative token returns a blank string.</para>
     /// </summary>
-    public static class ForStrings
+    public static class ForString
     {
         public static string RemoveAll(this string target, string[] stringsToRemove)
         {

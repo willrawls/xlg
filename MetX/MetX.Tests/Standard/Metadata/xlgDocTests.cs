@@ -102,10 +102,10 @@ namespace MetX.Tests.Standard.Metadata
         </Indexes>
     </Table>
   </Tables>
-  <Assets>
+  <Views>
     <View ViewName=""bob"" TSQL=""bob_sql"" />
     <View ViewName=""mandy"" TSQL=""select George from Fred"" />
-  </Assets>
+  </Views>
 </xlgDoc>
 ";
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 
 namespace MetX.Standard.IO
@@ -12,7 +13,34 @@ namespace MetX.Standard.IO
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
     {
-        
+        public static bool SafeDelete(string filePath)
+        {
+            if (filePath.IsEmpty())
+                return true;
+
+            try
+            {
+                if (!File.Exists(filePath))
+                    return true;
+
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                File.Delete(filePath);
+                return true;
+            }
+            catch
+            {
+                try
+                {
+                    File.Move(filePath, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".from.metx.safedelete"));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Warning: When newFileContents is null, any existing file is DELETED (as intended)
         /// </summary>

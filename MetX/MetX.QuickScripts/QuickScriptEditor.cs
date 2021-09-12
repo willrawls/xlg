@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
 using NHotkey;
@@ -139,7 +140,7 @@ namespace XLG.QuickScripts
             }
 
             if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Assets["Exe"]))
+                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Assets["Exe"].Value))
             {
                 MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
                 return null;

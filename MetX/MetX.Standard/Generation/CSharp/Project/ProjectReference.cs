@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Xml;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {

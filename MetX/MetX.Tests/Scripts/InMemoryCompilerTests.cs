@@ -49,13 +49,13 @@ namespace MetX.Tests.Scripts
         public void Build_Exe_CalculateSomething()
         {
             var source = Sources.CalculateSomething;
-            var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test_Build_Exe_CalculateSomething.exe");
+            var outputFolder  = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Tests", "Build_Exe_CalculateSomething");
+            var outputFilePath = Path.Combine(outputFolder, "The.exe");
+            Directory.CreateDirectory(outputFolder);
 
-            if (File.Exists(outputFilePath))
-            {
+            if (File.Exists(outputFilePath)) 
                 File.Delete(outputFilePath);
-            }
-            
+
             var result = XlgQuickScript.CompileSource(source, true, null, null, outputFilePath);
             Assert.IsTrue(result.CompiledSuccessfully);
             Assert.IsNotNull(result.CompiledAssembly);
