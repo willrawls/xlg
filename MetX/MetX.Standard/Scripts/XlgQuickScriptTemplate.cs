@@ -45,8 +45,8 @@ namespace MetX.Standard.Scripts
                     result.ErrorText = $"{asset.Key} resolved to no code";
                     return result;
                 }
-
-                if(resolvedCode.Contains("//~~") || resolvedCode.Contains("~~//"))
+                
+                if(resolvedCode.Contains(Asset.LeftDelimiter ) || resolvedCode.Contains(Asset.RightDelimiter))
                 {
                     result.ErrorText = $"Not all variables in {asset.Key} file resolved";
                     return result;

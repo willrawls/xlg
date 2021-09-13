@@ -15,7 +15,7 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArray_Simple()
         {
-            var data = new AssocArray(null, "Mary") {["Fred"] = {Value = "George"}};
+            var data = new AssocArray("Mary") {["Fred"] = {Value = "George"}};
             Assert.AreEqual("George", data["Fred"].Value);
         }
 
@@ -26,10 +26,10 @@ namespace MetX.Tests.Standard.Library
             var itemId = Guid.NewGuid();
             var itemId2 = Guid.NewGuid();
 
-            var data = new AssocArray("Array Key", "Array Value", arrayId, "Array Name")
+            var data = new AssocArray
             {
-                new AssocItem("Item Key", "Item Value", itemId, "Item Name"),
-                new AssocItem("Item Key2", "Item Value2", itemId2, "Item Name2"),
+                new("Item Key", "Item Value", itemId, "Item Name"),
+                new("Item Key2", "Item Value2", itemId2, "Item Name2"),
             };
 
             var expected = 
@@ -56,16 +56,14 @@ Item Value2
         [TestMethod]
         public void AssocArray_ToXml()
         {
-            var arrayId = Guid.NewGuid();
             var itemId = Guid.NewGuid();
-
-            var data = new AssocArray("Array Key", "Array Value", arrayId, "Array Name")
+            var data = new AssocArray()
             {
-                new AssocItem("Item Key", "Item Value", itemId, "Item Name"),
+                new("Item Key", "Item Value", itemId, "Item Name"),
             };
 
             var expected = 
-$@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Number=""1"">
+$@"<AssocArray>
     <AssocItem Key=""Item Key"" Value=""Item Value"" ID=""{itemId:N}"" Name=""Item Name"" />
 </AssocArray>
 ";
@@ -97,7 +95,7 @@ $@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name="
                 ["George"] = {Number = int.MinValue}
             };
             Assert.IsNotNull(data.Numbers);
-            CollectionAssert.AreEqual(new int[] {int.MaxValue, int.MinValue }, data.Keys);
+            CollectionAssert.AreEqual(new[] {int.MaxValue, int.MinValue }, data.Numbers);
         }
 
         [TestMethod]
@@ -125,12 +123,12 @@ $@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name="
         [TestMethod]
         public void AssocArray_IterableList()
         {
-            var assocArray = new AssocArray(null, "Mary")
+            var assocArray = new AssocArray
             {
                 ["Fred"] = {Value = "George"}, 
-                ["Mary"] = {Value = "Beth"},
+                ["Mary"] = {Value = "Beth"}, 
+                ["Henry"] = {Value = "Greg"},
             };
-            assocArray["Henry"].Value = "Greg";
 
             Assert.AreEqual(3, assocArray.Count);
             Assert.AreEqual("George", assocArray[0].Value);

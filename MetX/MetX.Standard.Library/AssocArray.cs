@@ -10,18 +10,38 @@ namespace MetX.Standard.Library
 {
     [Serializable]
     [XmlRoot(ElementName = "AssocArray")]
-    public class AssocArray : List<AssocItem>, IAssocItem
+    public class AssocArray : List<AssocItem>
     {
-        [XmlIgnore] public object SyncRoot { get; } = new();
-        [XmlIgnore] public IAssocItem Parent { get; set; }
+        [XmlAttribute]
+        public string Key { get; }
 
+        [XmlIgnore] public object SyncRoot { get; } = new();
+        [XmlIgnore] public AssocArrayList Parent { get; set; }
+
+        /*
         [XmlAttribute] public string Key { get; set; }
         [XmlAttribute] public string Value { get; set; }
         [XmlAttribute] public string Name { get; set; }
         [XmlAttribute] public Guid ID { get; set; }
         [XmlAttribute] public string Category { get; set; }
         [XmlAttribute] public string Number { get; set; }
-        
+        */
+
+        public AssocArray()
+        {
+        }
+
+        public AssocArray(string key, AssocArrayList parent = null)
+        {
+            Parent = parent;
+        }
+
+        public AssocArray(AssocArrayList parent)
+        {
+            Parent = parent;
+        }
+
+
         [XmlIgnore]
         public string[] Values
         {
@@ -113,30 +133,19 @@ namespace MetX.Standard.Library
             }
         }
 
-        public AssocArray()
-        {
-        }
-
-        public AssocArray(string key, string value = "", Guid? id = null, string name = "", IAssocItem parent = null)
-        {
-            Key = key;
-            Value = value;
-            ID = id ?? Guid.NewGuid();
-            Name = name;
-            Parent = parent;
-        }
-        
+        /*
         public string ToXml()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"<AssocArray{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{Name.ToXmlAttribute("Name")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Number") : "")}{Category.ToXmlAttribute("Category")}>");
+            sb.AppendLine($"<AssocArray>");
             foreach (var item in this) 
                 sb.AppendLine(item.ToXml());
             sb.AppendLine("</AssocArray>");
             return sb.ToString();
         }
+        */
 
-        public string ToXml2()
+        public string ToXml()
         {
             return Xml.ToXml(this);
         }

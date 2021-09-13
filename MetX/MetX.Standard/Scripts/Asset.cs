@@ -12,7 +12,7 @@ namespace MetX.Standard.Scripts
     {
         public List<string> Variables { get; set; }
         public const string LeftDelimiter = "//~~";
-        public const string rightDelimiter = "~~//";
+        public const string RightDelimiter = "~~//";
 
         private string _template;
         public string Template
@@ -26,7 +26,7 @@ namespace MetX.Standard.Scripts
                 _template = value ?? "";
 
                 Variables = _template
-                    .EveryTokenBetween(LeftDelimiter, rightDelimiter)
+                    .EveryTokenBetween(LeftDelimiter, RightDelimiter)
                     .Distinct()
                     .OrderBy(v => v)
                     .ToList();
@@ -65,10 +65,10 @@ namespace MetX.Standard.Scripts
                 result.OutputFiles[OriginalAssetFilename].Value = GetFilePath(result.Settings);
             }
 
-            if (resolvedCode.Contains(LeftDelimiter) || resolvedCode.Contains(rightDelimiter))
+            if (resolvedCode.Contains(LeftDelimiter) || resolvedCode.Contains(RightDelimiter))
             {
                 var unresolved = _template
-                    .EveryTokenBetween(LeftDelimiter, rightDelimiter)
+                    .EveryTokenBetween(LeftDelimiter, RightDelimiter)
                     .Distinct()
                     .OrderBy(v => v)
                     .ToList();

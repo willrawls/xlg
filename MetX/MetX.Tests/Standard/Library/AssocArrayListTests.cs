@@ -11,23 +11,23 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArrayList_Simple()
         {
-            var data = new AssocArrayList("Beth", "Dolly");
-            Assert.AreEqual(data.Key, "Beth");
-            Assert.AreEqual(data.Name, "Dolly");
+            var data = new AssocArrayList();
 
-            data["Mary"]["Fred"].Value = "George";
-            var id = data["Mary"]["Fred"].ID;
-            Assert.AreEqual(id, data["Mary"]["Fred"].ID);
-            Assert.AreEqual("George", data["Mary"]["Fred"].Value);
+            var item = data["Mary"]["Fred"];
+            item.Value = "George";
+            Assert.AreEqual("George", item.Value);
 
             data["Mary"]["Frank"].Value = "Tim";
             Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
+
+            var id = item.ID;
+            Assert.AreEqual(id, item.ID);
         }
 
         [TestMethod]
         public void AssocArrayList_Simple2()
         {
-            var data = new AssocArrayList("Beth", "Dolly");
+            var data = new AssocArrayList();
             var watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < 100; i++)

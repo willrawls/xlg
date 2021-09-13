@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Generics;
 
 namespace MetX.Standard.Library
 {
     [Serializable]
-    public class AssocArrayList : AssocItem
+    public class AssocArrayList : List<AssocArray>
     {
         [XmlIgnore]
         public object SyncRoot { get; }= new();
-        public SortedDictionary<string, AssocArray> Pairs = new();
 
         public AssocArrayList(){ }
-
-        public AssocArrayList(string key, string name = null, string value = null, Guid? id = null, IAssocItem parent = null) 
-            : base(key, value, id, name, parent)
-        {
-        }
 
         public AssocArray this[string key]
         {
@@ -25,29 +20,27 @@ namespace MetX.Standard.Library
             {
                 lock(SyncRoot)
                 {
-                    AssocArray assocArray;
-                    var assocKey = key.ToAssocKey();
-                    if (!Pairs.ContainsKey(assocKey))
-                    {
-                        assocArray = new AssocArray(key);
-                        Pairs.Add(assocKey, assocArray);
-                    }
-                    else
-                    {
-                        assocArray = Pairs[assocKey];
-                    }
+                    var assocArray = this.FirstOrDefault(item =>
+                        string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    if (assocArray != null) return assocArray;
+
+                    assocArray = new AssocArray(key, this);
+                    Add(assocArray);
                     return assocArray;
                 }
             }
             set
             {
-                lock(SyncRoot)
+                lock (SyncRoot)
                 {
-                    var assocKey = key.ToAssocKey();
-                    if (Pairs.ContainsKey(assocKey))
-                        Pairs[assocKey] = value;
-                    else
-                        Pairs.Add(assocKey, value);
+                    for (var index = 0; index < Count; index++)
+                    {
+                        var item = this[index];
+                        if (string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) != 0) continue;
+                        this[index] = value;
+                        return;
+                    }
+                    Add(value);
                 }
             }
         }

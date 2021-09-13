@@ -129,7 +129,7 @@ namespace MetX.Standard.Scripts
                 var sb = new StringBuilder(Template.Assets[_mIndependent ? "Exe" : "Native"].Value);
                 foreach (var area in this)
                 {
-                    sb.Replace("//~~" + area.Name + "~~//", string.Join(Environment.NewLine, area.Lines));
+                    sb.Replace(Asset.LeftDelimiter + area.Name + Asset.RightDelimiter, string.Join(Environment.NewLine, area.Lines));
                 }
 
                 if (_mIndependent)

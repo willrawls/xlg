@@ -29,7 +29,7 @@ namespace MetX.Tests.Standard.Library
         [TestMethod]
         public void AssocArrayListOfT_Simple2()
         {
-            var data = new AssocArrayList("Beth", "Dolly");
+            var data = new AssocArrayList();
             var watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < 100; i++)
