@@ -41,10 +41,10 @@ namespace MetX.Tests.Scripts
             settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("N");
             settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("N");
 
-            var actual = data.Actualize(settings);
+            ActualizationResult actual = data.Actualize(settings);
 
             Assert.IsNotNull(actual);
-            Assert.IsNull(actual.ErrorText);
+            Assert.IsNull(actual.ActualizeErrorText);
             Assert.AreEqual(4, actual.OutputFiles.Count);
             Assert.IsFalse(actual.OutputFiles["_.csproj"].Name?.Contains("_"));
 
@@ -58,6 +58,11 @@ namespace MetX.Tests.Scripts
             foreach(var warning in actual.Warnings)
                 Console.WriteLine($"{warning}");
             Console.WriteLine();
+
+            bool compileResult = actual.Compile();
+            Assert.IsNotNull(actual.ExecutableFilePath);
+            Assert.IsTrue(File.Exists(actual.ExecutableFilePath));
+            Console.WriteLine($"\nExecutableFilePath is:\n{actual.ExecutableFilePath}");
         }
     }
 }

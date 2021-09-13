@@ -42,13 +42,13 @@ namespace MetX.Standard.Scripts
 
                 if (resolvedCode.IsEmpty())
                 {
-                    result.ErrorText = $"{asset.Key} resolved to no code";
+                    result.ActualizeErrorText = $"{asset.Key} resolved to no code";
                     return result;
                 }
                 
                 if(resolvedCode.Contains(Asset.LeftDelimiter ) || resolvedCode.Contains(Asset.RightDelimiter))
                 {
-                    result.ErrorText = $"Not all variables in {asset.Key} file resolved";
+                    result.ActualizeErrorText = $"Not all variables in {asset.Key} file resolved";
                     return result;
                 }
 
@@ -58,7 +58,7 @@ namespace MetX.Standard.Scripts
                 if(!settings.Simulate)
                     if (!FileSystem.SafeDelete(filePath))
                     {
-                        result.ErrorText = $"Unable to write {asset.Key} to {filePath}";
+                        result.ActualizeErrorText = $"Unable to write {asset.Key} to {filePath}";
                         return result;
                     }
 

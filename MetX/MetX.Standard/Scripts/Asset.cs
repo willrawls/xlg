@@ -72,7 +72,7 @@ namespace MetX.Standard.Scripts
                     .Distinct()
                     .OrderBy(v => v)
                     .ToList();
-                result.ErrorText = $"Unresolvable variables encountered: {string.Join("\n", unresolved)}";
+                result.ActualizeErrorText = $"Unresolvable variables encountered: {string.Join("\n", unresolved)}";
                 return "";
             }
 
