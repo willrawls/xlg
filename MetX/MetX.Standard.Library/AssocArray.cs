@@ -35,6 +35,18 @@ namespace MetX.Standard.Library
         }
 
         [XmlIgnore]
+        public int[] Numbers
+        {
+            get
+            {
+                if (Count == 0)
+                    return new int[0];
+                var answer = this.Select(i => i.Number).ToArray();
+                return answer;
+            }
+        }
+
+        [XmlIgnore]
         public string[] Names
         {
             get
@@ -114,20 +126,17 @@ namespace MetX.Standard.Library
             Parent = parent;
         }
         
-        public string ToXml1()
+        public string ToXml()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine($"<AssocArray{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{Name.ToXmlAttribute("Name")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Count") : "")}{Category.ToXmlAttribute("Category")}>");
-            foreach (var item in this)
-            {
+            var sb = new StringBuilder();
+            sb.AppendLine($"<AssocArray{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{Name.ToXmlAttribute("Name")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Number") : "")}{Category.ToXmlAttribute("Category")}>");
+            foreach (var item in this) 
                 sb.AppendLine(item.ToXml());
-            }
             sb.AppendLine("</AssocArray>");
             return sb.ToString();
         }
 
-        public string ToXml()
+        public string ToXml2()
         {
             return Xml.ToXml(this);
         }

@@ -19,7 +19,7 @@ namespace MetX.Tests.Standard.Library
             Assert.AreEqual("George", data["Fred"].Value);
         }
 
-        [TestMethod]
+        [TestMethod] [Ignore("Not going to implement this yet (need to find a good non-xml text format)")]
         public void AssocArray_ToString()
         {
             var arrayId = Guid.NewGuid();
@@ -65,7 +65,7 @@ Item Value2
             };
 
             var expected = 
-$@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Count=""1"">
+$@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name=""Array Name"" Number=""1"">
     <AssocItem Key=""Item Key"" Value=""Item Value"" ID=""{itemId:N}"" Name=""Item Name"" />
 </AssocArray>
 ";
@@ -86,6 +86,18 @@ $@"<AssocArray Key=""Array Key"" Value=""Array Value"" ID=""{arrayId:N}"" Name="
             var data = new AssocArray {["Fred"] = {Value = "Henry"}, ["George"] = {Value = "Mary"}};
             Assert.IsNotNull(data.Keys);
             CollectionAssert.AreEqual(new string[] { "Fred", "George"}, data.Keys);
+        }
+
+        [TestMethod]
+        public void AssocArray_NumbersArray_Simple()
+        {
+            var data = new AssocArray
+            {
+                ["Fred"] = {Number = int.MaxValue}, 
+                ["George"] = {Number = int.MinValue}
+            };
+            Assert.IsNotNull(data.Numbers);
+            CollectionAssert.AreEqual(new int[] {int.MaxValue, int.MinValue }, data.Keys);
         }
 
         [TestMethod]

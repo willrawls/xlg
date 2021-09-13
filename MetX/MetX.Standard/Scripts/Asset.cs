@@ -56,7 +56,7 @@ namespace MetX.Standard.Scripts
             {
                 var tag = $"//~~{variable}~~//";
                 var resolveTimeVariable = result.Settings.Answers[variable];
-                resolveTimeVariable.Count += resolvedCode.TokenCount(tag);
+                resolveTimeVariable.Number += resolvedCode.TokenCount(tag);
                 if (resolveTimeVariable.Value.IsEmpty())
                 {
                     result.Warnings.Add($"Variable '{variable}' resolved to an empty string.");

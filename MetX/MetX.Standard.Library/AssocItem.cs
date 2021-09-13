@@ -16,7 +16,7 @@ namespace MetX.Standard.Library
         [XmlAttribute] public string Name { get; set; }
         [XmlAttribute] public Guid ID { get; set; }
 
-        [XmlAttribute] public int Count { get; set; }
+        [XmlAttribute] public int Number { get; set; }
         [XmlAttribute] public string Category { get; set; }
 
         public AssocItem() { }
@@ -53,7 +53,7 @@ namespace MetX.Standard.Library
 
         public string ToXml()
         {
-            return $"    <AssocItem{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{(Count != 0 ? Count.ToString().ToXmlAttribute("Count") : "")}{Name.ToXmlAttribute("Name")}{Category.ToXmlAttribute("Category")} />";
+            return $"    <AssocItem{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{(Number != 0 ? Number.ToString().ToXmlAttribute("Number") : "")}{Name.ToXmlAttribute("Name")}{Category.ToXmlAttribute("Category")} />";
         }
     }
 }
