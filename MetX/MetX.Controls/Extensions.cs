@@ -16,6 +16,7 @@ namespace MetX.Controls
                 (one.B + two.B) >> 1);
         }
 
+        /*
         public static TEnumOut As<TEnumOut>(this Enum target) where TEnumOut : struct
         {
             if (Enum.TryParse(typeof(TEnumOut), target.ToString(), true, out object? translated))
@@ -26,6 +27,7 @@ namespace MetX.Controls
             return default;
         }
 
+        */
         public static ContextMenuStrip BuildContextMenu(string name, List<ToolStripItem> items = null)
         {
             var ret = new ContextMenuStrip
