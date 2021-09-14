@@ -13,19 +13,10 @@ namespace MetX.Standard.Library
     public class AssocArray : List<AssocItem>
     {
         [XmlAttribute]
-        public string Key { get; }
+        public string Key { get; set; }
 
         [XmlIgnore] public object SyncRoot { get; } = new();
         [XmlIgnore] public AssocArrayList Parent { get; set; }
-
-        /*
-        [XmlAttribute] public string Key { get; set; }
-        [XmlAttribute] public string Value { get; set; }
-        [XmlAttribute] public string Name { get; set; }
-        [XmlAttribute] public Guid ID { get; set; }
-        [XmlAttribute] public string Category { get; set; }
-        [XmlAttribute] public string Number { get; set; }
-        */
 
         public AssocArray()
         {
@@ -33,6 +24,7 @@ namespace MetX.Standard.Library
 
         public AssocArray(string key, AssocArrayList parent = null)
         {
+            Key = key;
             Parent = parent;
         }
 

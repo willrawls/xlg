@@ -11,7 +11,7 @@ namespace MetX.Standard.Library
         [XmlIgnore]
         public IAssocItem Parent { get; set; }
 
-        [XmlAttribute] public string Key { get; }
+        [XmlAttribute] public string Key { get; set; }
         [XmlAttribute] public string Value { get; set; }
         [XmlAttribute] public string Name { get; set; }
         [XmlAttribute] public Guid ID { get; set; }
