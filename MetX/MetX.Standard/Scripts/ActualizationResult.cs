@@ -16,9 +16,12 @@ namespace MetX.Standard.Scripts
         public string ActualizeErrorText { get; set; }
         public string CompileErrorText { get; set; }
         public AssocArray OutputFiles { get; set; } = new();
+        public List<string> Errors { get; set; } = new();
         public List<string> Warnings { get; set; } = new();
 
         public string ExecutableFilePath { get; set; }
+        public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
+        public bool CompileSuccessful => CompileErrorText.IsEmpty() && Errors.IsEmpty();
 
         public ActualizationResult(ActualizationSettings settings)
         {

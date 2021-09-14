@@ -30,22 +30,11 @@ namespace MetX.Controls
         private static bool _scriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
-        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base,
-            XlgQuickScript scriptToRun)
-        {
-            if (@base.Templates.Count == 0 ||
-                string.IsNullOrEmpty(@base.Templates[scriptToRun.Template].Assets["Native"].Value))
-            {
-                MessageBox.Show("Quick script template 'Native' missing: " + scriptToRun.Template);
-                return null;
-            }
-
-            var source = scriptToRun.ToCSharp(false);
-
+        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base, XlgQuickScript scriptToRun)
+        { 
+            var source = scriptToRun.ToCSharp(false, Default.Templates["Native"]);
             var assemblies = DefaultTypesForCompiler();
-            
             var shared = new List<string>();
-            
             var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared, null);
 
             if (compiler == null)

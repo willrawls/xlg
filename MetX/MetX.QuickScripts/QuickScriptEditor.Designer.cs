@@ -347,7 +347,7 @@ namespace XLG.QuickScripts
             this.toolStripLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(62, 24);
-            this.toolStripLabel2.Text = "&Template:";
+            this.toolStripLabel2.Text = "&TemplateName:";
             this.toolStripLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TemplateList

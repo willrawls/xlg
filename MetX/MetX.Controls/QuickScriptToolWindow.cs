@@ -1,5 +1,6 @@
 // ReSharper disable UnusedParameter.Local
 
+using MetX.Standard;
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library.Extensions;
@@ -110,7 +111,7 @@ namespace MetX.Controls
             return lastKnownPath;
         }
 
-        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
+        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
         {
             try
             {
@@ -120,7 +121,7 @@ namespace MetX.Controls
                 }
 
                 UpdateScriptFromForm();
-                var source = CurrentScript.ToCSharp(independent);
+                var source = CurrentScript.ToCSharp(independent, xlgQuickScriptTemplate);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(Host, source, true);
@@ -146,7 +147,7 @@ namespace MetX.Controls
                 return null;
             }
 
-            var source = CurrentScript.ToCSharp(true);
+            var source = CurrentScript.ToCSharp(true, ContextBase.Default.Templates["Exe"]);
             var additionalReferences = Context.DefaultTypesForCompiler();
             var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, null);
 
@@ -475,7 +476,7 @@ namespace MetX.Controls
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
-            DisplayExpandedQuickScriptSourceInNotepad(false);
+            DisplayExpandedQuickScriptSourceInNotepad(false, ContextBase.Default.Templates["Native"]);
         }
 
         private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
@@ -489,7 +490,7 @@ namespace MetX.Controls
                 }
 
                 UpdateScriptFromForm();
-                var location = GenerateIndependentQuickScriptExe(CurrentScript.Template);
+                var location = GenerateIndependentQuickScriptExe(CurrentScript.TemplateName);
                 if (location.IsEmpty())
                 {
                     return;

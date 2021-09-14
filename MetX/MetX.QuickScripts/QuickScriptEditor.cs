@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
+using MetX.Standard;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
@@ -85,7 +87,7 @@ namespace XLG.QuickScripts
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
 
             e.Handled = true;            
@@ -120,7 +122,7 @@ namespace XLG.QuickScripts
                 }
 
                 UpdateScriptFromForm();
-                var source = ScriptEditor.Current.ToCSharp(independent);
+                var source = ScriptEditor.Current.ToCSharp(independent, ContextBase.Default.Templates["Native"]);
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewTextInNotepad(Host, source, true);
@@ -128,79 +130,32 @@ namespace XLG.QuickScripts
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                Host.MessageBox.Show(e.ToString());
             }
         }
 
-        public string GenerateIndependentQuickScriptExe(XlgQuickScript scriptToRun)
+        public ActualizationResult GenerateIndependentQuickScriptExe(XlgQuickScript scriptToRun)
         {
-            if (InvokeRequired)
-            {
-                return (string)Invoke(new Func<XlgQuickScript, string>(GenerateIndependentQuickScriptExe), scriptToRun);
-            }
-
-            if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[TemplateList.Text].Assets["Exe"].Value))
-            {
-                MessageBox.Show(this, "Quick script template 'Exe' missing for: " + TemplateList.Text);
-                return null;
-            }
-
             if (scriptToRun == null)
-            {
                 return null;
-            }
 
-            var source = scriptToRun.ToCSharp(true);
-            var additionalReferences = Context.DefaultTypesForCompiler();
-            var parentDestination = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-            parentDestination = Path.Combine(parentDestination, "bin");
-            var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-            var exeFilePath = Path.Combine(parentDestination, scriptToRun.Name.AsFilename()) + ".exe";
-            var csFilePath = exeFilePath.Replace(".exe", ".cs");
+            if (InvokeRequired)
+                return (ActualizationResult) Invoke(new Func<XlgQuickScript, ActualizationResult>(GenerateIndependentQuickScriptExe), scriptToRun);
 
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, exeFilePath);
-            
-            if (compilerResults.CompiledSuccessfully)
+            var outputFolder = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
+            var template = Context.Templates["Exe"];
+            var settings = new ActualizationSettings(template, outputFolder, scriptToRun.Name.AsFilename(), false);
+            var result = template.Actualize(settings);
+            if (result.ActualizationSuccessful)
             {
-                var assembly = compilerResults.CompiledAssembly;
-                var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
-
-                if (string.IsNullOrEmpty(parentDestination)
-                    && !string.IsNullOrEmpty(scriptToRun.InputFilePath)
-                    && scriptToRun.Input != "Web Address")
+                if (result.Compile())
                 {
-                    parentDestination = scriptToRun.InputFilePath.TokensBeforeLast(@"\");
+                    return result;
                 }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                    parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
-
-                if (string.IsNullOrEmpty(parentDestination)) 
-                    parentDestination = assembly.Location.TokensBeforeLast(@"\");
-
-                /*
-                if (!Directory.Exists(parentDestination))
-                {
-                    return assembly.Location;
-                }
-                */
-
-                Directory.CreateDirectory(parentDestination);
-
-                //if (File.Exists(exeFilePath)) File.Delete(exeFilePath);
-                if (File.Exists(csFilePath)) File.Delete(csFilePath);
-
-                if (!File.Exists(metXDllPathDest))
-                    File.Copy(metXDllPathSource, metXDllPathDest);
-                File.WriteAllText(csFilePath, source);
-                return exeFilePath;
             }
 
             /*
-            var sb =
-                new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine
-                                  + Environment.NewLine);
+            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
             var lines = new List<string>(source.LineList());
             for (var index = 0; index < compilerResults.Failures.Length; index++)
             {
@@ -225,12 +180,14 @@ namespace XLG.QuickScripts
                     lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
                 }
             }
-            */
+            
 
             var lines = new List<string>(source.LineList());
+
             QuickScriptWorker.ViewTextInNotepad(Host, source, true);
             QuickScriptWorker.ViewTextInNotepad(Host, compilerResults.Failures.ForDisplay(lines), true);
 
+*/
             return null;
         }
 
@@ -270,7 +227,7 @@ namespace XLG.QuickScripts
             ScriptEditor.Current.DiceAt = DiceAt.Text;
             ScriptEditor.Current.InputFilePath = InputParam.Text;
             ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-            ScriptEditor.Current.Template = TemplateList.Text;
+            ScriptEditor.Current.TemplateName = TemplateList.Text;
             Context.Scripts.Default = ScriptEditor.Current;
         }
 
@@ -318,10 +275,10 @@ namespace XLG.QuickScripts
                 return;
             }
 
-            var answer = MessageBox.Show(this,
+            var answer = Host.MessageBox.Show(
                 "This will permanently delete the current script.\n\tAre you sure this is what you want to do?",
-                "DELETE SCRIPT", MessageBoxButtons.YesNo);
-            if (answer == DialogResult.Yes)
+                "DELETE SCRIPT", MessageBoxChoices.YesNo);
+            if (answer == MessageBoxResult.Yes)
             {
                 Updating = true;
                 var script = ScriptEditor.Current;
@@ -683,7 +640,7 @@ namespace XLG.QuickScripts
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -718,7 +675,7 @@ namespace XLG.QuickScripts
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -741,7 +698,7 @@ namespace XLG.QuickScripts
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -770,7 +727,7 @@ namespace XLG.QuickScripts
                     x += item + "\r\n";
                 }
 
-                MessageBox.Show(x);
+                Host.MessageBox.Show(x);
             }
         }
 
@@ -808,10 +765,10 @@ namespace XLG.QuickScripts
                 ? index
                 : DiceAt.Items.Add(selectedScript.DiceAt);
 
-            index = TemplateList.FindString(selectedScript.Template);
+            index = TemplateList.FindString(selectedScript.TemplateName);
             TemplateList.SelectedIndex = index > -1
                 ? index
-                : TemplateList.Items.Add(selectedScript.Template);
+                : TemplateList.Items.Add(selectedScript.TemplateName);
 
             InputParam.Text = selectedScript.InputFilePath;
             if (InputParam.Text.Length > 0)
@@ -885,29 +842,31 @@ namespace XLG.QuickScripts
                 }
 
                 UpdateScriptFromForm();
-                var location = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
+                var result = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
+                var location = result.ExecutableFilePath;
                 if (location.IsEmpty()) return;
 
-                if (DialogResult.Yes == MessageBox.Show(this,
+                
+                if ( MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
-                    "Would you like to run it now? (Will not open the generated file).", "RUN EXE?",
-                    MessageBoxButtons.YesNo))
+                    "Would you like to run it now? (Will not open the generated file).", "RUN EXE?", MessageBoxChoices.YesNo))
                 {
-                    Process.Start(new ProcessStartInfo(location)
+                    Process.Start(new ProcessStartInfo("cmd.exe", $"/k \"{location}\"" )
                     {
                         UseShellExecute = true,
-                        WorkingDirectory = location.TokensBeforeLast(@"\")
+                        WorkingDirectory = result.Settings.OutputFolder,
                     });
                 }
                 else
                 {
-                    QuickScriptWorker.ViewFileInNotepad(Host, location.Replace(".exe", ".cs"));
+                    var outputFile = result.OutputFiles["QuickScriptProcessor.cs"];
+                    QuickScriptWorker.ViewFileInNotepad(Host, outputFile.Name);
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 

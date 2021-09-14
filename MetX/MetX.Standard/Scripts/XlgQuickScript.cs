@@ -52,7 +52,7 @@ namespace MetX.Standard.Scripts
         public string SliceAt;
 
         [XmlAttribute]
-        public string Template;
+        public string TemplateName;
 
         public XlgQuickScript()
         {
@@ -66,7 +66,7 @@ namespace MetX.Standard.Scripts
             Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
-            Template = "Single file input";
+            TemplateName = "Native";
         }
 
         public static InMemoryCompiler<string> CompileSource(string source,
@@ -175,60 +175,6 @@ namespace MetX.Standard.Scripts
             return code;
         }
 
-        /*
-        public static bool Run(ILogger logger, CommandArguments commandArgs)
-        {
-            if (logger == null)
-            {
-                throw new ArgumentNullException("logger");
-            }
-
-            if (commandArgs == null)
-            {
-                throw new ArgumentNullException("commandArgs");
-            }
-
-            bool flag;
-            if (commandArgs.Restore)
-            {
-                logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object)commandArgs.Input);
-                var fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
-                try
-                {
-                    flag = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, fileNameKey);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogMessage(LogLevel.Warning, ex.Message);
-                    flag = false;
-                }
-
-                if (flag)
-                {
-                    logger.LogMessage(LogLevel.Info, "Restored");
-                }
-                else
-                {
-                    logger.LogMessage(LogLevel.Error, "Restore failed");
-                }
-            }
-            else
-            {
-                flag = new FileArranger(commandArgs.Configuration, logger).Arrange(commandArgs.Input, commandArgs.Output, commandArgs.Backup);
-                if (!flag)
-                {
-                    logger.LogMessage(LogLevel.Error, "Unable to arrange {0}.", (object)commandArgs.Input);
-                }
-                else
-                {
-                    logger.LogMessage(LogLevel.Info, "Arrange successful.");
-                }
-            }
-
-            return flag;
-        }
-        */
-
         public XlgQuickScript Clone(string name)
         {
             return new(name, Script)
@@ -239,7 +185,7 @@ namespace MetX.Standard.Scripts
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
-                Template = Template
+                TemplateName = TemplateName
             };
         }
 
@@ -248,7 +194,7 @@ namespace MetX.Standard.Scripts
             var ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
-            Template = "Single file input";
+            TemplateName = "Native";
 
             if (string.IsNullOrEmpty(rawScript))
             {
@@ -316,7 +262,7 @@ namespace MetX.Standard.Scripts
                     }
                     else if (line.StartsWith("~~QuickScriptTemplate:"))
                     {
-                        Template = line.TokensAfterFirst(":");
+                        TemplateName = line.TokensAfterFirst(":");
                     }
                     else if (line.StartsWith("~~QuickScriptDiceAt:"))
                     {
@@ -342,9 +288,12 @@ namespace MetX.Standard.Scripts
             return ret;
         }
 
-        public string ToCSharp(bool independent)
+        public string ToCSharp(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
         {
-            var code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
+            if(xlgQuickScriptTemplate == null)
+                xlgQuickScriptTemplate = ContextBase.Default.Templates[TemplateName];
+
+            var code = new GenInstance(this, xlgQuickScriptTemplate, independent).CSharp;
             return code.IsEmpty()
                 ? code
                 : FormatCSharpCode(code);
@@ -360,7 +309,7 @@ namespace MetX.Standard.Scripts
                    "~~QuickScriptDestinationFilePath:" + DestinationFilePath + Environment.NewLine +
                    "~~QuickScriptSliceAt:" + SliceAt + Environment.NewLine +
                    "~~QuickScriptDiceAt:" + DiceAt + Environment.NewLine +
-                   "~~QuickScriptTemplate:" + Template + Environment.NewLine +
+                   "~~QuickScriptTemplate:" + TemplateName + Environment.NewLine +
                    (isDefault
                        ? "~~QuickScriptDefault:" + Environment.NewLine
                        : string.Empty) +
