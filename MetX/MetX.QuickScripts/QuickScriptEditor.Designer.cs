@@ -430,7 +430,6 @@ namespace XLG.QuickScripts
             this.MainMenu.Size = new System.Drawing.Size(827, 32);
             this.MainMenu.TabIndex = 22;
             this.MainMenu.Text = "menuStrip1";
-            this.MainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MainMenu_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 

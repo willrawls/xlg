@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using MetX.Standard.Interfaces;
-using MetX.Standard.Pipelines;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library

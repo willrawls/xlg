@@ -41,11 +41,7 @@ namespace XLG.Pipeliner
         {
             InitializeComponent();
 
-            Host = new WinFormGenerationHost(this)
-            {
-                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host),
-                InputText = Clipboard.GetText,
-            };
+            Host = new WinFormGenerationHost<GloveMain>(this, Clipboard.GetText);
 
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
@@ -465,7 +461,7 @@ namespace XLG.Pipeliner
             {
                 var itemName = "CLONE";
                 
-                if (this.Host.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                if (this.Host.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
                     == MessageBoxResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {

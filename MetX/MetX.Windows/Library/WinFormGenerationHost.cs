@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using MetX.Controls;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Windows.Library
 {
@@ -13,15 +10,14 @@ namespace MetX.Windows.Library
     {
         public T Form;
 
-        public WinFormGenerationHost(T form)
+        public WinFormGenerationHost(T form, Func<string> getTextForProcessing)
         {
             Form = form;
             MessageBox = new WinFormMessageBoxHost<T>(Form, this);
-            InputText
-            
+            GetTextForProcessing = getTextForProcessing;
         }
 
-        public override MessageBoxResult InputBoxRef(string title, string description, ref string itemName)
+        public override MessageBoxResult InputBox(string title, string description, ref string itemName)
         {
             var dialog = new AskForStringDialog
             {

@@ -44,9 +44,7 @@ namespace XLG.QuickScripts
             DestinationParam.GotFocus += DestinationParam_GotFocus;
             DestinationParam.LostFocus += DestinationParam_LostFocus;
 
-            Host = new WinFormGenerationHost(this);
-            Host.MessageBox = new WinFormMessageBoxHost<QuickScriptEditor>(this, Host);
-            Host.InputText = Clipboard.GetText;
+            Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
 
             LoadQuickScriptsFile(filePath);
             InitializeHotKeys();
@@ -463,8 +461,7 @@ namespace XLG.QuickScripts
             if (Context.Scripts != null)
             {
                 var name = string.Empty;
-                var answer = Host.InputBoxRef("New Script Name", "Please enter the name for the new script.",
-                    ref name);
+                var answer = Host.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
                 if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty)
                 {
                     return;
@@ -833,7 +830,6 @@ namespace XLG.QuickScripts
 
         private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
         {
-            // DisplayExpandedQuickScriptSourceInNotepad(true);
             try
             {
                 if (ScriptEditor.Current == null)
@@ -868,11 +864,6 @@ namespace XLG.QuickScripts
             {
                 Host.MessageBox.Show(exception.ToString());
             }
-        }
-
-        private void MainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }

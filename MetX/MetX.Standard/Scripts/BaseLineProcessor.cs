@@ -70,7 +70,7 @@ namespace MetX.Standard.Scripts
                 {
                     //throw new NotImplementedException();
                     
-                    var clipboardBytes = Encoding.UTF8.GetBytes(Host.InputText());
+                    var clipboardBytes = Encoding.UTF8.GetBytes(Host.GetTextForProcessing());
                     InputStream = new StreamReader(new MemoryStream(clipboardBytes));
                     break;
                 }                    

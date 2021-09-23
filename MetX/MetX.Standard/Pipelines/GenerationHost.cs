@@ -6,8 +6,8 @@ namespace MetX.Standard.Pipelines
     public abstract class GenerationHost : IGenerationHost
     {
         public IMessageBox MessageBox { get; set; }
-        public Func<string> InputText { get; set; }
+        public Func<string> GetTextForProcessing { get; set; }
 
-        public abstract MessageBoxResult InputBoxRef(string title, string description, ref string itemName);
+        public abstract MessageBoxResult InputBox(string title, string description, ref string itemName);
     }
 }

@@ -64,7 +64,7 @@ namespace QuickScripts
                 if (processor.Output == null || processor.Output.Length == 0) return;
 
                 if (string.IsNullOrEmpty(processor.DestinationFilePath)) processor.DestinationFilePath = "Output.txt";
-                File.WriteInputText(processor.DestinationFilePath, processor.Output.ToString());
+                File.WriteAllText(processor.DestinationFilePath, processor.Output.ToString());
 
                 if(processor.OpenNotepad)
                     System.Diagnostics.Process.Start("notepad", processor.DestinationFilePath);

@@ -61,7 +61,7 @@ namespace XLG.Pipeliner
             if (File.Exists(TextEditor)) return TextEditor;
 
             var textEditorPath = TextEditor;
-            if (host.InputBoxRef("PATH TO TEXT EDITOR",
+            if (host.InputBox("PATH TO TEXT EDITOR",
                 "What is the full path to the text editor you would like to use?",
                 ref textEditorPath) == MessageBoxResult.OK)
             {
