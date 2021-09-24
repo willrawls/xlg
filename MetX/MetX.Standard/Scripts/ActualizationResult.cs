@@ -25,7 +25,7 @@ namespace MetX.Standard.Scripts
         public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
         public bool CompileSuccessful => ActualizationSuccessful 
                                          && CompileErrorText.IsEmpty()
-                                         && !OutputText.AsString().ToLower().Contains("error")
+                                         && OutputText.AsString().Contains(" 0 Error(s)")
                                          && File.Exists(DestinationAssemblyFilePath);
 
         public ActualizationResult(ActualizationSettings settings)
@@ -44,7 +44,8 @@ namespace MetX.Standard.Scripts
                 return false;
             }
 
-            OutputText = FileSystem.GatherOutputAndErrors("dotnet", "build", out var errorOutput, Settings.OutputFolder);
+            var csprojFilePath = Directory.GetFiles(Settings.OutputFolder).FirstOrDefault(f => f.EndsWith(".csproj"));
+            OutputText = FileSystem.GatherOutputAndErrors("dotnet", $"build \"{csprojFilePath}\"", out var errorOutput, Settings.OutputFolder);
             CompileErrorText = errorOutput;
 
             return CompileSuccessful;
@@ -52,7 +53,7 @@ namespace MetX.Standard.Scripts
 
         public BaseLineProcessor AsBaseLineProcessor()
         {
-            if (!CompileSuccessful)
+            if (!CompileSuccessful || !File.Exists(this.DestinationAssemblyFilePath))
                 return null;
 
             var assembly = Assembly.LoadFile(this.DestinationAssemblyFilePath);

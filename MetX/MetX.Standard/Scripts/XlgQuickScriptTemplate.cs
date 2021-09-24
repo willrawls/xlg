@@ -97,7 +97,7 @@ namespace MetX.Standard.Scripts
                 }
 
                 var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, filename);
+                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0-windows", filename);
             }
 
             return result;
