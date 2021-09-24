@@ -1,27 +1,20 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
+using Microsoft.Win32;
+
 using MetX.Standard;
 using MetX.Standard.Library;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows.Library;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MetX.Standard.Interfaces;
 
 #pragma warning disable 414
 namespace MetX.Controls
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-    using System.Windows.Forms;
-
-    using Standard.Interfaces;
-    using MetX.Standard.Library;
-    using MetX.Standard.Scripts;
-
-    using Microsoft.Win32;
 
     public class Context : ContextBase
     {
@@ -173,61 +166,71 @@ namespace MetX.Controls
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host)
         {
-            var result = new RunResult
+            var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(scriptToRun, false, false, host);
+            var actualizeResult = QuickScriptProcessorFactory.ActualizeAndCompile(settings);
+            if (!actualizeResult.CompileSuccessful) return new RunResult
             {
-                QuickScriptProcessor = Controls.QuickScriptProcessorFactory.GenerateAssemblyFromNative(caller.Window.Host, @base, scriptToRun)
+                ActualizationResult = actualizeResult,
+                Error = new Exception(actualizeResult.CompileErrorText),
             };
-            if (result.QuickScriptProcessor == null)
+
+            var runResult = new RunResult
             {
-                result.KeepGoing = false;
-                return result;
+                ActualizationResult = actualizeResult,
+                QuickScriptProcessor = actualizeResult.AsBaseLineProcessor(),
+                KeepGoing = true,
+            };
+            if (runResult.QuickScriptProcessor == null)
+            {
+                runResult.KeepGoing = false;
+                return runResult;
             }
 
-            result.QuickScriptProcessor.Host = caller.Window.Host;
-            var inputResult = result.QuickScriptProcessor.ReadInput(scriptToRun.Input);
+            runResult.QuickScriptProcessor.Host = caller.Window.Host;
+            var inputResult = runResult.QuickScriptProcessor.ReadInput(scriptToRun.Input);
             switch (inputResult)
             {
                 case null:
-                    result.KeepGoing = false;
-                    return result;
+                    runResult.KeepGoing = false;
+                    return runResult;
 
                 case false:
-                    return result;
+                    return runResult;
 
                 // True keep going
             }
 
-            var outputSetupCorrectly = result.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, ref result.QuickScriptProcessor.DestinationFilePath);
+            var outputSetupCorrectly = runResult.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, ref runResult.QuickScriptProcessor.DestinationFilePath);
             if (!outputSetupCorrectly)
             {
-                if(result.Error == null) 
-                    result.Error = new Exception("Output could not be set up correctly. Locked file?");
-                return result;
+                if(runResult.Error == null) 
+                    runResult.Error = new Exception("Output could not be set up correctly. Locked file?");
+                return runResult;
             }
 
             // Start
             try
             {
-                if (!result.QuickScriptProcessor.Start())
+                if (!runResult.QuickScriptProcessor.Start())
                 {
-                    result.StartReturnedFalse = true;
+                    runResult.StartReturnedFalse = true;
                     caller.Progress();
-                    return result;
+                    return runResult;
                 }
             }
             catch (Exception ex)
             {
-                result.Error = new Exception("Error running Start:" + Environment.NewLine + ex);
-                result.KeepGoing = false;
+                runResult.Error = new Exception("Error running Start:" + Environment.NewLine + ex);
+                runResult.KeepGoing = false;
                 caller.Progress();
-                return result;
+                return runResult;
             }
 
             // Process each line
             var index = 0;
             do
             {
-                var currLine = result.QuickScriptProcessor.InputStream.ReadLine();
+                var currLine = runResult.QuickScriptProcessor.InputStream.ReadLine();
                 if (string.IsNullOrEmpty(currLine))
                 {
                     continue;
@@ -235,7 +238,7 @@ namespace MetX.Controls
 
                 try
                 {
-                    if (result.QuickScriptProcessor.ProcessLine(currLine, index))
+                    if (runResult.QuickScriptProcessor.ProcessLine(currLine, index))
                     {
                         if (++index % 10 == 0 || index < 10)
                         {
@@ -245,9 +248,9 @@ namespace MetX.Controls
                         continue;
                     }
 
-                    result.ProcessLineReturnedFalse = true;
+                    runResult.ProcessLineReturnedFalse = true;
                     caller.Progress();
-                    return result;
+                    return runResult;
                 }
                 catch (Exception ex)
                 {
@@ -261,32 +264,32 @@ namespace MetX.Controls
                         continue;
                     }
 
-                    result.Error =
+                    runResult.Error =
                         new Exception(
                             "Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine, ex);
                     caller.Progress();
-                    return result;
+                    return runResult;
                 }
             }
-            while (!result.QuickScriptProcessor.InputStream.EndOfStream);
+            while (!runResult.QuickScriptProcessor.InputStream.EndOfStream);
 
             try
             {
-                if (!result.QuickScriptProcessor.Finish())
+                if (!runResult.QuickScriptProcessor.Finish())
                 {
-                    result.FinishReturnedFalse = true;
+                    runResult.FinishReturnedFalse = true;
                     caller.Progress();
-                    return result;
+                    return runResult;
                 }
             }
             catch (Exception ex)
             {
-                result.Error = new Exception("Error running Finish:" + Environment.NewLine + ex);
+                runResult.Error = new Exception("Error running Finish:" + Environment.NewLine + ex);
             }
 
-            result.KeepGoing = true;
+            runResult.KeepGoing = true;
             caller.Progress();
-            return result;
+            return runResult;
         }
     }
 }

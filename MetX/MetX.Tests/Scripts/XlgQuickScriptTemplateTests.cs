@@ -42,7 +42,7 @@ namespace MetX.Tests.Scripts
             settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("N");
             settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("N");
 
-            ActualizationResult actual = data.Actualize(settings);
+            ActualizationResult actual = data.ActualizeCode(settings);
 
             Assert.IsNotNull(actual);
             Assert.IsNull(actual.ActualizeErrorText);
@@ -61,9 +61,9 @@ namespace MetX.Tests.Scripts
             Console.WriteLine();
 
             bool compileResult = actual.Compile();
-            Assert.IsNotNull(actual.ExecutableFilePath);
-            Assert.IsTrue(File.Exists(actual.ExecutableFilePath));
-            Console.WriteLine($"\nExecutableFilePath is:\n{actual.ExecutableFilePath}");
+            Assert.IsNotNull(actual.CompiledAssemblyFilePath);
+            Assert.IsTrue(File.Exists(actual.CompiledAssemblyFilePath));
+            Console.WriteLine($"\nExecutableFilePath is:\n{actual.CompiledAssemblyFilePath}");
         }
     }
 }

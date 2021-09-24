@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
@@ -59,5 +60,6 @@ namespace MetX.Standard.Scripts
         public XlgQuickScript Source { get; set; }
         public string OutputFolder { get; set; }
         public GenInstance GeneratedAreas { get; set; }
+        public IGenerationHost Host { get; set; }
     }
 }

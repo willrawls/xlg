@@ -34,7 +34,7 @@ namespace MetX.Standard.Scripts
             }
         }
 
-        public ActualizationResult Actualize(ActualizationSettings settings)
+        public ActualizationResult ActualizeCode(ActualizationSettings settings)
         {
             if (!settings.Simulate)
                 Directory.CreateDirectory(settings.OutputFolder);

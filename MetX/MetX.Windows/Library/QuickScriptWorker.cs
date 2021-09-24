@@ -39,7 +39,7 @@ namespace MetX.Windows.Library
             }
         }
 
-        public static void ViewFolder(IGenerationHost host, string folderPath)
+        public static void ViewFolder(string folderPath, IGenerationHost host)
         {
             try
             {

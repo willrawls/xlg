@@ -11,5 +11,6 @@ namespace MetX.Standard.Scripts
         public bool ProcessLineReturnedFalse;
         public bool FinishReturnedFalse;
         public BaseLineProcessor QuickScriptProcessor;
+        public ActualizationResult ActualizationResult { get; set; }
     }
 }
