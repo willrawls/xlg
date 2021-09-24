@@ -10,13 +10,31 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Templates\**" />
-	  <EmbeddedResource Remove="Templates\**" />
-	  <None Remove="Templates\**" />
+	  <Compile Remove="TestTemplates\TestExe\Program.cs" />
+	  <Compile Remove="TestTemplates\TestExe\QuickScriptProcessor.cs" />
+	  <Compile Remove="TestTemplates\TestNative\Native.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="OldTestTemplates.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="TestTemplates\TestExe\Program.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Include="TestTemplates\TestExe\QuickScriptProcessor.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Include="TestTemplates\TestExe\_.csproj">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Include="TestTemplates\TestExe\_.sln">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Include="TestTemplates\TestNative\Native.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

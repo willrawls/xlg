@@ -20,13 +20,13 @@ namespace MetX.Standard.Scripts
         public string OutputText { get; set; }
         public AssocArray OutputFiles { get; set; } = new();
         public List<string> Warnings { get; set; } = new();
-        public string CompiledAssemblyFilePath { get; set; }
+        public string DestinationAssemblyFilePath { get; set; }
 
         public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
         public bool CompileSuccessful => ActualizationSuccessful 
                                          && CompileErrorText.IsEmpty()
                                          && !OutputText.AsString().ToLower().Contains("error")
-                                         && File.Exists(CompiledAssemblyFilePath);
+                                         && File.Exists(DestinationAssemblyFilePath);
 
         public ActualizationResult(ActualizationSettings settings)
         {
@@ -38,11 +38,9 @@ namespace MetX.Standard.Scripts
             if (!ActualizationSuccessful)
                 return false;
 
-            CompiledAssemblyFilePath = Path.Combine(Settings.OutputFolder, Settings.ProjectName.AsFilename() + ".exe");
-
-            if (!FileSystem.SafeDelete(CompiledAssemblyFilePath))
+            if (!FileSystem.SafeDelete(DestinationAssemblyFilePath))
             {
-                CompileErrorText = $"Couldn't delete: {CompiledAssemblyFilePath}";
+                CompileErrorText = $"Couldn't delete: {DestinationAssemblyFilePath}";
                 return false;
             }
 
@@ -57,7 +55,7 @@ namespace MetX.Standard.Scripts
             if (!CompileSuccessful)
                 return null;
 
-            var assembly = Assembly.LoadFile(this.CompiledAssemblyFilePath);
+            var assembly = Assembly.LoadFile(this.DestinationAssemblyFilePath);
             var typeOfBaseLineProcessorToCreate = assembly.ExportedTypes.FirstOrDefault(t => t.Name == this.FullClassNameWithNamespace());
             if (typeOfBaseLineProcessorToCreate == null)
                 return null;

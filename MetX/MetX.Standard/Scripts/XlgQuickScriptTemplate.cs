@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Xml.XPath;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
@@ -69,7 +70,10 @@ namespace MetX.Standard.Scripts
                     }
 
                 if (!settings.Simulate)
+                {
+                    Directory.CreateDirectory(result.Settings.OutputFolder);
                     File.WriteAllText(filePath, resolvedCode);
+                }
             }
 
             if (result.ActualizationSuccessful)
@@ -79,19 +83,21 @@ namespace MetX.Standard.Scripts
 
                 List<XlgFile> filesToCopy = new List<XlgFile>();
 
-                bool FileMatcher(XlgFile file)
+                contents.ForEachFile(func: file =>
                 {
                     if (file.Extension.ToLower() is ".pdb" or ".dll" 
                         && file.Name.ToLower().Contains("metx.")) 
                         filesToCopy.Add(file);
                     return true;
-                }
-                contents.ForEachFile(func: FileMatcher);
+                });
 
                 foreach (var file in filesToCopy)
                 {
                     file.CopyTo(result.Settings.OutputFolder);
                 }
+
+                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
+                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, filename);
             }
 
             return result;

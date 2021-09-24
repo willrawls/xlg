@@ -6,7 +6,7 @@ namespace MetX.Standard.Generation
 {
     public class DoNothingGenerationHost : IGenerationHost
     {
-        public DoNothingGenerationHost(string testTextToProcess = null, ContextBase context = null)
+        public DoNothingGenerationHost(string testTextToProcess = "", ContextBase context = null)
         {
             Context = context;
             GetTextForProcessing = () => testTextToProcess;

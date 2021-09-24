@@ -166,7 +166,7 @@ namespace MetX.Controls
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host)
         {
-            var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(scriptToRun, false, false, host);
+            var settings = QuickScriptProcessorFactory.BuildSettings(scriptToRun, false, false, host);
             var actualizeResult = QuickScriptProcessorFactory.ActualizeAndCompile(settings);
             if (!actualizeResult.CompileSuccessful) return new RunResult
             {

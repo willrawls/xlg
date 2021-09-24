@@ -790,13 +790,13 @@ namespace XLG.QuickScripts
 
                 UpdateScriptFromForm();
 
-                var settings =
-                    QuickScriptProcessorFactory.ActualizationSettingsFactory(ScriptEditor.Current, true, true, Host);
-                var result = settings.QuickScriptTemplate.ActualizeCode(settings);
+                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                //var result = settings.QuickScriptTemplate.ActualizeCode(settings);
+                var result = settings.ActualizeAndCompile();
 
                 if (!result.CompileSuccessful) return;
 
-                var location = result.CompiledAssemblyFilePath;
+                var location = result.DestinationAssemblyFilePath;
                 if (location.IsEmpty()) return;
 
                 if ( MessageBoxResult.Yes == Host.MessageBox.Show(

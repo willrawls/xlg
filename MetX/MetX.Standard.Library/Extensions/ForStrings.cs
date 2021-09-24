@@ -188,10 +188,22 @@ namespace MetX.Standard.Library.Extensions
                 : string.Join(Environment.NewLine, target);
         }
 
-        public static string AsFilename(this string target)
+        public static string AsFilename(this string target, string suffix = "")
         {
             if (target.IsEmpty()) return string.Empty;
-            return target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-" }, string.Empty);
+            target = target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-" }, string.Empty);
+            if (suffix.IsNotEmpty())
+                target += suffix;
+            if (char.IsDigit(target[0]))
+                target = "_" + target;
+            while (target.EndsWith("."))
+                target = target.Substring(0, target.Length - 2);
+            while (target.Contains(".."))
+                target = target.Replace("..", ".");
+            while (target.Contains("__"))
+                target = target.Replace("__", "_");
+
+            return target;
         }
 
         public static string Left(this string target, int length)

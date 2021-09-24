@@ -24,7 +24,7 @@ namespace MetX.Tests.Scripts
             var source = Sources.WriteStaticLine;
             var script = Sources.WriteStaticLineScript();
 
-            var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test_Build_Exe_Simple.exe");
+            var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestBuildExeSimple");
             if (File.Exists(outputFilePath))
             {
                 File.Delete(outputFilePath);
@@ -34,11 +34,12 @@ namespace MetX.Tests.Scripts
             ContextBase context = new Context(host);
             host.Context = context;
             
-            var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(script, true, true, host);
+            var settings = script.BuildSettings(true, false, host);
             settings.OutputFolder = outputFilePath;
 
             ActualizationResult result = settings.ActualizeAndCompile();
-            Assert.IsTrue(result.CompileSuccessful, source);
+            Assert.IsTrue(result.ActualizationSuccessful);
+            Assert.IsTrue(result.CompileSuccessful);
 
             BaseLineProcessor actual = result.AsBaseLineProcessor();
             Assert.IsNotNull(actual, source);
@@ -51,10 +52,10 @@ namespace MetX.Tests.Scripts
 
         private static void AssertConsoleExecutableOutputsProperly(ActualizationResult result, string expected)
         {
-            var gatherResult = FileSystem.GatherOutputAndErrors(result.CompiledAssemblyFilePath, null, out var errorOutput, result.Settings.OutputFolder);
+            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationAssemblyFilePath, null, out var errorOutput, result.Settings.OutputFolder);
 
             Console.WriteLine();
-            Console.WriteLine(result.CompiledAssemblyFilePath);
+            Console.WriteLine(result.DestinationAssemblyFilePath);
 
             if (gatherResult.IsNotEmpty())
             {
@@ -84,11 +85,11 @@ namespace MetX.Tests.Scripts
                 File.Delete(outputFilePath);
             }
 
-            var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(Sources.FirstScriptScript(), true, true, new DoNothingGenerationHost());
+            var settings = QuickScriptProcessorFactory.BuildSettings(Sources.FirstScriptScript(), true, true, new DoNothingGenerationHost());
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
-            Assert.IsNotNull(result.CompiledAssemblyFilePath);
-            Assert.IsTrue(File.Exists(result.CompiledAssemblyFilePath));
+            Assert.IsNotNull(result.DestinationAssemblyFilePath);
+            Assert.IsTrue(File.Exists(result.DestinationAssemblyFilePath));
 
             AssertConsoleExecutableOutputsProperly(result, "First");
         }
@@ -104,12 +105,12 @@ namespace MetX.Tests.Scripts
             if (File.Exists(outputFilePath))
                 File.Delete(outputFilePath);
 
-            var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(
+            var settings = QuickScriptProcessorFactory.BuildSettings(
                 new XlgQuickScript("Calculate Something", Sources.CalculateSomething), true, true,
                 new DoNothingGenerationHost());
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
-            Assert.IsTrue(File.Exists(result.CompiledAssemblyFilePath));
+            Assert.IsTrue(File.Exists(result.DestinationAssemblyFilePath));
             AssertConsoleExecutableOutputsProperly(result, "Something");
         }
     }

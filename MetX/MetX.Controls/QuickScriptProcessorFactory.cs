@@ -55,7 +55,7 @@ namespace MetX.Controls
             return result;
         }
 
-        public static ActualizationSettings ActualizationSettingsFactory(XlgQuickScript script, bool forExecutable, bool simulate, IGenerationHost host)
+        public static ActualizationSettings BuildSettings(this XlgQuickScript script, bool forExecutable, bool simulate, IGenerationHost host)
         {
             if (script == null)
                 return null;
@@ -65,7 +65,7 @@ namespace MetX.Controls
                 : script.NativeTemplateName;
 
             var template = host.Context.Templates[templateName];
-            var settings = new ActualizationSettings(template, simulate, script);
+            var settings = new ActualizationSettings(template, simulate, script, forExecutable, host);
             return settings;
         }
 

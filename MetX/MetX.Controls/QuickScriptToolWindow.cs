@@ -394,7 +394,7 @@ namespace MetX.Controls
                     return;
 
                 UpdateScriptFromForm();
-                var settings = QuickScriptProcessorFactory.ActualizationSettingsFactory(CurrentScript, true, false, Host);
+                var settings = QuickScriptProcessorFactory.BuildSettings(CurrentScript, true, false, Host);
                 var result = settings.ActualizeAndCompile();
                 if (result == null || !result.CompileSuccessful) return;
 
@@ -402,7 +402,7 @@ namespace MetX.Controls
                     $@"
 Executable generated successfully in: 
 
-    {result.CompiledAssemblyFilePath}
+    {result.DestinationAssemblyFilePath}
 
 Would you like to run it now? 
   (Yes to run, No to open the output folder, Cancel to do nothing)", "RUN EXE?", MessageBoxChoices.YesNoCancel);
@@ -410,7 +410,7 @@ Would you like to run it now?
                 switch (messageBoxResult)
                 {
                     case MessageBoxResult.Yes:
-                        Process.Start(new ProcessStartInfo(result.CompiledAssemblyFilePath)
+                        Process.Start(new ProcessStartInfo(result.DestinationAssemblyFilePath)
                         {
                             UseShellExecute = true,
                             WorkingDirectory = result.Settings.OutputFolder,
