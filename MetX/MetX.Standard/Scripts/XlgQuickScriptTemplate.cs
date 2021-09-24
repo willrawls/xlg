@@ -95,7 +95,6 @@ namespace MetX.Standard.Scripts
             }
 
             return result;
-
         }
 
         private void SetupAnswers(ActualizationResult result)

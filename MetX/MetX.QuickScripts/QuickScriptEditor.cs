@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using MetX.Standard;
+using MetX.Standard.Interfaces;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
@@ -133,51 +134,6 @@ namespace XLG.QuickScripts
             }
         }
 
-        public ActualizationResult GenerateIndependentQuickScriptExe(XlgQuickScript scriptToRun)
-        {
-            if (scriptToRun == null)
-                return null;
-
-            if (InvokeRequired)
-                return (ActualizationResult) Invoke(new Func<XlgQuickScript, ActualizationResult>(GenerateIndependentQuickScriptExe), scriptToRun);
-
-            var outputFolder = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
-            var template = Context.Templates["Exe"];
-            var settings = new ActualizationSettings(template, false, scriptToRun);
-            var result = template.Actualize(settings);
-            if (result.ActualizationSuccessful)
-            {
-                var compileResult = result.Compile();
-                if (compileResult)
-                {
-                    return result;
-                }
-            }
-
-            
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output Folder ]-----");
-            sb.AppendLine($"{result.Settings.OutputFolder}");
-
-            sb.AppendLine();
-            sb.AppendLine("-----[ Compilation failure ]-----");
-            sb.AppendLine();
-            sb.AppendLine(result.CompileErrorText);
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output from dotnet.exe ]-----");
-            sb.AppendLine();
-            sb.AppendLine(result.OutputText);
-            sb.AppendLine();
-
-            var answer = Host.MessageBox.Show(sb.ToString(), "OPEN OUTPUT FOLDER?", MessageBoxChoices.YesNo);
-            if (answer == MessageBoxResult.Yes)
-            {
-                QuickScriptWorker.ViewFolder(Host, result.Settings.OutputFolder);
-            }
-            return result;
-        }
-
         public override void Progress(int index = -1)
         {
             if (InvokeRequired)
@@ -214,7 +170,8 @@ namespace XLG.QuickScripts
             ScriptEditor.Current.DiceAt = DiceAt.Text;
             ScriptEditor.Current.InputFilePath = InputParam.Text;
             ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-            ScriptEditor.Current.TemplateName = TemplateList.Text;
+            ScriptEditor.Current.NativeTemplateName = NativeTemplateList.Text.AsString("Native");
+            ScriptEditor.Current.ExeTemplateName = ExeTemplateList.Text.AsString("Exe");
             Context.Scripts.Default = ScriptEditor.Current;
         }
 
@@ -751,10 +708,15 @@ namespace XLG.QuickScripts
                 ? index
                 : DiceAt.Items.Add(selectedScript.DiceAt);
 
-            index = TemplateList.FindString(selectedScript.TemplateName);
-            TemplateList.SelectedIndex = index > -1
+            index = NativeTemplateList.FindString(selectedScript.NativeTemplateName);
+            NativeTemplateList.SelectedIndex = index > -1
                 ? index
-                : TemplateList.Items.Add(selectedScript.TemplateName);
+                : NativeTemplateList.Items.Add(selectedScript.NativeTemplateName);
+
+            index = ExeTemplateList.FindString(selectedScript.ExeTemplateName);
+            ExeTemplateList.SelectedIndex = index > -1
+                ? index
+                : ExeTemplateList.Items.Add(selectedScript.ExeTemplateName);
 
             InputParam.Text = selectedScript.InputFilePath;
             if (InputParam.Text.Length > 0)
@@ -827,7 +789,7 @@ namespace XLG.QuickScripts
                 }
 
                 UpdateScriptFromForm();
-                var result = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
+                var result = QuickScriptProcessorFactory.ActualizeCode(ScriptEditor.Current, true);
                 if (!result.CompileSuccessful) return;
 
                 var location = result.ExecutableFilePath;

@@ -24,7 +24,8 @@ namespace MetX.Tests.Scripts
                 File.Delete(outputFilePath);
             }
             
-            var result = QuickScriptProcessorFactory.CompileSource(source, true, null, null, outputFilePath);
+            //var result = QuickScriptProcessorFactory.CompileSource(source, true, null, null, outputFilePath);
+            var result = QuickScriptProcessorFactory.Actualize(source, true);
             Assert.IsTrue(result.CompiledSuccessfully, source);
             Assert.IsNotNull(result.CompiledAssembly, source);
             var entryPoint = result.CompiledAssembly.EntryPoint;

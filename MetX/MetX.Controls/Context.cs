@@ -98,7 +98,7 @@ namespace MetX.Controls
                     }
                 }
 
-                var runResult = Run(caller, ToolWindow.Context, scriptToRun, host);
+                var runResult = Run(caller, host.Context, scriptToRun, host);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
                 if (runResult.Error != null)
@@ -175,7 +175,7 @@ namespace MetX.Controls
         {
             var result = new RunResult
             {
-                QuickScriptProcessor = Controls.QuickScriptProcessorFactory.GenerateQuickScriptLineProcessor(caller.Window.Host, @base, scriptToRun)
+                QuickScriptProcessor = Controls.QuickScriptProcessorFactory.GenerateAssemblyFromNative(caller.Window.Host, @base, scriptToRun)
             };
             if (result.QuickScriptProcessor == null)
             {

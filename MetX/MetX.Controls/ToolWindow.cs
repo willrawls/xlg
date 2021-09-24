@@ -11,9 +11,9 @@ namespace MetX.Controls
     {
 
         public IGenerationHost Host { get; set; }
-
         public static IGenerationHost HostInstance { get; set; }
-        public static Context Context
+
+        public static Context SharedContext
         {
             get
             {
