@@ -1,4 +1,6 @@
-﻿namespace MetX.Tests.Scripts
+﻿using MetX.Standard.Scripts;
+
+namespace MetX.Tests.Scripts
 {
     public static class Sources
     {
@@ -80,6 +82,12 @@ namespace MetX.Scripts
         }
     }";
 
+        public static XlgQuickScript FirstScriptScript()
+        {
+            return new ("First script", FirstScript);
+
+        }
+
         // // //
         public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
         {
@@ -116,5 +124,11 @@ namespace {namespaceName}
         {
             return WrapWithVoidMain(sourceInsideVoidMain);
         }
+
+        public static XlgQuickScript WriteStaticLineScript()
+        {
+            return new ("Write static line", WriteStaticLine);
+        }
+
     }
 }

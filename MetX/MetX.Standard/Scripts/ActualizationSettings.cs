@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
@@ -10,11 +11,14 @@ namespace MetX.Standard.Scripts
 {
     public class ActualizationSettings
     {
-        public ActualizationSettings(XlgQuickScriptTemplate quickScriptTemplate, bool simulate, XlgQuickScript scriptToRun)
+        public ActualizationSettings(XlgQuickScriptTemplate quickScriptTemplate, bool simulate,
+            XlgQuickScript scriptToRun, bool forExecutable, IGenerationHost host)
         {
+            Host = host;
             QuickScriptTemplate = quickScriptTemplate ?? throw new ArgumentNullException(nameof(quickScriptTemplate));
             Simulate = simulate;
             Source = scriptToRun;
+            ForExecutable = forExecutable;
             TemplateNameAsLegalFilenameWithoutExtension = Source.Name.AsFilename(); // Source.Id.ToString("N");
             ProjectName = QuickScriptTemplate.Name ?? TemplateNameAsLegalFilenameWithoutExtension;
 
@@ -26,27 +30,7 @@ namespace MetX.Standard.Scripts
             FileSystem.CleanFolder(Path.Combine(targetFolder, "bin"));
 
             GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
-
-            /*
-            if (QuickScriptTemplate.TemplatePath.Contains(":")
-                || QuickScriptTemplate.TemplatePath.Contains(@"\\")
-                || QuickScriptTemplate.TemplatePath.StartsWith("."))
-            {
-                OutputFolder = Path.Combine(targetFolder, "QuickScripter", Id ?? "Code", QuickScriptTemplate.Name.AsFilename());
-            }
-            else
-            {
-                if (string.Equals(targetFolder, Assembly.GetCallingAssembly().Location,
-                        StringComparison.InvariantCultureIgnoreCase))
-                    // Default to Temp
-                    OutputFolder = Path.Combine(Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp",
-                        "QuickScripter", Id ?? "Code", QuickScriptTemplate.Name);
-                else
-                    // Default to current directory
-                    OutputFolder = Path.Combine(targetFolder, "QuickScripter", Id ?? "Code",
-                        QuickScriptTemplate.Name);
-            }
-        */
+            
         }
 
         public string ProjectName { get; set; }
@@ -57,7 +41,9 @@ namespace MetX.Standard.Scripts
         public string TemplateNameAsLegalFilenameWithoutExtension { get; set; } = Guid.NewGuid().ToString("N");
 
         public XlgQuickScript Source { get; set; }
+        public bool ForExecutable { get; set; }
         public string OutputFolder { get; set; }
         public GenInstance GeneratedAreas { get; set; }
+        public IGenerationHost Host { get; set; }
     }
 }

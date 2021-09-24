@@ -40,7 +40,7 @@ namespace MetX.Standard.Library
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Array.Empty<string>();
                 var answer = this.Select(i => i.Value).ToArray();
                 return answer;
             }
@@ -52,7 +52,7 @@ namespace MetX.Standard.Library
             get
             {
                 if (Count == 0)
-                    return new int[0];
+                    return Array.Empty<int>();
                 var answer = this.Select(i => i.Number).ToArray();
                 return answer;
             }
@@ -64,7 +64,7 @@ namespace MetX.Standard.Library
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Array.Empty<string>();
                 var answer = this.Select(i => i.Name).ToArray();
                 return answer;
             }
@@ -76,7 +76,7 @@ namespace MetX.Standard.Library
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Array.Empty<string>();
                 var answer = this.Select(i => i.Key).ToArray();
                 return answer;
             }
@@ -88,10 +88,15 @@ namespace MetX.Standard.Library
             get
             {
                 if (Count == 0)
-                    return new Guid[0];
+                    return Array.Empty<Guid>();
                 var answer = this.Select(i => i.ID).ToArray();
                 return answer;
             }
+        }
+
+        public AssocItem FirstKeyContaining(string toFind)
+        {
+            return this.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
         }
 
         [XmlIgnore]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MetX.Standard.Generation;
 using MetX.Standard.Library;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,18 +13,18 @@ namespace MetX.Tests.Scripts
         [TestMethod]
         public void ResolveExeTemplate()
         {
-            var data = new XlgQuickScriptTemplate(@"Templates\Exe", "Fred");
+            var data = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
 
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Assets);
             Assert.AreEqual(4, data.Assets.Count);
-            Assert.AreEqual("Fred", data.Name);
+            Assert.AreEqual("TestExe", data.Name);
 
             Assert.AreEqual(4, data.Assets.Items.Length);
             CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, data.Assets.Keys);
 
             XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
-            var settings = new ActualizationSettings(data, true, source);
+            var settings = new ActualizationSettings(data, true, source, true, new DoNothingGenerationHost());
 
             settings.Answers["DestinationFilePath"].Value = "AAA";
             settings.Answers["InputFilePath"].Value = "BBB";
@@ -42,7 +43,7 @@ namespace MetX.Tests.Scripts
             settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("N");
             settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("N");
 
-            ActualizationResult actual = data.Actualize(settings);
+            ActualizationResult actual = data.ActualizeCode(settings);
 
             Assert.IsNotNull(actual);
             Assert.IsNull(actual.ActualizeErrorText);
@@ -61,9 +62,8 @@ namespace MetX.Tests.Scripts
             Console.WriteLine();
 
             bool compileResult = actual.Compile();
-            Assert.IsNotNull(actual.ExecutableFilePath);
-            Assert.IsTrue(File.Exists(actual.ExecutableFilePath));
-            Console.WriteLine($"\nExecutableFilePath is:\n{actual.ExecutableFilePath}");
+            Assert.IsNotNull(actual.DestinationAssemblyFilePath);
+            Console.WriteLine($"\nDestinationAssemblyFilePath is:\n{actual.DestinationAssemblyFilePath}");
         }
     }
 }
