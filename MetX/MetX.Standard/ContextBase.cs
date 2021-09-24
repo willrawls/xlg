@@ -12,7 +12,12 @@ namespace MetX.Standard
         public XlgQuickScriptFile Scripts;
         public XlgQuickScriptTemplateList Templates = new(Environment.CurrentDirectory);
         public IGenerationHost Host;
-        
+
+        public ContextBase(IGenerationHost host)
+        {
+            Host = host;
+        }
+
         public void SetPropertiesFocus(string propertyName)
         {
             // TODO

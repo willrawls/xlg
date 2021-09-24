@@ -9,8 +9,7 @@ namespace MetX.Controls
         public void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
         {
             caller ??= this;
-            Window.Host ??= Host;
-            Context.RunQuickScript(caller, scriptToRun, targetOutput);
+            Context.RunQuickScript(caller, scriptToRun, targetOutput, Host);
         }
 
         public ToolWindow Window { get => this; set { } }

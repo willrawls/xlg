@@ -5,7 +5,7 @@
         // // //
         public static readonly string WriteStaticLine = BuildMain(
             @"
-        System.Console.WriteLine(""Build_Exe_Simple"");
+        System.Console.WriteLine(""Simple_Build_Exe"");
 ");
 
         public static readonly string FirstScript = @"

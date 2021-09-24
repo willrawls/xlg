@@ -15,13 +15,16 @@ namespace MetX.Standard.Scripts
 
         public string ActualizeErrorText { get; set; }
         public string CompileErrorText { get; set; }
+        public string OutputText { get; set; }
         public AssocArray OutputFiles { get; set; } = new();
-        public List<string> Errors { get; set; } = new();
         public List<string> Warnings { get; set; } = new();
-
         public string ExecutableFilePath { get; set; }
+
         public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
-        public bool CompileSuccessful => CompileErrorText.IsEmpty() && Errors.IsEmpty();
+        public bool CompileSuccessful => ActualizationSuccessful 
+                                         && CompileErrorText.IsEmpty()
+                                         && !OutputText.AsString().ToLower().Contains("error")
+                                         && File.Exists(ExecutableFilePath);
 
         public ActualizationResult(ActualizationSettings settings)
         {
@@ -30,6 +33,9 @@ namespace MetX.Standard.Scripts
 
         public bool Compile()
         {
+            if (!ActualizationSuccessful)
+                return false;
+
             ExecutableFilePath = Path.Combine(Settings.OutputFolder, Settings.ProjectName.AsFilename() + ".exe");
 
             if (!FileSystem.SafeDelete(ExecutableFilePath))
@@ -38,14 +44,10 @@ namespace MetX.Standard.Scripts
                 return false;
             }
 
-            var output = FileSystem.GatherOutput("dotnet", "build", Settings.OutputFolder);
-            if (output.IsNotEmpty()
-                && !output.ToLower().Contains("error")
-                && !File.Exists(ExecutableFilePath))
-                return true;
+            OutputText = FileSystem.GatherOutputAndErrors("dotnet", "build", out var errorOutput, Settings.OutputFolder);
+            CompileErrorText = errorOutput;
 
-            CompileErrorText = output;
-            return false;
+            return CompileSuccessful;
         }
     }
 }

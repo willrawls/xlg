@@ -22,7 +22,8 @@ namespace MetX.Tests.Scripts
             Assert.AreEqual(4, data.Assets.Items.Length);
             CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, data.Assets.Keys);
 
-            var settings = new ActualizationSettings(data, Guid.NewGuid().ToString("N"), "Freddy", true);
+            XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
+            var settings = new ActualizationSettings(data, true, source);
 
             settings.Answers["DestinationFilePath"].Value = "AAA";
             settings.Answers["InputFilePath"].Value = "BBB";

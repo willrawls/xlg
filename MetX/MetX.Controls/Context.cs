@@ -30,78 +30,6 @@ namespace MetX.Controls
         private static bool _scriptIsRunning;
         private static readonly object MScriptSyncRoot = new object();
 
-        public static BaseLineProcessor GenerateQuickScriptLineProcessor(IGenerationHost host, ContextBase @base, XlgQuickScript scriptToRun)
-        { 
-            var source = scriptToRun.ToCSharp(false, Default.Templates["Native"]);
-            var assemblies = DefaultTypesForCompiler();
-            var shared = new List<string>();
-            var compiler = XlgQuickScript.CompileSource(source, false, assemblies, shared, null);
-
-            if (compiler == null)
-            {
-                MessageBox.Show("Failed to create and compile (internal not due to script). This should never happen. Call Will");
-                return null;
-            }
-            
-            if (BuildQuickScriptProcessor(host, scriptToRun, compiler, out var generatedQuickScriptLineProcessor)) 
-                return generatedQuickScriptLineProcessor;
-
-            var forDisplay = compiler.Failures.ForDisplay(source.Lines());
-            QuickScriptWorker.ViewTextInNotepad(@base.Host, source, true);
-            QuickScriptWorker.ViewTextInNotepad(@base.Host, forDisplay, true);
-            return null;
-        }
-
-        public static bool BuildQuickScriptProcessor(
-            IGenerationHost host, 
-            XlgQuickScript scriptToRun,
-            InMemoryCompiler<string> compiler,
-            out BaseLineProcessor generateQuickScriptLineProcessor)
-        {
-            if (compiler.CompiledSuccessfully)
-            {
-                if (!ReferenceEquals(compiler.CompiledAssembly, null))
-                {
-                    var arguments = new object[]{ host };
-                    var processor = compiler.CompiledAssembly
-                            .CreateInstance("MetX.Scripts.QuickScriptProcessor", false, BindingFlags.CreateInstance, null, arguments, null, null)
-                        as BaseLineProcessor;
-
-                    if (processor == null)
-                    {
-                        generateQuickScriptLineProcessor = null;
-                        return true;
-                    }
-
-                    processor.InputFilePath = scriptToRun.InputFilePath;
-                    processor.DestinationFilePath = scriptToRun.DestinationFilePath;
-
-                    {
-                        generateQuickScriptLineProcessor = processor;
-                        return true;
-                    }
-                }
-            }
-            
-            generateQuickScriptLineProcessor = null;
-            return false;
-        }
-        
-        public static List<Type> DefaultTypesForCompiler()
-        {
-            var assemblies = new List<Type>
-            {
-                typeof(ChooseOrderDialog),
-                typeof(InMemoryCache<>), // MetX.Library
-                typeof(Context),         // MetX.Controls
-                typeof(Application),
-                typeof(Microsoft.CSharp.CSharpCodeProvider),
-                typeof(BaseLineProcessor),
-                typeof(MetX.Windows.Library.AskForStringDialog),
-            };
-            return assemblies;
-        }
-
         public static string GetLastKnownPath()
         {
             var openedKey = false;
@@ -128,19 +56,23 @@ namespace MetX.Controls
             return lastKnownPath;
         }
 
+        public Context(IGenerationHost host) : base(host)
+        {
+        }
+
         public static void OpenNewOutput(IRunQuickScript caller, XlgQuickScript script, string title, string output)
         {
-            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output);
+            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.Window.Host);
             OutputWindows.Add(quickScriptOutput);
             quickScriptOutput.Show(caller.Window);
             quickScriptOutput.BringToFront();
         }
 
-        public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
+        public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
         {
             if (caller.InvokeRequired)
             {
-                caller.Invoke(new Action<ScriptRunningWindow, XlgQuickScript, IShowText>(RunQuickScript), caller, scriptToRun, targetOutput);
+                caller.Invoke(new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript), caller, scriptToRun, targetOutput, host);
                 return;
             }
 
@@ -166,11 +98,11 @@ namespace MetX.Controls
                     }
                 }
 
-                var runResult = Run(caller, ToolWindow.Context, scriptToRun);
+                var runResult = Run(caller, ToolWindow.Context, scriptToRun, host);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
                 if (runResult.Error != null)
-                    MessageBox.Show(runResult.Error.ToString());
+                    host.MessageBox.Show(runResult.Error.ToString());
                 if (!runResult.KeepGoing || runResult.QuickScriptProcessor.Output == null || runResult.QuickScriptProcessor.Output.Length <= 0)
                 {
                     return;
@@ -209,7 +141,7 @@ namespace MetX.Controls
                         case QuickScriptDestination.Notepad:
 
                             // QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
-                            QuickScriptWorker.ViewFileInNotepad(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
+                            QuickScriptWorker.ViewFile(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
 
                             // QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
                             break;
@@ -217,7 +149,7 @@ namespace MetX.Controls
                         case QuickScriptDestination.File:
                             runResult.QuickScriptProcessor.Output?.Finish();
                             runResult.QuickScriptProcessor.Output = null;
-                            QuickScriptWorker.ViewFileInNotepad(caller.Host, scriptToRun.DestinationFilePath);
+                            QuickScriptWorker.ViewFile(caller.Host, scriptToRun.DestinationFilePath);
 
                             // File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
                             break;
@@ -225,12 +157,12 @@ namespace MetX.Controls
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    host.MessageBox.Show(ex.ToString());
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                host.MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -239,11 +171,11 @@ namespace MetX.Controls
             }
         }
 
-        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun)
+        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host)
         {
             var result = new RunResult
             {
-                QuickScriptProcessor = GenerateQuickScriptLineProcessor(caller.Window.Host, @base, scriptToRun)
+                QuickScriptProcessor = Controls.QuickScriptProcessorFactory.GenerateQuickScriptLineProcessor(caller.Window.Host, @base, scriptToRun)
             };
             if (result.QuickScriptProcessor == null)
             {
@@ -320,11 +252,11 @@ namespace MetX.Controls
                 catch (Exception ex)
                 {
                     var answer =
-                        MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
-                                        currLine + Environment.NewLine +
-                                        Environment.NewLine +
-                                        ex, "CONTINUE PROCESSING", MessageBoxButtons.YesNo);
-                    if (answer != DialogResult.No)
+                        host.MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
+                                             currLine + Environment.NewLine +
+                                             Environment.NewLine +
+                                             ex, "CONTINUE PROCESSING", MessageBoxChoices.YesNo);
+                    if (answer != MessageBoxResult.No)
                     {
                         continue;
                     }

@@ -124,12 +124,12 @@ namespace MetX.Controls
                 var source = CurrentScript.ToCSharp(independent, xlgQuickScriptTemplate);
                 if (!string.IsNullOrEmpty(source))
                 {
-                    QuickScriptWorker.ViewTextInNotepad(Host, source, true);
+                    QuickScriptWorker.ViewText(Host, source, true);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                Host.MessageBox.Show(e.ToString());
             }
         }
 
@@ -143,15 +143,15 @@ namespace MetX.Controls
             if (Context.Templates.Count == 0 ||
                 string.IsNullOrEmpty(Context.Templates[templateName].Assets["Exe"].Value))
             {
-                MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
+                Host.MessageBox.Show("Quick script template 'Exe' missing for: " + templateName);
                 return null;
             }
 
             var source = CurrentScript.ToCSharp(true, ContextBase.Default.Templates["Exe"]);
-            var additionalReferences = Context.DefaultTypesForCompiler();
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, null);
+            var additionalReferences = QuickScriptProcessorFactory.DefaultTypesForCompiler();
+            var compilerResults = QuickScriptProcessorFactory.CompileSource(source, true, additionalReferences, null, null);
 
-            if (compilerResults.Failures != null && compilerResults.Failures.Length <= 0)
+            if (compilerResults.Failures is { Length: <= 0 })
             {
                 var assembly = compilerResults.CompiledAssembly;
 
@@ -217,12 +217,12 @@ namespace MetX.Controls
             var lines = new List<string>(source.LineList());
             var errorOutput = compilerResults.Failures.ForDisplay(lines);
 
-            MessageBox.Show(
+            Host.MessageBox.Show(
                 "Compilation failure. Errors found include:" 
                 + Environment.NewLine + Environment.NewLine
                 + errorOutput);
             
-            QuickScriptWorker.ViewTextInNotepad(Host, lines.Flatten(), true);
+            QuickScriptWorker.ViewText(Host, lines.Flatten(), true);
 
             return null;
         }
@@ -262,6 +262,7 @@ namespace MetX.Controls
 
         private void InitializeEditor()
         {
+            ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
             _textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
             _textArea.KeyEventHandler += ProcessKey;
             _textArea.KeyUp += TextAreaOnKeyUp;
@@ -326,11 +327,11 @@ namespace MetX.Controls
 
                 UpdateScriptFromForm();
                 Window.Host ??= Host;
-                Context.RunQuickScript(this, CurrentScript, null);
+                Context.RunQuickScript(this, CurrentScript, null, Host);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -364,7 +365,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -392,7 +393,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -479,15 +480,12 @@ namespace MetX.Controls
             DisplayExpandedQuickScriptSourceInNotepad(false, ContextBase.Default.Templates["Native"]);
         }
 
-        private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
+        private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
         {
-            // DisplayExpandedQuickScriptSourceInNotepad(true);
             try
             {
                 if (CurrentScript == null)
-                {
                     return;
-                }
 
                 UpdateScriptFromForm();
                 var location = GenerateIndependentQuickScriptExe(CurrentScript.TemplateName);
@@ -496,10 +494,10 @@ namespace MetX.Controls
                     return;
                 }
 
-                if (DialogResult.Yes == MessageBox.Show(this,
+                if (MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
-                    "Would you like to run it now? (No will open the generated file).", "RUN EXE?", MessageBoxButtons.YesNo))
+                    "Would you like to run it now? (No will open the generated file).", "RUN EXE?", MessageBoxChoices.YesNo))
                 {
                     Process.Start(new ProcessStartInfo(location)
                     {
@@ -509,12 +507,12 @@ namespace MetX.Controls
                 }
                 else
                 {
-                    QuickScriptWorker.ViewFileInNotepad(Host, location.Replace(".exe", ".cs"));
+                    QuickScriptWorker.ViewFile(Host, location.Replace(".exe", ".cs"));
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
     }
