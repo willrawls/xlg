@@ -11,7 +11,7 @@ namespace MetX.Tests
         {
             var processingAlreadyBeganPreviously = false;
             var area = new Area("TemplateName", "~~TemplateName: Table ?", ref processingAlreadyBeganPreviously);
-            Assert.AreEqual(InstructionType.Template, area.InstructionType);
+            Assert.AreEqual(InstructionType.Table, area.InstructionType);
             Assert.AreEqual(2, area.Arguments.Count);
             Assert.AreEqual(TemplateType.Table, area.TemplateType);
             Assert.AreEqual("?", area.Target);

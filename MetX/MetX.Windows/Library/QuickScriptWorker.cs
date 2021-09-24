@@ -8,7 +8,7 @@ namespace MetX.Windows.Library
 {
     public class QuickScriptWorker
     {
-        public static Exception ViewTextInNotepad(IGenerationHost host, string source, bool isCSharpCode)
+        public static Exception ViewText(IGenerationHost host, string source, bool isCSharpCode)
         {
             try
             {
@@ -25,13 +25,27 @@ namespace MetX.Windows.Library
             return null;
         }
 
-        public static void ViewFileInNotepad(IGenerationHost host, string filePath)
+        public static void ViewFile(IGenerationHost host, string filePath)
         {
             try
             {
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
-                var notepadProcess = Process.Start("notepad", filePath);
-                ActiveWindow.Move(notepadProcess);
+                var process = Process.Start("notepad", filePath);
+                ActiveWindow.Move(process);
+            }
+            catch (Exception ex)
+            {
+                host.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void ViewFolder(IGenerationHost host, string folderPath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+                var process = Process.Start("explorer.exe", folderPath);
+                ActiveWindow.Move(process);
             }
             catch (Exception ex)
             {

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.IO;
+using MetX.Standard.IO;
+using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Controls;
 
 namespace MetX.Tests.Scripts
 {
@@ -20,13 +24,32 @@ namespace MetX.Tests.Scripts
                 File.Delete(outputFilePath);
             }
             
-            var result = XlgQuickScript.CompileSource(source, true, null, null, outputFilePath);
+            var result = QuickScriptProcessorFactory.CompileSource(source, true, null, null, outputFilePath);
             Assert.IsTrue(result.CompiledSuccessfully, source);
             Assert.IsNotNull(result.CompiledAssembly, source);
             var entryPoint = result.CompiledAssembly.EntryPoint;
             Assert.IsNotNull(entryPoint);
+
+            string workingFolder = result.CompiledAssembly.Location.TokensBeforeLast(@"\");
+            string gatherResult = FileSystem.GatherOutputAndErrors(result.CompiledAssembly.Location, null, out var errorOutput, workingFolder);
+
+            Console.WriteLine();
+            Console.WriteLine(result.CompiledAssembly.Location);
             
-            entryPoint.Invoke(null, null); // new object[] { new string[] { "arg1", "arg2", "etc" } } );
+            if(gatherResult.IsNotEmpty())
+            {
+                Console.WriteLine();
+                Console.WriteLine("-----[ Output ]-----");
+                Console.WriteLine(gatherResult);
+            }
+
+            if(errorOutput.IsNotEmpty())
+            {
+                Console.WriteLine();
+                Console.WriteLine("-----[ Errors ]-----");
+                Console.WriteLine(errorOutput);
+            }            
+            Assert.IsTrue(gatherResult.Contains("Simple_Build_Exe"));
         }
 
         [TestMethod]
@@ -40,7 +63,7 @@ namespace MetX.Tests.Scripts
                 File.Delete(outputFilePath);
             }
             
-            var result = XlgQuickScript.CompileSource(source, true, null, null, outputFilePath);
+            var result = QuickScriptProcessorFactory.CompileSource(source, true, null, null, outputFilePath);
             Assert.IsTrue(result.CompiledSuccessfully);
             Assert.IsNotNull(result.CompiledAssembly);
         }
@@ -56,7 +79,7 @@ namespace MetX.Tests.Scripts
             if (File.Exists(outputFilePath)) 
                 File.Delete(outputFilePath);
 
-            var result = XlgQuickScript.CompileSource(source, true, null, null, outputFilePath);
+            var result = QuickScriptProcessorFactory.CompileSource(source, true, null, null, outputFilePath);
             Assert.IsTrue(result.CompiledSuccessfully);
             Assert.IsNotNull(result.CompiledAssembly);
         }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 using System.Collections.Generic;
-
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 using MetX.Standard;
@@ -11,19 +11,21 @@ using MetX.Standard.IO;
 using MetX.Standard.Data;
 using MetX.Standard.Scripts;
 using MetX.Standard.Library;
+using MetX.Standard.Pipelines;
+using MetX.Standard.Library.Extensions;
 using Microsoft.CSharp;
 
 //~~Usings~~//
 
-namespace QuickScripts
+namespace //~~NameInstance~~//
 {
-    // //~~NameInstance~~//
     public class QuickScriptProcessor
     {
         public readonly StringBuilder OutputStringBuilder = new StringBuilder();
         public readonly StreamBuilder Output;
         public readonly List<string> Files = new List<string>();
         public List<string> Lines = new List<string>();
+        public int LineCount { get; set; }
         public string InputText;
         public string DestinationFilePath;
         public string InputFilePath;
@@ -79,7 +81,7 @@ namespace QuickScripts
                     default:
                         if (InputFilePath.StartsWith("http"))
                         {
-                            InputText = MetX.IO.Http.GetURL(InputFilePath);
+                            InputText = MetX.Standard.IO.Http.GetUrl(InputFilePath);
                         }
                         else if (!File.Exists(InputFilePath))
                         {
@@ -88,7 +90,7 @@ namespace QuickScripts
                         }
                         else
                         {
-                            InputText = File.ReadInputText(InputFilePath);
+                            InputText = File.ReadAllText(InputFilePath);
                             Files.Add(InputFilePath);
                         }
 
@@ -139,8 +141,10 @@ namespace QuickScripts
             Console.WriteLine(promptText);
 
             value = Console.ReadLine().AsString().Trim();
-            MessageBoxResult MessageBoxResult = value.IsNotEmpty() ? MessageBoxResult.OK : MessageBoxResult.Cancel;
-            return MessageBoxResult;
+            MetX.Standard.Pipelines.MessageBoxResult messageBoxResult = value.IsNotEmpty() 
+                ? MetX.Standard.Pipelines.MessageBoxResult.OK 
+                : MetX.Standard.Pipelines.MessageBoxResult.Cancel;
+            return messageBoxResult;
         }
     }
 }

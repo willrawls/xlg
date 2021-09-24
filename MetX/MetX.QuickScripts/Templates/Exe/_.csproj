@@ -4,10 +4,10 @@
     <LangVersion>latest</LangVersion>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RootNamespace>//~~Project Name~~//</RootNamespace>
-    <StartupObject>//~~Project Name~~//.Program</StartupObject>
+    <RootNamespace>//~~NameInstance~~//</RootNamespace>
+    <StartupObject>//~~NameInstance~~//.Program</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
-    <Authors>William Rawls</Authors>
+    <Authors>//~~UserName~~//</Authors>
     <RepositoryUrl>https://github.com///~~UserName~~/////~~Project Name~~//</RepositoryUrl>
     <PackageProjectUrl>https://github.com///~~UserName~~/////~~Project Name~~//</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>

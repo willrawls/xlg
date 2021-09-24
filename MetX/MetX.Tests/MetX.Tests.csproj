@@ -1,85 +1,89 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<IsPackable>false</IsPackable>
+		<ApplicationIcon />
+		<OutputType>WinExe</OutputType>
+		<StartupObject />
+	</PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Templates\Exe\Program.cs" />
+		<Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
+		<Compile Remove="Templates\Native\Native.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Templates\Exe\Program.cs" />
-    <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
-    <Compile Remove="Templates\Native\Native.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="Templates\Exe\Program.cs">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="Templates\Exe\QuickScriptProcessor.cs">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="Templates\Exe\_.csproj">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="Templates\Exe\_.sln">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="Templates\Native\Native.cs">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="Templates\Exe\Program.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Exe\QuickScriptProcessor.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Exe\_.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Exe\_.sln">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Native\Native.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+		<PackageReference Include="coverlet.collector" Version="3.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
-    <PackageReference Include="coverlet.collector" Version="3.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
+		<ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+		<ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
-    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsFalse.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsTrue.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\Emit\Missing.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\EmptyClient.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\FullClient.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsBlank.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsGenerated.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\Missing.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsBlank.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsXyz.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsFalse.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsTrue.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\Missing.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\EmptyClient.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\FullClient.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsBlank.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsGenerated.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\Missing.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsBlank.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsXyz.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

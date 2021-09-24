@@ -15,14 +15,14 @@ namespace MetX.Controls
         public IRunQuickScript Scriptr;
         public FileSystemWatcher Watcher;
 
-        public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output)
+        public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output, IGenerationHost host) 
         {
             InitializeComponent();
             Text = "QuickScript Output - " + title;
             Output.Text = output;
             Script = script;
             Scriptr = scriptr;
-            Host = scriptr.Window.Host;
+            Host = host;
             if (!string.IsNullOrEmpty(script.InputFilePath))
             {
                 watchForChangesToolStripMenuItem.Enabled = true;
@@ -65,7 +65,7 @@ namespace MetX.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -78,7 +78,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -87,7 +87,7 @@ namespace MetX.Controls
             try
             {
                 Window.Host ??= Host;
-                Context.RunQuickScript(this, Script, null);
+                Context.RunQuickScript(this, Script, null, Host);
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
                     watchForChangesToolStripMenuItem.Enabled = true;
@@ -95,7 +95,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -123,7 +123,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -153,7 +153,7 @@ namespace MetX.Controls
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
     }

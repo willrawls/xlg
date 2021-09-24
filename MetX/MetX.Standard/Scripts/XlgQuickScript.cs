@@ -69,16 +69,6 @@ namespace MetX.Standard.Scripts
             TemplateName = "Native";
         }
 
-        public static InMemoryCompiler<string> CompileSource(string source,
-            bool asExecutable,
-            List<Type> additionalReferences,
-            List<string> additionalSharedReferences, 
-            string filePathForAssembly)
-        {
-            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences, filePathForAssembly);
-            return compiler;
-        }
-        
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
             // backslash percent will translate to % after parsing
@@ -165,7 +155,7 @@ namespace MetX.Standard.Scripts
                 {
                     if (attempts == 2)
                     {
-                        Gui.MessageBox.Show(ex.ToString());
+                        Host.MessageBox.Show(ex.ToString());
                         return code;
                     }
                 }
@@ -297,6 +287,14 @@ namespace MetX.Standard.Scripts
             return code.IsEmpty()
                 ? code
                 : FormatCSharpCode(code);
+        }
+
+        public GenInstance ToGenInstance(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
+        {
+            if(xlgQuickScriptTemplate == null)
+                xlgQuickScriptTemplate = ContextBase.Default.Templates[TemplateName];
+
+            return new GenInstance(this, xlgQuickScriptTemplate, independent);
         }
 
         public string ToFileFormat(bool isDefault)

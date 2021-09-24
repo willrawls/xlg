@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO.Pipes;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -45,7 +46,7 @@ namespace XLG.QuickScripts
             DestinationParam.LostFocus += DestinationParam_LostFocus;
 
             Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
-
+            
             LoadQuickScriptsFile(filePath);
             InitializeHotKeys();
         }
@@ -123,7 +124,7 @@ namespace XLG.QuickScripts
                 var source = ScriptEditor.Current.ToCSharp(independent, ContextBase.Default.Templates["Native"]);
                 if (!string.IsNullOrEmpty(source))
                 {
-                    QuickScriptWorker.ViewTextInNotepad(Host, source, true);
+                    QuickScriptWorker.ViewText(Host, source, true);
                 }
             }
             catch (Exception e)
@@ -142,51 +143,39 @@ namespace XLG.QuickScripts
 
             var outputFolder = scriptToRun.DestinationFilePath.TokensBeforeLast(@"\");
             var template = Context.Templates["Exe"];
-            var settings = new ActualizationSettings(template, outputFolder, scriptToRun.Name.AsFilename(), false);
+            var settings = new ActualizationSettings(template, false, scriptToRun);
             var result = template.Actualize(settings);
             if (result.ActualizationSuccessful)
             {
-                if (result.Compile())
+                var compileResult = result.Compile();
+                if (compileResult)
                 {
                     return result;
                 }
             }
 
-            /*
-            var sb = new StringBuilder("Compilation failure. Errors found include:" + Environment.NewLine + Environment.NewLine);
-            var lines = new List<string>(source.LineList());
-            for (var index = 0; index < compilerResults.Failures.Length; index++)
-            {
-                var error = compilerResults.Failures[index].ToString();
-                if (error.Contains("("))
-                {
-                    error = error.TokensAfterFirst("(").Replace(")", string.Empty);
-                }
-
-                sb.AppendLine(index + 1 + ": Line " + error);
-                sb.AppendLine();
-                if (error.Contains(Environment.NewLine))
-                {
-                    lines[compilerResults.Failures[index].Location.Line() - 1] += "\t// " + error.Replace(Environment.NewLine, " ");
-                }
-                else if (compilerResults.Failures[index].Location.Line() == 0)
-                {
-                    lines[0] += "\t// " + error;
-                }
-                else
-                {
-                    lines[compilerResults.Failures[index].Location.Line()] += "\t// " + error;
-                }
-            }
             
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine("-----[ Output Folder ]-----");
+            sb.AppendLine($"{result.Settings.OutputFolder}");
 
-            var lines = new List<string>(source.LineList());
+            sb.AppendLine();
+            sb.AppendLine("-----[ Compilation failure ]-----");
+            sb.AppendLine();
+            sb.AppendLine(result.CompileErrorText);
+            sb.AppendLine();
+            sb.AppendLine("-----[ Output from dotnet.exe ]-----");
+            sb.AppendLine();
+            sb.AppendLine(result.OutputText);
+            sb.AppendLine();
 
-            QuickScriptWorker.ViewTextInNotepad(Host, source, true);
-            QuickScriptWorker.ViewTextInNotepad(Host, compilerResults.Failures.ForDisplay(lines), true);
-
-*/
-            return null;
+            var answer = Host.MessageBox.Show(sb.ToString(), "OPEN OUTPUT FOLDER?", MessageBoxChoices.YesNo);
+            if (answer == MessageBoxResult.Yes)
+            {
+                QuickScriptWorker.ViewFolder(Host, result.Settings.OutputFolder);
+            }
+            return result;
         }
 
         public override void Progress(int index = -1)
@@ -361,12 +350,12 @@ namespace XLG.QuickScripts
 
         private void EditDestinationFilePath_Click(object sender, EventArgs e)
         {
-            QuickScriptWorker.ViewFileInNotepad(Host, DestinationParam.Text);
+            QuickScriptWorker.ViewFile(Host, DestinationParam.Text);
         }
 
         private void EditInputFilePath_Click(object sender, EventArgs e)
         {
-            QuickScriptWorker.ViewFileInNotepad(Host, InputParam.Text);
+            QuickScriptWorker.ViewFile(Host, InputParam.Text);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -430,7 +419,7 @@ namespace XLG.QuickScripts
 
         private void LoadQuickScriptsFile(string filePath)
         {
-            Context ??= new Context();
+            Context ??= new Context(Host);
             var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
             Context.Scripts = xlgQuickScriptFile;
 
@@ -839,10 +828,11 @@ namespace XLG.QuickScripts
 
                 UpdateScriptFromForm();
                 var result = GenerateIndependentQuickScriptExe(ScriptEditor.Current);
+                if (!result.CompileSuccessful) return;
+
                 var location = result.ExecutableFilePath;
                 if (location.IsEmpty()) return;
 
-                
                 if ( MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
@@ -857,7 +847,7 @@ namespace XLG.QuickScripts
                 else
                 {
                     var outputFile = result.OutputFiles["QuickScriptProcessor.cs"];
-                    QuickScriptWorker.ViewFileInNotepad(Host, outputFile.Name);
+                    QuickScriptWorker.ViewFile(Host, outputFile.Name);
                 }
             }
             catch (Exception exception)

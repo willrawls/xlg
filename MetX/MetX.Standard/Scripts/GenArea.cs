@@ -23,5 +23,10 @@ namespace MetX.Standard.Scripts
             Indent = 12;
             Lines = new List<string>();
         }
+
+        public override string ToString()
+        {
+            return Lines.IsEmpty() ? "" : string.Join("\n", Lines);
+        }
     }
 }

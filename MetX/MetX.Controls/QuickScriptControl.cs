@@ -28,7 +28,6 @@ namespace MetX.Controls
         {
             InitializeComponent();
             InitializeEditor();
-            FindAndReplaceForm = new FindAndReplaceForm(this);
         }
 
         public string LineAtCaret
@@ -153,7 +152,7 @@ namespace MetX.Controls
 
         public string LastFind;
         public string LastReplace;
-        public readonly FindAndReplaceForm FindAndReplaceForm;
+        public FindAndReplaceForm FindAndReplaceForm;
 
         public void ReplaceAll()
         {

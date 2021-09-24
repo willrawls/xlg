@@ -174,7 +174,7 @@ namespace MetX.Standard.Scripts
 
                         if (Lines.Count <= 0)
                         {
-                            Gui.MessageBox.Show("The supplied input has no non-blank lines.", "INPUT FILE EMPTY");
+                            Host.MessageBox.Show("The supplied input has no non-blank lines.", "INPUT FILE EMPTY");
                             return false;
                         }
                         LineCount = Lines.Count;
