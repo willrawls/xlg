@@ -802,7 +802,7 @@ namespace XLG.QuickScripts
                 if ( MessageBoxResult.Yes == Host.MessageBox.Show(
                     "Executable generated successfully at: " + location + Environment.NewLine +
                     Environment.NewLine +
-                    "Would you like to run it now? (Yes to run, No to view source).", "RUN EXE OR VIEW SOURCE?", MessageBoxChoices.YesNo))
+                    "Would you like to run it now? (Yes to run, No to view source).", "RUN EXE OR VIEW FOLDER?", MessageBoxChoices.YesNo))
                 {
                     Process.Start(new ProcessStartInfo("cmd.exe", $"/k \"{location}\"" )
                     {
