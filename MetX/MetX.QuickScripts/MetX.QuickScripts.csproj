@@ -22,6 +22,9 @@
     <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
     <Compile Remove="Templates\Native\Native.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="MetX.QuickScripts.csproj.DotSettings" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj">

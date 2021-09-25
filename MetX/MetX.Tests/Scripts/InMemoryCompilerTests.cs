@@ -33,6 +33,7 @@ namespace MetX.Tests.Scripts
             var host = new DoNothingGenerationHost();
             ContextBase context = new Context(host);
             host.Context = context;
+            host.Context.Templates 
             
             var settings = script.BuildSettings(true, false, host);
             settings.OutputFolder = outputFilePath;
