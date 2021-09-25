@@ -119,24 +119,33 @@ namespace MetX.Standard.Scripts
 
         private void SetupAnswers(ActualizationResult result)
         {
-            var answers = result.Settings.Answers;
-
-            answers["DestinationFilePath"].Value = result.Settings.Source.DestinationFilePath;
-            answers["InputFilePath"].Value = result.Settings.Source.InputFilePath;
-            answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
-            answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
-            answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
-            answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
-            answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");
-            answers["Guid Project 2"].Value = Guid.NewGuid().ToString("D");
-            answers["Guid Solution"].Value = Guid.NewGuid().ToString("D");
-            answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
+            result.Settings.Answers["DestinationFilePath"].Value = result.Settings.Source.DestinationFilePath;
+            result.Settings.Answers["InputFilePath"].Value = result.Settings.Source.InputFilePath;
+            result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
+            result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
+            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+            result.Settings.Answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
+            result.Settings.Answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");
+            result.Settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("D");
+            result.Settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("D");
+            result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
 
             var generationInstance = result.Settings.GeneratedAreas;
             generationInstance.ParseAndBuildAreas();
 
             foreach (var area in generationInstance)
-                answers[area.Name].Value = area.ToString();
+            {
+                var item = result.Settings.Answers[area.Name];
+                if(item.Value.IsEmpty())
+                {
+                    item.Value = area.ToString();
+                }
+                else
+                {
+
+                }
+
+            }
         }
     }
 }

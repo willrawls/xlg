@@ -26,6 +26,7 @@ namespace MetX.Standard.Scripts
         private void ResetAreas()
         {
             _targetGenArea = new GenArea("ProcessLine");
+            Clear();
             AddRange(new[]
             {
                 _targetGenArea,
@@ -77,9 +78,16 @@ namespace MetX.Standard.Scripts
             }
         }
 
-        public void ParseAndBuildAreas()
+        public void ParseAndBuildAreas(bool resetFirst = false)
         {
-            ResetAreas();
+            if(resetFirst)
+            {
+                ResetAreas();
+            }
+            else if (Count > 0 && this.Any(i => i.Lines.Count > 0))
+            {
+                return;
+            }
 
             var originalArea = string.Empty;
             var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~{ xyz }~//
