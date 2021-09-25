@@ -70,6 +70,7 @@ namespace MetX.Standard.Library
             FilePath = filePath;
             var retries = 10;
             Finish();
+
             while (--retries < 10 && (TargetStream == null || TargetStreamWriter == null))
             {
                 Finish();
