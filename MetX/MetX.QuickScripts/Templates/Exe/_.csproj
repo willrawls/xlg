@@ -2,14 +2,13 @@
 
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>//~~NameInstance~~//</RootNamespace>
     <StartupObject>//~~NameInstance~~//.Program</StartupObject>
-    <UseWindowsForms>true</UseWindowsForms>
     <Authors>//~~UserName~~//</Authors>
-    <RepositoryUrl>https://github.com///~~UserName~~/////~~Project Name~~//</RepositoryUrl>
-    <PackageProjectUrl>https://github.com///~~UserName~~/////~~Project Name~~//</PackageProjectUrl>
+    <RepositoryUrl>https://github.com///~~UserName~~/////~~NameInstance~~//</RepositoryUrl>
+    <PackageProjectUrl>https://github.com///~~UserName~~/////~~NameInstance~~//</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 

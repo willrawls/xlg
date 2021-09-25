@@ -34,16 +34,22 @@ namespace MetX.Standard.Scripts
         }
 
         public string OriginalAssetFilename { get; set; }
+        public string RelativePath { get; set; }
+        public string RelativeFilePath => RelativePath.IsEmpty()
+            ? OriginalAssetFilename
+            : Path.Combine(RelativePath, OriginalAssetFilename);
 
-        public string GetFilePath(ActualizationSettings settings)
+        public string GetDestinationFilePath(ActualizationSettings settings)
         {
             var filename = OriginalAssetFilename;
             if (filename.StartsWith("_"))
             {
-                filename = settings.ProjectName + filename.Substring(1);
+                filename = settings.TemplateNameAsLegalFilenameWithoutExtension + filename.Substring(1);
             }
 
-            return Path.Combine(settings.OutputFolder, filename);
+            return RelativePath.IsEmpty() 
+                ? Path.Combine(settings.OutputFolder, filename) 
+                : Path.Combine(settings.OutputFolder, RelativePath, filename);
         }
 
         public string ResolveVariables(ActualizationResult result)
@@ -62,7 +68,7 @@ namespace MetX.Standard.Scripts
                     result.Warnings.Add($"Variable '{variable}' resolved to an empty string.");
                 }
                 resolvedCode = resolvedCode.Replace(tag, resolveTimeVariable.Value);
-                result.OutputFiles[OriginalAssetFilename].Value = GetFilePath(result.Settings);
+                result.OutputFiles[RelativeFilePath].Value = GetDestinationFilePath(result.Settings);
             }
 
             if (resolvedCode.Contains(LeftDelimiter) || resolvedCode.Contains(RightDelimiter))

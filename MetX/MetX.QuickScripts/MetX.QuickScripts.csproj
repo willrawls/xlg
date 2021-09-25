@@ -17,6 +17,7 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Templates\Exe\ConsoleClipboard.cs" />
     <Compile Remove="Templates\Exe\Program.cs" />
     <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
     <Compile Remove="Templates\Native\Native.cs" />
@@ -37,6 +38,9 @@
     <Content Include="Settings.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates\Exe\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Exe\Program.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -65,6 +69,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Templates\Exe\Properties\launchSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

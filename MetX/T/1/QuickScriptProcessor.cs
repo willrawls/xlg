@@ -1,23 +1,21 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Drawing;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 using MetX.Standard;
 using MetX.Standard.IO;
 using MetX.Standard.Data;
 using MetX.Standard.Scripts;
 using MetX.Standard.Library;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
+using MetX.Standard.Library.Extensions;
 using Microsoft.CSharp;
 
-//~~Usings~~//
 
-namespace //~~NameInstance~~//
+
+namespace Firstscript
 {
     public class QuickScriptProcessor
     {
@@ -32,7 +30,7 @@ namespace //~~NameInstance~~//
 
         public bool OpenNotepad;
 
-        //~~ClassMembers~~//
+        
 
         public QuickScriptProcessor()
         {
@@ -41,30 +39,30 @@ namespace //~~NameInstance~~//
         
         public bool Start()
         {
-//~~Start~~//
+
             return true;
         }
 
         public bool ProcessLine(string line, int number)
         {
             if (string.IsNullOrEmpty(line) && number > -1) return true;
-// ---- Beginning of ProcessLine from script
+if(line.Length < 20)
+	Output.AppendLine(line);
+else
+	Output.AppendLine(line.Substring(0, 20));
 
-//~~ProcessLine~~//
 
-// ---- Ending of ProcessLine from script
             return true;
         }
 
         public bool Finish()
         {
-//~~Finish~~//
             return true;
         }
 
         public bool ReadInput()
         {
-//~~ReadInput~~//
+
             try
             {
                 if (string.IsNullOrEmpty(InputFilePath)) InputFilePath = "none";
@@ -75,6 +73,7 @@ namespace //~~NameInstance~~//
                     case "none": // This is the equivalent of reading an empty file
                         InputText = string.Empty;
                         Lines = new List<string> {string.Empty};
+                        LineCount = 1;
                         return true;
 
                     case "clipboard":
@@ -97,7 +96,6 @@ namespace //~~NameInstance~~//
                             InputText = File.ReadAllText(InputFilePath);
                             Files.Add(InputFilePath);
                         }
-
                         break;
                 }
             }
@@ -107,10 +105,9 @@ namespace //~~NameInstance~~//
                 return false;
             }
 
-            if (string.IsNullOrEmpty(InputText)
-                && InputFilePath.ToLower() != "none")
+            if (string.IsNullOrEmpty(InputText))
             {
-                Console.WriteLine("Nothing to do.");
+                Console.WriteLine("Input empty.");
                 return false;
             }
 
@@ -118,7 +115,6 @@ namespace //~~NameInstance~~//
                 .Replace("\r", string.Empty)
                 .Split(new[] { '\n' }, StringSplitOptions
                 .RemoveEmptyEntries));
-            LineCount = Lines.Count;
 
             return true;
         }

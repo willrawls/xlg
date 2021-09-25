@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "No arguments": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
+    "Process Clipboard to Console": {
+      "commandName": "Project",
+      "commandLineArgs": "clipboard console"
+    },
+    "Clipboard to results.txt": {
+      "commandName": "Project",
+      "commandLineArgs": "clipboard results.txt open"
+    }
+  }
+}

@@ -26,12 +26,25 @@ namespace MetX.Standard.Scripts
             Name = name ?? TemplatePath.LastPathToken();
             if (!Directory.Exists(TemplatePath)) return;
 
-            foreach (var file in Directory.GetFiles(TemplatePath))
+            ProcessPath(TemplatePath, TemplatePath);
+        }
+
+        private void ProcessPath(string originalPath, string path)
+        {
+            foreach (var file in Directory.GetFiles(path))
             {
                 var assetName = file.LastPathToken();
                 var asset = Assets[assetName].Item;
                 asset.Template = File.ReadAllText(file);
                 asset.OriginalAssetFilename = assetName;
+                asset.RelativePath = path.LastToken(originalPath);
+                if (asset.RelativePath.StartsWith(@"\"))
+                    asset.RelativePath = asset.RelativePath.Substring(1);
+            }
+
+            foreach (var subfolder in Directory.GetDirectories(path))
+            {
+                ProcessPath(originalPath, subfolder);
             }
         }
 
@@ -59,8 +72,8 @@ namespace MetX.Standard.Scripts
                     return result;
                 }
 
-                var filePath = asset.Item.GetFilePath(settings);
-                result.OutputFiles[asset.Item.OriginalAssetFilename].Value = resolvedCode;
+                var filePath = asset.Item.GetDestinationFilePath(settings);
+                result.OutputFiles[asset.Item.RelativeFilePath].Value = resolvedCode;
 
                 if (!settings.Simulate)
                     if (!FileSystem.SafeDelete(filePath))
@@ -71,7 +84,8 @@ namespace MetX.Standard.Scripts
 
                 if (!settings.Simulate)
                 {
-                    Directory.CreateDirectory(result.Settings.OutputFolder);
+                    var folder = filePath.TokensBeforeLast(@"\");
+                    Directory.CreateDirectory(folder);
                     File.WriteAllText(filePath, resolvedCode);
                 }
             }
@@ -110,7 +124,7 @@ namespace MetX.Standard.Scripts
             answers["DestinationFilePath"].Value = result.Settings.Source.DestinationFilePath;
             answers["InputFilePath"].Value = result.Settings.Source.InputFilePath;
             answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
-            answers["Project Name"].Value = result.Settings.ProjectName;
+            answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
             answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
             answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");

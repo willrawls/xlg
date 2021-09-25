@@ -357,9 +357,9 @@ namespace XLG.QuickScripts
             this.NativeTemplateList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NativeTemplateList.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.NativeTemplateList.Items.AddRange(new object[] {
-            "Single file input",
-            "Single folder input",
-            "Single folder recursive"});
+                "Native",
+
+            });
             this.NativeTemplateList.Name = "NativeTemplateList";
             this.NativeTemplateList.Size = new System.Drawing.Size(130, 28);
             // 
@@ -368,9 +368,8 @@ namespace XLG.QuickScripts
             this.ExeTemplateList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ExeTemplateList.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.ExeTemplateList.Items.AddRange(new object[] {
-            "Single file input",
-            "Single folder input",
-            "Single folder recursive"});
+                "Exe",
+            });
             this.ExeTemplateList.Name = "ExeTemplateList";
             this.ExeTemplateList.Size = new System.Drawing.Size(130, 28);
             // 

@@ -2,7 +2,7 @@
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{//~~Guid Project 1~~//}") = "//~~Project Name~~//", "//~~Project Name~~//.csproj", "{//~~Guid Project 2~~//}"
+Project("{//~~Guid Project 1~~//}") = "//~~NameInstance~~//", "//~~NameInstance~~//.csproj", "{//~~Guid Project 2~~//}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
