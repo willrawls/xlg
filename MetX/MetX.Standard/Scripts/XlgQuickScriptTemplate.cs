@@ -92,35 +92,47 @@ namespace MetX.Standard.Scripts
 
             if (result.ActualizationSuccessful)
             {
-                // Stage support files (MetX.*.dll & .pdb)
-                var contents = FileSystem.DeepContents(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
+                StageSupportFiles(result);
 
-                List<XlgFile> filesToCopy = new List<XlgFile>();
-
-                contents.ForEachFile(func: file =>
-                {
-                    if (file.Extension.ToLower() is ".pdb" or ".dll" 
-                        && file.Name.ToLower().Contains("metx.")) 
-                        filesToCopy.Add(file);
-                    return true;
-                });
-
-                foreach (var file in filesToCopy)
-                {
-                    file.CopyTo(result.Settings.OutputFolder);
-                }
-
-                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
+                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");            
+                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
 
             }
 
             return result;
         }
 
+        public static void StageSupportFiles(ActualizationResult result)
+        {
+            return; // Currently unneeded
+
+            // Stage support files (MetX.*.dll & .pdb)
+            var contents = FileSystem.DeepContents(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
+
+            List<XlgFile> filesToCopy = new List<XlgFile>();
+
+            contents.ForEachFile(func: file =>
+            {
+                if (file.Extension.ToLower() is ".pdb" or ".dll"
+                    && file.Name.ToLower().Contains("metx."))
+                    filesToCopy.Add(file);
+                return true;
+            });
+
+            foreach (var file in filesToCopy)
+            {
+                file.CopyTo(result.Settings.OutputFolder);
+            }
+        }
+
         private void SetupAnswers(ActualizationResult result)
         {
-            result.Settings.Answers["DestinationFilePath"].Value = result.Settings.Source.DestinationFilePath;
-            result.Settings.Answers["InputFilePath"].Value = result.Settings.Source.InputFilePath;
+            var sourceInputFilePath = result.Settings.Source.InputFilePath;
+            result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath;
+            
+            var sourceDestinationFilePath = result.Settings.Source.DestinationFilePath;
+            result.Settings.Answers["DestinationFilePath"].Value = sourceDestinationFilePath;
+            
             result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");

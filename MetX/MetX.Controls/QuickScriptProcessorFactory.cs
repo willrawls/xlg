@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -44,7 +45,8 @@ namespace MetX.Controls
             sb.AppendLine();
             sb.AppendLine("-----[ Output from dotnet.exe ]-----");
             sb.AppendLine();
-            sb.AppendLine(result.OutputText);
+            var nonWarningLines = result.OutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
+            sb.AppendLine(string.Join("\n", nonWarningLines));
             sb.AppendLine();
 
             var answer = settings.Host.MessageBox.Show(sb.ToString(), "OPEN OUTPUT FOLDER?", MessageBoxChoices.YesNo);

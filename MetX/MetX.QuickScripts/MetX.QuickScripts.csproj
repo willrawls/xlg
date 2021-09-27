@@ -18,8 +18,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Templates\Exe\ConsoleClipboard.cs" />
+    <Compile Remove="Templates\Exe\ForStrings.cs" />
     <Compile Remove="Templates\Exe\Program.cs" />
     <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="Templates\Exe\StreamBuilder.cs" />
+    <Compile Remove="Templates\Exe\Tokenizer.cs" />
     <Compile Remove="Templates\Native\Native.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -44,10 +47,19 @@
     <None Include="Templates\Exe\ConsoleClipboard.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\Exe\ForStrings.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Exe\Program.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\StreamBuilder.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\Tokenizer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Exe\_.csproj">

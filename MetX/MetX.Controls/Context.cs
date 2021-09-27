@@ -112,14 +112,13 @@ namespace MetX.Controls
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
-                                    runResult.QuickScriptProcessor.OutputStringBuilder != null
-                                        ? runResult.QuickScriptProcessor.OutputStringBuilder.ToString()
-                                        : runResult.QuickScriptProcessor.Output.ToString());
+                                    runResult.QuickScriptProcessor.OutputStringBuilder.ToString());
                             }
                             else
                             {
                                 targetOutput.Title = scriptToRun.Name + " at " + DateTime.Now.ToString("G");
-                                targetOutput.TextToShow = runResult.QuickScriptProcessor.Output.ToString();
+                                targetOutput.TextToShow = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
+                                //targetOutput.TextToShow = runResult.QuickScriptProcessor.Output.ToString();
                             }
 
                             break;
