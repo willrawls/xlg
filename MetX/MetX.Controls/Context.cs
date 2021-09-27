@@ -49,7 +49,7 @@ namespace MetX.Controls
             return lastKnownPath;
         }
 
-        public Context(IGenerationHost host) : base(host)
+        public Context(IGenerationHost host = null) : base(host)
         {
         }
 
@@ -96,7 +96,7 @@ namespace MetX.Controls
                     caller.SetFocus("InputParam");
                 if (runResult.Error != null)
                     host.MessageBox.Show(runResult.Error.ToString());
-                if (!runResult.KeepGoing || runResult.QuickScriptProcessor.Output == null || runResult.QuickScriptProcessor.Output.Length <= 0)
+                if (!runResult.KeepGoing || runResult.QuickScriptProcessor?.Output == null || runResult.QuickScriptProcessor.Output.Length == 0)
                 {
                     return;
                 }

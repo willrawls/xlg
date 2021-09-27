@@ -145,9 +145,9 @@ namespace MetX.Standard.Scripts
 
         public static string FormatCSharpCode(string code)
         {
-            if (code.IsEmpty())
-                return "";
+            return code ?? "";
 
+            /* NArrage not standard (sob)
             var sb = new StringBuilder();
             using var writer = new StringWriter(sb);
             using var reader = new StringReader(code);
@@ -159,6 +159,7 @@ namespace MetX.Standard.Scripts
             cSharpWriter.Write(codeElements, writer);
             
             return sb.ToString();
+        */
         }
 
         public XlgQuickScript Clone(string name)

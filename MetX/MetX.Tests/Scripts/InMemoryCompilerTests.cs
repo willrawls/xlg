@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using ICSharpCode.TextEditor.Actions;
 using MetX.Standard.IO;
@@ -25,15 +26,14 @@ namespace MetX.Tests.Scripts
             var script = Sources.WriteStaticLineScript();
 
             var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestBuildExeSimple");
-            if (File.Exists(outputFilePath))
-            {
-                File.Delete(outputFilePath);
-            }
-
+            FileSystem.SafelyDeleteDirectory(outputFilePath);
+            
             var host = new DoNothingGenerationHost();
             ContextBase context = new Context(host);
             host.Context = context;
-            host.Context.Templates 
+
+            host.Context.Templates = new XlgQuickScriptTemplateList(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates");
+            Assert.IsTrue(host.Context.Templates.Any(t => t.Name == "TestExe"));
             
             var settings = script.BuildSettings(true, false, host);
             settings.OutputFolder = outputFilePath;

@@ -13,19 +13,15 @@ namespace MetX.Standard.IO
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
     {
-        public static bool SafeDelete(string filePath)
+        public static bool SafelyDeleteFile(string filePath)
         {
-            if (filePath.IsEmpty())
+            if (filePath.IsEmpty() || !File.Exists(filePath))
                 return true;
 
             try
             {
-                if (!File.Exists(filePath))
-                    return true;
-
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 File.Delete(filePath);
-                return true;
             }
             catch
             {
@@ -38,7 +34,30 @@ namespace MetX.Standard.IO
                     return false;
                 }
             }
-            return false;
+            return true;
+        }
+
+        public static bool SafelyDeleteDirectory(string path, bool recursive = true)
+        {
+            if (path.IsEmpty() || !Directory.Exists(path))
+                return true;
+
+            try
+            {
+                Directory.Delete(path, recursive);
+            }
+            catch
+            {
+                try
+                {
+                    Directory.Move(path, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".from.metx.safedelete." + path.LastPathToken()));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>

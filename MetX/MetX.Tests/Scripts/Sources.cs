@@ -127,7 +127,11 @@ namespace {namespaceName}
 
         public static XlgQuickScript WriteStaticLineScript()
         {
-            return new ("Write static line", WriteStaticLine);
+            return new ("Write static line", WriteStaticLine)
+            {
+                ExeTemplateName = "TestExe",
+                NativeTemplateName = "TestNative",
+            };
         }
 
     }

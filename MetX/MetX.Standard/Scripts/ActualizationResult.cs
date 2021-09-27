@@ -38,7 +38,7 @@ namespace MetX.Standard.Scripts
             if (!ActualizationSuccessful)
                 return false;
 
-            if (!FileSystem.SafeDelete(DestinationAssemblyFilePath))
+            if (!FileSystem.SafelyDeleteFile(DestinationAssemblyFilePath))
             {
                 CompileErrorText = $"Couldn't delete: {DestinationAssemblyFilePath}";
                 return false;
@@ -61,7 +61,7 @@ namespace MetX.Standard.Scripts
             if (typeOfBaseLineProcessorToCreate == null)
                 return null;
             
-            var instanceObject = Activator.CreateInstance(typeOfBaseLineProcessorToCreate);
+            var instanceObject = Activator.CreateInstance(typeOfBaseLineProcessorToCreate, Settings.Host);
 
             var instance = instanceObject as BaseLineProcessor;
             if (instance == null)

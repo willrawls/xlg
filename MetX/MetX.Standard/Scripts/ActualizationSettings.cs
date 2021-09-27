@@ -19,8 +19,8 @@ namespace MetX.Standard.Scripts
             Simulate = simulate;
             Source = scriptToRun;
             ForExecutable = forExecutable;
-            TemplateNameAsLegalFilenameWithoutExtension = Source.Name.AsFilename(); 
-            ProjectName = QuickScriptTemplate.Name ?? TemplateNameAsLegalFilenameWithoutExtension;
+            TemplateNameAsLegalFilenameWithoutExtension = Source.Name.AsFilename();
+            ProjectName = TemplateNameAsLegalFilenameWithoutExtension;
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
             var targetFolder = Path.Combine(tempFolder, "QuickScriptProcessors");

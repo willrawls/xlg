@@ -76,7 +76,7 @@ namespace MetX.Standard.Scripts
                 result.OutputFiles[asset.Item.RelativeFilePath].Value = resolvedCode;
 
                 if (!settings.Simulate)
-                    if (!FileSystem.SafeDelete(filePath))
+                    if (!FileSystem.SafelyDeleteFile(filePath))
                     {
                         result.ActualizeErrorText = $"Unable to write {asset.Key} to {filePath}";
                         return result;
@@ -110,8 +110,8 @@ namespace MetX.Standard.Scripts
                     file.CopyTo(result.Settings.OutputFolder);
                 }
 
-                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0-windows", filename);
+                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
+
             }
 
             return result;

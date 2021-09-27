@@ -73,42 +73,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="XLG.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="batfile.ico" />
-    <Content Include="Properties\arrow_down_48.png" />
-    <Content Include="Properties\circle_blue.png" />
-    <Content Include="Properties\circle_green.png" />
-    <Content Include="Properties\circle_orange.png" />
-    <Content Include="Properties\refresh_48.png" />
-    <Content Include="Properties\1421584661_4.png" />
-    <Content Include="Properties\1421584690_2.png" />
-    <Content Include="Properties\1421584694_2.png" />
-    <Content Include="Properties\1421584753_Cut.png" />
-    <Content Include="Properties\1421584808_Copy.png" />
-    <Content Include="Properties\1421584898_clipboard.png" />
-    <Content Include="Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
-    <Content Include="Properties\1421584946_file-48.png" />
-    <None Include="Properties\folder_48.png" />
-    <None Include="Properties\floppy_disk_48.png" />
-    <None Include="Properties\database_remove_48.png" />
-    <None Include="Properties\database_add_48.png" />
-    <None Include="Properties\cross_48.png" />
-    <None Include="Properties\cancel_48.png" />
-    <None Include="Properties\add_48.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
-    <PackageReference Include="NArrange" Version="0.3.5" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
 
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.10.0" />
