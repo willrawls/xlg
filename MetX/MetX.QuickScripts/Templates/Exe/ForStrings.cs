@@ -271,5 +271,20 @@ namespace //~~NameInstance~~//
                 target[i] = func(s);
             }
         }
+
+        public static string BeforeNullOrTrim(string target)
+        {
+            // 
+            //  Truncate input string at first null.
+            //  If no nulls, perform ordinary Trim.
+            // 
+            int indexOfNullChar = target.IndexOf('\0') + 1;
+
+            if(indexOfNullChar > 1)
+                return target.Substring(0, indexOfNullChar - 1);
+            if (indexOfNullChar == 1)
+                return "";
+            return target.Trim();
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace //~~NameInstance~~//
                 {
                     Console.Write("To clipboard ");
                     var clipboard = new ConsoleClipboard();
-                    clipboard.SetText(processor.OutputStringBuilder.ToString());
+                    clipboard.Set(processor.OutputStringBuilder.ToString());
                 }
                 else if(writingToConsole)
                 {

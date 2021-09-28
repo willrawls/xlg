@@ -69,8 +69,12 @@ namespace //~~NameInstance~~//
                         return true;
 
                     case "clipboard":
-                        var clipboard = new ConsoleClipboard();
-                        InputText = clipboard.GetText();
+                    {
+                        using var consoleClipboard = new ConsoleClipboard();
+                        {
+                            InputText = consoleClipboard.GetText();
+                        }
+                    }
                         break;
 
                     default:
