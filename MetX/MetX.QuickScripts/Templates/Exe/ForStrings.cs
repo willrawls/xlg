@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MetX.Standard.Library.Extensions
+namespace //~~NameInstance~~//
 {
     /// <summary>Provides simple methods for retrieving tokens from a string.
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
@@ -191,16 +191,11 @@ namespace MetX.Standard.Library.Extensions
         public static string AsFilename(this string target, string suffix = "")
         {
             if (target.IsEmpty()) return string.Empty;
-            target = target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|" }, " ");
+            target = target.Replace(new[] { ":", @"\", "/", "*", "\"", "?", "<", ">", "|", " ", "-" }, string.Empty);
             if (suffix.IsNotEmpty())
                 target += suffix;
-
             if (char.IsDigit(target[0]))
                 target = "_" + target;
-
-            while (target.Contains("  ")) 
-                target = target.Replace("  ", " ");
-
             while (target.EndsWith("."))
                 target = target.Substring(0, target.Length - 2);
             while (target.Contains(".."))
@@ -208,7 +203,7 @@ namespace MetX.Standard.Library.Extensions
             while (target.Contains("__"))
                 target = target.Replace("__", "_");
 
-            return target.ProperCase().Replace(" ", "");
+            return target;
         }
 
         public static string Left(this string target, int length)
@@ -275,6 +270,21 @@ namespace MetX.Standard.Library.Extensions
                 if (s.IsEmpty()) continue;
                 target[i] = func(s);
             }
+        }
+
+        public static string BeforeNullOrTrim(string target)
+        {
+            // 
+            //  Truncate input string at first null.
+            //  If no nulls, perform ordinary Trim.
+            // 
+            int indexOfNullChar = target.IndexOf('\0') + 1;
+
+            if(indexOfNullChar > 1)
+                return target.Substring(0, indexOfNullChar - 1);
+            if (indexOfNullChar == 1)
+                return "";
+            return target.Trim();
         }
     }
 }

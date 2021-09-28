@@ -793,10 +793,10 @@ namespace XLG.QuickScripts
                 var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
                 //var result = settings.QuickScriptTemplate.ActualizeCode(settings);
                 var result = settings.ActualizeAndCompile();
-
+                QuickScriptWorker.ViewText(Host, result.FinalDetails(), false);
                 if (!result.CompileSuccessful) return;
 
-                var location = result.DestinationAssemblyFilePath;
+                var location = result.DestinationExecutableFilePath;
                 if (location.IsEmpty()) return;
 
                 if ( MessageBoxResult.Yes == Host.MessageBox.Show(
@@ -804,16 +804,19 @@ namespace XLG.QuickScripts
                     Environment.NewLine +
                     "Would you like to run it now? (Yes to run, No to view source).", "RUN EXE OR VIEW FOLDER?", MessageBoxChoices.YesNo))
                 {
-                    Process.Start(new ProcessStartInfo("cmd.exe", $"/k \"{location}\"" )
+                    var arguments = $"/k \"{location}\"";
+                    Process.Start(new ProcessStartInfo("cmd.exe", arguments )
                     {
                         UseShellExecute = true,
                         WorkingDirectory = result.Settings.OutputFolder,
+                        Arguments = ScriptEditor.Current.AsParameters(),
+                        Verb = "runas",
                     });
                 }
                 else
                 {
-                    var outputFile = result.OutputFiles["QuickScriptProcessor.cs"];
-                    QuickScriptWorker.ViewFile(Host, outputFile.Name);
+                    var outputFile = Path.Combine(settings.OutputFolder, "QuickScriptProcessor.cs");
+                    QuickScriptWorker.ViewFile(Host, outputFile);
                 }
             }
             catch (Exception exception)

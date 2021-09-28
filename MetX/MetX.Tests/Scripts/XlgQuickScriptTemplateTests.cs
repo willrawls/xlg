@@ -62,8 +62,8 @@ namespace MetX.Tests.Scripts
             Console.WriteLine();
 
             bool compileResult = actual.Compile();
-            Assert.IsNotNull(actual.DestinationAssemblyFilePath);
-            Console.WriteLine($"\nDestinationAssemblyFilePath is:\n{actual.DestinationAssemblyFilePath}");
+            Assert.IsNotNull(actual.DestinationExecutableFilePath);
+            Console.WriteLine($"\nDestinationAssemblyFilePath is:\n{actual.DestinationExecutableFilePath}");
         }
     }
 }

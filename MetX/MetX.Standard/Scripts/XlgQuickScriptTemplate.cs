@@ -76,7 +76,7 @@ namespace MetX.Standard.Scripts
                 result.OutputFiles[asset.Item.RelativeFilePath].Value = resolvedCode;
 
                 if (!settings.Simulate)
-                    if (!FileSystem.SafeDelete(filePath))
+                    if (!FileSystem.SafelyDeleteFile(filePath))
                     {
                         result.ActualizeErrorText = $"Unable to write {asset.Key} to {filePath}";
                         return result;
@@ -92,43 +92,80 @@ namespace MetX.Standard.Scripts
 
             if (result.ActualizationSuccessful)
             {
-                // Stage support files (MetX.*.dll & .pdb)
-                var contents = FileSystem.DeepContents(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
-
-                List<XlgFile> filesToCopy = new List<XlgFile>();
-
-                contents.ForEachFile(func: file =>
-                {
-                    if (file.Extension.ToLower() is ".pdb" or ".dll" 
-                        && file.Name.ToLower().Contains("metx.")) 
-                        filesToCopy.Add(file);
-                    return true;
-                });
-
-                foreach (var file in filesToCopy)
-                {
-                    file.CopyTo(result.Settings.OutputFolder);
-                }
+                StageSupportFiles(result);
 
                 var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0-windows", filename);
+                result.DestinationExecutableFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
+
             }
 
             return result;
         }
 
+        public static void StageSupportFiles(ActualizationResult result)
+        {
+            return; // Currently unneeded
+
+            // Stage support files (MetX.*.dll & .pdb)
+            var contents = FileSystem.DeepContents(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
+
+            List<XlgFile> filesToCopy = new List<XlgFile>();
+
+            contents.ForEachFile(func: file =>
+            {
+                if (file.Extension.ToLower() is ".pdb" or ".dll"
+                    && file.Name.ToLower().Contains("metx."))
+                    filesToCopy.Add(file);
+                return true;
+            });
+
+            foreach (var file in filesToCopy)
+            {
+                file.CopyTo(result.Settings.OutputFolder);
+            }
+        }
+
         private void SetupAnswers(ActualizationResult result)
         {
-            result.Settings.Answers["DestinationFilePath"].Value = result.Settings.Source.DestinationFilePath;
-            result.Settings.Answers["InputFilePath"].Value = result.Settings.Source.InputFilePath;
+            var sourceInputFilePath = result.Settings.Script.InputFilePath;
+            switch (result.Settings.Script.Input.ToLower())
+            {
+                case "console":
+                case "clipboard":
+                    sourceInputFilePath = result.Settings.Script.Input;
+                    break;
+            }
+            result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath;
+
+            var sourceDestinationFilePath = result.Settings.Script.DestinationFilePath;
+            switch (result.Settings.Script.Destination)
+            {
+                case QuickScriptDestination.Clipboard:
+                    sourceDestinationFilePath = "clipboard";
+                    break;
+                case QuickScriptDestination.Notepad:
+                    sourceDestinationFilePath = "open";
+                    break;
+                case QuickScriptDestination.TextBox:
+                    sourceDestinationFilePath = "console";
+                    break;
+            }
+            result.Settings.Answers["DestinationFilePath"].Value = sourceDestinationFilePath;
+
+            result.Settings.Answers["Script Name"].Value = result.Settings.Script.Name;
+            result.Settings.Answers["Script Id"].Value = result.Settings.Script.Id.ToString("B");
+            result.Settings.Answers["Slice At"].Value = result.Settings.Script.SliceAt;
+            result.Settings.Answers["Dice At"].Value = result.Settings.Script.DiceAt;
+            result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
+            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+
             result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
-            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+
             result.Settings.Answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("D");
-            result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
 
             var generationInstance = result.Settings.GeneratedAreas;
             generationInstance.ParseAndBuildAreas();
@@ -136,7 +173,7 @@ namespace MetX.Standard.Scripts
             foreach (var area in generationInstance)
             {
                 var item = result.Settings.Answers[area.Name];
-                if(item.Value.IsEmpty())
+                if (item.Value.IsEmpty())
                 {
                     item.Value = area.ToString();
                 }

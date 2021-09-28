@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -32,26 +33,6 @@ namespace MetX.Controls
                 }
             }
 
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output Folder ]-----");
-            sb.AppendLine($"{result.Settings.OutputFolder}");
-
-            sb.AppendLine();
-            sb.AppendLine("-----[ Compilation failure ]-----");
-            sb.AppendLine();
-            sb.AppendLine(result.CompileErrorText);
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output from dotnet.exe ]-----");
-            sb.AppendLine();
-            sb.AppendLine(result.OutputText);
-            sb.AppendLine();
-
-            var answer = settings.Host.MessageBox.Show(sb.ToString(), "OPEN OUTPUT FOLDER?", MessageBoxChoices.YesNo);
-            if (answer == MessageBoxResult.Yes)
-            {
-                QuickScriptWorker.ViewFolder(result.Settings.OutputFolder, settings.Host);
-            }
             return result;
         }
 

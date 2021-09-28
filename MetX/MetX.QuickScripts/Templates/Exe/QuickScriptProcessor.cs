@@ -5,14 +5,6 @@ using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
-
-using MetX.Standard;
-using MetX.Standard.IO;
-using MetX.Standard.Data;
-using MetX.Standard.Scripts;
-using MetX.Standard.Library;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Pipelines;
 using Microsoft.CSharp;
 
 //~~Usings~~//
@@ -69,7 +61,6 @@ namespace //~~NameInstance~~//
             {
                 if (string.IsNullOrEmpty(InputFilePath)) InputFilePath = "none";
 
-                Console.WriteLine("Input: " + InputFilePath);
                 switch (InputFilePath.ToLower())
                 {
                     case "none": // This is the equivalent of reading an empty file
@@ -78,16 +69,16 @@ namespace //~~NameInstance~~//
                         return true;
 
                     case "clipboard":
-                        var clipboard = new ConsoleClipboard();
-                        InputText = clipboard.GetText();
+                    {
+                        using var consoleClipboard = new ConsoleClipboard();
+                        {
+                            InputText = consoleClipboard.GetText();
+                        }
+                    }
                         break;
 
                     default:
-                        if (InputFilePath.StartsWith("http"))
-                        {
-                            InputText = MetX.Standard.IO.Http.GetUrl(InputFilePath);
-                        }
-                        else if (!File.Exists(InputFilePath))
+                        if (!File.Exists(InputFilePath))
                         {
                             Console.WriteLine("Input file missing: " + InputFilePath);
                             return false;
@@ -121,36 +112,6 @@ namespace //~~NameInstance~~//
             LineCount = Lines.Count;
 
             return true;
-        }
-
-        public static string Ask(string title, string promptText, string defaultValue)
-        {
-            string value = defaultValue;
-            return Ask(title, promptText, ref value) == MessageBoxResult.Cancel
-                ? null
-                : value;
-        }
-
-        public static string Ask(string promptText, string defaultValue = "")
-        {
-            string value = defaultValue;
-            return Ask("ENTER VALUE", promptText, ref value) == MessageBoxResult.Cancel
-                ? null
-                : value;
-        }
-
-        public static MessageBoxResult Ask(string title, string promptText, ref string value)
-        {
-            Console.WriteLine("---------------------");
-            Console.WriteLine(title);
-            Console.WriteLine();
-            Console.WriteLine(promptText);
-
-            value = Console.ReadLine().AsString().Trim();
-            MetX.Standard.Pipelines.MessageBoxResult messageBoxResult = value.IsNotEmpty() 
-                ? MetX.Standard.Pipelines.MessageBoxResult.OK 
-                : MetX.Standard.Pipelines.MessageBoxResult.Cancel;
-            return messageBoxResult;
         }
     }
 }

@@ -17,10 +17,10 @@ namespace MetX.Standard.Scripts
             Host = host;
             QuickScriptTemplate = quickScriptTemplate ?? throw new ArgumentNullException(nameof(quickScriptTemplate));
             Simulate = simulate;
-            Source = scriptToRun;
+            Script = scriptToRun;
             ForExecutable = forExecutable;
-            TemplateNameAsLegalFilenameWithoutExtension = Source.Name.AsFilename(); 
-            ProjectName = QuickScriptTemplate.Name ?? TemplateNameAsLegalFilenameWithoutExtension;
+            TemplateNameAsLegalFilenameWithoutExtension = Script.Name.AsFilename();
+            ProjectName = TemplateNameAsLegalFilenameWithoutExtension;
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
             var targetFolder = Path.Combine(tempFolder, "QuickScriptProcessors");
@@ -41,7 +41,7 @@ namespace MetX.Standard.Scripts
         public AssocArray Answers { get; set; } = new AssocArray();
         public string TemplateNameAsLegalFilenameWithoutExtension { get; set; } = Guid.NewGuid().ToString("N");
 
-        public XlgQuickScript Source { get; set; }
+        public XlgQuickScript Script { get; set; }
         public bool ForExecutable { get; set; }
         public string OutputFolder { get; set; }
         public GenInstance GeneratedAreas { get; set; }

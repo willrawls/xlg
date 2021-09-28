@@ -145,9 +145,9 @@ namespace MetX.Standard.Scripts
 
         public static string FormatCSharpCode(string code)
         {
-            if (code.IsEmpty())
-                return "";
+            return code ?? "";
 
+            /* NArrage not standard (sob)
             var sb = new StringBuilder();
             using var writer = new StringWriter(sb);
             using var reader = new StringReader(code);
@@ -159,6 +159,7 @@ namespace MetX.Standard.Scripts
             cSharpWriter.Write(codeElements, writer);
             
             return sb.ToString();
+        */
         }
 
         public XlgQuickScript Clone(string name)
@@ -341,7 +342,46 @@ namespace MetX.Standard.Scripts
             
             return expanded;
         }
+
         
+        public string AsParameters()
+        {
+            string source;
+            switch (Input.ToLower())
+            {
+                case "console":
+                case "clipboard":
+                    source = $"{Input}";
+                    break;
+                default:
+                    source = $"\"{InputFilePath}\"";
+                    break;
+            }
+
+            string args2 = "";
+            string destination;
+            switch (Destination)
+            {
+                case QuickScriptDestination.Clipboard:
+                    destination = "clipboard";
+                    break;
+                case QuickScriptDestination.Notepad:
+                    destination = "\"" + Path.Combine(Environment.GetEnvironmentVariable("TEMP"), $"quickScriptOutput_{Guid.NewGuid():N}.txt") + "\"";
+                    args2 = " open";
+                    break;
+                case QuickScriptDestination.TextBox:
+                    destination = "console";
+                    break;
+                default:
+                    destination = $"\"{DestinationFilePath}\"";
+                    args2 = " open";            
+                    break;
+            }
+            
+            string parameters = $"{source} {destination}{args2}";
+            return parameters;
+        }
+
         public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
         {
             if (target.IsEmpty())
@@ -356,5 +396,6 @@ namespace MetX.Standard.Scripts
                 result += "\n";
             return result;
         }
+
     }
 }

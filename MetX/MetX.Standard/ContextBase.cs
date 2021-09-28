@@ -10,7 +10,7 @@ namespace MetX.Standard
         public static ContextBase Default { get; set; }
 
         public XlgQuickScriptFile Scripts;
-        public XlgQuickScriptTemplateList Templates = new(Environment.CurrentDirectory);
+        public XlgQuickScriptTemplateList Templates = new(Environment.CurrentDirectory, "Templates");
         public IGenerationHost Host;
 
         public ContextBase(IGenerationHost host)
