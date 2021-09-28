@@ -94,7 +94,7 @@ namespace MetX.Standard.Scripts
             {
                 StageSupportFiles(result);
 
-                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");            
+                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
                 result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
 
             }
@@ -128,11 +128,30 @@ namespace MetX.Standard.Scripts
         private void SetupAnswers(ActualizationResult result)
         {
             var sourceInputFilePath = result.Settings.Source.InputFilePath;
+            switch (result.Settings.Source.Input.ToLower())
+            {
+                case "console":
+                case "clipboard":
+                    sourceInputFilePath = result.Settings.Source.Input;
+                    break;
+            }
             result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath;
-            
+
             var sourceDestinationFilePath = result.Settings.Source.DestinationFilePath;
+            switch (result.Settings.Source.Destination)
+            {
+                case QuickScriptDestination.Clipboard:
+                    sourceDestinationFilePath = "clipboard";
+                    break;
+                case QuickScriptDestination.Notepad:
+                    sourceDestinationFilePath = "open";
+                    break;
+                case QuickScriptDestination.TextBox:
+                    sourceDestinationFilePath = "console";
+                    break;
+            }
             result.Settings.Answers["DestinationFilePath"].Value = sourceDestinationFilePath;
-            
+
             result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
@@ -148,7 +167,7 @@ namespace MetX.Standard.Scripts
             foreach (var area in generationInstance)
             {
                 var item = result.Settings.Answers[area.Name];
-                if(item.Value.IsEmpty())
+                if (item.Value.IsEmpty())
                 {
                     item.Value = area.ToString();
                 }

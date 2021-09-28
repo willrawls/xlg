@@ -311,7 +311,7 @@ namespace MetX.Controls
 */      
         private void ShowThisCodeCompletion()
         {
-            ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
+            ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestinationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
         }
 
         private void TextAreaOnKeyUp(object sender, KeyEventArgs e)
