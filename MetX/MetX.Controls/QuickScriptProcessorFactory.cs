@@ -33,27 +33,6 @@ namespace MetX.Controls
                 }
             }
 
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output Folder ]-----");
-            sb.AppendLine($"{result.Settings.OutputFolder}");
-
-            sb.AppendLine();
-            sb.AppendLine("-----[ Compilation failure ]-----");
-            sb.AppendLine();
-            sb.AppendLine(result.CompileErrorText);
-            sb.AppendLine();
-            sb.AppendLine("-----[ Output from dotnet.exe ]-----");
-            sb.AppendLine();
-            var nonWarningLines = result.OutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
-            sb.AppendLine(string.Join("\n", nonWarningLines));
-            sb.AppendLine();
-
-            var answer = settings.Host.MessageBox.Show(sb.ToString(), "OPEN OUTPUT FOLDER?", MessageBoxChoices.YesNo);
-            if (answer == MessageBoxResult.Yes)
-            {
-                QuickScriptWorker.ViewFolder(result.Settings.OutputFolder, settings.Host);
-            }
             return result;
         }
 

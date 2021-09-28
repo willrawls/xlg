@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,10 +54,10 @@ namespace MetX.Tests.Scripts
 
         private static void AssertConsoleExecutableOutputsProperly(ActualizationResult result, string expected)
         {
-            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationAssemblyFilePath, null, out var errorOutput, result.Settings.OutputFolder);
+            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, null, out var errorOutput, result.Settings.OutputFolder, 15, ProcessWindowStyle.Hidden);
 
             Console.WriteLine();
-            Console.WriteLine(result.DestinationAssemblyFilePath);
+            Console.WriteLine(result.DestinationExecutableFilePath);
 
             if (gatherResult.IsNotEmpty())
             {
@@ -89,8 +90,8 @@ namespace MetX.Tests.Scripts
             var settings = QuickScriptProcessorFactory.BuildSettings(Sources.FirstScriptScript(), true, true, new DoNothingGenerationHost());
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
-            Assert.IsNotNull(result.DestinationAssemblyFilePath);
-            Assert.IsTrue(File.Exists(result.DestinationAssemblyFilePath));
+            Assert.IsNotNull(result.DestinationExecutableFilePath);
+            Assert.IsTrue(File.Exists(result.DestinationExecutableFilePath));
 
             AssertConsoleExecutableOutputsProperly(result, "First");
         }
@@ -111,7 +112,7 @@ namespace MetX.Tests.Scripts
                 new DoNothingGenerationHost());
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
-            Assert.IsTrue(File.Exists(result.DestinationAssemblyFilePath));
+            Assert.IsTrue(File.Exists(result.DestinationExecutableFilePath));
             AssertConsoleExecutableOutputsProperly(result, "Something");
         }
     }

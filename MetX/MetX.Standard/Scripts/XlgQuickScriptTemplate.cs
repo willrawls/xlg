@@ -95,7 +95,7 @@ namespace MetX.Standard.Scripts
                 StageSupportFiles(result);
 
                 var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationAssemblyFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
+                result.DestinationExecutableFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
 
             }
 
@@ -127,18 +127,18 @@ namespace MetX.Standard.Scripts
 
         private void SetupAnswers(ActualizationResult result)
         {
-            var sourceInputFilePath = result.Settings.Source.InputFilePath;
-            switch (result.Settings.Source.Input.ToLower())
+            var sourceInputFilePath = result.Settings.Script.InputFilePath;
+            switch (result.Settings.Script.Input.ToLower())
             {
                 case "console":
                 case "clipboard":
-                    sourceInputFilePath = result.Settings.Source.Input;
+                    sourceInputFilePath = result.Settings.Script.Input;
                     break;
             }
             result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath;
 
-            var sourceDestinationFilePath = result.Settings.Source.DestinationFilePath;
-            switch (result.Settings.Source.Destination)
+            var sourceDestinationFilePath = result.Settings.Script.DestinationFilePath;
+            switch (result.Settings.Script.Destination)
             {
                 case QuickScriptDestination.Clipboard:
                     sourceDestinationFilePath = "clipboard";
@@ -152,14 +152,20 @@ namespace MetX.Standard.Scripts
             }
             result.Settings.Answers["DestinationFilePath"].Value = sourceDestinationFilePath;
 
+            result.Settings.Answers["Script Name"].Value = result.Settings.Script.Name;
+            result.Settings.Answers["Script Id"].Value = result.Settings.Script.Id.ToString("B");
+            result.Settings.Answers["Slice At"].Value = result.Settings.Script.SliceAt;
+            result.Settings.Answers["Dice At"].Value = result.Settings.Script.DiceAt;
+            result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
+            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+
             result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
-            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+
             result.Settings.Answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("D");
-            result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
 
             var generationInstance = result.Settings.GeneratedAreas;
             generationInstance.ParseAndBuildAreas();

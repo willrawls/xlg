@@ -1,5 +1,7 @@
 // ReSharper disable UnusedParameter.Local
 
+using System.Linq;
+using System.Text;
 using MetX.Standard;
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
@@ -394,15 +396,16 @@ namespace MetX.Controls
                     return;
 
                 UpdateScriptFromForm();
-                var settings = QuickScriptProcessorFactory.BuildSettings(CurrentScript, true, false, Host);
+                var settings = CurrentScript.BuildSettings(true, false, Host);
                 var result = settings.ActualizeAndCompile();
-                if (result == null || !result.CompileSuccessful) return;
-
+                QuickScriptWorker.ViewText(Host, result.FinalDetails(), false);
+                if (!result.CompileSuccessful) return;
+                
                 MessageBoxResult messageBoxResult = Host.MessageBox.Show(
                     $@"
 Executable generated successfully in: 
 
-    {result.DestinationAssemblyFilePath}
+    {result.DestinationExecutableFilePath}
 
 Would you like to run it now? 
   (Yes to run, No to open the output folder, Cancel to do nothing)", "RUN EXE?", MessageBoxChoices.YesNoCancel);
@@ -410,7 +413,7 @@ Would you like to run it now?
                 switch (messageBoxResult)
                 {
                     case MessageBoxResult.Yes:
-                        Process.Start(new ProcessStartInfo(result.DestinationAssemblyFilePath)
+                        Process.Start(new ProcessStartInfo(result.DestinationExecutableFilePath)
                         {
                             UseShellExecute = true,
                             WorkingDirectory = result.Settings.OutputFolder,

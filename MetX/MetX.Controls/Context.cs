@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,6 +12,8 @@ using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows.Library;
 using MetX.Standard.Interfaces;
+using MetX.Standard.IO;
+using MetX.Standard.Library.Extensions;
 
 #pragma warning disable 414
 namespace MetX.Controls
@@ -94,12 +97,13 @@ namespace MetX.Controls
                 var runResult = Run(caller, host.Context, scriptToRun, host);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
-                if (runResult.Error != null)
-                    host.MessageBox.Show(runResult.Error.ToString());
-                if (!runResult.KeepGoing || runResult.QuickScriptProcessor?.Output == null || runResult.QuickScriptProcessor.Output.Length == 0)
-                {
+                //if(runResult.GatheredOutput.IsNotEmpty())
+                //    QuickScriptWorker.ViewText(host, runResult.GatheredOutput, false);
+                if (runResult.ErrorOutput.IsNotEmpty()) 
+                    host.MessageBox.Show(runResult.ErrorOutput);
+
+                if (!runResult.KeepGoing || runResult.GatheredOutput.IsEmpty())
                     return;
-                }
 
                 try
                 {
@@ -112,38 +116,40 @@ namespace MetX.Controls
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
-                                    runResult.QuickScriptProcessor.OutputStringBuilder.ToString());
+                                    runResult.GatheredOutput);
                             }
                             else
                             {
                                 targetOutput.Title = scriptToRun.Name + " at " + DateTime.Now.ToString("G");
-                                targetOutput.TextToShow = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
+                                targetOutput.TextToShow = runResult.GatheredOutput;
                                 //targetOutput.TextToShow = runResult.QuickScriptProcessor.Output.ToString();
                             }
 
                             break;
 
                         case QuickScriptDestination.Clipboard:
-                        {
+                            // Nothing to do. The executable did this
+                            /* 
                             Clipboard.Clear();
                             var textForClipboard = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
                             Clipboard.SetText(textForClipboard);
+                            */
                             break;
-                        }
+                        
                         case QuickScriptDestination.Notepad:
-
-                            // QuickScriptWorker.ViewFileInNotepad(scriptToRun.DestinationFilePath);
+                            // Nothing to do. The executable did this
+                            /*
                             QuickScriptWorker.ViewFile(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
-
-                            // QuickScriptWorker.ViewTextInNotepad(runResult.QuickScriptProcessor.Output.ToString(), false);
+                            */
                             break;
 
                         case QuickScriptDestination.File:
+                            // Nothing to do. The executable did this
+                            /*
                             runResult.QuickScriptProcessor.Output?.Finish();
                             runResult.QuickScriptProcessor.Output = null;
                             QuickScriptWorker.ViewFile(caller.Host, scriptToRun.DestinationFilePath);
-
-                            // File.WriteAllText(scriptToRun.DestinationFilePath, runResult.QuickScriptProcessor.Output.ToString());
+                            */
                             break;
                     }
                 }
@@ -165,125 +171,32 @@ namespace MetX.Controls
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host)
         {
-            var settings = QuickScriptProcessorFactory.BuildSettings(scriptToRun, false, false, host);
-            var actualizeResult = QuickScriptProcessorFactory.ActualizeAndCompile(settings);
-            if (!actualizeResult.CompileSuccessful) return new RunResult
+            var settings = scriptToRun.BuildSettings(true, false, host);
+            var result = settings.ActualizeAndCompile();
+
+            if (!result.CompileSuccessful)
             {
-                ActualizationResult = actualizeResult,
-                Error = new Exception(actualizeResult.CompileErrorText),
-            };
+                QuickScriptWorker.ViewText(host, result.FinalDetails(), false);
+                return new RunResult
+                {
+                    ActualizationResult = result,
+                    ErrorOutput = result.FinalDetails(),
+                };
+            }
+
+            string parameters = result.Settings.Script.AsParameters();
 
             var runResult = new RunResult
             {
-                ActualizationResult = actualizeResult,
-                QuickScriptProcessor = actualizeResult.AsBaseLineProcessor(),
+                ActualizationResult = result,
+                GatheredOutput = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out var errorOutput, Environment.GetEnvironmentVariable("TEMP"), 60, ProcessWindowStyle.Hidden),
                 KeepGoing = true,
+                ErrorOutput = errorOutput,
             };
-            if (runResult.QuickScriptProcessor == null)
+            if (runResult.ErrorOutput.IsNotEmpty())
             {
                 runResult.KeepGoing = false;
                 return runResult;
-            }
-
-            runResult.QuickScriptProcessor.Host = caller.Window.Host;
-            var inputResult = runResult.QuickScriptProcessor.ReadInput(scriptToRun.Input);
-            switch (inputResult)
-            {
-                case null:
-                    runResult.KeepGoing = false;
-                    return runResult;
-
-                case false:
-                    return runResult;
-
-                // True keep going
-            }
-
-            var outputSetupCorrectly = runResult.QuickScriptProcessor.SetupOutput(scriptToRun.Destination, ref runResult.QuickScriptProcessor.DestinationFilePath);
-            if (!outputSetupCorrectly)
-            {
-                if(runResult.Error == null) 
-                    runResult.Error = new Exception("Output could not be set up correctly. Locked file?");
-                return runResult;
-            }
-
-            // Start
-            try
-            {
-                if (!runResult.QuickScriptProcessor.Start())
-                {
-                    runResult.StartReturnedFalse = true;
-                    caller.Progress();
-                    return runResult;
-                }
-            }
-            catch (Exception ex)
-            {
-                runResult.Error = new Exception("Error running Start:" + Environment.NewLine + ex);
-                runResult.KeepGoing = false;
-                caller.Progress();
-                return runResult;
-            }
-
-            // Process each line
-            var index = 0;
-            do
-            {
-                var currLine = runResult.QuickScriptProcessor.InputStream.ReadLine();
-                if (string.IsNullOrEmpty(currLine))
-                {
-                    continue;
-                }
-
-                try
-                {
-                    if (runResult.QuickScriptProcessor.ProcessLine(currLine, index))
-                    {
-                        if (++index % 10 == 0 || index < 10)
-                        {
-                            caller.Progress(index);
-                        }
-
-                        continue;
-                    }
-
-                    runResult.ProcessLineReturnedFalse = true;
-                    caller.Progress();
-                    return runResult;
-                }
-                catch (Exception ex)
-                {
-                    var answer =
-                        host.MessageBox.Show("Error processing line " + (index + 1) + ":" + Environment.NewLine +
-                                             currLine + Environment.NewLine +
-                                             Environment.NewLine +
-                                             ex, "CONTINUE PROCESSING", MessageBoxChoices.YesNo);
-                    if (answer != MessageBoxResult.No)
-                    {
-                        continue;
-                    }
-
-                    runResult.Error =
-                        new Exception(
-                            "Error processing line " + (index + 1) + ":" + Environment.NewLine + currLine, ex);
-                    caller.Progress();
-                    return runResult;
-                }
-            }
-            while (!runResult.QuickScriptProcessor.InputStream.EndOfStream);
-
-            try
-            {
-                if (!runResult.QuickScriptProcessor.Finish())
-                {
-                    runResult.FinishReturnedFalse = true;
-                    caller.Progress();
-                    return runResult;
-                }
-            }
-            catch (Exception ex)
-            {
-                runResult.Error = new Exception("Error running Finish:" + Environment.NewLine + ex);
             }
 
             runResult.KeepGoing = true;

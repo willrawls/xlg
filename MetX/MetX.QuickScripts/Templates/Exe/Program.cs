@@ -11,6 +11,12 @@ using Microsoft.CSharp;
 
 namespace //~~NameInstance~~//
 {
+/*
+    Script name: //~~Script name~~//
+    Script Id:   //~~Script Id~~//
+    Generated:   //~~Generated At~~//
+    By:          //~~UserName~~//
+*/            
     public static class Program
     {
         [STAThread()] // Needed to access clipboard
@@ -19,7 +25,6 @@ namespace //~~NameInstance~~//
             try
             {
                 QuickScriptProcessor processor = new QuickScriptProcessor();
-
                 processor.InputFilePath = @"//~~InputFilePath~~//";
                 processor.DestinationFilePath = @"//~~DestinationFilePath~~//";
 
@@ -31,7 +36,7 @@ namespace //~~NameInstance~~//
                 if(!writingToConsole)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("-----[ Exception Analysis 7 ]-----");
+                    Console.WriteLine("-----[ //~~Script Name~~// ]-----");
                     Console.WriteLine();
                     Console.WriteLine("Input:    " + processor.InputFilePath);
                     Console.WriteLine("Output:   " + processor.DestinationFilePath);

@@ -20,7 +20,7 @@ namespace MetX.Standard.Scripts
         public StreamBuilder Output;
         public StringBuilder OutputStringBuilder;
 
-        public BaseLineProcessor(IGenerationHost host = null)
+        protected BaseLineProcessor(IGenerationHost host)
         {
             Host = host;
         }
