@@ -6,34 +6,36 @@ using MetX.Standard.Generators;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-class Program
+namespace MetX.Console.Research
 {
-    private static Assembly SystemRuntime = Assembly.Load(new AssemblyName("System.Runtime"));
- 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void ExecuteInMemoryAssembly(Compilation compilation, int i)
+    public class Program
     {
-        var context = new CollectibleAssemblyLoadContext();
+        public static Assembly SystemRuntime = Assembly.Load(new AssemblyName("System.Runtime"));
  
-        using (var ms = new MemoryStream())
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void ExecuteInMemoryAssembly(Compilation compilation, int i)
         {
-            var cr = compilation.Emit(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            var assembly = context.LoadFromStream(ms);
+            var context = new CollectibleAssemblyLoadContext();
  
-            var type = assembly.GetType("Greeter");
-            var greetMethod = type.GetMethod("Hello");
+            using (var ms = new MemoryStream())
+            {
+                var cr = compilation.Emit(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+                var assembly = context.LoadFromStream(ms);
  
-            var instance = Activator.CreateInstance(type);
-            var result = greetMethod.Invoke(instance, new object[] { i });
+                var type = assembly.GetType("Greeter");
+                var greetMethod = type.GetMethod("Hello");
+ 
+                var instance = Activator.CreateInstance(type);
+                var result = greetMethod.Invoke(instance, new object[] { i });
+            }
+ 
+            context.Unload();
         }
- 
-        context.Unload();
-    }
- 
-    static void Main(string[] args)
-    {
-        var compilation = CSharpCompilation.Create("DynamicAssembly", new[] { CSharpSyntaxTree.ParseText(@"
+
+        public static void Main(string[] args)
+        {
+            var compilation = CSharpCompilation.Create("DynamicAssembly", new[] { CSharpSyntaxTree.ParseText(@"
         public class Greeter
         {
             public void Hello(int iteration)
@@ -41,22 +43,23 @@ class Program
                 System.Console.WriteLine($""Hello in memory {iteration}!"");
             }
         }") },
-        new[]
-        {
-            MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(Console).GetTypeInfo().Assembly.Location),
-            MetadataReference.CreateFromFile(SystemRuntime.Location),
-        },
-        new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+                new[]
+                {
+                    MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(System.Console).GetTypeInfo().Assembly.Location),
+                    MetadataReference.CreateFromFile(SystemRuntime.Location),
+                },
+                new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
  
-        for (var i = 0; i < 3000; i++)
-        {
-            ExecuteInMemoryAssembly(compilation, i);
+            for (var i = 0; i < 3000; i++)
+            {
+                ExecuteInMemoryAssembly(compilation, i);
+            }
+ 
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+ 
+            System.Console.ReadKey();
         }
- 
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
- 
-        Console.ReadKey();
     }
 }

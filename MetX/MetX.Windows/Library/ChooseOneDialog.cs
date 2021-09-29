@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library

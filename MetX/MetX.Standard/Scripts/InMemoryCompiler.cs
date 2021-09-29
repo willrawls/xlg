@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit; //using System.DirectoryServices;
@@ -63,6 +64,7 @@ namespace MetX.Standard.Scripts
                 GetReference(typeof(Console)),
                 GetReference(typeof(GCSettings)),
                 GetReference(typeof(InMemoryCompiler<TResultType>)),
+                GetReference(typeof(StreamBuilder)),
                 //GetReference(typeof(System.Windows.Forms.Application)),
                 GetReference(typeof(System.IO.File)),
                 GetReference(typeof(System.Diagnostics.Process)),

@@ -415,7 +415,7 @@ namespace XLG.Pipeliner
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 20);
             this.label2.TabIndex = 1;
-            this.label2.Text = "XSL Template";
+            this.label2.Text = "XSL TemplateName";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textAppXlgXsl

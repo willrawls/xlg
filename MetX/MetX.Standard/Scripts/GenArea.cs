@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Scripts
 {
@@ -21,6 +22,11 @@ namespace MetX.Standard.Scripts
             Name = name;
             Indent = 12;
             Lines = new List<string>();
+        }
+
+        public override string ToString()
+        {
+            return Lines.IsEmpty() ? "" : string.Join("\n", Lines);
         }
     }
 }

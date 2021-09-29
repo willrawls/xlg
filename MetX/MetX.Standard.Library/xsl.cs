@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedType.Global
 namespace MetX.Standard.Library

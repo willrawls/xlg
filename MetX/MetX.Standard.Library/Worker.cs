@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 

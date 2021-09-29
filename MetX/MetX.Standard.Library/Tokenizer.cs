@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 
@@ -238,6 +239,49 @@ namespace MetX.Standard.Library
                 return string.Empty;
             var leftPart = TokenAt(target, 2, leftDelimiter, compare);
             return TokenAt(leftPart, 1, rightDelimiter, compare);
+        }
+
+
+        /// <summary>
+        /// Given a string with a number of tokens with different left and right delimiters, return a List of just the tokens between every
+        /// left delimiter and right delimiter
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="leftDelimiter"></param>
+        /// <param name="rightDelimiter"></param>
+        /// <param name="compare"></param>
+        /// <returns></returns>
+        public static List<string> EveryTokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(target))
+                return new List<string>();
+
+            var ignoreCase = compare
+                is StringComparison.InvariantCultureIgnoreCase
+                or StringComparison.CurrentCultureIgnoreCase
+                or StringComparison.OrdinalIgnoreCase;
+
+            if (leftDelimiter == rightDelimiter)
+            {
+                return ignoreCase 
+                    ? target.AllTokensIgnoreCase(leftDelimiter) 
+                    : target.AllTokens(leftDelimiter);
+            }
+
+            var parts = ignoreCase
+                ? target.AllTokensIgnoreCase(leftDelimiter)
+                : target.AllTokens(leftDelimiter);
+
+            if (parts == null || parts.Count == 0)
+                return parts;
+
+            var names = parts.Skip(1)
+                .Where(part => part
+                    .Contains(rightDelimiter))
+                .Select(part => part
+                    .TokenAt(1, rightDelimiter))
+                .ToList();
+            return names;
         }
 
         public static IEnumerable<string> Splice(this string target, string leftDelimiter, string rightDelimiter)

@@ -2,10 +2,12 @@
 using System.Diagnostics;
 using System.Drawing;
 using ICSharpCode.TextEditor.Document;
+using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Controls
 {
-    /// <summary>This class finds occurrances of a search string in a text 
+    /// <summary>This class finds occurrences of a search string in a text 
     /// editor's IDocument... it's like Find box without a GUI.</summary>
     public class TextEditorSearcher : IDisposable
     {

@@ -1,7 +1,11 @@
 // ReSharper disable UnusedParameter.Local
 
+using System.Linq;
+using System.Text;
+using MetX.Standard;
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
 
@@ -109,7 +113,7 @@ namespace MetX.Controls
             return lastKnownPath;
         }
 
-        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
+        public void DisplayExpandedQuickScriptSourceInNotepad()
         {
             try
             {
@@ -117,114 +121,23 @@ namespace MetX.Controls
                 {
                     return;
                 }
-
                 UpdateScriptFromForm();
-                var source = CurrentScript.ToCSharp(independent);
+
+                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var result = settings.QuickScriptTemplate.ActualizeCode(settings);
+
+                var source = result.OutputFiles["QuickScriptProcessor"].Value;
                 if (!string.IsNullOrEmpty(source))
                 {
-                    QuickScriptWorker.ViewTextInNotepad(Host, source, true);
+                    QuickScriptWorker.ViewText(Host, source, true);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                Host.MessageBox.Show(e.ToString());
             }
         }
 
-        public string GenerateIndependentQuickScriptExe(string templateName)
-        {
-            if (InvokeRequired)
-            {
-                return (string)Invoke(new Func<string, string>(GenerateIndependentQuickScriptExe), templateName);
-            }
-
-            if (Context.Templates.Count == 0 ||
-                string.IsNullOrEmpty(Context.Templates[templateName].Views["Exe"]))
-            {
-                MessageBox.Show(this, "Quick script template 'Exe' missing for: " + templateName);
-                return null;
-            }
-
-            var source = CurrentScript.ToCSharp(true);
-            var additionalReferences = Context.DefaultTypesForCompiler();
-            var compilerResults = XlgQuickScript.CompileSource(source, true, additionalReferences, null, null);
-
-            if (compilerResults.Failures != null && compilerResults.Failures.Length <= 0)
-            {
-                var assembly = compilerResults.CompiledAssembly;
-
-                var parentDestination = CurrentScript.DestinationFilePath.TokensBeforeLast(@"\");
-
-                if (string.IsNullOrEmpty(parentDestination)
-                    && !string.IsNullOrEmpty(CurrentScript.InputFilePath)
-                    && CurrentScript.Input != "Web Address")
-                {
-                    parentDestination = CurrentScript.InputFilePath.TokensBeforeLast(@"\");
-                }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                {
-                    parentDestination = Context.Scripts.FilePath.TokensBeforeLast(@"\");
-                }
-
-                if (string.IsNullOrEmpty(parentDestination))
-                {
-                    if (!ReferenceEquals(assembly, null)) 
-                        parentDestination = assembly.Location.TokensBeforeLast(@"\");
-                }
-
-                if (!Directory.Exists(parentDestination))
-                {
-                    if (!ReferenceEquals(assembly, null)) 
-                        return assembly.Location;
-                }
-
-                if (!ReferenceEquals(assembly, null))
-                {
-                    var metXDllPathSource = Path.Combine(assembly.Location.TokensBeforeLast(@"\"), "MetX.dll");
-
-                    parentDestination = Path.Combine(parentDestination, "bin");
-                    var metXDllPathDest = Path.Combine(parentDestination, "MetX.dll");
-
-                    var exeFilePath = Path.Combine(parentDestination, CurrentScript.Name.AsFilename()) + ".exe";
-                    var csFilePath = exeFilePath.Replace(".exe", ".cs");
-
-                    Directory.CreateDirectory(parentDestination);
-
-                    if (File.Exists(exeFilePath))
-                    {
-                        File.Delete(exeFilePath);
-                    }
-
-                    if (File.Exists(csFilePath))
-                    {
-                        File.Delete(csFilePath);
-                    }
-
-                    File.Copy(assembly.Location, exeFilePath);
-                    if (!File.Exists(metXDllPathDest))
-                    {
-                        File.Copy(metXDllPathSource, metXDllPathDest);
-                    }
-
-                    File.WriteAllText(csFilePath, source);
-                    return exeFilePath;
-                }
-            }
-
-            var lines = new List<string>(source.LineList());
-            var errorOutput = compilerResults.Failures.ForDisplay(lines);
-
-            MessageBox.Show(
-                "Compilation failure. Errors found include:" 
-                + Environment.NewLine + Environment.NewLine
-                + errorOutput);
-            
-            QuickScriptWorker.ViewTextInNotepad(Host, lines.Flatten(), true);
-
-            return null;
-        }
-        
         public void ShowCodeCompletion(string[] items)
         {
             if (items != null && items.Length > 0)
@@ -260,6 +173,7 @@ namespace MetX.Controls
 
         private void InitializeEditor()
         {
+            ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
             _textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
             _textArea.KeyEventHandler += ProcessKey;
             _textArea.KeyUp += TextAreaOnKeyUp;
@@ -324,11 +238,11 @@ namespace MetX.Controls
 
                 UpdateScriptFromForm();
                 Window.Host ??= Host;
-                Context.RunQuickScript(this, CurrentScript, null);
+                Context.RunQuickScript(this, CurrentScript, null, Host);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -341,12 +255,12 @@ namespace MetX.Controls
                     return;
                 }
 
-                if (Context.Scripts == null) return;
+                if (Host.Context.Scripts == null) return;
 
                 UpdateScriptFromForm();
 
-                SaveDestinationFilePathDialog.FileName = Context.Scripts.FilePath;
-                SaveDestinationFilePathDialog.InitialDirectory = Context.Scripts.FilePath.TokensBeforeLast(@"\");
+                SaveDestinationFilePathDialog.FileName = Host.Context.Scripts.FilePath;
+                SaveDestinationFilePathDialog.InitialDirectory = Host.Context.Scripts.FilePath.TokensBeforeLast(@"\");
                 SaveDestinationFilePathDialog.AddExtension = true;
                 SaveDestinationFilePathDialog.CheckPathExists = true;
                 SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
@@ -354,15 +268,15 @@ namespace MetX.Controls
                 SaveDestinationFilePathDialog.ShowDialog(this);
                 if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                 {
-                    Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                    Context.Scripts.Save();
-                    Text = "Quick Script - " + Context.Scripts.FilePath;
+                    Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
+                    Host.Context.Scripts.Save();
+                    Text = "Quick Script - " + Host.Context.Scripts.FilePath;
                     UpdateLastKnownPath();
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -375,22 +289,22 @@ namespace MetX.Controls
                     return;
                 }
 
-                if (Context.Scripts != null)
+                if (Host.Context.Scripts != null)
                 {
                     UpdateScriptFromForm();
-                    if (string.IsNullOrEmpty(Context.Scripts.FilePath))
+                    if (string.IsNullOrEmpty(Host.Context.Scripts.FilePath))
                     {
                         SaveAs_Click(null, null);
                     }
                     else
                     {
-                        Context.Scripts.Save();
+                        Host.Context.Scripts.Save();
                     }
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
 
@@ -402,7 +316,7 @@ namespace MetX.Controls
 */      
         private void ShowThisCodeCompletion()
         {
-            ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestionationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
+            ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestinationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
         }
 
         private void TextAreaOnKeyUp(object sender, KeyEventArgs e)
@@ -444,7 +358,7 @@ namespace MetX.Controls
 */
         private void UpdateLastKnownPath()
         {
-            if (Context.Scripts == null || string.IsNullOrEmpty(Context.Scripts.FilePath) || !File.Exists(Context.Scripts.FilePath))
+            if (Host.Context.Scripts == null || string.IsNullOrEmpty(Host.Context.Scripts.FilePath) || !File.Exists(Host.Context.Scripts.FilePath))
             {
                 return;
             }
@@ -461,7 +375,7 @@ namespace MetX.Controls
                 return;
             }
 
-            AppDataRegistry.SetValue("LastQuickScriptPath", Context.Scripts.FilePath, RegistryValueKind.String);
+            AppDataRegistry.SetValue("LastQuickScriptPath", Host.Context.Scripts.FilePath, RegistryValueKind.String);
 
             if (!openedKey || AppDataRegistry == null)
             {
@@ -474,45 +388,53 @@ namespace MetX.Controls
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
-            DisplayExpandedQuickScriptSourceInNotepad(false);
+            DisplayExpandedQuickScriptSourceInNotepad();
         }
 
-        private void ViewIndependectGeneratedCode_Click(object sender, EventArgs e)
+        private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
         {
-            // DisplayExpandedQuickScriptSourceInNotepad(true);
             try
             {
                 if (CurrentScript == null)
-                {
                     return;
-                }
 
                 UpdateScriptFromForm();
-                var location = GenerateIndependentQuickScriptExe(CurrentScript.Template);
-                if (location.IsEmpty())
-                {
-                    return;
-                }
+                var settings = CurrentScript.BuildSettings(true, false, Host);
+                var result = settings.ActualizeAndCompile();
+                QuickScriptWorker.ViewText(Host, result.FinalDetails(), false);
+                if (!result.CompileSuccessful) return;
+                
+                MessageBoxResult messageBoxResult = Host.MessageBox.Show(
+                    $@"
+Executable generated successfully in: 
 
-                if (DialogResult.Yes == MessageBox.Show(this,
-                    "Executable generated successfully at: " + location + Environment.NewLine +
-                    Environment.NewLine +
-                    "Would you like to run it now? (No will open the generated file).", "RUN EXE?", MessageBoxButtons.YesNo))
+    {result.DestinationExecutableFilePath}
+
+Would you like to run it now? 
+  (Yes to run, No to open the output folder, Cancel to do nothing)", "RUN EXE?", MessageBoxChoices.YesNoCancel);
+
+                switch (messageBoxResult)
                 {
-                    Process.Start(new ProcessStartInfo(location)
-                    {
-                        UseShellExecute = true,
-                        WorkingDirectory = location.TokensBeforeLast(@"\")
-                    });
-                }
-                else
-                {
-                    QuickScriptWorker.ViewFileInNotepad(Host, location.Replace(".exe", ".cs"));
+                    case MessageBoxResult.Yes:
+                        Process.Start(new ProcessStartInfo(result.DestinationExecutableFilePath)
+                        {
+                            UseShellExecute = true,
+                            WorkingDirectory = result.Settings.OutputFolder,
+                        });
+                        break;
+
+                    case MessageBoxResult.No:
+                        QuickScriptWorker.ViewFolder(result.Settings.OutputFolder, Host);
+                        break;
+
+                    default:
+                        // Do nothing
+                        break;
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString());
+                Host.MessageBox.Show(exception.ToString());
             }
         }
     }

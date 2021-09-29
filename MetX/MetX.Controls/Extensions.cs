@@ -1,12 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MetX.Controls
 {
     public static class Extensions
     {
+        public static Color HalfMix(this Color one, Color two)  
+        {
+            return Color.FromArgb(
+                (one.A + two.A) >> 1,
+                (one.R + two.R) >> 1,
+                (one.G + two.G) >> 1,
+                (one.B + two.B) >> 1);
+        }
+
+        /*
         public static TEnumOut As<TEnumOut>(this Enum target) where TEnumOut : struct
         {
             if (Enum.TryParse(typeof(TEnumOut), target.ToString(), true, out object? translated))
@@ -14,9 +24,10 @@ namespace MetX.Controls
                 return (TEnumOut?) translated ?? default(TEnumOut);
             }
 
-            return default(TEnumOut);
+            return default;
         }
 
+        */
         public static ContextMenuStrip BuildContextMenu(string name, List<ToolStripItem> items = null)
         {
             var ret = new ContextMenuStrip

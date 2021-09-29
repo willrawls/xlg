@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Scripts
 {
@@ -19,7 +20,13 @@ namespace MetX.Standard.Scripts
             _mIndependent = independent;
             Template = template;
 
+            ResetAreas();
+        }
+
+        private void ResetAreas()
+        {
             _targetGenArea = new GenArea("ProcessLine");
+            Clear();
             AddRange(new[]
             {
                 _targetGenArea,
@@ -35,100 +42,12 @@ namespace MetX.Standard.Scripts
         {
             get
             {
-                var originalArea = string.Empty;
-                var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~{ xyz }~//
-                
-                foreach (var currScriptLine in _targetScript.Script.Lines())
-                {
-                    var indent = currScriptLine.Length - currScriptLine.Trim().Length;
-                    
-                    if (currScriptLine.Trim() == string.Empty)
-                    {
-                        _targetGenArea.Lines.Add(string.Empty);
-                    }
-                    else if (currScriptLine.Contains("~~To:"))
-                    {
-                        ProcessTo(currScriptLine);
-                    }
-                    else if (currScriptLine.Contains("~~AppendTo:")
-                        || currScriptLine.Contains("~~Append To:"))
-                    {
-                        ProcessAppendTo(currScriptLine);
-                    }
-                    else if (currScriptLine.Contains("~~Start:") || currScriptLine.Contains("~~Begin:"))
-                    {
-                        SetArea("Start");
-                    }
-                    else if (currScriptLine.Contains("~~Finish:") 
-                             || currScriptLine.Contains("~~Final:") 
-                             || currScriptLine.Contains("~~Last:")
-                             || currScriptLine.Contains("~~End:"))
-                    {
-                        SetArea("Finish");
-                    }
-                    else if (currScriptLine.Contains("~~ReadInput:") 
-                             || currScriptLine.Contains("~~Read:") 
-                             || currScriptLine.Contains("~~Input:"))
-                    {
-                        SetArea("ReadInput");
-                    }
-                    else if (currScriptLine.Contains("~~Using:") || currScriptLine.Contains("~~Usings:"))
-                    {
-                        SetArea("Usings");
-                    }
-                    else if (currScriptLine.Contains("~~ClassMembers:")  || currScriptLine.Contains("~~ClassMember:") 
-                             || currScriptLine.Contains("~~Properties:") || currScriptLine.Contains("~~Property:")
-                             || currScriptLine.Contains("~~Fields:")     || currScriptLine.Contains("~~Field:")
-                             || currScriptLine.Contains("~~Members:")    || currScriptLine.Contains("~~Member:"))
-                    {
-                        SetArea("ClassMembers");
-                    }
-                    else if (currScriptLine.Contains("~~ProcessLines:") || currScriptLine.Contains("~~ProcessLine:") 
-                             || currScriptLine.Contains("~~Line:")
-                             || currScriptLine.Contains("~~Body:"))
-                    {
-                        SetArea("ProcessLine");
-                    }
-                    else if (currScriptLine.Contains("~~BeginString:"))
-                    {
-                        if (!ProcessBeginString(currScriptLine)) continue;
-                        originalArea = _targetGenArea.Name;
-                    }
-                    else if (currScriptLine.Contains("~~EndString:"))
-                    {
-                        ProcessEndString();
-                        SetArea(originalArea);
-                        originalArea = null;
-                    }
-                    else if (currScriptLine.Contains("~~:"))
-                    {
-                        if (_targetGenArea.Name == "Using" || _targetGenArea.Name == "Usings")
-                        {
-                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
-                        }
-                        else if (_targetGenArea.Name == "ClassMembers")
-                        {
-                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, -1));
-                        }
-                        else
-                        {
-                            _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(currScriptLine, indent));
-                        }
-                    }
-                    else if (originalArea != null)
-                    {
-                        _targetGenArea.Lines.Add(currScriptLine);
-                    }
-                    else
-                    {
-                        _targetGenArea.Lines.Add(new string(' ', indent + _targetGenArea.Indent) + currScriptLine);
-                    }
-                }
+                ParseAndBuildAreas();
 
-                var sb = new StringBuilder(Template.Views[_mIndependent ? "Exe" : "Native"]);
+                var sb = new StringBuilder(Template.Assets[_mIndependent ? "Exe" : "Native"].Value);
                 foreach (var area in this)
                 {
-                    sb.Replace("//~~" + area.Name + "~~//", string.Join(Environment.NewLine, area.Lines));
+                    sb.Replace(Asset.LeftDelimiter + area.Name + Asset.RightDelimiter, string.Join(Environment.NewLine, area.Lines));
                 }
 
                 if (_mIndependent)
@@ -156,6 +75,112 @@ namespace MetX.Standard.Scripts
                     sb.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
                 }
                 return sb.ToString();
+            }
+        }
+
+        public void ParseAndBuildAreas(bool resetFirst = false)
+        {
+            if(resetFirst)
+            {
+                ResetAreas();
+            }
+            else if (Count > 0 && this.Any(i => i.Lines.Count > 0))
+            {
+                return;
+            }
+
+            var originalArea = string.Empty;
+            var massagedScript = _targetScript.HandleSlashSlashBlock(); //    //~{ xyz }~//
+            var lines = massagedScript.Lines();
+
+            foreach (var line in lines)
+            {
+                var indent = line.Length - line.Trim().Length;
+
+                if (line.Trim() == string.Empty)
+                {
+                    _targetGenArea.Lines.Add(string.Empty);
+                }
+                else if (line.Contains("~~To:"))
+                {
+                    ProcessTo(line);
+                }
+                else if (line.Contains("~~AppendTo:")
+                         || line.Contains("~~Append To:"))
+                {
+                    ProcessAppendTo(line);
+                }
+                else if (line.Contains("~~Start:") || line.Contains("~~Begin:"))
+                {
+                    SetArea("Start");
+                }
+                else if (line.Contains("~~Finish:")
+                         || line.Contains("~~Final:")
+                         || line.Contains("~~Last:")
+                         || line.Contains("~~End:"))
+                {
+                    SetArea("Finish");
+                }
+                else if (line.Contains("~~ReadInput:")
+                         || line.Contains("~~Read:")
+                         || line.Contains("~~Input:"))
+                {
+                    SetArea("ReadInput");
+                }
+                else if (line.Contains("~~Using:") || line.Contains("~~Usings:"))
+                {
+                    SetArea("Usings");
+                }
+                else if (line.Contains("~~ClassMembers:") || line.Contains("~~ClassMember:")
+                                                                    || line.Contains("~~Properties:") ||
+                                                                    line.Contains("~~Property:")
+                                                                    || line.Contains("~~Fields:") ||
+                                                                    line.Contains("~~Field:")
+                                                                    || line.Contains("~~Members:") ||
+                                                                    line.Contains("~~Member:"))
+                {
+                    SetArea("ClassMembers");
+                }
+                else if (line.Contains("~~ProcessLines:") || line.Contains("~~ProcessLine:")
+                                                                    || line.Contains("~~Line:")
+                                                                    || line.Contains("~~Body:"))
+                {
+                    SetArea("ProcessLine");
+                }
+                else if (line.Contains("~~BeginString:"))
+                {
+                    if (!ProcessBeginString(line)) continue;
+                    originalArea = _targetGenArea.Name;
+                }
+                else if (line.Contains("~~EndString:"))
+                {
+                    ProcessEndString();
+                    SetArea(originalArea);
+                    originalArea = null;
+                }
+                else if (line.Contains("~~:"))
+                {
+                    if (_targetGenArea.Name == "Using" || _targetGenArea.Name == "Usings")
+                    {
+                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, -1));
+                    }
+                    else if (_targetGenArea.Name == "ClassMembers")
+                    {
+                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, -1));
+                    }
+                    else
+                    {
+                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, indent));
+                    }
+                }
+                else if (originalArea != null)
+                {
+                    _targetGenArea.Lines.Add(line);
+                }
+                else
+                {
+                    _targetGenArea.Lines.Add(new string(' ', indent + _targetGenArea.Indent) + line);
+                }
             }
         }
 

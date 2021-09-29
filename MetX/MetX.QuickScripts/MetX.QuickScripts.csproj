@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
@@ -19,11 +16,17 @@
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Remove="Templates\Single file input\Exe.cs" />
-    <Compile Remove="Templates\Single file input\Native.cs" />
-    <Compile Remove="Templates\Single file input\qscriptd3cdf9.cs" />
+    <Compile Remove="Templates\Exe\ConsoleClipboard.cs" />
+    <Compile Remove="Templates\Exe\ForStrings.cs" />
+    <Compile Remove="Templates\Exe\Program.cs" />
+    <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="Templates\Exe\StreamBuilder.cs" />
+    <Compile Remove="Templates\Exe\Tokenizer.cs" />
+    <Compile Remove="Templates\Native\Native.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="MetX.QuickScripts.csproj.DotSettings" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +44,35 @@
     <Content Include="Settings.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates\Exe\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\ForStrings.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\Program.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\StreamBuilder.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\Tokenizer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\_.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Exe\_.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Native\Native.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -54,13 +86,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\Single file input\Exe.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="Templates\Exe\Properties\launchSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Single file input\Native.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Single file input\qscriptd3cdf9.cs" />
   </ItemGroup>
 
 </Project>

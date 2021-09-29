@@ -23,12 +23,12 @@
 				<Begin>#</Begin>
 			</Span>
 			
-<!--
+
 			<Span name = "QuickScriptVariableMarkers" rule = "CommentMarkerSet" bold = "true" italic = "false" color = "DarkRed" stopateol = "true">
 				<Begin>%</Begin>
 				<End>%</End>
 			</Span>
--->
+
             
 			<Span name = "QuickScriptAppendLine" rule = "PreprocessorSet" bold="false" italic="false" color="Blue" stopateol = "true">
 				<Begin>~~:</Begin>
@@ -66,8 +66,8 @@
 			</Span>
 			
 			<Span name = "MultiLineString" bold = "false" italic = "false" color = "Blue" stopateol = "false" escapecharacter='"'>
-				<Begin>@@"</Begin>
-				<End>"</End>
+				<Begin>~~"</Begin>
+				<End>"~~</End>
 			</Span>
 			
 			<Span name = "Char" bold = "false" italic = "false" color = "Magenta" stopateol = "true" escapecharacter="\">

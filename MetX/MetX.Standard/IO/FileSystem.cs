@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 
 namespace MetX.Standard.IO
@@ -12,7 +13,53 @@ namespace MetX.Standard.IO
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
     {
-        
+        public static bool SafelyDeleteFile(string filePath)
+        {
+            if (filePath.IsEmpty() || !File.Exists(filePath))
+                return true;
+
+            try
+            {
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                File.Delete(filePath);
+            }
+            catch
+            {
+                try
+                {
+                    File.Move(filePath, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".from.metx.safedelete"));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool SafelyDeleteDirectory(string path, bool recursive = true)
+        {
+            if (path.IsEmpty() || !Directory.Exists(path))
+                return true;
+
+            try
+            {
+                Directory.Delete(path, recursive);
+            }
+            catch
+            {
+                try
+                {
+                    Directory.Move(path, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".from.metx.safedelete." + path.LastPathToken()));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         /// <summary>
         /// Warning: When newFileContents is null, any existing file is DELETED (as intended)
         /// </summary>
@@ -81,6 +128,24 @@ namespace MetX.Standard.IO
             foreach (var currDir in dirs)
                 if (DateTime.Now.Subtract(File.GetCreationTime(currDir)).TotalMinutes > minutes)
                     Directory.Delete(currDir, true);
+        }
+
+        public static void CleanFolder(string path)
+        {
+            if (path.IsEmpty()
+            || path.ToLower().Contains(@":\windows")
+            || path.ToLower().Contains(@":\program files")
+            || path.ToLower().EndsWith(@"\appdata")
+            || path.ToLower().EndsWith(@"\local")
+            || path.ToLower().EndsWith(@"\roaming")
+            || path.ToLower().Contains(@"\\")
+            )
+                return;
+
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
         }
 
         /// <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
@@ -273,6 +338,66 @@ namespace MetX.Standard.IO
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
             while (ret.EndsWith(Environment.NewLine))
                 ret = ret.Substring(0, ret.Length - 2);
+            return ret;
+        }
+
+        /// <summary>
+        ///     Runs a command line, waits for it to finish, gathers it's output from string and returns the output.
+        /// </summary>
+        /// <param name="filename">The filename to execute</param>
+        /// <param name="arguments">Any (optional) arguments to pass to the executable</param>
+        /// <param name="workingFolder">The folder that the executing environment should initially be set to</param>
+        /// <param name="waitTime">
+        ///     The number of seconds to wait before killing the process. If the value is less than 1, 60
+        ///     seconds is assumed.
+        /// </param>
+        /// <returns>Both the regular and error output by the executable</returns>
+        public static string GatherOutputAndErrors(string filename, string arguments, out string errorOutput,
+            string workingFolder = null, int waitTime = 60, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+        {
+            errorOutput = "";
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    WorkingDirectory = Path.GetDirectoryName(filename),
+                    FileName = filename,
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    WindowStyle = windowStyle,
+                    CreateNoWindow = windowStyle == ProcessWindowStyle.Hidden,
+                }
+            };
+
+            if (workingFolder != null && workingFolder.Trim().Length > 0)
+            {
+                p.StartInfo.WorkingDirectory = workingFolder;
+            }
+            if (waitTime < 1)
+            {
+                waitTime = 60;
+            }
+            waitTime *= 1000;
+
+            p.Start();
+            var output = p.StandardOutput.ReadToEnd();
+            if (!p.WaitForExit(waitTime))
+            {
+                p.Kill();
+            }
+
+            var ret = output // + Environment.NewLine + sError)
+                .Replace("\\x000C", string.Empty)
+                .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine)
+                .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+            while (ret.EndsWith(Environment.NewLine))
+                ret = ret.Substring(0, ret.Length - 2);
+
+            using StreamReader errorStream = p.StandardError;
+            // Read the standard error of net.exe and write it on to console.
+            errorOutput = errorStream.ReadToEnd();
             return ret;
         }
 

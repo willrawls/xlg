@@ -1,6 +1,7 @@
 ﻿using MetX.Standard.Generation;
 using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
@@ -8,7 +9,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
     [TestClass]
     public class GeneratorsCsProjGeneratorTests
     {
-        [TestMethod]
+        [TestMethod][Ignore("Never finished line of code that will not be used but who's code may be re-purposed")]
         public void FromScratchXmlIsAsExpected()
         {
             var generator = TestHelpers.SetupGenerator<GeneratorsCsProjGenerator>(GenFramework.Standard20);

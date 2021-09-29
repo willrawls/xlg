@@ -4,10 +4,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Scripts
 {
@@ -27,7 +30,11 @@ namespace MetX.Standard.Scripts
         public QuickScriptDestination Destination;
 
         [XmlAttribute]
-        public string DestinationFilePath;
+        public string DestinationFilePath
+        {
+            get => _destinationFilePath;
+            set => _destinationFilePath = value;
+        }
 
         [XmlAttribute]
         public string DiceAt;
@@ -51,7 +58,12 @@ namespace MetX.Standard.Scripts
         public string SliceAt;
 
         [XmlAttribute]
-        public string Template;
+        public string NativeTemplateName;
+
+        [XmlAttribute] 
+        public string ExeTemplateName;
+
+        private string _destinationFilePath;
 
         public XlgQuickScript()
         {
@@ -65,19 +77,10 @@ namespace MetX.Standard.Scripts
             Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
-            Template = "Single file input";
+            NativeTemplateName = "Native";
+            ExeTemplateName = "Exe";
         }
 
-        public static InMemoryCompiler<string> CompileSource(string source,
-            bool asExecutable,
-            List<Type> additionalReferences,
-            List<string> additionalSharedReferences, 
-            string filePathForAssembly)
-        {
-            var compiler = new InMemoryCompiler<string>(source, asExecutable, additionalReferences, additionalSharedReferences, filePathForAssembly);
-            return compiler;
-        }
-        
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
         {
             // backslash percent will translate to % after parsing
@@ -148,85 +151,22 @@ namespace MetX.Standard.Scripts
 
         public static string FormatCSharpCode(string code)
         {
-            /*
-            var logger = new NArrangeTestLogger();
-            var attempts = 0;
-            while (++attempts < 2)
-            {
-                try
-                {
-                    // TODO Recompile NArrange for .net 5
-                    var arranger = new StringArranger(null, logger);
-                    arranger.Arrange("virtual.cs", code, out var formattedCode);
-                    return formattedCode ?? code;
-                }
-                catch (Exception ex)
-                {
-                    if (attempts == 2)
-                    {
-                        Gui.MessageBox.Show(ex.ToString());
-                        return code;
-                    }
-                }
-            }
-            */
+            return code ?? "";
 
-            return code;
-        }
+            /* NArrage not standard (sob)
+            var sb = new StringBuilder();
+            using var writer = new StringWriter(sb);
+            using var reader = new StringReader(code);
 
-        /*
-        public static bool Run(ILogger logger, CommandArguments commandArgs)
-        {
-            if (logger == null)
-            {
-                throw new ArgumentNullException("logger");
-            }
-
-            if (commandArgs == null)
-            {
-                throw new ArgumentNullException("commandArgs");
-            }
-
-            bool flag;
-            if (commandArgs.Restore)
-            {
-                logger.LogMessage(LogLevel.Verbose, "Restoring {0}...", (object)commandArgs.Input);
-                var fileNameKey = BackupUtilities.CreateFileNameKey(commandArgs.Input);
-                try
-                {
-                    flag = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, fileNameKey);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogMessage(LogLevel.Warning, ex.Message);
-                    flag = false;
-                }
-
-                if (flag)
-                {
-                    logger.LogMessage(LogLevel.Info, "Restored");
-                }
-                else
-                {
-                    logger.LogMessage(LogLevel.Error, "Restore failed");
-                }
-            }
-            else
-            {
-                flag = new FileArranger(commandArgs.Configuration, logger).Arrange(commandArgs.Input, commandArgs.Output, commandArgs.Backup);
-                if (!flag)
-                {
-                    logger.LogMessage(LogLevel.Error, "Unable to arrange {0}.", (object)commandArgs.Input);
-                }
-                else
-                {
-                    logger.LogMessage(LogLevel.Info, "Arrange successful.");
-                }
-            }
-
-            return flag;
-        }
+            var cSharpParser = new NArrange.CSharp.CSharpParser();
+            var codeElements = cSharpParser.Parse(reader);
+            
+            var cSharpWriter = new NArrange.CSharp.CSharpWriter();
+            cSharpWriter.Write(codeElements, writer);
+            
+            return sb.ToString();
         */
+        }
 
         public XlgQuickScript Clone(string name)
         {
@@ -238,7 +178,8 @@ namespace MetX.Standard.Scripts
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
-                Template = Template
+                NativeTemplateName = NativeTemplateName,
+                ExeTemplateName = ExeTemplateName,
             };
         }
 
@@ -247,7 +188,8 @@ namespace MetX.Standard.Scripts
             var ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
-            Template = "Single file input";
+            NativeTemplateName = "Native";
+            ExeTemplateName = "Exe";
 
             if (string.IsNullOrEmpty(rawScript))
             {
@@ -313,9 +255,14 @@ namespace MetX.Standard.Scripts
                     {
                         SliceAt = line.TokensAfterFirst(":");
                     }
-                    else if (line.StartsWith("~~QuickScriptTemplate:"))
+                    else if (line.StartsWith("~~QuickScriptTemplate:")
+                             || line.StartsWith("~~QuickScriptNativeTemplate:"))
                     {
-                        Template = line.TokensAfterFirst(":");
+                        NativeTemplateName = line.TokensAfterFirst(":");
+                    }
+                    else if (line.StartsWith("~~QuickScriptExeTemplate:"))
+                    {
+                        ExeTemplateName = line.TokensAfterFirst(":");
                     }
                     else if (line.StartsWith("~~QuickScriptDiceAt:"))
                     {
@@ -341,29 +288,47 @@ namespace MetX.Standard.Scripts
             return ret;
         }
 
-        public string ToCSharp(bool independent)
+        /*
+        public string ToCSharp(bool compileToExecutable, XlgQuickScriptTemplate xlgQuickScriptTemplate)
         {
-            var code = new GenInstance(this, ContextBase.Default.Templates[Template], independent).CSharp;
+            xlgQuickScriptTemplate ??= compileToExecutable
+                ? ContextBase.Default.Templates[ExeTemplateName ?? "Exe"]
+                : ContextBase.Default.Templates[NativeTemplateName ?? "Native"];
+
+            var code = new GenInstance(this, xlgQuickScriptTemplate, compileToExecutable).CSharp;
             return code.IsEmpty()
                 ? code
                 : FormatCSharpCode(code);
         }
 
+        public GenInstance ToGenInstance(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
+        {
+            if(xlgQuickScriptTemplate == null)
+            {
+                xlgQuickScriptTemplate =
+                    ContextBase.Default.Templates[
+                        (independent ? NativeTemplateName ?? "Native" : ExeTemplateName ?? "Exe")];
+            }
+
+            return new GenInstance(this, xlgQuickScriptTemplate, independent);
+        }
+        */
+
         public string ToFileFormat(bool isDefault)
         {
-            return "~~QuickScriptName:" + Name.AsString() + Environment.NewLine +
-                   "~~QuickScriptInput:" + Input.AsString() + Environment.NewLine +
-                   "~~QuickScriptDestination:" + Destination.AsString() + Environment.NewLine +
-                   "~~QuickScriptId:" + Id.AsString() + Environment.NewLine +
-                   "~~QuickScriptInputFilePath:" + InputFilePath + Environment.NewLine +
-                   "~~QuickScriptDestinationFilePath:" + DestinationFilePath + Environment.NewLine +
-                   "~~QuickScriptSliceAt:" + SliceAt + Environment.NewLine +
-                   "~~QuickScriptDiceAt:" + DiceAt + Environment.NewLine +
-                   "~~QuickScriptTemplate:" + Template + Environment.NewLine +
-                   (isDefault
-                       ? "~~QuickScriptDefault:" + Environment.NewLine
-                       : string.Empty) +
-                   Script.AsString();
+            return
+                $@"
+~~QuickScriptName:{Name.AsString()}
+~~QuickScriptInput:{Input.AsString()}
+~~QuickScriptDestination:{Destination.AsString()}
+~~QuickScriptId:{Id.AsString()}
+~~QuickScriptInputFilePath:{InputFilePath}
+~~QuickScriptDestinationFilePath:{DestinationFilePath}
+~~QuickScriptSliceAt:{SliceAt}
+~~QuickScriptDiceAt:{DiceAt}
+~~QuickScriptTemplate:{NativeTemplateName}
+~~QuickScriptExeTemplate:{ExeTemplateName}
+{(isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty)}{Script.AsString()}";
         }
 
         public override string ToString()
@@ -371,21 +336,60 @@ namespace MetX.Standard.Scripts
             return Name;
         }
 
+        public const string SlashSlashBlockLeftDelimiter = "~~{";
+        public const string SlashSlashBlockRightDelimiter = "}~~";
+
         public string HandleSlashSlashBlock()
         {
-            const string leftDelimiter = "~~{";
-            const string rightDelimiter = "}~~";
             
-            if (!Script.Contains(leftDelimiter) || !Script.Contains(rightDelimiter))
+            if (!Script.Contains(SlashSlashBlockLeftDelimiter) || !Script.Contains(SlashSlashBlockRightDelimiter))
                 return Script;
 
-            var expanded = Script.UpdateBetweenTokens(
-                leftDelimiter, rightDelimiter, true, 
-                QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
+            var expanded = Script.UpdateBetweenTokens(SlashSlashBlockLeftDelimiter, SlashSlashBlockRightDelimiter, 
+                true, QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
             
             return expanded;
         }
+
         
+        public string AsParameters()
+        {
+            string source;
+            switch (Input.ToLower())
+            {
+                case "console":
+                case "clipboard":
+                    source = $"{Input}";
+                    break;
+                default:
+                    source = $"\"{InputFilePath}\"";
+                    break;
+            }
+
+            string args2 = "";
+            string destination;
+            switch (Destination)
+            {
+                case QuickScriptDestination.Clipboard:
+                    destination = "clipboard";
+                    break;
+                case QuickScriptDestination.Notepad:
+                    destination = "\"" + Path.Combine(Environment.GetEnvironmentVariable("TEMP"), $"quickScriptOutput_{Guid.NewGuid():N}.txt") + "\"";
+                    args2 = " open";
+                    break;
+                case QuickScriptDestination.TextBox:
+                    destination = "console";
+                    break;
+                default:
+                    destination = $"\"{DestinationFilePath}\"";
+                    args2 = " open";            
+                    break;
+            }
+            
+            string parameters = $"{source} {destination}{args2}";
+            return parameters;
+        }
+
         public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
         {
             if (target.IsEmpty())
@@ -400,5 +404,6 @@ namespace MetX.Standard.Scripts
                 result += "\n";
             return result;
         }
+
     }
 }

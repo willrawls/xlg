@@ -1,6 +1,7 @@
 ﻿using MetX.Standard.Library;
 using System;
 using System.Windows.Forms;
+using MetX.Standard;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Pipelines;
 
@@ -8,9 +9,11 @@ namespace MetX.Controls
 {
     public partial class ToolWindow : Form //: DockContent
     {
-        public IGenerationHost Host { get; set; }
 
-        public static Context Context
+        public IGenerationHost Host { get; set; }
+        public static IGenerationHost HostInstance { get; set; }
+
+        public static Context SharedContext
         {
             get
             {
@@ -18,7 +21,7 @@ namespace MetX.Controls
                 {
                     return ContextBase.Default as Context;
                 }
-                ContextBase.Default = new Context();
+                ContextBase.Default = new Context(HostInstance);
                 return (Context)ContextBase.Default;
             }
             set => ContextBase.Default = value;

@@ -1,11 +1,13 @@
-﻿namespace MetX.Tests.Scripts
+﻿using MetX.Standard.Scripts;
+
+namespace MetX.Tests.Scripts
 {
     public static class Sources
     {
         // // //
         public static readonly string WriteStaticLine = BuildMain(
             @"
-        System.Console.WriteLine(""Build_Exe_Simple"");
+        System.Console.WriteLine(""Simple_Build_Exe"");
 ");
 
         public static readonly string FirstScript = @"
@@ -80,6 +82,12 @@ namespace MetX.Scripts
         }
     }";
 
+        public static XlgQuickScript FirstScriptScript()
+        {
+            return new ("First script", FirstScript);
+
+        }
+
         // // //
         public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
         {
@@ -116,5 +124,15 @@ namespace {namespaceName}
         {
             return WrapWithVoidMain(sourceInsideVoidMain);
         }
+
+        public static XlgQuickScript WriteStaticLineScript()
+        {
+            return new ("Write static line", WriteStaticLine)
+            {
+                ExeTemplateName = "TestExe",
+                NativeTemplateName = "TestNative",
+            };
+        }
+
     }
 }

@@ -41,11 +41,7 @@ namespace XLG.Pipeliner
         {
             InitializeComponent();
 
-            Host = new WinFormGenerationHost(this)
-            {
-                MessageBox = new WinFormMessageBoxHost<GloveMain>(this, Host),
-                InputText = Clipboard.GetText,
-            };
+            Host = new WinFormGenerationHost<GloveMain>(this, Clipboard.GetText);
 
             if (!string.IsNullOrEmpty(AppData.LastXlgsFile))
             {
@@ -87,7 +83,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -120,7 +116,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -143,7 +139,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -165,7 +161,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -184,7 +180,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -309,7 +305,7 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void FSW_Error(object sender, ErrorEventArgs e) { MessageBox.Show(e.GetException().ToString()); }
+        private void FSW_Error(object sender, ErrorEventArgs e) { Host.MessageBox.Show(e.GetException().ToString()); }
 
         private void FSW_Changed(object sender, FileSystemEventArgs e)
         {
@@ -386,7 +382,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -426,7 +422,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -455,7 +451,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -465,7 +461,7 @@ namespace XLG.Pipeliner
             {
                 var itemName = "CLONE";
                 
-                if (this.Host.InputBoxRef("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
+                if (Host.InputBox("DATABASE NAME", "What is the name of the database you wish to walk?", ref itemName)
                     == MessageBoxResult.Cancel
                     || string.IsNullOrEmpty(itemName))
                 {
@@ -537,7 +533,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -550,10 +546,10 @@ namespace XLG.Pipeliner
                     return;
                 }
                 var messageBoxResult =
-                    MessageBox.Show(
+                    Host.MessageBox.Show(
                         "Are you sure you want to remove the current step?\r\n\tThere is no undo for this action.",
-                        "REMOVE STEP", MessageBoxButtons.YesNo);
-                if (messageBoxResult == DialogResult.No)
+                        "REMOVE STEP", MessageBoxChoices.YesNo);
+                if (messageBoxResult == MessageBoxResult.No)
                 {
                     return;
                 }
@@ -564,7 +560,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -583,7 +579,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -596,7 +592,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -609,7 +605,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -627,7 +623,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -649,7 +645,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -682,7 +678,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -711,7 +707,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -724,7 +720,7 @@ namespace XLG.Pipeliner
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Host.MessageBox.Show(ex.ToString());
             }
         }
 
@@ -742,7 +738,7 @@ namespace XLG.Pipeliner
             exePath = FileSystem.FindExecutableAlongPath(exePath, new string[] { @"\..\..\..\..\MetX.QuickScripts\bin\Debug\net5.0-windows" });
             if (!File.Exists(exePath))
             {
-                MessageBox.Show("Quick scripts missing: " + exePath);
+                Host.MessageBox.Show("Quick scripts missing: " + exePath);
             }
             else
             {

@@ -90,7 +90,7 @@ namespace MetX.Controls
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(70, 28);
             this.toolStripMenuItem5.Text = "&Build";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.ViewIndependectGeneratedCode_Click);
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.ViewIndependentGeneratedCode_Click);
             // 
             // QuickScriptToolWindow
             // 

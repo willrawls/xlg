@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global

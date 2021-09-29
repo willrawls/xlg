@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using MetX.Standard.Data;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Pipelines
 {

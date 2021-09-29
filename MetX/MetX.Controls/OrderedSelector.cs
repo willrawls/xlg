@@ -1,4 +1,6 @@
-﻿namespace MetX.Controls
+﻿using MetX.Standard.Library.Extensions;
+
+namespace MetX.Controls
 {
     using System;
     using System.Collections.Generic;

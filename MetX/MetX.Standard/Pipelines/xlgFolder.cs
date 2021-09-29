@@ -61,5 +61,22 @@ namespace MetX.Standard.Pipelines
         {
             return Xml.LoadFile<XlgFolder>(filename);
         }
+
+        public bool ForEachFile(Func<XlgFile, bool> func)
+        {
+            foreach (XlgFile file in Files)
+            {
+                if(!func(file))
+                    return false; // Don't continue
+            }
+
+            foreach (var folder in Folders)
+            {
+                if (!folder.ForEachFile(func))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

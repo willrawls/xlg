@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Windows.Library
 {

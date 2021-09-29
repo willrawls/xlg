@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace MetX.Standard.Pipelines
@@ -35,9 +36,19 @@ namespace MetX.Standard.Pipelines
             Modified = modified;
         }
 
+        public string FullPath => System.IO.Path.Combine(Path, Name);
+
         public override string ToString()
         {
             return Name;
+        }
+
+        public void CopyTo(string destinationPath)
+        {
+            Directory.CreateDirectory(destinationPath);
+            var destination = System.IO.Path.Combine(destinationPath, Name);
+            if(!File.Exists(destination))
+                File.Copy(FullPath, destination);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using MetX.Standard.Generators;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation
@@ -8,7 +9,7 @@ namespace MetX.Tests.Standard.Generation
     [TestClass]
     public class ShadowRunContextTests
     {
-        [TestMethod]
+        [TestMethod][Ignore("Never finished line of code that will not be used but who's code may be re-purposed")]
         public void Initialize_AddStaticCodeActual()
         {
             var data = new AddStaticCode();

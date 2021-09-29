@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading;
+using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 
@@ -69,6 +70,7 @@ namespace MetX.Standard.Library
             FilePath = filePath;
             var retries = 10;
             Finish();
+
             while (--retries < 10 && (TargetStream == null || TargetStreamWriter == null))
             {
                 Finish();
