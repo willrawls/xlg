@@ -113,7 +113,7 @@ namespace MetX.Controls
             return lastKnownPath;
         }
 
-        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
+        public void DisplayExpandedQuickScriptSourceInNotepad()
         {
             try
             {
@@ -121,9 +121,12 @@ namespace MetX.Controls
                 {
                     return;
                 }
-
                 UpdateScriptFromForm();
-                var source = CurrentScript.ToCSharp(independent, xlgQuickScriptTemplate);
+
+                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var result = settings.QuickScriptTemplate.ActualizeCode(settings);
+
+                var source = result.OutputFiles["QuickScriptProcessor"].Value;
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewText(Host, source, true);
@@ -385,7 +388,7 @@ namespace MetX.Controls
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
-            DisplayExpandedQuickScriptSourceInNotepad(false, ContextBase.Default.Templates["Native"]);
+            DisplayExpandedQuickScriptSourceInNotepad();
         }
 
         private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)

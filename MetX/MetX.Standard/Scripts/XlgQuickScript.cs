@@ -30,7 +30,11 @@ namespace MetX.Standard.Scripts
         public QuickScriptDestination Destination;
 
         [XmlAttribute]
-        public string DestinationFilePath;
+        public string DestinationFilePath
+        {
+            get => _destinationFilePath;
+            set => _destinationFilePath = value;
+        }
 
         [XmlAttribute]
         public string DiceAt;
@@ -58,6 +62,8 @@ namespace MetX.Standard.Scripts
 
         [XmlAttribute] 
         public string ExeTemplateName;
+
+        private string _destinationFilePath;
 
         public XlgQuickScript()
         {
@@ -282,6 +288,7 @@ namespace MetX.Standard.Scripts
             return ret;
         }
 
+        /*
         public string ToCSharp(bool compileToExecutable, XlgQuickScriptTemplate xlgQuickScriptTemplate)
         {
             xlgQuickScriptTemplate ??= compileToExecutable
@@ -305,6 +312,7 @@ namespace MetX.Standard.Scripts
 
             return new GenInstance(this, xlgQuickScriptTemplate, independent);
         }
+        */
 
         public string ToFileFormat(bool isDefault)
         {

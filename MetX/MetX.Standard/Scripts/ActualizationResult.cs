@@ -85,7 +85,7 @@ namespace MetX.Standard.Scripts
             sb.AppendLine("-----[ Output Folder ]-----");
             sb.AppendLine($"{Settings.OutputFolder}");
 
-            if (CompileErrorText.IsEmpty())
+            if (CompileErrorText.IsEmpty() && !OutputText.Contains(": error "))
             {
                 sb.AppendLine();
                 sb.AppendLine();

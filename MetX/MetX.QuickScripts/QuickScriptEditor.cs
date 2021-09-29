@@ -112,17 +112,20 @@ namespace XLG.QuickScripts
 
         public XlgQuickScript SelectedScript => QuickScriptList.SelectedItem as XlgQuickScript;
 
-        public void DisplayExpandedQuickScriptSourceInNotepad(bool independent)
+        public void DisplayExpandedQuickScriptSourceInNotepad()
         {
             try
             {
-                if (ScriptEditor.Current == null)
+                if (ScriptEditor?.Current == null)
                 {
                     return;
                 }
-
                 UpdateScriptFromForm();
-                var source = ScriptEditor.Current.ToCSharp(independent, ContextBase.Default.Templates["Native"]);
+
+                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var result = settings.QuickScriptTemplate.ActualizeCode(settings);
+
+                var source = result.OutputFiles["QuickScriptProcessor"].Value;
                 if (!string.IsNullOrEmpty(source))
                 {
                     QuickScriptWorker.ViewText(Host, source, true);
@@ -766,7 +769,7 @@ namespace XLG.QuickScripts
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
-            DisplayExpandedQuickScriptSourceInNotepad(false);
+            DisplayExpandedQuickScriptSourceInNotepad();
         }
 
         private void findMenuItem_Click(object sender, EventArgs e)
@@ -793,7 +796,9 @@ namespace XLG.QuickScripts
                 var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
                 //var result = settings.QuickScriptTemplate.ActualizeCode(settings);
                 var result = settings.ActualizeAndCompile();
-                QuickScriptWorker.ViewText(Host, result.FinalDetails(), false);
+                string finalDetails = result.FinalDetails();
+                if(!finalDetails.Contains("SUCCESS!"))
+                    QuickScriptWorker.ViewText(Host, finalDetails, false);
                 if (!result.CompileSuccessful) return;
 
                 var location = result.DestinationExecutableFilePath;
@@ -809,8 +814,7 @@ namespace XLG.QuickScripts
                     {
                         UseShellExecute = true,
                         WorkingDirectory = result.Settings.OutputFolder,
-                        Arguments = ScriptEditor.Current.AsParameters(),
-                        Verb = "runas",
+                        Arguments = ScriptEditor.Current.AsParameters()
                     });
                 }
                 else
