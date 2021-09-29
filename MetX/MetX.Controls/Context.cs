@@ -99,7 +99,7 @@ namespace MetX.Controls
                     caller.SetFocus("InputParam");
                 //if(runResult.GatheredOutput.IsNotEmpty())
                 //    QuickScriptWorker.ViewText(host, runResult.GatheredOutput, false);
-                if (runResult.ErrorOutput.IsNotEmpty()) 
+                if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
                     host.MessageBox.Show(runResult.ErrorOutput);
 
                 if (!runResult.KeepGoing || runResult.GatheredOutput.IsEmpty())

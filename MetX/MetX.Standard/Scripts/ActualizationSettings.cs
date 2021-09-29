@@ -19,7 +19,7 @@ namespace MetX.Standard.Scripts
             Simulate = simulate;
             Script = scriptToRun;
             ForExecutable = forExecutable;
-            TemplateNameAsLegalFilenameWithoutExtension = Script.Name.AsFilename();
+            TemplateNameAsLegalFilenameWithoutExtension = Script.Name.AsFilename().Replace("-", " ");
             ProjectName = TemplateNameAsLegalFilenameWithoutExtension;
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
