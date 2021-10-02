@@ -94,7 +94,7 @@ namespace MetX.Standard.Scripts
             {
                 StageSupportFiles(result);
 
-                var filename = settings.ProjectName.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
+                var filename = settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
                 result.DestinationExecutableFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
 
             }
@@ -159,7 +159,7 @@ namespace MetX.Standard.Scripts
             result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
             result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
 
-            result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
+            result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension.Replace("-", "").Replace(" ", "_");
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;
 
             result.Settings.Answers["Guid Config"].Value = Guid.NewGuid().ToString("D");
