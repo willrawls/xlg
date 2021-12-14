@@ -103,7 +103,7 @@ namespace MetX.Standard.Library.Generics
             {
                 lock (SyncRoot)
                 {
-                    for(int i =0; i < Count; i++)
+                    for (int i = 0; i < Count; i++)
                     {
                         var assocItem = this[i];
                         if (assocItem.Key == key)
@@ -114,6 +114,14 @@ namespace MetX.Standard.Library.Generics
                     }
                     Add(value);
                 }
+            }
+        }
+
+        public bool ContainsKey(string key)
+        {
+            lock (SyncRoot)
+            {
+                return this.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
             }
         }
 
@@ -132,7 +140,7 @@ namespace MetX.Standard.Library.Generics
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((AssocArray<T>) obj);
+            return obj.GetType() == this.GetType() && Equals((AssocArray<T>)obj);
         }
 
         protected bool Equals(AssocArray<T> other)

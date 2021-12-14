@@ -96,7 +96,7 @@ namespace MetX.Standard.IO
 
             return false;
         }
-        
+
         //private static StringBuilder _outputResult;
 
         /// <summary>Deletes all files in a folder older than a certain number of minutes.</summary>
@@ -159,10 +159,10 @@ namespace MetX.Standard.IO
             foreach (var currSource in sourceContents)
             {
                 if (currSource.Attributes == FileAttributes.Directory)
-                    DeepCopy((DirectoryInfo) currSource, dest.CreateSubdirectory(currSource.Name));
+                    DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name));
                 else
                 {
-                    var currSourceFile = (FileInfo) currSource;
+                    var currSourceFile = (FileInfo)currSource;
                     currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);
                 }
             }
@@ -200,16 +200,16 @@ namespace MetX.Standard.IO
                         DeepContents(
                             new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime,
                                 currSource.LastWriteTime),
-                            (DirectoryInfo) currSource));
+                            (DirectoryInfo)currSource));
                 }
                 else
                 {
-                    var fi = (FileInfo) currSource;
+                    var fi = (FileInfo)currSource;
                     target.Files.Add(
                         new XlgFile(
                             fi.FullName.EndsWith(fi.Name)
                                 ? fi.FullName.TokensBeforeLast(@"\")
-                                : fi.FullName, 
+                                : fi.FullName,
                             fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
                 }
             }
@@ -285,6 +285,23 @@ namespace MetX.Standard.IO
             return ret;
         }
 
+
+        public static void FireAndForget(string filename, string arguments, string workingFolder = null, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+        {
+            try
+            {
+                if (windowStyle == ProcessWindowStyle.Hidden)
+                    windowStyle = ProcessWindowStyle.Normal;
+
+                GatherOutput(filename, arguments, workingFolder, 0, windowStyle, true);
+            }
+            catch 
+            {
+                // Ignored
+            }
+        }
+
+
         /// <summary>
         ///     Runs a command line, waits for it to finish, gathers it's output from string and returns the output.
         /// </summary>
@@ -295,9 +312,10 @@ namespace MetX.Standard.IO
         ///     The number of seconds to wait before killing the process. If the value is less than 1, 60
         ///     seconds is assumed.
         /// </param>
+        /// <param name="fireAndForget"></param>
         /// <returns>Both the regular and error output by the executable</returns>
         public static string GatherOutput(string filename, string arguments, string workingFolder = null,
-            int waitTime = 60, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+            int waitTime = 60, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal, bool fireAndForget = false)
         {
             var p = new Process
             {
@@ -318,27 +336,29 @@ namespace MetX.Standard.IO
             {
                 p.StartInfo.WorkingDirectory = workingFolder;
             }
-            if (waitTime < 1)
-            {
-                waitTime = 60;
-            }
+
+            if (waitTime < 1) waitTime = 60;
             waitTime *= 1000;
 
             p.Start();
+
+            if (fireAndForget) return null;
+
             var output = p.StandardOutput.ReadToEnd();
             if (!p.WaitForExit(waitTime))
             {
                 p.Kill();
             }
+
             p.Close();
 
-            var ret = output // + Environment.NewLine + sError)
+            var gatheredOutput = output // + Environment.NewLine + sError)
                 .Replace("\\x000C", string.Empty)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine)
                 .Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
-            while (ret.EndsWith(Environment.NewLine))
-                ret = ret.Substring(0, ret.Length - 2);
-            return ret;
+            while (gatheredOutput.EndsWith(Environment.NewLine))
+                gatheredOutput = gatheredOutput.Substring(0, gatheredOutput.Length - 2);
+            return gatheredOutput;
         }
 
         /// <summary>
@@ -429,7 +449,7 @@ namespace MetX.Standard.IO
                 }
 
                 var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
-                if(fullPath.IsNotEmpty())
+                if (fullPath.IsNotEmpty())
                 {
                     var paths = fullPath.Split(';').Distinct().ToArray();
                     foreach (var path in paths)
@@ -441,7 +461,7 @@ namespace MetX.Standard.IO
                         }
                     }
                 }
-                
+
             }
 
             return pathToExecutable;
