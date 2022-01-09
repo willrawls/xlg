@@ -1,10 +1,13 @@
-﻿using System.IO.Pipes;
+﻿using System.ComponentModel;
+using System.IO.Pipes;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.Serialization;
 using System.Text;
 using MetX.Standard;
 using MetX.Standard.Interfaces;
+using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
@@ -49,14 +52,14 @@ namespace XLG.QuickScripts
             Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
             
             LoadQuickScriptsFile(filePath);
-            InitializeHotKeys();
+            InitializeHotPhrases();
         }
 
 
-        private void InitializeHotKeys()
+        private void InitializeHotPhrases()
         {
-            Manager.Keyboard.AddOrReplace("RunCurrentQuickScript", new() { PKey.Control, PKey.Shift, PKey.Shift }, OnRunCurrentQuickScript);
-            Manager.Keyboard.AddOrReplace("PickAndRunQuickScript", new() { PKey.Control, PKey.Alt, PKey.Alt }, OnPickAndRunQuickScript);
+            Manager.Keyboard.AddOrReplace("Pick and Run QuickScript", new() { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.LShiftKey }, OnPickAndRunQuickScript);
+            Manager.Keyboard.AddOrReplace("Run Current QuickScript", new() { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.Alt }, OnRunCurrentQuickScript);
         }
 
         private void OnPickAndRunQuickScript(object? sender, PhraseEventArguments e)
@@ -67,10 +70,10 @@ namespace XLG.QuickScripts
                 {
                     return;
                 }
-
+                
                 UpdateScriptFromForm();
 
-                var chooseQuickScript = new ChooseOneDialog();
+                var chooseQuickScript = new ChooseFromListDialog();
                 var choices = Host.Context.Scripts.ScriptNames();
                 if (LastChoice > choices.Length)
                 {
@@ -83,14 +86,13 @@ namespace XLG.QuickScripts
                     var selectedScript = Host.Context.Scripts[choice];
                     RunQuickScript(this, selectedScript, null);
                 }
-
             }
             catch (Exception exception)
             {
                 Host.MessageBox.Show(exception.ToString());
             }
 
-            e.Handled = true;            
+            e.Handled = true;
         }
 
         private void OnRunCurrentQuickScript(object sender, PhraseEventArguments e)
@@ -658,23 +660,11 @@ namespace XLG.QuickScripts
 
         private void testFuncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Determine order of the other
-            var choices = new string[0];
-            string[] selection = { "C", "A", "B" };
-
-            var dialog = new ChooseOrderDialog();
-            var items = dialog.Ask(choices, selection);
-
-            if (items != null && items.Length > 0)
-            {
-                var x = string.Empty;
-                foreach (var item in items)
-                {
-                    x += item + "\r\n";
-                }
-
-                Host.MessageBox.Show(x);
-            }
+            var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(Handle);
+            var answer = dialog.Ask(PostBuildAction.DoNothing,
+                $"Executable generated successfully\n\n\tFolder:\tfred\n\tExe:\tgeorge");
+            Host.MessageBox.Show(answer.ToString());
+            
         }
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)
@@ -782,7 +772,21 @@ namespace XLG.QuickScripts
             ScriptEditor.FindAndReplaceForm.ShowFor(true);
         }
 
-        private void ViewIndependentGeneratedCode_Click(object sender, EventArgs e)
+        public enum PostBuildAction
+        {
+            [Description("Run now")] RunNow, 
+            [Description("Open project in Visual Studio")] OpenVisualStudio,
+            [Description("Copy full path to project folder")] CopyProjectFolderPath,
+            [Description("Copy full path to executable")] CopyExePath,
+            [Description("Copy project to another folder and open in Visual Studio")] CloneProjectAndOpen,
+            [Description("Open bin folder in CMD")] OpenBinFolderInCommandLine,
+            [Description("Open bin folder in Explorer")] OpenBinFolderInExplorer,
+            [Description("Open project folder in CMD")] OpenProjectFolderInCommandLine,
+            [Description("Open project folder in Explorer")] OpenProjectFolderOnExplorer,
+            [Description("Do Nothing")] DoNothing, 
+        }
+
+        private void BuildExe_Click(object sender, EventArgs e)
         {
             try
             {
@@ -794,9 +798,8 @@ namespace XLG.QuickScripts
                 UpdateScriptFromForm();
 
                 var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
-                //var result = settings.QuickScriptTemplate.ActualizeCode(settings);
                 var result = settings.ActualizeAndCompile();
-                string finalDetails = result.FinalDetails();
+                var finalDetails = result.FinalDetails();
                 if(!finalDetails.Contains("SUCCESS!"))
                     QuickScriptWorker.ViewText(Host, finalDetails, false);
                 if (!result.CompileSuccessful) return;
@@ -804,23 +807,47 @@ namespace XLG.QuickScripts
                 var location = result.DestinationExecutableFilePath;
                 if (location.IsEmpty()) return;
 
-                if ( MessageBoxResult.Yes == Host.MessageBox.Show(
-                    "Executable generated successfully at: " + location + Environment.NewLine +
-                    Environment.NewLine +
-                    "Would you like to run it now? (Yes to run, No to view source).", "RUN EXE OR VIEW FOLDER?", MessageBoxChoices.YesNo))
+                var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(Handle);
+                var answer = dialog.Ask(PostBuildAction.DoNothing,
+                    $"Executable generated successfully\n\n\tFolder:\t{result.Settings.ProjectFolder}\n\tExe:\t{result.DestinationExecutableFilePath}");
+
+                switch (answer)
                 {
-                    var arguments = $"/k \"{location}\"";
-                    Process.Start(new ProcessStartInfo("cmd.exe", arguments )
-                    {
-                        UseShellExecute = true,
-                        WorkingDirectory = result.Settings.OutputFolder,
-                        Arguments = ScriptEditor.Current.AsParameters()
-                    });
-                }
-                else
-                {
-                    var outputFile = Path.Combine(settings.OutputFolder, "QuickScriptProcessor.cs");
-                    QuickScriptWorker.ViewFile(Host, outputFile);
+                    case PostBuildAction.DoNothing:
+                        break;
+                    
+                    case PostBuildAction.RunNow:
+                        break;
+                    case PostBuildAction.CloneProjectAndOpen:
+                        break;
+
+
+                    case PostBuildAction.OpenVisualStudio:
+                        FileSystem.FireAndForget(result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
+                        break;
+                    
+                    case PostBuildAction.CopyProjectFolderPath:
+                        Clipboard.SetText(result.Settings.ProjectFolder);
+                        break;
+                    case PostBuildAction.CopyExePath:
+                        Clipboard.SetText(result.DestinationExecutableFilePath);
+                        break;
+
+                    case PostBuildAction.OpenBinFolderInCommandLine:
+                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.BinPath, Host);
+                        break;
+                    case PostBuildAction.OpenBinFolderInExplorer:
+                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.BinPath, Host);
+                        break;
+                    case PostBuildAction.OpenProjectFolderInCommandLine:
+                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.ProjectFolder, Host);
+                        break;
+                    case PostBuildAction.OpenProjectFolderOnExplorer:
+                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.ProjectFolder, Host);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             catch (Exception exception)

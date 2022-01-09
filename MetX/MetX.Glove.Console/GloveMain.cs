@@ -57,7 +57,7 @@ namespace XLG.Pipeliner
 
         private void InitializeHotKeys()
         {
-            Manager.Keyboard.AddOrReplace("RegenerateNow", new() { PKey.Control, PKey.Control, PKey.Control }, OnHotKeyRegenerateNow);
+            Manager.Keyboard.AddOrReplace("RegenerateNow", new() { PKey.RControlKey, PKey.LControlKey, PKey.RControlKey, PKey.RControlKey }, OnHotKeyRegenerateNow);
         }
 
         private void OnHotKeyRegenerateNow(object sender, PhraseEventArguments e)

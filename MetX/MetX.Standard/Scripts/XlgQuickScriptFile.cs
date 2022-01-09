@@ -70,6 +70,7 @@ namespace MetX.Standard.Scripts
                 .Split(new[] { "~~QuickScriptName:" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var rawScript in rawScripts)
             {
+                if (string.IsNullOrWhiteSpace(rawScript)) continue;
                 var script = new XlgQuickScript();
                 var isDefault = script.Load(rawScript);
                 ret.Add(script);

@@ -24,11 +24,13 @@ namespace MetX.Standard.Scripts
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
             var targetFolder = Path.Combine(tempFolder, "QuickScriptProcessors");
-            OutputFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension);
-            Directory.CreateDirectory(OutputFolder);
+            ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension);
+            Directory.CreateDirectory(ProjectFolder);
 
             FileSystem.CleanFolder(Path.Combine(targetFolder, "obj"));
             FileSystem.CleanFolder(Path.Combine(targetFolder, "bin"));
+
+            BinPath = Path.Combine(targetFolder, "bin", "Debug", "net5.0");
 
             GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
             
@@ -43,8 +45,11 @@ namespace MetX.Standard.Scripts
 
         public XlgQuickScript Script { get; set; }
         public bool ForExecutable { get; set; }
-        public string OutputFolder { get; set; }
+        public string ProjectFolder { get; set; }
         public GenInstance GeneratedAreas { get; set; }
         public IGenerationHost Host { get; set; }
+
+        public string ProjectFilePath => Path.Combine(ProjectFolder, $"{TemplateNameAsLegalFilenameWithoutExtension}.csproj");
+        public string BinPath { get; set; }
     }
 }

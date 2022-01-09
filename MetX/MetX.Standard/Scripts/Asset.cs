@@ -48,8 +48,8 @@ namespace MetX.Standard.Scripts
             }
 
             return RelativePath.IsEmpty() 
-                ? Path.Combine(settings.OutputFolder, filename) 
-                : Path.Combine(settings.OutputFolder, RelativePath, filename);
+                ? Path.Combine(settings.ProjectFolder, filename) 
+                : Path.Combine(settings.ProjectFolder, RelativePath, filename);
         }
 
         public string ResolveVariables(ActualizationResult result)

@@ -45,8 +45,8 @@ namespace MetX.Standard.Scripts
                 return false;
             }
 
-            var csprojFilePath = Directory.GetFiles(Settings.OutputFolder).FirstOrDefault(f => f.EndsWith(".csproj"));
-            OutputText = FileSystem.GatherOutputAndErrors("dotnet", $"build \"{csprojFilePath}\"", out var errorOutput, Settings.OutputFolder, 60, ProcessWindowStyle.Hidden);
+            var csprojFilePath = Directory.GetFiles(Settings.ProjectFolder).FirstOrDefault(f => f.EndsWith(".csproj"));
+            OutputText = FileSystem.GatherOutputAndErrors("dotnet", $"build \"{csprojFilePath}\"", out var errorOutput, Settings.ProjectFolder, 60, ProcessWindowStyle.Hidden);
             CompileErrorText = errorOutput;
 
             return CompileSuccessful;
@@ -83,7 +83,7 @@ namespace MetX.Standard.Scripts
             var sb = new StringBuilder();
             sb.AppendLine();
             sb.AppendLine("-----[ Output Folder ]-----");
-            sb.AppendLine($"{Settings.OutputFolder}");
+            sb.AppendLine($"{Settings.ProjectFolder}");
 
             if (CompileErrorText.IsEmpty() && !OutputText.Contains(": error "))
             {

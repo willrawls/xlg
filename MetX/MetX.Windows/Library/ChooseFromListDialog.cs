@@ -6,18 +6,20 @@ using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library
 {
-    public class ChooseOneDialog : GeneralQuestionDialog<ComboBox, int>
+    public class ChooseFromListDialog : GeneralQuestionDialog<ListBox, int>
     {
         public IntPtr WindowHandle { get; }
         public string[] Choices;
 
-        public ChooseOneDialog(IntPtr? windowHandle = null)
+        public ChooseFromListDialog(IntPtr? windowHandle = null)
         {
             WindowHandle = windowHandle ?? ActiveWindow.GetForegroundWindow();
             ValueToReturnOnCancel = -1;
         }
 
-        public override int SelectedValue => Result == DialogResult.Cancel ? ValueToReturnOnCancel : EntryArea.SelectedIndex;
+        public override int SelectedValue => Result == DialogResult.Cancel 
+            ? ValueToReturnOnCancel 
+            : EntryArea.SelectedIndex;
 
         public int Ask(
             string[] choices,
@@ -27,7 +29,7 @@ namespace MetX.Windows.Library
         {
             Choices = choices;
 
-            Initialize(promptText, title, defaultValue, 110, 400);
+            Initialize(promptText, title, defaultValue, 400, 500);
             if(WindowHandle == IntPtr.Zero)
             {
                 Result = ConstructedForm.ShowDialog();
@@ -58,7 +60,9 @@ namespace MetX.Windows.Library
                 EntryArea.SelectedIndex = DefaultValue;
             }
 
-            EntryArea.DropDownStyle = ComboBoxStyle.DropDownList;
+            EntryArea.Height = Choices.Length * 50;
+            ConstructedForm.Height = EntryArea.Height + 100;
+            EntryArea.Top = 50;
         }
     }
 }

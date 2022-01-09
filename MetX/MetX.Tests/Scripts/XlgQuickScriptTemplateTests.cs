@@ -53,7 +53,7 @@ namespace MetX.Tests.Scripts
             if (actual.Warnings.Count == 0)
                 return;
 
-            Console.WriteLine(actual.Settings.OutputFolder);
+            Console.WriteLine(actual.Settings.ProjectFolder);
             Console.WriteLine();
             Console.WriteLine("----- Warnings ------");
             Console.WriteLine();

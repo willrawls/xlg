@@ -189,7 +189,7 @@ namespace MetX.Controls
             var runResult = new RunResult
             {
                 ActualizationResult = result,
-                GatheredOutput = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out var errorOutput, Environment.GetEnvironmentVariable("TEMP"), 60, ProcessWindowStyle.Hidden),
+                GatheredOutput = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out var errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden),
                 KeepGoing = true,
                 ErrorOutput = errorOutput,
             };

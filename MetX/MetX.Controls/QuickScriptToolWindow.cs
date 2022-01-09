@@ -419,12 +419,12 @@ Would you like to run it now?
                         Process.Start(new ProcessStartInfo(result.DestinationExecutableFilePath)
                         {
                             UseShellExecute = true,
-                            WorkingDirectory = result.Settings.OutputFolder,
+                            WorkingDirectory = result.Settings.ProjectFolder,
                         });
                         break;
 
                     case MessageBoxResult.No:
-                        QuickScriptWorker.ViewFolder(result.Settings.OutputFolder, Host);
+                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.ProjectFolder, Host);
                         break;
 
                     default:

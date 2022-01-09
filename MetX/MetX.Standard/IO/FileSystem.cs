@@ -286,7 +286,7 @@ namespace MetX.Standard.IO
         }
 
 
-        public static void FireAndForget(string filename, string arguments, string workingFolder = null, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+        public static void FireAndForget(string filename, string arguments = null, string workingFolder = null, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
         {
             try
             {

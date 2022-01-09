@@ -287,33 +287,7 @@ namespace MetX.Standard.Scripts
 
             return ret;
         }
-
-        /*
-        public string ToCSharp(bool compileToExecutable, XlgQuickScriptTemplate xlgQuickScriptTemplate)
-        {
-            xlgQuickScriptTemplate ??= compileToExecutable
-                ? ContextBase.Default.Templates[ExeTemplateName ?? "Exe"]
-                : ContextBase.Default.Templates[NativeTemplateName ?? "Native"];
-
-            var code = new GenInstance(this, xlgQuickScriptTemplate, compileToExecutable).CSharp;
-            return code.IsEmpty()
-                ? code
-                : FormatCSharpCode(code);
-        }
-
-        public GenInstance ToGenInstance(bool independent, XlgQuickScriptTemplate xlgQuickScriptTemplate)
-        {
-            if(xlgQuickScriptTemplate == null)
-            {
-                xlgQuickScriptTemplate =
-                    ContextBase.Default.Templates[
-                        (independent ? NativeTemplateName ?? "Native" : ExeTemplateName ?? "Exe")];
-            }
-
-            return new GenInstance(this, xlgQuickScriptTemplate, independent);
-        }
-        */
-
+        
         public string ToFileFormat(bool isDefault)
         {
             return

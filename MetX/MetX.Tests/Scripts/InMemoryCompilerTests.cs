@@ -37,7 +37,7 @@ namespace MetX.Tests.Scripts
             Assert.IsTrue(host.Context.Templates.Any(t => t.Name == "TestExe"));
             
             var settings = script.BuildSettings(true, false, host);
-            settings.OutputFolder = outputFilePath;
+            settings.ProjectFolder = outputFilePath;
 
             ActualizationResult result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.ActualizationSuccessful);
@@ -54,7 +54,7 @@ namespace MetX.Tests.Scripts
 
         private static void AssertConsoleExecutableOutputsProperly(ActualizationResult result, string expected)
         {
-            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, null, out var errorOutput, result.Settings.OutputFolder, 15, ProcessWindowStyle.Hidden);
+            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, null, out var errorOutput, result.Settings.ProjectFolder, 15, ProcessWindowStyle.Hidden);
 
             Console.WriteLine();
             Console.WriteLine(result.DestinationExecutableFilePath);

@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using MetX.Standard.Interfaces;
+using MetX.Standard.IO;
+using MetX.Standard.Library.Extensions;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library
@@ -15,7 +17,7 @@ namespace MetX.Windows.Library
                 var tempFile = Path.Combine(Path.GetTempPath(),
                     $"qscript{Guid.NewGuid().ToString().Substring(1, 6)}{(isCSharpCode ? ".cs" : ".txt")}");
                 File.WriteAllText(tempFile, source);
-                Process.Start("notepad", tempFile);
+                FileSystem.FireAndForget("notepad", tempFile);
             }
             catch (Exception ex)
             {
@@ -30,7 +32,8 @@ namespace MetX.Windows.Library
             try
             {
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
-                var process = Process.Start("notepad", filePath);
+                
+                var process = Process.Start(PathToBestNotepad, filePath);
                 ActiveWindow.Move(process);
             }
             catch (Exception ex)
@@ -39,7 +42,43 @@ namespace MetX.Windows.Library
             }
         }
 
-        public static void ViewFolder(string folderPath, IGenerationHost host)
+        private static string _pathToBestNotepad;
+
+        public static string PathToBestNotepad
+        {
+            get
+            {
+                if (_pathToBestNotepad.IsNotEmpty())
+                    return _pathToBestNotepad;
+
+                _pathToBestNotepad = @"c:\Program Files (x86)\Notepad++\notepad++.exe";
+
+                if (!File.Exists(_pathToBestNotepad))
+                    _pathToBestNotepad = @"c:\Program Files\Notepad2\Notepad2.exe";
+            
+                if (!File.Exists(_pathToBestNotepad))
+                    _pathToBestNotepad = "notepad";
+
+                return _pathToBestNotepad;
+            }
+        }
+
+        public static void OpenFolderInCommandLine(string folderPath, IGenerationHost host)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+                var arguments = $"/k \"{folderPath}\"";
+                var process = Process.Start("cmd.exe", arguments);
+                ActiveWindow.Move(process);
+            }
+            catch (Exception ex)
+            {
+                host.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void ViewFolderInExplorer(string folderPath, IGenerationHost host)
         {
             try
             {

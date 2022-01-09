@@ -51,7 +51,7 @@ namespace MetX.Standard.Scripts
         public ActualizationResult ActualizeCode(ActualizationSettings settings)
         {
             if (!settings.Simulate)
-                Directory.CreateDirectory(settings.OutputFolder);
+                Directory.CreateDirectory(settings.ProjectFolder);
             var result = new ActualizationResult(settings);
 
             SetupAnswers(result);
@@ -95,7 +95,7 @@ namespace MetX.Standard.Scripts
                 StageSupportFiles(result);
 
                 var filename = settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationExecutableFilePath = Path.Combine(settings.OutputFolder, "bin", "Debug", "net5.0", filename);
+                result.DestinationExecutableFilePath = Path.Combine(settings.ProjectFolder, "bin", "Debug", "net5.0", filename);
 
             }
 
@@ -121,7 +121,7 @@ namespace MetX.Standard.Scripts
 
             foreach (var file in filesToCopy)
             {
-                file.CopyTo(result.Settings.OutputFolder);
+                file.CopyTo(result.Settings.ProjectFolder);
             }
         }
 
