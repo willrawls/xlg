@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -21,10 +22,62 @@ namespace MetX.Controls
 
     public class Context : ContextBase
     {
-        public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
+        public static readonly List<QuickScriptOutput> OutputWindows = new();
         public static RegistryKey AppDataRegistry;
-        private static bool _scriptIsRunning;
-        private static readonly object MScriptSyncRoot = new object();
+        public static bool ScriptIsRunning { get; private set; }
+        public const string LastQuickScriptsBasePathKeyName = "LastQuickScriptsBasePathKeyName";
+
+        private static readonly object MScriptSyncRoot = new();
+        public const string QuickScriptsClonesFolderName = "Clones";
+        public const string QuickScriptsActualFolderName = "Actual";
+        public const string QuickScriptsFolderName = "QuickScripts";
+        public const string ArchiveFolderName = "Archive";
+
+        public static string LastClonesBasePath => Path.Combine(GetLastQuickScriptsBasePath(), QuickScriptsClonesFolderName);
+        public static string LastActualBasePath => Path.Combine(GetLastQuickScriptsBasePath(), QuickScriptsActualFolderName);
+        public static string MyDocumentsQuickScriptsBasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Context.QuickScriptsFolderName);
+        
+
+
+        public static string GetLastQuickScriptsBasePath()
+        {
+            var defaultValue = MyDocumentsQuickScriptsBasePath;
+
+            Directory.CreateDirectory(defaultValue);
+            Directory.CreateDirectory(Path.Combine(defaultValue, ArchiveFolderName));
+
+            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsClonesFolderName));
+            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsClonesFolderName, ArchiveFolderName));
+
+            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsActualFolderName));
+            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsActualFolderName, ArchiveFolderName));
+
+            var openedKey = false;
+            if (AppDataRegistry == null)
+            {
+                AppDataRegistry = Application.UserAppDataRegistry;
+                openedKey = true;
+            }
+
+            if (AppDataRegistry == null)
+                return defaultValue;
+
+            var lastKnownPath = AppDataRegistry.GetValue(LastQuickScriptsBasePathKeyName) as string;
+
+            if (!openedKey || AppDataRegistry == null)
+                return defaultValue;
+
+            AppDataRegistry.Close();
+            AppDataRegistry = null;
+
+            if (lastKnownPath.IsEmpty())
+                return defaultValue;
+
+            Directory.CreateDirectory(Path.Combine(lastKnownPath, QuickScriptsClonesFolderName));
+            Directory.CreateDirectory(Path.Combine(lastKnownPath, QuickScriptsActualFolderName));
+
+            return lastKnownPath;
+        }
 
         public static string GetLastKnownPath()
         {
@@ -78,7 +131,7 @@ namespace MetX.Controls
 
             try
             {
-                _scriptIsRunning = true;
+                ScriptIsRunning = true;
                 if (scriptToRun.Destination == QuickScriptDestination.File)
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
@@ -162,7 +215,7 @@ namespace MetX.Controls
             }
             finally
             {
-                _scriptIsRunning = false;
+                ScriptIsRunning = false;
                 Monitor.Exit(MScriptSyncRoot);
             }
         }

@@ -50,7 +50,7 @@ namespace XLG.QuickScripts
             DestinationParam.LostFocus += DestinationParam_LostFocus;
 
             Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
-            
+
             LoadQuickScriptsFile(filePath);
             InitializeHotPhrases();
         }
@@ -70,7 +70,7 @@ namespace XLG.QuickScripts
                 {
                     return;
                 }
-                
+
                 UpdateScriptFromForm();
 
                 var chooseQuickScript = new ChooseFromListDialog();
@@ -422,7 +422,7 @@ namespace XLG.QuickScripts
                 XlgQuickScript newScript = null;
                 if (ScriptEditor.Current != null)
                 {
-                    answer = Host.MessageBox.Show("Would you like to clone the current script?", "CLONE SCRIPT?", MessageBoxChoices.YesNoCancel);
+                    answer = Host.MessageBox.Show("Would you like to copy the current script?", "COPY SCRIPT?", MessageBoxChoices.YesNoCancel);
                     switch (answer)
                     {
                         case MessageBoxResult.Cancel:
@@ -444,6 +444,8 @@ namespace XLG.QuickScripts
                     if (newScript == null)
                     {
                         newScript = new XlgQuickScript(name, script);
+                        if (script.IsEmpty())
+                            newScript.Input = "Clipboard";
                     }
 
                     Host.Context.Scripts.Add(newScript);
@@ -760,6 +762,33 @@ namespace XLG.QuickScripts
             Context.AppDataRegistry = null;
         }
 
+        private string UpdateLastQuickScriptsBasePath(string fullPath)
+        {
+            var path = fullPath.FirstToken(@"\QuickScripts\");
+            if (!Directory.Exists(path))
+                return null;
+
+            var openedKey = false;
+            if (Context.AppDataRegistry == null)
+            {
+                Context.AppDataRegistry = Application.UserAppDataRegistry;
+                openedKey = true;
+            }
+
+            if (Context.AppDataRegistry == null)
+            {
+                return path;
+            }
+
+            Context.AppDataRegistry.SetValue(Context.LastQuickScriptsBasePathKeyName, path, RegistryValueKind.String);
+
+            if (!openedKey || Context.AppDataRegistry == null) return path;
+
+            Context.AppDataRegistry.Close();
+            Context.AppDataRegistry = null;
+            return path;
+        }
+
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
         {
             DisplayExpandedQuickScriptSourceInNotepad();
@@ -777,8 +806,8 @@ namespace XLG.QuickScripts
 
         public enum PostBuildAction
         {
-            [Description("Run now")] RunNow, 
-            [Description("Open project in Visual Studio")] OpenVisualStudio,
+            [Description("Run now from command line")] RunNow,
+            [Description("Open (temp) project in Visual Studio")] OpenVisualStudio,
             [Description("Copy full path to project folder")] CopyProjectFolderPath,
             [Description("Copy full path to executable")] CopyExePath,
             [Description("Copy project to another folder and open in Visual Studio")] CloneProjectAndOpen,
@@ -786,7 +815,7 @@ namespace XLG.QuickScripts
             [Description("Open bin folder in Explorer")] OpenBinFolderInExplorer,
             [Description("Open project folder in CMD")] OpenProjectFolderInCommandLine,
             [Description("Open project folder in Explorer")] OpenProjectFolderOnExplorer,
-            [Description("Do Nothing")] DoNothing, 
+            [Description("Do Nothing")] DoNothing,
         }
 
         private void BuildExe_Click(object sender, EventArgs e)
@@ -803,7 +832,7 @@ namespace XLG.QuickScripts
                 var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
                 var result = settings.ActualizeAndCompile();
                 var finalDetails = result.FinalDetails();
-                if(!finalDetails.Contains("SUCCESS!"))
+                if (!finalDetails.Contains("SUCCESS!"))
                     QuickScriptWorker.ViewText(Host, finalDetails, false);
                 if (!result.CompileSuccessful) return;
 
@@ -823,49 +852,51 @@ namespace XLG.QuickScripts
                     {
                         case PostBuildAction.DoNothing:
                             break;
-                    
+
                         case PostBuildAction.RunNow:
                             QuickScriptWorker.RunInCommandLine(result.DestinationExecutableFilePath, result.Settings.ProjectFolder, Host);
                             break;
 
                         case PostBuildAction.CloneProjectAndOpen:
-                            var cloneFolder = @"I:\OneDrive\Data\code\QS\" + result.Settings.ProjectName;
-                            if(Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref cloneFolder) == MessageBoxResult.OK)
+                            var lastCloneBasePath = Context.LastClonesBasePath;
+                            var clonesFolder = Path.Combine(lastCloneBasePath, result.Settings.ProjectName);
+                            if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref clonesFolder) == MessageBoxResult.OK)
                             {
-                                if (Directory.Exists(cloneFolder))
+                                UpdateLastQuickScriptsBasePath(clonesFolder);
+
+                                if (Directory.Exists(clonesFolder))
                                 {
                                     var overwriteAnswer = "";
-                                    if (Host.InputBox("OVERWRITE CLONE?",
-                                        $"That folder already exists. Click OK to completely overwrite folder:\n  {cloneFolder}",
+                                    if (Host.InputBox("OVERWRITE CLONE?", $"That folder already exists. Click OK to completely overwrite folder:\n  {clonesFolder}",
                                         ref overwriteAnswer) != MessageBoxResult.OK)
                                     {
                                         break;
                                     }
                                 }
 
-                                FileSystem.CleanFolder(cloneFolder);
-                                Directory.CreateDirectory(cloneFolder);
-                                FileSystem.DeepCopy(result.Settings.ProjectFolder, cloneFolder);
+                                FileSystem.CleanFolder(clonesFolder);
+                                Directory.CreateDirectory(clonesFolder);
+                                FileSystem.DeepCopy(result.Settings.ProjectFolder, clonesFolder);
                                 answer = PostBuildAction.DoNothing;
 
                                 var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
                                 if (cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
                                 {
-                                    var cloneProjectFilePath = Path.Combine(cloneFolder, result.Settings.ProjectName + ".csproj");
-                                    FileSystem.FireAndForget(cloneDevEnv, cloneProjectFilePath, workingFolder: cloneFolder);
+                                    var cloneProjectFilePath = Path.Combine(clonesFolder, result.Settings.ProjectName + ".csproj");
+                                    FileSystem.FireAndForget(cloneDevEnv, "\"" + cloneProjectFilePath + "\"", workingFolder: clonesFolder);
                                 }
                             }
                             break;
 
                         case PostBuildAction.OpenVisualStudio:
                             var devEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
-                            if(devEnv.IsNotEmpty() && File.Exists(devEnv))
+                            if (devEnv.IsNotEmpty() && File.Exists(devEnv))
                             {
                                 FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
                                 answer = PostBuildAction.DoNothing;
                             }
                             break;
-                    
+
                         case PostBuildAction.CopyProjectFolderPath:
                             Clipboard.SetText(result.Settings.ProjectFolder);
                             break;
