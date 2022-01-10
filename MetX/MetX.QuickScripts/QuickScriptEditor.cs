@@ -854,7 +854,7 @@ namespace XLG.QuickScripts
                             break;
 
                         case PostBuildAction.RunNow:
-                            QuickScriptWorker.RunInCommandLine(result.DestinationExecutableFilePath, result.Settings.ProjectFolder, Host);
+                            QuickScriptWorker.RunInCommandLine(result.DestinationExecutableFilePath, result.Settings.BinPath, Host);
                             break;
 
                         case PostBuildAction.CloneProjectAndOpen:
