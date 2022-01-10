@@ -84,7 +84,7 @@ namespace MetX.Windows.Library
             {
                 if (string.IsNullOrEmpty(exeFilePath) || !File.Exists(exeFilePath)) return;
 
-                //var arguments = $"/k \"{exeFilePath}\"";
+                var arguments = $"/k \"{exeFilePath}\"";
                 //var process = Process.Start("cmd.exe", arguments);
 
                 var process = new Process
@@ -92,17 +92,19 @@ namespace MetX.Windows.Library
                     StartInfo =
                     {
                         WorkingDirectory = workingFolder,
-                        FileName = exeFilePath,
-                        //Arguments = arguments,
+                        FileName = "cmd.exe", //exeFilePath,
+                        Arguments = arguments,
                         UseShellExecute = false,
                         RedirectStandardOutput = false,
                         RedirectStandardError = false,
                         WindowStyle = ProcessWindowStyle.Normal,
                         CreateNoWindow = false,
+                        
                     }
                 };
                 if(process.Start())
                     ActiveWindow.Move(process);
+                
             }
             catch (Exception ex)
             {
