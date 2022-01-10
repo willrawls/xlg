@@ -7,8 +7,7 @@ namespace MetX.Standard.Data.Factory
     {
         public override int GatherNow(StringBuilder sb, string[] args)
         {
-            var source = new System.IO.DirectoryInfo(args[0]);
-            var x = IO.FileSystem.DeepContents(source);
+            var x = IO.FileSystem.DeepContents(args[0]);
             sb.AppendLine(Xml.Declaration);
             sb.Append(x.OuterXml());
             return 0;

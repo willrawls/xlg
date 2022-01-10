@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
@@ -27,14 +28,25 @@ namespace MetX.Standard.Scripts
             ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension);
             Directory.CreateDirectory(ProjectFolder);
 
-            FileSystem.CleanFolder(Path.Combine(targetFolder, "obj"));
-            FileSystem.CleanFolder(Path.Combine(targetFolder, "bin"));
+            FileSystem.CleanFolder(Path.Combine(ProjectFolder, "obj"));
+            FileSystem.CleanFolder(Path.Combine(ProjectFolder, "bin"));
 
-            BinPath = Path.Combine(targetFolder, "bin", "Debug", "net5.0");
-
-            GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
+            DebugPath = Path.Combine(ProjectFolder, "bin", "Debug");
             
+            GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
         }
+
+        public void UpdateBinPath()
+        {
+            if (!Directory.Exists(DebugPath))
+                return; 
+
+            var outputFolderInfo = new DirectoryInfo(DebugPath);
+            var outputFolder = outputFolderInfo.EnumerateDirectories().OrderBy(x => x.LastWriteTime).First().FullName;
+            BinPath = outputFolder;
+        }
+
+        public string DebugPath { get; set; }
 
         public string ProjectName { get; set; }
         public bool Simulate { get; set; }

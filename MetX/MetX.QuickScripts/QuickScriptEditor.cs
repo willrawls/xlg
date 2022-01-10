@@ -660,11 +660,14 @@ namespace XLG.QuickScripts
 
         private void testFuncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(Handle);
-            var answer = dialog.Ask(PostBuildAction.DoNothing,
-                $"Executable generated successfully\n\n\tFolder:\tfred\n\tExe:\tgeorge");
+            /*
+            var x = FileSystem.LatestVisualStudioDevEnvFilePath();
+            var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing, Handle);
+            var answer = dialog.Ask(PostBuildAction.OpenVisualStudio,
+                $"Executable generated successfully\n\n\tFolder:\tfred\n\tExe:\tgeorge",
+                "TEST. WHAT NOW?");
             Host.MessageBox.Show(answer.ToString());
-            
+        */
         }
 
         private void toolStripDropDownButton1_Click(object sender, EventArgs e)
@@ -807,47 +810,78 @@ namespace XLG.QuickScripts
                 var location = result.DestinationExecutableFilePath;
                 if (location.IsEmpty()) return;
 
-                var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(Handle);
-                var answer = dialog.Ask(PostBuildAction.DoNothing,
-                    $"Executable generated successfully\n\n\tFolder:\t{result.Settings.ProjectFolder}\n\tExe:\t{result.DestinationExecutableFilePath}");
+                PostBuildAction answer = PostBuildAction.OpenVisualStudio;
 
-                switch (answer)
+                while (answer != PostBuildAction.DoNothing)
                 {
-                    case PostBuildAction.DoNothing:
-                        break;
+                    var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing, Handle);
+                    answer = dialog.Ask(answer,
+                        $"Executable generated successfully\n\n\tFolder: {result.Settings.ProjectFolder}\n\tExe:    {result.DestinationExecutableFilePath}",
+                        "SUCCESS. WHAT NOW?");
+
+                    switch (answer)
+                    {
+                        case PostBuildAction.DoNothing:
+                            break;
                     
-                    case PostBuildAction.RunNow:
-                        break;
-                    case PostBuildAction.CloneProjectAndOpen:
-                        break;
+                        case PostBuildAction.RunNow:
+                            QuickScriptWorker.RunInCommandLine(result.DestinationExecutableFilePath, result.Settings.ProjectFolder, Host);
+                            break;
 
+                        case PostBuildAction.CloneProjectAndOpen:
+                            var cloneFolder = @"I:\OneDrive\Data\code\" + result.Settings.ProjectName;
+                            if (Directory.Exists(cloneFolder))
+                            {
+                                string overwriteAnswer = "";
+                                if(Host.InputBox("OVERWRITE CLONE?",
+                                    $"That folder already exists. Continue by typing 'yes'. This cannot be undone.\nOverwrite folder:\n  {cloneFolder}", ref overwriteAnswer) == MessageBoxResult.OK)
+                                {
+                                    if (overwriteAnswer != "yes")
+                                        break;
+                                }
+                            }
+                            FileSystem.CleanFolder(cloneFolder);
+                            FileSystem.DeepCopy(result.Settings.ProjectFolder, cloneFolder);
 
-                    case PostBuildAction.OpenVisualStudio:
-                        FileSystem.FireAndForget(result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
-                        break;
+                            var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
+                            if(cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
+                            {
+                                var cloneProjectFilePath = @"I:\OneDrive\Data\code\" + result.Settings.ProjectName + @"\" + result.Settings.ProjectName + ".csproj";
+                                FileSystem.FireAndForget(cloneDevEnv, cloneProjectFilePath,
+                                    workingFolder: cloneFolder);
+                            }
+
+                            break;
+
+                        case PostBuildAction.OpenVisualStudio:
+                            var devEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
+                            if(devEnv.IsNotEmpty() && File.Exists(devEnv))
+                                FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
+                            break;
                     
-                    case PostBuildAction.CopyProjectFolderPath:
-                        Clipboard.SetText(result.Settings.ProjectFolder);
-                        break;
-                    case PostBuildAction.CopyExePath:
-                        Clipboard.SetText(result.DestinationExecutableFilePath);
-                        break;
+                        case PostBuildAction.CopyProjectFolderPath:
+                            Clipboard.SetText(result.Settings.ProjectFolder);
+                            break;
+                        case PostBuildAction.CopyExePath:
+                            Clipboard.SetText(result.DestinationExecutableFilePath);
+                            break;
 
-                    case PostBuildAction.OpenBinFolderInCommandLine:
-                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.BinPath, Host);
-                        break;
-                    case PostBuildAction.OpenBinFolderInExplorer:
-                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.BinPath, Host);
-                        break;
-                    case PostBuildAction.OpenProjectFolderInCommandLine:
-                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.ProjectFolder, Host);
-                        break;
-                    case PostBuildAction.OpenProjectFolderOnExplorer:
-                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.ProjectFolder, Host);
-                        break;
+                        case PostBuildAction.OpenBinFolderInCommandLine:
+                            QuickScriptWorker.OpenFolderInCommandLine(result.Settings.BinPath, Host);
+                            break;
+                        case PostBuildAction.OpenBinFolderInExplorer:
+                            QuickScriptWorker.ViewFolderInExplorer(result.Settings.BinPath, Host);
+                            break;
+                        case PostBuildAction.OpenProjectFolderInCommandLine:
+                            QuickScriptWorker.OpenFolderInCommandLine(result.Settings.ProjectFolder, Host);
+                            break;
+                        case PostBuildAction.OpenProjectFolderOnExplorer:
+                            QuickScriptWorker.ViewFolderInExplorer(result.Settings.ProjectFolder, Host);
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
             catch (Exception exception)

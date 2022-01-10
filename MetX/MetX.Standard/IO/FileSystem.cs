@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Standard.IO
 {
@@ -148,6 +151,10 @@ namespace MetX.Standard.IO
             }
         }
 
+        public static bool DeepCopy(string source, string dest)
+        {
+            return DeepCopy(new DirectoryInfo(source), new DirectoryInfo(dest));
+        }
         /// <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
         /// <param name="source">The path from which files and subfolders should be copied</param>
         /// <param name="dest">The path to which those files and folders should be copied</param>
@@ -169,16 +176,36 @@ namespace MetX.Standard.IO
             return true;
         }
 
+        public static XlgFolder DeepContents(string source, Regex fileFilter = null, Regex folderFilter = null)
+        {
+            return DeepContents(new DirectoryInfo(source), fileFilter, folderFilter);
+        }
+
         /// <summary>
         ///     Iterates the contents of a folder (including subfolders) generating an xml serializable object hierarchy along
         ///     the way
         /// </summary>
         /// <param name="source">The path from which files and subfolders to iterate</param>
+        /// <param name="fileFilter"></param>
+        /// <param name="folderFilter"></param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static XlgFolder DeepContents(DirectoryInfo source)
+        public static XlgFolder DeepContents(DirectoryInfo source, Regex fileFilter, Regex folderFilter)
         {
-            var ret = new XlgFolder(source.FullName, source.Name, source.CreationTime, source.LastWriteTime);
-            return DeepContents(ret, source);
+            var folder = new XlgFolder(source.FullName, source.Name, source.CreationTime, source.LastWriteTime);
+            return DeepContents(folder, source, fileFilter, folderFilter);
+        }
+
+        public static List<XlgFile> Flatten(XlgFolder xlgFolder)
+        {
+            var result = new List<XlgFile>();
+            return Flatten(xlgFolder, result);
+        }
+        public static List<XlgFile> Flatten(XlgFolder xlgFolder, List<XlgFile> target)
+        {
+            target.AddRange(xlgFolder.Files);
+            foreach (var folder in xlgFolder.Folders)
+                Flatten(folder, target);
+            return target;
         }
 
         /// <summary>
@@ -187,8 +214,10 @@ namespace MetX.Standard.IO
         /// </summary>
         /// <param name="target"></param>
         /// <param name="source">The path from which files and subfolders to iterate</param>
+        /// <param name="fileFilter"></param>
+        /// <param name="folderFilter"></param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static XlgFolder DeepContents(XlgFolder target, DirectoryInfo source)
+        public static XlgFolder DeepContents(XlgFolder target, DirectoryInfo source, Regex fileFilter, Regex folderFilter)
         {
             var sourceContents = source.GetFileSystemInfos();
 
@@ -196,21 +225,23 @@ namespace MetX.Standard.IO
             {
                 if ((currSource.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                 {
-                    target.Folders.Add(
-                        DeepContents(
-                            new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime,
-                                currSource.LastWriteTime),
-                            (DirectoryInfo)currSource));
+                    var add = folderFilter == null || folderFilter.IsMatch(currSource.FullName);
+                    if(add)
+                        target.Folders.Add(
+                            DeepContents(new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime, currSource.LastWriteTime), (DirectoryInfo) currSource, fileFilter, folderFilter));
                 }
                 else
                 {
                     var fi = (FileInfo)currSource;
-                    target.Files.Add(
-                        new XlgFile(
-                            fi.FullName.EndsWith(fi.Name)
-                                ? fi.FullName.TokensBeforeLast(@"\")
-                                : fi.FullName,
-                            fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
+
+                    var add = fileFilter == null || fileFilter.IsMatch(fi.Name);
+                    if(add)
+                        target.Files.Add(
+                            new XlgFile(
+                                fi.FullName.EndsWith(fi.Name)
+                                    ? fi.FullName.TokensBeforeLast(@"\")
+                                    : fi.FullName,
+                                fi.Name, fi.Extension, fi.Length, fi.CreationTime, fi.LastWriteTime));
                 }
             }
             return target;
@@ -286,7 +317,7 @@ namespace MetX.Standard.IO
         }
 
 
-        public static void FireAndForget(string filename, string arguments = null, string workingFolder = null, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+        public static Exception FireAndForget(string filename, string arguments = null, string workingFolder = null, ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
         {
             try
             {
@@ -295,10 +326,12 @@ namespace MetX.Standard.IO
 
                 GatherOutput(filename, arguments, workingFolder, 0, windowStyle, true);
             }
-            catch 
+            catch(Exception e)
             {
-                // Ignored
+                return e;
             }
+
+            return null;
         }
 
 
@@ -424,47 +457,74 @@ namespace MetX.Standard.IO
         public static string FindExecutableAlongPath(string toFind, string[] alsoCheck = null)
         {
             var pathToExecutable = toFind;
-            if (!File.Exists(pathToExecutable)) // && pathToExecutable.Contains("\\"))
+            if (File.Exists(pathToExecutable)) return pathToExecutable;
+
+            var executableFilename = Path.GetFileName(pathToExecutable);
+            if (alsoCheck.IsNotEmpty())
             {
-                var executableFilename = Path.GetFileName(pathToExecutable);
-                if (alsoCheck.IsNotEmpty())
+                foreach (var path in alsoCheck)
                 {
-                    foreach (var path in alsoCheck)
+                    var potentialLocation = Path.Combine(path, executableFilename);
+                    if (File.Exists(potentialLocation))
                     {
-                        var potentialLocation = Path.Combine(path, executableFilename);
-                        if (File.Exists(potentialLocation))
-                        {
-                            return potentialLocation;
-                        }
-                        else
-                        {
-                            potentialLocation = (AppDomain.CurrentDomain.BaseDirectory + potentialLocation)
-                                .Replace(@"\\", @"\");
-                            if (File.Exists(potentialLocation))
-                            {
-                                return potentialLocation;
-                            }
-                        }
+                        return potentialLocation;
+                    }
+
+                    potentialLocation = (AppDomain.CurrentDomain.BaseDirectory + potentialLocation).Replace(@"\\", @"\");
+                    if (File.Exists(potentialLocation))
+                    {
+                        return potentialLocation;
                     }
                 }
+            }
 
-                var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
-                if (fullPath.IsNotEmpty())
+            var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
+            if (fullPath.IsNotEmpty())
+            {
+                var paths = fullPath.Split(';').Distinct().ToArray();
+                foreach (var path in paths)
                 {
-                    var paths = fullPath.Split(';').Distinct().ToArray();
-                    foreach (var path in paths)
+                    var potentialLocation = Path.Combine(path, executableFilename);
+                    if (File.Exists(potentialLocation))
                     {
-                        var potentialLocation = Path.Combine(path, executableFilename);
-                        if (File.Exists(potentialLocation))
-                        {
-                            return potentialLocation;
-                        }
+                        return potentialLocation;
                     }
                 }
-
             }
 
             return pathToExecutable;
+        }
+
+        private static string _latestVisualStudioDevEnvFilePath;
+        public static string LatestVisualStudioDevEnvFilePath()
+        {
+            if (_latestVisualStudioDevEnvFilePath.IsNotEmpty())
+                return _latestVisualStudioDevEnvFilePath;
+
+            var fileFilter = new Regex(@"^devenv\.exe$", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant);
+            var folderFilter = new Regex(@"\\2\d+", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant);
+
+            var contents = Flatten(DeepContents(@"C:\Program Files (x86)\Microsoft Visual Studio", fileFilter, folderFilter));
+
+            if (contents.IsEmpty())
+            {
+                contents = Flatten(DeepContents(@"C:\Program Files\Microsoft Visual Studio", fileFilter, folderFilter));
+            }
+
+            if (contents.IsEmpty())
+                return "devenv.exe";
+
+            if (contents.Count == 1)
+            {
+                _latestVisualStudioDevEnvFilePath = contents[0].FullPath;
+                return _latestVisualStudioDevEnvFilePath;
+            }
+
+            var bestMatch = contents.OrderByDescending(x => x.Created).FirstOrDefault();
+            if (bestMatch != null)
+                _latestVisualStudioDevEnvFilePath = bestMatch.FullPath;
+
+            return _latestVisualStudioDevEnvFilePath;
         }
     }
 }

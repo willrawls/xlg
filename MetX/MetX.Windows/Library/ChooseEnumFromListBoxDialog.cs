@@ -16,24 +16,23 @@ namespace MetX.Windows.Library
         public Dictionary<string, TEnum> DStringToEnum = new();
         public Dictionary<TEnum, int> DEnumToIndex = new();
 
-        public ChooseEnumFromListBoxDialog(IntPtr? windowHandle = null)
+        public ChooseEnumFromListBoxDialog(TEnum valueToReturnOnCancel, IntPtr? windowHandle = null)
         {
             WindowHandle = windowHandle ?? ActiveWindow.GetForegroundWindow();
-            ValueToReturnOnCancel = default;
+            ValueToReturnOnCancel = valueToReturnOnCancel;
         }
 
         public override TEnum SelectedValue
         {
             get
             {
-                if (Result == DialogResult.Cancel)
-                    return ValueToReturnOnCancel;
-
-                return DStringToEnum[EntryArea.Text];
+                return Result == DialogResult.Cancel 
+                    ? ValueToReturnOnCancel 
+                    : DStringToEnum[EntryArea.Text];
             }
         }
 
-        public TEnum Ask(TEnum defaultValue, string promptText = "Please select one from the list", string title = "CHOOSE ONE")
+        public TEnum Ask(TEnum valueToInitiallySelect, string promptText = "Please select one from the list", string title = "CHOOSE ONE")
         {
             Choices = new List<string>();
             
@@ -43,15 +42,14 @@ namespace MetX.Windows.Library
             {
                 i++;
                 var name = item.Get<DescriptionAttribute>().Description;
-                // var name = Enum.GetName(typeof(TEnum), item);
                 if (name.IsEmpty()) continue;
                 Choices.Add(name);
                 DStringToEnum.Add(name, item);
                 DEnumToIndex.Add(item, i);
             }
             
-            Initialize(promptText, title, defaultValue, 400, 500);
-            EntryArea.Visible = true;            
+            Initialize(promptText, title, valueToInitiallySelect, 550, 650);
+
             if(WindowHandle == IntPtr.Zero)
             {
                 Result = ConstructedForm.ShowDialog();
@@ -78,7 +76,19 @@ namespace MetX.Windows.Library
             }
 
             EntryArea.SelectedIndex = DEnumToIndex[DefaultValue];
-            EntryArea.Visible = true;
+
+            EntryArea.Left = 50;
+            EntryArea.Top = 125;
+            EntryArea.Width = ConstructedForm.Width - EntryArea.Left * 2;
+            EntryArea.Height = ConstructedForm.Height - EntryArea.Top * 2;
+
+            OkButton.Top = EntryArea.Top + EntryArea.Height + 10;
+            CancelButton.Top = OkButton.Top;
+
+            EntryArea.DoubleClick += (_, args) =>
+            {
+                OkButton.PerformClick();
+            };
         }
     }
 }

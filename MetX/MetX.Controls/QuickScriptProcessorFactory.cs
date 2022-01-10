@@ -29,6 +29,7 @@ namespace MetX.Controls
                 var compileResult = result.Compile();
                 if (compileResult)
                 {
+                    result.Settings.UpdateBinPath();
                     return result;
                 }
             }

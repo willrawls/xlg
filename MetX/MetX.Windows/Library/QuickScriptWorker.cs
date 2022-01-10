@@ -68,7 +68,22 @@ namespace MetX.Windows.Library
             try
             {
                 if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
-                var arguments = $"/k \"{folderPath}\"";
+                var arguments = $"/k \"cd /d {folderPath}\"";
+                var process = Process.Start("cmd.exe", arguments);
+                ActiveWindow.Move(process);
+            }
+            catch (Exception ex)
+            {
+                host.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void RunInCommandLine(string exeFilePath, string workingFolder, IGenerationHost host)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(exeFilePath) || !File.Exists(exeFilePath)) return;
+                var arguments = $"/k \"{exeFilePath}\"";
                 var process = Process.Start("cmd.exe", arguments);
                 ActiveWindow.Move(process);
             }

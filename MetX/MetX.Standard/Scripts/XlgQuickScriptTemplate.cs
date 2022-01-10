@@ -107,7 +107,7 @@ namespace MetX.Standard.Scripts
             return; // Currently unneeded
 
             // Stage support files (MetX.*.dll & .pdb)
-            var contents = FileSystem.DeepContents(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
+            var contents = FileSystem.DeepContents(AppDomain.CurrentDomain.BaseDirectory);
 
             List<XlgFile> filesToCopy = new List<XlgFile>();
 
