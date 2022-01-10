@@ -13,8 +13,9 @@ namespace XLG.QuickScripts
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickScripts");
+            var path = Context.MyDocumentsQuickScriptsBasePath;
             Directory.CreateDirectory(path);
+
             string filePath;
 
             if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq")) filePath = args[0];
