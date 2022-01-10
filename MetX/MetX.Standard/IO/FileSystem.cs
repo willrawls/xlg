@@ -167,10 +167,15 @@ namespace MetX.Standard.IO
             {
                 if (currSource.Attributes == FileAttributes.Directory)
                     DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name));
-                else
+                else if(currSource.Attributes == FileAttributes.Normal
+                        || currSource.Attributes == FileAttributes.Archive)
                 {
                     var currSourceFile = (FileInfo)currSource;
                     currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);
+                }
+                else
+                {
+                    Debugger.Break();
                 }
             }
             return true;

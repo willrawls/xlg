@@ -97,10 +97,8 @@ namespace MetX.Controls
                 var runResult = Run(caller, host.Context, scriptToRun, host);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
-                //if(runResult.GatheredOutput.IsNotEmpty())
-                //    QuickScriptWorker.ViewText(host, runResult.GatheredOutput, false);
-                if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
-                    host.MessageBox.Show(runResult.ErrorOutput);
+                //if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
+                //    host.MessageBox.Show(runResult.ErrorOutput);
 
                 if (!runResult.KeepGoing || runResult.GatheredOutput.IsEmpty())
                     return;

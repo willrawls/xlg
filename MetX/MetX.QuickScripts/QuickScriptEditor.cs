@@ -810,7 +810,7 @@ namespace XLG.QuickScripts
                 var location = result.DestinationExecutableFilePath;
                 if (location.IsEmpty()) return;
 
-                PostBuildAction answer = PostBuildAction.OpenVisualStudio;
+                var answer = PostBuildAction.OpenVisualStudio;
 
                 while (answer != PostBuildAction.DoNothing)
                 {
@@ -829,34 +829,41 @@ namespace XLG.QuickScripts
                             break;
 
                         case PostBuildAction.CloneProjectAndOpen:
-                            var cloneFolder = @"I:\OneDrive\Data\code\" + result.Settings.ProjectName;
-                            if (Directory.Exists(cloneFolder))
+                            var cloneFolder = @"I:\OneDrive\Data\code\QS\" + result.Settings.ProjectName;
+                            if(Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref cloneFolder) == MessageBoxResult.OK)
                             {
-                                string overwriteAnswer = "";
-                                if(Host.InputBox("OVERWRITE CLONE?",
-                                    $"That folder already exists. Continue by typing 'yes'. This cannot be undone.\nOverwrite folder:\n  {cloneFolder}", ref overwriteAnswer) == MessageBoxResult.OK)
+                                if (Directory.Exists(cloneFolder))
                                 {
-                                    if (overwriteAnswer != "yes")
+                                    var overwriteAnswer = "";
+                                    if (Host.InputBox("OVERWRITE CLONE?",
+                                        $"That folder already exists. Click OK to completely overwrite folder:\n  {cloneFolder}",
+                                        ref overwriteAnswer) != MessageBoxResult.OK)
+                                    {
                                         break;
+                                    }
+                                }
+
+                                FileSystem.CleanFolder(cloneFolder);
+                                Directory.CreateDirectory(cloneFolder);
+                                FileSystem.DeepCopy(result.Settings.ProjectFolder, cloneFolder);
+                                answer = PostBuildAction.DoNothing;
+
+                                var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
+                                if (cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
+                                {
+                                    var cloneProjectFilePath = Path.Combine(cloneFolder, result.Settings.ProjectName + ".csproj");
+                                    FileSystem.FireAndForget(cloneDevEnv, cloneProjectFilePath, workingFolder: cloneFolder);
                                 }
                             }
-                            FileSystem.CleanFolder(cloneFolder);
-                            FileSystem.DeepCopy(result.Settings.ProjectFolder, cloneFolder);
-
-                            var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
-                            if(cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
-                            {
-                                var cloneProjectFilePath = @"I:\OneDrive\Data\code\" + result.Settings.ProjectName + @"\" + result.Settings.ProjectName + ".csproj";
-                                FileSystem.FireAndForget(cloneDevEnv, cloneProjectFilePath,
-                                    workingFolder: cloneFolder);
-                            }
-
                             break;
 
                         case PostBuildAction.OpenVisualStudio:
                             var devEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
                             if(devEnv.IsNotEmpty() && File.Exists(devEnv))
+                            {
                                 FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
+                                answer = PostBuildAction.DoNothing;
+                            }
                             break;
                     
                         case PostBuildAction.CopyProjectFolderPath:
