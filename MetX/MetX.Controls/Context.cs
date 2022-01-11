@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -147,7 +148,7 @@ namespace MetX.Controls
                     }
                 }
 
-                var runResult = Run(caller, host.Context, scriptToRun, host);
+                var runResult = Run(caller, host.Context, scriptToRun, host, scriptToRun.Destination != QuickScriptDestination.TextBox);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
                 //if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
@@ -220,7 +221,7 @@ namespace MetX.Controls
             }
         }
 
-        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host)
+        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
         {
             var settings = scriptToRun.BuildSettings(true, false, host);
             var result = settings.ActualizeAndCompile();
@@ -237,10 +238,18 @@ namespace MetX.Controls
 
             string parameters = result.Settings.Script.AsParameters();
 
+            string errorOutput = "";
+            if (fireAndForget)
+            {
+                FileSystem.FireAndForget(result.DestinationExecutableFilePath, parameters, Environment.GetEnvironmentVariable("TEMP"), ProcessWindowStyle.Hidden);
+            }
+
             var runResult = new RunResult
             {
                 ActualizationResult = result,
-                GatheredOutput = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out var errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden),
+                GatheredOutput = fireAndForget
+                    ? ""
+                    : FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden),
                 KeepGoing = true,
                 ErrorOutput = errorOutput,
             };
