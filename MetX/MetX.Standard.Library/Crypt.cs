@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -26,16 +27,25 @@ namespace MetX.Standard.Library
         private static ICryptoTransform _encryptorFixed;
         private static ICryptoTransform _decryptorFixed;
 
+
+        public const string DefaultCryptKey = "ChangeTheKey";
+        public const string DefaultCryptVector = "ChangeTheVector";
         public static readonly byte[] DefaultKeyBytes = new byte[] {41, 12, 51, 6, 54, 8, 111, 89, 150, 12, 80, 10, 8, 12, 1, 170};
+
         public static byte[] KeyBytes = DefaultKeyBytes;
+        public static string CryptKey { get; set; } = DefaultCryptKey + DefaultCryptKey + DefaultCryptKey;
+        public static string CryptVector { get; set; } = DefaultCryptVector + DefaultCryptVector + DefaultCryptVector;
 
-        public static string CryptKey { get; set; }
-        public static string CryptVector { get; set; }
-
-        public static void Reset()
+        public static void Reset(string key = null, string vector = null)
         {
             lock (SyncRoot)
             {
+                if(key.IsNotEmpty())
+                    CryptKey = key;
+
+                if(vector.IsNotEmpty())
+                    CryptVector = vector;
+
                 if (KeyBytes == null || KeyBytes.Length != 16)
                     throw new CryptographicException("16 byte key required. Set the KeyBytes field");
                 
@@ -46,14 +56,14 @@ namespace MetX.Standard.Library
                 {
                     sa.BlockSize = 128;
                     sa.Key = bytes;
-                    sa.IV = sa.Key;
+                    sa.IV = sa.Key.Reverse().ToArray();
                     _encryptorFixed = sa.CreateEncryptor();
                     _decryptorFixed = sa.CreateDecryptor();
                 }
 
                 _cryptoService = new RijndaelManaged {KeySize = 256};
                 _key = Encoding.ASCII.GetBytes(CryptKey
-                        ?? throw new InvalidOperationException());
+                        ?? throw new InvalidOperationException()).Take(256/8).ToArray();
                 
                 var theVector = CryptVector;
                 _vector = Encoding.ASCII.GetBytes(
@@ -124,17 +134,17 @@ namespace MetX.Standard.Library
             var bytIn = Encoding.ASCII.GetBytes(source);
             // create a MemoryStream so that the process can be done without I/O files
             using var ms = new MemoryStream();
+            var randomPadding = SuperRandom.NextBytes((uint) SuperRandom.NextInteger(31,61), true);
 
-            string returnValue;
-            using (var cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write))
-            {
-                cs.Write(bytIn, 0, bytIn.Length);
-                cs.FlushFinalBlock();
+            using var cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write);
+            cs.Write(randomPadding, 0, randomPadding.Length);
+                
+            cs.Write(bytIn, 0, bytIn.Length);
+            cs.FlushFinalBlock();
 
-                // convert into Base64 so that the result can be used in xml
-                returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int) ms.Length);
-                cs.Close();
-            }
+            // convert into Base64 so that the result can be used in xml
+            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int) ms.Length);
+            cs.Close();
             ms.Close();
 
             return returnValue;
@@ -153,20 +163,19 @@ namespace MetX.Standard.Library
             if (encryptedSource.Contains(" "))
                 encryptedSource = encryptedSource.Replace(" ", "+");
 
-            var bytIn = Convert.FromBase64String(encryptedSource);
+            var bytesIn = Convert.FromBase64String(encryptedSource);
             string returnValue = null;
-            using var ms = new MemoryStream(bytIn, 0, bytIn.Length);
+            using var ms = new MemoryStream(bytesIn, 0, bytesIn.Length);
             for (var i = 0; i < 2 && returnValue == null; i++)
             {
                 try
                 {
-
                     // create Crypto Stream that transforms a stream using the decryption
                     using (var cs = new CryptoStream(ms, i == 0 ? _decryptorToday : _decryptorYesterday, CryptoStreamMode.Read))
                     {
                         using (var sr = new StreamReader(cs))
                         {
-                            returnValue = sr.ReadToEnd();
+                            returnValue = sr.ReadToEnd().TokensAfterFirst("\x0");
                             sr.Close();
                         }
                         cs.Close();

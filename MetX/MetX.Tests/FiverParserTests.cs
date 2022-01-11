@@ -8,7 +8,7 @@ namespace MetX.Tests
     public class FiverParserTests
     {
         private const string Fiver_TemplateAreaBeginProcessingArea = @"
-~~TemplateName:
+~~Template:
     string x = ""Ding"";
 
 ~~Area: Fred
@@ -28,7 +28,7 @@ namespace MetX.Tests
         {
             var data = new FiverParser();
             data.Parse(@"
-~~TemplateName:
+~~Template:
     string x = ""Ding"";
 ");
             Assert.AreEqual(1, data.Templates.Count);
@@ -44,7 +44,7 @@ namespace MetX.Tests
         {
             var data = new FiverParser();
             data.Parse(@"
-~~TemplateName:
+~~Template:
     string x = ""Ding"";
 ~~Area: Fred
     string y = ""Fred"";
