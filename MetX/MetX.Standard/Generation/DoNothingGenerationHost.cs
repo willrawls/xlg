@@ -8,7 +8,7 @@ namespace MetX.Standard.Generation
     {
         public DoNothingGenerationHost(string testTextToProcess = "", ContextBase context = null)
         {
-            Context = context;
+            Context = context ?? new ContextBase(this);
             GetTextForProcessing = () => testTextToProcess;
             MessageBox = new DoNothingMessageBoxHost(this);
 

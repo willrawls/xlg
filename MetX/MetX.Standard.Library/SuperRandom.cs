@@ -57,14 +57,13 @@ namespace MetX.Standard.Library
             return minValue + value % diff;
         }
 
-        public static string NextString(int length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
+        public static string NextString(uint length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
         {
             if (length < 1)
                 return "";
 
             var bytes = NextBytes(sizeof(char) * length * 100);
             var result = "";
-            var charsLeft = length;
             for (var i = 0; i < bytes.Length; i++)
             {
                 if (bytes[i] >= 127)
@@ -149,7 +148,7 @@ namespace MetX.Standard.Library
             }
             else
             {
-                var randomLength = NextInteger(128, 1024);
+                var randomLength = (uint) NextInteger(128, 1024);
                 Salt = NextBytes(randomLength);
             }
         }
@@ -188,14 +187,24 @@ namespace MetX.Standard.Library
 
         public static uint NextUnsignedInteger()
         {
-            var randomBytes = NextBytes(sizeof(uint));
+            var randomBytes = NextBytes(sizeof(uint), false);
             return BitConverter.ToUInt32(randomBytes, 0);
         }
 
-        public static byte[] NextBytes(int bytesNumber)
+        public static byte[] NextBytes(uint bytesNumber, bool zeroTheLastByte = false)
         {
             var buffer = new byte[bytesNumber];
             Provider.GetBytes(buffer);
+
+            for (var i = 0; i < bytesNumber; i++)
+            {
+                if (buffer[i] == 0)
+                    buffer[i] = (byte) NextChar();
+            }
+
+            if (zeroTheLastByte)
+                buffer[bytesNumber-1] = 0;
+
             return buffer;
         }
 

@@ -127,15 +127,17 @@ namespace MetX.Standard.Scripts
 
         private void SetupAnswers(ActualizationResult result)
         {
-            var sourceInputFilePath = result.Settings.Script.InputFilePath;
-            switch (result.Settings.Script.Input.ToLower())
+            var sourceInputFilePath = result.Settings.Script.InputFilePath ?? "";
+            switch (result.Settings.Script.Input?.ToLower())
             {
                 case "console":
+                case "textbox":
+                case "notepad":
                 case "clipboard":
                     sourceInputFilePath = result.Settings.Script.Input;
                     break;
             }
-            result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath;
+            result.Settings.Answers["InputFilePath"].Value = sourceInputFilePath ?? "";
 
             var sourceDestinationFilePath = result.Settings.Script.DestinationFilePath;
             switch (result.Settings.Script.Destination)
