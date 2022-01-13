@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.1</Version>
+    <Version>5.1.1</Version>
     <Authors>William Rawls</Authors>
     <Product>XLG</Product>
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>

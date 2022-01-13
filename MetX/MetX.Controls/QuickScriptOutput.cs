@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
 using MetX.Standard.Scripts;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Controls
 {
@@ -15,10 +21,54 @@ namespace MetX.Controls
         public IRunQuickScript Scriptr;
         public FileSystemWatcher Watcher;
 
+        public static int LastTopLeftPosition = 0;
+
+        public Point? MyTopLeftPosition = null;
+
+        private static Point[] _topLeftPositions = null;
+        public static Point[] TopLeftPositions
+        {
+            get
+            {
+                if (_topLeftPositions != null) return _topLeftPositions;
+
+                _topLeftPositions = new Point[]
+                {
+                    CalculateTopLeftPosition(5, 5),
+                    CalculateTopLeftPosition(25, 5),
+                    CalculateTopLeftPosition(45, 5),
+                    CalculateTopLeftPosition(65, 5),
+                    CalculateTopLeftPosition(85, 5),
+
+                    CalculateTopLeftPosition(5, 35),
+                    CalculateTopLeftPosition(25, 35),
+                    CalculateTopLeftPosition(45, 35),
+                    CalculateTopLeftPosition(65, 35),
+                    CalculateTopLeftPosition(85, 35),
+
+                    CalculateTopLeftPosition(5, 75),
+                    CalculateTopLeftPosition(25, 75),
+                    CalculateTopLeftPosition(45, 75),
+                    CalculateTopLeftPosition(65, 75),
+                    CalculateTopLeftPosition(85, 75),
+                };
+
+                return _topLeftPositions;
+            }
+        }
+
+        public static Point CalculateTopLeftPosition(int percentX, int percentY)
+        {
+            var onePercentX = Screen.PrimaryScreen.Bounds.Width / 100.0;
+            var onePercentY = Screen.PrimaryScreen.Bounds.Height / 100.0;
+
+            return new Point((int) onePercentX * percentX, (int) onePercentY * percentY);
+        }
+
         public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output, IGenerationHost host) 
         {
             InitializeComponent();
-            Text = "QuickScript Output - " + title;
+            Text = "qkScrptR Output - " + title;
             Output.Text = output;
             Script = script;
             Scriptr = scriptr;
@@ -27,6 +77,73 @@ namespace MetX.Controls
             {
                 watchForChangesToolStripMenuItem.Enabled = true;
             }
+        }
+
+        public static QuickScriptOutput View(string title, string output, bool addLineNumbers, List<int> keyLines, bool wrapText, IGenerationHost host) 
+        {
+            var quickScriptOutput = new QuickScriptOutput(title, output, addLineNumbers, keyLines, wrapText, host);
+
+            quickScriptOutput.Show();
+            Thread.Sleep(1);
+            quickScriptOutput.BringToFront();
+            Thread.Sleep(1);
+            quickScriptOutput.MoveIntoPosition();
+            
+            return quickScriptOutput;
+        }
+
+        private void MoveIntoPosition()
+        {
+            if (MyTopLeftPosition == null)
+            {
+                MyTopLeftPosition = TopLeftPositions[LastTopLeftPosition];
+                LastTopLeftPosition++;
+                if (LastTopLeftPosition > TopLeftPositions.Length - 1)
+                    LastTopLeftPosition = 0;
+            }
+            Top = MyTopLeftPosition.Value.Y;
+            Left = MyTopLeftPosition.Value.X;
+        }
+
+        public void Find(string toFind)
+        {
+            var start = Output.Text.IndexOf(toFind, StringComparison.InvariantCultureIgnoreCase);
+            if (start < 1)
+                return;
+
+            if(Output.Text.Length > 500)
+            {
+                Output.SelectionStart = Output.Text.Length - 500;
+                Output.SelectionLength = 0;
+                Output.ScrollToCaret();
+            }
+
+            if(start < 500)
+            {
+                Output.SelectionStart = start;
+                Output.SelectionLength = toFind.Length;
+                Output.ScrollToCaret();
+            }
+            else
+            {
+                Output.SelectionStart = start - 500;
+                Output.SelectionLength = toFind.Length;
+                Output.ScrollToCaret();
+            }
+        }
+
+        public QuickScriptOutput(string title, string output, bool addLineNumbers, List<int> keyLines, bool wrapText, IGenerationHost host) 
+        {
+            InitializeComponent();
+            Text = "qkScrptR Output - " + title;
+            Host = host;
+
+            Output.Text = addLineNumbers 
+                ? output.InsertLineNumbers(keyLines) 
+                : output;
+            Output.WordWrap = wrapText;
+            Output.SelectionStart = 0;
+            Output.SelectionLength = 0;
         }
 
         public string Title
@@ -43,8 +160,12 @@ namespace MetX.Controls
 
         private void QuickScriptOutput_Load(object sender, EventArgs e)
         {
-            Output.SelectAll();
+            BringToFront();
+            Output.SelectionStart = 0;
+            Output.SelectionLength = 0;
             Output.Focus();
+            Thread.Sleep(1);
+            MoveIntoPosition();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

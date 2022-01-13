@@ -31,7 +31,7 @@ namespace MetX.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickScriptToolWindow));
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
-            this.ScriptEditor = new QuickScriptControl();
+            this.ScriptEditor = new MetX.Controls.QuickScriptControl();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,11 +45,15 @@ namespace MetX.Controls
             // 
             // ScriptEditor
             // 
+            this.ScriptEditor.BackColor = System.Drawing.Color.DarkGray;
             this.ScriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ScriptEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ScriptEditor.ForeColor = System.Drawing.Color.Black;
             this.ScriptEditor.IsIconBarVisible = true;
             this.ScriptEditor.IsReadOnly = false;
             this.ScriptEditor.Location = new System.Drawing.Point(0, 32);
+            this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
             this.ScriptEditor.Size = new System.Drawing.Size(769, 380);
             this.ScriptEditor.TabIndex = 0;
@@ -72,7 +76,7 @@ namespace MetX.Controls
             // 
             this.toolStripMenuItem4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem4.Image")));
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(64, 28);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(70, 28);
             this.toolStripMenuItem4.Text = "&Run";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.RunQuickScript_Click);
             // 
@@ -80,7 +84,7 @@ namespace MetX.Controls
             // 
             this.toolStripMenuItem3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem3.Image")));
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(64, 28);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(71, 28);
             this.toolStripMenuItem3.Text = "&Gen";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
             // 
@@ -88,7 +92,7 @@ namespace MetX.Controls
             // 
             this.toolStripMenuItem5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem5.Image")));
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(70, 28);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(79, 28);
             this.toolStripMenuItem5.Text = "&Build";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.ViewIndependentGeneratedCode_Click);
             // 
@@ -104,7 +108,7 @@ namespace MetX.Controls
             this.MainMenuStrip = this.MainMenu;
             this.MinimumSize = new System.Drawing.Size(785, 450);
             this.Name = "QuickScriptToolWindow";
-            this.Text = "Quick Scriptr --- TOOL WINDOW --- TOOL WINDOW ---";
+            this.Text = "qkScrptR --- TOOL WINDOW --- TOOL WINDOW ---";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuickScriptToolWindow_FormClosing);
             this.Load += new System.EventHandler(this.QuickScriptToolWindow_Load);
             this.MainMenu.ResumeLayout(false);

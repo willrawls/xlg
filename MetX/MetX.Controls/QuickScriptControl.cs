@@ -28,6 +28,7 @@ namespace MetX.Controls
         {
             InitializeComponent();
             InitializeEditor();
+            ToolWindow.ChangeTheme(ColorScheme.DarkThemeOne, Controls);
         }
 
         public string LineAtCaret

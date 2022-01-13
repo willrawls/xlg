@@ -16,6 +16,8 @@ using MetX.Windows.Library;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
+using MetX.Windows.WinApi;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 #pragma warning disable 414
 namespace MetX.Controls
@@ -110,12 +112,19 @@ namespace MetX.Controls
         {
         }
 
-        public static void OpenNewOutput(IRunQuickScript caller, XlgQuickScript script, string title, string output)
+        public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output)
         {
             var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.Window.Host);
             OutputWindows.Add(quickScriptOutput);
             quickScriptOutput.Show(caller.Window);
             quickScriptOutput.BringToFront();
+        }
+
+        public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host)
+        {
+            var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host);
+            OutputWindows.Add(quickScriptOutput);
+            return quickScriptOutput;
         }
 
         public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
@@ -164,7 +173,7 @@ namespace MetX.Controls
                         case QuickScriptDestination.TextBox:
                             if (targetOutput == null)
                             {
-                                OpenNewOutput(
+                                ViewInNewQuickScriptOutputWindow(
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
@@ -228,11 +237,18 @@ namespace MetX.Controls
 
             if (!result.CompileSuccessful)
             {
-                QuickScriptWorker.ViewText(host, result.FinalDetails(), false);
+                var source = result.OutputFiles["QuickScriptProcessor.cs"].Value;
+                var finalDetails = result.FinalDetails(out var keyLines);
+                
+                var x = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
+                x.Find("|Error");
+
+                ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host);
+
                 return new RunResult
                 {
                     ActualizationResult = result,
-                    ErrorOutput = result.FinalDetails(),
+                    ErrorOutput = finalDetails,
                 };
             }
 

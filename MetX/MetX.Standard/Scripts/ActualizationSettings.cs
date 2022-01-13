@@ -39,7 +39,10 @@ namespace MetX.Standard.Scripts
         public void UpdateBinPath()
         {
             if (!Directory.Exists(DebugPath))
-                return; 
+            {
+                BinPath = Path.Combine(DebugPath, "net5.0");
+                return;
+            }
 
             var outputFolderInfo = new DirectoryInfo(DebugPath);
             var outputFolder = outputFolderInfo.EnumerateDirectories().OrderBy(x => x.LastWriteTime).First().FullName;

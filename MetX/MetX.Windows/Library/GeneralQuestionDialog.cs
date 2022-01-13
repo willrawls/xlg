@@ -47,7 +47,7 @@ namespace MetX.Windows.Library
             CancelButton.DialogResult = DialogResult.Cancel;
 
             PromptLabel.SetBounds(9, 20, 372, 13);
-            EntryArea.SetBounds(12, 36, 372, 20);
+            EntryArea.SetBounds(12, 36, width - 30, 20);
             OkButton.SetBounds(228, 72, 75, 26);
             CancelButton.SetBounds(309, 72, 75, 26);
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>Latest</LangVersion>
@@ -7,7 +7,7 @@
     <AssemblyName>MetX.Standard.Generators.Actual</AssemblyName>
     <ApplicationIcon />
     <StartupObject />
-    <Version>5.0.1</Version>
+    <Version>5.1.1</Version>
     <Authors>William Rawls</Authors>
     <Product>XLG</Product>
     <Description>XLG GenGen support library</Description>

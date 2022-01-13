@@ -18,6 +18,7 @@ namespace MetX.Windows.Library
                     $"qscript{Guid.NewGuid().ToString().Substring(1, 6)}{(isCSharpCode ? ".cs" : ".txt")}");
                 File.WriteAllText(tempFile, source);
                 FileSystem.FireAndForget("notepad", tempFile);
+
             }
             catch (Exception ex)
             {
@@ -27,19 +28,22 @@ namespace MetX.Windows.Library
             return null;
         }
 
-        public static void ViewFile(IGenerationHost host, string filePath)
+        public static Process ViewFile(IGenerationHost host, string filePath)
         {
             try
             {
-                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return null;
                 
                 var process = Process.Start(PathToBestNotepad, filePath);
                 ActiveWindow.Move(process);
+                return process;
             }
             catch (Exception ex)
             {
                 host.MessageBox.Show(ex.ToString());
             }
+
+            return null;
         }
 
         private static string _pathToBestNotepad;
