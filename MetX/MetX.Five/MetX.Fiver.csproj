@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -8,7 +8,7 @@
     <StartupObject>MetX.Five.Program</StartupObject>
     <AssemblyName>Fiver</AssemblyName>
     <RootNamespace>MetX.Five</RootNamespace>
-    <Version>5.0.1</Version>
+    <Version>5.1.1</Version>
     <Authors>William Rawls</Authors>
     <Product>XLG</Product>
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>

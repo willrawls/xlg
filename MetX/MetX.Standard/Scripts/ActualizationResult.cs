@@ -24,10 +24,11 @@ namespace MetX.Standard.Scripts
         public string DestinationExecutableFilePath { get; set; }
 
         public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
-        public bool CompileSuccessful => ActualizationSuccessful 
-                                         && CompileErrorText.IsEmpty()
-                                         && OutputText.AsString().Contains(" 0 Error(s)")
-                                         && File.Exists(DestinationExecutableFilePath);
+        public bool CompileSuccessful => Settings.Simulate || 
+                                         (ActualizationSuccessful 
+                                          && CompileErrorText.IsEmpty()
+                                          && OutputText.AsString().Contains(" 0 Error(s)")
+                                          && File.Exists(DestinationExecutableFilePath));
 
         public ActualizationResult(ActualizationSettings settings)
         {
@@ -78,7 +79,7 @@ namespace MetX.Standard.Scripts
             return "QuickScriptProcessor";
         }
 
-        public string FinalDetails()
+        public string FinalDetails(out List<int> keyLines)
         {
             var sb = new StringBuilder();
             sb.AppendLine();
@@ -92,7 +93,7 @@ namespace MetX.Standard.Scripts
                 sb.AppendLine("-----[ SUCCESS! ]-----");
                 sb.AppendLine();
             }
-            else
+            else if(CompileErrorText.IsNotEmpty())
             {
                 sb.AppendLine();
                 sb.AppendLine("-----[ Compilation failure ]-----");
@@ -103,10 +104,53 @@ namespace MetX.Standard.Scripts
             sb.AppendLine();
             sb.AppendLine("-----[ Output from dotnet.exe ]-----");
             sb.AppendLine();
-            var nonWarningLines = OutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
-            sb.AppendLine(string.Join("\n", nonWarningLines));
+
+            var projectFolder = Settings.ProjectFolder;
+            if (projectFolder != @"\")
+                projectFolder += @"\";
+            var massagedOutputText = OutputText
+                    .Replace($"[{this.Settings.ProjectFilePath}]", "")
+                    .Replace(projectFolder, "...")
+                    ;
+
+            var nonWarningLines = massagedOutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
+            foreach(var nonWarningLine in nonWarningLines)
+            {
+                if (!nonWarningLine.Contains("Microsoft (R) Build Engine") &&
+                    !nonWarningLine.Contains("Copyright (C) Microsoft Corporation") &&
+                    !nonWarningLine.Contains("Determining projects to") &&
+                    !nonWarningLine.StartsWith("  Restored "))
+                {
+                    if (nonWarningLine.Contains("Error(s)")
+                        || nonWarningLine.StartsWith("..."))
+                        sb.AppendLine();
+                    
+                    sb.AppendLine(nonWarningLine);
+                }
+                else
+                {
+                    sb.AppendLine();
+                }
+            }
             sb.AppendLine();
-            return sb.ToString();
+
+            keyLines = new List<int>();
+            var finalDetails = sb.ToString();
+            var finalDetailLines = finalDetails.Lines();
+            foreach (var finalDetailLine in finalDetailLines)
+            {
+                if (!finalDetailLine.Contains("QuickScriptProcessor.cs")) continue;
+
+                var lineNumberText = finalDetailLine.TokenBetween("(", ")");
+                if (lineNumberText.Contains(","))
+                    lineNumberText = lineNumberText.FirstToken(",");
+                if (!int.TryParse(lineNumberText, out var lineNumber)) continue;
+
+                if(keyLines.All(x => x != lineNumber))
+                    keyLines.Add(lineNumber);
+            }
+
+            return finalDetails;
         }
     }
 }

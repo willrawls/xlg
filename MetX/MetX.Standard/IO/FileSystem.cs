@@ -175,7 +175,7 @@ namespace MetX.Standard.IO
                 }
                 else
                 {
-                    Debugger.Break();
+                    //Debugger.Break();
                 }
             }
             return true;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,7 +7,7 @@
     <Product>XLG</Product>
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
-    <Version>5.0.1</Version>
+    <Version>5.1.1</Version>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
   </PropertyGroup>
 

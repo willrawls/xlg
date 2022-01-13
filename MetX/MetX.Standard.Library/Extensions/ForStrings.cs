@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace MetX.Standard.Library.Extensions
 {
@@ -10,6 +11,37 @@ namespace MetX.Standard.Library.Extensions
     /// </summary>
     public static class ForStrings
     {
+        public static string InsertLineNumbers(this string target, List<int> keyLines)
+        {
+            if (target.IsEmpty())
+                return string.Empty;
+
+            var lines = target.Lines();
+
+            int digitCount = 1;
+            if (lines.Length < 10) digitCount = 2;
+            else if (lines.Length < 100) digitCount = 3;
+            else if (lines.Length < 1000) digitCount = 4;
+            else if (lines.Length < 10000) digitCount = 5;
+            else if (lines.Length < 100000) digitCount = 6;
+
+            var formatString = new string('0', digitCount);
+
+            var sb = new StringBuilder();
+            for (var index = 0; index < lines.Length; index++)
+            {
+                string lineMod;
+                if (keyLines.IsNotEmpty())
+                    lineMod = keyLines.Any(x => x == index+1) ? "|Error|" : "|     |";
+                else
+                    lineMod = "|     |";
+
+                sb.AppendLine($"{(index+1).ToString(formatString)} {lineMod}\t{lines[index]}");
+            }
+
+            return sb.ToString();
+        }
+
         public static string RemoveBlankLines(this string target)
         {
             if (target.IsEmpty())

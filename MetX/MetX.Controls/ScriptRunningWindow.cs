@@ -15,5 +15,19 @@ namespace MetX.Controls
         public ToolWindow Window { get => this; set { } }
         public void RunQuickScript(XlgQuickScript currentScript) { RunQuickScript(null, currentScript, null); }
         public virtual void Progress(int index = -1) { }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ScriptRunningWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.BackColor = System.Drawing.Color.DimGray;
+            this.ClientSize = new System.Drawing.Size(185, 168);
+            this.Name = "ScriptRunningWindow";
+            this.ResumeLayout(false);
+
+        }
     }
 }

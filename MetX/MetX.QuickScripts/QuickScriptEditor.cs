@@ -42,7 +42,8 @@ namespace XLG.QuickScripts
         public QuickScriptEditor(string filePath)
         {
             InitializeComponent();
-
+            ChangeTheme(ColorScheme.DarkThemeOne, Controls);
+            ChangeTheme(ColorScheme.DarkThemeOne, ScriptEditor.Controls);
             InputParam.GotFocus += InputParam_GotFocus;
             InputParam.LostFocus += InputParam_LostFocus;
 
@@ -618,7 +619,7 @@ namespace XLG.QuickScripts
                     {
                         Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
                         Host.Context.Scripts.Save();
-                        Text = "Quick Scriptr - " + Host.Context.Scripts.FilePath;
+                        Text = "qkScrptR - " + Host.Context.Scripts.FilePath;
                         UpdateLastKnownPath();
                     }
                 }
@@ -665,7 +666,7 @@ namespace XLG.QuickScripts
             /*
             var x = FileSystem.LatestVisualStudioDevEnvFilePath();
             var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing, Handle);
-            var answer = dialog.Ask(PostBuildAction.OpenVisualStudio,
+            var answer = dialog.Ask(PostBuildAction.OpenTempProjectVisualStudio,
                 $"Executable generated successfully\n\n\tFolder:\tfred\n\tExe:\tgeorge",
                 "TEST. WHAT NOW?");
             Host.MessageBox.Show(answer.ToString());
@@ -807,7 +808,7 @@ namespace XLG.QuickScripts
         public enum PostBuildAction
         {
             [Description("Run now from command line")] RunNow,
-            [Description("Open (temp) project in Visual Studio")] OpenVisualStudio,
+            [Description("Open (temp) project in Visual Studio")] OpenTempProjectVisualStudio,
             [Description("Copy full path to project folder")] CopyProjectFolderPath,
             [Description("Copy full path to executable")] CopyExePath,
             [Description("Copy project to another folder and open in Visual Studio")] CloneProjectAndOpen,
@@ -831,22 +832,51 @@ namespace XLG.QuickScripts
 
                 var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
                 var result = settings.ActualizeAndCompile();
-                var finalDetails = result.FinalDetails();
+                var finalDetails = result.FinalDetails(out var keyLines);
                 if (!finalDetails.Contains("SUCCESS!"))
                     QuickScriptWorker.ViewText(Host, finalDetails, false);
                 if (!result.CompileSuccessful) return;
 
-                var location = result.DestinationExecutableFilePath;
-                if (location.IsEmpty()) return;
-
-                var answer = PostBuildAction.OpenVisualStudio;
-
-                while (answer != PostBuildAction.DoNothing)
+                if(LastSuccessfulCloneFolder.IsNotEmpty())
                 {
-                    var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing, Handle);
+                    var pre = $"~~CloneLocation: {LastSuccessfulCloneFolder}";
+                    ScriptEditor.Current.Script = pre + ScriptEditor.Current.Script;
+                }
+
+                ShowPostBuildMenu(result, false, PostBuildAction.OpenTempProjectVisualStudio);
+            }
+            catch (Exception exception)
+            {
+                Host.MessageBox.Show(exception.ToString());
+            }
+        }
+
+        private bool ShowPostBuildMenu(ActualizationResult result, bool singlePass, PostBuildAction defaultAction)
+        {
+            try
+            {
+                if (result == null 
+                    || result.DestinationExecutableFilePath.IsEmpty()) 
+                    return true;
+
+                var answer = defaultAction;
+                LastSuccessfulCloneFolder = "";
+
+                var passCount = 0;
+                while (answer != PostBuildAction.DoNothing 
+                       || (singlePass && ++passCount > 1))
+                {
+                    var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing);
                     answer = dialog.Ask(answer,
-                        $"Executable generated successfully\n\n\tFolder: {result.Settings.ProjectFolder}\n\tExe:    {result.DestinationExecutableFilePath}",
-                        "SUCCESS. WHAT NOW?");
+                        (result.Settings.Simulate 
+                            ? "" 
+                            : (File.Exists(result.DestinationExecutableFilePath)
+                                ? "Executable generated successfully"
+                                : "No exe found")) +
+                        $"\n\n\tFolder: {result.Settings.ProjectFolder}\n\tExe:    {result.DestinationExecutableFilePath}",
+                        result.Settings.Simulate
+                            ? "WHAT NEXT?"
+                            : "SUCCESS. WHAT NEXT?");
 
                     switch (answer)
                     {
@@ -859,42 +889,49 @@ namespace XLG.QuickScripts
 
                         case PostBuildAction.CloneProjectAndOpen:
                             var lastCloneBasePath = Context.LastClonesBasePath;
-                            var clonesFolder = Path.Combine(lastCloneBasePath, result.Settings.ProjectName);
-                            if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref clonesFolder) == MessageBoxResult.OK)
+                            var newCloneFolder = Path.Combine(lastCloneBasePath, result.Settings.ProjectName);
+                            if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) ==
+                                MessageBoxResult.OK)
                             {
-                                UpdateLastQuickScriptsBasePath(clonesFolder);
+                                UpdateLastQuickScriptsBasePath(newCloneFolder);
 
-                                if (Directory.Exists(clonesFolder))
+                                if (Directory.Exists(newCloneFolder))
                                 {
                                     var overwriteAnswer = "";
-                                    if (Host.InputBox("OVERWRITE CLONE?", $"That folder already exists. Click OK to completely overwrite folder:\n  {clonesFolder}",
+                                    if (Host.InputBox("OVERWRITE CLONE?",
+                                        $"That folder already exists. Click OK to completely overwrite folder:\n  {newCloneFolder}",
                                         ref overwriteAnswer) != MessageBoxResult.OK)
                                     {
                                         break;
                                     }
                                 }
 
-                                FileSystem.CleanFolder(clonesFolder);
-                                Directory.CreateDirectory(clonesFolder);
-                                FileSystem.DeepCopy(result.Settings.ProjectFolder, clonesFolder);
+                                LastSuccessfulCloneFolder = newCloneFolder;
+                                FileSystem.CleanFolder(newCloneFolder);
+                                Directory.CreateDirectory(newCloneFolder);
+                                FileSystem.DeepCopy(result.Settings.ProjectFolder, newCloneFolder);
                                 answer = PostBuildAction.DoNothing;
-
+                                
                                 var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
                                 if (cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
                                 {
-                                    var cloneProjectFilePath = Path.Combine(clonesFolder, result.Settings.ProjectName + ".csproj");
-                                    FileSystem.FireAndForget(cloneDevEnv, "\"" + cloneProjectFilePath + "\"", workingFolder: clonesFolder);
+                                    var cloneProjectFilePath = Path.Combine(newCloneFolder, result.Settings.ProjectName + ".csproj");
+                                    FileSystem.FireAndForget(cloneDevEnv, "\"" + cloneProjectFilePath + "\"",
+                                        workingFolder: newCloneFolder);
                                 }
                             }
+
                             break;
 
-                        case PostBuildAction.OpenVisualStudio:
+                        case PostBuildAction.OpenTempProjectVisualStudio:
                             var devEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
                             if (devEnv.IsNotEmpty() && File.Exists(devEnv))
                             {
-                                FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath, workingFolder: result.Settings.ProjectFolder);
+                                FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath,
+                                    workingFolder: result.Settings.ProjectFolder);
                                 answer = PostBuildAction.DoNothing;
                             }
+
                             break;
 
                         case PostBuildAction.CopyProjectFolderPath:
@@ -926,6 +963,27 @@ namespace XLG.QuickScripts
             {
                 Host.MessageBox.Show(exception.ToString());
             }
+
+            return false;
+        }
+
+        public string LastSuccessfulCloneFolder { get; set; }
+
+        private void postToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ScriptEditor.Current == null)
+                return;
+
+            var settings = ScriptEditor.Current.BuildSettings(true, true, Host);
+            settings.UpdateBinPath();
+            var filename = settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
+
+            var result = new ActualizationResult(settings)
+            {
+                DestinationExecutableFilePath = Path.Combine(settings.BinPath, filename),
+                OutputText = "",
+            };
+            ShowPostBuildMenu(result, false, PostBuildAction.OpenBinFolderInCommandLine);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MetX.Standard.Library;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using MetX.Standard;
 using MetX.Standard.Interfaces;
@@ -30,6 +31,7 @@ namespace MetX.Controls
         public ToolWindow()
         {
             InitializeComponent();
+            ChangeTheme(ColorScheme.DarkThemeOne, Controls);
         }
 
         public void SetFocus(string controlName)
@@ -42,6 +44,83 @@ namespace MetX.Controls
             catch (Exception)
             {
                 // Ignore
+            }
+        }
+
+        public static bool EnableThemes = false;
+        public static void ChangeTheme(ColorScheme scheme, Control.ControlCollection container)
+        {
+            if (!EnableThemes)
+                return;
+
+            foreach (Control component in container)
+            {
+                if (component is Panel)
+                {
+                    ChangeTheme(scheme, component.Controls);
+                    component.BackColor = scheme.PanelBG;
+                    component.ForeColor = scheme.PanelFG;
+                }
+                else if (component is Button)
+                {
+                    component.BackColor = scheme.ButtonBG;
+                    component.ForeColor = scheme.ButtonFG;
+                }
+                else if (component is TextBox)
+                {
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is ToolStripButton)
+                {
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is ToolStripComboBox)
+                {
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is ToolStripLabel)
+                {
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is ToolStrip or MenuStrip)
+                {
+                    ChangeTheme(scheme, component.Controls);
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is QuickScriptControl)
+                {
+                    ChangeTheme(scheme, component.Controls);
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                    component.Controls[0].BackColor = scheme.TextBoxBG;
+                    component.Controls[0].ForeColor = scheme.TextBoxFG;
+                }
+                else if (component is ICSharpCode.TextEditor.TextArea)
+                {
+                    ChangeTheme(scheme, component.Controls);
+                    component.BackColor = scheme.TextBoxBG;
+                    component.ForeColor = scheme.TextBoxFG;
+                    if (component.Controls.Count > 0)
+                    {
+                        component.Controls[0].BackColor = scheme.TextBoxBG;
+                        component.Controls[0].ForeColor = scheme.TextBoxFG;
+                    }
+
+                    var textArea = (ICSharpCode.TextEditor.TextArea) component;
+                    textArea.BackColor = scheme.TextBoxBG;
+                    textArea.ForeColor = scheme.TextBoxFG;
+                }
+                else
+                {
+                    component.BackColor = scheme.PanelBG;
+                    component.ForeColor = scheme.PanelFG;
+                    ChangeTheme(scheme, component.Controls);
+                }
             }
         }
     }

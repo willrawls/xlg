@@ -401,7 +401,7 @@ namespace MetX.Controls
                 UpdateScriptFromForm();
                 var settings = CurrentScript.BuildSettings(true, false, Host);
                 var result = settings.ActualizeAndCompile();
-                QuickScriptWorker.ViewText(Host, result.FinalDetails(), false);
+                QuickScriptWorker.ViewText(Host, result.FinalDetails(out var keyLines), false);
                 if (!result.CompileSuccessful) return;
                 
                 MessageBoxResult messageBoxResult = Host.MessageBox.Show(

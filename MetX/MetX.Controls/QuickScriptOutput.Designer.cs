@@ -44,14 +44,17 @@
             this.Output.AcceptsReturn = true;
             this.Output.AcceptsTab = true;
             this.Output.AllowDrop = true;
+            this.Output.BackColor = System.Drawing.Color.DarkGray;
             this.Output.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Output.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Output.Location = new System.Drawing.Point(0, 24);
+            this.Output.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Output.ForeColor = System.Drawing.Color.Black;
+            this.Output.Location = new System.Drawing.Point(0, 28);
             this.Output.Multiline = true;
             this.Output.Name = "Output";
             this.Output.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Output.Size = new System.Drawing.Size(746, 475);
+            this.Output.Size = new System.Drawing.Size(1105, 701);
             this.Output.TabIndex = 18;
+            this.Output.Text = "Test";
             this.Output.WordWrap = false;
             // 
             // menuStrip1
@@ -63,7 +66,7 @@
             this.watchForChangesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(746, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1105, 28);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -71,21 +74,21 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // runAgainToolStripMenuItem
             // 
             this.runAgainToolStripMenuItem.Name = "runAgainToolStripMenuItem";
-            this.runAgainToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.runAgainToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
             this.runAgainToolStripMenuItem.Text = "&Run again";
             this.runAgainToolStripMenuItem.Click += new System.EventHandler(this.runAgainToolStripMenuItem_Click);
             // 
@@ -93,7 +96,7 @@
             // 
             this.watchForChangesToolStripMenuItem.Enabled = false;
             this.watchForChangesToolStripMenuItem.Name = "watchForChangesToolStripMenuItem";
-            this.watchForChangesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.watchForChangesToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.watchForChangesToolStripMenuItem.Text = "&Watch for changes";
             this.watchForChangesToolStripMenuItem.Click += new System.EventHandler(this.watchForChangesToolStripMenuItem_Click);
             // 
@@ -101,13 +104,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(746, 499);
+            this.ClientSize = new System.Drawing.Size(1105, 729);
             this.Controls.Add(this.Output);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "QuickScriptOutput";
-            this.Text = "QuickScript Output";
+            this.Text = "qkScrptR Output";
             this.Load += new System.EventHandler(this.QuickScriptOutput_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -7,7 +7,7 @@
     <RootNamespace>MetX.Standard.Generators</RootNamespace>
     <AssemblyName>MetX.Standard.Generators</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.1</Version>
+    <Version>5.1.1</Version>
     <Authors>William Rawls</Authors>
     <Company>William Rawls</Company>
     <Product>XLG</Product>

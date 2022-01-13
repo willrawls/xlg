@@ -21,9 +21,9 @@ namespace MetX.Windows.Library
         {
             var dialog = new AskForStringDialog
             {
-                ValueToReturnOnCancel = "~|~|"
+                ValueToReturnOnCancel = "~|~|",
             };
-            var response = dialog.Ask(description, title, itemName);
+            var response = dialog.Ask(description, title, itemName, 140, 700);
             
             if (response.IsEmpty() || response == dialog.ValueToReturnOnCancel)
                 return MessageBoxResult.Cancel;
