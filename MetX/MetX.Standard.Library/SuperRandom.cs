@@ -57,7 +57,47 @@ namespace MetX.Standard.Library
             return minValue + value % diff;
         }
 
-        public static string NextString(uint length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
+        public static uint NextUnsignedInteger(uint minValue, uint maxExclusiveValue)
+        {
+            if (minValue >= maxExclusiveValue)
+                throw new ArgumentOutOfRangeException(nameof(minValue),
+                    "minValue must be lower than maxExclusiveValue");
+
+            var diff = maxExclusiveValue - minValue;
+            var value = NextUnsignedInteger();
+            if (value > diff)
+                value %= diff;
+
+            return minValue + value;
+        }
+
+        public static int BitsUsed(int n)
+        {
+            int count = 0, i;
+            if(n==0) return 0;
+            for(i=0; i < 32; i++)
+            {
+                var i1 = (1 << i) & n;
+                if( i1 != 0)
+                    count = i;
+            }
+            return ++count;
+        }
+
+        public static int BitsUsed(uint n)
+        {
+            int count = 0, i;
+            if(n==0) return 0;
+            for(i=0; i < 32; i++)
+            {
+                var i1 = (1 << i) & n;
+                if( i1 != 0)
+                    count = i;
+            }
+            return ++count;
+        }
+
+        public static string NextString(int length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
         {
             if (length < 1)
                 return "";
@@ -148,7 +188,7 @@ namespace MetX.Standard.Library
             }
             else
             {
-                var randomLength = (uint) NextInteger(128, 1024);
+                var randomLength = NextInteger(128, 1024);
                 Salt = NextBytes(randomLength);
             }
         }
@@ -191,8 +231,11 @@ namespace MetX.Standard.Library
             return BitConverter.ToUInt32(randomBytes, 0);
         }
 
-        public static byte[] NextBytes(uint bytesNumber, bool zeroTheLastByte = false)
+        public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
         {
+            if (bytesNumber < 1)
+                return new byte[0];
+
             var buffer = new byte[bytesNumber];
             Provider.GetBytes(buffer);
 

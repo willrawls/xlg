@@ -134,7 +134,7 @@ namespace MetX.Standard.Library
             var bytIn = Encoding.ASCII.GetBytes(source);
             // create a MemoryStream so that the process can be done without I/O files
             using var ms = new MemoryStream();
-            var randomPadding = SuperRandom.NextBytes((uint) SuperRandom.NextInteger(31,61), true);
+            var randomPadding = SuperRandom.NextBytes(SuperRandom.NextInteger(31,61), true);
 
             using var cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write);
             cs.Write(randomPadding, 0, randomPadding.Length);
