@@ -57,7 +57,20 @@ namespace MetX.Standard.Library
             return minValue + value % diff;
         }
 
-        public static string NextString(uint length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
+        public static int NextInteger()
+        {
+            var randomBytes = NextBytes(sizeof(int));
+            return BitConverter.ToInt32(randomBytes, 0);
+        }
+
+        public static uint NextUnsignedInteger()
+        {
+            var randomBytes = NextBytes(sizeof(uint), false);
+            return BitConverter.ToUInt32(randomBytes, 0);
+        }
+
+
+        public static string NextString(int length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
         {
             if (length < 1)
                 return "";
@@ -89,12 +102,6 @@ namespace MetX.Standard.Library
         {
             var randomBytes = NextBytes(sizeof(char));
             return BitConverter.ToChar(randomBytes, 0);
-        }
-
-        public static int NextInteger()
-        {
-            var randomBytes = NextBytes(sizeof(int));
-            return BitConverter.ToInt32(randomBytes, 0);
         }
 
         public static int NextRoll(int dice, int sides)
@@ -139,18 +146,23 @@ namespace MetX.Standard.Library
             return NextHash(seasonedBytes);
         }
 
-        public static void FillSaltShaker(int startSaltingAtIndex = 0, byte[] salt = null)
+        public static void FillSaltShaker(byte[] salt)
+        {
+            if(salt == null)
+            {
+                FillSaltShaker();
+                return;
+            }
+
+            StartSaltingAtIndex = 0;
+            Array.Copy(salt, Salt, 0);
+        }
+
+        public static void FillSaltShaker(int startSaltingAtIndex = 0)
         {
             StartSaltingAtIndex = startSaltingAtIndex;
-            if (salt != null)
-            {
-                Array.Copy(salt, Salt, 0);
-            }
-            else
-            {
-                var randomLength = (uint) NextInteger(128, 1024);
-                Salt = NextBytes(randomLength);
-            }
+            var randomLength = NextInteger(1024, 2048);
+            Salt = NextBytes(randomLength);
         }
 
         public static IEnumerable<byte> SaltShaker(IEnumerable<byte> bytes)
@@ -185,13 +197,7 @@ namespace MetX.Standard.Library
             return (byte) ((byte) (value >> count) | (value << (32 - count)));
         }
 
-        public static uint NextUnsignedInteger()
-        {
-            var randomBytes = NextBytes(sizeof(uint), false);
-            return BitConverter.ToUInt32(randomBytes, 0);
-        }
-
-        public static byte[] NextBytes(uint bytesNumber, bool zeroTheLastByte = false)
+        public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
         {
             var buffer = new byte[bytesNumber];
             Provider.GetBytes(buffer);
