@@ -57,6 +57,18 @@ namespace MetX.Standard.Library
             return minValue + value % diff;
         }
 
+    public static int NextInteger()
+        {
+            var randomBytes = NextBytes(sizeof(int));
+            return BitConverter.ToInt32(randomBytes, 0);
+        }
+
+        public static uint NextUnsignedInteger()
+        {
+            var randomBytes = NextBytes(sizeof(uint), false);
+            return BitConverter.ToUInt32(randomBytes, 0);
+        }
+
         public static uint NextUnsignedInteger(uint minValue, uint maxExclusiveValue)
         {
             if (minValue >= maxExclusiveValue)
@@ -177,9 +189,11 @@ namespace MetX.Standard.Library
         {
             if(salt == null)
             {
-                var randomLength = NextInteger(128, 1024);
-                Salt = NextBytes(randomLength);
+                FillSaltShaker();
+                return;
             }
+            var randomLength = NextInteger(1024, 2048);
+            Salt = NextBytes(randomLength);
 
             StartSaltingAtIndex = 0;
             Array.Copy(salt, Salt, 0);
@@ -222,12 +236,6 @@ namespace MetX.Standard.Library
         public static byte RotateRight(this byte value, int count)
         {
             return (byte) ((byte) (value >> count) | (value << (32 - count)));
-        }
-
-        public static uint NextUnsignedInteger()
-        {
-            var randomBytes = NextBytes(sizeof(uint), false);
-            return BitConverter.ToUInt32(randomBytes, 0);
         }
 
         public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
