@@ -57,18 +57,45 @@ namespace MetX.Standard.Library
             return minValue + value % diff;
         }
 
-        public static int NextInteger()
+        public static uint NextUnsignedInteger(uint minValue, uint maxExclusiveValue)
         {
-            var randomBytes = NextBytes(sizeof(int));
-            return BitConverter.ToInt32(randomBytes, 0);
+            if (minValue >= maxExclusiveValue)
+                throw new ArgumentOutOfRangeException(nameof(minValue),
+                    "minValue must be lower than maxExclusiveValue");
+
+            var diff = maxExclusiveValue - minValue;
+            var value = NextUnsignedInteger();
+            if (value > diff)
+                value %= diff;
+
+            return minValue + value;
         }
 
-        public static uint NextUnsignedInteger()
+        public static int BitsUsed(int n)
         {
-            var randomBytes = NextBytes(sizeof(uint), false);
-            return BitConverter.ToUInt32(randomBytes, 0);
+            int count = 0, i;
+            if(n==0) return 0;
+            for(i=0; i < 32; i++)
+            {
+                var i1 = (1 << i) & n;
+                if( i1 != 0)
+                    count = i;
+            }
+            return ++count;
         }
 
+        public static int BitsUsed(uint n)
+        {
+            int count = 0, i;
+            if(n==0) return 0;
+            for(i=0; i < 32; i++)
+            {
+                var i1 = (1 << i) & n;
+                if( i1 != 0)
+                    count = i;
+            }
+            return ++count;
+        }
 
         public static string NextString(int length, bool includeLetters, bool includeNumbers, bool includeSymbols, bool includeSpace)
         {
@@ -150,8 +177,8 @@ namespace MetX.Standard.Library
         {
             if(salt == null)
             {
-                FillSaltShaker();
-                return;
+                var randomLength = NextInteger(128, 1024);
+                Salt = NextBytes(randomLength);
             }
 
             StartSaltingAtIndex = 0;
@@ -197,8 +224,17 @@ namespace MetX.Standard.Library
             return (byte) ((byte) (value >> count) | (value << (32 - count)));
         }
 
+        public static uint NextUnsignedInteger()
+        {
+            var randomBytes = NextBytes(sizeof(uint), false);
+            return BitConverter.ToUInt32(randomBytes, 0);
+        }
+
         public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
         {
+            if (bytesNumber < 1)
+                return new byte[0];
+
             var buffer = new byte[bytesNumber];
             Provider.GetBytes(buffer);
 
