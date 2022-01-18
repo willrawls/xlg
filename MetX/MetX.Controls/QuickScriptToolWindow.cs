@@ -7,6 +7,7 @@ using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
+using MetX.Windows;
 using MetX.Windows.Library;
 
 namespace MetX.Controls
@@ -123,7 +124,7 @@ namespace MetX.Controls
                 }
                 UpdateScriptFromForm();
 
-                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var settings = ScriptEditor.Current.BuildSettings(false, Host);
                 var result = settings.QuickScriptTemplate.ActualizeCode(settings);
 
                 var source = result.OutputFiles["QuickScriptProcessor"].Value;
@@ -269,7 +270,7 @@ namespace MetX.Controls
                 if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                 {
                     Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                    Host.Context.Scripts.Save();
+                    Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                     Text = "Quick Script - " + Host.Context.Scripts.FilePath;
                     UpdateLastKnownPath();
                 }
@@ -298,7 +299,7 @@ namespace MetX.Controls
                     }
                     else
                     {
-                        Host.Context.Scripts.Save();
+                        Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                     }
                 }
             }
@@ -399,7 +400,7 @@ namespace MetX.Controls
                     return;
 
                 UpdateScriptFromForm();
-                var settings = CurrentScript.BuildSettings(true, false, Host);
+                var settings = CurrentScript.BuildSettings(false, Host);
                 var result = settings.ActualizeAndCompile();
                 QuickScriptWorker.ViewText(Host, result.FinalDetails(out var keyLines), false);
                 if (!result.CompileSuccessful) return;

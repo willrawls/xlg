@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using MetX.Controls;
+using MetX.Windows;
 
 namespace XLG.QuickScripts
 {
@@ -13,16 +14,15 @@ namespace XLG.QuickScripts
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var path = Context.MyDocumentsQuickScriptsBasePath;
-            Directory.CreateDirectory(path);
-
             string filePath;
-
-            if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq")) filePath = args[0];
+            if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
+            {
+                Directories.LastScriptFilePath = args[0];
+                filePath = args[0];
+            }
             else
             {
-                filePath = Context.GetLastKnownPath();
-                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) filePath = Path.Combine(path, "Default.xlgq");
+                filePath = Directories.LastScriptFilePath;
             }
             Application.Run(new QuickScriptEditor(filePath));
         }

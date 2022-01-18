@@ -154,5 +154,23 @@ namespace MetX.Standard.Library
             else
                 Xml.SaveFile(path, this);
         }
+
+        public bool ContainsKey(string key)
+        {
+            lock (SyncRoot)
+            {
+                return this.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var item in this)
+            {
+                sb.AppendLine($"{item.Key}={item.Value}");
+            }
+            return sb.ToString();
+        }
     }
 }

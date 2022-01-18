@@ -9,7 +9,7 @@ using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library
 {
-    public class ChooseEnumFromListBoxDialog<TEnum> : GeneralQuestionDialog<ListBox, TEnum> where TEnum : System.Enum
+    public class ChooseEnumFromListBoxDialog<TEnum> : GeneralQuestionDialog<ListBox, TEnum> where TEnum : Enum
     {
         public IntPtr WindowHandle { get; }
         public List<string> Choices;

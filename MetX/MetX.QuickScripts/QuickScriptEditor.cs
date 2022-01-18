@@ -10,6 +10,7 @@ using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
+using MetX.Windows;
 using MetX.Windows.Library;
 using NHotkey;
 using NHotkey.WindowsForms;
@@ -125,7 +126,7 @@ namespace XLG.QuickScripts
                 }
                 UpdateScriptFromForm();
 
-                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var settings = ScriptEditor.Current.BuildSettings(false, Host);
                 var result = settings.QuickScriptTemplate.ActualizeCode(settings);
 
                 var source = result.OutputFiles["QuickScriptProcessor"].Value;
@@ -176,8 +177,7 @@ namespace XLG.QuickScripts
             ScriptEditor.Current.DiceAt = DiceAt.Text;
             ScriptEditor.Current.InputFilePath = InputParam.Text;
             ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-            ScriptEditor.Current.NativeTemplateName = NativeTemplateList.Text.AsString("Native");
-            ScriptEditor.Current.ExeTemplateName = ExeTemplateList.Text.AsString("Exe");
+            ScriptEditor.Current.TemplateName = TemplateList.Text.AsString("Exe");
             Host.Context.Scripts.Default = ScriptEditor.Current;
         }
 
@@ -393,10 +393,10 @@ namespace XLG.QuickScripts
                 Host.Context.Scripts.Default = script;
                 script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
                 Host.Context.Scripts.Add(script);
-                Host.Context.Scripts.Save();
+                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
             }
 
-            UpdateLastKnownPath();
+            Directories.LastScriptFilePath = filePath;
 
             RefreshLists();
             UpdateFormWithScript(Host.Context.Scripts.Default);
@@ -474,7 +474,7 @@ namespace XLG.QuickScripts
             OpenInputFilePathDialog.ShowDialog(this);
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
-                Host.Context.Scripts.Save();
+                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                 LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
             }
         }
@@ -492,7 +492,7 @@ namespace XLG.QuickScripts
             OpenInputFilePathDialog.ShowDialog(this);
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
-                Host.Context.Scripts.Save();
+                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                 LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
             }
         }
@@ -519,7 +519,7 @@ namespace XLG.QuickScripts
 
         private void QuickScriptEditor_Load(object sender, EventArgs e)
         {
-            UpdateLastKnownPath();
+            
         }
 
         private void QuickScriptEditor_ResizeEnd(object sender, EventArgs e)
@@ -618,9 +618,9 @@ namespace XLG.QuickScripts
                     if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                     {
                         Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                        Host.Context.Scripts.Save();
+                        Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                         Text = "qkScrptR - " + Host.Context.Scripts.FilePath;
-                        UpdateLastKnownPath();
+                        Directories.LastScriptFilePath = Host.Context.Scripts.FilePath;
                     }
                 }
             }
@@ -644,7 +644,7 @@ namespace XLG.QuickScripts
                     UpdateScriptFromForm();
                     if (string.IsNullOrEmpty(Host.Context.Scripts.FilePath))
                         SaveAs_Click(null, null);
-                    else Host.Context.Scripts.Save();
+                    else Host.Context.Scripts.Save(Directories.ScriptArchivePath);
                 }
             }
             catch (Exception exception)
@@ -707,15 +707,10 @@ namespace XLG.QuickScripts
                 ? index
                 : DiceAt.Items.Add(selectedScript.DiceAt);
 
-            index = NativeTemplateList.FindString(selectedScript.NativeTemplateName);
-            NativeTemplateList.SelectedIndex = index > -1
+            index = TemplateList.FindString(selectedScript.TemplateName);
+            TemplateList.SelectedIndex = index > -1
                 ? index
-                : NativeTemplateList.Items.Add(selectedScript.NativeTemplateName);
-
-            index = ExeTemplateList.FindString(selectedScript.ExeTemplateName);
-            ExeTemplateList.SelectedIndex = index > -1
-                ? index
-                : ExeTemplateList.Items.Add(selectedScript.ExeTemplateName);
+                : TemplateList.Items.Add(selectedScript.TemplateName);
 
             InputParam.Text = selectedScript.InputFilePath;
             if (InputParam.Text.Length > 0)
@@ -734,60 +729,6 @@ namespace XLG.QuickScripts
 
             ScriptEditor.Focus();
             ScriptEditor.Current = selectedScript;
-        }
-
-        private void UpdateLastKnownPath()
-        {
-            if (Host.Context.Scripts == null || string.IsNullOrEmpty(Host.Context.Scripts.FilePath) ||
-                !File.Exists(Host.Context.Scripts.FilePath)) return;
-            var openedKey = false;
-            if (Context.AppDataRegistry == null)
-            {
-                Context.AppDataRegistry = Application.UserAppDataRegistry;
-                openedKey = true;
-            }
-
-            if (Context.AppDataRegistry == null)
-            {
-                return;
-            }
-
-            Context.AppDataRegistry.SetValue("LastQuickScriptPath", Host.Context.Scripts.FilePath, RegistryValueKind.String);
-
-            if (!openedKey || Context.AppDataRegistry == null)
-            {
-                return;
-            }
-
-            Context.AppDataRegistry.Close();
-            Context.AppDataRegistry = null;
-        }
-
-        private string UpdateLastQuickScriptsBasePath(string fullPath)
-        {
-            var path = fullPath.FirstToken(@"\QuickScripts\");
-            if (!Directory.Exists(path))
-                return null;
-
-            var openedKey = false;
-            if (Context.AppDataRegistry == null)
-            {
-                Context.AppDataRegistry = Application.UserAppDataRegistry;
-                openedKey = true;
-            }
-
-            if (Context.AppDataRegistry == null)
-            {
-                return path;
-            }
-
-            Context.AppDataRegistry.SetValue(Context.LastQuickScriptsBasePathKeyName, path, RegistryValueKind.String);
-
-            if (!openedKey || Context.AppDataRegistry == null) return path;
-
-            Context.AppDataRegistry.Close();
-            Context.AppDataRegistry = null;
-            return path;
         }
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
@@ -830,7 +771,7 @@ namespace XLG.QuickScripts
 
                 UpdateScriptFromForm();
 
-                var settings = ScriptEditor.Current.BuildSettings(true, false, Host);
+                var settings = ScriptEditor.Current.BuildSettings(false, Host);
                 var result = settings.ActualizeAndCompile();
                 var finalDetails = result.FinalDetails(out var keyLines);
                 if (!finalDetails.Contains("SUCCESS!"))
@@ -888,12 +829,12 @@ namespace XLG.QuickScripts
                             break;
 
                         case PostBuildAction.CloneProjectAndOpen:
-                            var lastCloneBasePath = Context.LastClonesBasePath;
-                            var newCloneFolder = Path.Combine(lastCloneBasePath, result.Settings.ProjectName);
+                            var lsatProcessorsFolder = Directories.FromRegistry(Directories.ProcessorsFolderName);
+                            var newCloneFolder = Path.Combine(lsatProcessorsFolder, result.Settings.ProjectName);
                             if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) ==
                                 MessageBoxResult.OK)
                             {
-                                UpdateLastQuickScriptsBasePath(newCloneFolder);
+                                Directories.ToRegistry(Directories.ProcessorsFolderName, newCloneFolder);
 
                                 if (Directory.Exists(newCloneFolder))
                                 {
@@ -974,7 +915,7 @@ namespace XLG.QuickScripts
             if (ScriptEditor.Current == null)
                 return;
 
-            var settings = ScriptEditor.Current.BuildSettings(true, true, Host);
+            var settings = ScriptEditor.Current.BuildSettings(true, Host);
             settings.UpdateBinPath();
             var filename = settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
 

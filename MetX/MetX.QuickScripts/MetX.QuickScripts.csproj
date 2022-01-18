@@ -23,7 +23,7 @@
     <Compile Remove="Templates\Exe\QuickScriptProcessor.cs" />
     <Compile Remove="Templates\Exe\StreamBuilder.cs" />
     <Compile Remove="Templates\Exe\Tokenizer.cs" />
-    <Compile Remove="Templates\Native\Native.cs" />
+    <Compile Remove="Templates\Archive\Native\Native.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="MetX.QuickScripts.csproj.DotSettings" />
@@ -66,9 +66,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Exe\_.sln">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Native\Native.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

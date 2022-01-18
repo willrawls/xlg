@@ -36,7 +36,7 @@ namespace MetX.Tests.Scripts
             host.Context.Templates = new XlgQuickScriptTemplateList(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates");
             Assert.IsTrue(host.Context.Templates.Any(t => t.Name == "TestExe"));
             
-            var settings = script.BuildSettings(true, false, host);
+            var settings = script.BuildSettings(false, host);
             settings.ProjectFolder = outputFilePath;
 
             ActualizationResult result = settings.ActualizeAndCompile();
@@ -80,14 +80,14 @@ namespace MetX.Tests.Scripts
         public void Build_Exe_FromFirstScript()
         {
             var source = Sources.FirstScript;
-            var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test_Build_Exe_FirstScript.exe");
+            var outputFilePath = Path.Combine(Environment.GetEnvironmentVariable("TEMP")!, "Test_Build_Exe_FirstScript.exe");
 
             if (File.Exists(outputFilePath))
             {
                 File.Delete(outputFilePath);
             }
 
-            var settings = QuickScriptProcessorFactory.BuildSettings(Sources.FirstScriptScript(), true, true, new DoNothingGenerationHost());
+            var settings = Sources.ExampleFirstScript().BuildSettings(true, new DoNothingGenerationHost());
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
             Assert.IsNotNull(result.DestinationExecutableFilePath);
@@ -107,16 +107,14 @@ namespace MetX.Tests.Scripts
             if (File.Exists(outputFilePath))
                 File.Delete(outputFilePath);
 
-            var xlgQuickScript = new XlgQuickScript("Calculate Something", Sources.CalculateSomething);
-            xlgQuickScript.NativeTemplateName = "Native";
-            xlgQuickScript.ExeTemplateName = "Exe";
+            var xlgQuickScript = new XlgQuickScript("Calculate Something", Sources.CalculateSomething) {TemplateName = "Exe"};
 
             var host = new DoNothingGenerationHost();
             var template = new XlgQuickScriptTemplate("Fred", "Fred");
             
             host.Context.Templates.Add(template);
 
-            var settings = xlgQuickScript.BuildSettings(true, true, host);
+            var settings = xlgQuickScript.BuildSettings(true, host);
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
             Assert.IsTrue(File.Exists(result.DestinationExecutableFilePath));

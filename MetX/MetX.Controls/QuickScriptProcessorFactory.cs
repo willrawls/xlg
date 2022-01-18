@@ -37,17 +37,13 @@ namespace MetX.Controls
             return result;
         }
 
-        public static ActualizationSettings BuildSettings(this XlgQuickScript script, bool forExecutable, bool simulate, IGenerationHost host)
+        public static ActualizationSettings BuildSettings(this XlgQuickScript script, bool simulate, IGenerationHost host)
         {
             if (script == null)
                 return null;
 
-            var templateName = forExecutable
-                ? script.ExeTemplateName
-                : script.NativeTemplateName;
-
-            var template = host.Context.Templates[templateName];
-            var settings = new ActualizationSettings(template, simulate, script, forExecutable, host);
+            var template = host.Context.Templates[script.TemplateName];
+            var settings = new ActualizationSettings(template, simulate, script, true, host);
             return settings;
         }
 

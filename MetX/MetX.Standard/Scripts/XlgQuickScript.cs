@@ -57,11 +57,8 @@ namespace MetX.Standard.Scripts
         [XmlAttribute]
         public string SliceAt;
 
-        [XmlAttribute]
-        public string NativeTemplateName;
-
         [XmlAttribute] 
-        public string ExeTemplateName;
+        public string TemplateName;
 
         private string _destinationFilePath;
 
@@ -77,8 +74,7 @@ namespace MetX.Standard.Scripts
             Destination = QuickScriptDestination.Notepad;
             SliceAt = "End of line";
             DiceAt = "Space";
-            NativeTemplateName = "Native";
-            ExeTemplateName = "Exe";
+            TemplateName = "Exe";
         }
 
         public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
@@ -152,20 +148,6 @@ namespace MetX.Standard.Scripts
         public static string FormatCSharpCode(string code)
         {
             return code ?? "";
-
-            /* NArrage not standard (sob)
-            var sb = new StringBuilder();
-            using var writer = new StringWriter(sb);
-            using var reader = new StringReader(code);
-
-            var cSharpParser = new NArrange.CSharp.CSharpParser();
-            var codeElements = cSharpParser.Parse(reader);
-            
-            var cSharpWriter = new NArrange.CSharp.CSharpWriter();
-            cSharpWriter.Write(codeElements, writer);
-            
-            return sb.ToString();
-        */
         }
 
         public XlgQuickScript Clone(string name)
@@ -178,8 +160,7 @@ namespace MetX.Standard.Scripts
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
-                NativeTemplateName = NativeTemplateName,
-                ExeTemplateName = ExeTemplateName,
+                TemplateName = TemplateName,
             };
         }
 
@@ -188,8 +169,7 @@ namespace MetX.Standard.Scripts
             var ret = false;
             SliceAt = "End of line";
             DiceAt = "Space";
-            NativeTemplateName = "Native";
-            ExeTemplateName = "Exe";
+            TemplateName = "Exe";
 
             if (string.IsNullOrEmpty(rawScript))
             {
@@ -197,10 +177,8 @@ namespace MetX.Standard.Scripts
             }
 
             Name = rawScript.FirstToken(Environment.NewLine);
-            if (string.IsNullOrEmpty(Name))
-            {
-                Name = "Unnamed " + Guid.NewGuid();
-            }
+            if (Name.IsEmpty())
+                return true;
 
             rawScript = rawScript.TokensAfterFirst(Environment.NewLine);
             if (!rawScript.Contains("~~QuickScript"))
@@ -209,16 +187,6 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                /*
-                                if (rawScript.Contains("~~QuickScriptInput"))
-                                {
-                                    Input =
-                                        rawScriptFromFile.TokensAfterFirst("~~QuickScriptInputStart:")
-                                                 .TokensBeforeLast("~~QuickScriptInputEnd:");
-                                    rawScript = rawScript.TokensAround("~~QuickScriptInputStart:",
-                                        "~~QuickScriptInputEnd:" + Environment.NewLine);
-                                }
-                */
                 var sb = new StringBuilder();
                 var lines = rawScript.LineList();
 //                var lines = rawScript.Lines();
@@ -258,11 +226,12 @@ namespace MetX.Standard.Scripts
                     else if (line.StartsWith("~~QuickScriptTemplate:")
                              || line.StartsWith("~~QuickScriptNativeTemplate:"))
                     {
-                        NativeTemplateName = line.TokensAfterFirst(":");
+                        // Ignore: Depricated
                     }
-                    else if (line.StartsWith("~~QuickScriptExeTemplate:"))
+                    else if (line.StartsWith("~~QuickScriptExeTemplate:")
+                            || line.StartsWith("~~QuickScriptTemplate:"))
                     {
-                        ExeTemplateName = line.TokensAfterFirst(":");
+                        TemplateName = line.TokensAfterFirst(":");
                     }
                     else if (line.StartsWith("~~QuickScriptDiceAt:"))
                     {
@@ -300,8 +269,7 @@ namespace MetX.Standard.Scripts
 ~~QuickScriptDestinationFilePath:{DestinationFilePath}
 ~~QuickScriptSliceAt:{SliceAt}
 ~~QuickScriptDiceAt:{DiceAt}
-~~QuickScriptTemplate:{NativeTemplateName}
-~~QuickScriptExeTemplate:{ExeTemplateName}
+~~QuickScriptTemplate:{TemplateName}
 {(isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty)}{Script.AsString()}";
         }
 

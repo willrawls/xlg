@@ -17,7 +17,7 @@ namespace MetX.Standard.Scripts
 
         public XlgQuickScriptFile(string filePath) { FilePath = filePath; }
 
-        public bool Save()
+        public bool Save(string backupPath)
         {
             if (Count == 0 || string.IsNullOrEmpty(FilePath))
             {
@@ -25,14 +25,16 @@ namespace MetX.Standard.Scripts
             }
 
             Directory.CreateDirectory(FilePath.TokensBeforeLast(@"\"));
+            Directory.CreateDirectory(backupPath);
 
             if (File.Exists(FilePath))
             {
-                File.Move(FilePath,
-                    FilePath + "_" +
-                    DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ") +
-                    ".xlgq"
-                    );
+                var filename =  FilePath.LastPathToken().FirstToken(".")
+                                      + "_" + DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ") 
+                                      +  ".xlgq";
+
+                var backupFilePath = Path.Combine(backupPath, filename);
+                File.Move(FilePath, backupFilePath);
             }
             var content = new StringBuilder();
             foreach (var script in this)

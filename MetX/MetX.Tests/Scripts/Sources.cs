@@ -82,7 +82,7 @@ namespace MetX.Scripts
         }
     }";
 
-        public static XlgQuickScript FirstScriptScript()
+        public static XlgQuickScript ExampleFirstScript()
         {
             return new ("First script", FirstScript);
 
@@ -129,8 +129,7 @@ namespace {namespaceName}
         {
             return new ("Write static line", WriteStaticLine)
             {
-                ExeTemplateName = "TestExe",
-                NativeTemplateName = "TestNative",
+                TemplateName = "TestExe",
             };
         }
 

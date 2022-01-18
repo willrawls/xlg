@@ -54,8 +54,7 @@ namespace XLG.QuickScripts
             this.ShowInputOutputOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.NativeTemplateList = new System.Windows.Forms.ToolStripComboBox();
-            this.ExeTemplateList = new System.Windows.Forms.ToolStripComboBox();
+            this.TemplateList = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SliceAt = new System.Windows.Forms.ToolStripComboBox();
@@ -323,8 +322,7 @@ namespace XLG.QuickScripts
             this.ShowInputOutputOptions,
             this.toolStripSeparator7,
             this.toolStripLabel2,
-            this.NativeTemplateList,
-            this.ExeTemplateList,
+            this.TemplateList,
             this.toolStripSeparator10,
             this.toolStripLabel3,
             this.SliceAt,
@@ -362,23 +360,12 @@ namespace XLG.QuickScripts
             this.toolStripLabel2.Text = "&TemplateName:";
             this.toolStripLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // NativeTemplateList
+            // TemplateList
             // 
-            this.NativeTemplateList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.NativeTemplateList.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.NativeTemplateList.Items.AddRange(new object[] {
-            "Native"});
-            this.NativeTemplateList.Name = "NativeTemplateList";
-            this.NativeTemplateList.Size = new System.Drawing.Size(130, 28);
-            // 
-            // ExeTemplateList
-            // 
-            this.ExeTemplateList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ExeTemplateList.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.ExeTemplateList.Items.AddRange(new object[] {
-            "Exe"});
-            this.ExeTemplateList.Name = "ExeTemplateList";
-            this.ExeTemplateList.Size = new System.Drawing.Size(130, 28);
+            this.TemplateList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TemplateList.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.TemplateList.Name = "TemplateList";
+            this.TemplateList.Size = new System.Drawing.Size(130, 28);
             // 
             // toolStripSeparator10
             // 
@@ -767,8 +754,7 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.ToolStripComboBox QuickScriptList;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripComboBox NativeTemplateList;
-        private System.Windows.Forms.ToolStripComboBox ExeTemplateList;
+        private System.Windows.Forms.ToolStripComboBox TemplateList;
         private System.Windows.Forms.ToolStripMenuItem ShowInputOutputOptions;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;

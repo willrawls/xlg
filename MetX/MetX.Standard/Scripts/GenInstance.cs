@@ -44,7 +44,7 @@ namespace MetX.Standard.Scripts
             {
                 ParseAndBuildAreas();
 
-                var sb = new StringBuilder(Template.Assets[_mIndependent ? "Exe" : "Native"].Value);
+                var sb = new StringBuilder(Template.Assets["Exe"].Value);
                 foreach (var area in this)
                 {
                     sb.Replace(Asset.LeftDelimiter + area.Name + Asset.RightDelimiter, string.Join(Environment.NewLine, area.Lines));

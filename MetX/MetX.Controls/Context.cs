@@ -26,87 +26,10 @@ namespace MetX.Controls
     public class Context : ContextBase
     {
         public static readonly List<QuickScriptOutput> OutputWindows = new();
-        public static RegistryKey AppDataRegistry;
         public static bool ScriptIsRunning { get; private set; }
-        public const string LastQuickScriptsBasePathKeyName = "LastQuickScriptsBasePathKeyName";
 
         private static readonly object MScriptSyncRoot = new();
-        public const string QuickScriptsClonesFolderName = "Clones";
-        public const string QuickScriptsActualFolderName = "Actual";
-        public const string QuickScriptsFolderName = "QuickScripts";
-        public const string ArchiveFolderName = "Archive";
 
-        public static string LastClonesBasePath => Path.Combine(GetLastQuickScriptsBasePath(), QuickScriptsClonesFolderName);
-        public static string LastActualBasePath => Path.Combine(GetLastQuickScriptsBasePath(), QuickScriptsActualFolderName);
-        public static string MyDocumentsQuickScriptsBasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Context.QuickScriptsFolderName);
-        
-
-
-        public static string GetLastQuickScriptsBasePath()
-        {
-            var defaultValue = MyDocumentsQuickScriptsBasePath;
-
-            Directory.CreateDirectory(defaultValue);
-            Directory.CreateDirectory(Path.Combine(defaultValue, ArchiveFolderName));
-
-            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsClonesFolderName));
-            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsClonesFolderName, ArchiveFolderName));
-
-            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsActualFolderName));
-            Directory.CreateDirectory(Path.Combine(defaultValue, QuickScriptsActualFolderName, ArchiveFolderName));
-
-            var openedKey = false;
-            if (AppDataRegistry == null)
-            {
-                AppDataRegistry = Application.UserAppDataRegistry;
-                openedKey = true;
-            }
-
-            if (AppDataRegistry == null)
-                return defaultValue;
-
-            var lastKnownPath = AppDataRegistry.GetValue(LastQuickScriptsBasePathKeyName) as string;
-
-            if (!openedKey || AppDataRegistry == null)
-                return defaultValue;
-
-            AppDataRegistry.Close();
-            AppDataRegistry = null;
-
-            if (lastKnownPath.IsEmpty())
-                return defaultValue;
-
-            Directory.CreateDirectory(Path.Combine(lastKnownPath, QuickScriptsClonesFolderName));
-            Directory.CreateDirectory(Path.Combine(lastKnownPath, QuickScriptsActualFolderName));
-
-            return lastKnownPath;
-        }
-
-        public static string GetLastKnownPath()
-        {
-            var openedKey = false;
-            if (AppDataRegistry == null)
-            {
-                AppDataRegistry = Application.UserAppDataRegistry;
-                openedKey = true;
-            }
-
-            if (AppDataRegistry == null)
-            {
-                return null;
-            }
-
-            var lastKnownPath = AppDataRegistry.GetValue("LastQuickScriptPath") as string;
-
-            if (!openedKey || AppDataRegistry == null)
-            {
-                return null;
-            }
-
-            AppDataRegistry.Close();
-            AppDataRegistry = null;
-            return lastKnownPath;
-        }
 
         public Context(IGenerationHost host = null) : base(host)
         {
@@ -232,7 +155,7 @@ namespace MetX.Controls
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
         {
-            var settings = scriptToRun.BuildSettings(true, false, host);
+            var settings = scriptToRun.BuildSettings(false, host);
             var result = settings.ActualizeAndCompile();
 
             if (!result.CompileSuccessful)
