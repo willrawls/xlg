@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -102,6 +103,65 @@ namespace MetX.Windows
             
             foreach (var item in Paths)
                 Directory.CreateDirectory(item.Value);
+
+            StageStaticSupportIfNeeded();
+            StageStaticTemplatesIfNeeded();
+        }
+
+        private static void StageStaticSupportIfNeeded()
+        {
+            var entries = Directory.GetDirectories(Paths[SupportFolderName].Value);
+            if (entries.IsEmpty())
+            {
+                FileSystem.DeepCopy(StaticSupportPath, Paths[SupportFolderName].Value);
+            }
+        }
+
+        private static void StageStaticTemplatesIfNeeded()
+        {
+            var entries = Directory.GetDirectories(Paths[TemplatesFolderName].Value);
+            if (entries.IsNotEmpty()) return;
+            
+            var path = StaticTemplatesPath;
+            if (path.IsNotEmpty())
+            {
+                foreach(var folder in Directory.GetDirectories(path))
+                {
+                    FileSystem.DeepCopy(path, Path.Combine(Paths[SupportFolderName].Value, folder));
+                }
+            }
+        }
+
+        public static string StaticTemplatesPath
+        {
+            get
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TemplatesFolderName);
+                if (Directory.Exists(path))
+                    return path;
+
+                path = Path.Combine(@"..\..\..", TemplatesFolderName);
+                if (Directory.Exists(path))
+                    return path;
+
+                return "";
+            }
+        }
+
+        public static string StaticSupportPath
+        {
+            get
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SupportFolderName);
+                if (Directory.Exists(path))
+                    return path;
+
+                path = Path.Combine(@"..\..\..\..\..", SupportFolderName);
+                if (Directory.Exists(path))
+                    return path;
+
+                return "";
+            }
         }
 
         public static string FromRegistry(string name)
