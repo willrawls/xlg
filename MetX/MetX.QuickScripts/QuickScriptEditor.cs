@@ -738,11 +738,15 @@ namespace XLG.QuickScripts
 
         private void findMenuItem_Click(object sender, EventArgs e)
         {
+            if (ScriptEditor.FindAndReplaceForm == null)
+                ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
             ScriptEditor.FindAndReplaceForm.ShowFor(false);
         }
 
         private void replaceMenuItem_Click(object sender, EventArgs e)
         {
+            if (ScriptEditor.FindAndReplaceForm == null)
+                ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
             ScriptEditor.FindAndReplaceForm.ShowFor(true);
         }
 

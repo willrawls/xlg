@@ -16,6 +16,27 @@ namespace MetX.Standard.IO
     /// <summary>Helper functions for the file system</summary>
     public static class FileSystem
     {
+        public static string FindAscendantDirectory(string basePath, string folderName, int levels)
+        {
+            if (!Directory.Exists(basePath))
+                return null;
+
+            var path = Path.Combine(basePath, folderName);
+            if (Directory.Exists(path))
+                return path;
+
+            var ascendancy = basePath.TokensBeforeLast(@"\");
+            for (var level = 0; level < levels; level++)
+            {
+                path = Path.Combine(ascendancy, folderName);
+                if (Directory.Exists(path))
+                    return path;
+                ascendancy = ascendancy.TokensBeforeLast(@"\");
+            }
+
+            return null;
+        }
+
         public static bool SafelyDeleteFile(string filePath)
         {
             if (filePath.IsEmpty() || !File.Exists(filePath))
@@ -153,22 +174,28 @@ namespace MetX.Standard.IO
 
         public static bool DeepCopy(string source, string dest)
         {
-            return DeepCopy(new DirectoryInfo(source), new DirectoryInfo(dest));
+            return DeepCopy(new DirectoryInfo(source), new DirectoryInfo(dest), 20);
         }
         /// <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
         /// <param name="source">The path from which files and subfolders should be copied</param>
         /// <param name="dest">The path to which those files and folders should be copied</param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest)
+        public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest, int maxDepth)
         {
+            if (maxDepth < 1)
+                return false;
+
             var sourceContents = source.GetFileSystemInfos();
 
             foreach (var currSource in sourceContents)
             {
-                if (currSource.Attributes == FileAttributes.Directory)
-                    DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name));
-                else if(currSource.Attributes == FileAttributes.Normal
-                        || currSource.Attributes == FileAttributes.Archive)
+                if ((currSource.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    if (--maxDepth > 1)
+                        DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name), maxDepth);
+                }
+                else if((currSource.Attributes & FileAttributes.Normal) == FileAttributes.Normal
+                        || (currSource.Attributes & FileAttributes.Archive) == FileAttributes.Archive)
                 {
                     var currSourceFile = (FileInfo)currSource;
                     currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);

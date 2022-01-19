@@ -658,7 +658,7 @@ namespace MetX.Standard.Library
         public static string TokensBeforeLast(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             var tokenCount = target.TokenCount(delimiter, compare);
-            return target.TokensBefore(tokenCount, delimiter, compare);
+            return target.TokensBefore(tokenCount - 1, delimiter, compare);
         }
 
         /// <summary>

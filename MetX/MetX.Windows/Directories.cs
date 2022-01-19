@@ -108,43 +108,45 @@ namespace MetX.Windows
             StageStaticTemplatesIfNeeded();
         }
 
-        private static void StageStaticSupportIfNeeded()
+        private static bool StageStaticSupportIfNeeded()
         {
-            var entries = Directory.GetDirectories(Paths[SupportFolderName].Value);
-            if (entries.IsEmpty())
-            {
-                FileSystem.DeepCopy(StaticSupportPath, Paths[SupportFolderName].Value);
-            }
+            var supportFolder = Paths[SupportFolderName].Value;
+            var entries = Directory.GetDirectories(supportFolder);
+            if (entries.IsNotEmpty()) return true;
+
+            var staticSupportPath = StaticSupportPath;
+            if (staticSupportPath.IsEmpty())
+                return false;
+
+            FileSystem.DeepCopy(staticSupportPath, supportFolder);
+            return true;
         }
 
-        private static void StageStaticTemplatesIfNeeded()
+        private static bool StageStaticTemplatesIfNeeded()
         {
-            var entries = Directory.GetDirectories(Paths[TemplatesFolderName].Value);
-            if (entries.IsNotEmpty()) return;
+            var destinationTemplateFolder = Paths[TemplatesFolderName].Value;
+            var entries = Directory.GetDirectories(destinationTemplateFolder);
+            if (entries.IsNotEmpty()) return true;
             
             var path = StaticTemplatesPath;
-            if (path.IsNotEmpty())
-            {
-                foreach(var folder in Directory.GetDirectories(path))
-                {
-                    FileSystem.DeepCopy(path, Path.Combine(Paths[SupportFolderName].Value, folder));
-                }
-            }
+            if (path.IsEmpty()) return false;
+            
+            FileSystem.DeepCopy(path, destinationTemplateFolder);
+            /*
+            foreach (var folder in Directory.GetDirectories(path))
+                FileSystem.DeepCopy(path, Path.Combine(templatesFolder, folder));
+            */
+            return true;
         }
 
         public static string StaticTemplatesPath
         {
             get
             {
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TemplatesFolderName);
-                if (Directory.Exists(path))
-                    return path;
-
-                path = Path.Combine(@"..\..\..", TemplatesFolderName);
-                if (Directory.Exists(path))
-                    return path;
-
-                return "";
+                var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, TemplatesFolderName, 5);
+                return Directory.Exists(path) 
+                    ? path 
+                    : "";
             }
         }
 
@@ -152,15 +154,10 @@ namespace MetX.Windows
         {
             get
             {
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SupportFolderName);
-                if (Directory.Exists(path))
-                    return path;
-
-                path = Path.Combine(@"..\..\..\..\..", SupportFolderName);
-                if (Directory.Exists(path))
-                    return path;
-
-                return "";
+                var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, SupportFolderName, 5);
+                return Directory.Exists(path) 
+                    ? path 
+                    : "";
             }
         }
 
