@@ -16,6 +16,7 @@ using MetX.Windows.Library;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
+using MetX.Windows;
 using MetX.Windows.WinApi;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -31,7 +32,7 @@ namespace MetX.Controls
         private static readonly object MScriptSyncRoot = new();
 
 
-        public Context(IGenerationHost host = null) : base(host)
+        public Context(IGenerationHost host = null) : base(Dirs.CurrentTemplateFolderPath, host)
         {
         }
 

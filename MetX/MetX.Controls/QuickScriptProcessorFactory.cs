@@ -24,23 +24,19 @@ namespace MetX.Controls
             if (result == null) 
                 return null;
 
-            if (result.ActualizationSuccessful)
-            {
-                var compileResult = result.Compile();
-                if (compileResult)
-                {
-                    result.Settings.UpdateBinPath();
-                    return result;
-                }
-            }
+            if (!result.ActualizationSuccessful) return result;
 
+            var compileResult = result.Compile();
+            if (!compileResult) return result;
+
+            result.Settings.UpdateBinPath();
             return result;
+
         }
 
         public static ActualizationSettings BuildSettings(this XlgQuickScript script, bool simulate, IGenerationHost host)
         {
-            if (script == null)
-                return null;
+            if (script == null) return null;
 
             var template = host.Context.Templates[script.TemplateName];
             var settings = new ActualizationSettings(template, simulate, script, true, host);

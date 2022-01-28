@@ -270,7 +270,7 @@ namespace MetX.Controls
                 if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                 {
                     Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                    Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                    Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                     Text = "Quick Script - " + Host.Context.Scripts.FilePath;
                     UpdateLastKnownPath();
                 }
@@ -299,7 +299,7 @@ namespace MetX.Controls
                     }
                     else
                     {
-                        Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                        Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                     }
                 }
             }

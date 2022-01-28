@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Scripts;
 
 namespace MetX.Standard
@@ -10,12 +11,15 @@ namespace MetX.Standard
         public static ContextBase Default { get; set; }
 
         public XlgQuickScriptFile Scripts;
-        public XlgQuickScriptTemplateList Templates = new(Environment.CurrentDirectory, "Templates");
+        public XlgQuickScriptTemplateList Templates;
         public IGenerationHost Host;
 
-        public ContextBase(IGenerationHost host)
+        public ContextBase(string pathToTemplates, IGenerationHost host)
         {
             Host = host;
+            Templates = pathToTemplates.IsNotEmpty()
+                ? new XlgQuickScriptTemplateList(pathToTemplates)
+                : null;
         }
 
         public void SetPropertiesFocus(string propertyName)

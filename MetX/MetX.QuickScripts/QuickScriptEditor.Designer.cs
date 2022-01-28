@@ -622,7 +622,7 @@ namespace XLG.QuickScripts
             this.findMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.findMenuItem.Size = new System.Drawing.Size(73, 28);
             this.findMenuItem.Text = "Find";
-            this.findMenuItem.Click += new System.EventHandler(this.findMenuItem_Click);
+            this.findMenuItem.Click += new System.EventHandler(this.FindMenuItem_Click);
             // 
             // replaceMenuItem
             // 
@@ -631,7 +631,7 @@ namespace XLG.QuickScripts
             this.replaceMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.replaceMenuItem.Size = new System.Drawing.Size(98, 28);
             this.replaceMenuItem.Text = "Replace";
-            this.replaceMenuItem.Click += new System.EventHandler(this.replaceMenuItem_Click);
+            this.replaceMenuItem.Click += new System.EventHandler(this.ReplaceMenuItem_Click);
             // 
             // testFuncToolStripMenuItem
             // 

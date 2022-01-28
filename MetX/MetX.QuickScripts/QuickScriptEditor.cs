@@ -393,10 +393,10 @@ namespace XLG.QuickScripts
                 Host.Context.Scripts.Default = script;
                 script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
                 Host.Context.Scripts.Add(script);
-                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
             }
 
-            Directories.LastScriptFilePath = filePath;
+            Dirs.LastScriptFilePath = filePath;
 
             RefreshLists();
             UpdateFormWithScript(Host.Context.Scripts.Default);
@@ -474,7 +474,7 @@ namespace XLG.QuickScripts
             OpenInputFilePathDialog.ShowDialog(this);
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
-                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                 LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
             }
         }
@@ -492,7 +492,7 @@ namespace XLG.QuickScripts
             OpenInputFilePathDialog.ShowDialog(this);
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
-                Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                 LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
             }
         }
@@ -618,9 +618,9 @@ namespace XLG.QuickScripts
                     if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                     {
                         Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-                        Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                        Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                         Text = "qkScrptR - " + Host.Context.Scripts.FilePath;
-                        Directories.LastScriptFilePath = Host.Context.Scripts.FilePath;
+                        Dirs.LastScriptFilePath = Host.Context.Scripts.FilePath;
                     }
                 }
             }
@@ -644,7 +644,7 @@ namespace XLG.QuickScripts
                     UpdateScriptFromForm();
                     if (string.IsNullOrEmpty(Host.Context.Scripts.FilePath))
                         SaveAs_Click(null, null);
-                    else Host.Context.Scripts.Save(Directories.ScriptArchivePath);
+                    else Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
                 }
             }
             catch (Exception exception)
@@ -736,17 +736,15 @@ namespace XLG.QuickScripts
             DisplayExpandedQuickScriptSourceInNotepad();
         }
 
-        private void findMenuItem_Click(object sender, EventArgs e)
+        private void FindMenuItem_Click(object sender, EventArgs e)
         {
-            if (ScriptEditor.FindAndReplaceForm == null)
-                ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
+            ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm(ScriptEditor, Host);
             ScriptEditor.FindAndReplaceForm.ShowFor(false);
         }
 
-        private void replaceMenuItem_Click(object sender, EventArgs e)
+        private void ReplaceMenuItem_Click(object sender, EventArgs e)
         {
-            if (ScriptEditor.FindAndReplaceForm == null)
-                ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
+            ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm(ScriptEditor, Host);
             ScriptEditor.FindAndReplaceForm.ShowFor(true);
         }
 
@@ -833,12 +831,13 @@ namespace XLG.QuickScripts
                             break;
 
                         case PostBuildAction.CloneProjectAndOpen:
-                            var lsatProcessorsFolder = Directories.FromRegistry(Directories.ProcessorsFolderName);
-                            var newCloneFolder = Path.Combine(lsatProcessorsFolder, result.Settings.ProjectName);
-                            if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) ==
-                                MessageBoxResult.OK)
+                            //var lastProcessorsFolder = Dirs.FromRegistry(Dirs.ProcessorsFolderName);
+                            var lastProcessorsFolder = Dirs.Paths[Dirs.ProcessorsFolderName].Value;
+                            var newCloneFolder = Path.Combine(lastProcessorsFolder, result.Settings.ProjectName);
+                            
+                            if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) == MessageBoxResult.OK)
                             {
-                                Directories.ToRegistry(Directories.ProcessorsFolderName, newCloneFolder);
+                                Dirs.ToRegistry(Dirs.ProcessorsFolderName, newCloneFolder);
 
                                 if (Directory.Exists(newCloneFolder))
                                 {

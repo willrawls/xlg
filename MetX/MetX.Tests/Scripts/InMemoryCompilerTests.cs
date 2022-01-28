@@ -33,7 +33,7 @@ namespace MetX.Tests.Scripts
             ContextBase context = new Context(host);
             host.Context = context;
 
-            host.Context.Templates = new XlgQuickScriptTemplateList(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates");
+            host.Context.Templates = new XlgQuickScriptTemplateList(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates"));
             Assert.IsTrue(host.Context.Templates.Any(t => t.Name == "TestExe"));
             
             var settings = script.BuildSettings(false, host);

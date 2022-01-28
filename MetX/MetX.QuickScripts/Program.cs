@@ -17,12 +17,12 @@ namespace XLG.QuickScripts
             string filePath;
             if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
             {
-                Directories.LastScriptFilePath = args[0];
+                Dirs.LastScriptFilePath = args[0];
                 filePath = args[0];
             }
             else
             {
-                filePath = Directories.LastScriptFilePath;
+                filePath = Dirs.LastScriptFilePath;
             }
             Application.Run(new QuickScriptEditor(filePath));
         }

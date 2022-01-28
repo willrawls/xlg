@@ -16,6 +16,7 @@ namespace MetX.Standard.Scripts
             XlgQuickScript scriptToRun, bool forExecutable, IGenerationHost host)
         {
             Host = host;
+            TemplateNameAsLegalFilenameWithoutExtension = Guid.NewGuid().ToString("N");
             QuickScriptTemplate = quickScriptTemplate ?? throw new ArgumentNullException(nameof(quickScriptTemplate));
             Simulate = simulate;
             Script = scriptToRun;
@@ -56,7 +57,7 @@ namespace MetX.Standard.Scripts
         public XlgQuickScriptTemplate QuickScriptTemplate { get; set; }
 
         public AssocArray Answers { get; set; } = new AssocArray();
-        public string TemplateNameAsLegalFilenameWithoutExtension { get; set; } = Guid.NewGuid().ToString("N");
+        public string TemplateNameAsLegalFilenameWithoutExtension { get; set; }
 
         public XlgQuickScript Script { get; set; }
         public bool ForExecutable { get; set; }

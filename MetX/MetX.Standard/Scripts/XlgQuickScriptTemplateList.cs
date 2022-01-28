@@ -11,9 +11,9 @@ namespace MetX.Standard.Scripts
     {
         public string TemplatesPath;
 
-        public XlgQuickScriptTemplateList(string pathToParentTemplateFolder, string templatesFolderName)
+        public XlgQuickScriptTemplateList(string pathToTemplates)
         {
-            TemplatesPath = Path.Combine(pathToParentTemplateFolder, templatesFolderName);
+            TemplatesPath = pathToTemplates;
             if (!Directory.Exists(TemplatesPath)) return;
 
             foreach (var directory in Directory.GetDirectories(TemplatesPath))

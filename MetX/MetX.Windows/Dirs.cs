@@ -10,7 +10,7 @@ using Microsoft.Win32;
 
 namespace MetX.Windows
 {
-    public class Directories
+    public class Dirs
     {
         public static string DefaultBasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), MyDocumentsXlgFolderName);
 
@@ -32,7 +32,7 @@ namespace MetX.Windows
 
         public static AssocArray Paths = new();
 
-        static Directories()
+        static Dirs()
         {
             InitializeFolders();
             Debug.WriteLine(Details);
@@ -160,6 +160,9 @@ namespace MetX.Windows
                     : "";
             }
         }
+
+        public static string CurrentSupportFolderPath => Paths[SupportFolderName].Value;
+        public static string CurrentTemplateFolderPath => Paths[TemplatesFolderName].Value;
 
         public static string FromRegistry(string name)
         {
