@@ -3,11 +3,9 @@
 // ReSharper disable InconsistentNaming
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
@@ -26,8 +24,25 @@ namespace MetX.Standard.Scripts
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScript
     {
-        [XmlAttribute]
-        public QuickScriptDestination Destination;
+        private string _destinationFilePath;
+
+        [XmlAttribute] public QuickScriptDestination Destination;
+
+        [XmlAttribute] public string DiceAt;
+
+        [XmlAttribute] public Guid Id;
+
+        [XmlAttribute] public string Input;
+
+        [XmlAttribute] public string InputFilePath;
+
+        [XmlAttribute] public string Name;
+
+        [XmlAttribute] public string Script;
+
+        [XmlAttribute] public string SliceAt;
+
+        [XmlAttribute] public string TemplateName;
 
         [XmlAttribute]
         public string DestinationFilePath
@@ -35,32 +50,6 @@ namespace MetX.Standard.Scripts
             get => _destinationFilePath;
             set => _destinationFilePath = value;
         }
-
-        [XmlAttribute]
-        public string DiceAt;
-
-        [XmlAttribute]
-        public Guid Id;
-
-        [XmlAttribute]
-        public string Input;
-
-        [XmlAttribute]
-        public string InputFilePath;
-
-        [XmlAttribute]
-        public string Name;
-
-        [XmlAttribute]
-        public string Script;
-
-        [XmlAttribute]
-        public string SliceAt;
-
-        [XmlAttribute] 
-        public string TemplateName;
-
-        private string _destinationFilePath;
 
         public XlgQuickScript()
         {
@@ -77,82 +66,9 @@ namespace MetX.Standard.Scripts
             TemplateName = "Exe";
         }
 
-        public static string ExpandScriptLineToSourceCode(string currScriptLine, int indent)
-        {
-            // backslash percent will translate to % after parsing
-            currScriptLine = currScriptLine.Replace(@"\%", "~$~$").Replace("\"", "~#~$").Trim();
-
-            currScriptLine = ExpandScriptLineVariables(currScriptLine);
-
-            currScriptLine = $"Output.AppendLine(\"{currScriptLine.Mid(3).Replace(@"\", @"\\")}\");";
-            currScriptLine =
-                currScriptLine.Replace("AppendLine(\" + ", "AppendLine(")
-                              .Replace(" + \"\")", ")")
-                              .Replace("Output.AppendLine(\"\")", "Output.AppendLine()");
-            currScriptLine = (indent > 0
-                ? new string(' ', indent + 12)
-                : string.Empty) +
-                             currScriptLine
-                                 .Replace(" + \"\" + ", string.Empty)
-                                 .Replace("\"\" + ", string.Empty)
-                                 .Replace(" + \"\"", string.Empty)
-                                 .Replace("~$~$", @"%")
-                                 .Replace("~#~$", "\\\"");
-            return currScriptLine;
-        }
-
-        public static string ExpandScriptLineVariables(string currScriptLine)
-        {
-            var keepGoing = true;
-            var iterations = 0;
-            while (keepGoing && ++iterations < 1000 && currScriptLine.Contains("%")
-                   && currScriptLine.TokenCount("%") > 1)
-            {
-                var variableContent = currScriptLine.TokenAt(2, "%");
-                var resolvedContent = string.Empty;
-                if (variableContent.Length > 0)
-                {
-                    if (variableContent.Contains(" "))
-                    {
-                        var variableName = variableContent.FirstToken();
-                        var variableIndex = variableContent.TokensAfterFirst();
-                        // ReSharper disable once NotAccessedVariable
-                        int actualIndex;
-                        if (int.TryParse(variableIndex, out actualIndex))
-                        {
-                            // Array index
-                            resolvedContent = "\" + (" + variableName + ".Length <= " + variableIndex
-                                              + " ? string.Empty : " + variableName + "[" + variableIndex + "]) + \"";
-                        }
-                        else
-                        {
-                            resolvedContent = "\" + " + variableName + "[\"" + variableIndex + "\"] + \"";
-                        }
-                    }
-                    else
-                    {
-                        resolvedContent = "\" + " + variableContent + " + \"";
-                    }
-                }
-                else
-                {
-                    keepGoing = false;
-                }
-
-                currScriptLine = currScriptLine.Replace("%" + variableContent + "%", resolvedContent);
-            }
-
-            return currScriptLine;
-        }
-
-        public static string FormatCSharpCode(string code)
-        {
-            return code ?? "";
-        }
-
         public XlgQuickScript Clone(string name)
         {
-            return new(name, Script)
+            return new XlgQuickScript(name, Script)
             {
                 Destination = Destination,
                 DestinationFilePath = DestinationFilePath,
@@ -160,7 +76,7 @@ namespace MetX.Standard.Scripts
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
-                TemplateName = TemplateName,
+                TemplateName = TemplateName
             };
         }
 
@@ -171,10 +87,7 @@ namespace MetX.Standard.Scripts
             DiceAt = "Space";
             TemplateName = "Exe";
 
-            if (string.IsNullOrEmpty(rawScript))
-            {
-                throw new ArgumentNullException(nameof(rawScript));
-            }
+            if (string.IsNullOrEmpty(rawScript)) throw new ArgumentNullException(nameof(rawScript));
 
             Name = rawScript.FirstToken(Environment.NewLine);
             if (Name.IsEmpty())
@@ -191,7 +104,6 @@ namespace MetX.Standard.Scripts
                 var lines = rawScript.LineList();
 //                var lines = rawScript.Lines();
                 foreach (var line in lines)
-                {
                     if (line.StartsWith("~~QuickScriptDefault:"))
                     {
                         ret = true;
@@ -199,25 +111,17 @@ namespace MetX.Standard.Scripts
                     else if (line.StartsWith("~~QuickScriptInput:"))
                     {
                         Input = line.TokensAfterFirst(":").Trim();
-                        if (string.IsNullOrEmpty(Input))
-                        {
-                            Input = "Clipboard";
-                        }
+                        if (string.IsNullOrEmpty(Input)) Input = "Clipboard";
                     }
                     else if (line.StartsWith("~~QuickScriptDestination:"))
                     {
                         Destination = QuickScriptDestination.TextBox;
                         if (!Enum.TryParse(line.TokensAfterFirst(":"), out Destination))
-                        {
                             Destination = QuickScriptDestination.TextBox;
-                        }
                     }
                     else if (line.StartsWith("~~QuickScriptId:"))
                     {
-                        if (!Guid.TryParse(line.TokensAfterFirst(":"), out Id))
-                        {
-                            Id = Guid.NewGuid();
-                        }
+                        if (!Guid.TryParse(line.TokensAfterFirst(":"), out Id)) Id = Guid.NewGuid();
                     }
                     else if (line.StartsWith("~~QuickScriptSliceAt:"))
                     {
@@ -229,7 +133,7 @@ namespace MetX.Standard.Scripts
                         // Ignore: Depricated
                     }
                     else if (line.StartsWith("~~QuickScriptExeTemplate:")
-                            || line.StartsWith("~~QuickScriptTemplate:"))
+                             || line.StartsWith("~~QuickScriptTemplate:"))
                     {
                         TemplateName = line.TokensAfterFirst(":");
                     }
@@ -249,14 +153,13 @@ namespace MetX.Standard.Scripts
                     {
                         sb.AppendLine(line);
                     }
-                }
 
                 Script = sb.ToString();
             }
 
             return ret;
         }
-        
+
         public string ToFileFormat(bool isDefault)
         {
             return
@@ -278,22 +181,18 @@ namespace MetX.Standard.Scripts
             return Name;
         }
 
-        public const string SlashSlashBlockLeftDelimiter = "~~{";
-        public const string SlashSlashBlockRightDelimiter = "}~~";
-
         public string HandleSlashSlashBlock()
         {
-            
-            if (!Script.Contains(SlashSlashBlockLeftDelimiter) || !Script.Contains(SlashSlashBlockRightDelimiter))
+            if (!Script.Contains(Helpers.SlashSlashBlockLeftDelimiter) || !Script.Contains(Helpers.SlashSlashBlockRightDelimiter))
                 return Script;
 
-            var expanded = Script.UpdateBetweenTokens(SlashSlashBlockLeftDelimiter, SlashSlashBlockRightDelimiter, 
-                true, QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
-            
+            var expanded = Script.UpdateBetweenTokens(Helpers.SlashSlashBlockLeftDelimiter, Helpers.SlashSlashBlockRightDelimiter,
+                true, Helpers.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
+
             return expanded;
         }
 
-        
+
         public string AsParameters()
         {
             string source;
@@ -308,7 +207,7 @@ namespace MetX.Standard.Scripts
                     break;
             }
 
-            string args2 = "";
+            var args2 = "";
             string destination;
             switch (Destination)
             {
@@ -316,7 +215,8 @@ namespace MetX.Standard.Scripts
                     destination = "clipboard";
                     break;
                 case QuickScriptDestination.Notepad:
-                    destination = "\"" + Path.Combine(Environment.GetEnvironmentVariable("TEMP"), $"quickScriptOutput_{Guid.NewGuid():N}.txt") + "\"";
+                    destination = "\"" + Path.Combine(Environment.GetEnvironmentVariable("TEMP"),
+                        $"quickScriptOutput_{Guid.NewGuid():N}.txt") + "\"";
                     args2 = " open";
                     break;
                 case QuickScriptDestination.TextBox:
@@ -324,28 +224,12 @@ namespace MetX.Standard.Scripts
                     break;
                 default:
                     destination = $"\"{DestinationFilePath}\"";
-                    args2 = " open";            
+                    args2 = " open";
                     break;
             }
-            
-            string parameters = $"{source} {destination}{args2}";
+
+            var parameters = $"{source} {destination}{args2}";
             return parameters;
         }
-
-        public static string QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(string target)
-        {
-            if (target.IsEmpty())
-                return "";
-
-            var result = target.Replace("\r", "")
-                .LineList()
-                .Select(line => $"~~:{line}")
-                .ToList()
-                .AsString("\n");
-            if (!result.EndsWith("\n"))
-                result += "\n";
-            return result;
-        }
-
     }
 }

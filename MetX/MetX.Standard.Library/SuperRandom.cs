@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Library
 {
     public static class SuperRandom
     {
-        private static readonly RNGCryptoServiceProvider Provider;
-        private static readonly HashAlgorithm SHAProvider;
+        private static RNGCryptoServiceProvider _provider;
+        private static HashAlgorithm _shaProvider;
 
         public static int StartSaltingAtIndex;
         public static byte[] Salt;
 
         static SuperRandom()
         {
-            Provider = new RNGCryptoServiceProvider();
-            SHAProvider = SHA256.Create();
-            FillSaltShaker();
+            ResetProvider(null);
+        }
+
+        public static void ResetProvider(byte[] saltBytes)
+        {
+            _provider = new RNGCryptoServiceProvider();
+            _shaProvider = SHA256.Create();
+            FillSaltShaker(saltBytes);
         }
 
         public static long NextLong(long minValue, long maxExclusiveValue)
@@ -143,13 +149,14 @@ namespace MetX.Standard.Library
             return BitConverter.ToChar(randomBytes, 0);
         }
 
-        public static int NextRoll(int dice, int sides)
+        public static uint NextRoll(int dice, int sides)
         {
             if (dice < 1 || sides < 1)
                 return 1;
 
-            var result = 0;
-            for (var i = 0; i < dice; i++) result += NextInteger(1, sides);
+            uint result = 0;
+            for (var i = 0; i < dice; i++) 
+                result += NextUnsignedInteger((uint) 1, (uint) sides);
 
             return result;
         }
@@ -160,19 +167,27 @@ namespace MetX.Standard.Library
             return BitConverter.ToInt64(randomBytes, 0);
         }
 
+        public static string NextHash(byte[] bytes)
+        {
+            return _shaProvider.ComputeHash(bytes).AsString();
+        }
+
         public static string NextHash(IEnumerable<byte> bytes)
         {
-            return SHAProvider.ComputeHash(bytes.ToArray()).AsString();
+            return _shaProvider.ComputeHash(bytes.ToArray()).AsString();
         }
 
         public static string NextSaltedHash(string data)
         {
-            return NextHash(data, SaltShaker);
+            return data.IsEmpty() ? "" : NextHash(data.ToLower(), SaltShaker);
         }
 
         public static string NextHash(string data, Func<byte[], IEnumerable<byte>> shaker = null)
         {
-            var bytes = SHAProvider
+            if (data.IsEmpty())
+                return "";
+
+            var bytes = _shaProvider
                 .ComputeHash(data
                     .ToCharArray()
                     .Select(c => (byte) c)
@@ -193,10 +208,25 @@ namespace MetX.Standard.Library
                 return;
             }
             var randomLength = NextInteger(1024, 2048);
-            Salt = NextBytes(randomLength);
 
             StartSaltingAtIndex = 0;
-            Array.Copy(salt, Salt, 0);
+            Salt = Repeating(salt, randomLength);
+        }
+
+        public static byte[] Repeating(byte[] bytes, int targetLength)
+        {
+            if (bytes == null) return null;
+            if (bytes.Length == targetLength) return bytes;
+            if (bytes.Length > targetLength) return bytes.Take(targetLength).ToArray();
+
+            var repeated = new byte[targetLength];
+            for (int i = 0, j = 0; i < targetLength; i++)
+            {
+                if (j > bytes.Length - 1)
+                    j = 0;
+                repeated[i] = bytes[j++];
+            }
+            return repeated;
         }
 
         public static void FillSaltShaker(int startSaltingAtIndex = 0)
@@ -241,10 +271,10 @@ namespace MetX.Standard.Library
         public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
         {
             if (bytesNumber < 1)
-                return new byte[0];
+                return Array.Empty<byte>();
 
             var buffer = new byte[bytesNumber];
-            Provider.GetBytes(buffer);
+            _provider.GetBytes(buffer);
 
             for (var i = 0; i < bytesNumber; i++)
             {

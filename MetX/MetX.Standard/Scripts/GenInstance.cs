@@ -162,15 +162,15 @@ namespace MetX.Standard.Scripts
                 {
                     if (_targetGenArea.Name == "Using" || _targetGenArea.Name == "Usings")
                     {
-                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, -1));
+                        _targetGenArea.Lines.Add(Helpers.ExpandScriptLineToSourceCode(line, -1));
                     }
                     else if (_targetGenArea.Name == "ClassMembers")
                     {
-                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, -1));
+                        _targetGenArea.Lines.Add(Helpers.ExpandScriptLineToSourceCode(line, -1));
                     }
                     else
                     {
-                        _targetGenArea.Lines.Add(XlgQuickScript.ExpandScriptLineToSourceCode(line, indent));
+                        _targetGenArea.Lines.Add(Helpers.ExpandScriptLineToSourceCode(line, indent));
                     }
                 }
                 else if (originalArea != null)
@@ -241,7 +241,7 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
+                var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
                 _targetGenArea.Lines.Add($"Output.SwitchTo(@\"{resolvedFilePath}\");");
             }
         }
@@ -267,7 +267,7 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
+                var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
                 _targetGenArea.Lines.Add($"Output.AppendTo(@\"{resolvedFilePath}\");");
             }
         }
@@ -280,7 +280,7 @@ namespace MetX.Standard.Scripts
                 .Replace("/", @"\")
                 .Trim();
 
-            var resolvedFilePath = XlgQuickScript.ExpandScriptLineVariables(filePath);
+            var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
 
             _targetGenArea.Lines.Add($"{lineFunction}(@\"{resolvedFilePath}\");");
             return resolvedFilePath;
