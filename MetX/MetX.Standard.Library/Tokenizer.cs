@@ -343,16 +343,16 @@ namespace MetX.Standard.Library
                 if(length > 0)
                 {
                     yield return target.Substring(currentLocation, length);
-                    currentLocation = leftIndexes[i] + leftDelimiter.Length;
-                }                
+                }
+                currentLocation = leftIndexes[i] + leftDelimiter.Length;
                 if (currentLocation >= target.Length) break;
                 
                 length = rightIndexes[j] - currentLocation;
                 if(length > 0)
                 {
                     yield return target.Substring(currentLocation, rightIndexes[j] - currentLocation);
-                    currentLocation = rightIndexes[j] + rightDelimiter.Length;
                 }   
+                currentLocation = rightIndexes[j] + rightDelimiter.Length;
                 if (currentLocation >= target.Length) break;
             }
             

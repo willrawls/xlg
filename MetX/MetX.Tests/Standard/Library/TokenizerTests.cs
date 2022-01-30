@@ -175,6 +175,7 @@ namespace MetX.Tests.Standard.Library
         */
 
         [DataTestMethod]
+        [DataRow("{", "}", "q{speed 50}{TAB}r", new[] { "q", "speed 50", "TAB", "r"})]
         [DataRow("//~{", "}~//", "abc//~{def}~//ghi", new[] { "abc", "def", "ghi" })]
         [DataRow("[", "]", "a[b]c[d]e", new[] { "a", "b", "c", "d", "e" })]
         [DataRow("[", "]", "a[b]c", new[] { "a", "b", "c" })]
@@ -201,7 +202,7 @@ namespace MetX.Tests.Standard.Library
         [DataRow("\nd\ne\nf", "~~:\n~~:d\n~~:e\n~~:f\n")]
         public void QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine_Basic1(string data, string expected)
         {
-            var actual = XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(data);
+            var actual = Helpers.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine(data);
             Assert.AreEqual(
                 "\n[" + expected + "]\n",
                 "\n[" + actual + "]\n");
@@ -215,7 +216,7 @@ namespace MetX.Tests.Standard.Library
         public void UpdateTokensBetween_Basic3(string data, string expected, bool eliminateDelimiters)
         {
             var actual = data.UpdateBetweenTokens("--", "==", eliminateDelimiters,
-                XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
+                Helpers.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine);
             Assert.AreEqual(
                 "\n[" + expected + "]\n",
                 "\n[" + actual + "]\n");
@@ -230,7 +231,7 @@ namespace MetX.Tests.Standard.Library
         {
             Assert.AreEqual("\n[" + expected + "]\n",
                 "\n[" + data.UpdateBetweenTokens("//~{", "}~//", eliminateDelimiters,
-                    XlgQuickScript.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
+                    Helpers.QuickScriptTokenProcessor_AddTildeTildeColonOnEachLine) + "]\n");
         }
 
         [TestMethod]

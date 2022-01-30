@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "1e449e05-f155-4952-bf75-f8268e8695cf": {
+      "ProjectGuid": "1e449e05-f155-4952-bf75-f8268e8695cf",
+      "DisplayName": "MetX.Controls",
+      "ColorIndex": 0
+    },
+    "d554998c-4943-4167-8d2c-a7320a9e5a2f": {
+      "ProjectGuid": "d554998c-4943-4167-8d2c-a7320a9e5a2f",
+      "DisplayName": "MetX.QuickScripts",
+      "ColorIndex": 1
+    },
+    "dfb7cfa6-e8df-43e7-9760-f3cea36ed54f": {
+      "ProjectGuid": "dfb7cfa6-e8df-43e7-9760-f3cea36ed54f",
+      "DisplayName": "MetX.Standard",
+      "ColorIndex": 2
+    },
+    "0f4912cc-39db-4d7d-a788-c9dd949117f4": {
+      "ProjectGuid": "0f4912cc-39db-4d7d-a788-c9dd949117f4",
+      "DisplayName": "MetX.Windows",
+      "ColorIndex": 3
+    },
+    "eb7da300-bce1-4254-bc94-57dfd91b5929": {
+      "ProjectGuid": "eb7da300-bce1-4254-bc94-57dfd91b5929",
+      "DisplayName": "MetX.Fiver",
+      "ColorIndex": 4
+    },
+    "8492f221-2de1-4f46-9a1c-a451aa986313": {
+      "ProjectGuid": "8492f221-2de1-4f46-9a1c-a451aa986313",
+      "DisplayName": "MetX.Glove.Console",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}

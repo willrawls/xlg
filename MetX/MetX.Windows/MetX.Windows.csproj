@@ -54,11 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="NHotkey.WindowsForms" Version="2.1.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.10.0" />
-    <PackageReference Include="Microsoft.Net.Compilers" Version="3.10.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="4.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
