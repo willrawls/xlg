@@ -14,6 +14,22 @@ namespace MetX.Tests.Standard.Library
         private readonly string _sample = "Fred goes home";
 
         [TestMethod]
+        public void TokensBeforeLast_Simple_path()
+        {
+            var data = @"a\b\c\d.txt";
+            var actual = data.TokensBeforeLast(@"\");
+            Assert.AreEqual(@"a\b\c", actual);
+        }
+
+        [TestMethod]
+        public void TokensBefore_Simple_path()
+        {
+            var data = @"a\b\c\d.txt";
+            var actual = data.TokensBefore(4, @"\");
+            Assert.AreEqual(@"a\b\c", actual);
+        }
+
+        [TestMethod]
         public void AllTokensIgnoreCase_Simple_b()
         {
             var data = "aBcbd";

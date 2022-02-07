@@ -22,5 +22,8 @@ namespace MetX.Standard.Generation
 
         public Func<string> GetTextForProcessing { get; set; }
         public ContextBase Context { get; set; }
+        public void WaitFor(Action action)
+        {
+        }
     }
 }

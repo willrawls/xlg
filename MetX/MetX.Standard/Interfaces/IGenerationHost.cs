@@ -9,5 +9,6 @@ namespace MetX.Standard.Interfaces
         MessageBoxResult InputBox(string title, string description, ref string itemName);
         Func<string> GetTextForProcessing { get; set; }
         ContextBase Context { get; set; }
+        void WaitFor(Action action);
     }
 }

@@ -1,34 +1,56 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using MetX.Controls;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 
-namespace MetX.Windows.Library
+namespace MetX.Windows.Library;
+
+public class WinFormGenerationHost<T> : GenerationHost where T : Form
 {
-    public class WinFormGenerationHost<T> : GenerationHost where T : Form
+    public T Form {get; set; }
+
+    public object SyncRoot { get; } = new();
+
+    public WinFormGenerationHost(T form, Func<string> getTextForProcessing)
     {
-        public T Form;
+        Form = form;
+        MessageBox = new WinFormMessageBoxHost<T>(Form, this);
+        GetTextForProcessing = getTextForProcessing;
+    }
 
-        public WinFormGenerationHost(T form, Func<string> getTextForProcessing)
+    public override MessageBoxResult InputBox(string title, string description, ref string itemName)
+    {
+        var dialog = new AskForStringDialog
         {
-            Form = form;
-            MessageBox = new WinFormMessageBoxHost<T>(Form, this);
-            GetTextForProcessing = getTextForProcessing;
+            ValueToReturnOnCancel = "~|~|"
+        };
+        var response = dialog.Ask(description, title, itemName, 140, 700);
+
+        if (response.IsEmpty() || response == dialog.ValueToReturnOnCancel)
+            return MessageBoxResult.Cancel;
+        itemName = response;
+        return dialog.MessageBoxResult;
+    }
+
+    public override void WaitFor(Action action)
+    {
+        if (!Monitor.TryEnter(SyncRoot)) return;
+
+        try
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            action();
         }
-
-        public override MessageBoxResult InputBox(string title, string description, ref string itemName)
+        catch (Exception exception)
         {
-            var dialog = new AskForStringDialog
-            {
-                ValueToReturnOnCancel = "~|~|",
-            };
-            var response = dialog.Ask(description, title, itemName, 140, 700);
-            
-            if (response.IsEmpty() || response == dialog.ValueToReturnOnCancel)
-                return MessageBoxResult.Cancel;
-            itemName = response;
-            return dialog.MessageBoxResult;
+            MessageBox.Show(exception.ToString());
+        }
+        finally
+        {
+            Monitor.Exit(SyncRoot);
+            Cursor.Current = Cursors.Default;
         }
     }
 }
