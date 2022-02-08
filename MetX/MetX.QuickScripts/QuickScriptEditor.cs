@@ -27,7 +27,10 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     public int LastChoice { get; set; }
 
 
-    public XlgQuickScript SelectedScript => QuickScriptList.SelectedItem as XlgQuickScript;
+    public XlgQuickScript SelectedScript => 
+        QuickScriptList.SelectedItems.Count != 0
+        ? QuickScriptList.SelectedItems[0].Tag as XlgQuickScript
+        : null;
 
     public string LastSuccessfulCloneFolder { get; set; }
 
@@ -36,6 +39,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         InitializeComponent();
         ChangeTheme(ColorScheme.DarkThemeOne, Controls);
         ChangeTheme(ColorScheme.DarkThemeOne, ScriptEditor.Controls);
+
         InputParam.GotFocus += InputParam_GotFocus;
         InputParam.LostFocus += InputParam_LostFocus;
 
@@ -192,10 +196,11 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         if (answer == MessageBoxResult.Yes)
         {
             Updating = true;
-            var script = ScriptEditor.Current;
+            XlgQuickScript script = ScriptEditor.Current;
             try
             {
-                QuickScriptList.Items.Remove(script);
+                var index = QuickScriptList.Items.IndexOfKey(script.Name);
+                QuickScriptList.Items.RemoveAt(index);
                 Host.Context.Scripts.Remove(script);
             }
             finally
@@ -221,27 +226,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var input = DestinationList.Text;
-        if (string.IsNullOrEmpty(input)) return;
 
-        switch (input.ToLower())
-        {
-            case "text box":
-            // ReSharper disable once StringLiteralTypo
-            case "textbox":
-            case "notepad":
-            case "clipboard":
-            case "none":
-                DestinationParam.Enabled = false;
-                break;
-
-            default:
-                DestinationParam.Enabled = true;
-                break;
-        }
-
-        EditDestinationFilePath.Enabled = DestinationParam.Enabled;
-        BrowseDestinationFilePath.Enabled = DestinationParam.Enabled;
     }
 
     private void DestinationParam_Enter(object sender, EventArgs e)
@@ -263,10 +248,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void DestinationParam_MouseUp(object sender, MouseEventArgs e)
     {
-        if (DestinationParamAlreadyFocused || DestinationParam.SelectionLength != 0) return;
 
-        DestinationParamAlreadyFocused = true;
-        DestinationParam.SelectAll();
     }
 
     private void EditDestinationFilePath_Click(object sender, EventArgs e)
@@ -286,23 +268,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void InputList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var input = InputList.Text;
-        if (string.IsNullOrEmpty(input)) return;
 
-        switch (input.ToLower())
-        {
-            case "clipboard":
-            case "none":
-                InputParam.Enabled = false;
-                break;
-
-            default:
-                InputParam.Enabled = true;
-                break;
-        }
-
-        EditInputFilePath.Enabled = InputParam.Enabled && input != "Web Address";
-        BrowseInputFilePath.Enabled = InputParam.Enabled && input != "Web Address";
     }
 
     private void InputParam_Enter(object sender, EventArgs e)
@@ -318,10 +284,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         InputParamAlreadyFocused = true;
     }
 
-    private void InputParam_Leave(object sender, EventArgs e)
-    {
-    }
-
     private void InputParam_LostFocus(object sender, EventArgs e)
     {
         InputParamAlreadyFocused = false;
@@ -329,10 +291,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void InputParam_MouseUp(object sender, MouseEventArgs e)
     {
-        if (InputParamAlreadyFocused || InputParam.SelectionLength != 0) return;
 
-        InputParamAlreadyFocused = true;
-        InputParam.SelectAll();
     }
 
     private void LoadQuickScriptsFile(string filePath)
@@ -399,9 +358,10 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                         newScript.Input = "Clipboard";
                 }
 
+                QuickScriptList.SelectedItems.Clear();
                 Host.Context.Scripts.Add(newScript);
-                QuickScriptList.Items.Add(newScript);
-                QuickScriptList.SelectedIndex = QuickScriptList.Items.Count - 1;
+                var listViewItem = ScriptToListViewItem(newScript, true);
+                QuickScriptList.Items.Add(listViewItem);
                 UpdateFormWithScript(newScript);
             }
             finally
@@ -410,6 +370,17 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             }
         }
     }
+
+    private static ListViewItem ScriptToListViewItem(XlgQuickScript newScript, bool selected)
+    {
+        var listViewItem = new ListViewItem(newScript.Name)
+        {
+            Tag = newScript,
+            Selected = selected,
+        };
+        return listViewItem;
+    }
+
 
     private void NewToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -485,14 +456,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         DestinationParam.Width = InputParam.Width;
     }
 
-    private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (Updating) return;
-
-        UpdateScriptFromForm();
-        if (SelectedScript != null) UpdateFormWithScript(SelectedScript);
-    }
-
     private void RefreshLists()
     {
         Updating = true;
@@ -502,12 +465,15 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             var defaultIndex = 0;
             foreach (var script in Host.Context.Scripts)
             {
-                QuickScriptList.Items.Add(script);
+                var listViewItem = ScriptToListViewItem(script, false);
+                QuickScriptList.Items.Add(listViewItem);
                 if (Host.Context.Scripts.Default != null && script == Host.Context.Scripts.Default)
-                    defaultIndex = QuickScriptList.Items.Count - 1;
+                {
+                    listViewItem.Selected = true;
+                }
             }
 
-            if (defaultIndex > -1) QuickScriptList.SelectedIndex = defaultIndex;
+
         }
         finally
         {
@@ -575,30 +541,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         {
             Host.MessageBox.Show(exception.ToString());
         }
-    }
-
-    private void ShowInputOutputOptions_Click(object sender, EventArgs e)
-    {
-        ShowInputOutputOptions.Checked = !ShowInputOutputOptions.Checked;
-
-        InputOptions.Visible = ShowInputOutputOptions.Checked;
-        OutputOptions.Visible = ShowInputOutputOptions.Checked;
-    }
-
-    private void testFuncToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        /*
-        var x = FileSystem.LatestVisualStudioDevEnvFilePath();
-        var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing, Handle);
-        var answer = dialog.Ask(PostBuildAction.OpenTempProjectVisualStudio,
-            $"Executable generated successfully\n\n\tFolder:\tfred\n\tExe:\tgeorge",
-            "TEST. WHAT NOW?");
-        Host.MessageBox.Show(answer.ToString());
-    */
-    }
-
-    private void toolStripDropDownButton1_Click(object sender, EventArgs e)
-    {
     }
 
     private void UpdateFormWithScript(XlgQuickScript selectedScript)
@@ -822,5 +764,15 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             OutputText = ""
         };
         ShowPostBuildMenu(result, false, PostBuildAction.OpenBinFolderInCommandLine);
+    }
+
+    private void InputParam_Leave(object sender, EventArgs e)
+    {
+
+    }
+
+    private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
 }

@@ -102,7 +102,8 @@ namespace MetX.Windows
             Paths[SupportFolderName].Value = Path.Combine(pipes, SupportFolderName);
             
             foreach (var item in Paths)
-                Directory.CreateDirectory(item.Value);
+                if(!Directory.Exists(item.Value))
+                    Directory.CreateDirectory(item.Value);
 
             StageStaticSupportIfNeeded();
             StageStaticTemplatesIfNeeded();
