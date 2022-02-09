@@ -779,6 +779,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void ActionPanel_Click(object sender, EventArgs e)
     {
-
+        var style = LeftPanel.ColumnStyles[1];
+        style.Width = style.Width < 11f ? 42.28f : 10;
     }
 }
