@@ -802,4 +802,36 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             scriptListStyle.Width = 24f;
         }
     }
+
+    private void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
+    {
+        TemplateFolderBrowser.ShowDialog(this);
+        if (!string.IsNullOrEmpty(TemplateFolderBrowser.SelectedPath))
+            TemplateFolderPath.Text = TemplateFolderBrowser.SelectedPath;
+    }
+
+    private void CloneScriptButton_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void CloneTemplateButton_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void GitHubButton_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void FeedbackButton_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void ScriptEditorHelpButton_Click(object sender, EventArgs e)
+    {
+
+    }
 }

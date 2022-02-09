@@ -93,6 +93,16 @@ namespace XLG.QuickScripts.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap feedback_fill {
+            get {
+                object obj = ResourceManager.GetObject("feedback-fill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap file_2_fill {
             get {
                 object obj = ResourceManager.GetObject("file-2-fill", resourceCulture);
@@ -176,6 +186,26 @@ namespace XLG.QuickScripts.Properties {
         internal static System.Drawing.Bitmap folders_line {
             get {
                 object obj = ResourceManager.GetObject("folders-line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap github_fill {
+            get {
+                object obj = ResourceManager.GetObject("github-fill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap question_fill {
+            get {
+                object obj = ResourceManager.GetObject("question-fill", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

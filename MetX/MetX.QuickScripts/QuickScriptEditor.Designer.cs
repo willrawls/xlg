@@ -65,6 +65,9 @@ namespace XLG.QuickScripts
             this.DeleteScriptButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.GitHubButton = new System.Windows.Forms.Button();
+            this.FeedbackButton = new System.Windows.Forms.Button();
+            this.ScriptEditorHelpButton = new System.Windows.Forms.Button();
             this.LeftPanel = new System.Windows.Forms.TableLayoutPanel();
             this.QuickScriptList = new System.Windows.Forms.ListView();
             this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
@@ -84,6 +87,7 @@ namespace XLG.QuickScripts
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TemplateFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.LeftPanel.SuspendLayout();
@@ -135,6 +139,7 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
             this.ScriptEditor.Size = new System.Drawing.Size(818, 497);
+            this.ScriptEditor.TabIndent = 0;
             this.ScriptEditor.TabIndex = 0;
             // 
             // TopPanel
@@ -170,6 +175,9 @@ namespace XLG.QuickScripts
             this.TopPanel.Controls.Add(this.DeleteScriptButton, 4, 2);
             this.TopPanel.Controls.Add(this.label6, 0, 1);
             this.TopPanel.Controls.Add(this.label7, 0, 8);
+            this.TopPanel.Controls.Add(this.GitHubButton, 4, 7);
+            this.TopPanel.Controls.Add(this.FeedbackButton, 3, 7);
+            this.TopPanel.Controls.Add(this.ScriptEditorHelpButton, 4, 8);
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.TopPanel.Location = new System.Drawing.Point(426, 0);
@@ -237,7 +245,7 @@ namespace XLG.QuickScripts
             this.BrowseDestinationFilePath.Location = new System.Drawing.Point(771, 97);
             this.BrowseDestinationFilePath.Name = "BrowseDestinationFilePath";
             this.BrowseDestinationFilePath.Size = new System.Drawing.Size(40, 24);
-            this.BrowseDestinationFilePath.TabIndex = 10;
+            this.BrowseDestinationFilePath.TabIndex = 11;
             this.toolTip1.SetToolTip(this.BrowseDestinationFilePath, "Browse for output filename");
             this.BrowseDestinationFilePath.UseVisualStyleBackColor = false;
             this.BrowseDestinationFilePath.Click += new System.EventHandler(this.BrowseDestinationFilePath_Click);
@@ -249,7 +257,7 @@ namespace XLG.QuickScripts
             this.EditDestinationFilePath.Location = new System.Drawing.Point(720, 97);
             this.EditDestinationFilePath.Name = "EditDestinationFilePath";
             this.EditDestinationFilePath.Size = new System.Drawing.Size(45, 24);
-            this.EditDestinationFilePath.TabIndex = 9;
+            this.EditDestinationFilePath.TabIndex = 10;
             this.EditDestinationFilePath.Text = "Edit";
             this.toolTip1.SetToolTip(this.EditDestinationFilePath, "Edit the selected output file in notepad");
             this.EditDestinationFilePath.UseVisualStyleBackColor = true;
@@ -261,7 +269,7 @@ namespace XLG.QuickScripts
             this.DestinationParam.Location = new System.Drawing.Point(196, 97);
             this.DestinationParam.Name = "DestinationParam";
             this.DestinationParam.Size = new System.Drawing.Size(518, 20);
-            this.DestinationParam.TabIndex = 8;
+            this.DestinationParam.TabIndex = 9;
             this.DestinationParam.Enter += new System.EventHandler(this.DestinationParam_Enter);
             this.DestinationParam.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DestinationParam_MouseUp);
             // 
@@ -277,7 +285,7 @@ namespace XLG.QuickScripts
             this.DestinationList.Location = new System.Drawing.Point(88, 97);
             this.DestinationList.Name = "DestinationList";
             this.DestinationList.Size = new System.Drawing.Size(102, 21);
-            this.DestinationList.TabIndex = 6;
+            this.DestinationList.TabIndex = 8;
             this.DestinationList.SelectedIndexChanged += new System.EventHandler(this.DestinationList_SelectedIndexChanged);
             // 
             // label3
@@ -313,7 +321,7 @@ namespace XLG.QuickScripts
             this.InputList.Location = new System.Drawing.Point(88, 67);
             this.InputList.Name = "InputList";
             this.InputList.Size = new System.Drawing.Size(102, 21);
-            this.InputList.TabIndex = 1;
+            this.InputList.TabIndex = 4;
             this.InputList.SelectedIndexChanged += new System.EventHandler(this.InputList_SelectedIndexChanged);
             // 
             // InputParam
@@ -322,7 +330,7 @@ namespace XLG.QuickScripts
             this.InputParam.Location = new System.Drawing.Point(196, 67);
             this.InputParam.Name = "InputParam";
             this.InputParam.Size = new System.Drawing.Size(518, 20);
-            this.InputParam.TabIndex = 3;
+            this.InputParam.TabIndex = 5;
             this.InputParam.Enter += new System.EventHandler(this.InputParam_Enter);
             this.InputParam.Leave += new System.EventHandler(this.InputParam_Leave);
             this.InputParam.MouseUp += new System.Windows.Forms.MouseEventHandler(this.InputParam_MouseUp);
@@ -334,7 +342,7 @@ namespace XLG.QuickScripts
             this.EditInputFilePath.Location = new System.Drawing.Point(720, 67);
             this.EditInputFilePath.Name = "EditInputFilePath";
             this.EditInputFilePath.Size = new System.Drawing.Size(45, 24);
-            this.EditInputFilePath.TabIndex = 4;
+            this.EditInputFilePath.TabIndex = 6;
             this.EditInputFilePath.Text = "Edit";
             this.toolTip1.SetToolTip(this.EditInputFilePath, "Edit the selected input file in notepad");
             this.EditInputFilePath.UseVisualStyleBackColor = true;
@@ -349,7 +357,8 @@ namespace XLG.QuickScripts
             this.BrowseInputFilePath.Location = new System.Drawing.Point(771, 67);
             this.BrowseInputFilePath.Name = "BrowseInputFilePath";
             this.BrowseInputFilePath.Size = new System.Drawing.Size(40, 24);
-            this.BrowseInputFilePath.TabIndex = 4;
+            this.BrowseInputFilePath.TabIndex = 7;
+            this.BrowseInputFilePath.Text = "8";
             this.toolTip1.SetToolTip(this.BrowseInputFilePath, "Browse for input filename");
             this.BrowseInputFilePath.UseVisualStyleBackColor = false;
             this.BrowseInputFilePath.Click += new System.EventHandler(this.BrowseInputFilePath_Click);
@@ -363,10 +372,11 @@ namespace XLG.QuickScripts
             this.BrowseTemplateFolderPathButton.Location = new System.Drawing.Point(771, 127);
             this.BrowseTemplateFolderPathButton.Name = "BrowseTemplateFolderPathButton";
             this.BrowseTemplateFolderPathButton.Size = new System.Drawing.Size(40, 24);
-            this.BrowseTemplateFolderPathButton.TabIndex = 17;
+            this.BrowseTemplateFolderPathButton.TabIndex = 14;
             this.toolTip1.SetToolTip(this.BrowseTemplateFolderPathButton, "Browse for the folder containing the template you want to use with this script (o" +
         "r set text box to \'Exe\' for the default template)");
             this.BrowseTemplateFolderPathButton.UseVisualStyleBackColor = false;
+            this.BrowseTemplateFolderPathButton.Click += new System.EventHandler(this.BrowseTemplateFolderPathButton_Click);
             // 
             // TemplateFolderPath
             // 
@@ -375,7 +385,7 @@ namespace XLG.QuickScripts
             this.TemplateFolderPath.Location = new System.Drawing.Point(88, 127);
             this.TemplateFolderPath.Name = "TemplateFolderPath";
             this.TemplateFolderPath.Size = new System.Drawing.Size(626, 20);
-            this.TemplateFolderPath.TabIndex = 18;
+            this.TemplateFolderPath.TabIndex = 12;
             // 
             // CloneTemplateButton
             // 
@@ -384,11 +394,12 @@ namespace XLG.QuickScripts
             this.CloneTemplateButton.Location = new System.Drawing.Point(720, 127);
             this.CloneTemplateButton.Name = "CloneTemplateButton";
             this.CloneTemplateButton.Size = new System.Drawing.Size(45, 23);
-            this.CloneTemplateButton.TabIndex = 19;
+            this.CloneTemplateButton.TabIndex = 13;
             this.CloneTemplateButton.Text = "Clone";
             this.toolTip1.SetToolTip(this.CloneTemplateButton, "Copy the current template folder to a new folder and set the current script\'s tem" +
         "plate to the new folder");
             this.CloneTemplateButton.UseVisualStyleBackColor = true;
+            this.CloneTemplateButton.Click += new System.EventHandler(this.CloneTemplateButton_Click);
             // 
             // SliceAt
             // 
@@ -402,7 +413,7 @@ namespace XLG.QuickScripts
             this.SliceAt.Location = new System.Drawing.Point(88, 157);
             this.SliceAt.Name = "SliceAt";
             this.SliceAt.Size = new System.Drawing.Size(102, 21);
-            this.SliceAt.TabIndex = 33;
+            this.SliceAt.TabIndex = 15;
             // 
             // DiceAt
             // 
@@ -416,7 +427,7 @@ namespace XLG.QuickScripts
             this.DiceAt.Location = new System.Drawing.Point(88, 187);
             this.DiceAt.Name = "DiceAt";
             this.DiceAt.Size = new System.Drawing.Size(102, 21);
-            this.DiceAt.TabIndex = 34;
+            this.DiceAt.TabIndex = 16;
             // 
             // QuickScriptName
             // 
@@ -426,7 +437,7 @@ namespace XLG.QuickScripts
             this.QuickScriptName.Location = new System.Drawing.Point(88, 37);
             this.QuickScriptName.Name = "QuickScriptName";
             this.QuickScriptName.Size = new System.Drawing.Size(626, 20);
-            this.QuickScriptName.TabIndex = 42;
+            this.QuickScriptName.TabIndex = 2;
             // 
             // CloneScriptButton
             // 
@@ -435,10 +446,11 @@ namespace XLG.QuickScripts
             this.CloneScriptButton.Location = new System.Drawing.Point(720, 37);
             this.CloneScriptButton.Name = "CloneScriptButton";
             this.CloneScriptButton.Size = new System.Drawing.Size(45, 24);
-            this.CloneScriptButton.TabIndex = 43;
+            this.CloneScriptButton.TabIndex = 3;
             this.CloneScriptButton.Text = "Clone";
             this.toolTip1.SetToolTip(this.CloneScriptButton, "Copy the current script to a new script with a new name");
             this.CloneScriptButton.UseVisualStyleBackColor = true;
+            this.CloneScriptButton.Click += new System.EventHandler(this.CloneScriptButton_Click);
             // 
             // DeleteScriptButton
             // 
@@ -448,7 +460,8 @@ namespace XLG.QuickScripts
             this.DeleteScriptButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteScriptButton.Name = "DeleteScriptButton";
             this.DeleteScriptButton.Size = new System.Drawing.Size(42, 26);
-            this.DeleteScriptButton.TabIndex = 44;
+            this.DeleteScriptButton.TabIndex = 9999999;
+            this.DeleteScriptButton.TabStop = false;
             this.toolTip1.SetToolTip(this.DeleteScriptButton, "Delete this script");
             this.DeleteScriptButton.UseVisualStyleBackColor = true;
             this.DeleteScriptButton.Click += new System.EventHandler(this.DeleteScript_Click);
@@ -461,9 +474,9 @@ namespace XLG.QuickScripts
             this.label6.Location = new System.Drawing.Point(0, 4);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(290, 26);
+            this.label6.Size = new System.Drawing.Size(190, 26);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Selected Script Properties";
+            this.label6.Text = "Script Properties";
             // 
             // label7
             // 
@@ -477,6 +490,44 @@ namespace XLG.QuickScripts
             this.label7.Size = new System.Drawing.Size(144, 26);
             this.label7.TabIndex = 2;
             this.label7.Text = "Script Editor";
+            // 
+            // GitHubButton
+            // 
+            this.GitHubButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GitHubButton.Image = global::XLG.QuickScripts.Properties.Resources.github_fill;
+            this.GitHubButton.Location = new System.Drawing.Point(768, 184);
+            this.GitHubButton.Margin = new System.Windows.Forms.Padding(0);
+            this.GitHubButton.Name = "GitHubButton";
+            this.GitHubButton.Size = new System.Drawing.Size(46, 30);
+            this.GitHubButton.TabIndex = 45;
+            this.GitHubButton.TabStop = false;
+            this.GitHubButton.UseVisualStyleBackColor = true;
+            this.GitHubButton.Click += new System.EventHandler(this.GitHubButton_Click);
+            // 
+            // FeedbackButton
+            // 
+            this.FeedbackButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FeedbackButton.Image = global::XLG.QuickScripts.Properties.Resources.feedback_fill;
+            this.FeedbackButton.Location = new System.Drawing.Point(717, 184);
+            this.FeedbackButton.Margin = new System.Windows.Forms.Padding(0);
+            this.FeedbackButton.Name = "FeedbackButton";
+            this.FeedbackButton.Size = new System.Drawing.Size(51, 30);
+            this.FeedbackButton.TabIndex = 46;
+            this.FeedbackButton.TabStop = false;
+            this.FeedbackButton.UseVisualStyleBackColor = true;
+            this.FeedbackButton.Click += new System.EventHandler(this.FeedbackButton_Click);
+            // 
+            // ScriptEditorHelpButton
+            // 
+            this.ScriptEditorHelpButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScriptEditorHelpButton.Image = global::XLG.QuickScripts.Properties.Resources.question_fill;
+            this.ScriptEditorHelpButton.Location = new System.Drawing.Point(768, 214);
+            this.ScriptEditorHelpButton.Margin = new System.Windows.Forms.Padding(0);
+            this.ScriptEditorHelpButton.Name = "ScriptEditorHelpButton";
+            this.ScriptEditorHelpButton.Size = new System.Drawing.Size(46, 36);
+            this.ScriptEditorHelpButton.TabIndex = 17;
+            this.ScriptEditorHelpButton.UseVisualStyleBackColor = true;
+            this.ScriptEditorHelpButton.Click += new System.EventHandler(this.ScriptEditorHelpButton_Click);
             // 
             // LeftPanel
             // 
@@ -520,7 +571,7 @@ namespace XLG.QuickScripts
             this.QuickScriptList.ShowGroups = false;
             this.QuickScriptList.Size = new System.Drawing.Size(257, 710);
             this.QuickScriptList.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.QuickScriptList.TabIndex = 0;
+            this.QuickScriptList.TabIndex = 1;
             this.QuickScriptList.UseCompatibleStateImageBehavior = false;
             this.QuickScriptList.View = System.Windows.Forms.View.Details;
             this.QuickScriptList.SelectedIndexChanged += new System.EventHandler(this.QuickScriptList_SelectedIndexChanged);
@@ -769,6 +820,13 @@ namespace XLG.QuickScripts
             this.panel1.Size = new System.Drawing.Size(818, 4);
             this.panel1.TabIndex = 27;
             // 
+            // TemplateFolderBrowser
+            // 
+            this.TemplateFolderBrowser.Description = "Please select a folder containing the QkScrptr template";
+            this.TemplateFolderBrowser.RootFolder = System.Environment.SpecialFolder.MyDocuments;
+            this.TemplateFolderBrowser.SelectedPath = "XLG\\Scripts\\";
+            this.TemplateFolderBrowser.UseDescriptionForTitle = true;
+            // 
             // QuickScriptEditor
             // 
             this.AllowDrop = true;
@@ -854,5 +912,9 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button GitHubButton;
+        private System.Windows.Forms.Button FeedbackButton;
+        private System.Windows.Forms.Button ScriptEditorHelpButton;
+        private System.Windows.Forms.FolderBrowserDialog TemplateFolderBrowser;
     }
 }
