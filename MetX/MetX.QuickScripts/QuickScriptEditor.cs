@@ -398,7 +398,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         OpenInputFilePathDialog.CheckFileExists = false;
         OpenInputFilePathDialog.CheckPathExists = true;
         OpenInputFilePathDialog.DefaultExt = ".xlgq";
-        OpenInputFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
+        OpenInputFilePathDialog.Filter = "Qk Scrptr files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
         OpenInputFilePathDialog.Multiselect = false;
         OpenInputFilePathDialog.ShowDialog(this);
         if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
@@ -416,7 +416,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         OpenInputFilePathDialog.CheckFileExists = true;
         OpenInputFilePathDialog.CheckPathExists = true;
         OpenInputFilePathDialog.DefaultExt = ".xlgq";
-        OpenInputFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
+        OpenInputFilePathDialog.Filter = "Qk Scrptr files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
         OpenInputFilePathDialog.Multiselect = false;
         OpenInputFilePathDialog.ShowDialog(this);
         if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
@@ -514,7 +514,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                 SaveDestinationFilePathDialog.AddExtension = true;
                 SaveDestinationFilePathDialog.CheckPathExists = true;
                 SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
-                SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
+                SaveDestinationFilePathDialog.Filter = "Qk Scrptr files (*.xlgq)|*.xlgq|All files (*.*)|*.*";
                 SaveDestinationFilePathDialog.ShowDialog(this);
                 if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                 {
@@ -789,14 +789,16 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         var scriptListStyle = LeftPanel.ColumnStyles[2];
         if (actionBarStyle.Width < 20f)
         {
-            LeftPanel.Width = 426;
-            actionBarStyle.Width = 41f;
-            scriptListStyle.Width = 57.72f;
+            TopPanel.Height = 190;
+            LeftPanel.Width = 420;
+            actionBarStyle.Width = 39f;
+            scriptListStyle.Width = 58.72f;
         }
         else
         {
-            LeftPanel.Width = 213;
-            actionBarStyle.Width = 11;
+            TopPanel.Height = 100;
+            LeftPanel.Width = 220;
+            actionBarStyle.Width = 15f;
             scriptListStyle.Width = 24f;
         }
     }
