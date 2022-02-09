@@ -789,14 +789,14 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         var scriptListStyle = LeftPanel.ColumnStyles[2];
         if (actionBarStyle.Width < 20f)
         {
-            TopPanel.Height = 190;
+            TopPanel.Height = 240;
             LeftPanel.Width = 420;
             actionBarStyle.Width = 39f;
             scriptListStyle.Width = 58.72f;
         }
         else
         {
-            TopPanel.Height = 100;
+            TopPanel.Height = 155;
             LeftPanel.Width = 220;
             actionBarStyle.Width = 15f;
             scriptListStyle.Width = 24f;
