@@ -146,6 +146,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         if (ScriptEditor.Current == null) return;
 
+        ScriptEditor.Current.Name = QuickScriptName.Text.AsString(DateTime.Now.ToString("s"));
         ScriptEditor.Current.Script = ScriptEditor.Text;
         Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out ScriptEditor.Current.Destination);
         ScriptEditor.Current.Input = InputList.Text;
@@ -153,7 +154,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         ScriptEditor.Current.DiceAt = DiceAt.Text;
         ScriptEditor.Current.InputFilePath = InputParam.Text;
         ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-        ScriptEditor.Current.TemplateName = TemplateList.Text.AsString("Exe");
+        ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsString("Exe");
+        //ScriptEditor.Current.TemplateName = TemplateList.Text.AsString("Exe");
         Host.Context.Scripts.Default = ScriptEditor.Current;
     }
 
@@ -547,7 +549,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         if (SelectedScript == null) return;
 
-        QuickScriptList.Text = selectedScript.Name;
+        QuickScriptName.Text = selectedScript.Name;
+
         ScriptEditor.Text = selectedScript.Script;
         ScriptEditor.Refresh();
 
@@ -570,10 +573,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             ? index
             : DiceAt.Items.Add(selectedScript.DiceAt);
 
-        index = TemplateList.FindString(selectedScript.TemplateName);
-        TemplateList.SelectedIndex = index > -1
-            ? index
-            : TemplateList.Items.Add(selectedScript.TemplateName);
+        TemplateFolderPath.Text = selectedScript.TemplateName;
 
         InputParam.Text = selectedScript.InputFilePath;
         if (InputParam.Text.Length > 0) InputParam.SelectionStart = InputParam.Text.Length;
@@ -772,6 +772,12 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     }
 
     private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        UpdateScriptFromForm();
+        UpdateFormWithScript(SelectedScript);
+    }
+
+    private void ActionPanel_Click(object sender, EventArgs e)
     {
 
     }
