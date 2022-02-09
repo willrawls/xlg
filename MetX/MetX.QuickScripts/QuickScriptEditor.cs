@@ -10,6 +10,7 @@ using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows;
 using MetX.Windows.Library;
+using NHotkey;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
@@ -22,7 +23,9 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     public bool InputParamAlreadyFocused;
     public bool Updating;
 
-    public HotPhraseManagerForWinForms Manager { get; set; } = new();
+    public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
+
+    public NHotkey.WindowsForms.HotkeyManager HotKeyManager { get; } = NHotkey.WindowsForms.HotkeyManager.Current;
 
     public int LastChoice { get; set; }
 
@@ -55,12 +58,15 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void InitializeHotPhrases()
     {
-        Manager.Keyboard.AddOrReplace("Pick and Run QuickScript",
+        PhraseManager.Keyboard.AddOrReplace("Pick and Run QuickScript",
             new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.LShiftKey },
             OnPickAndRunQuickScript);
-        Manager.Keyboard.AddOrReplace("Run Current QuickScript",
+        PhraseManager.Keyboard.AddOrReplace("Run Current QuickScript",
             new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.Alt },
             OnRunCurrentQuickScript);
+
+
+        HotKeyManager.AddOrReplace("Fred", Keys.F5, RunQuickScript_Click);
     }
 
     private void OnPickAndRunQuickScript(object? sender, PhraseEventArguments e)
@@ -779,7 +785,19 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void ActionPanel_Click(object sender, EventArgs e)
     {
-        var style = LeftPanel.ColumnStyles[1];
-        style.Width = style.Width < 11f ? 42.28f : 10;
+        var actionBarStyle = LeftPanel.ColumnStyles[1];
+        var scriptListStyle = LeftPanel.ColumnStyles[2];
+        if (actionBarStyle.Width < 20f)
+        {
+            LeftPanel.Width = 426;
+            actionBarStyle.Width = 41f;
+            scriptListStyle.Width = 57.72f;
+        }
+        else
+        {
+            LeftPanel.Width = 213;
+            actionBarStyle.Width = 11;
+            scriptListStyle.Width = 24f;
+        }
     }
 }

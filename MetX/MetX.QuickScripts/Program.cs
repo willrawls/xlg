@@ -26,7 +26,5 @@ namespace XLG.QuickScripts
             }
             Application.Run(new QuickScriptEditor(filePath));
         }
-        
-        
     }
 }
