@@ -30,7 +30,17 @@
       "ProjectGuid": "8492f221-2de1-4f46-9a1c-a451aa986313",
       "DisplayName": "MetX.Glove.Console",
       "ColorIndex": 5
+    },
+    "94aad871-7675-49f8-a42c-b8b1ce15f8df": {
+      "ProjectGuid": "94aad871-7675-49f8-a42c-b8b1ce15f8df",
+      "DisplayName": "MetX.Tests",
+      "ColorIndex": 6
+    },
+    "f21cccb8-2b43-4e5d-80f6-3ebd3fe22150": {
+      "ProjectGuid": "f21cccb8-2b43-4e5d-80f6-3ebd3fe22150",
+      "DisplayName": "MetX.Standard.Library",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 8
 }

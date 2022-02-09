@@ -74,19 +74,23 @@ namespace XLG.QuickScripts
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ScriptEditor = new MetX.Controls.QuickScriptControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BrowseDestinationFilePath = new System.Windows.Forms.Button();
+            this.EditDestinationFilePath = new System.Windows.Forms.Button();
             this.DestinationParam = new System.Windows.Forms.TextBox();
             this.DestinationList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.InputList = new System.Windows.Forms.ComboBox();
             this.InputParam = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.EditInputFilePath = new System.Windows.Forms.Button();
+            this.BrowseInputFilePath = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.QuickScriptList = new System.Windows.Forms.ListView();
             this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
+            this.label5 = new System.Windows.Forms.Label();
+            this.BrowseTemplateFolderPath = new System.Windows.Forms.Button();
+            this.TemplateFolderPath = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.MainStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -107,9 +111,9 @@ namespace XLG.QuickScripts
             this.MainStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1});
             this.MainStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.MainStrip.Location = new System.Drawing.Point(0, 32);
+            this.MainStrip.Location = new System.Drawing.Point(390, 32);
             this.MainStrip.Name = "MainStrip";
-            this.MainStrip.Size = new System.Drawing.Size(1142, 31);
+            this.MainStrip.Size = new System.Drawing.Size(877, 31);
             this.MainStrip.TabIndex = 1;
             this.MainStrip.Text = "toolStrip3";
             // 
@@ -219,9 +223,9 @@ namespace XLG.QuickScripts
             this.findMenuItem,
             this.replaceMenuItem,
             this.testFuncToolStripMenuItem});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Location = new System.Drawing.Point(390, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1142, 32);
+            this.MainMenu.Size = new System.Drawing.Size(877, 32);
             this.MainMenu.TabIndex = 22;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -433,9 +437,9 @@ namespace XLG.QuickScripts
             this.RunningLabel,
             this.toolStripStatusLabel2,
             this.ProgressLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 621);
+            this.statusStrip1.Location = new System.Drawing.Point(390, 621);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1142, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(877, 25);
             this.statusStrip1.TabIndex = 23;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -464,67 +468,75 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ScriptEditor.IsIconBarVisible = true;
             this.ScriptEditor.IsReadOnly = false;
-            this.ScriptEditor.Location = new System.Drawing.Point(193, 130);
+            this.ScriptEditor.Location = new System.Drawing.Point(390, 303);
             this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(949, 491);
+            this.ScriptEditor.Size = new System.Drawing.Size(877, 318);
             this.ScriptEditor.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 549F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 358F));
-            this.tableLayoutPanel1.Controls.Add(this.button4, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 3, 2);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350F));
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.BrowseDestinationFilePath, 4, 2);
+            this.tableLayoutPanel1.Controls.Add(this.EditDestinationFilePath, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.DestinationParam, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.DestinationList, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.InputList, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.InputParam, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.EditInputFilePath, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.BrowseInputFilePath, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.BrowseTemplateFolderPath, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.TemplateFolderPath, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 63);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(390, 63);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1142, 67);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 240);
             this.tableLayoutPanel1.TabIndex = 25;
             // 
-            // button4
+            // BrowseDestinationFilePath
             // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button4.Location = new System.Drawing.Point(787, 34);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(29, 23);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "...";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.BrowseDestinationFilePath_Click);
+            this.BrowseDestinationFilePath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BrowseDestinationFilePath.Location = new System.Drawing.Point(795, 63);
+            this.BrowseDestinationFilePath.Name = "BrowseDestinationFilePath";
+            this.BrowseDestinationFilePath.Size = new System.Drawing.Size(29, 23);
+            this.BrowseDestinationFilePath.TabIndex = 10;
+            this.BrowseDestinationFilePath.Text = "...";
+            this.BrowseDestinationFilePath.UseVisualStyleBackColor = true;
+            this.BrowseDestinationFilePath.Click += new System.EventHandler(this.BrowseDestinationFilePath_Click);
             // 
-            // button3
+            // EditDestinationFilePath
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button3.Location = new System.Drawing.Point(745, 34);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(36, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Edit";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.EditDestinationFilePath_Click);
+            this.EditDestinationFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EditDestinationFilePath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditDestinationFilePath.Location = new System.Drawing.Point(745, 63);
+            this.EditDestinationFilePath.Name = "EditDestinationFilePath";
+            this.EditDestinationFilePath.Size = new System.Drawing.Size(44, 24);
+            this.EditDestinationFilePath.TabIndex = 9;
+            this.EditDestinationFilePath.Text = "Edit";
+            this.EditDestinationFilePath.UseVisualStyleBackColor = true;
+            this.EditDestinationFilePath.Click += new System.EventHandler(this.EditDestinationFilePath_Click);
             // 
             // DestinationParam
             // 
             this.DestinationParam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DestinationParam.Location = new System.Drawing.Point(196, 34);
+            this.DestinationParam.Location = new System.Drawing.Point(196, 63);
             this.DestinationParam.Name = "DestinationParam";
             this.DestinationParam.Size = new System.Drawing.Size(543, 20);
             this.DestinationParam.TabIndex = 8;
@@ -540,9 +552,9 @@ namespace XLG.QuickScripts
             "Clipboard",
             "Text Box",
             "Notepad"});
-            this.DestinationList.Location = new System.Drawing.Point(66, 34);
+            this.DestinationList.Location = new System.Drawing.Point(88, 63);
             this.DestinationList.Name = "DestinationList";
-            this.DestinationList.Size = new System.Drawing.Size(124, 21);
+            this.DestinationList.Size = new System.Drawing.Size(102, 21);
             this.DestinationList.TabIndex = 6;
             this.DestinationList.SelectedIndexChanged += new System.EventHandler(this.DestinationList_SelectedIndexChanged);
             // 
@@ -550,9 +562,9 @@ namespace XLG.QuickScripts
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(3, 31);
+            this.label3.Location = new System.Drawing.Point(3, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 30);
+            this.label3.Size = new System.Drawing.Size(79, 30);
             this.label3.TabIndex = 5;
             this.label3.Text = "Output:";
             // 
@@ -560,9 +572,9 @@ namespace XLG.QuickScripts
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(3, 1);
+            this.label1.Location = new System.Drawing.Point(3, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 30);
+            this.label1.Size = new System.Drawing.Size(79, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Input:";
             // 
@@ -576,16 +588,16 @@ namespace XLG.QuickScripts
             "Database Query",
             "Web Address",
             "None"});
-            this.InputList.Location = new System.Drawing.Point(66, 4);
+            this.InputList.Location = new System.Drawing.Point(88, 33);
             this.InputList.Name = "InputList";
-            this.InputList.Size = new System.Drawing.Size(124, 21);
+            this.InputList.Size = new System.Drawing.Size(102, 21);
             this.InputList.TabIndex = 1;
             this.InputList.SelectedIndexChanged += new System.EventHandler(this.InputList_SelectedIndexChanged);
             // 
             // InputParam
             // 
             this.InputParam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InputParam.Location = new System.Drawing.Point(196, 4);
+            this.InputParam.Location = new System.Drawing.Point(196, 33);
             this.InputParam.Name = "InputParam";
             this.InputParam.Size = new System.Drawing.Size(543, 20);
             this.InputParam.TabIndex = 3;
@@ -593,40 +605,46 @@ namespace XLG.QuickScripts
             this.InputParam.Leave += new System.EventHandler(this.InputParam_Leave);
             this.InputParam.MouseUp += new System.Windows.Forms.MouseEventHandler(this.InputParam_MouseUp);
             // 
-            // button1
+            // EditInputFilePath
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(745, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(36, 22);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Edit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.EditInputFilePath_Click);
+            this.EditInputFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EditInputFilePath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EditInputFilePath.Location = new System.Drawing.Point(745, 33);
+            this.EditInputFilePath.Name = "EditInputFilePath";
+            this.EditInputFilePath.Size = new System.Drawing.Size(44, 24);
+            this.EditInputFilePath.TabIndex = 4;
+            this.EditInputFilePath.Text = "Edit";
+            this.EditInputFilePath.UseVisualStyleBackColor = true;
+            this.EditInputFilePath.Click += new System.EventHandler(this.EditInputFilePath_Click);
             // 
-            // button2
+            // BrowseInputFilePath
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Location = new System.Drawing.Point(787, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(29, 22);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.BrowseInputFilePath_Click);
+            this.BrowseInputFilePath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BrowseInputFilePath.Location = new System.Drawing.Point(795, 33);
+            this.BrowseInputFilePath.Name = "BrowseInputFilePath";
+            this.BrowseInputFilePath.Size = new System.Drawing.Size(29, 22);
+            this.BrowseInputFilePath.TabIndex = 4;
+            this.BrowseInputFilePath.Text = "...";
+            this.BrowseInputFilePath.UseVisualStyleBackColor = true;
+            this.BrowseInputFilePath.Click += new System.EventHandler(this.BrowseInputFilePath_Click);
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.QuickScriptList, 0, 0);
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.17949F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.82051F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.QuickScriptList, 1, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 130);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95.2381F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.761905F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(193, 491);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 646);
             this.tableLayoutPanel2.TabIndex = 26;
             // 
             // QuickScriptList
@@ -635,9 +653,9 @@ namespace XLG.QuickScripts
             this.ScriptNameColumn});
             this.QuickScriptList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QuickScriptList.HideSelection = false;
-            this.QuickScriptList.Location = new System.Drawing.Point(3, 3);
+            this.QuickScriptList.Location = new System.Drawing.Point(103, 43);
             this.QuickScriptList.Name = "QuickScriptList";
-            this.QuickScriptList.Size = new System.Drawing.Size(187, 461);
+            this.QuickScriptList.Size = new System.Drawing.Size(263, 549);
             this.QuickScriptList.TabIndex = 0;
             this.QuickScriptList.UseCompatibleStateImageBehavior = false;
             this.QuickScriptList.View = System.Windows.Forms.View.Details;
@@ -648,19 +666,58 @@ namespace XLG.QuickScripts
             this.ScriptNameColumn.Text = "Script Name";
             this.ScriptNameColumn.Width = 500;
             // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(3, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 30);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Template:";
+            // 
+            // BrowseTemplateFolderPath
+            // 
+            this.BrowseTemplateFolderPath.Location = new System.Drawing.Point(795, 93);
+            this.BrowseTemplateFolderPath.Name = "BrowseTemplateFolderPath";
+            this.BrowseTemplateFolderPath.Size = new System.Drawing.Size(29, 23);
+            this.BrowseTemplateFolderPath.TabIndex = 17;
+            this.BrowseTemplateFolderPath.Text = ",,,";
+            this.BrowseTemplateFolderPath.UseVisualStyleBackColor = true;
+            // 
+            // TemplateFolderPath
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.TemplateFolderPath, 2);
+            this.TemplateFolderPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TemplateFolderPath.Location = new System.Drawing.Point(88, 93);
+            this.TemplateFolderPath.Name = "TemplateFolderPath";
+            this.TemplateFolderPath.Size = new System.Drawing.Size(651, 20);
+            this.TemplateFolderPath.TabIndex = 18;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(745, 93);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(44, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Clone";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // QuickScriptEditor
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(1142, 646);
+            this.ClientSize = new System.Drawing.Size(1267, 646);
             this.Controls.Add(this.ScriptEditor);
-            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainStrip);
             this.Controls.Add(this.MainMenu);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
@@ -728,18 +785,22 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.ToolStripMenuItem postToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testFuncToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BrowseDestinationFilePath;
+        private System.Windows.Forms.Button EditDestinationFilePath;
         private System.Windows.Forms.TextBox DestinationParam;
         private System.Windows.Forms.ComboBox DestinationList;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox InputList;
         private System.Windows.Forms.TextBox InputParam;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button EditInputFilePath;
+        private System.Windows.Forms.Button BrowseInputFilePath;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.ListView QuickScriptList;
         private System.Windows.Forms.ColumnHeader ScriptNameColumn;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button BrowseTemplateFolderPath;
+        private System.Windows.Forms.TextBox TemplateFolderPath;
+        private System.Windows.Forms.Button button1;
     }
 }
