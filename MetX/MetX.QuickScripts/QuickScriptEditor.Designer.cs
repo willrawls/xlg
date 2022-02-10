@@ -139,7 +139,6 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
             this.ScriptEditor.Size = new System.Drawing.Size(818, 497);
-            this.ScriptEditor.TabIndent = 0;
             this.ScriptEditor.TabIndex = 0;
             // 
             // TopPanel
@@ -560,6 +559,7 @@ namespace XLG.QuickScripts
             this.QuickScriptList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QuickScriptList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.QuickScriptList.ForeColor = System.Drawing.Color.White;
+            this.QuickScriptList.FullRowSelect = true;
             this.QuickScriptList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.QuickScriptList.HideSelection = false;
             this.QuickScriptList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using MetX.Controls;
@@ -207,9 +208,11 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             XlgQuickScript script = ScriptEditor.Current;
             try
             {
-                var index = QuickScriptList.Items.IndexOfKey(script.Name);
-                QuickScriptList.Items.RemoveAt(index);
+                //var index = QuickScriptList.Items.IndexOfKey(script.Name);
+                //QuickScriptList.Items.RemoveAt(index);
                 Host.Context.Scripts.Remove(script);
+                RefreshLists();
+                QuickScriptList.SelectedItems.Clear();
             }
             finally
             {
@@ -234,7 +237,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        
     }
 
     private void DestinationParam_Enter(object sender, EventArgs e)
@@ -339,8 +342,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             XlgQuickScript newScript = null;
             if (ScriptEditor.Current != null)
             {
-                answer = Host.MessageBox.Show("Would you like to copy the current script?", "COPY SCRIPT?",
-                    MessageBoxChoices.YesNoCancel);
+                answer = Host.MessageBox.Show("Would you like to copy the current script?", "COPY SCRIPT?", MessageBoxChoices.YesNoCancel);
                 switch (answer)
                 {
                     case MessageBoxResult.Cancel:
@@ -349,7 +351,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                     case MessageBoxResult.Yes:
                         UpdateScriptFromForm();
 
-                        // script = Current.Script;
                         newScript = ScriptEditor.Current.Clone(name);
                         break;
                 }
@@ -557,7 +558,9 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
         QuickScriptName.Text = selectedScript.Name;
 
-        ScriptEditor.Text = selectedScript.Script;
+        var script = selectedScript.Script;
+        ScriptEditor.Refresh();
+        ScriptEditor.Text = script;
         ScriptEditor.Refresh();
 
         DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
@@ -785,21 +788,29 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void ActionPanel_Click(object sender, EventArgs e)
     {
-        var actionBarStyle = LeftPanel.ColumnStyles[1];
-        var scriptListStyle = LeftPanel.ColumnStyles[2];
-        if (actionBarStyle.Width < 20f)
+        try
         {
-            TopPanel.Height = 240;
-            LeftPanel.Width = 420;
-            actionBarStyle.Width = 39f;
-            scriptListStyle.Width = 58.72f;
+            SuspendLayout();
+            var actionBarStyle = LeftPanel.ColumnStyles[1];
+            var scriptListStyle = LeftPanel.ColumnStyles[2];
+            if (actionBarStyle.Width < 20f)
+            {
+                TopPanel.Height = 240;
+                LeftPanel.Width = 420;
+                actionBarStyle.Width = 39f;
+                scriptListStyle.Width = 58.72f;
+            }
+            else
+            {
+                TopPanel.Height = 155;
+                LeftPanel.Width = 220;
+                actionBarStyle.Width = 15f;
+                scriptListStyle.Width = 24f;
+            }
         }
-        else
+        finally
         {
-            TopPanel.Height = 155;
-            LeftPanel.Width = 220;
-            actionBarStyle.Width = 15f;
-            scriptListStyle.Width = 24f;
+            ResumeLayout();
         }
     }
 
@@ -812,7 +823,22 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void CloneScriptButton_Click(object sender, EventArgs e)
     {
+        if (Host.Context.Scripts == null) return;
 
+        var name = string.Empty;
+        var answer = Host.InputBox("CLONE CURRENT SCRIPT", "Please enter the name for the newly cloned script.", ref name);
+        if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty) return;
+
+        var script = string.Empty;
+        if (ScriptEditor.Current != null)
+        {
+            UpdateScriptFromForm();
+        }
+
+        var newScript = ScriptEditor.Current!.Clone(name);
+        Host.Context.Scripts.Add(newScript);
+        UpdateFormWithScript(newScript);
+        RefreshLists();
     }
 
     private void CloneTemplateButton_Click(object sender, EventArgs e)
@@ -822,16 +848,34 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void GitHubButton_Click(object sender, EventArgs e)
     {
-
+        OpenURL("https://www.github.com/willrawls/xlg");
+        
     }
 
     private void FeedbackButton_Click(object sender, EventArgs e)
     {
 
+        OpenURL("https://github.com/willrawls/xlg/issues/new");
     }
 
     private void ScriptEditorHelpButton_Click(object sender, EventArgs e)
     {
+        OpenURL("https://github.com/willrawls/xlg/wiki");
+    }
 
+    public static void OpenURL(string url)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch
+        {
+            // Ignored
+        }
     }
 }
