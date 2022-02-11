@@ -240,7 +240,6 @@ namespace XLG.QuickScripts
             this.BrowseDestinationFilePath.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BrowseDestinationFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BrowseDestinationFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseDestinationFilePath.Image = global::XLG.QuickScripts.Properties.Resources.file_search_fill;
             this.BrowseDestinationFilePath.Location = new System.Drawing.Point(771, 97);
             this.BrowseDestinationFilePath.Name = "BrowseDestinationFilePath";
             this.BrowseDestinationFilePath.Size = new System.Drawing.Size(40, 24);
@@ -358,7 +357,6 @@ namespace XLG.QuickScripts
             this.BrowseInputFilePath.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BrowseInputFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BrowseInputFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseInputFilePath.Image = global::XLG.QuickScripts.Properties.Resources.file_search_fill;
             this.BrowseInputFilePath.Location = new System.Drawing.Point(771, 67);
             this.BrowseInputFilePath.Name = "BrowseInputFilePath";
             this.BrowseInputFilePath.Size = new System.Drawing.Size(40, 24);
@@ -372,7 +370,6 @@ namespace XLG.QuickScripts
             this.BrowseTemplateFolderPathButton.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BrowseTemplateFolderPathButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BrowseTemplateFolderPathButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BrowseTemplateFolderPathButton.Image = global::XLG.QuickScripts.Properties.Resources.folder_open_fill;
             this.BrowseTemplateFolderPathButton.Location = new System.Drawing.Point(771, 127);
             this.BrowseTemplateFolderPathButton.Name = "BrowseTemplateFolderPathButton";
             this.BrowseTemplateFolderPathButton.Size = new System.Drawing.Size(40, 24);
@@ -465,7 +462,6 @@ namespace XLG.QuickScripts
             this.DeleteScriptButton.BackColor = System.Drawing.Color.Pink;
             this.DeleteScriptButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DeleteScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DeleteScriptButton.Image = global::XLG.QuickScripts.Properties.Resources.delete_bin_2_fill;
             this.DeleteScriptButton.Location = new System.Drawing.Point(770, 36);
             this.DeleteScriptButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteScriptButton.Name = "DeleteScriptButton";
@@ -506,7 +502,6 @@ namespace XLG.QuickScripts
             this.GitHubButton.BackColor = System.Drawing.Color.LightYellow;
             this.GitHubButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GitHubButton.Image = global::XLG.QuickScripts.Properties.Resources.github_fill;
             this.GitHubButton.Location = new System.Drawing.Point(769, 185);
             this.GitHubButton.Margin = new System.Windows.Forms.Padding(1);
             this.GitHubButton.Name = "GitHubButton";
@@ -521,7 +516,6 @@ namespace XLG.QuickScripts
             this.FeedbackButton.BackColor = System.Drawing.Color.LightYellow;
             this.FeedbackButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FeedbackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FeedbackButton.Image = global::XLG.QuickScripts.Properties.Resources.feedback_fill;
             this.FeedbackButton.Location = new System.Drawing.Point(718, 185);
             this.FeedbackButton.Margin = new System.Windows.Forms.Padding(1);
             this.FeedbackButton.Name = "FeedbackButton";
@@ -536,7 +530,6 @@ namespace XLG.QuickScripts
             this.ScriptEditorHelpButton.BackColor = System.Drawing.Color.LightYellow;
             this.ScriptEditorHelpButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ScriptEditorHelpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ScriptEditorHelpButton.Image = global::XLG.QuickScripts.Properties.Resources.question_fill;
             this.ScriptEditorHelpButton.Location = new System.Drawing.Point(769, 215);
             this.ScriptEditorHelpButton.Margin = new System.Windows.Forms.Padding(1);
             this.ScriptEditorHelpButton.Name = "ScriptEditorHelpButton";
