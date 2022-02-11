@@ -274,14 +274,9 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         QuickScriptWorker.ViewFile(Host, InputParam.Text);
     }
 
-    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        Close();
-    }
-
     private void InputList_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        <<< Start here
     }
 
     private void InputParam_Enter(object sender, EventArgs e)
