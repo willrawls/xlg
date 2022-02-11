@@ -277,6 +277,7 @@ namespace XLG.QuickScripts
             // DestinationList
             // 
             this.DestinationList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DestinationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DestinationList.FormattingEnabled = true;
             this.DestinationList.Items.AddRange(new object[] {
             "File",
@@ -312,6 +313,7 @@ namespace XLG.QuickScripts
             // InputList
             // 
             this.InputList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InputList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.InputList.FormattingEnabled = true;
             this.InputList.Items.AddRange(new object[] {
             "File",
@@ -856,6 +858,7 @@ namespace XLG.QuickScripts
             this.Controls.Add(this.LeftPanel);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1060, 600);
             this.Name = "QuickScriptEditor";
             this.Text = "Qk Scrptr";

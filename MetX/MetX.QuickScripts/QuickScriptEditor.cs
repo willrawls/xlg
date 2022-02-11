@@ -857,11 +857,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void QuickScriptEditor_KeyPress(object sender, KeyPressEventArgs e)
-    {
-
-    }
-
     private void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.F5)
