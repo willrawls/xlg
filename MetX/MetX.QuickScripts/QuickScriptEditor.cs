@@ -11,7 +11,6 @@ using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows;
 using MetX.Windows.Library;
-using NHotkey;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
@@ -25,8 +24,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     public bool Updating;
 
     public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
-
-    public NHotkey.WindowsForms.HotkeyManager HotKeyManager { get; } = NHotkey.WindowsForms.HotkeyManager.Current;
 
     public int LastChoice { get; set; }
 
@@ -59,15 +56,20 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void InitializeHotPhrases()
     {
-        PhraseManager.Keyboard.AddOrReplace("Pick and Run QuickScript",
-            new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.LShiftKey },
-            OnPickAndRunQuickScript);
-        PhraseManager.Keyboard.AddOrReplace("Run Current QuickScript",
-            new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey, PKey.Alt },
-            OnRunCurrentQuickScript);
+        try
+        {
+            PhraseManager.Keyboard.AddOrReplace("Pick and Run QuickScript",
+                new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.CapsLock, PKey.LShiftKey, PKey.LShiftKey },
+                OnPickAndRunQuickScript);
 
-
-        HotKeyManager.AddOrReplace("Fred", Keys.F5, RunQuickScript_Click);
+            PhraseManager.Keyboard.AddOrReplace("Run Current QuickScript",
+                new List<PKey> { PKey.CapsLock, PKey.CapsLock, PKey.CapsLock, PKey.LControlKey, PKey.LControlKey },
+                OnRunCurrentQuickScript);
+        }
+        catch
+        {
+            // Ignored
+        }
     }
 
     private void OnPickAndRunQuickScript(object? sender, PhraseEventArguments e)
@@ -334,38 +336,18 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
         if (Host.Context.Scripts != null)
         {
+            if (ScriptEditor.Current != null) UpdateScriptFromForm();
+
             var name = string.Empty;
             var answer = Host.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
             if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty) return;
-
-            var script = string.Empty;
-            XlgQuickScript newScript = null;
-            if (ScriptEditor.Current != null)
-            {
-                answer = Host.MessageBox.Show("Would you like to copy the current script?", "COPY SCRIPT?", MessageBoxChoices.YesNoCancel);
-                switch (answer)
-                {
-                    case MessageBoxResult.Cancel:
-                        return;
-
-                    case MessageBoxResult.Yes:
-                        UpdateScriptFromForm();
-
-                        newScript = ScriptEditor.Current.Clone(name);
-                        break;
-                }
-            }
 
             UpdateScriptFromForm();
             Updating = true;
             try
             {
-                if (newScript == null)
-                {
-                    newScript = new XlgQuickScript(name, script);
-                    if (script.IsEmpty())
-                        newScript.Input = "Clipboard";
-                }
+                var newScript = new XlgQuickScript(name, String.Empty);
+                newScript.Input = "Clipboard";
 
                 QuickScriptList.SelectedItems.Clear();
                 Host.Context.Scripts.Add(newScript);
@@ -445,10 +427,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
 
         SaveQuickScript_Click(sender, null);
-    }
-
-    private void QuickScriptEditor_Load(object sender, EventArgs e)
-    {
     }
 
     private void QuickScriptEditor_ResizeEnd(object sender, EventArgs e)
@@ -876,6 +854,19 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         catch
         {
             // Ignored
+        }
+    }
+
+    private void QuickScriptEditor_KeyPress(object sender, KeyPressEventArgs e)
+    {
+
+    }
+
+    private void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.F5)
+        {
+            RunQuickScript_Click(sender, null);
         }
     }
 }

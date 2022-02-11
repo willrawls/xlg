@@ -177,6 +177,7 @@ namespace ICSharpCode.TextEditor
 		
 		public TextArea(TextEditorControl motherTextEditorControl, TextAreaControl motherTextAreaControl)
 		{
+
 			this.motherTextAreaControl      = motherTextAreaControl;
 			this.motherTextEditorControl    = motherTextEditorControl;
 			

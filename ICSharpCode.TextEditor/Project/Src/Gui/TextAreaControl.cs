@@ -90,7 +90,9 @@ namespace ICSharpCode.TextEditor
 		{
 			this.motherTextEditorControl = motherTextEditorControl;
 			
-			this.textArea                = new TextArea(motherTextEditorControl, this);
+			this.textArea = new TextArea(motherTextEditorControl, this);
+			this.textArea.BackColor = Color.Orange;
+
 			Controls.Add(textArea);
 			
 			vScrollBar.ValueChanged += new EventHandler(VScrollBarValueChanged);
