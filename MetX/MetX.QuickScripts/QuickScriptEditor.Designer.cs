@@ -503,9 +503,10 @@ namespace XLG.QuickScripts
             // 
             // GitHubButton
             // 
-            this.GitHubButton.BackColor = System.Drawing.Color.LightYellow;
+            this.GitHubButton.BackColor = System.Drawing.Color.Lavender;
             this.GitHubButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GitHubButton.ForeColor = System.Drawing.Color.White;
             this.GitHubButton.Image = global::XLG.QuickScripts.Properties.Resources.github_fill;
             this.GitHubButton.Location = new System.Drawing.Point(769, 185);
             this.GitHubButton.Margin = new System.Windows.Forms.Padding(1);
@@ -518,9 +519,10 @@ namespace XLG.QuickScripts
             // 
             // FeedbackButton
             // 
-            this.FeedbackButton.BackColor = System.Drawing.Color.LightYellow;
+            this.FeedbackButton.BackColor = System.Drawing.Color.Lavender;
             this.FeedbackButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FeedbackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FeedbackButton.ForeColor = System.Drawing.Color.White;
             this.FeedbackButton.Image = global::XLG.QuickScripts.Properties.Resources.feedback_fill;
             this.FeedbackButton.Location = new System.Drawing.Point(718, 185);
             this.FeedbackButton.Margin = new System.Windows.Forms.Padding(1);
@@ -533,9 +535,10 @@ namespace XLG.QuickScripts
             // 
             // ScriptEditorHelpButton
             // 
-            this.ScriptEditorHelpButton.BackColor = System.Drawing.Color.LightYellow;
+            this.ScriptEditorHelpButton.BackColor = System.Drawing.Color.Lavender;
             this.ScriptEditorHelpButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ScriptEditorHelpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ScriptEditorHelpButton.ForeColor = System.Drawing.Color.White;
             this.ScriptEditorHelpButton.Image = global::XLG.QuickScripts.Properties.Resources.question_fill;
             this.ScriptEditorHelpButton.Location = new System.Drawing.Point(769, 215);
             this.ScriptEditorHelpButton.Margin = new System.Windows.Forms.Padding(1);
