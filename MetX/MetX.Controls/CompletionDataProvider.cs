@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
+
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 

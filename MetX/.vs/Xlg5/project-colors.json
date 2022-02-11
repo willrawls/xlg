@@ -30,7 +30,32 @@
       "ProjectGuid": "8492f221-2de1-4f46-9a1c-a451aa986313",
       "DisplayName": "MetX.Glove.Console",
       "ColorIndex": 5
+    },
+    "94aad871-7675-49f8-a42c-b8b1ce15f8df": {
+      "ProjectGuid": "94aad871-7675-49f8-a42c-b8b1ce15f8df",
+      "DisplayName": "MetX.Tests",
+      "ColorIndex": 6
+    },
+    "f21cccb8-2b43-4e5d-80f6-3ebd3fe22150": {
+      "ProjectGuid": "f21cccb8-2b43-4e5d-80f6-3ebd3fe22150",
+      "DisplayName": "MetX.Standard.Library",
+      "ColorIndex": 7
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "a1e78fc7-6a23-4c6e-a6ee-8a31be34892b": {
+      "ProjectGuid": "a1e78fc7-6a23-4c6e-a6ee-8a31be34892b",
+      "DisplayName": "ICSharpCode.TextEditorEx",
+      "ColorIndex": 8
+    },
+    "7effd36b-54f2-4148-a74f-b46d54a9502d": {
+      "ProjectGuid": "7effd36b-54f2-4148-a74f-b46d54a9502d",
+      "DisplayName": "ICSharpCode.TextEditorEx",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 10
 }

@@ -265,13 +265,13 @@ namespace MetX.Controls
                 SaveDestinationFilePathDialog.AddExtension = true;
                 SaveDestinationFilePathDialog.CheckPathExists = true;
                 SaveDestinationFilePathDialog.DefaultExt = ".xlgq";
-                SaveDestinationFilePathDialog.Filter = "Quick script files (*.xlgq)|*.xlgq;All files (*.*)|*.*";
+                SaveDestinationFilePathDialog.Filter = "Qk Scrptr files (*.xlgq)|*.xlgq;All files (*.*)|*.*";
                 SaveDestinationFilePathDialog.ShowDialog(this);
                 if (!string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName))
                 {
                     Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
                     Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
-                    Text = "Quick Script - " + Host.Context.Scripts.FilePath;
+                    Text = "Qk Scrptr - " + Host.Context.Scripts.FilePath;
                     UpdateLastKnownPath();
                 }
             }
