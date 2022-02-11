@@ -738,7 +738,7 @@ namespace XLG.Pipeliner
             exePath = FileSystem.FindExecutableAlongPath(exePath, new string[] { @"\..\..\..\..\MetX.QuickScripts\bin\Debug\net5.0-windows" });
             if (!File.Exists(exePath))
             {
-                Host.MessageBox.Show("Quick scripts missing: " + exePath);
+                Host.MessageBox.Show("Qk Scrptr executable missing: " + exePath);
             }
             else
             {

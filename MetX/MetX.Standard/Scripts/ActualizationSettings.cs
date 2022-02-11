@@ -29,9 +29,11 @@ namespace MetX.Standard.Scripts
             ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension);
             Directory.CreateDirectory(ProjectFolder);
 
-            FileSystem.CleanFolder(Path.Combine(ProjectFolder, "obj"));
-            FileSystem.CleanFolder(Path.Combine(ProjectFolder, "bin"));
-
+            if(!simulate)
+            {
+                FileSystem.CleanFolder(Path.Combine(ProjectFolder, "obj"));
+                FileSystem.CleanFolder(Path.Combine(ProjectFolder, "bin"));
+            }
             DebugPath = Path.Combine(ProjectFolder, "bin", "Debug");
             
             GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
