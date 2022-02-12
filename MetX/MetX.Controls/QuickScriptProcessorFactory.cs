@@ -41,8 +41,15 @@ namespace MetX.Controls
             var templateLoaded = host.Context.Templates.Contains(script.TemplateName);
             if (!templateLoaded)
             {
-
+                host.Context.LoadTemplates();
             }
+            
+            templateLoaded = host.Context.Templates.Contains(script.TemplateName);
+            if (!templateLoaded)
+            {
+                host.MessageBox.Show($"ERROR: Unable to find template: {script.TemplateName}");
+            }
+
             var template = host.Context.Templates[script.TemplateName];
             var settings = new ActualizationSettings(template, simulate, script, true, host);
             return settings;

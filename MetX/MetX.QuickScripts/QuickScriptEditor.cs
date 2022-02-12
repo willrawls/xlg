@@ -789,8 +789,14 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     private void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
     {
         var path = BrowseForFolder("BrowseTemplateFolderPathButton",  "Please select an existing QkScrptr template folder");
-        if (!string.IsNullOrEmpty(path))
-            TemplateFolderPath.Text = path;
+        if (string.IsNullOrEmpty(path))
+            return;
+        
+        path = path.LastPathToken();
+        if (string.IsNullOrEmpty(path))
+            return;
+        
+        TemplateFolderPath.Text = path;
     }
 
     private string BrowseForFolder(string folderKey, string title)
@@ -837,15 +843,19 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             if (string.IsNullOrEmpty(sourcePath))
                 return;
 
-            // Choose destination folder
+            // Choose destination folder (always the base templates folder)
+            var destinationPath = Dirs.CurrentTemplateFolderPath;
+            /*
             var destinationPath = BrowseForFolder("CloneTemplateButton_Destination",
                 "Please select folder to contain the cloned template folder");
             if (string.IsNullOrEmpty(destinationPath))
                 return;
+            */
+
 
             // Choose new name of template
             var dialog = new AskForStringDialog();
-            var answer = dialog.Ask("What would you like to call the new template folder?", "NEW TEMPLATE FOLDER NAME");
+            var answer = dialog.Ask("What would you like to call the new template folder?", "NEW TEMPLATE NAME");
             if (answer.IsEmpty()) return;
 
             // Create subfolder (new name) in destination folder
@@ -863,7 +873,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             if (!FileSystem.DeepCopy(sourcePath, newFolderPath)) return;
 
             // Update the script's template folder path
-            ScriptEditor.Current.TemplateName = newFolderPath;
+            ScriptEditor.Current.TemplateName = answer;
             UpdateFormWithScript(ScriptEditor.Current);
 
             // Report success and offer to open the destination\new name folder in explorer
