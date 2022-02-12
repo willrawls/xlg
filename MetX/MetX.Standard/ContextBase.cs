@@ -17,6 +17,11 @@ namespace MetX.Standard
         public ContextBase(string pathToTemplates, IGenerationHost host)
         {
             Host = host;
+            UpdateTemplateList(pathToTemplates);
+        }
+
+        private void UpdateTemplateList(string pathToTemplates)
+        {
             Templates = pathToTemplates.IsNotEmpty()
                 ? new XlgQuickScriptTemplateList(pathToTemplates)
                 : null;

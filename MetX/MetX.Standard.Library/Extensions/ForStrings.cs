@@ -11,6 +11,21 @@ namespace MetX.Standard.Library.Extensions
     /// </summary>
     public static class ForStrings
     {
+        public static string ImplicitReplace(this string str, string toFind, string replaceWith, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            replaceWith ??= "";
+            if (string.IsNullOrEmpty(str) || string.IsNullOrEmpty(toFind) || toFind.Equals(replaceWith, comparison)) return str;
+
+            var foundAt = 0;
+
+            while ((foundAt = str.IndexOf(toFind, foundAt, comparison)) != -1)
+            {
+                str = str.Remove(foundAt, toFind.Length).Insert(foundAt, replaceWith);
+                foundAt += replaceWith.Length;
+            }
+            return str;
+        }
+
         public static string InsertLineNumbers(this string target, List<int> keyLines)
         {
             if (target.IsEmpty())
@@ -18,7 +33,7 @@ namespace MetX.Standard.Library.Extensions
 
             var lines = target.Lines();
 
-            int digitCount = 1;
+            var digitCount = 1;
             if (lines.Length < 10) digitCount = 2;
             else if (lines.Length < 100) digitCount = 3;
             else if (lines.Length < 1000) digitCount = 4;

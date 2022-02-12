@@ -87,7 +87,7 @@ namespace XLG.QuickScripts
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.TemplateFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1.SuspendLayout();
             this.TopPanel.SuspendLayout();
             this.LeftPanel.SuspendLayout();
@@ -420,6 +420,7 @@ namespace XLG.QuickScripts
             this.SliceAt.Name = "SliceAt";
             this.SliceAt.Size = new System.Drawing.Size(102, 21);
             this.SliceAt.TabIndex = 15;
+            this.SliceAt.SelectedIndexChanged += new System.EventHandler(this.SliceAt_SelectedIndexChanged);
             // 
             // DiceAt
             // 
@@ -434,6 +435,7 @@ namespace XLG.QuickScripts
             this.DiceAt.Name = "DiceAt";
             this.DiceAt.Size = new System.Drawing.Size(102, 21);
             this.DiceAt.TabIndex = 16;
+            this.DiceAt.SelectedIndexChanged += new System.EventHandler(this.DiceAt_SelectedIndexChanged);
             // 
             // QuickScriptName
             // 
@@ -840,12 +842,11 @@ namespace XLG.QuickScripts
             this.panel1.Size = new System.Drawing.Size(818, 4);
             this.panel1.TabIndex = 27;
             // 
-            // TemplateFolderBrowser
+            // FolderBrowserDialog
             // 
-            this.TemplateFolderBrowser.Description = "Please select a folder containing the QkScrptr template";
-            this.TemplateFolderBrowser.RootFolder = System.Environment.SpecialFolder.MyDocuments;
-            this.TemplateFolderBrowser.SelectedPath = "XLG\\Scripts\\";
-            this.TemplateFolderBrowser.UseDescriptionForTitle = true;
+            this.FolderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyDocuments;
+            this.FolderBrowserDialog.SelectedPath = "XLG\\Scripts\\";
+            this.FolderBrowserDialog.UseDescriptionForTitle = true;
             // 
             // QuickScriptEditor
             // 
@@ -936,6 +937,6 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Button GitHubButton;
         private System.Windows.Forms.Button FeedbackButton;
         private System.Windows.Forms.Button ScriptEditorHelpButton;
-        private System.Windows.Forms.FolderBrowserDialog TemplateFolderBrowser;
+        private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
     }
 }

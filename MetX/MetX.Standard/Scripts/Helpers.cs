@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.Scripts
 {
-    public class Helpers
+    public static class Helpers
     {
         public const string SlashSlashBlockLeftDelimiter = "~~{";
         public const string SlashSlashBlockRightDelimiter = "}~~";
@@ -33,10 +35,23 @@ namespace MetX.Standard.Scripts
             return scriptLine;
         }
 
-        public static string ExpandScriptLineVariables(string scriptLine)
+        public static string ExpandScriptLineVariables(this string scriptLine)
         {
             var keepGoing = true;
             var iterations = 0;
+            var environmentVariables = Environment.GetEnvironmentVariables();
+
+            scriptLine = scriptLine.Replace("%PERCENT%", "%");
+
+            foreach (DictionaryEntry environmentVariable in environmentVariables)
+            {
+                var tag = $"%{environmentVariable.Key}%";
+                if (scriptLine.IndexOf(tag, StringComparison.InvariantCultureIgnoreCase) <= -1) continue;
+
+                var value = environmentVariable.Value.AsString("");
+                scriptLine = scriptLine.ImplicitReplace(tag, value);
+            }
+
             while (keepGoing && ++iterations < 1000 && scriptLine.Contains("%")
                    && scriptLine.TokenCount("%") > 1)
             {

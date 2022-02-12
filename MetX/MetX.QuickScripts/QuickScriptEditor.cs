@@ -164,7 +164,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         ScriptEditor.Current.InputFilePath = InputParam.Text;
         ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
         ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsString("Exe");
-        //ScriptEditor.Current.TemplateName = TemplateList.Text.AsString("Exe");
         Host.Context.Scripts.Default = ScriptEditor.Current;
     }
 
@@ -239,7 +238,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+        UpdateScriptFromForm();
     }
 
     private void DestinationParam_Enter(object sender, EventArgs e)
@@ -276,7 +275,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void InputList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        <<< Start here
+        UpdateScriptFromForm();
     }
 
     private void InputParam_Enter(object sender, EventArgs e)
@@ -789,9 +788,21 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
     {
-        TemplateFolderBrowser.ShowDialog(this);
-        if (!string.IsNullOrEmpty(TemplateFolderBrowser.SelectedPath))
-            TemplateFolderPath.Text = TemplateFolderBrowser.SelectedPath;
+        var path = BrowseForFolder("BrowseTemplateFolderPathButton",  "Please select an existing QkScrptr template folder");
+        if (!string.IsNullOrEmpty(path))
+            TemplateFolderPath.Text = path;
+    }
+
+    private string BrowseForFolder(string folderKey, string title)
+    {
+        var last = Dirs.FromRegistry(folderKey);
+        if (last.IsNotEmpty()) FolderBrowserDialog.SelectedPath = last;
+
+        FolderBrowserDialog.Description = title;
+        if (FolderBrowserDialog.ShowDialog(this) != DialogResult.OK) return null;
+
+        Dirs.ToRegistry(folderKey, FolderBrowserDialog.SelectedPath);
+        return FolderBrowserDialog.SelectedPath;
     }
 
     private void CloneScriptButton_Click(object sender, EventArgs e)
@@ -816,7 +827,48 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void CloneTemplateButton_Click(object sender, EventArgs e)
     {
+        Host.WaitFor(() =>
+        {
+            UpdateScriptFromForm();
 
+            // Choose source template folder
+            var sourcePath = BrowseForFolder("CloneTemplateButton_Source",
+                "Please select an existing QkScrptr template folder");
+            if (string.IsNullOrEmpty(sourcePath))
+                return;
+
+            // Choose destination folder
+            var destinationPath = BrowseForFolder("CloneTemplateButton_Destination",
+                "Please select folder to contain the cloned template folder");
+            if (string.IsNullOrEmpty(destinationPath))
+                return;
+
+            // Choose new name of template
+            var dialog = new AskForStringDialog();
+            var answer = dialog.Ask("What would you like to call the new template folder?", "NEW TEMPLATE FOLDER NAME");
+            if (answer.IsEmpty()) return;
+
+            // Create subfolder (new name) in destination folder
+            var newFolderPath = Path.Combine(destinationPath, answer);
+            if (Directory.Exists(newFolderPath))
+            {
+                Host.MessageBox.Show("The destination folder for the new template already exists");
+                return;
+            }
+
+            var newFolderInfo = Directory.CreateDirectory(newFolderPath);
+            if (!newFolderInfo.Exists) return;
+
+            // Deep copy files from source to destination\new name
+            if (!FileSystem.DeepCopy(sourcePath, newFolderPath)) return;
+
+            // Update the script's template folder path
+            ScriptEditor.Current.TemplateName = newFolderPath;
+            UpdateFormWithScript(ScriptEditor.Current);
+
+            // Report success and offer to open the destination\new name folder in explorer
+            QuickScriptWorker.ViewFolderInExplorer(newFolderPath, Host);
+        });
     }
 
     private void GitHubButton_Click(object sender, EventArgs e)
@@ -858,5 +910,15 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         {
             RunQuickScript_Click(sender, null);
         }
+    }
+
+    private void SliceAt_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        UpdateScriptFromForm();
+    }
+
+    private void DiceAt_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        UpdateScriptFromForm();
     }
 }

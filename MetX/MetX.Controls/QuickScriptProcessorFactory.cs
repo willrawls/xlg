@@ -38,6 +38,11 @@ namespace MetX.Controls
         {
             if (script == null) return null;
 
+            var templateLoaded = host.Context.Templates.Contains(script.TemplateName);
+            if (!templateLoaded)
+            {
+
+            }
             var template = host.Context.Templates[script.TemplateName];
             var settings = new ActualizationSettings(template, simulate, script, true, host);
             return settings;

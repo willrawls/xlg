@@ -237,7 +237,7 @@ namespace MetX.Standard.Scripts
                 if(_targetScript.DestinationFilePath.IsNotEmpty())
                     _targetGenArea.Lines.Add($"Output.AppendTo(@\"{_targetScript.DestinationFilePath}\");");
                 else
-                    _targetGenArea.Lines.Add("// ~~To found nothing to do");
+                    _targetGenArea.Lines.Add($"// ~~To found nothing to do '{specialInstruction}'");
             }
             else
             {

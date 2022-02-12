@@ -22,6 +22,11 @@ namespace MetX.Standard.Scripts
             }
         }
 
+        public bool Contains(string name)
+        {
+            return this[name] != null;
+        }
+
         public XlgQuickScriptTemplate this[string name]
         {
             get
