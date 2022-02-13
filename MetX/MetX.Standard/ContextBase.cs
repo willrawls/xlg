@@ -16,6 +16,8 @@ namespace MetX.Standard
 
         public ContextBase(string pathToTemplates, IGenerationHost host)
         {
+            if (pathToTemplates.IsEmpty()) throw new ArgumentException(nameof(pathToTemplates));
+
             Host = host;
             LoadTemplates(pathToTemplates);
         }

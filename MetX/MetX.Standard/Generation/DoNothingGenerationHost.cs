@@ -6,10 +6,10 @@ namespace MetX.Standard.Generation
 {
     public class DoNothingGenerationHost : IGenerationHost
     {
-        public DoNothingGenerationHost(string testTextToProcess = "", ContextBase context = null)
+        public DoNothingGenerationHost(string testTextToProcess, ContextBase context)
         {
-            Context = context ?? new ContextBase(null, this);
-            GetTextForProcessing = () => testTextToProcess;
+            Context = context ?? throw new ArgumentException(nameof(context));
+            GetTextForProcessing = () => testTextToProcess ?? "";
             MessageBox = new DoNothingMessageBoxHost(this);
 
         }

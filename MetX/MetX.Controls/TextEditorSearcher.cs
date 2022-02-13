@@ -45,10 +45,19 @@ namespace MetX.Controls
         {
             var bkgColor = _document.HighlightingStrategy.GetColorFor("Default").BackgroundColor;
             _region = new TextMarker(offset, length, TextMarkerType.SolidBlock, 
-                bkgColor.HalfMix(Color.FromArgb(160,160,160)));
+                HalfMix(bkgColor, Color.FromArgb(160,160,160)));
             _document.MarkerStrategy.AddMarker(_region);
         }
         public bool HasScanRegion => _region != null;
+
+        public static Color HalfMix(Color one, Color two)  
+        {
+            return Color.FromArgb(
+                (one.A + two.A) >> 1,
+                (one.R + two.R) >> 1,
+                (one.G + two.G) >> 1,
+                (one.B + two.B) >> 1);
+        }
 
         public void ClearScanRegion()
         {

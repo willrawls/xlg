@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Remove="ClipScriptEditor.cs" />
     <Compile Remove="ClipScriptEditor.Designer.cs" />
+    <Compile Remove="Extensions.cs" />
   </ItemGroup>
 
   <ItemGroup>

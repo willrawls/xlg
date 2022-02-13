@@ -25,7 +25,10 @@ namespace MetX.Standard.IO
             if (Directory.Exists(path))
                 return path;
 
-            var ascendancy = basePath.TokensBeforeLast(@"\");
+            var ascendancy = basePath;
+            if (ascendancy.EndsWith(@"\"))
+                ascendancy = ascendancy.Substring(0, ascendancy.Length - 1);
+            ascendancy = ascendancy.TokensBeforeLast(@"\");
             for (var level = 0; level < levels; level++)
             {
                 path = Path.Combine(ascendancy, folderName);

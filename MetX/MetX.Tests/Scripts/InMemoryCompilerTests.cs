@@ -28,28 +28,35 @@ namespace MetX.Tests.Scripts
 
             var outputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestBuildExeSimple");
             FileSystem.SafelyDeleteDirectory(outputFilePath);
-            
-            var host = new DoNothingGenerationHost();
-            ContextBase context = new Context(host);
-            host.Context = context;
 
-            host.Context.Templates = new XlgQuickScriptTemplateList(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates"));
+            BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
             Assert.IsTrue(host.Context.Templates.Any(t => t.Name == "TestExe"));
             
             var settings = script.BuildSettings(false, host);
             settings.ProjectFolder = outputFilePath;
 
-            ActualizationResult result = settings.ActualizeAndCompile();
+            var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.ActualizationSuccessful);
             Assert.IsTrue(result.CompileSuccessful);
 
-            BaseLineProcessor actual = result.AsBaseLineProcessor();
+            var actual = result.AsBaseLineProcessor();
             Assert.IsNotNull(actual, source);
 
-            MethodInfo entryPoint = actual.GetType().Assembly.EntryPoint;
+            var entryPoint = actual.GetType().Assembly.EntryPoint;
             Assert.IsNotNull(entryPoint);
 
             AssertConsoleExecutableOutputsProperly(result, "Simple_Build_Exe");
+        }
+
+        public static void BuildDoNothingGenerationHost(out string pathToTestTemplates,
+            out DoNothingGenerationHost host, out ContextBase context)
+        {
+            pathToTestTemplates = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates");
+            context = new ContextBase(pathToTestTemplates, null);
+            host = new DoNothingGenerationHost("", context);
+            context.Host = host;
+            host.Context = context;
+            host.Context.Templates = new XlgQuickScriptTemplateList(pathToTestTemplates);
         }
 
         private static void AssertConsoleExecutableOutputsProperly(ActualizationResult result, string expected)
@@ -87,7 +94,8 @@ namespace MetX.Tests.Scripts
                 File.Delete(outputFilePath);
             }
 
-            var settings = Sources.ExampleFirstScript().BuildSettings(true, new DoNothingGenerationHost());
+            BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
+            var settings = Sources.ExampleFirstScript().BuildSettings(true, host);
             var result = settings.ActualizeAndCompile();
             Assert.IsTrue(result.CompileSuccessful);
             Assert.IsNotNull(result.DestinationExecutableFilePath);
@@ -109,10 +117,10 @@ namespace MetX.Tests.Scripts
 
             var xlgQuickScript = new XlgQuickScript("Calculate Something", Sources.CalculateSomething) {TemplateName = "Exe"};
 
-            var host = new DoNothingGenerationHost();
-            var template = new XlgQuickScriptTemplate("Fred", "Fred");
+            BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
             
-            host.Context.Templates.Add(template);
+            var template = new XlgQuickScriptTemplate("Fred", "Fred");
+            context.Templates.Add(template);
 
             var settings = xlgQuickScript.BuildSettings(true, host);
             var result = settings.ActualizeAndCompile();

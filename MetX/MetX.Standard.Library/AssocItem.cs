@@ -23,7 +23,7 @@ namespace MetX.Standard.Library
         public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
         {
             Parent = parent;
-            Key = key.IsEmpty() ? AssocSupport.KeyWhenThereIsNoKey() : key;
+            Key = key.IsEmpty() ? "CetasItem" : key;
             Value = value ?? "";
             Name = name ?? "";
 

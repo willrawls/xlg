@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions.cs" />
     <Compile Remove="TechniqueEditorToolStripMenuItem.cs" />
     <Compile Remove="TechniquesEditor.cs" />
     <Compile Remove="TechniquesEditor.Designer.cs" />

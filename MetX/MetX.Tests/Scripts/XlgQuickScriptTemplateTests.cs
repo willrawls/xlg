@@ -13,18 +13,20 @@ namespace MetX.Tests.Scripts
         [TestMethod]
         public void ResolveExeTemplate()
         {
-            var data = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
+            var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
 
-            Assert.IsNotNull(data);
-            Assert.IsNotNull(data.Assets);
-            Assert.AreEqual(4, data.Assets.Count);
-            Assert.AreEqual("TestExe", data.Name);
+            Assert.IsNotNull(quickScriptTemplate);
+            Assert.IsNotNull(quickScriptTemplate.Assets);
+            Assert.AreEqual(4, quickScriptTemplate.Assets.Count);
+            Assert.AreEqual("TestExe", quickScriptTemplate.Name);
 
-            Assert.AreEqual(4, data.Assets.Items.Length);
-            CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, data.Assets.Keys);
+            Assert.AreEqual(4, quickScriptTemplate.Assets.Items.Length);
+            CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, quickScriptTemplate.Assets.Keys);
 
             XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
-            var settings = new ActualizationSettings(data, true, source, true, new DoNothingGenerationHost());
+
+            InMemoryCompilerTests.BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
+            var settings = new ActualizationSettings(quickScriptTemplate, true, source, true, host);
 
             settings.Answers["DestinationFilePath"].Value = "AAA";
             settings.Answers["InputFilePath"].Value = "BBB";
@@ -43,7 +45,7 @@ namespace MetX.Tests.Scripts
             settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("N");
             settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("N");
 
-            ActualizationResult actual = data.ActualizeCode(settings);
+            ActualizationResult actual = quickScriptTemplate.ActualizeCode(settings);
 
             Assert.IsNotNull(actual);
             Assert.IsNull(actual.ActualizeErrorText);
