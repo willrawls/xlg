@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>5.1.1</Version>
@@ -12,4 +12,15 @@
     <Description>XLG .net standard 2 primary library</Description>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Generics\**" />
+    <EmbeddedResource Remove="Generics\**" />
+    <None Remove="Generics\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="AssocArray.cs" />
+    <Compile Remove="AssocArrayList.cs" />
+    <Compile Remove="AssocItem.cs" />
+    <Compile Remove="AssocSupport.cs" />
+  </ItemGroup>
 </Project>

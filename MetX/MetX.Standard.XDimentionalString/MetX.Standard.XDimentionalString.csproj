@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -6,9 +7,15 @@
     <Version>5.1.1</Version>
     <Authors>William Rawls</Authors>
     <Product>XLG</Product>
-    <Description>XLG .net 5 generator attributes</Description>
-    <Copyright>MIT 2.0 - William Rawls</Copyright>
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>XLG .net standard 2 Associative arrays</Description>
+    <Copyright>MIT 2.0 - William Rawls</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+  </ItemGroup>
+
 </Project>

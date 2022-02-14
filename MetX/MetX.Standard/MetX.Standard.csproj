@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX.Standard</RootNamespace>
@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.XDimentionalString\MetX.Standard.XDimentionalString.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager">
