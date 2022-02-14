@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace MetX.Standard.XDimensionalString
+namespace MetX.Standard.XDString
 {
     [Serializable]
     public class AssocArrayList : List<AssocArray>

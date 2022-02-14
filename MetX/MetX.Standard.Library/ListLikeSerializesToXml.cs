@@ -57,7 +57,7 @@ public abstract class ListLikeSerializesToXml<TParent, TChild, TKey, TActual> :
         }
     }
 
-    private static readonly Type[] ExtraTypes = new Type[]
+    public static readonly Type[] ExtraTypes = new Type[]
     {
         typeof(TParent),
         typeof(TChild),

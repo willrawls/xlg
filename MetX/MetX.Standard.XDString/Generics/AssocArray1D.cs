@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 
-namespace MetX.Standard.XDimensionalString.Generics;
+namespace MetX.Standard.XDString.Generics;
 
 /// <summary>
 /// AssocArray1D is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly

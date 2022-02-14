@@ -65,7 +65,22 @@
       "ProjectGuid": "63bc1d54-2674-43e2-8fcd-bfc692da2bbd",
       "DisplayName": "MetX.Standard.Generators",
       "ColorIndex": 11
+    },
+    "c45ee796-23e7-4889-8132-77d894f46512": {
+      "ProjectGuid": "c45ee796-23e7-4889-8132-77d894f46512",
+      "DisplayName": "MetX.Standard.XDString",
+      "ColorIndex": 12
+    },
+    "3624d670-0f13-493c-82fa-8f1d32ce8ca6": {
+      "ProjectGuid": "3624d670-0f13-493c-82fa-8f1d32ce8ca6",
+      "DisplayName": "MetX.Standard.Generators.Aspects",
+      "ColorIndex": 13
+    },
+    "81885a46-2601-4366-91df-fce182426740": {
+      "ProjectGuid": "81885a46-2601-4366-91df-fce182426740",
+      "DisplayName": "MetX.Standard.Generators.Support",
+      "ColorIndex": 14
     }
   },
-  "NextColorIndex": 12
+  "NextColorIndex": 15
 }

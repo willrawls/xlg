@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MetX.Standard.XDimensionalString.Generics
+namespace MetX.Standard.XDString.Generics
 {
     [Serializable]
     public class AssocItem<T> : AssocItem, IAssocItem<T> where T : class, new()

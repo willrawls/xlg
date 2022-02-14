@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSharpCode.TextEditorEx", "..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj", "{7EFFD36B-54F2-4148-A74F-B46D54A9502D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Standard.XDimensionalString", "MetX.Standard.XDimentionalString\MetX.Standard.XDimensionalString.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Standard.XDString", "MetX.Standard.XDString\MetX.Standard.XDString.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

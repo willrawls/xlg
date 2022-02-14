@@ -246,24 +246,27 @@ namespace MetX.Standard.Library
             return XmlWriter.Create(output, settings);
 		}
 
-		/// <summary>
-		/// Turns an xml string into a object
-		/// </summary>
-		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="xmlDoc">An xml string containing the serialized object</param>
-		/// <returns>The deserialized object</returns>
-		public static T FromXml<T>(string xmlDoc, Type[] extraTypes = null)
+        /// <summary>
+        /// Turns an xml string into a object
+        /// </summary>
+        /// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+        /// <param name="xmlDoc">An xml string containing the serialized object</param>
+        /// <param name="extraTypes"></param>
+        /// <returns>The deserialized object</returns>
+        public static T FromXml<T>(string xmlDoc, Type[] extraTypes = null)
         {
             using var sr = new StringReader(xmlDoc);
             return (T)Serializer(typeof(T), extraTypes).Deserialize(sr);
         }
-		/// <summary>
-		/// Turns the xml contents of a file into an object
-		/// </summary>
-		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="filePath">The file to read the xml from</param>
-		/// <returns>The deserialized object</returns>
-		public static T LoadFile<T>(string filePath, Type[] extraTypes = null)
+
+        /// <summary>
+        /// Turns the xml contents of a file into an object
+        /// </summary>
+        /// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+        /// <param name="filePath">The file to read the xml from</param>
+        /// <param name="extraTypes"></param>
+        /// <returns>The deserialized object</returns>
+        public static T LoadFile<T>(string filePath, Type[] extraTypes = null)
 		{
             if (!File.Exists(filePath)) return default(T);
 
@@ -271,13 +274,14 @@ namespace MetX.Standard.Library
             return (T)Serializer(typeof(T), extraTypes).Deserialize(xtr);
         }
 
-		/// <summary>
-		/// Save a object as xml into a file. If the file is already there it is deleted then recreated with the xml contents of the supplied object.
-		/// </summary>
-		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
-		/// <param name="filePath">The file to write the xml to</param>
-		/// <param name="toSerialize">The object to serialize</param>
-		public static void SaveFile<T>(string filePath, T toSerialize, Type[] extraTypes = null)
+        /// <summary>
+        /// Save a object as xml into a file. If the file is already there it is deleted then recreated with the xml contents of the supplied object.
+        /// </summary>
+        /// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+        /// <param name="filePath">The file to write the xml to</param>
+        /// <param name="toSerialize">The object to serialize</param>
+        /// <param name="extraTypes"></param>
+        public static void SaveFile<T>(string filePath, T toSerialize, Type[] extraTypes = null)
 		{
 			if (File.Exists(filePath))
 			{
@@ -295,6 +299,7 @@ namespace MetX.Standard.Library
         /// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
         /// <param name="toSerialize">The object to serialize</param>
         /// <param name="removeNamespaces"></param>
+        /// <param name="extraTypes"></param>
         /// <returns></returns>
         public static string ToXml<T>(T toSerialize, bool removeNamespaces = true, Type[] extraTypes = null)
 		{

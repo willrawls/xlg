@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MetX.Standard.XDimensionalString.Generics
+namespace MetX.Standard.XDString.Generics
 {
     [Serializable]
     public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()

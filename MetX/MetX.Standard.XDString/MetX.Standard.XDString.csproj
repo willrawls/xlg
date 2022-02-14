@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Description>XLG .net standard 2 Associative arrays</Description>
+    <Description>XLG .net standard 2 multi dimensional associative arrays</Description>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
   </PropertyGroup>
 

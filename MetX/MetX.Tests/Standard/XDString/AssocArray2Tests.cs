@@ -1,5 +1,6 @@
 ﻿using System;
-using MetX.Standard.XDimensionalString.Generics;
+using System.Diagnostics;
+using MetX.Standard.XDString.Generics;
 using MetX.Tests.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -28,6 +29,24 @@ namespace MetX.Tests.Standard.XDString
             var mary = new AssocArray4D<Fred>();
             Guid henry = mary["A","B","C","D"].TestGuid;
             Assert.IsTrue(mary.ContainsKey("A","B","C","D"));
+            mary.Name = "Mary";
+            Debug.WriteLine(mary.ToXml());
+            Debug.WriteLine(mary.ToJson());
+            Debug.WriteLine(mary.ToString());
+        }
+
+        [TestMethod()]
+        public void AssocArray4D_Of_Fred_FromXml()
+        {
+            var mary = new AssocArray4D<Fred>();
+            Guid henry = mary["A","B","C","D"].TestGuid;
+            Assert.IsTrue(mary.ContainsKey("A","B","C","D"));
+            Assert.IsFalse(mary.ContainsKey("A","B","C","E"));
+
+            mary.Name = "Mary";
+            var actual = AssocArray4D<Fred>.FromXml(mary.ToXml());
+            Assert.AreEqual("Mary", actual.Name);
+            Debug.WriteLine(actual.ToXml());
         }
 
     }

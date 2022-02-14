@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
-    <ProjectReference Include="..\MetX.Standard.XDimentionalString\MetX.Standard.XDimensionalString.csproj" />
+    <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager">

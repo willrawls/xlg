@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MetX.Standard.XDimensionalString;
+using MetX.Standard.XDString;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.XDString

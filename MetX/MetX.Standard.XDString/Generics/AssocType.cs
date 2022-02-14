@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Standard.XDimensionalString.Generics
+namespace MetX.Standard.XDString.Generics
 {
     [Serializable]
     public class AssocType<T>

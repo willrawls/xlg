@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
-using MetX.Standard.XDimensionalString;
-using MetX.Standard.XDimensionalString.Generics;
+using MetX.Standard.XDString;
+using MetX.Standard.XDString.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests

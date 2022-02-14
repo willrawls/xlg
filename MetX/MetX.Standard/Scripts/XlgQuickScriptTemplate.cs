@@ -8,7 +8,7 @@ using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
-using MetX.Standard.XDimensionalString.Generics;
+using MetX.Standard.XDString.Generics;
 
 namespace MetX.Standard.Scripts
 {
