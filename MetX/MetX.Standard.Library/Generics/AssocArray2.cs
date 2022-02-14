@@ -4,8 +4,12 @@ using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Extensions;
 
-namespace MetX.Standard.Library;
+namespace MetX.Standard.Library.Generics;
 
+/// <summary>
+/// AssocArray2 is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly
+/// </summary>
+/// <typeparam name="T"></typeparam>
 [Serializable]
 [XmlRoot("AssocArray")]
 public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem, string, T>
