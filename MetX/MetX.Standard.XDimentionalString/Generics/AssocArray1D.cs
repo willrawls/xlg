@@ -15,11 +15,10 @@ namespace MetX.Standard.XDimensionalString.Generics;
 [XmlRoot("AssocArray")]
 public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocItem<T>, string, T> where T : class, new()
 {
-    [XmlElement]
+    [XmlAttribute]
     public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
-    [XmlIgnore] public AssocArrayList Parent { get; set; }
 
     public AssocArray1D() : base(DefaultKeyComparer)
     {
@@ -33,17 +32,10 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
                 
     }
 
-    public AssocArray1D(string key, AssocArrayList parent = null) : base(DefaultKeyComparer)
+    public AssocArray1D(string key) : base(DefaultKeyComparer)
     {
         Key = key;
-        Parent = parent;
     }
-
-    public AssocArray1D(AssocArrayList parent) : base(DefaultKeyComparer)
-    {
-        Parent = parent;
-    }
-
 
     [XmlIgnore]
     public string[] Values
@@ -111,7 +103,7 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
     }
 
     [XmlIgnore]
-    public AssocItem<T> this[string key]
+    public new AssocItem<T> this[string key]
     {
         get
         {
@@ -158,6 +150,4 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
         }
         return sb.ToString();
     }
-
-
 }
