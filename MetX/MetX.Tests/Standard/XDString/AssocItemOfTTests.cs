@@ -1,6 +1,7 @@
 ﻿using System;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Generics;
+using MetX.Standard.XDimentionalString;
 using MetX.Tests.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

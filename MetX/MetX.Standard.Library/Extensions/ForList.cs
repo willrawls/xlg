@@ -1,16 +1,16 @@
-﻿namespace MetX.Standard.Library
-{
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
+namespace MetX.Standard.Library.Extensions
+{
 	/// <summary>
 	/// Container for extension functions for the System.Collections.Generic.IList{T} and System.Collections.IList
 	/// interfaces that inserts elements lists that are presumed to be already sorted such that sort ordering is preserved
 	/// </summary>
 	/// <author>Jackson Dunstan, http://JacksonDunstan.com/articles/3189</author>
 	/// <license>MIT</license>
-	public static class KeepListSortedExtensions
+	public static class ForList
 	{
 		/// <summary>
 		/// Insert a value into an IList{T} that is presumed to be already sorted such that sort

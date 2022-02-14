@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.XDimentionalString;
 
 namespace MetX.Standard.Library
 {

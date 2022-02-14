@@ -1,5 +1,6 @@
 ﻿using System;
 using MetX.Standard.Library;
+using MetX.Standard.XDimentionalString;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.XDString
