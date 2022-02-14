@@ -24,22 +24,22 @@ namespace MetX.Controls
 
         // I would have used the TextAnchor class to represent the beginning and 
         // end of the region to scan while automatically adjusting to changes in 
-        // the document--but for some reason it is sealed and its constructor is 
+        // the _document--but for some reason it is sealed and its constructor is 
         // internal. Instead I use a TextMarker, which is perhaps even better as 
         // it gives me the opportunity to highlight the region. Note that all the 
-        // markers and coloring information is associated with the text document, 
+        // markers and coloring information is associated with the text _document, 
         // not the editor control, so TextEditorSearcher doesn't need a reference 
-        // to the TextEditorControl. After adding the marker to the document, we
+        // to the TextEditorControl. After adding the marker to the _document, we
         // must remember to remove it when it is no longer needed.
         TextMarker _region = null;
         /// <summary>Sets the region to search. The region is updated 
-        /// automatically as the document changes.</summary>
+        /// automatically as the _document changes.</summary>
         public void SetScanRegion(ISelection sel)
         {
             SetScanRegion(sel.Offset, sel.Length);
         }
         /// <summary>Sets the region to search. The region is updated 
-        /// automatically as the document changes.</summary>
+        /// automatically as the _document changes.</summary>
         public void SetScanRegion(int offset, int length)
         {
             var bkgColor = _document.HighlightingStrategy.GetColorFor("Default").BackgroundColor;
@@ -106,7 +106,7 @@ namespace MetX.Controls
         /// (MatchCase, MatchWholeWordOnly).</summary>
         /// <param name="beginAtOffset">Offset in Document at which to begin the search</param>
         /// <remarks>If there is a match at beginAtOffset precisely, it will be returned.</remarks>
-        /// <returns>Region of document that matches the search string</returns>
+        /// <returns>Region of _document that matches the search string</returns>
         public TextRange FindNext(int beginAtOffset, bool searchBackward, out bool loopedAround)
         {
             Debug.Assert(!string.IsNullOrEmpty(_lookFor));

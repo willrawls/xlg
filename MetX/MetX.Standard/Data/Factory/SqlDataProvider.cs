@@ -287,7 +287,6 @@ namespace MetX.Standard.Data.Factory
         /// <returns>C#CD: </returns>
         public override TableSchema.Table GetTableSchema(OwnerTablePair pair)
         {
-            string schemaName = null;
             TableSchema.Table tableSchema;
             var columns = new TableSchema.TableColumnCollection();
 

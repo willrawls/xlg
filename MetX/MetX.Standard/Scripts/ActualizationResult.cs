@@ -59,6 +59,7 @@ namespace MetX.Standard.Scripts
         {
             throw new NotSupportedException();
 
+            /*
             if (!CompileSuccessful || !File.Exists(this.DestinationExecutableFilePath))
                 return null;
 
@@ -74,6 +75,7 @@ namespace MetX.Standard.Scripts
                 throw new Exception($"Cast to Actual failed: {this.FullClassNameWithNamespace()}");
 
             return instance;
+        */
         }
 
         public string FullClassNameWithNamespace()

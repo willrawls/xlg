@@ -100,23 +100,23 @@ namespace ICSharpCode.TextEditor
         {
             get
             {
-                return document;
+                return _document;
             }
             set
             {
                 if (value == null)
                     throw new ArgumentNullException("value");
 
-                if (document != null)
+                if (_document != null)
                 {
-                    document.DocumentChanged -= OnDocumentChanged;
-                    document.DocumentChanged -= OnDocumentChangedDoUpdateContextMenu;
+                    _document.DocumentChanged -= OnDocumentChanged;
+                    _document.DocumentChanged -= OnDocumentChangedDoUpdateContextMenu;
                 }
 
-                document = value;
-                document.UndoStack.TextEditorControl = this;
-                document.DocumentChanged += OnDocumentChanged;
-                document.DocumentChanged += OnDocumentChangedDoUpdateContextMenu;
+                _document = value;
+                _document.UndoStack.TextEditorControl = this;
+                _document.DocumentChanged += OnDocumentChanged;
+                _document.DocumentChanged += OnDocumentChangedDoUpdateContextMenu;
             }
         }
 

@@ -14,6 +14,8 @@
 		<Authors>Stef Heyenrath, SharpDevelop, Qwertie and MysticBoy</Authors>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RootNamespace>ICSharpCode.TextEditor</RootNamespace>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>I:\OneDrive\Data\code\GitHub\xlg\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -27,7 +29,7 @@
 		</None>
 	</ItemGroup>
 
-	<ItemGroup  Condition=" '$(TargetFramework)' == 'net40' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 

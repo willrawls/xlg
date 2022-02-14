@@ -107,6 +107,7 @@ namespace MetX.Standard.Scripts
         {
             return; // Currently unneeded
 
+            /*
             // Stage support files (MetX.*.dll & .pdb)
             var contents = FileSystem.DeepContents(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -124,6 +125,7 @@ namespace MetX.Standard.Scripts
             {
                 file.CopyTo(result.Settings.ProjectFolder);
             }
+        */
         }
 
         private void SetupAnswers(ActualizationResult result)

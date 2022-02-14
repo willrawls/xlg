@@ -28,7 +28,9 @@ namespace ICSharpCode.TextEditor
 	{
 		string    currentFileName = null;
 		int       updateLevel     = 0;
-		protected IDocument document; // Stef Heyenrath : Changed to protected
+#pragma warning disable CS3008 // Identifier is not CLS-compliant
+		protected IDocument _document; // Stef Heyenrath : Changed to protected
+#pragma warning restore CS3008 // Identifier is not CLS-compliant
 		
 		/// <summary>
 		/// This hashtable contains all editor keys, where
@@ -41,10 +43,10 @@ namespace ICSharpCode.TextEditor
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public ITextEditorProperties TextEditorProperties {
 			get {
-				return document.TextEditorProperties;
+				return _document.TextEditorProperties;
 			}
 			set {
-				document.TextEditorProperties = value;
+				_document.TextEditorProperties = value;
 				OptionsChanged();
 			}
 		}
@@ -91,17 +93,17 @@ namespace ICSharpCode.TextEditor
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public IDocument Document {
 			get {
-				return document;
+				return _document;
 			}
 			set {
 				if (value == null)
 					throw new ArgumentNullException("value");
-				if (document != null) {
-					document.DocumentChanged -= OnDocumentChanged;
+				if (_document != null) {
+					_document.DocumentChanged -= OnDocumentChanged;
 				}
-				document = value;
-				document.UndoStack.TextEditorControl = this;
-				document.DocumentChanged += OnDocumentChanged;
+				_document = value;
+				_document.UndoStack.TextEditorControl = this;
+				_document.DocumentChanged += OnDocumentChanged;
 			}
 		}
 		
@@ -178,10 +180,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true spaces are shown in the textarea")]
 		public bool ShowSpaces {
 			get {
-				return document.TextEditorProperties.ShowSpaces;
+				return _document.TextEditorProperties.ShowSpaces;
 			}
 			set {
-				document.TextEditorProperties.ShowSpaces = value;
+				_document.TextEditorProperties.ShowSpaces = value;
 				OptionsChanged();
 			}
 		}
@@ -194,10 +196,10 @@ namespace ICSharpCode.TextEditor
 		[Description("Specifies the quality of text rendering (whether to use hinting and/or anti-aliasing).")]
 		public TextRenderingHint TextRenderingHint {
 			get {
-				return document.TextEditorProperties.TextRenderingHint;
+				return _document.TextEditorProperties.TextRenderingHint;
 			}
 			set {
-				document.TextEditorProperties.TextRenderingHint = value;
+				_document.TextEditorProperties.TextRenderingHint = value;
 				OptionsChanged();
 			}
 		}
@@ -210,10 +212,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true tabs are shown in the textarea")]
 		public bool ShowTabs {
 			get {
-				return document.TextEditorProperties.ShowTabs;
+				return _document.TextEditorProperties.ShowTabs;
 			}
 			set {
-				document.TextEditorProperties.ShowTabs = value;
+				_document.TextEditorProperties.ShowTabs = value;
 				OptionsChanged();
 			}
 		}
@@ -226,10 +228,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true EOL markers are shown in the textarea")]
 		public bool ShowEOLMarkers {
 			get {
-				return document.TextEditorProperties.ShowEOLMarker;
+				return _document.TextEditorProperties.ShowEOLMarker;
 			}
 			set {
-				document.TextEditorProperties.ShowEOLMarker = value;
+				_document.TextEditorProperties.ShowEOLMarker = value;
 				OptionsChanged();
 			}
 		}
@@ -242,10 +244,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true the horizontal ruler is shown in the textarea")]
 		public bool ShowHRuler {
 			get {
-				return document.TextEditorProperties.ShowHorizontalRuler;
+				return _document.TextEditorProperties.ShowHorizontalRuler;
 			}
 			set {
-				document.TextEditorProperties.ShowHorizontalRuler = value;
+				_document.TextEditorProperties.ShowHorizontalRuler = value;
 				OptionsChanged();
 			}
 		}
@@ -258,10 +260,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true the vertical ruler is shown in the textarea")]
 		public bool ShowVRuler {
 			get {
-				return document.TextEditorProperties.ShowVerticalRuler;
+				return _document.TextEditorProperties.ShowVerticalRuler;
 			}
 			set {
-				document.TextEditorProperties.ShowVerticalRuler = value;
+				_document.TextEditorProperties.ShowVerticalRuler = value;
 				OptionsChanged();
 			}
 		}
@@ -274,10 +276,10 @@ namespace ICSharpCode.TextEditor
 		[Description("The row in which the vertical ruler is displayed")]
 		public int VRulerRow {
 			get {
-				return document.TextEditorProperties.VerticalRulerRow;
+				return _document.TextEditorProperties.VerticalRulerRow;
 			}
 			set {
-				document.TextEditorProperties.VerticalRulerRow = value;
+				_document.TextEditorProperties.VerticalRulerRow = value;
 				OptionsChanged();
 			}
 		}
@@ -290,10 +292,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true line numbers are shown in the textarea")]
 		public bool ShowLineNumbers {
 			get {
-				return document.TextEditorProperties.ShowLineNumbers;
+				return _document.TextEditorProperties.ShowLineNumbers;
 			}
 			set {
-				document.TextEditorProperties.ShowLineNumbers = value;
+				_document.TextEditorProperties.ShowLineNumbers = value;
 				OptionsChanged();
 			}
 		}
@@ -306,10 +308,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true invalid lines are marked in the textarea")]
 		public bool ShowInvalidLines {
 			get {
-				return document.TextEditorProperties.ShowInvalidLines;
+				return _document.TextEditorProperties.ShowInvalidLines;
 			}
 			set {
-				document.TextEditorProperties.ShowInvalidLines = value;
+				_document.TextEditorProperties.ShowInvalidLines = value;
 				OptionsChanged();
 			}
 		}
@@ -322,10 +324,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true folding is enabled in the textarea")]
 		public bool EnableFolding {
 			get {
-				return document.TextEditorProperties.EnableFolding;
+				return _document.TextEditorProperties.EnableFolding;
 			}
 			set {
-				document.TextEditorProperties.EnableFolding = value;
+				_document.TextEditorProperties.EnableFolding = value;
 				OptionsChanged();
 			}
 		}
@@ -335,10 +337,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true matching brackets are highlighted")]
 		public bool ShowMatchingBracket {
 			get {
-				return document.TextEditorProperties.ShowMatchingBracket;
+				return _document.TextEditorProperties.ShowMatchingBracket;
 			}
 			set {
-				document.TextEditorProperties.ShowMatchingBracket = value;
+				_document.TextEditorProperties.ShowMatchingBracket = value;
 				OptionsChanged();
 			}
 		}
@@ -348,10 +350,10 @@ namespace ICSharpCode.TextEditor
 		[Description("If true the icon bar is displayed")]
 		public bool IsIconBarVisible {
 			get {
-				return document.TextEditorProperties.IsIconBarVisible;
+				return _document.TextEditorProperties.IsIconBarVisible;
 			}
 			set {
-				document.TextEditorProperties.IsIconBarVisible = value;
+				_document.TextEditorProperties.IsIconBarVisible = value;
 				OptionsChanged();
 			}
 		}
@@ -364,10 +366,10 @@ namespace ICSharpCode.TextEditor
 		[Description("The width in spaces of a tab character")]
 		public int TabIndent {
 			get {
-				return document.TextEditorProperties.TabIndent;
+				return _document.TextEditorProperties.TabIndent;
 			}
 			set {
-				document.TextEditorProperties.TabIndent = value;
+				_document.TextEditorProperties.TabIndent = value;
 				OptionsChanged();
 			}
 		}
@@ -380,10 +382,10 @@ namespace ICSharpCode.TextEditor
 		[Description("The line viewer style")]
 		public LineViewerStyle LineViewerStyle {
 			get {
-				return document.TextEditorProperties.LineViewerStyle;
+				return _document.TextEditorProperties.LineViewerStyle;
 			}
 			set {
-				document.TextEditorProperties.LineViewerStyle = value;
+				_document.TextEditorProperties.LineViewerStyle = value;
 				OptionsChanged();
 			}
 		}
@@ -396,10 +398,10 @@ namespace ICSharpCode.TextEditor
 		[Description("The indent style")]
 		public IndentStyle IndentStyle {
 			get {
-				return document.TextEditorProperties.IndentStyle;
+				return _document.TextEditorProperties.IndentStyle;
 			}
 			set {
-				document.TextEditorProperties.IndentStyle = value;
+				_document.TextEditorProperties.IndentStyle = value;
 				OptionsChanged();
 			}
 		}
@@ -412,10 +414,10 @@ namespace ICSharpCode.TextEditor
 		[Description("Converts tabs to spaces while typing")]
 		public bool ConvertTabsToSpaces {
 			get {
-				return document.TextEditorProperties.ConvertTabsToSpaces;
+				return _document.TextEditorProperties.ConvertTabsToSpaces;
 			}
 			set {
-				document.TextEditorProperties.ConvertTabsToSpaces = value;
+				_document.TextEditorProperties.ConvertTabsToSpaces = value;
 				OptionsChanged();
 			}
 		}
@@ -428,10 +430,10 @@ namespace ICSharpCode.TextEditor
 		[Description("Hide the mouse cursor while typing")]
 		public bool HideMouseCursor {
 			get {
-				return document.TextEditorProperties.HideMouseCursor;
+				return _document.TextEditorProperties.HideMouseCursor;
 			}
 			set {
-				document.TextEditorProperties.HideMouseCursor = value;
+				_document.TextEditorProperties.HideMouseCursor = value;
 				OptionsChanged();
 			}
 		}
@@ -444,10 +446,10 @@ namespace ICSharpCode.TextEditor
 		[Description("Allows the caret to be placed beyond the end of line")]
 		public bool AllowCaretBeyondEOL {
 			get {
-				return document.TextEditorProperties.AllowCaretBeyondEOL;
+				return _document.TextEditorProperties.AllowCaretBeyondEOL;
 			}
 			set {
-				document.TextEditorProperties.AllowCaretBeyondEOL = value;
+				_document.TextEditorProperties.AllowCaretBeyondEOL = value;
 				OptionsChanged();
 			}
 		}
@@ -459,10 +461,10 @@ namespace ICSharpCode.TextEditor
 		[Description("Specifies if the bracket matching should match the bracket before or after the caret.")]
 		public BracketMatchingStyle BracketMatchingStyle {
 			get {
-				return document.TextEditorProperties.BracketMatchingStyle;
+				return _document.TextEditorProperties.BracketMatchingStyle;
 			}
 			set {
-				document.TextEditorProperties.BracketMatchingStyle = value;
+				_document.TextEditorProperties.BracketMatchingStyle = value;
 				OptionsChanged();
 			}
 		}
@@ -478,10 +480,10 @@ namespace ICSharpCode.TextEditor
 		[Description("The base font of the text area. No bold or italic fonts can be used because bold/italic is reserved for highlighting purposes.")]
 		public override Font Font {
 			get {
-				return document.TextEditorProperties.Font;
+				return _document.TextEditorProperties.Font;
 			}
 			set {
-				document.TextEditorProperties.Font = value;
+				_document.TextEditorProperties.Font = value;
 				OptionsChanged();
 			}
 		}
@@ -637,12 +639,12 @@ namespace ICSharpCode.TextEditor
 				throw new ArgumentNullException("stream");
 			
 			BeginUpdate();
-			document.TextContent = String.Empty;
-			document.UndoStack.ClearAll();
-			document.BookmarkManager.Clear();
+			_document.TextContent = String.Empty;
+			_document.UndoStack.ClearAll();
+			_document.BookmarkManager.Clear();
 			if (autoLoadHighlighting) {
 				try {
-					document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategyForFile(fileName);
+					_document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategyForFile(fileName);
 				} catch (HighlightingDefinitionInvalidException ex) {
 					MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
@@ -674,7 +676,7 @@ namespace ICSharpCode.TextEditor
 			if (encoding == null || Util.FileReader.IsUnicode(encoding))
 				return true;
 			// not a unicode codepage
-			string text = document.TextContent;
+			string text = _document.TextContent;
 			return encoding.GetString(encoding.GetBytes(text)) == text;
 		}
 		
@@ -706,7 +708,7 @@ namespace ICSharpCode.TextEditor
 					if (charAfterLine != '\n' && charAfterLine != '\r')
 						throw new InvalidOperationException("The document cannot be saved because it is corrupted.");
 					// only save line terminator if the line has one
-					streamWriter.Write(document.TextEditorProperties.LineTerminator);
+					streamWriter.Write(_document.TextEditorProperties.LineTerminator);
 				}
 			}
 			streamWriter.Flush();
@@ -741,8 +743,8 @@ namespace ICSharpCode.TextEditor
 		{
 			if (disposing) {
 				HighlightingManager.Manager.ReloadSyntaxHighlighting -= new EventHandler(OnReloadHighlighting);
-				document.HighlightingStrategy = null;
-				document.UndoStack.TextEditorControl = null;
+				_document.HighlightingStrategy = null;
+				_document.UndoStack.TextEditorControl = null;
 			}
 			base.Dispose(disposing);
 		}
