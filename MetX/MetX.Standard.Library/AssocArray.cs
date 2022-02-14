@@ -9,26 +9,34 @@ using MetX.Standard.Library.Extensions;
 namespace MetX.Standard.Library
 {
     [Serializable]
-    [XmlRoot(ElementName = "AssocArray")]
-    public class AssocArray : List<AssocItem>
+    [XmlRoot("AssocArray")]
+    public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocItem, string, string>
     {
-        [XmlAttribute]
+        [XmlElement]
         public string Key { get; set; }
 
         [XmlIgnore] public object SyncRoot { get; } = new();
         [XmlIgnore] public AssocArrayList Parent { get; set; }
 
-        public AssocArray()
+        public AssocArray() : base(DefaultKeyComparer)
         {
         }
 
-        public AssocArray(string key, AssocArrayList parent = null)
+        public static bool DefaultKeyComparer(string keyOrName, AssocItem item)
+        {
+            if (keyOrName.IsEmpty() || item == null) return false;
+
+            return item.Key.Equals(keyOrName) || item.Name.Equals(keyOrName);
+                
+        }
+
+        public AssocArray(string key, AssocArrayList parent = null) : base(DefaultKeyComparer)
         {
             Key = key;
             Parent = parent;
         }
 
-        public AssocArray(AssocArrayList parent)
+        public AssocArray(AssocArrayList parent) : base(DefaultKeyComparer)
         {
             Parent = parent;
         }
@@ -39,9 +47,9 @@ namespace MetX.Standard.Library
         {
             get
             {
-                if (Count == 0)
+                if (Items.Count == 0)
                     return Array.Empty<string>();
-                var answer = this.Select(i => i.Value).ToArray();
+                var answer = Items.Select(i => i.Value).ToArray();
                 return answer;
             }
         }
@@ -51,9 +59,9 @@ namespace MetX.Standard.Library
         {
             get
             {
-                if (Count == 0)
+                if (Items.Count == 0)
                     return Array.Empty<int>();
-                var answer = this.Select(i => i.Number).ToArray();
+                var answer = Items.Select(i => i.Number).ToArray();
                 return answer;
             }
         }
@@ -63,9 +71,9 @@ namespace MetX.Standard.Library
         {
             get
             {
-                if (Count == 0)
+                if (Items.Count == 0)
                     return Array.Empty<string>();
-                var answer = this.Select(i => i.Name).ToArray();
+                var answer = Items.Select(i => i.Name).ToArray();
                 return answer;
             }
         }
@@ -75,9 +83,9 @@ namespace MetX.Standard.Library
         {
             get
             {
-                if (Count == 0)
+                if (Items.Count == 0)
                     return Array.Empty<string>();
-                var answer = this.Select(i => i.Key).ToArray();
+                var answer = Items.Select(i => i.Key).ToArray();
                 return answer;
             }
         }
@@ -87,16 +95,16 @@ namespace MetX.Standard.Library
         {
             get
             {
-                if (Count == 0)
+                if (Items.Count == 0)
                     return Array.Empty<Guid>();
-                var answer = this.Select(i => i.ID).ToArray();
+                var answer = Items.Select(i => i.ID).ToArray();
                 return answer;
             }
         }
 
-        public AssocItem FirstKeyContaining(string toFind)
+        public IAssocItem FirstKeyContaining(string toFind)
         {
-            return this.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
+            return Items.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
         }
 
         [XmlIgnore]
@@ -106,11 +114,11 @@ namespace MetX.Standard.Library
             {
                 lock (SyncRoot)
                 {
-                    var assocItem = this.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                     if (assocItem != null) return assocItem;
 
                     assocItem = new AssocItem(key);
-                    Add(assocItem);
+                    Items.Add(assocItem);
                     return assocItem;
                 }
             }
@@ -118,59 +126,36 @@ namespace MetX.Standard.Library
             {
                 lock (SyncRoot)
                 {
-                    for (var index = 0; index < this.Count; index++)
+                    for (var index = 0; index < Items.Count; index++)
                     {
-                        var item = this[index];
+                        var item = Items[index];
                         if (string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) != 0) continue;
-                        this[index] = value;
+                        Items[index] = value;
                         break;
                     }
-                    Add(value);
+                    Items.Add(value);
                 }
             }
-        }
-
-        /*
-        public string ToXml()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"<AssocArray>");
-            foreach (var item in this) 
-                sb.AppendLine(item.ToXml());
-            sb.AppendLine("</AssocArray>");
-            return sb.ToString();
-        }
-        */
-
-        public string ToXml()
-        {
-            return Xml.ToXml(this);
-        }
-
-        public void SaveXmlToFile(string path, bool easyToRead)
-        {
-            if (easyToRead)
-                File.WriteAllText(path, Xml.ToXml(this));
-            else
-                Xml.SaveFile(path, this);
         }
 
         public bool ContainsKey(string key)
         {
             lock (SyncRoot)
             {
-                return this.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
+                return Items.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
             }
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            foreach (var item in this)
+            foreach (var item in Items)
             {
                 sb.AppendLine($"{item.Key}={item.Value}");
             }
             return sb.ToString();
         }
+
+
     }
 }

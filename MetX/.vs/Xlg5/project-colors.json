@@ -55,7 +55,17 @@
       "ProjectGuid": "7effd36b-54f2-4148-a74f-b46d54a9502d",
       "DisplayName": "ICSharpCode.TextEditorEx",
       "ColorIndex": 9
+    },
+    "f8e40324-ba8f-4f4e-95d8-232b8569bdae": {
+      "ProjectGuid": "f8e40324-ba8f-4f4e-95d8-232b8569bdae",
+      "DisplayName": "MetX.Standard.Generators.Actual",
+      "ColorIndex": 10
+    },
+    "63bc1d54-2674-43e2-8fcd-bfc692da2bbd": {
+      "ProjectGuid": "63bc1d54-2674-43e2-8fcd-bfc692da2bbd",
+      "DisplayName": "MetX.Standard.Generators",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 10
+  "NextColorIndex": 12
 }

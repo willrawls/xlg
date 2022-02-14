@@ -252,10 +252,10 @@ namespace MetX.Standard.Library
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
 		/// <param name="xmlDoc">An xml string containing the serialized object</param>
 		/// <returns>The deserialized object</returns>
-		public static T FromXml<T>(string xmlDoc)
+		public static T FromXml<T>(string xmlDoc, Type[] extraTypes = null)
         {
             using var sr = new StringReader(xmlDoc);
-            return (T)Serializer(typeof(T)).Deserialize(sr);
+            return (T)Serializer(typeof(T), extraTypes).Deserialize(sr);
         }
 		/// <summary>
 		/// Turns the xml contents of a file into an object
@@ -263,12 +263,12 @@ namespace MetX.Standard.Library
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
 		/// <param name="filePath">The file to read the xml from</param>
 		/// <returns>The deserialized object</returns>
-		public static T LoadFile<T>(string filePath)
+		public static T LoadFile<T>(string filePath, Type[] extraTypes = null)
 		{
             if (!File.Exists(filePath)) return default(T);
 
             using var xtr = new XmlTextReader(filePath);
-            return (T)Serializer(typeof(T)).Deserialize(xtr);
+            return (T)Serializer(typeof(T), extraTypes).Deserialize(xtr);
         }
 
 		/// <summary>
@@ -277,7 +277,7 @@ namespace MetX.Standard.Library
 		/// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
 		/// <param name="filePath">The file to write the xml to</param>
 		/// <param name="toSerialize">The object to serialize</param>
-		public static void SaveFile<T>(string filePath, T toSerialize)
+		public static void SaveFile<T>(string filePath, T toSerialize, Type[] extraTypes = null)
 		{
 			if (File.Exists(filePath))
 			{
@@ -286,7 +286,7 @@ namespace MetX.Standard.Library
 			}
 
             using var xtw = new XmlTextWriter(filePath, Encoding.UTF8);
-            Serializer(typeof(T)).Serialize(xtw, toSerialize);
+            Serializer(typeof(T), extraTypes).Serialize(xtw, toSerialize);
 		}
 
         /// <summary>
@@ -296,25 +296,32 @@ namespace MetX.Standard.Library
         /// <param name="toSerialize">The object to serialize</param>
         /// <param name="removeNamespaces"></param>
         /// <returns></returns>
-        public static string ToXml<T>(T toSerialize, bool removeNamespaces = true)
+        public static string ToXml<T>(T toSerialize, bool removeNamespaces = true, Type[] extraTypes = null)
 		{
 			var sb = new StringBuilder();
 			using (var xw = Writer(sb))
-				Serializer(typeof(T)).Serialize(xw, toSerialize);
-            if (removeNamespaces)
-            { 
-                sb.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
-                sb.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
+				Serializer(typeof(T), extraTypes).Serialize(xw, toSerialize);
+            
+            if (!removeNamespaces) return sb.ToString();
+            sb.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
+            sb.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
+            
+            if (!extraTypes.IsNotEmpty()) return sb.ToString();
+            foreach (var extraType in extraTypes!)
+            {
+                sb.Replace($" xsi:type=\"{extraType.Name}\"", string.Empty);
+                sb.Replace($" xsi:type=\"{extraType.Name.FirstToken("`")}\"", string.Empty);
             }
-			return sb.ToString();
+            return sb.ToString();
 		}
 
-		/// <summary>
-		/// Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are stored internally in a sorted list for quick retrieval.
-		/// </summary>
-		/// <param name="type">The type to return a XmlSerializer for</param>
-		/// <returns>The XmlSerializer for the type</returns>
-		public static XmlSerializer Serializer(Type type)
+        /// <summary>
+        /// Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are stored internally in a sorted list for quick retrieval.
+        /// </summary>
+        /// <param name="type">The type to return a XmlSerializer for</param>
+        /// <param name="extraTypes"></param>
+        /// <returns>The XmlSerializer for the type</returns>
+        public static XmlSerializer Serializer(Type type, Type[] extraTypes)
 		{
 			_mSerializers ??= new SortedList<int, XmlSerializer>(10);
             if (type.FullName == null) return null;
@@ -323,6 +330,11 @@ namespace MetX.Standard.Library
             var hash = type.FullName.GetHashCode();
             if (_mSerializers.ContainsKey(hash))
                 xmlSerializer = _mSerializers[hash];
+            else if(extraTypes.IsNotEmpty())
+            {
+                xmlSerializer = new XmlSerializer(type, extraTypes);
+                _mSerializers.Add(hash, xmlSerializer);
+            }
             else
             {
                 xmlSerializer = new XmlSerializer(type);

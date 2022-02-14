@@ -101,7 +101,7 @@ namespace MetX.Windows
             Paths[TemplatesFolderName].Value = Path.Combine(scripts, TemplatesFolderName);
             Paths[SupportFolderName].Value = Path.Combine(pipes, SupportFolderName);
             
-            foreach (var item in Paths)
+            foreach (var item in Paths.Items)
                 if(!Directory.Exists(item.Value))
                     Directory.CreateDirectory(item.Value);
 
