@@ -1,18 +1,23 @@
 ﻿using System;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Generics;
+using MetX.Tests.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard.Library
+namespace MetX.Tests.Standard.XDString
 {
     [TestClass]
-    public class AssocItemTests
+    public class AssocItemOfTTests
     {
         [TestMethod]
-        public void AssocItem_Simple()
+        public void AssocItemOfT_Simple()
         {
             var testGuid = Guid.NewGuid();
-            IAssocItem otherItem = new AssocItem("Other");
-            var data = new AssocItem("Fred", "George", testGuid, "Mary", otherItem);
+            Fred fred = new Fred();
+            Fred fredItem = new Fred();
+            IAssocItem otherItem = new AssocItem<Fred>("Other", fred);
+
+            var data = new AssocItem<Fred>("Fred", fredItem, "George", testGuid, "Mary", otherItem);
             
             Assert.AreEqual("Fred", data.Key);
             Assert.AreEqual("George", data.Value);

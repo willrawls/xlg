@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard.Library
+namespace MetX.Tests.Standard.XDString
 {
     [TestClass]
     public class AssocArrayListTests

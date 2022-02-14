@@ -1,15 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MetX.Standard.Library;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MetX.Standard.Library;
 using MetX.Standard.Library.Generics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Standard.Library.Tests
+namespace MetX.Tests
 {
     [TestClass()]
     public class ListSerializesToXmlTests

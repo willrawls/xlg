@@ -1,8 +1,8 @@
-﻿using MetX.Standard.Library;
-using MetX.Standard.Library.Generics;
+﻿using MetX.Standard.Library.Generics;
+using MetX.Tests.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Tests.Standard.Library
+namespace MetX.Tests.Standard.XDString
 {
     [TestClass]
     public class AssocArrayOfTTests

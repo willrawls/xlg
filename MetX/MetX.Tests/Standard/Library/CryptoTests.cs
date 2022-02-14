@@ -1,8 +1,7 @@
 ﻿using MetX.Standard.Library;
-using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace a
+namespace MetX.Tests.Standard.Library
 {
     [TestClass]
     public class CryptoTestsTests
