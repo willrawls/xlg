@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using MetX.Standard.Generation.CSharp.Project;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

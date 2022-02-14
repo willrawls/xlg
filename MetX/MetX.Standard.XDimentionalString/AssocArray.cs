@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.XDimentionalString;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.XDimensionalString
 {
     [Serializable]
     [XmlRoot("AssocArray")]

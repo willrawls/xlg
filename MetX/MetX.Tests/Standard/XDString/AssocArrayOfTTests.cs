@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Library.Generics;
+﻿using MetX.Standard.XDimensionalString.Generics;
 using MetX.Tests.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

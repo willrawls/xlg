@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Standard.XDimentionalString
+namespace MetX.Standard.XDimensionalString
 {
     public interface IAssocItem
     {

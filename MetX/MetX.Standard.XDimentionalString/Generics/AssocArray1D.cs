@@ -2,18 +2,18 @@
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.XDimentionalString;
 
-namespace MetX.Standard.Library.Generics;
+namespace MetX.Standard.XDimensionalString.Generics;
 
 /// <summary>
-/// AssocArray2 is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly
+/// AssocArray1D is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly
 /// </summary>
 /// <typeparam name="T"></typeparam>
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem, string, T>
+public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocItem<T>, string, T> where T : class, new()
 {
     [XmlElement]
     public string Key { get; set; }
@@ -21,7 +21,7 @@ public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem,
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public AssocArrayList Parent { get; set; }
 
-    public AssocArray2() : base(DefaultKeyComparer)
+    public AssocArray1D() : base(DefaultKeyComparer)
     {
     }
 
@@ -33,13 +33,13 @@ public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem,
                 
     }
 
-    public AssocArray2(string key, AssocArrayList parent = null) : base(DefaultKeyComparer)
+    public AssocArray1D(string key, AssocArrayList parent = null) : base(DefaultKeyComparer)
     {
         Key = key;
         Parent = parent;
     }
 
-    public AssocArray2(AssocArrayList parent) : base(DefaultKeyComparer)
+    public AssocArray1D(AssocArrayList parent) : base(DefaultKeyComparer)
     {
         Parent = parent;
     }
@@ -111,7 +111,7 @@ public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem,
     }
 
     [XmlIgnore]
-    public AssocItem this[string key]
+    public AssocItem<T> this[string key]
     {
         get
         {
@@ -120,7 +120,7 @@ public class AssocArray2<T> : ListLikeSerializesToXml<AssocArray2<T>, AssocItem,
                 var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new AssocItem(key);
+                assocItem = new AssocItem<T>(key);
                 Items.Add(assocItem);
                 return assocItem;
             }

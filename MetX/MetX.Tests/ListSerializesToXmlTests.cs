@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
-using MetX.Standard.Library.Generics;
+using MetX.Standard.XDimensionalString;
+using MetX.Standard.XDimensionalString.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests
@@ -20,7 +21,7 @@ namespace MetX.Tests
 
         }
 
-        public class George : AssocArray2<George>
+        public class George : AssocArray1D<George>
         {
             [XmlAttribute]
             public string Name {get; set; }
@@ -47,7 +48,7 @@ namespace MetX.Tests
         public void GeorgeFromXmlTest()
         {
             var george = new George();
-            george.Items.Add(new AssocItem
+            george.Items.Add(new AssocItem<George>
             {
                 Name = "Mary",
                 Value = "Something",
@@ -78,7 +79,7 @@ namespace MetX.Tests
         {
             var george = new George();
             var guid = Guid.NewGuid();
-            george.Items.Add(new AssocItem
+            george.Items.Add(new AssocItem<George>
             {
                 Name = "Mary",
                 Value = "Something",

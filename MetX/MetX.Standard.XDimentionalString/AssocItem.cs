@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.XDimentionalString;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.XDimensionalString
 {
     [Serializable]
     public class AssocItem : IAssocItem

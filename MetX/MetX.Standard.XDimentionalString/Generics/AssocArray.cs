@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDimentionalString;
 
-namespace MetX.Standard.Library.Generics
+namespace MetX.Standard.XDimensionalString.Generics
 {
     [Serializable]
     public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()

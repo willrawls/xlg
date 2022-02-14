@@ -2,18 +2,13 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using ICSharpCode.TextEditor.Actions;
 using MetX.Standard.IO;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MetX.Controls;
 using MetX.Standard;
 using MetX.Standard.Generation;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Pipelines;
 
 namespace MetX.Tests.Scripts
 {

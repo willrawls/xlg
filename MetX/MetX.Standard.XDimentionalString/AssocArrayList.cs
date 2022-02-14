@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Generics;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.XDimensionalString
 {
     [Serializable]
     public class AssocArrayList : List<AssocArray>
