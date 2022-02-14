@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace MetX.Standard.Library;
+namespace MetX.Standard.Library.Strings;
 
 public static class ConvertToJson
 {

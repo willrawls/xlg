@@ -2,6 +2,7 @@
 
 using MetX.Standard.Generation;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Windows.Library;
 
 namespace MetX.Controls
@@ -14,7 +15,6 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
     using Properties;
-    using MetX.Standard.Library;
     using MetX.Standard.Scripts;
 
     public partial class QuickScriptControl : TextEditorControl

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {

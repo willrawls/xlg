@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using MetX.Standard.Library.Extensions;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Encryption
 {
     public static class SuperRandom
     {

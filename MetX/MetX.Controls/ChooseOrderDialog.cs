@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Windows.Forms;
-using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
 using MetX.Windows.Library;
 
 namespace MetX.Controls

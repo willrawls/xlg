@@ -9,6 +9,8 @@ using MetX.Controls;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
+using MetX.Standard.Library.ML;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using MetX.Windows.Library;
 using XLG.Pipeliner.Properties;

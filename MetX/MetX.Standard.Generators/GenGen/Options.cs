@@ -4,6 +4,7 @@ using CommandLine;
 using MetX.Standard.Generation;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.Generators.GenGen
 {

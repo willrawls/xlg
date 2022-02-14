@@ -6,8 +6,6 @@ namespace MetX.Controls
     using System.Collections.Generic;
     using System.Windows.Forms;
 
-    using MetX.Standard.Library;
-
     public partial class OrderedSelector : UserControl
     {
         public OrderedSelector()

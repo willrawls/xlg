@@ -6,7 +6,7 @@ using MetX.Standard.Library.Extensions;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Strings
 {
     /// <summary>
     ///     String extension methods for finding and returning a substring based on delimiter placement and position.

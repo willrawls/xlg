@@ -1,6 +1,7 @@
 using System.Text;
+using MetX.Standard.Library.ML;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Strings
 {
     /// <summary>
     /// Basic implementation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)

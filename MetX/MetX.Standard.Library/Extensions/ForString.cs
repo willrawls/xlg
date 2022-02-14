@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.Library.Extensions
 {
@@ -9,7 +10,7 @@ namespace MetX.Standard.Library.Extensions
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>
     /// <para>Asking for a token beyond the end of a string returns a blank string. Asking for the zeroth or a negative token returns a blank string.</para>
     /// </summary>
-    public static class ForStrings
+    public static class ForString
     {
         public static string ImplicitReplace(this string str, string toFind, string replaceWith, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
         {
@@ -322,6 +323,50 @@ namespace MetX.Standard.Library.Extensions
                 if (s.IsEmpty()) continue;
                 target[i] = func(s);
             }
+        }
+
+        /// <summary>Returns the string representation of a value, even if it's DbNull, a Guid, or null</summary>
+        /// <param name="value">The value to convert</param>
+        /// <param name="defaultValue">The value to return if Value == null or DbNull or an empty string.</param>
+        /// <returns>The string representation</returns>
+        public static string AsString(this object value, string defaultValue = "")
+        {
+            if (value == null || value == DBNull.Value || value.Equals(string.Empty))
+                return defaultValue;
+            return value is Guid ? Convert.ToString(value) : value.ToString()?.Trim();
+        }
+
+        public static string AsString(this Guid value)
+        {
+            if (value == Guid.Empty)
+                return "";
+            return value.ToString("N");
+        }
+
+        public static string AsString(this IList<string> target, string delimiter = " ", string defaultValue = "")
+        {
+            if (target.IsEmpty())
+                return defaultValue;
+            return string.Join(delimiter, target);
+        }
+
+        /// <summary>Returns a SQL appropriate phrase for an object value.
+        /// If the object is null or DbNull, the string "NULL" will be returned.
+        /// Otherwise a single quote delimited string of the value will be created.
+        /// So if Value='fred', then this function will return "'fred'"</summary>
+        /// <param name="value">The value to convert</param>
+        /// <returns>The SQL appropriate phrase</returns>
+        /// 
+        /// <example><c>string x = "insert into x values(" + s2db(y) + ")";</c></example>
+        public static string S2Db(object value)
+        {
+            if (value == null || value == DBNull.Value 
+                              || value is DateTime dateTime && dateTime < DateTime.MinValue.AddYears(10) 
+                              || value is string stringValue && stringValue == "(NULL)")
+            {
+                return "NULL";
+            }   
+            return "'" + AsString(value).Replace("'", "''") + "'";
         }
     }
 }

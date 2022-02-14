@@ -6,6 +6,7 @@
         Net50Windows,
         Net50,
         Core31,
-        Standard20
+        Standard20,
+        Standard21,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MetX.Standard.Library;
+using MetX.Standard.Library.Encryption;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Library

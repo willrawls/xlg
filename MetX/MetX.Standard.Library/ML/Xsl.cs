@@ -6,9 +6,10 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
 // ReSharper disable UnusedType.Global
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.ML
 {
 	/// <summary>Helper functions for dealing with xsl transformation</summary>
 	public class Xsl

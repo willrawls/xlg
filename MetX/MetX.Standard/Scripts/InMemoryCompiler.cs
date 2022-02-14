@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit; //using System.DirectoryServices;

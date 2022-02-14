@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
 // // using MetX.Web;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.ML
 {
     /// <summary>Helper functions for dealing with xml strings</summary>
 	public static class Xml

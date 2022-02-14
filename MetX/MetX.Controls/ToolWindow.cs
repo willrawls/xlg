@@ -1,10 +1,7 @@
-﻿using MetX.Standard.Library;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Windows.Forms;
 using MetX.Standard;
 using MetX.Standard.Interfaces;
-using MetX.Standard.Pipelines;
 
 namespace MetX.Controls
 {
@@ -71,6 +68,7 @@ namespace MetX.Controls
                     component.BackColor = scheme.TextBoxBG;
                     component.ForeColor = scheme.TextBoxFG;
                 }
+                /*
                 else if (component is ToolStripButton)
                 {
                     component.BackColor = scheme.TextBoxBG;
@@ -86,6 +84,7 @@ namespace MetX.Controls
                     component.BackColor = scheme.TextBoxBG;
                     component.ForeColor = scheme.TextBoxFG;
                 }
+                */
                 else if (component is ToolStrip or MenuStrip)
                 {
                     ChangeTheme(scheme, component.Controls);

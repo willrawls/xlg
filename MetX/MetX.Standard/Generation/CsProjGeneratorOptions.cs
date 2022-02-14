@@ -94,6 +94,8 @@ namespace MetX.Standard.Generation
                     return "netcoreapp3.1";
                 case GenFramework.Standard20:
                     return "netstandard2.0";
+                case GenFramework.Standard21:
+                    return "netstandard2.1";
                 case GenFramework.Unknown:
                 default:
                     throw new ArgumentOutOfRangeException();

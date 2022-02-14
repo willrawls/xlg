@@ -13,6 +13,9 @@ using MetX.Standard.Data;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.ML;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Metadata;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
@@ -1249,7 +1252,7 @@ namespace MetX.Standard.Pipelines
                 Regex regex = null;
                 if (name != null && !_mPatterns.ContainsKey(name.Value))
                 {
-                    var pattern = Worker.ConvertWildcardToRegex(name.Value);
+                    var pattern = ConvertWildcardToRegex(name.Value);
                     regex = new Regex(pattern, RegexOptions.Compiled);
                     _mPatterns.Add(name.Value, regex);
                 }
@@ -1264,6 +1267,20 @@ namespace MetX.Standard.Pipelines
             }
             return false;
         }
+
+        public static string ConvertWildcardToRegex(string pattern)
+        {
+            var builder = new StringBuilder("^");
+            pattern = pattern
+                .Replace(".", @"\.")
+                .Replace("*", ".*")
+                .Replace("?", ".");
+            builder.Append(pattern);
+            builder.Append("$");
+            return builder.ToString();
+        }
+
+
 
         private bool IsInList(string tableName)
         {

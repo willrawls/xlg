@@ -6,11 +6,12 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Encryption
 {
     public static class Crypt
     {

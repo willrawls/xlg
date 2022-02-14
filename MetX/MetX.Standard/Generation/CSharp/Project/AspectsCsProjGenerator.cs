@@ -5,7 +5,6 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class AspectsCsProjGenerator : CsProjGenerator
     {
-        private CsProjGenerator _csProjGeneratorImplementation;
         public static string InitialDefaultTargetTemplate = "Namespace.AspectsName";
 
         public AspectsCsProjGenerator() 

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Strings
 {
     public class StringWriterWithEncoding : System.IO.StringWriter
     {

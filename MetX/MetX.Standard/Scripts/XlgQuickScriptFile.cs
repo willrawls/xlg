@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.Scripts
 {

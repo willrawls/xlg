@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using MetX.Standard.Interfaces;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 

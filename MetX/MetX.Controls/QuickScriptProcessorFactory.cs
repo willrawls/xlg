@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
-using MetX.Standard;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Library;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Pipelines;
+﻿using MetX.Standard.Interfaces;
 using MetX.Standard.Scripts;
-using MetX.Windows.Library;
-using Microsoft.CSharp;
 
 namespace MetX.Controls
 {

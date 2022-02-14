@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -12,6 +12,8 @@
     <RepositoryType>git</RepositoryType>
     <Description>XLG .net standard 2 multi dimensional associative arrays</Description>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>I:\OneDrive\Data\code\GitHub\xlg\MetX\XLG.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

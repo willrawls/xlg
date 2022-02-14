@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace MetX.Standard.Library;
+namespace MetX.Standard.Library.Strings;
 
 public class ConvertFromJson
 {

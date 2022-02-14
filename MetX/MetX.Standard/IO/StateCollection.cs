@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.ML;
+using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.IO
 {
@@ -77,7 +80,7 @@ namespace MetX.Standard.IO
                 if (_mState != null) return _mState;
                 
                 _mState = new SortedStringList(5);
-                var rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) + " AND StateName=" + Worker.S2Db(StateName.ToLower()), ConnectionName);
+                var rstState = Sql.ToDataRows("SELECT Name, Value FROM ItemState WHERE StateParent=" + ForString.S2Db(StateParent.ToLower()) + " AND StateName=" + ForString.S2Db(StateName.ToLower()), ConnectionName);
                 if (rstState == null || rstState.Count <= 0) return _mState;
                     
                 foreach (DataRow currRow in rstState)
@@ -96,8 +99,8 @@ namespace MetX.Standard.IO
             {
                 var sqLs = new List<string>(1 + _mState.Count)
                 {
-                    "DELETE FROM ItemState WHERE StateParent=" + Worker.S2Db(StateParent.ToLower()) +
-                    " AND StateName=" + Worker.S2Db(StateName.ToLower())
+                    "DELETE FROM ItemState WHERE StateParent=" + ForString.S2Db(StateParent.ToLower()) +
+                    " AND StateName=" + ForString.S2Db(StateName.ToLower())
                 };
 
                 if (_mState.Count > 0)
@@ -105,10 +108,10 @@ namespace MetX.Standard.IO
                     foreach (var de in _mState)
                     {
                         sqLs.Add("INSERT INTO ItemState VALUES ('" + Guid.NewGuid() + "'," 
-                                 + Worker.S2Db(StateParent) + "," 
-                                 + Worker.S2Db(StateName) + "," 
-                                 + Worker.S2Db(de.Key) + "," 
-                                 + Worker.S2Db(de.Value) + ", getdate())");
+                                 + ForString.S2Db(StateParent) + "," 
+                                 + ForString.S2Db(StateName) + "," 
+                                 + ForString.S2Db(de.Key) + "," 
+                                 + ForString.S2Db(de.Value) + ", getdate())");
                     }
 
                 Sql.Execute(sqLs, ConnectionName);

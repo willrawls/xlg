@@ -7,6 +7,7 @@ using MetX.Controls;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
 using MetX.Windows;
@@ -72,7 +73,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void OnPickAndRunQuickScript(object? sender, PhraseEventArguments e)
+    private void OnPickAndRunQuickScript(object sender, PhraseEventArguments e)
     {
         try
         {
@@ -443,7 +444,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         try
         {
             QuickScriptList.Items.Clear();
-            var defaultIndex = 0;
             foreach (var script in Host.Context.Scripts)
             {
                 var listViewItem = ScriptToListViewItem(script, false);

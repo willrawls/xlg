@@ -9,6 +9,7 @@ using System.Text;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.XDString;
 
 namespace MetX.Standard.Scripts

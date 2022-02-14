@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
-namespace MetX.Standard.Library;
+namespace MetX.Standard.Library.ML;
 
 public abstract class ListLikeSerializesToXml<TParent, TChild, TKey, TActual> : 
     IListLikeSerializeToXml<TParent, TChild>

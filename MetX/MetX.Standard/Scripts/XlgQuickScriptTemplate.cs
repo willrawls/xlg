@@ -7,6 +7,7 @@ using System.Xml.XPath;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using MetX.Standard.XDString.Generics;
 

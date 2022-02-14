@@ -4,19 +4,16 @@ namespace MetX.Standard.Generation
 {
     public static class ForGenFramework
     {
-        public static string ToTargetFramework(this GenFramework target)
-        {
-            switch(target)
+        public static string ToTargetFramework(this GenFramework target) =>
+            target switch
             {
-                case GenFramework.Net50Windows: return "net5.0-windows";
-                case GenFramework.Net50: return "net5.0";
-                case GenFramework.Core31: return "core3.1";
-                case GenFramework.Standard20: return "netstandard2.0";
-                case GenFramework.Unknown:
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(target), target, null);
-            }
-            return null;
-        }
+                GenFramework.Net50Windows => "net5.0-windows",
+                GenFramework.Net50 => "net5.0",
+                GenFramework.Core31 => "core3.1",
+                GenFramework.Standard20 => "netstandard2.0",
+                GenFramework.Standard21 => "netstandard2.1",
+                GenFramework.Unknown => throw new ArgumentOutOfRangeException(nameof(target), target, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+            };
     }
 }

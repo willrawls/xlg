@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using MetX.Standard.Library;
+using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Metadata;
 
 //using Microsoft.VisualBasic;

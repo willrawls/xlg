@@ -2,7 +2,7 @@ using System.IO;
 using System.Text;
 using MetX.Standard.Library.Extensions;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.ML
 {
     public abstract class SerializesToXml<T> : ISerializeToXml<T> where T : SerializesToXml<T>, new()
     {

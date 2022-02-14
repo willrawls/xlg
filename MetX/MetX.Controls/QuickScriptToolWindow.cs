@@ -1,11 +1,8 @@
 // ReSharper disable UnusedParameter.Local
 
-using System.Linq;
-using System.Text;
-using MetX.Standard;
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
-using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using MetX.Windows;
 using MetX.Windows.Library;
@@ -21,8 +18,6 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor;
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
-
-    using MetX.Standard.Library;
     using MetX.Standard.Scripts;
 
     using Microsoft.Win32;

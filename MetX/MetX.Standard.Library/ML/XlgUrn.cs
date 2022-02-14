@@ -7,8 +7,9 @@ using System.Net;
 using System.Text;
 using System.Xml.XPath;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.ML
 {
 
     /// <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.
@@ -401,7 +402,7 @@ namespace MetX.Standard.Library
         /// <returns>The double representation of a string</returns>
         public double NzDouble(string sOriginalText)
         {
-            return Worker.NzDouble(sOriginalText);
+            return ForDouble.NzDouble(sOriginalText);
         }
 
 
@@ -410,7 +411,17 @@ namespace MetX.Standard.Library
         /// <returns>The extracted proper case name</returns>
         public string EmailToName(string sOriginalText)
         {
-            return Worker.EmailToName(sOriginalText, string.Empty);
+            string defaultName = string.Empty;
+            var text = (sOriginalText + "").Trim();
+
+            if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
+                text = text.Split('@')[0];
+
+            text = text.Replace(".", " ");
+            text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1,1).ToUpper() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
+
+            var returnValue = (text.Length == 0 ? defaultName : text).ProperCase();
+            return returnValue;
         }
 
 
@@ -650,9 +661,9 @@ namespace MetX.Standard.Library
         {
             _mRunningTotals ??= new Dictionary<string, double>();
             if (_mRunningTotals.ContainsKey(totalName))
-                _mRunningTotals[totalName] = Worker.NzDouble(sInitialValue);
+                _mRunningTotals[totalName] = ForDouble.NzDouble(sInitialValue);
             else
-                _mRunningTotals.Add(totalName, Worker.NzDouble(sInitialValue));
+                _mRunningTotals.Add(totalName, ForDouble.NzDouble(sInitialValue));
             return string.Empty;
         }
 
@@ -667,7 +678,7 @@ namespace MetX.Standard.Library
             if (_mRunningTotals.ContainsKey(totalName))
                 _mRunningTotals[totalName] += NzDouble(toAdd);
             else
-                _mRunningTotals.Add(totalName, Worker.NzDouble(toAdd));
+                _mRunningTotals.Add(totalName, ForDouble.NzDouble(toAdd));
             return string.Empty;
         }
 
@@ -682,7 +693,7 @@ namespace MetX.Standard.Library
             if (_mRunningTotals.ContainsKey(totalName))
                 _mRunningTotals[totalName] -= NzDouble(toSubtract);
             else
-                _mRunningTotals.Add(totalName, -Worker.NzDouble(toSubtract));
+                _mRunningTotals.Add(totalName, -ForDouble.NzDouble(toSubtract));
             return string.Empty;
         }
 

@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.Win32;
-
 using MetX.Standard;
-using MetX.Standard.Library;
-using MetX.Standard.Pipelines;
 using MetX.Standard.Scripts;
-using MetX.Windows.Library;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.Strings;
 using MetX.Windows;
-using MetX.Windows.WinApi;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 #pragma warning disable 414
 namespace MetX.Controls

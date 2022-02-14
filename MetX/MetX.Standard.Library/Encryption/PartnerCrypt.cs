@@ -6,7 +6,7 @@ using System.Text;
 
 // ReSharper disable UnusedType.Global
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Library.Encryption
 {
     public class PartnerCrypt : IDisposable
     {
