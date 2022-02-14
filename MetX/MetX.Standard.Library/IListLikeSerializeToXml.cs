@@ -8,4 +8,6 @@ public interface IListLikeSerializeToXml<TParent, TChild>
     void SaveXmlToFile(string path, bool easyToRead);
     string ToXml();
     byte[] ToBytes();
+    string ToJson();
+
 }

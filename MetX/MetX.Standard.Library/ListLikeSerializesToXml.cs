@@ -70,6 +70,14 @@ public abstract class ListLikeSerializesToXml<TParent, TChild, TKey, TActual> :
         return Xml.FromXml<TActual>(xml, ExtraTypes);
     }
 
+    /*
+    public static TActual FromJson(string json)
+    {
+        var xmlDocument = ConvertFromJson.ToXml(json);
+        return 
+    }
+    */
+
     public static TActual LoadXmlFromFile(string path)
     {
         return Xml.LoadFile<TActual>(path, ExtraTypes);
@@ -101,6 +109,14 @@ public abstract class ListLikeSerializesToXml<TParent, TChild, TKey, TActual> :
         return xml.IsEmpty()
             ? Array.Empty<byte>()
             : Encoding.ASCII.GetBytes(xml);
+    }
+
+    public string ToJson()
+    {
+        var xml = ToXml();
+        return xml.IsNotEmpty() 
+            ? ConvertToJson.Xml(xml) 
+            : "";
     }
 
     public static TActual FromBytes(byte[] bytes)

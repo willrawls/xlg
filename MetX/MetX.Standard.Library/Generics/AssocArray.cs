@@ -103,7 +103,7 @@ namespace MetX.Standard.Library.Generics
             {
                 lock (SyncRoot)
                 {
-                    for (int i = 0; i < Count; i++)
+                    for (var i = 0; i < Count; i++)
                     {
                         var assocItem = this[i];
                         if (assocItem.Key == key)
@@ -129,7 +129,7 @@ namespace MetX.Standard.Library.Generics
         {
             var sb = new StringBuilder();
             sb.AppendLine($"  {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
-            foreach (AssocItem<T> item in this)
+            foreach (var item in this)
             {
                 sb.AppendLine(item.ToString());
             }

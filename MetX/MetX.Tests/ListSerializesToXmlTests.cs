@@ -75,5 +75,33 @@ namespace MetX.Standard.Library.Tests
 
             Assert.AreEqual("\n" + xml, "\n" + actual);
         }
+
+        [TestMethod()]
+        public void GeorgeToJsonTest()
+        {
+            var george = new George();
+            var guid = Guid.NewGuid();
+            george.Items.Add(new AssocItem
+            {
+                Name = "Mary",
+                Value = "Something",
+                Category = "Tim",
+                Number = 4,
+                ID = guid,
+                Key = "SomeKey",
+            });
+            george.Name = "Henry";
+
+            var json = george.ToJson();
+            Assert.IsNotNull(json);
+            Debug.WriteLine("JSON=" + json);
+
+            Assert.IsTrue(json.Contains("Henry"));
+            Assert.IsTrue(json.Contains("Mary"));
+            Assert.IsTrue(json.Contains("Tim"));
+            Assert.IsTrue(json.Contains("Something"));
+            Assert.IsTrue(json.Contains("SomeKey"));
+            Assert.IsTrue(json.Contains(guid.ToString("D")));
+        }
     }
 }

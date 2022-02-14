@@ -42,7 +42,7 @@ namespace MetX.Standard.Library
             var indexes = TokenIndexes(target, delimiter, StringComparison
                     .InvariantCultureIgnoreCase)
                 .ToArray();
-            int delimiterLength = delimiter.Length;
+            var delimiterLength = delimiter.Length;
             return target.Carve(indexes, delimiterLength).ToList();
         }
 
@@ -74,7 +74,7 @@ namespace MetX.Standard.Library
             int r = 1, startIndex = indexes[0];
             result[0] = target.Substring(0, startIndex);
             startIndex += delimiterLength;
-            for (int i = 1; i <= lastCarvePoint; i++, r++)
+            for (var i = 1; i <= lastCarvePoint; i++, r++)
             {
                 if (indexes[i] < target.Length)
                 {
