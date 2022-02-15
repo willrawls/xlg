@@ -132,19 +132,21 @@ namespace MetX.Standard.Scripts
                 {
                     SetArea("Usings");
                 }
-                else if (line.Contains("~~ClassMembers:") || line.Contains("~~ClassMember:")
-                                                                    || line.Contains("~~Properties:") ||
-                                                                    line.Contains("~~Property:")
-                                                                    || line.Contains("~~Fields:") ||
-                                                                    line.Contains("~~Field:")
-                                                                    || line.Contains("~~Members:") ||
-                                                                    line.Contains("~~Member:"))
+                else if (line.Contains("~~ClassMembers:") 
+                        || line.Contains("~~ClassMember:")
+                        || line.Contains("~~Properties:") 
+                        || line.Contains("~~Property:")
+                        || line.Contains("~~Fields:") 
+                        || line.Contains("~~Field:")
+                        || line.Contains("~~Members:") 
+                        || line.Contains("~~Member:"))
                 {
                     SetArea("ClassMembers");
                 }
-                else if (line.Contains("~~ProcessLines:") || line.Contains("~~ProcessLine:")
-                                                                    || line.Contains("~~Line:")
-                                                                    || line.Contains("~~Body:"))
+                else if (line.Contains("~~ProcessLines:") 
+                         || line.Contains("~~ProcessLine:")
+                         || line.Contains("~~Line:")
+                         || line.Contains("~~Body:"))
                 {
                     SetArea("ProcessLine");
                 }
@@ -205,20 +207,20 @@ namespace MetX.Standard.Scripts
             else if (!_targetGenArea.Lines.Any(x => x.Contains("\"")))
             {
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\"";
+                _targetGenArea.Lines[^1] += "\"";
             }
             else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
                 _targetGenArea.Lines.TransformAllNotEmpty(line => line.Replace("\"", "``"));
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
             else if (!_targetGenArea.Lines.Any(x => x.Contains("`")))
             {
                 _targetGenArea.Lines.TransformAllNotEmpty(line =>
                     "\t\"" + line.Replace("\"", "\\\"") + "\" + Environment.NewLine;" + Environment.NewLine);
                 _targetGenArea.Lines[0] = "@\"" + _targetGenArea.Lines[0];
-                _targetGenArea.Lines[_targetGenArea.Lines.Count - 1] += "\".Replace(\"``\",\"\\\"\")";
+                _targetGenArea.Lines[^1] += "\".Replace(\"``\",\"\\\"\")";
             }
         }
 
@@ -242,7 +244,7 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
+                var resolvedFilePath = filePath.ExpandScriptLineVariables();
                 _targetGenArea.Lines.Add($"Output.SwitchTo(@\"{resolvedFilePath}\");");
             }
         }
@@ -268,7 +270,7 @@ namespace MetX.Standard.Scripts
             }
             else
             {
-                var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
+                var resolvedFilePath = filePath.ExpandScriptLineVariables();
                 _targetGenArea.Lines.Add($"Output.AppendTo(@\"{resolvedFilePath}\");");
             }
         }
@@ -281,7 +283,7 @@ namespace MetX.Standard.Scripts
                 .Replace("/", @"\")
                 .Trim();
 
-            var resolvedFilePath = Helpers.ExpandScriptLineVariables(filePath);
+            var resolvedFilePath = filePath.ExpandScriptLineVariables();
 
             _targetGenArea.Lines.Add($"{lineFunction}(@\"{resolvedFilePath}\");");
             return resolvedFilePath;

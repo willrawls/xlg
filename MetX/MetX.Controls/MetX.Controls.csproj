@@ -17,12 +17,15 @@
 
   <ItemGroup>
     <Compile Remove="Extensions.cs" />
+    <Compile Remove="FindAndReplaceForm.cs" />
+    <Compile Remove="FindAndReplaceForm.Designer.cs" />
     <Compile Remove="TechniqueEditorToolStripMenuItem.cs" />
     <Compile Remove="TechniquesEditor.cs" />
     <Compile Remove="TechniquesEditor.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="FindAndReplaceForm.resx" />
     <EmbeddedResource Remove="TechniquesEditor.resx" />
   </ItemGroup>
   <ItemGroup>
@@ -31,11 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
     <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="FindAndReplaceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
   </Target>

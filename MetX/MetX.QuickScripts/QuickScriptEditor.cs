@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor.UserControls;
 using MetX.Controls;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
@@ -84,8 +85,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             var chooseQuickScript = new ChooseFromListDialog();
             var choices = Host.Context.Scripts.ScriptNames();
             if (LastChoice > choices.Length) LastChoice = 0;
-            var choice = chooseQuickScript.Ask(choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN",
-                LastChoice);
+            var choice = chooseQuickScript.Ask(choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN", LastChoice);
             if (choice >= 0)
             {
                 LastChoice = choice;
@@ -386,7 +386,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+    private void OpenScriptFile_Click(object sender, EventArgs e)
     {
         OpenInputFilePathDialog.FileName = string.Empty;
         OpenInputFilePathDialog.InitialDirectory = Host.Context.Scripts.FilePath.TokensBeforeLast(@"\");
@@ -576,14 +576,14 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void FindMenuItem_Click(object sender, EventArgs e)
     {
-        ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm(ScriptEditor, Host);
-        ScriptEditor.FindAndReplaceForm.ShowFor(false);
+        ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm();
+        ScriptEditor.FindAndReplaceForm.ShowFor(ScriptEditor, false);
     }
 
     private void ReplaceMenuItem_Click(object sender, EventArgs e)
     {
-        ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm(ScriptEditor, Host);
-        ScriptEditor.FindAndReplaceForm.ShowFor(true);
+        ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm();
+        ScriptEditor.FindAndReplaceForm.ShowFor(ScriptEditor, true);
     }
 
     private void BuildExe_Click(object sender, EventArgs e)
@@ -730,7 +730,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         return false;
     }
 
-    private void postToolStripMenuItem_Click(object sender, EventArgs e)
+    private void PostBuild_Click(object sender, EventArgs e)
     {
         if (ScriptEditor.Current == null) return;
 
@@ -916,10 +916,49 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
     {
-        if (e.KeyCode == Keys.F5)
+        Host.WaitFor(() =>
         {
-            RunQuickScript_Click(sender, null);
-        }
+            switch (e.KeyCode)
+            {
+                case Keys.F5:
+                    RunQuickScript_Click(sender, null);
+                    break;
+                case Keys.F6:
+                    BuildExe_Click(sender, null);
+                    break;
+                case Keys.F10:
+                    ViewGeneratedCode_Click(sender, null);
+                    break;
+                case Keys.F12:
+                    PostBuild_Click(sender, null);
+                    break;
+
+                case Keys.F:
+                    if (e.Control)
+                        FindMenuItem_Click(sender, null);
+                    break;
+                case Keys.R:
+                    if (e.Control)
+                        ReplaceMenuItem_Click(sender, null);
+                    break;
+                case Keys.S:
+                    if (e.Control)
+                        SaveQuickScript_Click(sender, null);
+                    break;
+                case Keys.A:
+                    if (e.Control)
+                        SaveAs_Click(sender, null);
+                    break;
+                case Keys.O:
+                    if (e.Control)
+                        OpenScriptFile_Click(sender, null);
+                    break;
+                case Keys.N:
+                    if (e.Control)
+                        NewQuickScript_Click(sender, null);
+                    break;
+            }
+        });
     }
 
     private void SliceAt_SelectedIndexChanged(object sender, EventArgs e)

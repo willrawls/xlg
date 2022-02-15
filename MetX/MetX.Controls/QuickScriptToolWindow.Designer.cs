@@ -78,7 +78,7 @@ namespace MetX.Controls
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(70, 28);
             this.toolStripMenuItem4.Text = "&Run";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.RunQuickScript_Click);
+            //this.toolStripMenuItem4.Click += new System.EventHandler(this.RunQuickScript_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -86,7 +86,7 @@ namespace MetX.Controls
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(71, 28);
             this.toolStripMenuItem3.Text = "&Gen";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
+            //this.toolStripMenuItem3.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -94,7 +94,7 @@ namespace MetX.Controls
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(79, 28);
             this.toolStripMenuItem5.Text = "&Build";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.ViewIndependentGeneratedCode_Click);
+            //this.toolStripMenuItem5.Click += new System.EventHandler(this.ViewIndependentGeneratedCode_Click);
             // 
             // QuickScriptToolWindow
             // 
@@ -109,8 +109,8 @@ namespace MetX.Controls
             this.MinimumSize = new System.Drawing.Size(785, 450);
             this.Name = "QuickScriptToolWindow";
             this.Text = "qkScrptR --- TOOL WINDOW --- TOOL WINDOW ---";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuickScriptToolWindow_FormClosing);
-            this.Load += new System.EventHandler(this.QuickScriptToolWindow_Load);
+            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuickScriptToolWindow_FormClosing);
+            //this.Load += new System.EventHandler(this.QuickScriptToolWindow_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.ResumeLayout(false);

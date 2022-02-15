@@ -1,7 +1,9 @@
 // ReSharper disable UnusedParameter.Local
 
+using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Generation;
 using MetX.Standard.Interfaces;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
 using MetX.Windows;
@@ -24,7 +26,7 @@ namespace MetX.Controls
 
     public partial class QuickScriptToolWindow : ScriptRunningWindow
     {
-        public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
+        /*public static readonly List<QuickScriptOutput> OutputWindows = new List<QuickScriptOutput>();
         public static RegistryKey AppDataRegistry;
         public CodeCompletionWindow CompletionWindow;
         public XlgQuickScript CurrentScript;
@@ -113,10 +115,8 @@ namespace MetX.Controls
         {
             try
             {
-                if (CurrentScript == null)
-                {
-                    return;
-                }
+                if (CurrentScript == null) return;
+
                 UpdateScriptFromForm();
 
                 var settings = ScriptEditor.Current.BuildSettings(false, Host);
@@ -136,25 +136,25 @@ namespace MetX.Controls
 
         public void ShowCodeCompletion(string[] items)
         {
-            if (items != null && items.Length > 0)
+            if (items.IsEmpty()) return;
+
+            var completionDataProvider = new CompletionDataProvider(items);
+            CompletionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
+            if (CompletionWindow != null)
             {
-                var completionDataProvider = new CompletionDataProvider(items);
-                CompletionWindow = CodeCompletionWindow.ShowCompletionWindow(this, ScriptEditor, string.Empty, completionDataProvider, '.');
-                if (CompletionWindow != null)
-                {
-                    CompletionWindow.Closed += CompletionWindowClosed;
-                }
+                CompletionWindow.Closed += CompletionWindowClosed;
             }
         }
 
         public void UpdateScriptFromForm()
         {
-            if (CurrentScript == null)
+            if (CurrentScript == null || Updating)
             {
                 return;
             }
 
             CurrentScript.Script = ScriptEditor.Text;
+            CurrentScript.Destination = ScriptEditor;
         }
 
         private void CompletionWindowClosed(object source, EventArgs e)
@@ -169,7 +169,7 @@ namespace MetX.Controls
 
         private void InitializeEditor()
         {
-            ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm(ScriptEditor, Host);
+            ScriptEditor.FindAndReplaceForm = new FindAndReplaceForm();
             _textArea = ScriptEditor.ActiveTextAreaControl.TextArea;
             _textArea.KeyEventHandler += ProcessKey;
             _textArea.KeyUp += TextAreaOnKeyUp;
@@ -304,54 +304,19 @@ namespace MetX.Controls
             }
         }
 
-/*
-        private void ShowScriptCommandCodeCompletion()
-        {
-            ShowCodeCompletion(new[] { "~:", "~Members:", "~Start:", "~Body:", "~Finish:", "~BeginString:", "~EndString:" });
-        }
-*/      
         private void ShowThisCodeCompletion()
         {
-            ShowCodeCompletion(new[] { "Output", "Lines", "AllText", "DestinationFilePath", "InputFilePath", "LineCount", "OpenNotepad", "Ask" });
+            ShowCodeCompletion(QuickScriptControl.CodeCompletionStrings.ToArray());
         }
 
         private void TextAreaOnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Control)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Space:
-                        ShowThisCodeCompletion();
-                        break;
-                }
-            }
-            else
-            {
-                // No modifiers
-                switch (e.KeyCode)
-                {
-                    case Keys.F5:
-                        e.Handled = true;
-                        RunQuickScript_Click(null, null);
-                        break;
-                }
-            }
+            if (!e.Control || e.KeyCode != Keys.Oemtilde) return;
+            
+            ShowThisCodeCompletion();
+            e.Handled = true;
         }
-/*
-        private void UpdateFormWithScript(XlgQuickScript selectedScript)
-        {
-            if (CurrentScript == null)
-            {
-                return;
-            }
 
-            ScriptEditor.Text = selectedScript.Script;
-            ScriptEditor.Refresh();
-            ScriptEditor.Focus();
-            CurrentScript = selectedScript;
-        }
-*/
         private void UpdateLastKnownPath()
         {
             if (Host.Context.Scripts == null || string.IsNullOrEmpty(Host.Context.Scripts.FilePath) || !File.Exists(Host.Context.Scripts.FilePath))
@@ -433,5 +398,6 @@ Would you like to run it now?
                 Host.MessageBox.Show(exception.ToString());
             }
         }
+*/
     }
 }

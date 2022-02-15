@@ -655,7 +655,7 @@ namespace XLG.QuickScripts
             this.OpenLink.TabStop = true;
             this.OpenLink.Text = "Open file";
             this.toolTip1.SetToolTip(this.OpenLink, "Ctrl+O");
-            this.OpenLink.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            this.OpenLink.Click += new System.EventHandler(this.OpenScriptFile_Click);
             // 
             // SaveAsLink
             // 
@@ -669,6 +669,7 @@ namespace XLG.QuickScripts
             this.SaveAsLink.TabIndex = 7;
             this.SaveAsLink.TabStop = true;
             this.SaveAsLink.Text = "Save as";
+            this.toolTip1.SetToolTip(this.SaveAsLink, "Ctrl+A");
             this.SaveAsLink.Click += new System.EventHandler(this.SaveAs_Click);
             // 
             // SaveLink
@@ -747,7 +748,7 @@ namespace XLG.QuickScripts
             this.PostBuildActionsLiink.TabStop = true;
             this.PostBuildActionsLiink.Text = "Post build actions";
             this.toolTip1.SetToolTip(this.PostBuildActionsLiink, "F12");
-            this.PostBuildActionsLiink.Click += new System.EventHandler(this.postToolStripMenuItem_Click);
+            this.PostBuildActionsLiink.Click += new System.EventHandler(this.PostBuild_Click);
             // 
             // BuildExeLink
             // 

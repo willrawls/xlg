@@ -15,12 +15,13 @@ namespace MetX.Controls
         public FindAndReplaceForm(QuickScriptControl editor, IGenerationHost host)
         {
             InitializeComponent();
-            _search = new TextEditorSearcher();
+            //_search = new TextEditorSearcher();
+            _search = new ICSharpCode.TextEditor.UserControls.TextEditorSearcher();
             Editor = editor;
             Host = host;
         }
 
-        TextEditorSearcher _search;
+        ICSharpCode.TextEditor.UserControls.TextEditorSearcher _search;
         TextEditorControl _editor;
         TextEditorControl Editor
         {
@@ -130,7 +131,7 @@ namespace MetX.Controls
             return range;
         }
 
-        private void SelectResult(TextRange range)
+        private void SelectResult(ICSharpCode.TextEditor.UserControls.TextRange range)
         {
             var p1 = _editor.Document.OffsetToPosition(range.Offset);
             var p2 = _editor.Document.OffsetToPosition(range.Offset + range.Length);

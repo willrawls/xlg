@@ -23,7 +23,7 @@ namespace ICSharpCode.TextEditor.Gui.CompletionWindow
 		bool showDeclarationWindow = true;
 		bool fixedListViewWidth = true;
 		const int ScrollbarWidth = 16;
-		const int MaxListLength = 10;
+		const int MaxListLength = 20;
 
 		int startOffset;
 		int endOffset;
@@ -69,6 +69,7 @@ namespace ICSharpCode.TextEditor.Gui.CompletionWindow
 			codeCompletionListView.SelectedItemChanged += new EventHandler(CodeCompletionListViewSelectedItemChanged);
 			codeCompletionListView.DoubleClick += new EventHandler(CodeCompletionListViewDoubleClick);
 			codeCompletionListView.Click  += new EventHandler(CodeCompletionListViewClick);
+			
 			Controls.Add(codeCompletionListView);
 			
 			if (completionData.Length > MaxListLength) {
@@ -313,8 +314,10 @@ namespace ICSharpCode.TextEditor.Gui.CompletionWindow
 					if (endOffset - startOffset > 0) {
 						control.Document.Remove(startOffset, endOffset - startOffset);
 					}
-					Debug.Assert(startOffset <= document.TextLength);
-					result = dataProvider.InsertAction(data, control.ActiveTextAreaControl.TextArea, startOffset, ch);
+					if(startOffset <= document.TextLength)
+						result = dataProvider.InsertAction(data, control.ActiveTextAreaControl.TextArea, startOffset, ch);
+					else
+						result = dataProvider.InsertAction(data, control.ActiveTextAreaControl.TextArea, document.TextLength, ch);
 				} finally {
 					control.EndUpdate();
 				}

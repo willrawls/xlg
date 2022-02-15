@@ -210,5 +210,17 @@ namespace ICSharpCode.TextEditor.Gui.CompletionWindow
 		{
 			control.ActiveTextAreaControl.TextArea.ShowHiddenCursor(false);
 		}
-	}
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // AbstractCompletionWindow
+            // 
+            this.ClientSize = new System.Drawing.Size(272, 551);
+            this.Name = "AbstractCompletionWindow";
+            this.ResumeLayout(false);
+
+        }
+    }
 }

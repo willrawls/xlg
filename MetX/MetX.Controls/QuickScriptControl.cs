@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UnusedVariable
 
+using System.Collections.Generic;
+using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Generation;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
@@ -20,9 +22,37 @@ namespace MetX.Controls
     public partial class QuickScriptControl : TextEditorControl
     {
         public XlgQuickScript Current = null;
-
         public TextArea _codeArea;
         public CodeCompletionWindow _completionWindow;
+
+        static QuickScriptControl()
+        {
+            CodeCompletionStrings = new List<string>()
+            {
+                "~~Start:\n\t",
+                "~~Members:\n\t",
+                "~~ReadInput:\n\t",
+                "~~ProcessLine:\n\tif(line.Contains(\"$filter\"))\n\t\t{\n\t\t~~:%line%$end\n\t\t}\n",
+                "~~Finish:\n\t",
+                "~~:%$end%",
+                "~~:%line%\n",
+                "~~Using:\nSystem.",
+                "~~To: $filename",
+                "~~AppendTo: $filename",
+                "~~Ask: \"$title\" \"$description\" \"$default\" ",
+                "~~BeginString:\n",
+                "~~EndString:\n",
+                Helpers.SlashSlashBlockLeftDelimiter + "\n", 
+                Helpers.SlashSlashBlockRightDelimiter + "\n",
+                "Output.AppendLine(\"$end\");",
+                "line",
+                "number",
+                "DestinationFilePath",
+                "InputFilePath",
+                "LineCount",
+                "if($condition)\n{\n\t$end\n}\n",
+            };
+        }
 
         public QuickScriptControl()
         {
@@ -75,59 +105,26 @@ namespace MetX.Controls
 
         public void ShowCodeCompletion(string[] items)
         {
-            if (items != null && items.Length > 0)
-            {
-                var completionDataProvider = new CompletionDataProvider(items);
-                _completionWindow = CodeCompletionWindow.ShowCompletionWindow(
-                    FindForm(),
-                    this,
-                    string.Empty,
-                    completionDataProvider,
-                    '.');
-                if (_completionWindow != null)
-                {
-                    _completionWindow.Closed += CompletionWindowClosed;
-                }
-            }
+            if (items.IsEmpty()) return;
+
+            var completionDataProvider = new CompletionDataProvider(items);
+            _completionWindow = CodeCompletionWindow.ShowCompletionWindow(
+                FindForm(),
+                this,
+                string.Empty,
+                completionDataProvider,
+                '.');
+
+            if (_completionWindow != null) 
+                _completionWindow.Closed += CompletionWindowClosed;
         }
 
         public void CodeAreaOnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Control)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Space:
-                        ShowThisCodeCompletion();
-                        break;
-                    
-                    /*
-                    case Keys.F:
-                        FindNext();
-                        break;
-                    case Keys.H:
-                        if (e.Shift)
-                            ReplaceAll();
-                        break;
-                */
-                }
-            }
-            else
-            {
-                // No modifiers
-                switch (e.KeyCode)
-                {
-                    case Keys.F5:
-                        var form = FindForm() as ScriptRunningWindow;
-                        if (form != null)
-                        {
-                            e.Handled = true;
-                            form.RunQuickScript(Current);
-                        }
-
-                        break;
-                }
-            }
+            if (!e.Control || e.KeyCode != Keys.Oemtilde) return;
+            
+            ShowThisCodeCompletion();
+            e.Handled = true;
         }
 
         public void FindNext()
@@ -154,6 +151,8 @@ namespace MetX.Controls
         public string LastFind;
         public string LastReplace;
         public FindAndReplaceForm FindAndReplaceForm;
+
+        public static List<string> CodeCompletionStrings {get; set;}
 
         public void ReplaceAll()
         {
@@ -257,22 +256,17 @@ namespace MetX.Controls
 
         public void ShowThisCodeCompletion()
         {
-            ShowCodeCompletion(
-                new[]
-                    {
-                        "Output", "Lines", "AllText", "DestinationFilePath", "InputFilePath", "LineCount",
-                        "OpenNotepad", "Ask"
-                    });
+            ShowCodeCompletion(CodeCompletionStrings.ToArray());
         }
 
         public void menuEditFind_Click(object sender, EventArgs e)
         {
-            FindAndReplaceForm.ShowFor(false);
+            FindAndReplaceForm.ShowFor(this, false);
         }
 
         public void menuEditReplace_Click(object sender, EventArgs e)
         {
-            FindAndReplaceForm.ShowFor(true);
+            FindAndReplaceForm.ShowFor(this, true);
         }
 
         public void menuFindAgain_Click(object sender, EventArgs e)
@@ -291,21 +285,23 @@ namespace MetX.Controls
 
         public void QuickScriptControl_KeyUp(object sender, KeyEventArgs e)
         {
+            /*
             switch (e.KeyCode)
             {
                 case Keys.F:
                     if (e.Control)
                     {
-                        FindAndReplaceForm.ShowFor(false);
+                        FindAndReplaceForm.ShowFor(this, false);
                     }
                     break;
                 case Keys.H:
                     if (e.Control)
                     {
-                        FindAndReplaceForm.ShowFor(true);
+                        FindAndReplaceForm.ShowFor(this, true);
                     }
                     break;
             }
+        */
         }
     }
 }

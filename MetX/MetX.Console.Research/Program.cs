@@ -16,20 +16,24 @@ namespace MetX.Console.Research
         public static void ExecuteInMemoryAssembly(Compilation compilation, int i)
         {
             var context = new CollectibleAssemblyLoadContext();
+
+            using var ms = new MemoryStream();
+            compilation.Emit(ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            var assembly = context.LoadFromStream(ms);
  
-            using (var ms = new MemoryStream())
+            var type = assembly.GetType("Greeter");
+            if (type != null)
             {
-                var cr = compilation.Emit(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-                var assembly = context.LoadFromStream(ms);
- 
-                var type = assembly.GetType("Greeter");
                 var greetMethod = type.GetMethod("Hello");
  
                 var instance = Activator.CreateInstance(type);
-                var result = greetMethod.Invoke(instance, new object[] { i });
+                if (greetMethod != null)
+                {
+                    var result = greetMethod.Invoke(instance, new object[] { i });
+                }
             }
- 
+
             context.Unload();
         }
 
