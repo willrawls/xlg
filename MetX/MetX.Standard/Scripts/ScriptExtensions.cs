@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis;
 
 namespace MetX.Standard.Scripts
 {
+    // ReSharper disable once UnusedType.Global
     public static class ScriptExtensions
     {
         public static int Line(this Location location)

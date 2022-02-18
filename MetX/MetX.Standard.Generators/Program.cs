@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.Options;
 
 namespace MetX.Standard.Generators
 {
+    // ReSharper disable once UnusedType.Global
     public partial class Program
     {
         public static void Main(string[] args)

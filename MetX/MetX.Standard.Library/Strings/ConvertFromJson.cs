@@ -2,6 +2,7 @@
 
 namespace MetX.Standard.Library.Strings;
 
+// ReSharper disable once UnusedType.Global
 public class ConvertFromJson
 {
     public static XmlDocument ToXml(string json)

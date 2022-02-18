@@ -2,6 +2,7 @@
 
 namespace MetX.Standard.Library.Extensions
 {
+    // ReSharper disable once UnusedType.Global
     public static class ForLong
     {
         public static long InRange(this long x, long lo, long hi)

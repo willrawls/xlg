@@ -11,8 +11,6 @@ namespace MetX.Standard.XDString
         [XmlIgnore]
         public object SyncRoot { get; }= new();
 
-        public AssocArrayList(){ }
-
         public AssocArray this[string key]
         {
             get

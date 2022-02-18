@@ -25,11 +25,6 @@ namespace MetX.Standard.Generation
         public string Language { get; set; } = "CSharp";
 
 
-        public CsProjGeneratorOptions()
-        {
-            
-        }
-
         public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
         {
             CsProjGeneratorOptions generatorOptions = new()

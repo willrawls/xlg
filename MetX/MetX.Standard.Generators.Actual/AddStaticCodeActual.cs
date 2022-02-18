@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace MetX.Standard.Generators.Actual
 {
+    // ReSharper disable once UnusedType.Global
     public class AddStaticCodeActual : ContextForGeneration
     {
         public override void Initialize(GeneratorInitializationContext context) {}

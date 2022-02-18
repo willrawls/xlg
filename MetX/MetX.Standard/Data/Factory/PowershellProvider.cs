@@ -2,6 +2,7 @@ using MetX.Standard.Interfaces;
 
 namespace MetX.Standard.Data.Factory
 {
+    // ReSharper disable once UnusedType.Global
     public class PowershellProvider : IProvide 
     {
         #region IProvide Members

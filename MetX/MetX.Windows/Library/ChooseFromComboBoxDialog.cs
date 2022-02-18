@@ -6,6 +6,7 @@ using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library
 {
+    // ReSharper disable once UnusedType.Global
     public class ChooseFromComboBoxDialog : GeneralQuestionDialog<ComboBox, int>
     {
         public IntPtr WindowHandle { get; }

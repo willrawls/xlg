@@ -7,7 +7,8 @@ namespace MetX.Standard.IO
 	/// <summary>
 	/// Allows for the sending of a simple email asynchronously on another thread.
 	/// </summary>
-	public class Email
+    // ReSharper disable once UnusedType.Global
+    public class Email
 	{
 		/// <summary>Allows for the quick and asynchronous sending of a simple email</summary>
         /// <param name="fromName">Display name of the person sending the email</param>

@@ -89,11 +89,6 @@ namespace MetX.Standard.Generators
     }
     public class CollectibleAssemblyLoadContext : AssemblyLoadContext
     {
-        public CollectibleAssemblyLoadContext() : base()
-        {
-            
-        }
- 
         protected override Assembly Load(AssemblyName assemblyName)
         {
             return null;

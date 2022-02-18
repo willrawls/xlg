@@ -4,6 +4,7 @@ using MetX.Standard.Library.ML;
 
 namespace MetX.Standard.Techniques
 {
+    // ReSharper disable once UnusedType.Global
     public abstract class SerializeToXml<T>
         where T : SerializeToXml<T>, new()
     {

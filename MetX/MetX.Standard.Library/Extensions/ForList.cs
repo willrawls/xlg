@@ -10,6 +10,7 @@ namespace MetX.Standard.Library.Extensions
 	/// </summary>
 	/// <author>Jackson Dunstan, http://JacksonDunstan.com/articles/3189</author>
 	/// <license>MIT</license>
+	// ReSharper disable once UnusedType.Global
 	public static class ForList
 	{
 		/// <summary>

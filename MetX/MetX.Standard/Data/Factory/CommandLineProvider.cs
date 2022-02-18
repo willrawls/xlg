@@ -3,6 +3,7 @@ using MetX.Standard.Interfaces;
 
 namespace MetX.Standard.Data.Factory
 {
+    // ReSharper disable once UnusedType.Global
     public class CommandLineProvider : IProvide 
     {
         #region IProvide Members

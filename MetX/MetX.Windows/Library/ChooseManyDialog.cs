@@ -3,6 +3,7 @@ using MetX.Standard.Library.Extensions;
 
 namespace MetX.Windows.Library
 {
+    // ReSharper disable once UnusedType.Global
     public class ChooseManyDialog : GeneralQuestionDialog<ListBox, int[]>
     {
         public string[] Items;
