@@ -80,7 +80,12 @@
       "ProjectGuid": "81885a46-2601-4366-91df-fce182426740",
       "DisplayName": "MetX.Standard.Generators.Support",
       "ColorIndex": 14
+    },
+    "726899b3-f379-4c09-a937-e5db0b5bac04": {
+      "ProjectGuid": "726899b3-f379-4c09-a937-e5db0b5bac04",
+      "DisplayName": "MetX.Console.Research",
+      "ColorIndex": 15
     }
   },
-  "NextColorIndex": 15
+  "NextColorIndex": 0
 }

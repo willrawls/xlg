@@ -685,7 +685,7 @@ namespace XLG.QuickScripts
             this.SaveLink.TabStop = true;
             this.SaveLink.Text = "Save file (xlgq)";
             this.toolTip1.SetToolTip(this.SaveLink, "Ctrl-S");
-            this.SaveLink.Click += new System.EventHandler(this.SaveQuickScript_Click);
+            this.SaveLink.Click += new System.EventHandler(this.SaveQuickScriptFile_Click);
             // 
             // ReplaceLink
             // 
