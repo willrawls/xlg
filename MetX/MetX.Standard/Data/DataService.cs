@@ -29,7 +29,7 @@ namespace MetX.Standard.Data
 
         public static DataService Instance;
         public static ConnectionStringSettingsCollection ConnectionStrings;
-        private static Dictionary<string, DataService> InMemoryDataServices = new();
+        private static readonly Dictionary<string, DataService> InMemoryDataServices = new();
         private static readonly Dictionary<string, IProvide> InMemoryProviders = new();
 
         public DataService(string providerName, string parameter1, string parameter2)

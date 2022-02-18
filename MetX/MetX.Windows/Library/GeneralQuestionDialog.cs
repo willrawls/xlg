@@ -22,14 +22,14 @@ namespace MetX.Windows.Library
 
         public abstract TReturn SelectedValue { get; }
 
-        public virtual TReturn Ask(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default, int height = 110, int width = 400)
+        public TReturn Ask(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default, int height = 110, int width = 400)
         {
             Initialize(promptText, title, defaultValue, height, width);
             ShowDialog();
             return SelectedValue;
         }
 
-        public virtual void Initialize(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default, int height = 110, int width = 400)
+        public void Initialize(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default, int height = 110, int width = 400)
         {
             DefaultValue = defaultValue;
             ConstructedForm = new Form();
@@ -70,7 +70,7 @@ namespace MetX.Windows.Library
 
         public abstract void SetupEntryArea();
 
-        public virtual DialogResult ShowDialog()
+        public DialogResult ShowDialog()
         {
             Result = ConstructedForm.ShowDialog();
             return Result;

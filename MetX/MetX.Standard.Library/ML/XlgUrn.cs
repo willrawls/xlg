@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace MetX.Standard.Library.ML
     /// <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.
     /// <para>NOTE: XSL functions must return a variable. Most functions in this library normally wouldn't return anything, but to accomodate XSL, they return a blank string.</para>
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class XlgUrn
     {
         private int _mNextId;
@@ -723,7 +725,7 @@ namespace MetX.Standard.Library.ML
         public XPathNavigator[] Distinct(XPathNodeIterator nodeSet)
         {
             if (nodeSet.Count == 0)
-                return new XPathNavigator[0];
+                return Array.Empty<XPathNavigator>();
             var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodeSet.MoveNext())
                 if (nodeSet.Current != null && !retNodes.ContainsKey(nodeSet.Current.Value))
@@ -808,7 +810,7 @@ namespace MetX.Standard.Library.ML
         public XPathNavigator[] In(string attributeName, string toFind, XPathNodeIterator nodeSet)
         {
             if (nodeSet.Count == 0 || string.IsNullOrEmpty(attributeName) || string.IsNullOrEmpty(toFind))
-                return new XPathNavigator[0];
+                return Array.Empty<XPathNavigator>();
 
             var retNodes = new Dictionary<string, XPathNavigator>();
             while (nodeSet.MoveNext())
@@ -828,7 +830,7 @@ namespace MetX.Standard.Library.ML
         public XPathNavigator[] AllNotIn(string attributeName, XPathNodeIterator nodeSetToCompareAgainst, XPathNodeIterator nodeSetToPossiblyKeep)
         {
             if (nodeSetToPossiblyKeep.Count == 0 || string.IsNullOrEmpty(attributeName))
-                return new XPathNavigator[0];
+                return Array.Empty<XPathNavigator>();
 
             // Handle special case of when there's nothing to compare against
             // Return all possible nodes 

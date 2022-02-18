@@ -61,8 +61,7 @@ namespace MetX.Standard.Pipelines
 
         public void Save()
         {
-            if (QuickScripts == null)
-                QuickScripts = new List<XlgQuickScript>();
+            QuickScripts ??= new List<XlgQuickScript>();
             File.WriteAllText(Filename, OuterXml());
         }
 

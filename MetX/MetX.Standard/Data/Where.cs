@@ -145,7 +145,7 @@ namespace MetX.Standard.Data
                 {
                     if (currValue != null && currValue.Length > 0)
                     {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
+                        sValue.Append(sValue.Length > 0 ? "," : "(");
                         sValue.Append("'");
                         sValue.Append(currValue.Replace("'", "''"));
                         sValue.Append("'");
@@ -156,7 +156,7 @@ namespace MetX.Standard.Data
             {
                 foreach (var currValue in (int[])value)
                 {
-                    if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
+                    sValue.Append(sValue.Length > 0 ? "," : "(");
                     sValue.Append(currValue.ToString());
                 }
             }
@@ -164,7 +164,7 @@ namespace MetX.Standard.Data
             {
                 foreach (var currValue in (double[])value)
                 {
-                    if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
+                    sValue.Append(sValue.Length > 0 ? "," : "(");
                     sValue.Append(currValue.ToString(CultureInfo.InvariantCulture));
                 }
             }
@@ -186,7 +186,7 @@ namespace MetX.Standard.Data
                 {
                     if (!string.IsNullOrEmpty(currValue))
                     {
-                        if (sValue.Length > 0) sValue.Append(","); else sValue.Append("(");
+                        sValue.Append(sValue.Length > 0 ? "," : "(");
                         sValue.Append("'");
                         sValue.Append(currValue.Replace("'", "''"));
                         sValue.Append("'");

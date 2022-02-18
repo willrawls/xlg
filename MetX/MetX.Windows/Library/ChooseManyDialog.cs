@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Forms;
 using MetX.Standard.Library.Extensions;
 
@@ -24,7 +25,7 @@ namespace MetX.Windows.Library
 
                 if (EntryArea.SelectedIndices.Count == 0)
                 {
-                    return new int[0];
+                    return Array.Empty<int>();
                 }
 
                 var ret = new int[EntryArea.SelectedIndices.Count];

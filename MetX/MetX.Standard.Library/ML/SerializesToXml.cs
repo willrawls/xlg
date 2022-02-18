@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using MetX.Standard.Library.Extensions;
@@ -35,7 +36,7 @@ namespace MetX.Standard.Library.ML
         {
             var xml = ToXml();
             return xml.IsEmpty()
-                ? new byte[0]
+                ? Array.Empty<byte>()
                 : Encoding.ASCII.GetBytes(xml);
         }
 

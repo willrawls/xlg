@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 using System.Xml;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.IO
 {
@@ -181,7 +182,7 @@ namespace MetX.Standard.IO
         /// <param name="sql">The SQL to convert to an xml string</param>
         /// <param name="connectionName">The Connection from Web.config to use</param>
         /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string tagName, string tagAttributes, string sql, string connectionName)
+        public static string ToXml(string tagName, string tagAttributes, string sql, string connectionName = null)
         {
             if(sql.IndexOf("FOR XML", StringComparison.Ordinal) == -1) sql += " FOR XML AUTO";
             var returnValue = new StringBuilder();
@@ -213,16 +214,6 @@ namespace MetX.Standard.IO
                 conn.Dispose();
             }
             return returnValue.ToString();
-        }
-
-        /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
-        /// <param name="tagName">The element name to wrap the returned xml element(s). If null or blank, no tag wraps the returned xml string</param>
-        /// <param name="tagAttributes">The attributes to add to the TagName element</param>
-        /// <param name="sql">The SQL to convert to an xml string</param>
-        /// <returns>The xml string attribute based representation of the SQL statement</returns>
-        public static string ToXml(string tagName, string tagAttributes, string sql)
-		{
-            return ToXml(tagName, tagAttributes, sql, null);
         }
 
         /// <summary>Converts a SQL statement into a series of elements via SQLXML. If a "FOR XML" phrase is not found "FOR XML AUTO" is added to the SQL</summary>
@@ -304,7 +295,7 @@ namespace MetX.Standard.IO
         /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
         /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <returns>DateTime value of the first column of the first row</returns>
-        public static DateTime RetrieveSingleDateValue(string sql, string connectionName)
+        public static DateTime RetrieveSingleDateValue(string sql, string connectionName = null)
 		{
             var conn = GetConnection(connectionName);
 			var cmd = new SqlCommand(sql, conn);
@@ -315,10 +306,9 @@ namespace MetX.Standard.IO
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
 				if (rst.Read())
 				{
-					if (rst.IsDBNull(0))
-						returnValue = new DateTime(0);
-					else
-						returnValue = rst.GetDateTime(0);
+					returnValue = rst.IsDBNull(0) 
+						? new DateTime(0) 
+						: rst.GetDateTime(0);
 				}
 				else
 					returnValue = new DateTime(0);
@@ -337,20 +327,12 @@ namespace MetX.Standard.IO
 			return returnValue;
 		}
 
-        /// <summary>Returns the first column as a DateTime value of the first row of the passed sql. If DbNull is the value, DateTime.MinValue is returned instead.</summary>
-        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <returns>DateTime value of the first column of the first row</returns>
-        public static DateTime RetrieveSingleDateValue(string sql)
-		{
-            return RetrieveSingleDateValue(sql, null);
-		}
-
         /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, DefaultReturnValue is returned instead.</summary>
         /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
         /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
         /// <param name="defaultReturnValue">The value to return if DbNull is encountered</param>
         /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string sql, string connectionName, int defaultReturnValue)
+        public static int RetrieveSingleIntegerValue(string sql, string connectionName = null, int defaultReturnValue = 0)
 		{
             var conn = GetConnection(connectionName);
 			var cmd = new SqlCommand(sql, conn);
@@ -361,10 +343,9 @@ namespace MetX.Standard.IO
 				rst = cmd.ExecuteReader(CommandBehavior.SingleRow);
 				if (rst.Read())
 				{
-					if (rst.IsDBNull(0))
-						returnValue = defaultReturnValue;
-					else
-						returnValue = rst.GetInt32(0);
+					returnValue = rst.IsDBNull(0) 
+						? defaultReturnValue 
+						: rst.GetInt32(0);
 				}
 				else
 					returnValue = defaultReturnValue;
@@ -381,23 +362,6 @@ namespace MetX.Standard.IO
 				conn.Dispose();
 			}
 			return returnValue;
-		}
-
-        /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
-        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <param name="connectionName">The name of the connection to use. If that connection doesn't exist, the "Default" connection is used.</param>
-        /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string sql, string connectionName)
-		{
-            return RetrieveSingleIntegerValue(sql, connectionName, 0);
-		}
-
-        /// <summary>Returns the first column as an int value of the first row of the passed sql. If DbNull is the value, 0 is returned instead.</summary>
-        /// <param name="sql">The sql to return. While it doesn't matter if the SQL actually only returns one row with one column, it is recommended the SQL be tailored to do so.</param>
-        /// <returns>int value of the first column of the first row</returns>
-        public static int RetrieveSingleIntegerValue(string sql)
-		{
-            return RetrieveSingleIntegerValue(sql, null, 0);
 		}
 
         /// <summary>Converts the SQL passed in into a DataSet and returns the DataTable found, otherwise null is returned.</summary>
@@ -436,8 +400,7 @@ namespace MetX.Standard.IO
         {
             var conn = GetConnection(connectionName);
             var cmd = new SqlCommand(sql, conn);
-            if (toFill == null)
-                toFill = new DataTable();
+            toFill ??= new DataTable();
             try
             {
                 var ra = new SqlDataAdapter(cmd);
@@ -644,11 +607,11 @@ namespace MetX.Standard.IO
         /// <returns>A connection string</returns>
         public static string GetConnectionString(string connectionName)
         {
-            if (connectionName == null || connectionName.Length == 0)
+            if (connectionName.IsEmpty())
                 return DefaultConnectionString;
             var settings = ConfigurationManager.ConnectionStrings[connectionName];
             var connectionString = settings?.ConnectionString;
-            if (connectionString == null || connectionString.Length == 0)
+            if (connectionString.IsEmpty())
                 return DefaultConnectionString;
             return connectionString;
         }

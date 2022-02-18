@@ -97,10 +97,7 @@ namespace MetX.Standard.Pipelines
         /// <summary>Default constructor. Does nothing</summary>
         public CodeGenerator()
         {
-            if (_mFullName == null)
-            {
-                _mFullName = Assembly.GetExecutingAssembly().FullName;
-            }
+            _mFullName ??= Assembly.GetExecutingAssembly().FullName;
         }
 
         /// <summary>Internally sets VirtualPath, VirtualxlgFilePath, xlgDataXml, Namespace, and VDirName based on VirtualxlgFilePath</summary>
@@ -765,14 +762,12 @@ namespace MetX.Standard.Pipelines
                         return FileSystem.FileToString(virtualFilename);
                     }
 
-                    using (var inFile = File.Open(virtualFilename, FileMode.Create ))
-                    {
-                        var rdr = new StreamReader(inFile);
-                        var contents = rdr.ReadToEnd();
-                        rdr.Close();
-                        rdr.Dispose();
-                        return contents;
-                    }
+                    using var inFile = File.Open(virtualFilename, FileMode.Create );
+                    var rdr = new StreamReader(inFile);
+                    var contents = rdr.ReadToEnd();
+                    rdr.Close();
+                    rdr.Dispose();
+                    return contents;
                 }
                 catch
                 {

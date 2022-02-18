@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using static System.Array;
 
 namespace MetX.Standard.XDString.Generics
 {
@@ -20,7 +21,7 @@ namespace MetX.Standard.XDString.Generics
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Empty<string>();
                 var answer = this.Select(i => i.Value).ToArray();
                 return answer;
             }
@@ -31,7 +32,7 @@ namespace MetX.Standard.XDString.Generics
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Empty<string>();
                 var answer = this.Select(i => i.Name).ToArray();
                 return answer;
             }
@@ -42,7 +43,7 @@ namespace MetX.Standard.XDString.Generics
             get
             {
                 if (Count == 0)
-                    return new string[0];
+                    return Empty<string>();
                 var answer = this.Select(i => i.Key).ToArray();
                 return answer;
             }
@@ -53,7 +54,7 @@ namespace MetX.Standard.XDString.Generics
             get
             {
                 if (Count == 0)
-                    return new Guid[0];
+                    return Empty<Guid>();
                 var answer = this.Select(i => i.ID).ToArray();
                 return answer;
             }
@@ -64,7 +65,7 @@ namespace MetX.Standard.XDString.Generics
             get
             {
                 if (Count == 0)
-                    return new T[0];
+                    return Empty<T>();
 
                 var answer = this.Select(i => i.Item).ToArray();
                 return answer;

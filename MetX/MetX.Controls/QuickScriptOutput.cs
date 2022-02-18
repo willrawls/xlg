@@ -18,11 +18,11 @@ namespace MetX.Controls
         public IRunQuickScript Scriptr;
         public FileSystemWatcher Watcher;
 
-        public static int LastTopLeftPosition = 0;
+        public static int LastTopLeftPosition;
 
-        public Point? MyTopLeftPosition = null;
+        public Point? MyTopLeftPosition;
 
-        private static Point[] _topLeftPositions = null;
+        private static Point[] _topLeftPositions;
         public static Point[] TopLeftPositions
         {
             get
@@ -66,6 +66,7 @@ namespace MetX.Controls
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
+            MyTopLeftPosition = null;
             Output.Text = output;
             Script = script;
             Scriptr = scriptr;
@@ -133,6 +134,7 @@ namespace MetX.Controls
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
+            MyTopLeftPosition = null;
             Host = host;
 
             Output.Text = addLineNumbers 
@@ -141,6 +143,12 @@ namespace MetX.Controls
             Output.WordWrap = wrapText;
             Output.SelectionStart = 0;
             Output.SelectionLength = 0;
+        }
+
+        static QuickScriptOutput()
+        {
+            LastTopLeftPosition = 0;
+            _topLeftPositions = null;
         }
 
         public string Title

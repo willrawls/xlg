@@ -1,6 +1,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.IO
 {
@@ -52,7 +53,7 @@ namespace MetX.Standard.IO
 			if (timeout <  1000)
 				timeout = timeout * 1000;
 			loHttp.Timeout = timeout;
-			loHttp.UserAgent = userAgent == null || userAgent.Length == 0 ? UserAgents.Ie60XPsp2DotNet2 : userAgent;
+			loHttp.UserAgent = userAgent.IsEmpty() ? UserAgents.Ie60XPsp2DotNet2 : userAgent;
 			//  *** Retrieve request info headers
 			var loWebResponse = (HttpWebResponse)loHttp.GetResponse();
 			var enc = Encoding.GetEncoding(1252);			//  Windows default Code Page

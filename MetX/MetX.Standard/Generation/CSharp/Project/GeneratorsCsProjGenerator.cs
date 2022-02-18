@@ -5,7 +5,7 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class GeneratorsCsProjGenerator : CsProjGenerator
     {
-        public GeneratorsCsProjGenerator() : base()
+        public GeneratorsCsProjGenerator()
         {
             WithDefaultTargetTemplate();
         }

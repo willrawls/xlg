@@ -87,12 +87,12 @@ namespace MetX.Standard.Pipelines
             }
         }
 
-        private class OpParams
+        public class OpParams
         {
-            public int Op;
+            public readonly int Op;
 
             [XmlIgnore]
-            public IGenerationHost Gui { get; set; }
+            public IGenerationHost Gui { get; }
 
             public OpParams(int op, IGenerationHost gui)
             {
@@ -103,9 +103,9 @@ namespace MetX.Standard.Pipelines
 
         private void InternalOp(object @params) { var o = (OpParams)@params; if (o.Op == 1) Regenerate(o.Gui); else Generate(o.Gui); }
 
-        public void RegenerateAsynch(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, host)); }
+        public void RegenerateAsync(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(1, host)); }
 
-        public void GenerateAsynch(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, host)); }
+        public void GenerateAsync(IGenerationHost host) { ThreadPool.QueueUserWorkItem(InternalOp, new OpParams(2, host)); }
 
         public int Regenerate(IGenerationHost host)
         {
@@ -239,14 +239,13 @@ namespace MetX.Standard.Pipelines
                         {
                             OutputXml = Path.ChangeExtension(OutputFilename, ".xml");
                         }
-                        using (var sw = File.CreateText(OutputXml ?? string.Empty))
-                        {
-                            using (var xw = Xml.Writer(sw))
-                                gen.CodeXmlDocument.WriteTo(xw);
-                        }
+
+                        using var sw = File.CreateText(OutputXml ?? string.Empty);
+                        using var xw = Xml.Writer(sw);
+                        gen.CodeXmlDocument.WriteTo(xw);
                     }
                     LastGenerated = DateTime.Now;
-                    LastXlgInstanceId = gen != null ? gen.XlgInstanceId : Guid.NewGuid();
+                    LastXlgInstanceId = gen?.XlgInstanceId ?? Guid.NewGuid();
                     return 1;
                 }
                 catch (Exception ex)

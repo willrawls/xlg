@@ -26,29 +26,25 @@ namespace MetX.Standard.Data
 
         public void AddParameter(string parameterName, object parameterValue, DbType dataType, ParameterDirection direction)
         {
-            if (Parameters == null)
-                Parameters = new QueryParameterCollection();
+            Parameters ??= new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType, direction));
         }
 
         public void AddParameter(string parameterName, object parameterValue, ParameterDirection direction)
         {
-            if (Parameters == null)
-                Parameters = new QueryParameterCollection();
+            Parameters ??= new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue, direction));
         }
 
         public void AddParameter(string parameterName, object parameterValue, DbType dataType)
         {
-            if (Parameters == null)
-                Parameters = new QueryParameterCollection();
+            Parameters ??= new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue, dataType));
         }
 
         public void AddParameter(string parameterName, object parameterValue)
         {
-            if (Parameters == null)
-                Parameters = new QueryParameterCollection();
+            Parameters ??= new QueryParameterCollection();
             Parameters.Add(new QueryParameter(parameterName, parameterValue));
         }
 

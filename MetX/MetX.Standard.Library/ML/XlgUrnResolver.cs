@@ -7,10 +7,10 @@ namespace MetX.Standard.Library.ML
     /// <summary>Implements a XmlResolver which tracks which files are loaded so PageCache dependencies can easily be implemented</summary>
     public class XlgUrnResolver : XmlResolver
     {
-        XmlUrlResolver _xur;
+        private readonly XmlUrlResolver _xur;
         
         /// <summary>Only Load has been called on an XSL/XSL document, this will contain a list of the files included by the XSL/XML</summary>
-        public List<string> FileEntitys;
+        public readonly List<string> FileEntitys;
 
         /// <summary>Maps a URI to an object containing the physical resource. Override this to implement your own functionality</summary>
         /// <param name="absoluteUri">The URI to retrieve</param>

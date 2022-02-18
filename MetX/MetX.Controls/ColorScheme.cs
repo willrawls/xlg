@@ -22,6 +22,7 @@ namespace MetX.Controls
                 TextBoxFG = Color.FromArgb(203, 203, 203)
             };
 
-        public static Color rgb(int red, int green, int blue) => Color.FromArgb(red, green, blue);
+        // ReSharper disable once InconsistentNaming
+        public static Color RGB(int red, int green, int blue) => Color.FromArgb(red, green, blue);
     }
 }

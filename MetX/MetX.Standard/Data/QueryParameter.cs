@@ -48,19 +48,8 @@ namespace MetX.Standard.Data
         [XmlAttribute]
         public string Value 
         { 
-            get 
-            {
-                if (ParameterValue == null)
-                    return "(DbNull.Value)";
-                return ParameterValue.AsString(); 
-            }
-            set
-            {
-                if (value == "(DbNull.Value)")
-                    ParameterValue = null;
-                else
-                    ParameterValue = value;
-            }
+            get => ParameterValue == null ? "(DbNull.Value)" : ParameterValue.AsString();
+            set => ParameterValue = value == "(DbNull.Value)" ? null : value;
         }
     }
 }

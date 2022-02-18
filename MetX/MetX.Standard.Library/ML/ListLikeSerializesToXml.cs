@@ -19,7 +19,7 @@ public abstract class ListLikeSerializesToXml<TParent, TChild, TKey, TActual> :
     public virtual List<TChild> Items { get; set; } = new();
 
     [XmlIgnore]
-    public virtual int Count => Items.Count;
+    public int Count => Items.Count;
 
     [XmlIgnore]
     public Func<TKey, TChild, bool> KeyComparer { get; set; }

@@ -19,7 +19,7 @@ namespace MetX.Controls
             {
                 if (SelectionList.Items.Count == 0)
                 {
-                    return new object[0];
+                    return Array.Empty<object>();
                 }
 
                 var ret = GetSelectedObjects(SelectionList);

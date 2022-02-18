@@ -158,8 +158,8 @@ namespace MetX.Standard.Generation.CSharp.Project
                 if (string.IsNullOrEmpty(nextNodeInXPath)) return parent;
 
                 // get or create the node from the name
-                var node = parent.SelectSingleNode(nextNodeInXPath);
-                if (node == null) node = parent.AppendChild(Document.CreateElement(nextNodeInXPath));
+                var node = parent.SelectSingleNode(nextNodeInXPath) 
+                           ?? parent.AppendChild(Document.CreateElement(nextNodeInXPath));
 
                 // rejoin the remainder of the array as an xpath expression and recurse
                 var rest = string.Join("/", partsOfXPath.Skip(1).ToArray());

@@ -19,9 +19,9 @@ namespace MetX.Standard.Data
 
         public abstract DataSet ToDataSet(QueryCommand cmd);
 
-        public virtual DataSet ToDataSet(string selectQueryText) { return ToDataSet(new QueryCommand(selectQueryText)); }
+        public DataSet ToDataSet(string selectQueryText) { return ToDataSet(new QueryCommand(selectQueryText)); }
 
-        public virtual DataSet ToDataSet(string selectQueryText, InMemoryCache<string> cache)
+        public DataSet ToDataSet(string selectQueryText, InMemoryCache<string> cache)
         {
             DataSet ds;
             var cacheKey = "DP" + selectQueryText.GetHashCode();
@@ -40,8 +40,8 @@ namespace MetX.Standard.Data
             else
             {
                 ds = new DataSet();
-                using (var sr = new StringReader(dsXml))
-                    ds.ReadXml(sr);
+                using var sr = new StringReader(dsXml);
+                ds.ReadXml(sr);
             }
             if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
                 return null;
@@ -73,7 +73,7 @@ namespace MetX.Standard.Data
         public int CacheTimeout = 60;
         public IDbConnection LastConnection;
 
-        public virtual IDbConnection GetConnection()
+        public IDbConnection GetConnection()
         {
             if (LastConnection == null || LastConnection.State != ConnectionState.Open)
                 LastConnection = NewConnection();
@@ -82,7 +82,7 @@ namespace MetX.Standard.Data
 
         public abstract IDbConnection NewConnection();
 
-        public virtual void CloseConnection()
+        public void CloseConnection()
         {
             if (LastConnection != null && LastConnection.State != ConnectionState.Closed)
             {
@@ -92,16 +92,16 @@ namespace MetX.Standard.Data
             LastConnection = null;
         }
 
-        public virtual string ValidIdentifier(string identifier)
+        public string ValidIdentifier(string identifier)
         {
             if (identifier != null)
                 return "[" + identifier + "]";
             return null;
         }
 
-        public virtual string TopStatement => " TOP ";
+        public string TopStatement => " TOP ";
 
-        public virtual string CommandSeparator => "; ";
+        public string CommandSeparator => "; ";
 
         public virtual string SelectStatement(string top, int page, QueryType qType)
         {

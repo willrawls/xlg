@@ -8,9 +8,7 @@ namespace MetX.Controls
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{
-	    readonly ImageList _mImageList = new ImageList();
-
-        readonly ICompletionData[] _mCompletionData;
+		readonly ICompletionData[] _mCompletionData;
 		
 		public CompletionDataProvider(IList<string> items)
 		{
@@ -19,9 +17,9 @@ namespace MetX.Controls
                 _mCompletionData[index] = new DefaultCompletionData(items[index],items[index],0);
 		}
 
-	    public ImageList ImageList => _mImageList;
+	    public ImageList ImageList { get; } = new ImageList();
 
-        public string PreSelection => null;
+	    public string PreSelection => null;
 
         public int DefaultIndex => 0;
 

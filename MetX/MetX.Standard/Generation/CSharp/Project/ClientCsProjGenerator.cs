@@ -9,7 +9,7 @@ namespace MetX.Standard.Generation.CSharp.Project
 {
     public class ClientCsProjGenerator : CsProjGenerator
     {
-        public ClientCsProjGenerator() : base()
+        public ClientCsProjGenerator() 
         {
             WithDefaultTargetTemplate();
         }

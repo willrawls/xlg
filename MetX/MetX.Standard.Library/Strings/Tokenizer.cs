@@ -52,7 +52,7 @@ namespace MetX.Standard.Library.Strings
                 delimiterLength = 0;
 
             if (target.IsEmpty())
-                return new string[0];
+                return Array.Empty<string>();
 
             if (indexes == null || indexes.Length == 0)
                 return new[] {target};
