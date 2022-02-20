@@ -12,7 +12,7 @@
     <Description>XLG .net standard 2 primary library</Description>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>I:\OneDrive\Data\code\GitHub\xlg\MetX\XLG.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Generics\**" />

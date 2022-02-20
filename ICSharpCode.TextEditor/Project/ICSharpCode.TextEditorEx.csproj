@@ -15,7 +15,7 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RootNamespace>ICSharpCode.TextEditor</RootNamespace>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>I:\OneDrive\Data\code\GitHub\xlg\MetX\XLG.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
