@@ -1,5 +1,11 @@
 ﻿using System;
-using MetX.Standard.Library;
+using System.Diagnostics;
+using System.IO;
+using MetX.Standard;
+using MetX.Standard.Generation;
+using MetX.Standard.Host;
+using MetX.Standard.IO;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +30,7 @@ namespace MetX.Tests.Scripts
 
             XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
 
-            InMemoryCompilerTests.BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
+            BuildDoNothingGenerationHost(out var pathToTestTemplates, out var host, out var context);
             var settings = new ActualizationSettings(quickScriptTemplate, true, source, true, host);
 
             settings.Answers["DestinationFilePath"].Value = "AAA";
@@ -65,6 +71,41 @@ namespace MetX.Tests.Scripts
             bool compileResult = actual.Compile();
             Assert.IsNotNull(actual.DestinationExecutableFilePath);
             Console.WriteLine($"\nDestinationAssemblyFilePath is:\n{actual.DestinationExecutableFilePath}");
+        }
+
+        public static void BuildDoNothingGenerationHost(out string pathToTestTemplates,
+            out DoNothingGenerationHost host, out ContextBase context)
+        {
+            pathToTestTemplates = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestTemplates");
+            context = new ContextBase(pathToTestTemplates, null);
+            host = new DoNothingGenerationHost("", context);
+            context.Host = host;
+            host.Context = context;
+            host.Context.Templates = new XlgQuickScriptTemplateList(pathToTestTemplates);
+        }
+
+        private static void AssertConsoleExecutableOutputsProperly(ActualizationResult result, string expected)
+        {
+            var gatherResult = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, null, out var errorOutput, result.Settings.ProjectFolder, 15, ProcessWindowStyle.Hidden);
+
+            Console.WriteLine();
+            Console.WriteLine(result.DestinationExecutableFilePath);
+
+            if (gatherResult.IsNotEmpty())
+            {
+                Console.WriteLine();
+                Console.WriteLine("-----[ Output ]-----");
+                Console.WriteLine(gatherResult);
+            }
+
+            if (errorOutput.IsNotEmpty())
+            {
+                Console.WriteLine();
+                Console.WriteLine("-----[ Errors ]-----");
+                Console.WriteLine(errorOutput);
+            }
+
+            Assert.IsTrue(gatherResult.Contains(expected));
         }
     }
 }

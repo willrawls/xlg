@@ -1,14 +1,8 @@
 using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Xml.XPath;
 using MetX.Standard.IO;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
-using MetX.Standard.Pipelines;
 using MetX.Standard.XDString.Generics;
 
 namespace MetX.Standard.Scripts
@@ -106,26 +100,6 @@ namespace MetX.Standard.Scripts
         public static void StageSupportFiles(ActualizationResult result)
         {
             return; // Currently unneeded
-
-            /*
-            // Stage support files (MetX.*.dll & .pdb)
-            var contents = FileSystem.DeepContents(AppDomain.CurrentDomain.BaseDirectory);
-
-            List<XlgFile> filesToCopy = new List<XlgFile>();
-
-            contents.ForEachFile(func: file =>
-            {
-                if (file.Extension.ToLower() is ".pdb" or ".dll"
-                    && file.Name.ToLower().Contains("metx."))
-                    filesToCopy.Add(file);
-                return true;
-            });
-
-            foreach (var file in filesToCopy)
-            {
-                file.CopyTo(result.Settings.ProjectFolder);
-            }
-        */
         }
 
         private void SetupAnswers(ActualizationResult result)

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -124,4 +124,4 @@ namespace MetX.Tests.Scripts
             AssertConsoleExecutableOutputsProperly(result, "Something");
         }
     }
-}
+}*/

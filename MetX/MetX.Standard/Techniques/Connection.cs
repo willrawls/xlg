@@ -7,7 +7,7 @@ namespace MetX.Standard.Techniques
     public class Connection : Particle
     {
         [XmlAttribute]
-        public string ConnetionString;
+        public string ConnectionString;
         [XmlAttribute]
         public string Provider;
     }

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using MetX.Controls;
+using MetX.Standard.Host;
 using MetX.Standard.Interfaces;
 using MetX.Standard.IO;
 using MetX.Standard.Library;
@@ -19,6 +20,7 @@ using NHotPhrase;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
+using XLG.Pipeliner.Pipelines;
 
 namespace XLG.Pipeliner
 {

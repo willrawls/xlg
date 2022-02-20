@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using MetX.Controls;
+using MetX.Standard.Host;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Pipelines;
 

@@ -208,10 +208,6 @@ namespace //~~NameInstance~~//
             finally
             {
                 CloseClipboard();
-                /*
-                if (pointer != IntPtr.Zero)
-                    Marshal.FreeHGlobal(pointer);
-            */
             }
 
             return true;
@@ -273,11 +269,6 @@ namespace //~~NameInstance~~//
                 {
                     //  Clean up
                     CloseClipboard();
-
-                    /*
-                    if (handleToDestinationMemory != IntPtr.Zero)
-                        Marshal.FreeHGlobal(handleToDestinationMemory);
-                */
                 }
             }
 

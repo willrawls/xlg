@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using Microsoft.CodeAnalysis;

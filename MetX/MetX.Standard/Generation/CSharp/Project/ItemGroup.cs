@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MetX.Standard.Generation.CSharp.Project
+﻿namespace MetX.Standard.Generation.CSharp.Project
 {
     public class ItemGroup
     {

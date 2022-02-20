@@ -5,12 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using MetX.Standard.Host;
 using MetX.Standard.Interfaces;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Pipelines;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetX.Standard.IO
 {

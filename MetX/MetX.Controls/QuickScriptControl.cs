@@ -285,23 +285,6 @@ namespace MetX.Controls
 
         public void QuickScriptControl_KeyUp(object sender, KeyEventArgs e)
         {
-            /*
-            switch (e.KeyCode)
-            {
-                case Keys.F:
-                    if (e.Control)
-                    {
-                        FindAndReplaceForm.ShowFor(this, false);
-                    }
-                    break;
-                case Keys.H:
-                    if (e.Control)
-                    {
-                        FindAndReplaceForm.ShowFor(this, true);
-                    }
-                    break;
-            }
-        */
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using System.Xml;
+﻿using System.Xml;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {

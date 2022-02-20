@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>MetX.Standard.Archived</RootNamespace>
+    <AssemblyName>MetX.Standard.Archived</AssemblyName>
+    <ApplicationIcon>batfile.ico</ApplicationIcon>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>William Rawls</Authors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="batfile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="batfile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="4.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration.ConfigurationManager">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

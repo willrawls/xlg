@@ -19,13 +19,11 @@ namespace MetX.Standard.IO
         /// <param name="body">Email Body (pure text)</param>
         public static void SendMail(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
-            // Join();
             var mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName))
             {
                 Subject = subject,
                 Body = body,
-                IsBodyHtml = body.IndexOf("<HTML>", StringComparison.Ordinal) > -1 
-                             || body.IndexOf("<html>", StringComparison.Ordinal) > -1
+                IsBodyHtml = body.IndexOf("<HTML>", StringComparison.InvariantCultureIgnoreCase) > -1
             };
             Send(mm);
 		}

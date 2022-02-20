@@ -68,23 +68,6 @@ namespace MetX.Controls
                     component.BackColor = scheme.TextBoxBG;
                     component.ForeColor = scheme.TextBoxFG;
                 }
-                /*
-                else if (component is ToolStripButton)
-                {
-                    component.BackColor = scheme.TextBoxBG;
-                    component.ForeColor = scheme.TextBoxFG;
-                }
-                else if (component is ToolStripComboBox)
-                {
-                    component.BackColor = scheme.TextBoxBG;
-                    component.ForeColor = scheme.TextBoxFG;
-                }
-                else if (component is ToolStripLabel)
-                {
-                    component.BackColor = scheme.TextBoxBG;
-                    component.ForeColor = scheme.TextBoxFG;
-                }
-                */
                 else if (component is ToolStrip or MenuStrip)
                 {
                     ChangeTheme(scheme, component.Controls);

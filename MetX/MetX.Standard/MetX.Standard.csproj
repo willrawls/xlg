@@ -20,40 +20,17 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Data\Obsolete\**" />
     <Compile Remove="Metadata\**" />
     <Compile Remove="Pipelines\Obsolete\**" />
-    <EmbeddedResource Remove="Data\Obsolete\**" />
     <EmbeddedResource Remove="Metadata\**" />
     <EmbeddedResource Remove="Pipelines\Obsolete\**" />
-    <None Remove="Data\Obsolete\**" />
     <None Remove="Metadata\**" />
     <None Remove="Pipelines\Obsolete\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Data\ActiveList.cs" />
-    <Compile Remove="Data\FWTClient.cs" />
-    <Compile Remove="Data\FWTConnection.cs" />
-    <Compile Remove="Data\FWTDataProvider.cs" />
-    <Compile Remove="Data\FWTDataReader.cs" />
-    <Compile Remove="Data\xlgBuildProvider.cs" />
     <Compile Remove="IO\DatabaseUpdates.cs" />
     <Compile Remove="IO\Element.cs" />
     <Compile Remove="Scripts\NArrangeTestLogger.cs" />
-    <Compile Remove="Web\HttpAppErrHandler.cs" />
-    <Compile Remove="Web\SecureHandler.cs" />
-    <Compile Remove="Web\SecurePage.cs" />
-    <Compile Remove="Web\SecureXslHandler.cs" />
-    <Compile Remove="Web\SecureXslPage.cs" />
-    <Compile Remove="Web\Virtual\viewtempdatafile.cs" />
-    <Compile Remove="Web\xlgHandler.cs" />
-    <Compile Remove="Web\xlgHandlerFactory.cs" />
-    <Compile Remove="Web\xlgPage.cs" />
-    <Compile Remove="Web\xlgPathProvider.cs" />
-    <Compile Remove="Web\xlgVirtualDirectory.cs" />
-    <Compile Remove="Web\xlgVirtualFile.cs" />
-    <Compile Remove="Web\XslHandler.cs" />
-    <Compile Remove="Web\XslPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Metadata\Column.cs" />
@@ -66,10 +43,6 @@
     <Compile Include="Metadata\Table.cs" />
     <Compile Include="Metadata\View.cs" />
     <Compile Include="Metadata\xlgDocManual.cs" />
-    <Compile Include="Metadata\xlgDocRender.cs" />
-    <Compile Include="Metadata\xlgDocRenderXsls.cs" />
-    <Compile Include="Metadata\XlgDocumentDataSet.cs" />
-    <Compile Include="Metadata\XslEndpoints.cs" />
   </ItemGroup>
 
   <ItemGroup>
