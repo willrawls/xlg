@@ -31,7 +31,6 @@ namespace XLG.QuickScripts
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Fred");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickScriptEditor));
             this.OpenInputFilePathDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDestinationFilePathDialog = new System.Windows.Forms.SaveFileDialog();
@@ -69,8 +68,7 @@ namespace XLG.QuickScripts
             this.FeedbackButton = new System.Windows.Forms.Button();
             this.ScriptEditorHelpButton = new System.Windows.Forms.Button();
             this.LeftPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.QuickScriptList = new System.Windows.Forms.ListView();
-            this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
+            this.QuickScriptList = new System.Windows.Forms.ListBox();
             this.ActionPanel = new System.Windows.Forms.TableLayoutPanel();
             this.OpenLink = new System.Windows.Forms.LinkLabel();
             this.SaveAsLink = new System.Windows.Forms.LinkLabel();
@@ -85,6 +83,7 @@ namespace XLG.QuickScripts
             this.NewFileLink = new System.Windows.Forms.LinkLabel();
             this.ScriptNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -576,32 +575,18 @@ namespace XLG.QuickScripts
             // 
             this.QuickScriptList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(77)))), ((int)(((byte)(134)))));
             this.QuickScriptList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.QuickScriptList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ScriptNameColumn});
             this.QuickScriptList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.QuickScriptList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.QuickScriptList.ForeColor = System.Drawing.Color.White;
-            this.QuickScriptList.FullRowSelect = true;
-            this.QuickScriptList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.QuickScriptList.HideSelection = false;
-            this.QuickScriptList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            this.QuickScriptList.ItemHeight = 20;
+            this.QuickScriptList.Items.AddRange(new object[] {
+            "<Empty this should never be seen>"});
             this.QuickScriptList.Location = new System.Drawing.Point(158, 35);
             this.QuickScriptList.Margin = new System.Windows.Forms.Padding(6);
-            this.QuickScriptList.MultiSelect = false;
             this.QuickScriptList.Name = "QuickScriptList";
-            this.QuickScriptList.ShowGroups = false;
             this.QuickScriptList.Size = new System.Drawing.Size(257, 710);
-            this.QuickScriptList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.QuickScriptList.TabIndex = 1;
-            this.QuickScriptList.UseCompatibleStateImageBehavior = false;
-            this.QuickScriptList.View = System.Windows.Forms.View.Details;
             this.QuickScriptList.SelectedIndexChanged += new System.EventHandler(this.QuickScriptList_SelectedIndexChanged);
-            // 
-            // ScriptNameColumn
-            // 
-            this.ScriptNameColumn.Text = "Script Name";
-            this.ScriptNameColumn.Width = 500;
             // 
             // ActionPanel
             // 
@@ -834,6 +819,11 @@ namespace XLG.QuickScripts
             this.label4.TabIndex = 2;
             this.label4.Text = "Actions";
             // 
+            // ScriptNameColumn
+            // 
+            this.ScriptNameColumn.Text = "Script Name";
+            this.ScriptNameColumn.Width = 500;
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
@@ -928,7 +918,7 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.TextBox QuickScriptName;
         private System.Windows.Forms.Button CloneScriptButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView QuickScriptList;
+        private System.Windows.Forms.ListBox QuickScriptList;
         private System.Windows.Forms.ColumnHeader ScriptNameColumn;
         private System.Windows.Forms.Button DeleteScriptButton;
         private System.Windows.Forms.Label ScriptNameLabel;
