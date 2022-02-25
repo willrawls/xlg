@@ -85,7 +85,12 @@
       "ProjectGuid": "726899b3-f379-4c09-a937-e5db0b5bac04",
       "DisplayName": "MetX.Console.Research",
       "ColorIndex": 15
+    },
+    "73ffd946-ae85-4a55-8633-e9aaa8b8a421": {
+      "ProjectGuid": "73ffd946-ae85-4a55-8633-e9aaa8b8a421",
+      "DisplayName": "MetX.Standard.Archived",
+      "ColorIndex": 0
     }
   },
-  "NextColorIndex": 0
+  "NextColorIndex": 1
 }
