@@ -1,6 +1,8 @@
 using System;
 using System.Net.Mail;
 using System.Threading;
+using System.Threading.Tasks;
+using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.IO
 {
@@ -8,7 +10,7 @@ namespace MetX.Standard.IO
 	/// Allows for the sending of a simple email asynchronously on another thread.
 	/// </summary>
     // ReSharper disable once UnusedType.Global
-    public class Email
+    public static class Email
 	{
 		/// <summary>Allows for the quick and asynchronous sending of a simple email</summary>
         /// <param name="fromName">Display name of the person sending the email</param>
@@ -17,13 +19,13 @@ namespace MetX.Standard.IO
         /// <param name="toEmail">To Email Address</param>
         /// <param name="subject">Email Subject</param>
         /// <param name="body">Email Body (pure text)</param>
-        public static void SendMail(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
+        public static void Send(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
 		{
             var mm = new MailMessage(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName))
             {
                 Subject = subject,
                 Body = body,
-                IsBodyHtml = body.IndexOf("<HTML>", StringComparison.InvariantCultureIgnoreCase) > -1
+                IsBodyHtml = body.IndexOf("<html>", StringComparison.InvariantCultureIgnoreCase) > -1
             };
             Send(mm);
 		}
@@ -31,24 +33,12 @@ namespace MetX.Standard.IO
         /// <summary>
         /// Asynchronously sends a MailMessage
         /// </summary>
-        /// <param name="mm">The MailMessage to send</param>
-        public static void Send(MailMessage mm)
+        /// <param name="mailMessage">The MailMessage to send</param>
+        public static Task Send(MailMessage mailMessage)
         {
-            ThreadPool.QueueUserWorkItem(Start, mm);
+	        return mailMessage == null 
+		        ? null 
+		        : ForTasks.FireAndForget(() => new SmtpClient(SmtpImplementation.SmtpServer).Send(mailMessage));
         }
-        /// <summary>Private function for sending the asychronous email on a new thread</summary>
-        private static void Start(object objMailMessage)
-        {
-            try
-            {
-                new SmtpClient(System.Configuration.ConfigurationManager.AppSettings["SmtpServer"]).Send(
-                    (MailMessage) objMailMessage);
-            }
-            catch
-            {
-                // Ignored
-            }
-        }
-
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -16,7 +17,7 @@ namespace MetX.Standard.IO
     ///     Provides methods to send email via smtp, with out CDO SYS installed.
     ///     <para>This is a manual implementation of the SMTP protocol.</para>
     /// </summary>
-    public static class SmtpMail
+    public static class SmtpImplementation
     {
         public enum SmtpResponses
         {
@@ -27,7 +28,28 @@ namespace MetX.Standard.IO
         }
 
         /// <summary>Get or Set the name of the SMTP relay mail server</summary>
-        public static string SmtpServer;
+        private static string _smtpServer;
+
+        public static string SmtpServer
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_smtpServer)) return _smtpServer;
+
+                try
+                {
+                    _smtpServer = ConfigurationManager.AppSettings["SmtpServer"];
+                }
+                catch
+                {
+                    // Ignored
+                }
+
+                return _smtpServer;
+            }
+            set => _smtpServer = value;
+        }
+
 
         /// <summary>Send an Email</summary>
         /// <param name="fromName">The displayed name for the FROM address</param>
@@ -48,10 +70,28 @@ namespace MetX.Standard.IO
             };
             mailMessage.To.Add(new MailAddress(toEmail, toName));
             
-            SmtpServer = ConfigurationManager.AppSettings["SmtpServer"];
             var messageSentSuccessfully = Send(mailMessage);
             return messageSentSuccessfully;
         }
+
+        public static Task<bool> SendAsync(string fromName, string fromEmail, string toName, string toEmail, string subject, string body)
+        {
+            var task = Task.Run(() =>
+            {
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(fromEmail, fromName),
+                    Subject = subject,
+                    Body = body,
+                };
+                mailMessage.To.Add(new MailAddress(toEmail, toName));
+            
+                var messageSentSuccessfully = Send(mailMessage);
+                return messageSentSuccessfully;
+            });
+            return task;
+        }
+
 
 
         /// <summary>Sends an email message</summary>
@@ -59,6 +99,9 @@ namespace MetX.Standard.IO
         /// <returns>Returns true if the email was sent.</returns>
         public static bool Send(MailMessage message)
         {
+            if(string.IsNullOrEmpty(SmtpServer))
+                return false;
+
             var ipHostEntry = Dns.GetHostEntry(SmtpServer);
             var target = new IPEndPoint(ipHostEntry.AddressList[0], 25);
             var s = new Socket(target.AddressFamily, SocketType.Stream, ProtocolType.Tcp);

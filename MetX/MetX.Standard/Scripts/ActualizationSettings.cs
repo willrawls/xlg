@@ -41,7 +41,7 @@ namespace MetX.Standard.Scripts
         {
             if (!Directory.Exists(DebugPath))
             {
-                BinPath = Path.Combine(DebugPath, "net5.0");
+                BinPath = Path.Combine(DebugPath, "net6.0");
                 return;
             }
 

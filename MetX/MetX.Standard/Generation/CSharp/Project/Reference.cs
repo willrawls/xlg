@@ -18,10 +18,10 @@ namespace MetX.Standard.Generation.CSharp.Project
             if (hintPath.IsEmpty())
             {
                 // Maybe don't need a hint path most of the time
-                // C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Configuration.ConfigurationManager.dll
+                // C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net6.0\System.Configuration.ConfigurationManager.dll
                 // C:\Program Files\dotnet
                 //    \packs\Microsoft.WindowsDesktop.App.Ref
-                //    \5.0.0\ref\net5.0
+                //    \5.0.0\ref\net6.0
                 //    \System.Configuration.ConfigurationManager.dll
                 // 
             }

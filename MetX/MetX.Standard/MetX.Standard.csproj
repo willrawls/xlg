@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
@@ -66,11 +67,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
     <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Configuration.ConfigurationManager">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Configuration.ConfigurationManager.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

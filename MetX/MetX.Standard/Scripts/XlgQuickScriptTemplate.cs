@@ -90,7 +90,7 @@ namespace MetX.Standard.Scripts
                 StageSupportFiles(result);
 
                 var filename = settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(settings.ForExecutable ? ".exe" : ".dll");
-                result.DestinationExecutableFilePath = Path.Combine(settings.ProjectFolder, "bin", "Debug", "net5.0", filename);
+                result.DestinationExecutableFilePath = Path.Combine(settings.ProjectFolder, "bin", "Debug", "net6.0", filename);
 
             }
 

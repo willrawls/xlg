@@ -1,8 +1,10 @@
-﻿using System.Xml;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 
 namespace MetX.Standard.Library.Strings;
 
 // ReSharper disable once UnusedType.Global
+[SuppressMessage("ReSharper", "StringIndexOfIsCultureSpecific.1")]
 public class ConvertFromJson
 {
     public static XmlDocument ToXml(string json)
@@ -27,29 +29,27 @@ public class ConvertFromJson
                 {
                     processElement = processElement.Replace(":", "").Replace("[", "").Replace("\"", "").Trim();
                     newNode = returnXmlDoc.CreateElement(processElement);
-                    appendToNode.AppendChild(newNode);
+                    appendToNode!.AppendChild(newNode);
                     appendToNode = newNode;
                 }
                 else if (processElement.IndexOf("{") > -1 && processElement.IndexOf(":") > -1)
                 {
                     processElement = processElement.Replace(":", "").Replace("{", "").Replace("\"", "").Trim();
                     newNode = returnXmlDoc.CreateElement(processElement);
-                    appendToNode.AppendChild(newNode);
+                    appendToNode!.AppendChild(newNode);
                     appendToNode = newNode;
                 }
                 else
                 {
-                    if (processElement.IndexOf(":") > -1)
-                    {
-                        var arrElementData = processElement.Replace(": \"", ":").Replace("\",", "").Replace("\"", "").Split(':');
-                        newNode = returnXmlDoc.CreateElement(arrElementData[0]);
-                        for (var i = 1; i < arrElementData.Length; i++)
-                        {
-                            newNode.InnerText += arrElementData[i];
-                        }
+                    if (processElement.IndexOf(":") <= -1) continue;
 
-                        appendToNode.AppendChild(newNode);
-                    }
+                    var arrElementData = processElement.Replace(": \"", ":").Replace("\",", "").Replace("\"", "").Split(':');
+                    newNode = returnXmlDoc.CreateElement(arrElementData[0]);
+                    
+                    for (var i = 1; i < arrElementData.Length; i++) 
+                        newNode.InnerText += arrElementData[i];
+
+                    appendToNode!.AppendChild(newNode);
                 }
             }
         }

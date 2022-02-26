@@ -739,7 +739,7 @@ namespace XLG.Pipeliner
         private void EditQuickScript_Click(object sender, EventArgs e)
         {
             var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
-            exePath = FileSystem.FindExecutableAlongPath(exePath, new string[] { @"\..\..\..\..\MetX.QuickScripts\bin\Debug\net5.0-windows" });
+            exePath = FileSystem.FindExecutableAlongPath(exePath, new string[] { @"\..\..\..\..\MetX.QuickScripts\bin\Debug\net6.0-windows" });
             if (!File.Exists(exePath))
             {
                 Host.MessageBox.Show("Qk Scrptr executable missing: " + exePath);

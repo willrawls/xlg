@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>MetX.Controls</RootNamespace>
@@ -27,6 +27,11 @@
   <ItemGroup>
     <EmbeddedResource Remove="FindAndReplaceForm.resx" />
     <EmbeddedResource Remove="TechniquesEditor.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="license.txt" />
+    <None Remove="MetX.Controls.csproj.DotSettings" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />

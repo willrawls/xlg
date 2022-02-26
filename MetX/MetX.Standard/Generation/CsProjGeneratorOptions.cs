@@ -81,7 +81,7 @@ namespace MetX.Standard.Generation
             switch (TargetFramework)
             {
                 case GenFramework.Net50:
-                    return "net5.0";
+                    return "net6.0";
                 case GenFramework.Net50Windows:
                     return "net-5.0windows";
                 case GenFramework.Core31:

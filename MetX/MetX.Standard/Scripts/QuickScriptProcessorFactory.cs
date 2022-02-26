@@ -1,7 +1,6 @@
 ﻿using MetX.Standard.Interfaces;
-using MetX.Standard.Scripts;
 
-namespace MetX.Controls
+namespace MetX.Standard.Scripts
 {
     public static class QuickScriptProcessorFactory
     {
@@ -18,7 +17,6 @@ namespace MetX.Controls
 
             result.Settings.UpdateBinPath();
             return result;
-
         }
 
         public static ActualizationSettings BuildSettings(this XlgQuickScript script, bool simulate, IGenerationHost host)
