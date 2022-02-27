@@ -312,10 +312,6 @@ namespace MetX.Standard.IO
         public static void StringToFile(string filename, string fileContents)
         {
             File.WriteAllText(filename, fileContents, Encoding.Unicode);
-            //StreamWriter Sw = File.CreateText(Filename);
-            //Sw.NewLine = "";
-            //Sw.WriteLine(FileContents);
-            //Sw.Close();
         }
 
         /// <summary>Given a path, it returns the parent folder (So for "C:\X\Y\Z", "C:\X\Y" would be returned.</summary>
