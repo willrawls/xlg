@@ -35,6 +35,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+		<PackageReference Include="NETStandard.Library" Version="2.0.0" />
 
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>

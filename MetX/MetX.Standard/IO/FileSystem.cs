@@ -330,24 +330,24 @@ namespace MetX.Standard.IO
 
         public static string InsureFolderExists(IGenerationHost host, string path, bool stripOffFilename)
         {
+            if (Directory.Exists(path)) return path;
+
             var ret = string.Empty;
-            if (!Directory.Exists(path))
+            var folder = stripOffFilename
+                ? path.TokensBefore(path.TokenCount(@"\"), @"\")
+                : path;
+
+            if (!Directory.Exists(folder))
             {
-                var folder = stripOffFilename
-                    ? path.TokensBefore(path.TokenCount(@"\"), @"\")
-                    : path;
-                if (!Directory.Exists(folder))
-                {
-                    if (host.MessageBox.Show("The folder '" + folder + "' does not exist.\n\n\tCreate it now?",
-                            "CREATE FOLDER?", MessageBoxChoices.YesNo) == MessageBoxResult.Yes)
-                    {
-                        Directory.CreateDirectory(folder);
-                        ret = folder.EndsWith(@"\") ? folder : folder + @"\";
-                    }
-                }
-                else
-                    ret = folder.EndsWith(@"\") ? folder : folder + @"\";
+                if (host.MessageBox.Show(
+                        "The folder '" + folder + "' does not exist.\n\n\tCreate it now?",
+                        "CREATE FOLDER?", MessageBoxChoices.YesNo) != MessageBoxResult.Yes) return ret;
+
+                Directory.CreateDirectory(folder);
+                ret = folder.EndsWith(@"\") ? folder : folder + @"\";
             }
+            else
+                ret = folder.EndsWith(@"\") ? folder : folder + @"\";
             return ret;
         }
 
@@ -513,17 +513,16 @@ namespace MetX.Standard.IO
                 }
             }
 
-            var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper();
-            if (fullPath.IsNotEmpty())
+            var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper() ?? "";
+            if (fullPath.IsEmpty()) return pathToExecutable;
+            
+            var paths = fullPath.Split(';').Distinct().ToArray();
+            foreach (var path in paths)
             {
-                var paths = fullPath.Split(';').Distinct().ToArray();
-                foreach (var path in paths)
+                var potentialLocation = Path.Combine(path, executableFilename);
+                if (File.Exists(potentialLocation))
                 {
-                    var potentialLocation = Path.Combine(path, executableFilename);
-                    if (File.Exists(potentialLocation))
-                    {
-                        return potentialLocation;
-                    }
+                    return potentialLocation;
                 }
             }
 

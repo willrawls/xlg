@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using MetX.Standard.Library.Strings;
 
 namespace MetX.Standard.Library.Extensions
@@ -164,6 +166,7 @@ namespace MetX.Standard.Library.Extensions
             return target?.Count > 0;
         }
 
+        [NotNull]
         public static bool IsEmpty(this string target)
         {
             return target == null || 0u >= (uint)target.Length;
@@ -186,8 +189,10 @@ namespace MetX.Standard.Library.Extensions
             return false;
         }
 
+        [NotNull]
         public static bool IsNotEmpty(this string target)
         {
+            Contract.Ensures(Contract.Result<string>() != null);
             return !string.IsNullOrEmpty(target);
         }
 

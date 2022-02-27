@@ -21,7 +21,7 @@ namespace XLG.QuickScripts
 {
     public partial class QuickScriptEditor : ScriptRunningWindow
     {
-        public bool Updating = true;
+        public bool Updating;
 
         public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
 
@@ -33,28 +33,33 @@ namespace XLG.QuickScripts
                 ? QuickScriptList.SelectedItem as XlgQuickScript
                 : null;
 
+        public int SelectedScriptIndex =>
+            QuickScriptList.SelectedItems.Count != 0
+                ? QuickScriptList.SelectedIndex 
+                : -1;
+
         public string LastSuccessfulCloneFolder { get; set; }
 
         public QuickScriptEditor(string filePath)
         {
+            Updating = true;
             InitializeComponent();
+
             ChangeTheme(ColorScheme.DarkThemeOne, Controls);
             ChangeTheme(ColorScheme.DarkThemeOne, ScriptEditor.Controls);
 
             InputParam.GotFocus += InputParam_GotFocus;
-            InputParam.LostFocus += InputParam_LostFocus;
-
             DestinationParam.GotFocus += DestinationParam_GotFocus;
-            DestinationParam.LostFocus += DestinationParam_LostFocus;
 
             Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
 
-            LoadQuickScriptsFile(filePath);
+            LoadQuickScriptsFile(filePath, false);
             InitializeHotPhrases();
             Updating = false;
+
+            UpdateForm(Host.Context.Scripts.Default);
         }
-
-
+        
         private void InitializeHotPhrases()
         {
             try
@@ -75,11 +80,12 @@ namespace XLG.QuickScripts
 
         private void OnPickAndRunQuickScript(object sender, PhraseEventArguments e)
         {
+            if (Updating) return;
+            if (ScriptEditor.Current == null) return;
             try
             {
-                if (ScriptEditor.Current == null) return;
 
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 var chooseQuickScript = new ChooseFromListDialog();
                 var choices = Host.Context.Scripts.ScriptNames();
@@ -103,8 +109,9 @@ namespace XLG.QuickScripts
 
         private void OnRunCurrentQuickScript(object sender, PhraseEventArguments e)
         {
-            Host.WaitFor(() => { RunQuickScript_Click(null, null); });
+            if (Updating) return;
 
+            Host.WaitFor(() => { RunQuickScript_Click(null, null); });
             e.Handled = true;
         }
 
@@ -113,7 +120,7 @@ namespace XLG.QuickScripts
             try
             {
                 if (ScriptEditor?.Current == null) return;
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 var settings = ScriptEditor.Current.BuildSettings(false, Host);
                 var result = settings.QuickScriptTemplate.ActualizeCode(settings);
@@ -149,7 +156,62 @@ namespace XLG.QuickScripts
             }
         }
 
-        public void UpdateFromFormToScript()
+        private void UpdateForm(XlgQuickScript selectedScript)
+        {
+            if (Updating) return;
+            if (selectedScript == null) return;
+
+            try
+            {
+                Updating = true;
+                QuickScriptName.Text = selectedScript.Name;
+
+                var script = selectedScript.Script;
+                ScriptEditor.Refresh();
+                ScriptEditor.Text = script;
+                ScriptEditor.Refresh();
+
+                DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
+                    ? "Text Box"
+                    : selectedScript.Destination.ToString().Replace("Box", " Box");
+
+                var index = InputList.FindString(selectedScript.Input);
+                InputList.SelectedIndex = index > -1
+                    ? index
+                    : 0;
+
+                index = SliceAt.FindString(selectedScript.SliceAt);
+                SliceAt.SelectedIndex = index > -1
+                    ? index
+                    : SliceAt.Items.Add(selectedScript.SliceAt);
+
+                index = DiceAt.FindString(selectedScript.DiceAt);
+                DiceAt.SelectedIndex = index > -1
+                    ? index
+                    : DiceAt.Items.Add(selectedScript.DiceAt);
+
+                TemplateFolderPath.Text = selectedScript.TemplateName;
+
+                InputParam.Text = selectedScript.InputFilePath;
+                if (InputParam.Text.Length > 0) InputParam.SelectionStart = InputParam.Text.Length;
+
+                DestinationParam.Text = selectedScript.DestinationFilePath;
+                if (DestinationParam.Text.Length > 0) DestinationParam.SelectionStart = DestinationParam.Text.Length;
+
+                DestinationList_SelectedIndexChanged(null, null);
+                InputList_SelectedIndexChanged(null, null);
+
+                ScriptEditor.Focus();
+                ScriptEditor.Current = selectedScript;
+                CurrentId = selectedScript.Id;
+            }
+            finally
+            {
+                Updating = false;
+            }
+        }
+
+        public void UpdateScript()
         {
             if (ScriptEditor.Current == null
                 || ScriptEditor.Current.Id != CurrentId) return;
@@ -173,6 +235,8 @@ namespace XLG.QuickScripts
 
         private void BrowseDestinationFilePath_Click(object sender, EventArgs e)
         {
+            if (Updating) return;
+
             SaveDestinationFilePathDialog.FileName = DestinationParam.Text;
             SaveDestinationFilePathDialog.InitialDirectory = DestinationParam.Text.TokensBeforeLast(@"\");
             SaveDestinationFilePathDialog.AddExtension = true;
@@ -186,6 +250,8 @@ namespace XLG.QuickScripts
 
         private void BrowseInputFilePath_Click(object sender, EventArgs e)
         {
+            if (Updating) return;
+
             OpenInputFilePathDialog.FileName = InputParam.Text;
             OpenInputFilePathDialog.InitialDirectory = InputParam.Text.TokensBeforeLast(@"\");
             OpenInputFilePathDialog.AddExtension = true;
@@ -202,8 +268,8 @@ namespace XLG.QuickScripts
         public void IfNotUpdating(Action action)
         {
             if (Updating 
-                || Host.Context.Scripts == null
-                || ScriptEditor.Current == null) return;
+                || Host?.Context?.Scripts == null
+                || ScriptEditor?.Current == null) return;
 
             try
             {
@@ -248,70 +314,62 @@ namespace XLG.QuickScripts
                 }
 
                 RefreshLists();
-                UpdateFromScriptToForm(Host.Context.Scripts.Default);
+                UpdateForm(Host.Context.Scripts.Default);
             });
         }
 
         private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
+            if(Updating) return;
+            UpdateScript();
         }
 
         private void DestinationParam_Enter(object sender, EventArgs e)
         {
+            if(Updating) return;
             DestinationParam.SelectAll();
         }
 
         private void DestinationParam_GotFocus(object sender, EventArgs e)
         {
+            if(Updating) return;
             if (MouseButtons != MouseButtons.None) return;
             DestinationParam.SelectAll();
         }
 
-        private void DestinationParam_LostFocus(object sender, EventArgs e)
-        {
-        }
-
-        private void DestinationParam_MouseUp(object sender, MouseEventArgs e)
-        {
-        }
-
         private void EditDestinationFilePath_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             QuickScriptWorker.ViewFile(Host, DestinationParam.Text);
         }
 
         private void EditInputFilePath_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             QuickScriptWorker.ViewFile(Host, InputParam.Text);
         }
 
         private void InputList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
+            if(Updating) return;
+            UpdateScript();
         }
 
         private void InputParam_Enter(object sender, EventArgs e)
         {
+            if(Updating) return;
             InputParam.SelectAll();
         }
 
         private void InputParam_GotFocus(object sender, EventArgs e)
         {
+            if(Updating) return;
             if (MouseButtons != MouseButtons.None) return;
 
             InputParam.SelectAll();
         }
 
-        private void InputParam_LostFocus(object sender, EventArgs e)
-        {
-        }
-
-        private void InputParam_MouseUp(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void LoadQuickScriptsFile(string filePath)
+        private void LoadQuickScriptsFile(string filePath, bool updateForm)
         {
             Host.Context ??= new Context(Host);
             var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
@@ -332,7 +390,8 @@ namespace XLG.QuickScripts
             var selectedIndex = RefreshLists();
             if(SelectedScript == null)
                 QuickScriptList.SelectedIndices.Add(selectedIndex);
-            UpdateFromScriptToForm(Host.Context.Scripts.Default);
+            if(updateForm)
+                UpdateForm(Host.Context.Scripts.Default);
             Text = "Quick Script - " + filePath;
         }
 
@@ -340,7 +399,7 @@ namespace XLG.QuickScripts
         {
             IfNotUpdating(() =>
             {
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 var name = string.Empty;
                 var answer = Host.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
@@ -355,11 +414,11 @@ namespace XLG.QuickScripts
                 Host.Context.Scripts.Add(newScript);
                 var newIndex = QuickScriptList.Items.Add(newScript);
                 QuickScriptList.SelectedIndex = newIndex;
-                UpdateFromScriptToForm(newScript);
+                UpdateForm(newScript);
             });
         }
 
-        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewScriptFile_Click(object sender, EventArgs e)
         {
             OpenInputFilePathDialog.FileName = string.Empty;
             OpenInputFilePathDialog.InitialDirectory = Host.Context.Scripts.FilePath.TokensBeforeLast(@"\");
@@ -373,7 +432,7 @@ namespace XLG.QuickScripts
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
                 Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
-                LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
+                LoadQuickScriptsFile(OpenInputFilePathDialog.FileName, true);
             }
         }
 
@@ -391,7 +450,7 @@ namespace XLG.QuickScripts
             if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
             {
                 Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
-                LoadQuickScriptsFile(OpenInputFilePathDialog.FileName);
+                LoadQuickScriptsFile(OpenInputFilePathDialog.FileName, true);
             }
         }
 
@@ -445,12 +504,26 @@ namespace XLG.QuickScripts
             return selectedIndex;
         }
 
+        private void RefreshNameForSelectedIndexInScriptList()
+        {
+            var selectedScript = SelectedScript;
+            var selectedScriptIndex = SelectedScriptIndex;
+            if (selectedScriptIndex< 0 || selectedScriptIndex >= QuickScriptList.Items.Count) return;
+
+            QuickScriptList.Items.RemoveAt(selectedScriptIndex);
+            QuickScriptList.Items.Insert(selectedScriptIndex, selectedScript);
+            Updating = true;
+            QuickScriptList.SelectedIndex = selectedScriptIndex;
+            Updating = false;
+            QuickScriptList.Refresh();
+        }
+
         private void RunQuickScript_Click(object sender, EventArgs e)
         {
             if (ScriptEditor.Current == null) return;
             Host.WaitFor(() =>
             {
-                UpdateFromFormToScript();
+                UpdateScript();
                 RunQuickScript(this, ScriptEditor.Current, null);
             });
         }
@@ -459,7 +532,7 @@ namespace XLG.QuickScripts
         {
             IfNotUpdating(() =>
             {
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 SaveDestinationFilePathDialog.FileName = Host.Context.Scripts.FilePath;
                 SaveDestinationFilePathDialog.InitialDirectory =
@@ -480,7 +553,7 @@ namespace XLG.QuickScripts
 
         private void SaveQuickScriptFile_Click(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
+            UpdateScript();
             IfNotUpdating(() =>
             {
                 if (string.IsNullOrEmpty(Host.Context.Scripts.FilePath))
@@ -488,55 +561,6 @@ namespace XLG.QuickScripts
                 else 
                     Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
             });
-        }
-
-        private void UpdateFromScriptToForm(XlgQuickScript selectedScript)
-        {
-            if (selectedScript == null) return;
-
-            //IfNotUpdating(() =>
-            {
-                QuickScriptName.Text = selectedScript.Name;
-
-                var script = selectedScript.Script;
-                ScriptEditor.Refresh();
-                ScriptEditor.Text = script;
-                ScriptEditor.Refresh();
-
-                DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
-                    ? "Text Box"
-                    : selectedScript.Destination.ToString().Replace("Box", " Box");
-
-                var index = InputList.FindString(selectedScript.Input);
-                InputList.SelectedIndex = index > -1
-                    ? index
-                    : 0;
-
-                index = SliceAt.FindString(selectedScript.SliceAt);
-                SliceAt.SelectedIndex = index > -1
-                    ? index
-                    : SliceAt.Items.Add(selectedScript.SliceAt);
-
-                index = DiceAt.FindString(selectedScript.DiceAt);
-                DiceAt.SelectedIndex = index > -1
-                    ? index
-                    : DiceAt.Items.Add(selectedScript.DiceAt);
-
-                TemplateFolderPath.Text = selectedScript.TemplateName;
-
-                InputParam.Text = selectedScript.InputFilePath;
-                if (InputParam.Text.Length > 0) InputParam.SelectionStart = InputParam.Text.Length;
-
-                DestinationParam.Text = selectedScript.DestinationFilePath;
-                if (DestinationParam.Text.Length > 0) DestinationParam.SelectionStart = DestinationParam.Text.Length;
-
-                DestinationList_SelectedIndexChanged(null, null);
-                InputList_SelectedIndexChanged(null, null);
-
-                ScriptEditor.Focus();
-                ScriptEditor.Current = selectedScript;
-                CurrentId = selectedScript.Id;
-            } //);
         }
 
         private void ViewGeneratedCode_Click(object sender, EventArgs e)
@@ -562,7 +586,7 @@ namespace XLG.QuickScripts
 
             Host.WaitFor(() =>
             {
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 var settings = ScriptEditor.Current.BuildSettings(false, Host);
                 var result = settings.ActualizeAndCompile();
@@ -725,12 +749,16 @@ namespace XLG.QuickScripts
 
         private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
-            UpdateFromScriptToForm(SelectedScript);
+            if(Updating) return;
+
+            UpdateScript();
+            UpdateForm(SelectedScript);
+            RefreshNameForSelectedIndexInScriptList();
         }
 
         private void ActionPanel_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             try
             {
                 SuspendLayout();
@@ -759,6 +787,7 @@ namespace XLG.QuickScripts
 
         private void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             var path = BrowseForFolder("BrowseTemplateFolderPathButton",
                 "Please select an existing Qk Scrptr template folder");
             if (string.IsNullOrEmpty(path))
@@ -785,6 +814,7 @@ namespace XLG.QuickScripts
 
         private void CloneScriptButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             if (Host.Context.Scripts == null) return;
 
             var name = string.Empty;
@@ -793,19 +823,20 @@ namespace XLG.QuickScripts
             if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty) return;
 
             var script = string.Empty;
-            if (ScriptEditor.Current != null) UpdateFromFormToScript();
+            if (ScriptEditor.Current != null) UpdateScript();
 
             var newScript = ScriptEditor.Current!.Clone(name);
             Host.Context.Scripts.Add(newScript);
-            UpdateFromScriptToForm(newScript);
+            UpdateForm(newScript);
             RefreshLists();
         }
 
         private void CloneTemplateButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             Host.WaitFor(() =>
             {
-                UpdateFromFormToScript();
+                UpdateScript();
 
                 // Choose source template folder
                 var sourcePath = BrowseForFolder("CloneTemplateButton_Source",
@@ -844,7 +875,8 @@ namespace XLG.QuickScripts
 
                 // Update the script's template folder path
                 ScriptEditor.Current.TemplateName = answer;
-                UpdateFromScriptToForm(ScriptEditor.Current);
+                UpdateForm(ScriptEditor.Current);
+                RefreshNameForSelectedIndexInScriptList();
 
                 // Report success and offer to open the destination\new name folder in explorer
                 QuickScriptWorker.ViewFolderInExplorer(newFolderPath, Host);
@@ -853,16 +885,19 @@ namespace XLG.QuickScripts
 
         private void GitHubButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             OpenUrl("https://www.github.com/willrawls/xlg");
         }
 
         private void FeedbackButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             OpenUrl("https://github.com/willrawls/xlg/issues/new");
         }
 
         private void ScriptEditorHelpButton_Click(object sender, EventArgs e)
         {
+            if(Updating) return;
             OpenUrl("https://github.com/willrawls/xlg/wiki");
         }
 
@@ -884,6 +919,7 @@ namespace XLG.QuickScripts
 
         private void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
         {
+            if(Updating) return;
             Host.WaitFor(() =>
             {
                 switch (e.KeyCode)
@@ -931,12 +967,14 @@ namespace XLG.QuickScripts
 
         private void SliceAt_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
+            if(Updating) return;
+            UpdateScript();
         }
 
         private void DiceAt_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFromFormToScript();
+            if(Updating) return;
+            UpdateScript();
         }
     }
 }

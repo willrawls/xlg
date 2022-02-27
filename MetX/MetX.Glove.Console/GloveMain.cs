@@ -61,7 +61,7 @@ namespace XLG.Pipeliner
 
         private void InitializeHotKeys()
         {
-            Manager.Keyboard.AddOrReplace("RegenerateNow", new() { PKey.RControlKey, PKey.LControlKey, PKey.RControlKey, PKey.RControlKey }, OnHotKeyRegenerateNow);
+            Manager.Keyboard.AddOrReplace("RegenerateNow", new List<PKey> { PKey.RControlKey, PKey.LControlKey, PKey.RControlKey, PKey.RControlKey }, OnHotKeyRegenerateNow);
         }
 
         private void OnHotKeyRegenerateNow(object sender, PhraseEventArguments e)
@@ -653,7 +653,7 @@ namespace XLG.Pipeliner
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewScriptFile_Click(object sender, EventArgs e)
         {
             try
             {

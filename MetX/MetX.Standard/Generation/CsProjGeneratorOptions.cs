@@ -24,7 +24,7 @@ namespace MetX.Standard.Generation
         public string Language { get; set; } = "CSharp";
 
 
-        public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard20)
+        public static CsProjGeneratorOptions Defaults(GenFramework framework = GenFramework.Standard21)
         {
             CsProjGeneratorOptions generatorOptions = new()
             {
@@ -81,9 +81,13 @@ namespace MetX.Standard.Generation
             switch (TargetFramework)
             {
                 case GenFramework.Net50:
-                    return "net6.0";
+                    return "net5.0";
                 case GenFramework.Net50Windows:
                     return "net-5.0windows";
+                case GenFramework.Net60:
+                    return "net6.0";
+                case GenFramework.Net60Windows:
+                    return "net-6.0windows";
                 case GenFramework.Core31:
                     return "netcoreapp3.1";
                 case GenFramework.Standard20:

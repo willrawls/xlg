@@ -19,16 +19,16 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project
             worker.Go(workerOptions);
 
             var rootFolder = AppDomain.CurrentDomain.BaseDirectory;
-            Assert.IsTrue(Directory.Exists($"{rootFolder}Net50windows.Generators.Aspects"));
-            Assert.IsTrue(File.Exists($@"{rootFolder}Net50windows.Generators.Aspects\Net50windows.Generators.Aspects.csproj"));
-            Assert.IsTrue(File.Exists($@"{rootFolder}Net50windows.Generators.Aspects\GenerateFromTemplate.cs"));
+            Assert.IsTrue(Directory.Exists($"{rootFolder}Net60windows.Generators.Aspects"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}Net60windows.Generators.Aspects\Net60windows.Generators.Aspects.csproj"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}Net60windows.Generators.Aspects\GenerateFromTemplate.cs"));
             
-            Assert.IsTrue(Directory.Exists("Net50windows.Generators.Client"));
-            Assert.IsTrue(File.Exists($@"{rootFolder}Net50windows.Generators.Client\Net50windows.Generators.Client.csproj"));
+            Assert.IsTrue(Directory.Exists("Net60windows.Generators.Client"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}Net60windows.Generators.Client\Net60windows.Generators.Client.csproj"));
             
-            Assert.IsTrue(Directory.Exists("Net50windows.Generators"));
-            Assert.IsTrue(File.Exists($@"{rootFolder}Net50windows.Generators\Net50windows.Generators.csproj"));
-            Assert.IsTrue(File.Exists($@"{rootFolder}Net50windows.Generators\FromTemplateGenerator.cs"));
+            Assert.IsTrue(Directory.Exists("Net60windows.Generators"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}Net60windows.Generators\Net60windows.Generators.csproj"));
+            Assert.IsTrue(File.Exists($@"{rootFolder}Net60windows.Generators\FromTemplateGenerator.cs"));
         }
        
     }

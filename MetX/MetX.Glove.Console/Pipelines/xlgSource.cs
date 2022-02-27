@@ -67,7 +67,7 @@ namespace XLG.Pipeliner.Pipelines
         public XmlDocument LoadXlgDoc()
         {
             var ret = new XmlDocument();
-            if(File.Exists(OutputXml))
+            if (File.Exists(OutputXml))
             {
                 ret.Load(OutputXml);
             }
@@ -151,7 +151,7 @@ namespace XLG.Pipeliner.Pipelines
                     if (string.IsNullOrEmpty(XlgDocFilename))
                         XlgDocFilename = OutputPath + ConnectionName + ".xlgd";
                     DataService.Instance = DataService.GetDataServiceManually(ConnectionName, ConnectionString, ProviderName);
-                    
+
                     CodeGenerator gen = null;
                     StringBuilder sb;
                     string output;
@@ -201,8 +201,10 @@ namespace XLG.Pipeliner.Pipelines
                             break;
 
                         case ProviderTypeEnum.Data:
-                            gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
-                            gen.OutputFolder = MetX.Standard.IO.FileSystem.InsureFolderExists(host, OutputFilename, true);
+                            gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host)
+                            {
+                                OutputFolder = MetX.Standard.IO.FileSystem.InsureFolderExists(host, OutputFilename, true)
+                            };
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder
                             File.WriteAllText(OutputFilename, gen.GenerateCode(ConnectionString));
@@ -210,16 +212,18 @@ namespace XLG.Pipeliner.Pipelines
 
                         case ProviderTypeEnum.Gather:
                             sb = new StringBuilder();
-                            
-                            if(ConnectionName.IsEmpty())
+
+                            if (ConnectionName.IsEmpty())
                                 DataService.Instance.Gatherer.GatherNow(sb, gatherParameters);
-                            
+
                             DataService.Instance.Gatherer.GatherNow(sb, gatherParameters);
                             output = sb.ToString();
                             if (output.StartsWith("<?xml "))
                             {
-                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host);
-                                gen.CodeXmlDocument = new XmlDocument();
+                                gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host)
+                                {
+                                    CodeXmlDocument = new XmlDocument()
+                                };
                                 gen.CodeXmlDocument.LoadXml(output);
                                 File.WriteAllText(OutputFilename, gen.RegenerateCode(gen.CodeXmlDocument));
                             }

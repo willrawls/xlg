@@ -271,7 +271,6 @@ namespace XLG.QuickScripts
             this.DestinationParam.Size = new System.Drawing.Size(518, 20);
             this.DestinationParam.TabIndex = 9;
             this.DestinationParam.Enter += new System.EventHandler(this.DestinationParam_Enter);
-            this.DestinationParam.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DestinationParam_MouseUp);
             // 
             // DestinationList
             // 
@@ -335,7 +334,6 @@ namespace XLG.QuickScripts
             this.InputParam.TabIndex = 5;
             this.InputParam.Enter += new System.EventHandler(this.InputParam_Enter);
             this.InputParam.Leave += new System.EventHandler(this.InputParam_Leave);
-            this.InputParam.MouseUp += new System.Windows.Forms.MouseEventHandler(this.InputParam_MouseUp);
             // 
             // EditInputFilePath
             // 
@@ -795,7 +793,7 @@ namespace XLG.QuickScripts
             this.NewFileLink.TabIndex = 7;
             this.NewFileLink.TabStop = true;
             this.NewFileLink.Text = "New file";
-            this.NewFileLink.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
+            this.NewFileLink.Click += new System.EventHandler(this.NewScriptFile_Click);
             // 
             // ScriptNameLabel
             // 
