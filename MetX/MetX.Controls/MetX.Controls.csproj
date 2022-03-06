@@ -38,7 +38,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
+    <ProjectReference Include="..\MetX.Standard\MetX.Standard.csproj" />
     <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
   </Target>

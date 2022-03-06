@@ -81,6 +81,7 @@ namespace XLG.QuickScripts
             this.RunQuickScriptLink = new System.Windows.Forms.LinkLabel();
             this.NewScriptLink = new System.Windows.Forms.LinkLabel();
             this.NewFileLink = new System.Windows.Forms.LinkLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.ScriptNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
@@ -602,6 +603,7 @@ namespace XLG.QuickScripts
             this.ActionPanel.Controls.Add(this.RunQuickScriptLink, 0, 2);
             this.ActionPanel.Controls.Add(this.NewScriptLink, 0, 1);
             this.ActionPanel.Controls.Add(this.NewFileLink, 0, 13);
+            this.ActionPanel.Controls.Add(this.button1, 0, 14);
             this.ActionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ActionPanel.Location = new System.Drawing.Point(7, 32);
             this.ActionPanel.Name = "ActionPanel";
@@ -795,6 +797,16 @@ namespace XLG.QuickScripts
             this.NewFileLink.Text = "New file";
             this.NewFileLink.Click += new System.EventHandler(this.NewScriptFile_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 383);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // ScriptNameLabel
             // 
             this.ScriptNameLabel.AutoSize = true;
@@ -927,5 +939,6 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Button FeedbackButton;
         private System.Windows.Forms.Button ScriptEditorHelpButton;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
+        private System.Windows.Forms.Button button1;
     }
 }

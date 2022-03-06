@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using ICSharpCode.TextEditor.UserControls;
-using MetX.Standard.Generation;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Windows.Library;
@@ -15,8 +14,6 @@ namespace MetX.Controls
     using ICSharpCode.TextEditor;
     using ICSharpCode.TextEditor.Document;
     using ICSharpCode.TextEditor.Gui.CompletionWindow;
-
-    using Properties;
     using MetX.Standard.Scripts;
 
     public partial class QuickScriptControl : TextEditorControl
@@ -195,23 +192,25 @@ namespace MetX.Controls
             Refresh();
         }
 
+        /*
         public void InsertMissingSections()
         {
             _codeArea.InsertString(Resources.StringToInsertOnTripleTilde);
         }
+        */
 
         public bool ProcessKey(char ch)
         {
             switch (ch)
             {
+                /*
                 case '~':
                     if (LineAtCaret == CsProjGeneratorOptions.Delimiter)
                     {
-                        InsertMissingSections();
                         return true;
                     }
-
                     break;
+                */
 
                 case '(':
                     var wordBeforeCaret = WordBeforeCaret;
