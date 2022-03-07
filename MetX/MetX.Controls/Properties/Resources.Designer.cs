@@ -22,7 +22,7 @@ namespace MetX.Controls.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -63,7 +63,7 @@ namespace MetX.Controls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_down_s_line {
+        public static System.Drawing.Bitmap arrow_down_s_line {
             get {
                 object obj = ResourceManager.GetObject("arrow-down-s-line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace MetX.Controls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_up_s_line {
+        public static System.Drawing.Bitmap arrow_up_s_line {
             get {
                 object obj = ResourceManager.GetObject("arrow-up-s-line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using MetX.Controls;
 using MetX.Standard.XDString;
@@ -18,17 +19,17 @@ public partial class Ideas2 : UserControl
 ";
 
     public ListViewSlidePanel DatabaseWalker, Files, Wrapper, List, Item, Property;
-    public VerticalSlidePanelBar SlideBar;
 
     public AssocArrayList States;
+    public Control[] ListViewSlidePanels;
 
     public bool Updating { get; set; }
 
     public Ideas2() //AssocArrayList states)
     {
         InitializeComponent();
-
         States = new AssocArrayList();
+
         var state = States["Database Walker"];
         state["Code"].Value = DefaultStateValue;
         state["Files"].Value = DefaultStateValue + "x";
@@ -68,8 +69,6 @@ public partial class Ideas2 : UserControl
         state["Currency"].Value = DefaultStateValue;
         state["Byte"].Value = DefaultStateValue;
 
-        //state = States["Specialized Property"];
-
         States.Add(new()
         {
             Key = "Specialized Property",
@@ -81,10 +80,32 @@ public partial class Ideas2 : UserControl
             ["3D Associative Array"] = { Value = DefaultStateValue },
             ["4D Associative Array"] = { Value = DefaultStateValue },
         });
-        
-        SlideBar = new VerticalSlidePanelBar();
-        VBar.Controls.Add(SlideBar);
-        SlideBar.Setup(States, OnSelectionChanged);
+
+        DatabaseWalker = new ListViewSlidePanel().Setup(1, States, "Database Walker");
+        Files = new ListViewSlidePanel().Setup(2, States, "Files");
+        Wrapper = new ListViewSlidePanel().Setup(3, States, "Wrapper");
+        List = new ListViewSlidePanel().Setup(4, States, "List");
+        Item = new ListViewSlidePanel().Setup(5, States, "Item (list member)");
+        Property = new ListViewSlidePanel().Setup(7, States, "Property");
+
+        ListViewSlidePanels = new Control[] 
+        {
+            DatabaseWalker, Files, Wrapper, List, Item, Property
+        };
+        VBar.Controls.Add(Property);
+        VBar.Controls.Add(Item);
+        VBar.Controls.Add(List);
+        VBar.Controls.Add(Wrapper);
+        VBar.Controls.Add(Files);
+        VBar.Controls.Add(DatabaseWalker);
+
+
+        ListViewSlidePanels.ToList().ForEach(control =>
+        {
+            control.Dock = DockStyle.Top;
+            control.Visible = true;
+            control.Refresh();
+        });
     }
 
     public bool OnSelectionChanged(ListView listView, AssocArray state)

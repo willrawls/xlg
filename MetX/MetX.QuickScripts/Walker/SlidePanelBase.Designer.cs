@@ -1,4 +1,4 @@
-﻿namespace MetX.Controls
+﻿namespace XLG.QuickScripts.Walker
 {
     partial class SlidePanelBase
     {

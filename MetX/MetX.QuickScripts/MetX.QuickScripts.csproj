@@ -86,6 +86,7 @@
     <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MetX.Controls" Version="1.0.0" />
     <PackageReference Include="NETStandard.Library" Version="2.0.0" />
     <PackageReference Include="NHotPhrase.WindowsForms" Version="1.0.2" />
   </ItemGroup>
@@ -268,6 +269,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Walker\ListViewSlidePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Walker\SlidePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Walker\SlidePanelBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
@@ -277,6 +287,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="QuickScript.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\arrow-down-s-line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\arrow-up-s-line.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Templates\DatabaseWalker\Code\Assemblies\SomeAssembly.dll">

@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace MetX.Controls;
+namespace XLG.QuickScripts.Walker;
 
 public class SlidePanel<TControl, TState> : SlidePanelBase 
     where TControl : Control

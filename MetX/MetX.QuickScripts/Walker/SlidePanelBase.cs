@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetX.Controls.Properties;
 using MetX.Standard.Library.Extensions;
 
-namespace MetX.Controls
+namespace XLG.QuickScripts.Walker
 {
     public partial class SlidePanelBase : UserControl
     {
