@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net40;net6.0-windows</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<PackageId>ICSharpCode.TextEditorEx</PackageId>
 		<Copyright>Copyright © Stef Heyenrath, SharpDevelop, Qwertie and MysticBoy 2014-2020</Copyright>
@@ -11,7 +11,7 @@
 		<RepositoryUrl>https://github.com/StefH/ICSharpCode.TextEditorEx</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>TextEditor;ICSharpCode</PackageTags>
-		<Authors>Stef Heyenrath, SharpDevelop, Qwertie and MysticBoy</Authors>
+		<Authors>Stef Heyenrath, SharpDeveloSp, Qwertie and MysticBoy</Authors>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RootNamespace>ICSharpCode.TextEditor</RootNamespace>
 		<SignAssembly>True</SignAssembly>

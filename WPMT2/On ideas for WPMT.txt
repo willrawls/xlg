@@ -1,0 +1,51 @@
+//
+// Ideas
+no	//   Line starts with /* and contains */ should remove /*...*/ and continue processing line
+yes	//   Caps Caps XYZ = Caps X Y Z
+//
+//   ... move to top, left, width, height
+//   ... move to 1000, 0
+//   ... move to 1000, 0, 1500, 1000
+//   ... move percent 10, 10, 75, 50
+//   ... move percent relative -10, 0, -10, 0
+//   ... move relative -100, 0, 0, 0
+//   ... size 700, 500
+//   ... size percent 50, 40
+//
+//   ... type C::Pause 3::X = Type "C" then pause for 3 seconds then type "X"
+//   ... random letters 10 "before" "after" = beforeCABCDEFGHIJafter
+//   ... random digits 5 "before" "after" = before0123456789after
+//   ... random dice 3 6 "before" "after" = before20after
+//   ... random number 1 100 "before" "after" = before81after
+
+no  //?  History of activations (sequence including wildcards plus final text sent) (to file with phrase to open)
+no  //?   ... typeHidden ... = Activating this entry does not record to history (like passwords)
+no  //   Caps Caps Caps Caps = Repeat last type operation (last on history. do not add entry to history)
+//   ... type ... {Paste from clipboard} or simple {PASTE}
+//   Drag/drop file/files
+//		No keys down 	= Copy full path(s) to clipboard, one per line
+//      +Alt 			= ?
+//      +Shift			= ?
+//      +Control		= ?
+//      +CapsLock		= ?
+//      +Alt 			= ?
+//		+Combinations	= ? ? ? ? ? ? ? ? ? ?
+//	 Drag/drop text
+//	    No keys down	= ?
+//	    +?				= ?
+//	    +??				= ?
+//
+//?	@1 (no keys) type
+//
+//
+//	Zen of SendKeys
+//		+			= SHIFT
+//		^			= CTRL
+//		%			= ALT
+//
+//		{BKSP}	{ESC}	{LEFT}	{TAB}	{UP}	{F1}
+//		{a 3}		= aaa
+//		%{ }		= Alt+Space
+//		+{F10}		= Right click
+//		{Pause 3}	= Pause for 3 seconds
+//	
