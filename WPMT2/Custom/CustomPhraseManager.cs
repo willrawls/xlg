@@ -93,9 +93,15 @@ namespace WilliamPersonalMultiTool.Custom
 
         public List<CustomKeySequence> AddSet(string text)
         {
+            if (text.IsEmpty())
+                return null;
+
             text = text.Replace("\r", "");
-            while (text.StartsWith("\n")) text = text.Substring(1);
-            while (text.EndsWith("\n")) text = text.Substring(0, text.Length - 1);
+            while (text.StartsWith("\n")) text = text[1..];
+            while (text.EndsWith("\n")) text = text[..^1];
+
+            if (text.IsEmpty())
+                return null;
 
             var linesWithNoComments = text
                 .Replace("\r", "")
