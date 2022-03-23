@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5d95cfc0-994d-49d2-a06c-e6c9d0cfc9d6": {
+      "ProjectGuid": "5d95cfc0-994d-49d2-a06c-e6c9d0cfc9d6",
+      "DisplayName": "WilliamPersonalMultiTool",
+      "ColorIndex": 0
+    },
+    "566c059d-0edb-4bdb-95a8-22acf138912c": {
+      "ProjectGuid": "566c059d-0edb-4bdb-95a8-22acf138912c",
+      "DisplayName": "WilliamPersonalMultiTool.Tests",
+      "ColorIndex": 1
+    },
+    "1e449e05-f155-4952-bf75-f8268e8695cf": {
+      "ProjectGuid": "1e449e05-f155-4952-bf75-f8268e8695cf",
+      "DisplayName": "MetX.Controls",
+      "ColorIndex": 2
+    },
+    "8492f221-2de1-4f46-9a1c-a451aa986313": {
+      "ProjectGuid": "8492f221-2de1-4f46-9a1c-a451aa986313",
+      "DisplayName": "MetX.Glove.Console",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}
