@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Generation;
+﻿using MetX.Standard.Primary.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project

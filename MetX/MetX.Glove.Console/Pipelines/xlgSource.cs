@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.Interfaces;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Library.Strings;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.IO;
 
 namespace XLG.Pipeliner.Pipelines
 {
@@ -165,7 +166,7 @@ namespace XLG.Pipeliner.Pipelines
                             {
                                 gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host)
                                 {
-                                    OutputFolder = MetX.Standard.IO.FileSystem.InsureFolderExists(host, OutputFilename, true)
+                                    OutputFolder = FileSystem.InsureFolderExists(host, OutputFilename, true)
                                 };
                                 if (string.IsNullOrEmpty(gen.OutputFolder))
                                     return -1;  // User chose not to create output folder
@@ -203,7 +204,7 @@ namespace XLG.Pipeliner.Pipelines
                         case ProviderTypeEnum.Data:
                             gen = new CodeGenerator(XlgDocFilename, XslFilename, OutputPath, host)
                             {
-                                OutputFolder = MetX.Standard.IO.FileSystem.InsureFolderExists(host, OutputFilename, true)
+                                OutputFolder = FileSystem.InsureFolderExists(host, OutputFilename, true)
                             };
                             if (string.IsNullOrEmpty(gen.OutputFolder))
                                 return -1;  // User chose not to create output folder

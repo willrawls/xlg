@@ -5,9 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
+using ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.FormattingStrategy
 {
 	/// <summary>
 	/// This interface handles the auto and smart indenting and formating

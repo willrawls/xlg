@@ -17,9 +17,8 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
-using ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Src.Document.FoldingStrategy
+namespace ICSharpCode.TextEditor.Document.FoldingStrategy
 {
     /// <summary>
     /// Holds information about the start of a fold in an xml string.

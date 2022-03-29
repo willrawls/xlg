@@ -7,8 +7,10 @@
 
 using System;
 using System.Text;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.FormattingStrategy
 {
 	/// <summary>
 	/// This class handles the auto and smart indenting in the textbuffer while

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
-using MetX.Standard.Library;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using WilliamPersonalMultiTool.Custom;

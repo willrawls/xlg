@@ -10,15 +10,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Document.Selection;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	public delegate bool KeyEventHandler(char ch);
 	public delegate bool DialogKeyProcessor(Keys keyData);

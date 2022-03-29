@@ -8,10 +8,9 @@
 using System;
 using System.Collections;
 using System.Xml;
-
 using ICSharpCode.TextEditor.Util;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public class HighlightRuleSet
 	{

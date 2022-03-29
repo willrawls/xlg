@@ -6,15 +6,14 @@
 // </file>
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.LineManager;
 using ICSharpCode.TextEditor.Util;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	public class TextAreaClipboardHandler
 	{

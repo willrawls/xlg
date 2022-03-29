@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.TextBufferStrategy
 {
 	/// <summary>
 	/// Simple implementation of the ITextBuffer interface implemented using a

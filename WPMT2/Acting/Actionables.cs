@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using MetX.Standard.XDString.Generics;
 
 namespace WilliamPersonalMultiTool.Acting

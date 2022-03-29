@@ -5,6 +5,9 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.MarkerStrategy;
+using ICSharpCode.TextEditor.Document.Selection;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.UserControls
 {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ICSharpCode.TextEditor.Util;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.BookmarkManager
 {
 	public interface IBookmarkFactory
 	{
@@ -47,7 +47,7 @@ namespace ICSharpCode.TextEditor.Document
 		/// <summary>
 		/// Creates a new instance of <see cref="BookmarkManager"/>
 		/// </summary>
-		internal BookmarkManager(IDocument document, LineManager lineTracker)
+		internal BookmarkManager(IDocument document, LineManager.LineManager lineTracker)
 		{
 			this.document = document;
 		}

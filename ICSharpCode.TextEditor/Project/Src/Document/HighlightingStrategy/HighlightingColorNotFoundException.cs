@@ -8,7 +8,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	[Serializable()]
 	public class HighlightingColorNotFoundException : Exception

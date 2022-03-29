@@ -5,10 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
+using ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	public delegate void ToolTipRequestEventHandler(object sender, ToolTipRequestEventArgs e);
 	

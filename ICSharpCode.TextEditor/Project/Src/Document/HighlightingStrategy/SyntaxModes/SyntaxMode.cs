@@ -8,10 +8,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes
 {
 	public class SyntaxMode
 	{

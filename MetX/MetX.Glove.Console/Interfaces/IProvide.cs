@@ -1,4 +1,4 @@
-using MetX.Standard.Interfaces;
+using MetX.Standard.Primary.Interfaces;
 using XLG.Pipeliner.Providers;
 
 namespace XLG.Pipeliner.Interfaces

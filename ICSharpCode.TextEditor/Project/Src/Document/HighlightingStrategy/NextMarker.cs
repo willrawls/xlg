@@ -8,7 +8,7 @@
 using System;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// Used for mark next token

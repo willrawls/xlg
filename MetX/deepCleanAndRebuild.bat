@@ -19,7 +19,7 @@ rmdir /s /q MetX.Glove.Console\bin
 rmdir /s /q MetX.Glove.Console\Generated
 rmdir /s /q MetX.QuickScripts\bin
 rmdir /s /q MetX.QuickScripts\Generated
-rmdir /s /q MetX.Standard\bin
+rmdir /s /q MetX.Standard.Primary\bin
 rmdir /s /q MetX.Standard.Library\bin
 rmdir /s /q MetX.Techniques.Tests\bin
 rmdir /s /q MetX.Tests\bin
@@ -36,7 +36,7 @@ rmdir /s /q MetX.Generators.Samples.Client\obj
 rmdir /s /q MetX.Generators.Samples.Client\Generated
 rmdir /s /q MetX.Glove.Console\obj
 rmdir /s /q MetX.QuickScripts\obj
-rmdir /s /q MetX.Standard\obj
+rmdir /s /q MetX.Standard.Primary\obj
 rmdir /s /q MetX.Standard.Library\obj
 rmdir /s /q MetX.Techniques.Tests\obj
 rmdir /s /q MetX.Tests\obj

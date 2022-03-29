@@ -8,10 +8,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.Selection;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	public class TextAreaDragDropHandler
 	{

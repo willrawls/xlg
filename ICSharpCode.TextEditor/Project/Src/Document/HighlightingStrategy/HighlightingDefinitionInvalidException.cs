@@ -8,7 +8,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// Indicates that the highlighting definition that was tried to load was invalid.

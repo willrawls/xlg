@@ -1,7 +1,7 @@
-﻿using ICSharpCode.TextEditor.Actions;
+﻿using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.UserControls;
 
-namespace ICSharpCode.TextEditor.Src.Actions
+namespace ICSharpCode.TextEditor.Actions
 {
     abstract class FindAndReplaceFormActions : AbstractEditAction
     {

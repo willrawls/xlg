@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using MetX.Standard.Library;
-using MetX.Standard.Metadata;
+using MetX.Standard.Primary.Metadata;
 using XLG.Pipeliner.Data;
 using XLG.Pipeliner.Gatherers;
 

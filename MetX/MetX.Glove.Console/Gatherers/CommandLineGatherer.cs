@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.IO;
 using XLG.Pipeliner.Providers;
 
 namespace XLG.Pipeliner.Gatherers

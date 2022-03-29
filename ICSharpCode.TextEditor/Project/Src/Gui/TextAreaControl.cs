@@ -9,10 +9,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Document.Selection;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class paints the textarea.

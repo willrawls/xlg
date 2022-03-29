@@ -8,6 +8,8 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Document
 {

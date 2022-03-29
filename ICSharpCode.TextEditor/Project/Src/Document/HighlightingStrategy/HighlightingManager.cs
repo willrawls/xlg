@@ -9,9 +9,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Diagnostics;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public class HighlightingManager
 	{

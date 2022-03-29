@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Drawing;
 
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Actions
 {

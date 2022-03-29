@@ -7,13 +7,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// In this enumeration are all caret modes listed.

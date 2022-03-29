@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Scripts;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Scripts;
 
 namespace XLG.Pipeliner.Pipelines
 {

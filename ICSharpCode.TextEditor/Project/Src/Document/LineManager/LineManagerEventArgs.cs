@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.LineManager
 {
 	public class LineCountChangeEventArgs : EventArgs
 	{

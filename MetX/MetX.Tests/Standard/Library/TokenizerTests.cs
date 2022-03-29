@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
-using MetX.Standard.Scripts;
+using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable StringLiteralTypo

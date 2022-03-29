@@ -5,10 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.MarkerStrategy
 {
 	public enum TextMarkerType
 	{

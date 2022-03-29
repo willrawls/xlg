@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using CommandLine;
-using MetX.Standard.Generation;
-using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Generators.GenGen;
-using MetX.Standard.Library;
+using MetX.Standard.Primary.Generation;
+using MetX.Standard.Primary.Generation.CSharp.Project;
 
 namespace MetX.Standard.Generators
 {

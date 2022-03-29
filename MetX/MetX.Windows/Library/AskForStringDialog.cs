@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
-using MetX.Standard.Host;
-using MetX.Standard.Pipelines;
+using MetX.Standard.Primary.Host;
 
 namespace MetX.Windows.Library
 {

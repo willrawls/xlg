@@ -9,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.Selection
 {
 	/// <summary>
 	/// This class manages the selections in a document.

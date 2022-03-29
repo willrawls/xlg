@@ -7,11 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Diagnostics;
-using System.Text;
+using System.Drawing;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.LineManager
 {
 	public sealed class LineSegment : ISegment
 	{

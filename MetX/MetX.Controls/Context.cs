@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using MetX.Standard;
-using MetX.Standard.Scripts;
-using MetX.Standard.Interfaces;
-using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
+using MetX.Standard.Primary;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Primary.Scripts;
 using MetX.Windows;
 
 #pragma warning disable 414

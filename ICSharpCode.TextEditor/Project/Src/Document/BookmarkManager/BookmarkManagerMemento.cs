@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.BookmarkManager
 {
 	/// <summary>
 	/// This class is used for storing the state of a bookmark manager 

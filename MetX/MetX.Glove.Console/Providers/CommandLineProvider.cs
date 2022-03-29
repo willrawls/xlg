@@ -1,5 +1,5 @@
 using System;
-using MetX.Standard.Interfaces;
+using MetX.Standard.Primary.Interfaces;
 using XLG.Pipeliner.Gatherers;
 using XLG.Pipeliner.Interfaces;
 

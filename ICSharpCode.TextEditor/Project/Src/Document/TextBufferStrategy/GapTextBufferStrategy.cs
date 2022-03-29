@@ -8,7 +8,7 @@
 using System;
 using System.Text;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.TextBufferStrategy
 {
 	public class GapTextBufferStrategy : ITextBufferStrategy
 	{

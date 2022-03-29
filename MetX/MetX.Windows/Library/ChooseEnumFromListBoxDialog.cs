@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Windows.WinApi;
 

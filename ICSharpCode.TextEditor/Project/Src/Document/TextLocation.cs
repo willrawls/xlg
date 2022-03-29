@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Document
 {
 	/// <summary>
 	/// A line/column position.

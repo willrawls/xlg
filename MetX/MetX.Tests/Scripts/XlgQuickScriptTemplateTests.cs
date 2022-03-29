@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using MetX.Standard;
-using MetX.Standard.Generation;
-using MetX.Standard.Host;
-using MetX.Standard.IO;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
-using MetX.Standard.Scripts;
+using MetX.Standard.Primary;
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Scripts

@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.Selection
 {
 	public class ColumnRange 
 	{

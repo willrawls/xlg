@@ -20,8 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.ConfigurationManager" />
-    <Reference Include="MetX.Standard">
-      <HintPath>~~MetXPath~~\MetX.Standard.dll</HintPath>
+    <Reference Include="MetX.Standard.Primary">
+      <HintPath>~~MetXPath~~\MetX.Standard.Primary.dll</HintPath>
     </Reference>
     <Reference Include="MetX.Standard.Generators">
       <HintPath>~~MetXPath~~\MetX.Standard.Generators.dll</HintPath>

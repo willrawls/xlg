@@ -21,9 +21,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 using System.Collections.Generic;
-using ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Src.Document.FoldingStrategy
+namespace ICSharpCode.TextEditor.Document.FoldingStrategy
 {
     public class CSharpFoldingStrategy : IFoldingStrategy
     {

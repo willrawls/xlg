@@ -5,10 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.FoldingStrategy
 {
 	/// <summary>
 	/// A simple folding strategy which calculates the folding level

@@ -1,6 +1,5 @@
 ﻿using CommandLine;
 using MetX.Standard.Generators.GenGen;
-using Microsoft.CodeAnalysis.Options;
 
 namespace MetX.Standard.Generators
 {

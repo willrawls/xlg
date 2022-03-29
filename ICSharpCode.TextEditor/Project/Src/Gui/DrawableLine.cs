@@ -8,10 +8,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// A class that is able to draw a line on any control (outside the text editor)

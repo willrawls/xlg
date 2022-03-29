@@ -2,9 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Src.Document.HighlightingStrategy.SyntaxModes
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes
 {
     public class ResourceSyntaxModeProviderEx : ISyntaxModeFileProvider
     {

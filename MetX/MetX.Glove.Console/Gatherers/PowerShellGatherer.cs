@@ -1,5 +1,5 @@
 using System.Text;
-using MetX.Standard.IO;
+using MetX.Standard.Primary.IO;
 using XLG.Pipeliner.Providers;
 
 namespace XLG.Pipeliner.Gatherers

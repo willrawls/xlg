@@ -7,7 +7,6 @@
 
 using System;
 using System.Drawing;
-using System.Diagnostics;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document;
 

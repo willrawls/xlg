@@ -7,8 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.FormattingStrategy;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Document.TextBufferStrategy;
+using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.Undo;
 
 namespace ICSharpCode.TextEditor.Document
@@ -68,11 +72,11 @@ namespace ICSharpCode.TextEditor.Document
 		/// <summary>
 		/// The <see cref="IBookMarkManager"/> attached to the <see cref="IDocument"/> instance
 		/// </summary>
-		BookmarkManager BookmarkManager {
+		BookmarkManager.BookmarkManager BookmarkManager {
 			get;
 		}
 		
-		MarkerStrategy MarkerStrategy {
+		MarkerStrategy.MarkerStrategy MarkerStrategy {
 			get;
 		}
 		

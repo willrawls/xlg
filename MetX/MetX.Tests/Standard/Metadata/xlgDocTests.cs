@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Metadata;
+using MetX.Standard.Primary.Metadata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Metadata

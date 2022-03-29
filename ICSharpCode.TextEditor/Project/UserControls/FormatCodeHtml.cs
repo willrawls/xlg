@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using ICSharpCode.TextEditorEx;
 
 namespace ICSharpCode.TextEditor.UserControls
 {

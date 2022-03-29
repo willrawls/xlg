@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>MetX.Standard.Primary</RootNamespace>
+    <AssemblyName>MetX.Standard.Primary</AssemblyName>
+    <ApplicationIcon>batfile.ico</ApplicationIcon>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>William Rawls</Authors>
+    <IsPublishable>False</IsPublishable>
+    <AssemblyVersion>5.1.0.0</AssemblyVersion>
+    <FileVersion>5.1.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Metadata\**" />
+    <Compile Remove="Pipelines\Obsolete\**" />
+    <EmbeddedResource Remove="Metadata\**" />
+    <EmbeddedResource Remove="Pipelines\Obsolete\**" />
+    <None Remove="Metadata\**" />
+    <None Remove="Pipelines\Obsolete\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="IO\DatabaseUpdates.cs" />
+    <Compile Remove="IO\Element.cs" />
+    <Compile Remove="Scripts\NArrangeTestLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Metadata\Column.cs" />
+    <Compile Include="Metadata\Index.cs" />
+    <Compile Include="Metadata\IndexColumn.cs" />
+    <Compile Include="Metadata\Key.cs" />
+    <Compile Include="Metadata\KeyColumn.cs" />
+    <Compile Include="Metadata\Parameter.cs" />
+    <Compile Include="Metadata\StoredProcedure.cs" />
+    <Compile Include="Metadata\Table.cs" />
+    <Compile Include="Metadata\View.cs" />
+    <Compile Include="Metadata\xlgDocManual.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="XLG.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="batfile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="4.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
+  </ItemGroup>
+
+</Project>

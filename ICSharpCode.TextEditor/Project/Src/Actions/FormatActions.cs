@@ -8,6 +8,9 @@
 using System;
 using System.Text;
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Document.Selection;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Actions
 {

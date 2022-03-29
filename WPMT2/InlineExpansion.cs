@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using NHotPhrase.Keyboard;
 using WilliamPersonalMultiTool.Custom;
-using System.Collections.Generic;
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.Library.Strings;
 

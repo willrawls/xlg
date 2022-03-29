@@ -12,6 +12,6 @@
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NETStandard.Library" Version="2.0.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 </Project>

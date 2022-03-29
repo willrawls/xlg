@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.FoldingStrategy
 {
 	public enum FoldType {
 		Unspecified,

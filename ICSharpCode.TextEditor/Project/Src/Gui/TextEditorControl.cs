@@ -10,10 +10,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class is used for a basic text area control

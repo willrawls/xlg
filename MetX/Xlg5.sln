@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Controls", "MetX.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard", "MetX.Standard\MetX.Standard.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Primary", "MetX.Standard.Primary\MetX.Standard.Primary.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX.Windows\MetX.Windows.csproj", "{0F4912CC-39DB-4D7D-A788-C9DD949117F4}"
 EndProject

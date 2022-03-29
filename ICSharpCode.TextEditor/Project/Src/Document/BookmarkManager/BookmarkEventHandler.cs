@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.BookmarkManager
 {
 	public delegate void BookmarkEventHandler(object sender, BookmarkEventArgs e);
 	

@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using NHotPhrase.Phrase;
-using WilliamPersonalMultiTool.Custom;
 
 namespace WilliamPersonalMultiTool.Acting.Actors
 {

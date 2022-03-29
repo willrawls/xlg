@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="MetX.Standard.dll" /><None Remove="MetX.Standard.pdb" />
+    <None Remove="MetX.Standard.Primary.dll" /><None Remove="MetX.Standard.Primary.pdb" />
     <None Remove="MetX.Standard.Library.dll" /><None Remove="MetX.Standard.Library.pdb" />
     <None Remove="MetX.Windows.dll" /><None Remove="MetX.Windows.pdb" />
     <None Remove="MetX.Controls.dll" /><None Remove="MetX.Controls.pdb" />
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MetX.Standard"><HintPath>MetX.Standard.dll</HintPath></Reference>
+    <Reference Include="MetX.Standard.Primary"><HintPath>MetX.Standard.Primary.dll</HintPath></Reference>
     <Reference Include="MetX.Standard.Library"><HintPath>MetX.Standard.Library.dll</HintPath></Reference>
     <Reference Include="MetX.Windows"><HintPath>MetX.Windows.dll</HintPath></Reference>
     <Reference Include="MetX.Controls"><HintPath>MetX.Controls.dll</HintPath></Reference>

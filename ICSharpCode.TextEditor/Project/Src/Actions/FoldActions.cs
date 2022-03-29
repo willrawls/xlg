@@ -8,6 +8,8 @@
 using System;
 using System.Collections.Generic;
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Actions
 {

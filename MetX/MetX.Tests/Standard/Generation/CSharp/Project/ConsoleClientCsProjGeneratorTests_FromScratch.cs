@@ -1,7 +1,7 @@
-﻿using MetX.Standard.Generation;
-using MetX.Standard.Generation.CSharp.Project;
-using MetX.Standard.Library.Extensions;
+﻿using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
+using MetX.Standard.Primary.Generation;
+using MetX.Standard.Primary.Generation.CSharp.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project

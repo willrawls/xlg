@@ -1,8 +1,9 @@
 ﻿using System.Windows.Forms;
-using ICSharpCode.TextEditor.Actions;
+using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.UserControls;
 
-namespace ICSharpCode.TextEditor.Src.Actions
+namespace ICSharpCode.TextEditor.Actions
 {
     class GoToLineNumberAction : AbstractEditAction
     {

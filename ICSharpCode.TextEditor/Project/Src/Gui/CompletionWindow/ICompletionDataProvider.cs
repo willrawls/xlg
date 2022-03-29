@@ -5,7 +5,6 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Windows.Forms;
 
 namespace ICSharpCode.TextEditor.Gui.CompletionWindow

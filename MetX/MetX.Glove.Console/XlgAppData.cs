@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mime;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using System.Xml.Serialization;
-using MetX.Standard.Host;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Library;
 using MetX.Standard.Library.ML;
-using MetX.Standard.Pipelines;
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
 using Microsoft.Win32;
 
 namespace XLG.Pipeliner

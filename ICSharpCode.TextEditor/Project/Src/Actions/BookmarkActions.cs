@@ -6,7 +6,8 @@
 // </file>
 
 using System;
-using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.BookmarkManager;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Actions 
 {

@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Scripts;
+﻿using MetX.Standard.Primary.Scripts;
 
 namespace MetX.Tests.Scripts
 {
@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MetX.Standard;
+using MetX.Standard.Primary;
 using MetX.Standard.IO;
 using MetX.Standard.Archived.Data;
 using MetX.Standard.Scripts;

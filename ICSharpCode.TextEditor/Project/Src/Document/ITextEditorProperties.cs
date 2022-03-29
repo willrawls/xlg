@@ -5,9 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
 using System.Text;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
 namespace ICSharpCode.TextEditor.Document
 {

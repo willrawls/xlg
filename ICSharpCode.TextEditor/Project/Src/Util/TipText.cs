@@ -7,6 +7,7 @@
 
 using System;
 using System.Drawing;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Util
 {

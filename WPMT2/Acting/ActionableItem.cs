@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using MetX.Standard.Library.Extensions;
-using NHotPhrase.Keyboard;
 
 namespace WilliamPersonalMultiTool.Acting
 {

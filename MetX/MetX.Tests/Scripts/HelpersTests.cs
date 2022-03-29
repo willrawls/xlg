@@ -1,5 +1,5 @@
 ﻿using System;
-using MetX.Standard.Scripts;
+using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Scripts

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.Generation.CSharp.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
@@ -10,7 +10,7 @@ namespace MetX.Tests.Standard.Generation.CSharp.Project.Pieces
     {
         public const string Missing = "Missing";
         public const string LangVersion = @"LangVersion";
-        public const string PiecesDirectory = @"Standard\Generation\CSharp\Project\Pieces\";
+        public const string PiecesDirectory = @"Standard.Primary\Generation\CSharp\Project\Pieces\";
 
         public static ClientCsProjGenerator Get(string pieceName, string area)
         {

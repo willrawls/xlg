@@ -6,13 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using WilliamPersonalMultiTool.Custom;
 using WilliamPersonalMultiTool.Properties;
-using Win32Interop.Enums;
 
 namespace WilliamPersonalMultiTool
 {

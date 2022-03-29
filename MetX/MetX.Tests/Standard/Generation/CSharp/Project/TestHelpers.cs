@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using MetX.Standard.Generation;
-using MetX.Standard.Generation.CSharp.Project;
+using MetX.Standard.Primary.Generation;
+using MetX.Standard.Primary.Generation.CSharp.Project;
 
 namespace MetX.Tests.Standard.Generation.CSharp.Project
 {

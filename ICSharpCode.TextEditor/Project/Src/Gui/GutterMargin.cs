@@ -8,12 +8,12 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
-
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.Selection;
 
-namespace ICSharpCode.TextEditor
+namespace ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class views the line numbers and folding markers.

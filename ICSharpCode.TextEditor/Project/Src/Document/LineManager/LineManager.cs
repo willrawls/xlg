@@ -8,8 +8,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.LineManager
 {
 	internal sealed class LineManager
 	{

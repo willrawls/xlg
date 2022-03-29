@@ -8,8 +8,9 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public enum TextWordType {
 		Word,

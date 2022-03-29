@@ -1,10 +1,8 @@
 using System.Windows.Forms;
-using MetX.Standard.Host;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Pipelines;
-using MetX.Windows;
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
 
-namespace MetX.Controls
+namespace MetX.Windows
 {
     public class WinFormMessageBoxHost<TForm> : IMessageBox where TForm : Form
     {

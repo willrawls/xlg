@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Forms;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WilliamPersonalMultiTool.Acting.Actors;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WilliamPersonalMultiTool.Custom;
 
 namespace WilliamPersonalMultiTool.Tests

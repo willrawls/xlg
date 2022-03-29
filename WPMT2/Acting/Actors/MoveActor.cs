@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
-using Microsoft.VisualBasic.Devices;
 using NHotPhrase.Phrase;
-using Win32Interop.Methods;
 using Win32Interop.Structs;
 
 namespace WilliamPersonalMultiTool.Acting.Actors

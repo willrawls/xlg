@@ -7,7 +7,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Undo
 {

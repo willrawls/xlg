@@ -6,10 +6,12 @@ using System.Linq;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.Actions;
 using ICSharpCode.TextEditor.Document;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
+using ICSharpCode.TextEditor.Document.Selection;
+using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.Properties;
-using ICSharpCode.TextEditor.Src.Actions;
-using ICSharpCode.TextEditor.Src.Document.FoldingStrategy;
-using ICSharpCode.TextEditor.Src.Document.HighlightingStrategy.SyntaxModes;
 using ICSharpCode.TextEditor.UserControls;
 
 // ReSharper disable once CheckNamespace

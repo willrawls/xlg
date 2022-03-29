@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Text;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public class DefaultHighlightingStrategy : IHighlightingStrategyUsingRuleSets
 	{

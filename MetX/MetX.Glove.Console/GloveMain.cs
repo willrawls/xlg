@@ -4,19 +4,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-
-using MetX.Controls;
-using MetX.Standard.Host;
-using MetX.Standard.Interfaces;
-using MetX.Standard.IO;
-using MetX.Standard.Library;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Library.Strings;
-using MetX.Standard.Pipelines;
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Primary.Pipelines;
 using MetX.Windows.Library;
 using XLG.Pipeliner.Properties;
-
-using NHotPhrase;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;

@@ -1,5 +1,5 @@
 ﻿
-namespace ICSharpCode.TextEditorEx
+namespace ICSharpCode.TextEditor
 {
     public static class SyntaxModes
     {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ICSharpCode.TextEditor.Util;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.LineManager
 {
 	/// <summary>
 	/// Data structure for efficient management of the line segments (most operations are O(lg n)).

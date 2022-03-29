@@ -7,9 +7,11 @@
 
 using System;
 using System.Drawing;
+using ICSharpCode.TextEditor.Document.LineManager;
+using ICSharpCode.TextEditor.Gui;
 using SWF = System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.BookmarkManager
 {
 	/// <summary>
 	/// Description of Bookmark.

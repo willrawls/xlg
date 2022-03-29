@@ -6,6 +6,7 @@
 // </file>
 
 using System;
+using ICSharpCode.TextEditor.Document.LineManager;
 
 namespace ICSharpCode.TextEditor.Document
 {

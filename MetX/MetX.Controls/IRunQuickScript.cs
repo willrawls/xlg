@@ -1,5 +1,5 @@
-using MetX.Standard.Interfaces;
-using MetX.Standard.Scripts;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Scripts;
 
 namespace MetX.Controls
 {

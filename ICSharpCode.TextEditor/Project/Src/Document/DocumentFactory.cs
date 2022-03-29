@@ -5,8 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Text;
+using ICSharpCode.TextEditor.Document.FoldingStrategy;
+using ICSharpCode.TextEditor.Document.FormattingStrategy;
+using ICSharpCode.TextEditor.Document.TextBufferStrategy;
 
 namespace ICSharpCode.TextEditor.Document
 {
@@ -25,11 +27,11 @@ namespace ICSharpCode.TextEditor.Document
 			DefaultDocument doc = new DefaultDocument();
 			doc.TextBufferStrategy  = new GapTextBufferStrategy();
 			doc.FormattingStrategy  = new DefaultFormattingStrategy();
-			doc.LineManager         = new LineManager(doc, null);
+			doc.LineManager         = new LineManager.LineManager(doc, null);
 			doc.FoldingManager      = new FoldingManager(doc, doc.LineManager);
 			doc.FoldingManager.FoldingStrategy       = null; //new ParserFoldingStrategy();
-			doc.MarkerStrategy      = new MarkerStrategy(doc);
-			doc.BookmarkManager     = new BookmarkManager(doc, doc.LineManager);
+			doc.MarkerStrategy      = new MarkerStrategy.MarkerStrategy(doc);
+			doc.BookmarkManager     = new BookmarkManager.BookmarkManager(doc, doc.LineManager);
 			return doc;
 		}
 		

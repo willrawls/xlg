@@ -1,6 +1,6 @@
 ﻿using System.Xml;
-using MetX.Standard.Generation.CSharp.Project;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.Generation.CSharp.Project;
 using MetX.Tests.Standard.Generation.CSharp.Project.Pieces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

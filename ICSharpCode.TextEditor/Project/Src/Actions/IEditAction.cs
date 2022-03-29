@@ -5,8 +5,8 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor.Gui;
 
 namespace ICSharpCode.TextEditor.Actions
 {

@@ -7,9 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor.Document
+namespace ICSharpCode.TextEditor.Document.MarkerStrategy
 {
 	/// <summary>
 	/// Manages the list of markers and provides ways to retrieve markers for specific positions.

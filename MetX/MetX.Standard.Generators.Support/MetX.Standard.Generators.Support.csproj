@@ -19,10 +19,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 
 </Project>

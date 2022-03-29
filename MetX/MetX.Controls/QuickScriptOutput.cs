@@ -5,10 +5,10 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetX.Standard.Interfaces;
-using MetX.Standard.Scripts;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Scripts;
 
 namespace MetX.Controls
 {

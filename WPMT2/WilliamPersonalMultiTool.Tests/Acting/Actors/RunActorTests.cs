@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHotPhrase.Keyboard;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WilliamPersonalMultiTool.Acting;
 using WilliamPersonalMultiTool.Acting.Actors;
 using WilliamPersonalMultiTool.Custom;
 
-namespace WilliamPersonalMultiTool.Tests
+namespace WilliamPersonalMultiTool.Tests.Acting.Actors
 {
     [TestClass]
     public class RunActorTests

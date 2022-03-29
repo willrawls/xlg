@@ -2,11 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using MetX.Standard.IO;
-using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.IO;
 using MetX.Standard.XDString;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Win32;
 
 namespace MetX.Windows
