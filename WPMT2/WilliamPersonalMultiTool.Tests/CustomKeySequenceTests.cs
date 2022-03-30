@@ -177,7 +177,7 @@ Or 4 type someone.at@hotmail.com
         [TestMethod]
         public void ToPKeyList_Caps123()
         {
-            var actual = Extensions.ToPKeyList("CapsLock 1 2 3", null, out var wildcardMatchType, out var wildcardCount);
+            var actual = "CapsLock 1 2 3".ToPKeyList(null, out var wildcardMatchType, out var wildcardCount);
             My.AssertAllAreEqual(TestPKeys.Caps123, actual);
             Assert.AreEqual(0, wildcardCount);
         }
@@ -185,7 +185,7 @@ Or 4 type someone.at@hotmail.com
         [TestMethod]
         public void ToPKeyList_1A3_WithPrependCaps()
         {
-            var actual = Extensions.ToPKeyList("1 a 3", new List<PKey> { PKey.CapsLock }, out var wildcardMatchType, out var wildcardCount);
+            var actual = "1 a 3".ToPKeyList(new List<PKey> { PKey.CapsLock }, out var wildcardMatchType, out var wildcardCount);
             My.AssertAllAreEqual(TestPKeys.Caps1A3, actual);
         }
     }
