@@ -81,12 +81,10 @@
     <ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
     <ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="NHotPhrase.WindowsForms" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Settings.ico" />
