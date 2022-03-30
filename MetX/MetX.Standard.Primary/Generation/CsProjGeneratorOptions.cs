@@ -203,7 +203,7 @@ namespace MetX.Standard.Primary.Generation
                 throw new ArgumentOutOfRangeException("PathToTemplatesFolder");
             if (!File.Exists(PathToMetXStandardDll))
             {
-                var secondChance = Path.Combine(PathToMetXStandardDll, "MetX.Standard.dll");
+                var secondChance = Path.Combine(PathToMetXStandardDll, "MetX.Standard.Primary.dll");
                 if(!File.Exists(secondChance))
                     throw new ArgumentOutOfRangeException("PathToMetXStandardDll");
                 PathToMetXStandardDll = secondChance;

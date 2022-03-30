@@ -21,7 +21,7 @@ namespace MetX.Tests.Standard.IO
         [TestMethod]
         public void DeepContents_PathShouldNotHaveTheFilenameInIt()
         {
-            var actual = FileSystem.DeepContents(@"Standard.Primary\Generation\CSharp\Project\Pieces\");
+            var actual = FileSystem.DeepContents(@"Standard\Generation\CSharp\Project\Pieces\");
             Assert.IsFalse(actual.Files[0].Path.Contains(actual.Files[0].Name));
         }
 
