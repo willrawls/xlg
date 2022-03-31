@@ -12,7 +12,7 @@ namespace WilliamPersonalMultiTool.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,10 +25,10 @@ namespace WilliamPersonalMultiTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
-        public System.Drawing.Point Location {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Location {
             get {
-                return ((System.Drawing.Point)(this["Location"]));
+                return ((string)(this["Location"]));
             }
             set {
                 this["Location"] = value;
@@ -37,10 +37,10 @@ namespace WilliamPersonalMultiTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("650, 400")]
-        public System.Drawing.Size Size {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Size {
             get {
-                return ((System.Drawing.Size)(this["Size"]));
+                return ((string)(this["Size"]));
             }
             set {
                 this["Size"] = value;
@@ -61,10 +61,9 @@ namespace WilliamPersonalMultiTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
-        public global::System.Windows.Forms.FormWindowState WindowState {
+        public global::System.Collections.Specialized.StringCollection WindowState {
             get {
-                return ((global::System.Windows.Forms.FormWindowState)(this["WindowState"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["WindowState"]));
             }
             set {
                 this["WindowState"] = value;
