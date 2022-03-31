@@ -133,7 +133,7 @@
             treeNode52,
             treeNode53});
             System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("Finish (walk)");
-            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("Database walker", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("MetX Walker", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode9,
             treeNode10,
@@ -288,7 +288,7 @@
             treeNode55.Text = "Finish (walk)";
             treeNode56.Name = "WalkerNode";
             treeNode56.Tag = "isfolder";
-            treeNode56.Text = "Database walker";
+            treeNode56.Text = "MetX Walker";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode56});
             this.treeView1.Size = new System.Drawing.Size(329, 826);

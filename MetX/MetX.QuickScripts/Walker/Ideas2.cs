@@ -17,7 +17,7 @@ public partial class Ideas2 : UserControl
 
 ";
 
-    public ListViewSlidePanel DatabaseWalker, Files, Wrapper, List, Item, Property;
+    public ListViewSlidePanel MetXWalker, Files, Wrapper, List, Item, Property;
 
     public AssocArrayList States;
     public Control[] ListViewSlidePanels;
@@ -29,8 +29,8 @@ public partial class Ideas2 : UserControl
         InitializeComponent();
         States = new AssocArrayList();
 
-        var state = States["Database Walker"];
-        state["Code"].Value = DefaultStateValue;
+        var state = States["MetX Walker"];
+        state["Code"].Value = "";
         state["Files"].Value = DefaultStateValue + "x";
         state["Wrapper"].Value = DefaultStateValue + "y";
         States.Add(state);
@@ -80,7 +80,7 @@ public partial class Ideas2 : UserControl
             ["4D Associative Array"] = { Value = DefaultStateValue },
         });
 
-        DatabaseWalker = new ListViewSlidePanel().Setup(1, States, "Database Walker");
+        MetXWalker = new ListViewSlidePanel().Setup(1, States, "MetX Walker");
         Files = new ListViewSlidePanel().Setup(2, States, "Files");
         Wrapper = new ListViewSlidePanel().Setup(3, States, "Wrapper");
         List = new ListViewSlidePanel().Setup(4, States, "List");
@@ -89,14 +89,14 @@ public partial class Ideas2 : UserControl
 
         ListViewSlidePanels = new Control[] 
         {
-            DatabaseWalker, Files, Wrapper, List, Item, Property
+            MetXWalker, Files, Wrapper, List, Item, Property
         };
         VBar.Controls.Add(Property);
         VBar.Controls.Add(Item);
         VBar.Controls.Add(List);
         VBar.Controls.Add(Wrapper);
         VBar.Controls.Add(Files);
-        VBar.Controls.Add(DatabaseWalker);
+        VBar.Controls.Add(MetXWalker);
 
 
         ListViewSlidePanels.ToList().ForEach(control =>
