@@ -8,12 +8,17 @@ namespace XLG.QuickScripts.Walker;
 
 public partial class Ideas2 : UserControl
 {
-    public const string DefaultStateValue = @"
+    public const string DefaultStartBodyFinishSoftCode = @"
 ~~Start:
 
 ~~Body:
 
 ~~Finish:
+
+";
+
+    public const string DefaultBodyOnlySoftCode = @"
+~~Body:
 
 ";
 
@@ -31,53 +36,53 @@ public partial class Ideas2 : UserControl
 
         var state = States["MetX Walker"];
         state["Code"].Value = "";
-        state["Files"].Value = DefaultStateValue + "x";
-        state["Wrapper"].Value = DefaultStateValue + "y";
+        state["Files"].Value = DefaultStartBodyFinishSoftCode + "x";
+        state["Wrapper"].Value = DefaultStartBodyFinishSoftCode + "y";
         States.Add(state);
 
         state = States["List"];
-        state["No children in list"].Value = DefaultStateValue;
-        state["No parent above list"].Value = DefaultStateValue;
-        state["No parent and no children in list"].Value = DefaultStateValue;
-        state["Add list to wrapper"].Value = DefaultStateValue;
+        state["No children in list"].Value = DefaultStartBodyFinishSoftCode;
+        state["No parent above list"].Value = DefaultStartBodyFinishSoftCode;
+        state["No parent and no children in list"].Value = DefaultStartBodyFinishSoftCode;
+        state["Add list to wrapper"].Value = DefaultStartBodyFinishSoftCode;
         States.Add(state);
 
         state = States["Find"];
-        state["Based on index"].Value = DefaultStateValue;
-        state["Based on relationship"].Value = DefaultStateValue;
-        state["Based on single column"].Value = DefaultStateValue;
-        state["Based on multiple columns"].Value = DefaultStateValue;
+        state["Based on index"].Value = DefaultStartBodyFinishSoftCode;
+        state["Based on relationship"].Value = DefaultStartBodyFinishSoftCode;
+        state["Based on single column"].Value = DefaultStartBodyFinishSoftCode;
+        state["Based on multiple columns"].Value = DefaultStartBodyFinishSoftCode;
 
         state = States["Item (list member)"];
-        state["Add child list to item"].Value = DefaultStateValue;
-        state["Item has no children"].Value = DefaultStateValue;
+        state["Add child list to item"].Value = DefaultStartBodyFinishSoftCode;
+        state["Item has no children"].Value = DefaultStartBodyFinishSoftCode;
 
         state = States["Basic Property"];
-        state["String"].Value = DefaultStateValue;
-        state["Boolean"].Value = DefaultStateValue;
-        state["Date and Time"].Value = DefaultStateValue;
-        state["Integer"].Value = DefaultStateValue;
-        state["Bytes"].Value = DefaultStateValue;
-        state["Guid"].Value = DefaultStateValue;
+        state["String"].Value = DefaultStartBodyFinishSoftCode;
+        state["Boolean"].Value = DefaultStartBodyFinishSoftCode;
+        state["Date and Time"].Value = DefaultStartBodyFinishSoftCode;
+        state["Integer"].Value = DefaultStartBodyFinishSoftCode;
+        state["Bytes"].Value = DefaultStartBodyFinishSoftCode;
+        state["Guid"].Value = DefaultStartBodyFinishSoftCode;
 
         state = States["Other Property"];
-        state["Long"].Value = DefaultStateValue;
-        state["Float"].Value = DefaultStateValue;
-        state["Double"].Value = DefaultStateValue;
-        state["Decimal"].Value = DefaultStateValue;
-        state["Currency"].Value = DefaultStateValue;
-        state["Byte"].Value = DefaultStateValue;
+        state["Long"].Value = DefaultStartBodyFinishSoftCode;
+        state["Float"].Value = DefaultStartBodyFinishSoftCode;
+        state["Double"].Value = DefaultStartBodyFinishSoftCode;
+        state["Decimal"].Value = DefaultStartBodyFinishSoftCode;
+        state["Currency"].Value = DefaultStartBodyFinishSoftCode;
+        state["Byte"].Value = DefaultStartBodyFinishSoftCode;
 
         States.Add(new()
         {
             Key = "Specialized Property",
-            ["Detect specialized"] = { Value = DefaultStateValue },
-            ["BLOB"] = { Value = DefaultStateValue },
-            ["Memo"] = { Value = DefaultStateValue },
-            ["Associative Array"] = { Value = DefaultStateValue },
-            ["Associative Array List"] = { Value = DefaultStateValue },
-            ["3D Associative Array"] = { Value = DefaultStateValue },
-            ["4D Associative Array"] = { Value = DefaultStateValue },
+            ["Detect specialized"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["BLOB"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["Memo"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["Associative Array"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["Associative Array List"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["3D Associative Array"] = { Value = DefaultStartBodyFinishSoftCode },
+            ["4D Associative Array"] = { Value = DefaultStartBodyFinishSoftCode },
         });
 
         MetXWalker = new ListViewSlidePanel().Setup(1, States, "MetX Walker");

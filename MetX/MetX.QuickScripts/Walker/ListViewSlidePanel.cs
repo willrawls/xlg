@@ -19,9 +19,10 @@ namespace XLG.QuickScripts.Walker
             State = states[name];
             TitleLabel.Text = name;
             TabIndex = tabIndex;
-            Height = TitleLabel.Height + 20 + (State.Count + 1) * 50;
+            Height = TitleLabel.Height + 20 + (State.Count + 1) * 25;
             Visible = true;
             ChildControl.Visible = true;
+            ChildControl.View = View.Details;
             foreach(var item in State.Items)
             {
                 var listViewItem = new ListViewItem(item.Key);
@@ -29,11 +30,11 @@ namespace XLG.QuickScripts.Walker
                 {
                     listViewItem.Font = new Font(Font, System.Drawing.FontStyle.Bold);
                 }
-                listViewItem.ForeColor = Color.Yellow;
-                listViewItem.BackColor = Color.DarkBlue;
-
                 ChildControl.Items.Add(listViewItem);
             }
+
+            ChildControl.Height = (State.Count + 1) * 50;
+            ChildControl.Dock = DockStyle.Fill;
 
             return this;
         }
@@ -51,6 +52,11 @@ namespace XLG.QuickScripts.Walker
                 Height = TitleLabel.Height + 20 + (State.Count + 1) * 50;
                 ToggleSizeButton.Tag = "open";
             }
+        }
+
+        private void TitleLabel_Click(object sender, System.EventArgs e)
+        {
+            ToggleSizeButton_Click(sender, e);
         }
     }
 }
