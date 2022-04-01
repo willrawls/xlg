@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
 		<PackageReference Include="Win32Interop.User32" Version="1.0.1" />
 	</ItemGroup>
 

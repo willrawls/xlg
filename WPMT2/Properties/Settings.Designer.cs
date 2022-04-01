@@ -25,25 +25,25 @@ namespace WilliamPersonalMultiTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Location {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LocationX {
             get {
-                return ((string)(this["Location"]));
+                return ((int)(this["LocationX"]));
             }
             set {
-                this["Location"] = value;
+                this["LocationX"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Size {
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int Width {
             get {
-                return ((string)(this["Size"]));
+                return ((int)(this["Width"]));
             }
             set {
-                this["Size"] = value;
+                this["Width"] = value;
             }
         }
         
@@ -61,12 +61,37 @@ namespace WilliamPersonalMultiTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection WindowState {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WindowState {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["WindowState"]));
+                return ((int)(this["WindowState"]));
             }
             set {
                 this["WindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LocationY {
+            get {
+                return ((int)(this["LocationY"]));
+            }
+            set {
+                this["LocationY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int Height {
+            get {
+                return ((int)(this["Height"]));
+            }
+            set {
+                this["Height"] = value;
             }
         }
     }

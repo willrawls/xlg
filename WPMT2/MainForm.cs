@@ -262,25 +262,29 @@ namespace WilliamPersonalMultiTool
         {
             if (Settings.Default.HasSetDefaults)
             {
-                WindowState = Settings.Default.WindowState;
-                Location = Settings.Default.Location;
-                Size = Settings.Default.Size;
+                WindowState = (FormWindowState) Settings.Default.WindowState;
+                Location = new Point(Settings.Default.LocationX, Settings.Default.LocationY);
+                Size = new Size(Settings.Default.Width, Settings.Default.Height);
             }
         }
 
         private void SaveWindowPosition()
         {
-            Settings.Default.WindowState = WindowState;
+            Settings.Default.WindowState = (int) WindowState;
 
             if (WindowState == FormWindowState.Normal)
             {
-                Settings.Default.Location = Location;
-                Settings.Default.Size = Size;
+                Settings.Default.LocationX = Location.X;
+                Settings.Default.LocationX = Location.Y;
+                Settings.Default.Width = Size.Width;
+                Settings.Default.Height = Size.Height;
             }
             else
             {
-                Settings.Default.Location = RestoreBounds.Location;
-                Settings.Default.Size = RestoreBounds.Size;
+                Settings.Default.LocationX = RestoreBounds.Location.X;
+                Settings.Default.LocationY = RestoreBounds.Location.Y;
+                Settings.Default.Width = RestoreBounds.Size.Width;
+                Settings.Default.Height = RestoreBounds.Size.Height;
             }
 
             Settings.Default.HasSetDefaults = true;

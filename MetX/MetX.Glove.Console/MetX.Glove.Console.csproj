@@ -71,7 +71,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <ProjectReference Include="..\..\..\NHotPhrase\src\NHotPhrase.WindowsForms\NHotPhrase.WindowsForms.csproj" />
+    <PackageReference Include="NHotPhrase" Version="6.0.0" />
+    <PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
     <ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

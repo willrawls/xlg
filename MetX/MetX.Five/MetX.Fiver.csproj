@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
     <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
   </ItemGroup>
 
