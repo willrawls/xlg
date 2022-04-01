@@ -19,7 +19,7 @@ namespace XLG.QuickScripts.Walker
             State = states[name];
             TitleLabel.Text = name;
             TabIndex = tabIndex;
-            Height = TitleLabel.Height + 20 + (State.Count + 1) * 25;
+            Height = TitleLabel.Height + 20 + (State.Count + 1) * Font.Height;
             Visible = true;
             ChildControl.Visible = true;
             ChildControl.View = View.Details;

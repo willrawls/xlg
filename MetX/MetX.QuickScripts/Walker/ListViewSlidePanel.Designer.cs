@@ -53,6 +53,7 @@
             // ChildControl
             // 
             this.ChildControl.BackColor = System.Drawing.Color.Cornsilk;
+            this.ChildControl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ChildControl.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.ChildControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -61,6 +62,7 @@
             this.ChildControl.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.ChildControl.Location = new System.Drawing.Point(2, 2);
             this.ChildControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ChildControl.MultiSelect = false;
             this.ChildControl.Name = "ChildControl";
             this.ChildControl.Size = new System.Drawing.Size(199, 62);
             this.ChildControl.TabIndex = 0;
@@ -69,7 +71,7 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Width = 300;
+            this.columnHeader1.Width = 200;
             // 
             // TitlePanel
             // 
