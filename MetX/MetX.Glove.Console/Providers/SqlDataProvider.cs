@@ -300,10 +300,14 @@ namespace XLG.Pipeliner.Providers
                 TableSchema.TableColumn column;
                 while (reader.Read())
                 {
+                    var columnName = reader["ColumnName"].ToString();
+                    if (columns.Any(c => c.ColumnName == columnName))
+                        continue;
+
                     int.TryParse(reader["MaxLength"].ToString(), out var maxLength);
                     column = new TableSchema.TableColumn
                     {
-                        ColumnName = reader["ColumnName"].ToString(),
+                        ColumnName = columnName,
                         Description = reader["Description"].ToString(),
                         DataType = GetDbType((reader["DataType"].ToString() ?? string.Empty).ToLower()),
                         SourceType = reader["DataType"].ToString(),
