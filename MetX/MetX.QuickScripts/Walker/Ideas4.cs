@@ -16,5 +16,10 @@ namespace XLG.QuickScripts.Walker
         {
             InitializeComponent();
         }
+
+        private void Ideas4_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
