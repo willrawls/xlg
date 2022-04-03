@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem(new string[] {
             "States",
             "50"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem(new string[] {
             "Bob.Person",
             "1001",
             "1",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem(new string[] {
             "Employee",
             "456",
             "",
             "Bob.Person"}, -1);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Employee");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Database Name (Metadata name?)", new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Employee");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Database Name (Metadata name?)", new System.Windows.Forms.TreeNode[] {
+            treeNode23});
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -84,8 +84,17 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -95,6 +104,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button14);
+            this.panel1.Controls.Add(this.button15);
+            this.panel1.Controls.Add(this.button8);
+            this.panel1.Controls.Add(this.button9);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.listView4);
@@ -145,9 +158,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem22,
+            listViewItem23,
+            listViewItem24});
             this.listView2.Location = new System.Drawing.Point(19, 53);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(300, 278);
@@ -218,16 +231,16 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(12, 30);
             this.treeView1.Name = "treeView1";
-            treeNode7.ForeColor = System.Drawing.Color.Red;
-            treeNode7.Name = "Node2";
-            treeNode7.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            treeNode7.Text = "Employee";
-            treeNode8.Name = "Node1";
-            treeNode8.Text = "Bob.Person";
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "Database Name (Metadata name?)";
+            treeNode22.ForeColor = System.Drawing.Color.Red;
+            treeNode22.Name = "Node2";
+            treeNode22.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            treeNode22.Text = "Employee";
+            treeNode23.Name = "Node1";
+            treeNode23.Text = "Bob.Person";
+            treeNode24.Name = "Node0";
+            treeNode24.Text = "Database Name (Metadata name?)";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9});
+            treeNode24});
             this.treeView1.Size = new System.Drawing.Size(298, 249);
             this.treeView1.TabIndex = 6;
             // 
@@ -384,6 +397,10 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.button12);
+            this.panel4.Controls.Add(this.button13);
+            this.panel4.Controls.Add(this.button10);
+            this.panel4.Controls.Add(this.button11);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.listView3);
             this.panel4.Controls.Add(this.listView1);
@@ -430,8 +447,9 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.button6);
-            this.panel5.Controls.Add(this.button5);
+            this.panel5.Controls.Add(this.checkBox2);
+            this.panel5.Controls.Add(this.checkBox1);
+            this.panel5.Controls.Add(this.button7);
             this.panel5.Controls.Add(this.button4);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
@@ -450,30 +468,117 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(7, 12);
+            this.button4.Location = new System.Drawing.Point(710, 12);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(181, 23);
+            this.button4.Size = new System.Drawing.Size(135, 23);
             this.button4.TabIndex = 0;
-            this.button4.Text = "Refresh (Keep overrides)";
+            this.button4.Text = "Refresh Database";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // button7
             // 
-            this.button5.Location = new System.Drawing.Point(217, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(181, 23);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Refresh (Keep database)";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button7.Location = new System.Drawing.Point(878, 12);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(106, 23);
+            this.button7.TabIndex = 1;
+            this.button7.Text = "Save";
+            this.button7.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // button8
             // 
-            this.button6.Location = new System.Drawing.Point(413, 12);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(181, 23);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "Refresh (Implied only)";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button8.Location = new System.Drawing.Point(102, 27);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(39, 23);
+            this.button8.TabIndex = 16;
+            this.button8.Text = "-";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(57, 28);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(39, 23);
+            this.button9.TabIndex = 15;
+            this.button9.Text = "+";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(144, 27);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(39, 23);
+            this.button10.TabIndex = 18;
+            this.button10.Text = "-";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(99, 28);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(39, 23);
+            this.button11.TabIndex = 17;
+            this.button11.Text = "+";
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(123, 352);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(39, 23);
+            this.button12.TabIndex = 20;
+            this.button12.Text = "-";
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(78, 353);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(39, 23);
+            this.button13.TabIndex = 19;
+            this.button13.Text = "+";
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(147, 351);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(39, 23);
+            this.button14.TabIndex = 18;
+            this.button14.Text = "-";
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(102, 352);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(39, 23);
+            this.button15.TabIndex = 17;
+            this.button15.Text = "+";
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(200, 15);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(173, 19);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Show Custom Relationships";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(9, 15);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(179, 19);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "Show Database Relationships";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // Ideas3
             // 
@@ -495,6 +600,7 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -537,8 +643,17 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
