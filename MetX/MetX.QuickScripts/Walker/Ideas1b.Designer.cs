@@ -80,9 +80,9 @@
             treeNode11,
             treeNode18,
             treeNode26});
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("No parent above list");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("No children in list");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("No parent and no children in list");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("No parent");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("No children");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("No parent and no children");
             System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Add list to wrapper");
             System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Find (based on index)");
             System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("List", new System.Windows.Forms.TreeNode[] {
@@ -91,23 +91,24 @@
             treeNode30,
             treeNode31,
             treeNode32});
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Add child list to item");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Item has no children");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Item (list member)", new System.Windows.Forms.TreeNode[] {
-            treeNode34,
-            treeNode35});
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Wrapper (top level)", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("By child");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
+            treeNode34});
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Add child list to item");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Item has no children");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Item (list member)", new System.Windows.Forms.TreeNode[] {
+            treeNode36,
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Wrapper (top level)", new System.Windows.Forms.TreeNode[] {
             treeNode27,
             treeNode33,
-            treeNode36});
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("MetX Walker", new System.Windows.Forms.TreeNode[] {
+            treeNode35,
+            treeNode38});
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("MetX Walker", new System.Windows.Forms.TreeNode[] {
             treeNode4,
-            treeNode37});
+            treeNode39});
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.quickScriptControl2 = new MetX.Controls.QuickScriptControl();
-            this.quickScriptControl1 = new MetX.Controls.QuickScriptControl();
-            this.ScriptEditor = new MetX.Controls.QuickScriptControl();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -181,11 +182,11 @@
             treeNode27.Tag = "isfolder";
             treeNode27.Text = "Property";
             treeNode28.Name = "ListNoParentNode";
-            treeNode28.Text = "No parent above list";
+            treeNode28.Text = "No parent";
             treeNode29.Name = "ListNoChildrenNode";
-            treeNode29.Text = "No children in list";
+            treeNode29.Text = "No children";
             treeNode30.Name = "ListNoParentAndNoChildrenNode";
-            treeNode30.Text = "No parent and no children in list";
+            treeNode30.Text = "No parent and no children";
             treeNode31.Name = "WrapperAddItemNode";
             treeNode31.Text = "Add list to wrapper";
             treeNode32.Name = "ListFindNode";
@@ -194,21 +195,25 @@
             treeNode33.Name = "WrapperListNode";
             treeNode33.Tag = "isfolder";
             treeNode33.Text = "List";
-            treeNode34.Name = "ItemNewChildListNode";
-            treeNode34.Text = "Add child list to item";
-            treeNode35.Name = "ItemNoChildrenNode";
-            treeNode35.Text = "Item has no children";
-            treeNode36.Name = "ListItemNode";
-            treeNode36.Tag = "isfolder";
-            treeNode36.Text = "Item (list member)";
-            treeNode37.Name = "WrapperNode";
-            treeNode37.Tag = "isfolder";
-            treeNode37.Text = "Wrapper (top level)";
-            treeNode38.Name = "WalkerNode";
+            treeNode34.Name = "Node1";
+            treeNode34.Text = "By child";
+            treeNode35.Name = "Node0";
+            treeNode35.Text = "Lookup";
+            treeNode36.Name = "ItemNewChildListNode";
+            treeNode36.Text = "Add child list to item";
+            treeNode37.Name = "ItemNoChildrenNode";
+            treeNode37.Text = "Item has no children";
+            treeNode38.Name = "ListItemNode";
             treeNode38.Tag = "isfolder";
-            treeNode38.Text = "MetX Walker";
+            treeNode38.Text = "Item (list member)";
+            treeNode39.Name = "WrapperNode";
+            treeNode39.Tag = "isfolder";
+            treeNode39.Text = "Wrapper (top level)";
+            treeNode40.Name = "WalkerNode";
+            treeNode40.Tag = "isfolder";
+            treeNode40.Text = "MetX Walker";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode38});
+            treeNode40});
             this.treeView1.Size = new System.Drawing.Size(288, 618);
             this.treeView1.TabIndex = 0;
             // 
@@ -217,9 +222,6 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.459214F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 91.54079F));
-            this.tableLayoutPanel1.Controls.Add(this.quickScriptControl2, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.quickScriptControl1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.ScriptEditor, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -233,45 +235,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(579, 618);
             this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // quickScriptControl2
-            // 
-            this.quickScriptControl2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quickScriptControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quickScriptControl2.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.quickScriptControl2.IsIconBarVisible = true;
-            this.quickScriptControl2.IsReadOnly = false;
-            this.quickScriptControl2.Location = new System.Drawing.Point(52, 436);
-            this.quickScriptControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.quickScriptControl2.Name = "quickScriptControl2";
-            this.quickScriptControl2.Size = new System.Drawing.Size(523, 178);
-            this.quickScriptControl2.TabIndex = 3;
-            // 
-            // quickScriptControl1
-            // 
-            this.quickScriptControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.quickScriptControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quickScriptControl1.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.quickScriptControl1.IsIconBarVisible = true;
-            this.quickScriptControl1.IsReadOnly = false;
-            this.quickScriptControl1.Location = new System.Drawing.Point(52, 189);
-            this.quickScriptControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.quickScriptControl1.Name = "quickScriptControl1";
-            this.quickScriptControl1.Size = new System.Drawing.Size(523, 239);
-            this.quickScriptControl1.TabIndex = 2;
-            // 
-            // ScriptEditor
-            // 
-            this.ScriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ScriptEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ScriptEditor.IsIconBarVisible = true;
-            this.ScriptEditor.IsReadOnly = false;
-            this.ScriptEditor.Location = new System.Drawing.Point(52, 4);
-            this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(523, 177);
-            this.ScriptEditor.TabIndex = 1;
             // 
             // label1
             // 

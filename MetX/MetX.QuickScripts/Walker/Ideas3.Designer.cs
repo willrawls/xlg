@@ -28,24 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "States",
-            "50"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem(new string[] {
+            "50",
+            "1",
+            "Lookup"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Bob.Person",
             "1001",
             "1",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "Employee",
             "456",
             "",
             "Bob.Person"}, -1);
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Employee");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
-            treeNode22});
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Database Name (Metadata name?)", new System.Windows.Forms.TreeNode[] {
-            treeNode23});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Employee");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Related", new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("States");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -95,6 +103,7 @@
             this.button15 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -158,9 +167,9 @@
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem22,
-            listViewItem23,
-            listViewItem24});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.listView2.Location = new System.Drawing.Point(19, 53);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(300, 278);
@@ -231,16 +240,26 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(12, 30);
             this.treeView1.Name = "treeView1";
-            treeNode22.ForeColor = System.Drawing.Color.Red;
-            treeNode22.Name = "Node2";
-            treeNode22.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            treeNode22.Text = "Employee";
-            treeNode23.Name = "Node1";
-            treeNode23.Text = "Bob.Person";
-            treeNode24.Name = "Node0";
-            treeNode24.Text = "Database Name (Metadata name?)";
+            treeNode1.ForeColor = System.Drawing.Color.Red;
+            treeNode1.Name = "Node2";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            treeNode1.Text = "Employee";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Bob.Person";
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "Related";
+            treeNode4.Name = "Node4";
+            treeNode4.Text = "States";
+            treeNode5.Name = "Node3";
+            treeNode5.Text = "Lookup";
+            treeNode6.Name = "Node6";
+            treeNode6.Text = "Logs";
+            treeNode7.Name = "Node5";
+            treeNode7.Text = "Other";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode24});
+            treeNode3,
+            treeNode5,
+            treeNode7});
             this.treeView1.Size = new System.Drawing.Size(298, 249);
             this.treeView1.TabIndex = 6;
             // 
@@ -255,6 +274,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.comboBox6);
             this.panel3.Controls.Add(this.textBox2);
@@ -286,6 +306,10 @@
             // comboBox6
             // 
             this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Items.AddRange(new object[] {
+            "One to many",
+            "One to one",
+            "Lookup"});
             this.comboBox6.Location = new System.Drawing.Point(55, 42);
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(121, 23);
@@ -313,8 +337,9 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(55, 13);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(240, 23);
+            this.textBox1.Size = new System.Drawing.Size(203, 23);
             this.textBox1.TabIndex = 9;
+            this.textBox1.Text = "FK_PersonID_Person_PersonID";
             // 
             // label8
             // 
@@ -580,6 +605,15 @@
             this.checkBox2.Text = "Show Database Relationships";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(260, 12);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(36, 23);
+            this.button5.TabIndex = 16;
+            this.button5.Text = "~";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // Ideas3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -655,5 +689,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button5;
     }
 }
