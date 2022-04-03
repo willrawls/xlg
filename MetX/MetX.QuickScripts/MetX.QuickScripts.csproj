@@ -266,6 +266,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Walker\Ideas1b.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Walker\ListViewSlidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

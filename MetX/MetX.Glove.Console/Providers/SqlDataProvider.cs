@@ -330,15 +330,7 @@ namespace XLG.Pipeliner.Providers
                     var columnName = reader["ColumnName"].ToString();
                     var constraintType = reader["constraintType"].ToString();
                     column = columns.GetColumn(columnName);
-
-                    if (constraintType == "PRIMARY KEY")
-                    {
-                        column.IsPrimaryKey = true;
-                    }
-                    else if (constraintType == "FOREIGN KEY")
-                    {
-                        column.IsForeignKey = true;
-                    }
+                    column.IsForeignKey = (constraintType is "PRIMARY KEY" or "FOREIGN KEY");
                 }
             }
 
