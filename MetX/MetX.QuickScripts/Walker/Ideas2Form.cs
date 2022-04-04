@@ -5,11 +5,11 @@ namespace XLG.QuickScripts.Walker
 {
     public partial class Ideas2Form : Form
     {
-        public Ideas2 Ideas {get; set; }
+        public Ideas1b Ideas {get; set; }
         public Ideas2Form()
         {
             InitializeComponent();
-            Ideas = new Ideas2();
+            Ideas = new Ideas1b();
             Controls.Add(Ideas);
             Ideas.Dock = DockStyle.Fill;
         }

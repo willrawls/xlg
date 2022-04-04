@@ -104,28 +104,28 @@ namespace XLG.QuickScripts
             this.RunningLabel,
             this.toolStripStatusLabel2,
             this.ProgressLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(426, 751);
+            this.statusStrip1.Location = new System.Drawing.Point(426, 754);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(818, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(818, 22);
             this.statusStrip1.TabIndex = 23;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // RunningLabel
             // 
             this.RunningLabel.Name = "RunningLabel";
-            this.RunningLabel.Size = new System.Drawing.Size(88, 20);
+            this.RunningLabel.Size = new System.Drawing.Size(72, 17);
             this.RunningLabel.Text = "Not running";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(21, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(16, 17);
             this.toolStripStatusLabel2.Text = " | ";
             // 
             // ProgressLabel
             // 
             this.ProgressLabel.Name = "ProgressLabel";
-            this.ProgressLabel.Size = new System.Drawing.Size(17, 20);
+            this.ProgressLabel.Size = new System.Drawing.Size(13, 17);
             this.ProgressLabel.Text = "0";
             // 
             // ScriptEditor
@@ -138,7 +138,7 @@ namespace XLG.QuickScripts
             this.ScriptEditor.Location = new System.Drawing.Point(426, 254);
             this.ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ScriptEditor.Name = "ScriptEditor";
-            this.ScriptEditor.Size = new System.Drawing.Size(818, 497);
+            this.ScriptEditor.Size = new System.Drawing.Size(818, 500);
             this.ScriptEditor.TabIndex = 0;
             // 
             // TopPanel

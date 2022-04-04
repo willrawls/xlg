@@ -35,74 +35,74 @@
             treeNode1,
             treeNode2,
             treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("String");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Boolean");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Date and Time");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Integer");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Bytes");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Guid");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Basic", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("No parent");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("No children");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("No parent and no children");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Functions");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Add list to wrapper");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("List", new System.Windows.Forms.TreeNode[] {
             treeNode5,
             treeNode6,
             treeNode7,
             treeNode8,
-            treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Long");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Float");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Double");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Decimal");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Currency");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Byte");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
-            treeNode12,
-            treeNode13,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Add child list to item");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Item has no children");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Item (list member)", new System.Windows.Forms.TreeNode[] {
+            treeNode11,
+            treeNode12});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("String");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Boolean");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Date and Time");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Integer");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Bytes");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Guid");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Basic", new System.Windows.Forms.TreeNode[] {
             treeNode14,
             treeNode15,
             treeNode16,
-            treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Detect specialized");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("BLOB");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Memo");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Associative Array");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("2D Associative array");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("3D Associative array");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("4D Associative array");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Specialized", new System.Windows.Forms.TreeNode[] {
-            treeNode19,
-            treeNode20,
+            treeNode17,
+            treeNode18,
+            treeNode19});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Long");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Float");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Double");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Decimal");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Currency");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Byte");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
             treeNode21,
             treeNode22,
             treeNode23,
             treeNode24,
-            treeNode25});
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Property", new System.Windows.Forms.TreeNode[] {
-            treeNode11,
-            treeNode18,
+            treeNode25,
             treeNode26});
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("No parent");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("No children");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("No parent and no children");
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Add list to wrapper");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Find (based on index)");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("List", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Detect specialized");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("BLOB");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Memo");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Associative Array");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("2D Associative array");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("3D Associative array");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("4D Associative array");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Specialized", new System.Windows.Forms.TreeNode[] {
             treeNode28,
             treeNode29,
             treeNode30,
             treeNode31,
-            treeNode32});
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("By child");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
+            treeNode32,
+            treeNode33,
             treeNode34});
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Add child list to item");
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Item has no children");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Item (list member)", new System.Windows.Forms.TreeNode[] {
-            treeNode36,
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Property", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode27,
+            treeNode35});
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("By child");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
             treeNode37});
             System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Wrapper (top level)", new System.Windows.Forms.TreeNode[] {
-            treeNode27,
-            treeNode33,
-            treeNode35,
+            treeNode10,
+            treeNode13,
+            treeNode36,
             treeNode38});
             System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("MetX Walker", new System.Windows.Forms.TreeNode[] {
             treeNode4,
@@ -112,6 +112,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.StartPanel = new System.Windows.Forms.Panel();
+            this.BodyPanel = new System.Windows.Forms.Panel();
+            this.FinishPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,81 +134,81 @@
             treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             treeNode4.Tag = "isfolder";
             treeNode4.Text = "Code";
-            treeNode5.Name = "PropertyStringNode";
-            treeNode5.Text = "String";
-            treeNode6.Name = "PropertyBooleanNode";
-            treeNode6.Text = "Boolean";
-            treeNode7.Name = "PropertyDateTimeNode";
-            treeNode7.Text = "Date and Time";
-            treeNode8.Name = "PropertyIntegerNode";
-            treeNode8.Text = "Integer";
-            treeNode9.Name = "PropertyBytesNode";
-            treeNode9.Text = "Bytes";
-            treeNode10.Name = "PropertyGuidNode";
-            treeNode10.Text = "Guid";
-            treeNode11.Name = "PropertyBasicNode";
-            treeNode11.Tag = "isfolder";
-            treeNode11.Text = "Basic";
-            treeNode12.Name = "PropertyLongNode";
-            treeNode12.Text = "Long";
-            treeNode13.Name = "PropertyFloatNode";
-            treeNode13.Text = "Float";
-            treeNode14.Name = "PropertyDoubleNode";
-            treeNode14.Text = "Double";
-            treeNode15.Name = "PropertyDecimalNode";
-            treeNode15.Text = "Decimal";
-            treeNode16.Name = "PropertyCurrencyNode";
-            treeNode16.Text = "Currency";
-            treeNode17.Name = "PropertyByteNode";
-            treeNode17.Text = "Byte";
-            treeNode18.Name = "PropertyOtherNode";
-            treeNode18.Tag = "isfolder";
-            treeNode18.Text = "Other";
-            treeNode19.Name = "PropertyDetectSpecializedNode";
-            treeNode19.Text = "Detect specialized";
-            treeNode20.Name = "PropertyBlobNode";
-            treeNode20.Text = "BLOB";
-            treeNode21.Name = "PropertyMemoNode";
-            treeNode21.Text = "Memo";
-            treeNode22.Name = "PropertyAssociativeArrayNode";
-            treeNode22.Text = "Associative Array";
-            treeNode23.Name = "Property2DStringNode";
-            treeNode23.Text = "2D Associative array";
-            treeNode24.Name = "Property3DStringNode";
-            treeNode24.Text = "3D Associative array";
-            treeNode25.Name = "Property4DStringNode";
-            treeNode25.Text = "4D Associative array";
-            treeNode26.Name = "PropertySpecializedNode";
-            treeNode26.Tag = "isfolder";
-            treeNode26.Text = "Specialized";
-            treeNode27.Name = "ItemPropertyNode";
+            treeNode5.Name = "ListNoParentNode";
+            treeNode5.Text = "No parent";
+            treeNode6.Name = "ListNoChildrenNode";
+            treeNode6.Text = "No children";
+            treeNode7.Name = "ListNoParentAndNoChildrenNode";
+            treeNode7.Text = "No parent and no children";
+            treeNode8.Name = "ListFindNode";
+            treeNode8.Tag = "folder";
+            treeNode8.Text = "Functions";
+            treeNode9.Name = "WrapperAddItemNode";
+            treeNode9.Text = "Add list to wrapper";
+            treeNode10.Name = "WrapperListNode";
+            treeNode10.Tag = "isfolder";
+            treeNode10.Text = "List";
+            treeNode11.Name = "ItemNewChildListNode";
+            treeNode11.Text = "Add child list to item";
+            treeNode12.Name = "ItemNoChildrenNode";
+            treeNode12.Text = "Item has no children";
+            treeNode13.Name = "ListItemNode";
+            treeNode13.Tag = "isfolder";
+            treeNode13.Text = "Item (list member)";
+            treeNode14.Name = "PropertyStringNode";
+            treeNode14.Text = "String";
+            treeNode15.Name = "PropertyBooleanNode";
+            treeNode15.Text = "Boolean";
+            treeNode16.Name = "PropertyDateTimeNode";
+            treeNode16.Text = "Date and Time";
+            treeNode17.Name = "PropertyIntegerNode";
+            treeNode17.Text = "Integer";
+            treeNode18.Name = "PropertyBytesNode";
+            treeNode18.Text = "Bytes";
+            treeNode19.Name = "PropertyGuidNode";
+            treeNode19.Text = "Guid";
+            treeNode20.Name = "PropertyBasicNode";
+            treeNode20.Tag = "isfolder";
+            treeNode20.Text = "Basic";
+            treeNode21.Name = "PropertyLongNode";
+            treeNode21.Text = "Long";
+            treeNode22.Name = "PropertyFloatNode";
+            treeNode22.Text = "Float";
+            treeNode23.Name = "PropertyDoubleNode";
+            treeNode23.Text = "Double";
+            treeNode24.Name = "PropertyDecimalNode";
+            treeNode24.Text = "Decimal";
+            treeNode25.Name = "PropertyCurrencyNode";
+            treeNode25.Text = "Currency";
+            treeNode26.Name = "PropertyByteNode";
+            treeNode26.Text = "Byte";
+            treeNode27.Name = "PropertyOtherNode";
             treeNode27.Tag = "isfolder";
-            treeNode27.Text = "Property";
-            treeNode28.Name = "ListNoParentNode";
-            treeNode28.Text = "No parent";
-            treeNode29.Name = "ListNoChildrenNode";
-            treeNode29.Text = "No children";
-            treeNode30.Name = "ListNoParentAndNoChildrenNode";
-            treeNode30.Text = "No parent and no children";
-            treeNode31.Name = "WrapperAddItemNode";
-            treeNode31.Text = "Add list to wrapper";
-            treeNode32.Name = "ListFindNode";
-            treeNode32.Tag = "folder";
-            treeNode32.Text = "Find (based on index)";
-            treeNode33.Name = "WrapperListNode";
-            treeNode33.Tag = "isfolder";
-            treeNode33.Text = "List";
-            treeNode34.Name = "Node1";
-            treeNode34.Text = "By child";
-            treeNode35.Name = "Node0";
-            treeNode35.Text = "Lookup";
-            treeNode36.Name = "ItemNewChildListNode";
-            treeNode36.Text = "Add child list to item";
-            treeNode37.Name = "ItemNoChildrenNode";
-            treeNode37.Text = "Item has no children";
-            treeNode38.Name = "ListItemNode";
-            treeNode38.Tag = "isfolder";
-            treeNode38.Text = "Item (list member)";
+            treeNode27.Text = "Other";
+            treeNode28.Name = "PropertyDetectSpecializedNode";
+            treeNode28.Text = "Detect specialized";
+            treeNode29.Name = "PropertyBlobNode";
+            treeNode29.Text = "BLOB";
+            treeNode30.Name = "PropertyMemoNode";
+            treeNode30.Text = "Memo";
+            treeNode31.Name = "PropertyAssociativeArrayNode";
+            treeNode31.Text = "Associative Array";
+            treeNode32.Name = "Property2DStringNode";
+            treeNode32.Text = "2D Associative array";
+            treeNode33.Name = "Property3DStringNode";
+            treeNode33.Text = "3D Associative array";
+            treeNode34.Name = "Property4DStringNode";
+            treeNode34.Text = "4D Associative array";
+            treeNode35.Name = "PropertySpecializedNode";
+            treeNode35.Tag = "isfolder";
+            treeNode35.Text = "Specialized";
+            treeNode36.Name = "ItemPropertyNode";
+            treeNode36.Tag = "isfolder";
+            treeNode36.Text = "Property";
+            treeNode37.Name = "Node1";
+            treeNode37.Text = "By child";
+            treeNode38.Name = "Node0";
+            treeNode38.Text = "Lookup";
             treeNode39.Name = "WrapperNode";
             treeNode39.Tag = "isfolder";
             treeNode39.Text = "Wrapper (top level)";
@@ -220,11 +223,14 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.459214F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 91.54079F));
+            this.tableLayoutPanel1.Controls.Add(this.FinishPanel, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.BodyPanel, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.StartPanel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(297, 8);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -266,6 +272,30 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Finish";
             // 
+            // StartPanel
+            // 
+            this.StartPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartPanel.Location = new System.Drawing.Point(51, 3);
+            this.StartPanel.Name = "StartPanel";
+            this.StartPanel.Size = new System.Drawing.Size(525, 179);
+            this.StartPanel.TabIndex = 1;
+            // 
+            // BodyPanel
+            // 
+            this.BodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BodyPanel.Location = new System.Drawing.Point(51, 188);
+            this.BodyPanel.Name = "BodyPanel";
+            this.BodyPanel.Size = new System.Drawing.Size(525, 241);
+            this.BodyPanel.TabIndex = 2;
+            // 
+            // FinishPanel
+            // 
+            this.FinishPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FinishPanel.Location = new System.Drawing.Point(51, 435);
+            this.FinishPanel.Name = "FinishPanel";
+            this.FinishPanel.Size = new System.Drawing.Size(525, 180);
+            this.FinishPanel.TabIndex = 3;
+            // 
             // Ideas1b
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -293,5 +323,8 @@
         private MetX.Controls.QuickScriptControl quickScriptControl2;
         private MetX.Controls.QuickScriptControl quickScriptControl1;
         private MetX.Controls.QuickScriptControl ScriptEditor;
+        private System.Windows.Forms.Panel FinishPanel;
+        private System.Windows.Forms.Panel BodyPanel;
+        private System.Windows.Forms.Panel StartPanel;
     }
 }

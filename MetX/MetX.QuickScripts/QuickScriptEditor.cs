@@ -980,8 +980,13 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void Button1_Click(object sender, EventArgs e)
     {
-        var form = new Ideas2Form();
-        form.ShowDialog(this);
-        form.Show();
+        var ideas2Form = new Ideas2Form();
+        ideas2Form.Show(this);
+
+        var ideas3Form = new Ideas3();
+        ideas3Form.Show();
+
+        var ideas4Form = new Ideas4();
+        ideas4Form.Show();
     }
 }

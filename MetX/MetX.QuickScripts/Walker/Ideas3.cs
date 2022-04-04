@@ -14,6 +14,10 @@ namespace XLG.QuickScripts.Walker
         public Ideas3()
         {
             InitializeComponent();
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                node.Expand();
+            }
         }
     }
 }
