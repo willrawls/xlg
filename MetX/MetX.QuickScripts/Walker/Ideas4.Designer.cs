@@ -1,6 +1,6 @@
 ﻿namespace XLG.QuickScripts.Walker
 {
-    partial class Ideas4
+    partial class DatabaseWalkerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.InputFileTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.EditInputFileButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.OutputFolderTextBox = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TemplateFolderTextBox = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
+            this.EditTemplateButton = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // InputFileTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(107, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(437, 23);
-            this.textBox1.TabIndex = 0;
+            this.InputFileTextBox.Location = new System.Drawing.Point(107, 12);
+            this.InputFileTextBox.Name = "InputFileTextBox";
+            this.InputFileTextBox.Size = new System.Drawing.Size(641, 23);
+            this.InputFileTextBox.TabIndex = 0;
+            this.InputFileTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Pipes\\AdventureWorks\\AdventureWorks.Glove.x" +
+    "ml";
             // 
             // label1
             // 
@@ -69,25 +69,26 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(551, 13);
+            this.button1.Location = new System.Drawing.Point(754, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(33, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "...";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // EditInputFileButton
             // 
-            this.button2.Location = new System.Drawing.Point(590, 13);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(54, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Edit";
-            this.button2.UseVisualStyleBackColor = true;
+            this.EditInputFileButton.Location = new System.Drawing.Point(793, 12);
+            this.EditInputFileButton.Name = "EditInputFileButton";
+            this.EditInputFileButton.Size = new System.Drawing.Size(54, 23);
+            this.EditInputFileButton.TabIndex = 2;
+            this.EditInputFileButton.Text = "Edit";
+            this.EditInputFileButton.UseVisualStyleBackColor = true;
+            this.EditInputFileButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(551, 69);
+            this.button3.Location = new System.Drawing.Point(754, 68);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(33, 23);
             this.button3.TabIndex = 5;
@@ -103,16 +104,17 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Output folder";
             // 
-            // textBox2
+            // OutputFolderTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(107, 69);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(437, 23);
-            this.textBox2.TabIndex = 3;
+            this.OutputFolderTextBox.Location = new System.Drawing.Point(107, 69);
+            this.OutputFolderTextBox.Name = "OutputFolderTextBox";
+            this.OutputFolderTextBox.Size = new System.Drawing.Size(641, 23);
+            this.OutputFolderTextBox.TabIndex = 3;
+            this.OutputFolderTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Walkers\\Output\\Prexey\\";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(705, 69);
+            this.button4.Location = new System.Drawing.Point(903, 67);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(54, 23);
             this.button4.TabIndex = 2;
@@ -121,7 +123,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(551, 41);
+            this.button5.Location = new System.Drawing.Point(754, 40);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(33, 23);
             this.button5.TabIndex = 8;
@@ -137,16 +139,17 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Template folder";
             // 
-            // textBox3
+            // TemplateFolderTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(107, 41);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(437, 23);
-            this.textBox3.TabIndex = 6;
+            this.TemplateFolderTextBox.Location = new System.Drawing.Point(107, 41);
+            this.TemplateFolderTextBox.Name = "TemplateFolderTextBox";
+            this.TemplateFolderTextBox.Size = new System.Drawing.Size(641, 23);
+            this.TemplateFolderTextBox.TabIndex = 6;
+            this.TemplateFolderTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Walkers\\Templates\\Database\\Prexey\\";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(645, 40);
+            this.button6.Location = new System.Drawing.Point(848, 39);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(54, 23);
             this.button6.TabIndex = 2;
@@ -155,7 +158,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(530, 98);
+            this.button7.Location = new System.Drawing.Point(733, 97);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(54, 23);
             this.button7.TabIndex = 2;
@@ -164,7 +167,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(645, 98);
+            this.button8.Location = new System.Drawing.Point(848, 97);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(54, 23);
             this.button8.TabIndex = 2;
@@ -173,7 +176,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(590, 98);
+            this.button9.Location = new System.Drawing.Point(793, 97);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(54, 23);
             this.button9.TabIndex = 2;
@@ -182,25 +185,26 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(705, 41);
+            this.button10.Location = new System.Drawing.Point(903, 39);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(54, 23);
             this.button10.TabIndex = 2;
             this.button10.Text = "Create";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // EditTemplateButton
             // 
-            this.button11.Location = new System.Drawing.Point(590, 40);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(54, 23);
-            this.button11.TabIndex = 2;
-            this.button11.Text = "Edit";
-            this.button11.UseVisualStyleBackColor = true;
+            this.EditTemplateButton.Location = new System.Drawing.Point(793, 39);
+            this.EditTemplateButton.Name = "EditTemplateButton";
+            this.EditTemplateButton.Size = new System.Drawing.Size(54, 23);
+            this.EditTemplateButton.TabIndex = 2;
+            this.EditTemplateButton.Text = "Edit";
+            this.EditTemplateButton.UseVisualStyleBackColor = true;
+            this.EditTemplateButton.Click += new System.EventHandler(this.button11_Click);
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(590, 69);
+            this.button12.Location = new System.Drawing.Point(793, 68);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(54, 23);
             this.button12.TabIndex = 2;
@@ -209,43 +213,25 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(645, 69);
+            this.button13.Location = new System.Drawing.Point(848, 68);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(54, 23);
             this.button13.TabIndex = 2;
             this.button13.Text = "Clone";
             this.button13.UseVisualStyleBackColor = true;
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(10, 127);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(739, 141);
-            this.textBox4.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 109);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 15);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Log";
-            // 
-            // Ideas4
+            // DatabaseWalkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 280);
-            this.Controls.Add(this.textBox4);
+            this.BackColor = System.Drawing.Color.SlateBlue;
+            this.ClientSize = new System.Drawing.Size(969, 128);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.TemplateFolderTextBox);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.OutputFolderTextBox);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button8);
@@ -254,12 +240,12 @@
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.EditTemplateButton);
+            this.Controls.Add(this.EditInputFileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Name = "Ideas4";
+            this.Controls.Add(this.InputFileTextBox);
+            this.Name = "DatabaseWalkerForm";
             this.Text = "Ideas4";
             this.Load += new System.EventHandler(this.Ideas4_Load);
             this.ResumeLayout(false);
@@ -269,26 +255,24 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox InputFileTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button EditInputFileButton;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox OutputFolderTextBox;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox TemplateFolderTextBox;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button EditTemplateButton;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label4;
     }
 }
