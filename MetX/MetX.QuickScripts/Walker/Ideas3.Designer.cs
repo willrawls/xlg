@@ -54,6 +54,10 @@
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Logs");
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
             treeNode6});
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            "Column",
+            "String",
+            "255"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -74,7 +78,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.RelationshipTreeView = new System.Windows.Forms.TreeView();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
@@ -104,6 +108,10 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.Name = new System.Windows.Forms.ColumnHeader();
+            this.Type = new System.Windows.Forms.ColumnHeader();
+            this.Size = new System.Windows.Forms.ColumnHeader();
+            this.Indexed = new System.Windows.Forms.ColumnHeader();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -235,7 +243,7 @@
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Table Name (Metadata name?)";
+            this.columnHeader5.Text = "Table Name";
             this.columnHeader5.Width = 100;
             // 
             // columnHeader6
@@ -276,7 +284,7 @@
             this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.treeView1);
+            this.panel2.Controls.Add(this.RelationshipTreeView);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -303,11 +311,11 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Relationships";
             // 
-            // treeView1
+            // RelationshipTreeView
             // 
-            this.treeView1.BackColor = System.Drawing.Color.Gray;
-            this.treeView1.Location = new System.Drawing.Point(12, 30);
-            this.treeView1.Name = "treeView1";
+            this.RelationshipTreeView.BackColor = System.Drawing.Color.Gray;
+            this.RelationshipTreeView.Location = new System.Drawing.Point(12, 30);
+            this.RelationshipTreeView.Name = "RelationshipTreeView";
             treeNode1.ForeColor = System.Drawing.Color.Red;
             treeNode1.Name = "Node2";
             treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -324,12 +332,12 @@
             treeNode6.Text = "Logs";
             treeNode7.Name = "Node5";
             treeNode7.Text = "Other";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            this.RelationshipTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode3,
             treeNode5,
             treeNode7});
-            this.treeView1.Size = new System.Drawing.Size(298, 249);
-            this.treeView1.TabIndex = 6;
+            this.RelationshipTreeView.Size = new System.Drawing.Size(298, 249);
+            this.RelationshipTreeView.TabIndex = 6;
             // 
             // label2
             // 
@@ -562,11 +570,22 @@
             // listView3
             // 
             this.listView3.BackColor = System.Drawing.Color.Gray;
+            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Name,
+            this.Type,
+            this.Size,
+            this.Indexed});
+            this.listView3.FullRowSelect = true;
+            this.listView3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView3.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem4});
             this.listView3.Location = new System.Drawing.Point(8, 53);
+            this.listView3.MultiSelect = false;
             this.listView3.Name = "listView3";
             this.listView3.Size = new System.Drawing.Size(302, 278);
             this.listView3.TabIndex = 16;
             this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.Details;
             // 
             // panel5
             // 
@@ -623,6 +642,22 @@
             this.button4.Text = "Refresh Database";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // Name
+            // 
+            this.Name.Text = "Name";
+            // 
+            // Type
+            // 
+            this.Type.Text = "Type";
+            // 
+            // Size
+            // 
+            this.Size.Text = "Size";
+            // 
+            // Indexed
+            // 
+            this.Indexed.Text = "Indexed";
+            // 
             // Ideas3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -664,7 +699,7 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView RelationshipTreeView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBox1;
@@ -701,5 +736,9 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ColumnHeader Name;
+        private System.Windows.Forms.ColumnHeader Type;
+        private System.Windows.Forms.ColumnHeader Size;
+        private System.Windows.Forms.ColumnHeader Indexed;
     }
 }

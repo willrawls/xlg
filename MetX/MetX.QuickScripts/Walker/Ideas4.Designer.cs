@@ -30,23 +30,24 @@
         {
             this.InputFileTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SelectInputFileButton = new System.Windows.Forms.Button();
             this.EditInputFileButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.SelectOutputFolderButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.OutputFolderTextBox = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.CreateOutputFolderButton = new System.Windows.Forms.Button();
+            this.SelectTemplateFolderButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.TemplateFolderTextBox = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.CloneTemplateFolderButton = new System.Windows.Forms.Button();
+            this.BuildButton = new System.Windows.Forms.Button();
+            this.RunButton = new System.Windows.Forms.Button();
+            this.CreateTemplateFolderButton = new System.Windows.Forms.Button();
             this.EditTemplateButton = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.ExploreOutputFolderButton = new System.Windows.Forms.Button();
+            this.CloneOutputFolderButton = new System.Windows.Forms.Button();
+            this.CloneInputFileButton = new System.Windows.Forms.Button();
+            this.CreateInputFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InputFileTextBox
@@ -55,8 +56,7 @@
             this.InputFileTextBox.Name = "InputFileTextBox";
             this.InputFileTextBox.Size = new System.Drawing.Size(641, 23);
             this.InputFileTextBox.TabIndex = 0;
-            this.InputFileTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Pipes\\AdventureWorks\\AdventureWorks.Glove.x" +
-    "ml";
+            this.InputFileTextBox.Text = "%XLG%\\Pipes\\AdventureWorks\\AdventureWorks.Glove.xml";
             // 
             // label1
             // 
@@ -67,14 +67,14 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Input file";
             // 
-            // button1
+            // SelectInputFileButton
             // 
-            this.button1.Location = new System.Drawing.Point(754, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(33, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SelectInputFileButton.Location = new System.Drawing.Point(754, 12);
+            this.SelectInputFileButton.Name = "SelectInputFileButton";
+            this.SelectInputFileButton.Size = new System.Drawing.Size(33, 23);
+            this.SelectInputFileButton.TabIndex = 1;
+            this.SelectInputFileButton.Text = "...";
+            this.SelectInputFileButton.UseVisualStyleBackColor = true;
             // 
             // EditInputFileButton
             // 
@@ -84,16 +84,16 @@
             this.EditInputFileButton.TabIndex = 2;
             this.EditInputFileButton.Text = "Edit";
             this.EditInputFileButton.UseVisualStyleBackColor = true;
-            this.EditInputFileButton.Click += new System.EventHandler(this.button2_Click);
+            this.EditInputFileButton.Click += new System.EventHandler(this.EditInputFileButton_Click);
             // 
-            // button3
+            // SelectOutputFolderButton
             // 
-            this.button3.Location = new System.Drawing.Point(754, 68);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
+            this.SelectOutputFolderButton.Location = new System.Drawing.Point(754, 68);
+            this.SelectOutputFolderButton.Name = "SelectOutputFolderButton";
+            this.SelectOutputFolderButton.Size = new System.Drawing.Size(33, 23);
+            this.SelectOutputFolderButton.TabIndex = 11;
+            this.SelectOutputFolderButton.Text = "...";
+            this.SelectOutputFolderButton.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -109,26 +109,26 @@
             this.OutputFolderTextBox.Location = new System.Drawing.Point(107, 69);
             this.OutputFolderTextBox.Name = "OutputFolderTextBox";
             this.OutputFolderTextBox.Size = new System.Drawing.Size(641, 23);
-            this.OutputFolderTextBox.TabIndex = 3;
-            this.OutputFolderTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Walkers\\Output\\Prexey\\";
+            this.OutputFolderTextBox.TabIndex = 10;
+            this.OutputFolderTextBox.Text = "%XLG%\\Walkers\\Output\\Prexey\\";
             // 
-            // button4
+            // CreateOutputFolderButton
             // 
-            this.button4.Location = new System.Drawing.Point(903, 67);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(54, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Create";
-            this.button4.UseVisualStyleBackColor = true;
+            this.CreateOutputFolderButton.Location = new System.Drawing.Point(903, 67);
+            this.CreateOutputFolderButton.Name = "CreateOutputFolderButton";
+            this.CreateOutputFolderButton.Size = new System.Drawing.Size(54, 23);
+            this.CreateOutputFolderButton.TabIndex = 14;
+            this.CreateOutputFolderButton.Text = "Create";
+            this.CreateOutputFolderButton.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // SelectTemplateFolderButton
             // 
-            this.button5.Location = new System.Drawing.Point(754, 40);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(33, 23);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "...";
-            this.button5.UseVisualStyleBackColor = true;
+            this.SelectTemplateFolderButton.Location = new System.Drawing.Point(754, 40);
+            this.SelectTemplateFolderButton.Name = "SelectTemplateFolderButton";
+            this.SelectTemplateFolderButton.Size = new System.Drawing.Size(33, 23);
+            this.SelectTemplateFolderButton.TabIndex = 6;
+            this.SelectTemplateFolderButton.Text = "...";
+            this.SelectTemplateFolderButton.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -144,109 +144,119 @@
             this.TemplateFolderTextBox.Location = new System.Drawing.Point(107, 41);
             this.TemplateFolderTextBox.Name = "TemplateFolderTextBox";
             this.TemplateFolderTextBox.Size = new System.Drawing.Size(641, 23);
-            this.TemplateFolderTextBox.TabIndex = 6;
-            this.TemplateFolderTextBox.Text = "C:\\Users\\willr\\OneDrive\\Documents\\XLG\\Walkers\\Templates\\Database\\Prexey\\";
+            this.TemplateFolderTextBox.TabIndex = 5;
+            this.TemplateFolderTextBox.Text = "%XLG%\\Walkers\\Templates\\Database\\Prexey\\";
             // 
-            // button6
+            // CloneTemplateFolderButton
             // 
-            this.button6.Location = new System.Drawing.Point(848, 39);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(54, 23);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Clone";
-            this.button6.UseVisualStyleBackColor = true;
+            this.CloneTemplateFolderButton.Location = new System.Drawing.Point(848, 39);
+            this.CloneTemplateFolderButton.Name = "CloneTemplateFolderButton";
+            this.CloneTemplateFolderButton.Size = new System.Drawing.Size(54, 23);
+            this.CloneTemplateFolderButton.TabIndex = 8;
+            this.CloneTemplateFolderButton.Text = "Clone";
+            this.CloneTemplateFolderButton.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // BuildButton
             // 
-            this.button7.Location = new System.Drawing.Point(733, 97);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(54, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "Build";
-            this.button7.UseVisualStyleBackColor = true;
+            this.BuildButton.Location = new System.Drawing.Point(167, 98);
+            this.BuildButton.Name = "BuildButton";
+            this.BuildButton.Size = new System.Drawing.Size(54, 23);
+            this.BuildButton.TabIndex = 15;
+            this.BuildButton.Text = "Build";
+            this.BuildButton.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // RunButton
             // 
-            this.button8.Location = new System.Drawing.Point(848, 97);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(54, 23);
-            this.button8.TabIndex = 2;
-            this.button8.Text = "Clone";
-            this.button8.UseVisualStyleBackColor = true;
+            this.RunButton.Location = new System.Drawing.Point(107, 98);
+            this.RunButton.Name = "RunButton";
+            this.RunButton.Size = new System.Drawing.Size(54, 23);
+            this.RunButton.TabIndex = 16;
+            this.RunButton.Text = "Run";
+            this.RunButton.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // CreateTemplateFolderButton
             // 
-            this.button9.Location = new System.Drawing.Point(793, 97);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(54, 23);
-            this.button9.TabIndex = 2;
-            this.button9.Text = "Run";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(903, 39);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(54, 23);
-            this.button10.TabIndex = 2;
-            this.button10.Text = "Create";
-            this.button10.UseVisualStyleBackColor = true;
+            this.CreateTemplateFolderButton.Location = new System.Drawing.Point(903, 39);
+            this.CreateTemplateFolderButton.Name = "CreateTemplateFolderButton";
+            this.CreateTemplateFolderButton.Size = new System.Drawing.Size(54, 23);
+            this.CreateTemplateFolderButton.TabIndex = 9;
+            this.CreateTemplateFolderButton.Text = "Create";
+            this.CreateTemplateFolderButton.UseVisualStyleBackColor = true;
             // 
             // EditTemplateButton
             // 
             this.EditTemplateButton.Location = new System.Drawing.Point(793, 39);
             this.EditTemplateButton.Name = "EditTemplateButton";
             this.EditTemplateButton.Size = new System.Drawing.Size(54, 23);
-            this.EditTemplateButton.TabIndex = 2;
+            this.EditTemplateButton.TabIndex = 7;
             this.EditTemplateButton.Text = "Edit";
             this.EditTemplateButton.UseVisualStyleBackColor = true;
             this.EditTemplateButton.Click += new System.EventHandler(this.button11_Click);
             // 
-            // button12
+            // ExploreOutputFolderButton
             // 
-            this.button12.Location = new System.Drawing.Point(793, 68);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(54, 23);
-            this.button12.TabIndex = 2;
-            this.button12.Text = "Explore";
-            this.button12.UseVisualStyleBackColor = true;
+            this.ExploreOutputFolderButton.Location = new System.Drawing.Point(793, 68);
+            this.ExploreOutputFolderButton.Name = "ExploreOutputFolderButton";
+            this.ExploreOutputFolderButton.Size = new System.Drawing.Size(54, 23);
+            this.ExploreOutputFolderButton.TabIndex = 12;
+            this.ExploreOutputFolderButton.Text = "Explore";
+            this.ExploreOutputFolderButton.UseVisualStyleBackColor = true;
             // 
-            // button13
+            // CloneOutputFolderButton
             // 
-            this.button13.Location = new System.Drawing.Point(848, 68);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(54, 23);
-            this.button13.TabIndex = 2;
-            this.button13.Text = "Clone";
-            this.button13.UseVisualStyleBackColor = true;
+            this.CloneOutputFolderButton.Location = new System.Drawing.Point(848, 68);
+            this.CloneOutputFolderButton.Name = "CloneOutputFolderButton";
+            this.CloneOutputFolderButton.Size = new System.Drawing.Size(54, 23);
+            this.CloneOutputFolderButton.TabIndex = 13;
+            this.CloneOutputFolderButton.Text = "Clone";
+            this.CloneOutputFolderButton.UseVisualStyleBackColor = true;
+            // 
+            // CloneInputFileButton
+            // 
+            this.CloneInputFileButton.Location = new System.Drawing.Point(848, 11);
+            this.CloneInputFileButton.Name = "CloneInputFileButton";
+            this.CloneInputFileButton.Size = new System.Drawing.Size(54, 23);
+            this.CloneInputFileButton.TabIndex = 3;
+            this.CloneInputFileButton.Text = "Clone";
+            this.CloneInputFileButton.UseVisualStyleBackColor = true;
+            // 
+            // CreateInputFileButton
+            // 
+            this.CreateInputFileButton.Location = new System.Drawing.Point(903, 12);
+            this.CreateInputFileButton.Name = "CreateInputFileButton";
+            this.CreateInputFileButton.Size = new System.Drawing.Size(54, 23);
+            this.CreateInputFileButton.TabIndex = 4;
+            this.CreateInputFileButton.Text = "Create";
+            this.CreateInputFileButton.UseVisualStyleBackColor = true;
             // 
             // DatabaseWalkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SlateBlue;
-            this.ClientSize = new System.Drawing.Size(969, 128);
-            this.Controls.Add(this.button5);
+            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.ClientSize = new System.Drawing.Size(969, 127);
+            this.Controls.Add(this.SelectTemplateFolderButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.TemplateFolderTextBox);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.SelectOutputFolderButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.OutputFolderTextBox);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button12);
+            this.Controls.Add(this.RunButton);
+            this.Controls.Add(this.CloneInputFileButton);
+            this.Controls.Add(this.CloneTemplateFolderButton);
+            this.Controls.Add(this.CreateInputFileButton);
+            this.Controls.Add(this.CreateTemplateFolderButton);
+            this.Controls.Add(this.CreateOutputFolderButton);
+            this.Controls.Add(this.BuildButton);
+            this.Controls.Add(this.CloneOutputFolderButton);
+            this.Controls.Add(this.ExploreOutputFolderButton);
             this.Controls.Add(this.EditTemplateButton);
             this.Controls.Add(this.EditInputFileButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SelectInputFileButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.InputFileTextBox);
             this.Name = "DatabaseWalkerForm";
-            this.Text = "Ideas4";
+            this.Text = "Database Walker";
             this.Load += new System.EventHandler(this.Ideas4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -257,22 +267,23 @@
 
         private System.Windows.Forms.TextBox InputFileTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SelectInputFileButton;
         private System.Windows.Forms.Button EditInputFileButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button SelectOutputFolderButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox OutputFolderTextBox;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button CreateOutputFolderButton;
+        private System.Windows.Forms.Button SelectTemplateFolderButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TemplateFolderTextBox;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button CloneTemplateFolderButton;
+        private System.Windows.Forms.Button BuildButton;
+        private System.Windows.Forms.Button RunButton;
+        private System.Windows.Forms.Button CreateTemplateFolderButton;
         private System.Windows.Forms.Button EditTemplateButton;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button ExploreOutputFolderButton;
+        private System.Windows.Forms.Button CloneOutputFolderButton;
+        private System.Windows.Forms.Button CloneInputFileButton;
+        private System.Windows.Forms.Button CreateInputFileButton;
     }
 }

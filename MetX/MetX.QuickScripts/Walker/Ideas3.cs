@@ -23,12 +23,10 @@ namespace XLG.QuickScripts.Walker
 
         private void Ideas3_Load(object sender, System.EventArgs e)
         {
-            
-            foreach (TreeNode node in treeView1.Nodes)
+            foreach (TreeNode node in RelationshipTreeView.Nodes)
             {
                 node.ExpandAll();
             }
-
         }
     }
 }

@@ -23,7 +23,7 @@ namespace XLG.QuickScripts.Walker
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void EditInputFileButton_Click(object sender, EventArgs e)
         {
             var text = InputFileTextBox.Text;
             if (!File.Exists(text))
