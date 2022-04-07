@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "States",
             "50",
             "1",
             "Lookup"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Bob.Person",
             "1001",
             "1",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Employee",
             "456",
             "",
             "Bob.Person"}, -1);
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Employee");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Related", new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("States");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Logs");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Employee");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Bob.Person", new System.Windows.Forms.TreeNode[] {
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Related", new System.Windows.Forms.TreeNode[] {
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("States");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Lookup", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Other", new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Column",
             "String",
             "255"}, -1);
@@ -65,16 +65,16 @@
             this.button9 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.listView4 = new System.Windows.Forms.ListView();
+            this.IndexListView = new System.Windows.Forms.ListView();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.TableListView = new System.Windows.Forms.ListView();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.label5 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.KeysListView = new System.Windows.Forms.ListView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -102,16 +102,20 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.ColumnsListView = new System.Windows.Forms.ListView();
+            this.Name = new System.Windows.Forms.ColumnHeader();
+            this.Type = new System.Windows.Forms.ColumnHeader();
+            this.Size = new System.Windows.Forms.ColumnHeader();
+            this.Indexed = new System.Windows.Forms.ColumnHeader();
             this.panel5 = new System.Windows.Forms.Panel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.Name = new System.Windows.Forms.ColumnHeader();
-            this.Type = new System.Windows.Forms.ColumnHeader();
-            this.Size = new System.Windows.Forms.ColumnHeader();
-            this.Indexed = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -128,10 +132,10 @@
             this.panel1.Controls.Add(this.button9);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.listView4);
+            this.panel1.Controls.Add(this.IndexListView);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.listView2);
+            this.panel1.Controls.Add(this.TableListView);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(321, 42);
             this.panel1.Name = "panel1";
@@ -195,14 +199,18 @@
             this.comboBox1.TabIndex = 12;
             this.comboBox1.Text = "All";
             // 
-            // listView4
+            // IndexListView
             // 
-            this.listView4.BackColor = System.Drawing.Color.Gray;
-            this.listView4.Location = new System.Drawing.Point(19, 379);
-            this.listView4.Name = "listView4";
-            this.listView4.Size = new System.Drawing.Size(302, 153);
-            this.listView4.TabIndex = 14;
-            this.listView4.UseCompatibleStateImageBehavior = false;
+            this.IndexListView.BackColor = System.Drawing.Color.Gray;
+            this.IndexListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.IndexListView.Location = new System.Drawing.Point(19, 379);
+            this.IndexListView.Name = "IndexListView";
+            this.IndexListView.Size = new System.Drawing.Size(302, 153);
+            this.IndexListView.TabIndex = 14;
+            this.IndexListView.UseCompatibleStateImageBehavior = false;
+            this.IndexListView.View = System.Windows.Forms.View.Details;
             // 
             // label4
             // 
@@ -222,24 +230,24 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "Table Indexes";
             // 
-            // listView2
+            // TableListView
             // 
-            this.listView2.BackColor = System.Drawing.Color.Gray;
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TableListView.BackColor = System.Drawing.Color.Gray;
+            this.TableListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
-            this.listView2.Location = new System.Drawing.Point(19, 53);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(300, 278);
-            this.listView2.TabIndex = 10;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.TableListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem5,
+            listViewItem6,
+            listViewItem7});
+            this.TableListView.Location = new System.Drawing.Point(19, 53);
+            this.TableListView.Name = "TableListView";
+            this.TableListView.Size = new System.Drawing.Size(300, 278);
+            this.TableListView.TabIndex = 10;
+            this.TableListView.UseCompatibleStateImageBehavior = false;
+            this.TableListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader5
             // 
@@ -270,14 +278,18 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Table Keys";
             // 
-            // listView1
+            // KeysListView
             // 
-            this.listView1.BackColor = System.Drawing.Color.Gray;
-            this.listView1.Location = new System.Drawing.Point(11, 379);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(302, 153);
-            this.listView1.TabIndex = 14;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.KeysListView.BackColor = System.Drawing.Color.Gray;
+            this.KeysListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.KeysListView.Location = new System.Drawing.Point(11, 379);
+            this.KeysListView.Name = "KeysListView";
+            this.KeysListView.Size = new System.Drawing.Size(302, 153);
+            this.KeysListView.TabIndex = 14;
+            this.KeysListView.UseCompatibleStateImageBehavior = false;
+            this.KeysListView.View = System.Windows.Forms.View.Details;
             // 
             // panel2
             // 
@@ -316,26 +328,26 @@
             this.RelationshipTreeView.BackColor = System.Drawing.Color.Gray;
             this.RelationshipTreeView.Location = new System.Drawing.Point(12, 30);
             this.RelationshipTreeView.Name = "RelationshipTreeView";
-            treeNode1.ForeColor = System.Drawing.Color.Red;
-            treeNode1.Name = "Node2";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            treeNode1.Text = "Employee";
-            treeNode2.Name = "Node1";
-            treeNode2.Text = "Bob.Person";
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "Related";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "States";
-            treeNode5.Name = "Node3";
-            treeNode5.Text = "Lookup";
-            treeNode6.Name = "Node6";
-            treeNode6.Text = "Logs";
-            treeNode7.Name = "Node5";
-            treeNode7.Text = "Other";
+            treeNode8.ForeColor = System.Drawing.Color.Red;
+            treeNode8.Name = "Node2";
+            treeNode8.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            treeNode8.Text = "Employee";
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Bob.Person";
+            treeNode10.Name = "Node0";
+            treeNode10.Text = "Related";
+            treeNode11.Name = "Node4";
+            treeNode11.Text = "States";
+            treeNode12.Name = "Node3";
+            treeNode12.Text = "Lookup";
+            treeNode13.Name = "Node6";
+            treeNode13.Text = "Logs";
+            treeNode14.Name = "Node5";
+            treeNode14.Text = "Other";
             this.RelationshipTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode5,
-            treeNode7});
+            treeNode10,
+            treeNode12,
+            treeNode14});
             this.RelationshipTreeView.Size = new System.Drawing.Size(298, 249);
             this.RelationshipTreeView.TabIndex = 6;
             // 
@@ -513,8 +525,8 @@
             this.panel4.Controls.Add(this.button10);
             this.panel4.Controls.Add(this.button11);
             this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.listView3);
-            this.panel4.Controls.Add(this.listView1);
+            this.panel4.Controls.Add(this.ColumnsListView);
+            this.panel4.Controls.Add(this.KeysListView);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(662, 42);
@@ -567,25 +579,41 @@
             this.label10.TabIndex = 15;
             this.label10.Text = "Table Columns";
             // 
-            // listView3
+            // ColumnsListView
             // 
-            this.listView3.BackColor = System.Drawing.Color.Gray;
-            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnsListView.BackColor = System.Drawing.Color.Gray;
+            this.ColumnsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Name,
             this.Type,
             this.Size,
             this.Indexed});
-            this.listView3.FullRowSelect = true;
-            this.listView3.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView3.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
-            this.listView3.Location = new System.Drawing.Point(8, 53);
-            this.listView3.MultiSelect = false;
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(302, 278);
-            this.listView3.TabIndex = 16;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            this.listView3.View = System.Windows.Forms.View.Details;
+            this.ColumnsListView.FullRowSelect = true;
+            this.ColumnsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.ColumnsListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem8});
+            this.ColumnsListView.Location = new System.Drawing.Point(8, 53);
+            this.ColumnsListView.MultiSelect = false;
+            this.ColumnsListView.Name = "ColumnsListView";
+            this.ColumnsListView.Size = new System.Drawing.Size(302, 278);
+            this.ColumnsListView.TabIndex = 16;
+            this.ColumnsListView.UseCompatibleStateImageBehavior = false;
+            this.ColumnsListView.View = System.Windows.Forms.View.Details;
+            // 
+            // Name
+            // 
+            this.Name.Text = "Name";
+            // 
+            // Type
+            // 
+            this.Type.Text = "Type";
+            // 
+            // Size
+            // 
+            this.Size.Text = "Size";
+            // 
+            // Indexed
+            // 
+            this.Indexed.Text = "Indexed";
             // 
             // panel5
             // 
@@ -642,21 +670,23 @@
             this.button4.Text = "Refresh Database";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // Name
+            // columnHeader1
             // 
-            this.Name.Text = "Name";
+            this.columnHeader1.Text = "Name";
             // 
-            // Type
+            // columnHeader2
             // 
-            this.Type.Text = "Type";
+            this.columnHeader2.Text = "Columns";
+            this.columnHeader2.Width = 250;
             // 
-            // Size
+            // columnHeader3
             // 
-            this.Size.Text = "Size";
+            this.columnHeader3.Text = "Name";
             // 
-            // Indexed
+            // columnHeader4
             // 
-            this.Indexed.Text = "Indexed";
+            this.columnHeader4.Text = "Columns";
+            this.columnHeader4.Width = 250;
             // 
             // Ideas3
             // 
@@ -671,6 +701,7 @@
             this.Name = "Ideas3";
             this.Text = "Ideas3";
             this.Load += new System.EventHandler(this.Ideas3_Load);
+            this.Shown += new System.EventHandler(this.Ideas3_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -690,13 +721,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView TableListView;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView KeysListView;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TreeView RelationshipTreeView;
@@ -716,10 +747,10 @@
         private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView ColumnsListView;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ListView IndexListView;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel5;
@@ -740,5 +771,9 @@
         private System.Windows.Forms.ColumnHeader Type;
         private System.Windows.Forms.ColumnHeader Size;
         private System.Windows.Forms.ColumnHeader Indexed;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

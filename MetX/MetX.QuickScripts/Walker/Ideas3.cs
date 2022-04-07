@@ -28,5 +28,19 @@ namespace XLG.QuickScripts.Walker
                 node.ExpandAll();
             }
         }
+
+        private void Ideas3_Shown(object sender, System.EventArgs e)
+        {
+            RelationshipTreeView.Nodes.Clear();
+            RelatedNode = RelationshipTreeView.Nodes.Add("Related", "Related");
+            LookupNode = RelationshipTreeView.Nodes.Add("Lookup", "Lookup");
+            OtherNode = RelationshipTreeView.Nodes.Add("Other", "Other");
+            TableListView.Items.Clear();
+
+        }
+
+        public TreeNode RelatedNode { get; set; }
+        public TreeNode LookupNode { get; set; }
+        public TreeNode OtherNode { get; set; }
     }
 }
