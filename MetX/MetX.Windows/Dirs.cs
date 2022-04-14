@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.IO;
@@ -201,6 +203,20 @@ namespace MetX.Windows
             {
                 registryKey?.Close();
             }
+        }
+
+        public static string ResolveVariables(string target)
+        {
+            if (target.IsEmpty())
+                return "";
+
+            var result = target;
+            foreach (var item in Paths.Items) 
+                result = result
+                    .Replace(
+                        $"%{item.Key}%", 
+                        item.Value, true, CultureInfo.InvariantCulture);
+            return result;
         }
     }
 }

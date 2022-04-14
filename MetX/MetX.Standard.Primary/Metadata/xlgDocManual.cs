@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using System.Xml.Serialization;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
+using MetX.Standard.Library.Strings;
 
 // ReSharper disable InconsistentNaming
 
@@ -36,5 +39,38 @@ namespace MetX.Standard.Primary.Metadata
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
 
+        public static xlgDoc Empty(string outputFilePath = "")
+        {
+            var name = outputFilePath.LastPathToken().FirstToken(".");
+            var result = new xlgDoc
+            {
+                StoredProcedures = new List<StoredProcedure>(),
+                Tables = new List<Table>(),
+                Views = new List<View>(),
+                XlgInstanceID = Guid.NewGuid().ToString("N"),
+                ConnectionStringName = outputFilePath.IsEmpty() 
+                    ? "Initial Catalog=YourDatabase;Server=YourServer;"
+                    : $"Initial Catalog={name};Server=YourServer;",
+                Now = DateTime.Now.ToString("s"),
+                DatabaseProvider = "System.Data.SqlClient",
+                Namespace = "MetX.Xlg.YourNamespace",
+                OutputFolder = outputFilePath.IsEmpty()
+                    ? "C:\\SomeOutputFolder"
+                    : outputFilePath.TokensBeforeLast(@"\"),
+                ProviderName = "System.Data.SqlClient"
+            };
+
+            return result;
+        }
+
+        public xlgDoc MakeViable()
+        {
+            StoredProcedures ??= new List<StoredProcedure>();
+            Tables ??= new List<Table>();
+            Views ??= new List<View>();
+            if(XlgInstanceID.IsEmpty()) XlgInstanceID = Guid.NewGuid().ToString("N");
+            Now ??= DateTime.Now.ToString("s");
+            return this;
+        }
     }
 }

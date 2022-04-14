@@ -26,8 +26,8 @@ namespace XLG.QuickScripts.Walker
         private void EditInputFileButton_Click(object sender, EventArgs e)
         {
             var text = InputFileTextBox.Text;
-            if (!File.Exists(text))
-                return;
+            //if (!File.Exists(text))
+             //   return;
 
             new Ideas3(text).Show(this);
         }

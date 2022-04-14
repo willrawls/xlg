@@ -2,11 +2,14 @@
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Metadata;
+using MetX.Standard.Primary.Scripts;
 
 namespace XLG.QuickScripts.Walker
 {
@@ -16,9 +19,12 @@ namespace XLG.QuickScripts.Walker
         public xlgDoc XlgDocument { get; set; }
         public Ideas3(string filename)
         {
-            Filename = filename;
+            Filename = MetX.Windows.Dirs.ResolveVariables(filename);
             InitializeComponent();
-            XlgDocument = xlgDoc.LoadXmlFromFile(filename);
+            if (File.Exists(Filename))
+                XlgDocument = xlgDoc.LoadXmlFromFile(Filename).MakeViable();
+            else
+                XlgDocument = xlgDoc.Empty(Filename);
         }
 
         private void Ideas3_Load(object sender, System.EventArgs e)

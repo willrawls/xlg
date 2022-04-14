@@ -698,7 +698,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel5);
-            this.Name = "Ideas3";
             this.Text = "Ideas3";
             this.Load += new System.EventHandler(this.Ideas3_Load);
             this.Shown += new System.EventHandler(this.Ideas3_Shown);
