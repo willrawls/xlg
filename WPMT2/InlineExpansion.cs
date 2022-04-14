@@ -49,7 +49,7 @@ namespace WilliamPersonalMultiTool
 
         public void Play()
         {
-            var delay = 2;
+            var delay = 1;
             foreach (InlinePiece piece in this)
             {
                 if (piece.Command.IsEmpty())

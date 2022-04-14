@@ -24,7 +24,10 @@ namespace WilliamPersonalMultiTool.Acting
                 .ToList();
 
             if (!item.Trim().ToLower().StartsWith("when") && keysToPrepend.IsNotEmpty())
+            {
                 actor.KeySequence.Sequence.InsertRange(0, keysToPrepend);
+                actor.KeySequence.BackspaceCount = actor.KeySequence.ToBackspaceCount(actor.KeySequence.Sequence);
+            }
 
             return actor;
         }

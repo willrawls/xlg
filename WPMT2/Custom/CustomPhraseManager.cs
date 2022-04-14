@@ -168,7 +168,7 @@ namespace WilliamPersonalMultiTool.Custom
                 foreach (var c in toSend)
                 {
                     SendKeys.SendWait(c.ToString());
-                    Thread.Sleep(5);
+                    Thread.Sleep(1);
                 }
                 
             }
