@@ -12,6 +12,8 @@ Custom SendKeys
 8. To send "{", send "{{}"
 9. To send "}", send "{}}"
 
+10. To control the speed (in ms) of typing			{Speed 50}   (that's 50 ms between each key)
+
 Key				Special Character
 SHIFT			+
 CTRL			^
