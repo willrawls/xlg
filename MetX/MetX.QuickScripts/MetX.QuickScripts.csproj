@@ -72,6 +72,11 @@
     <Compile Remove="Templates\Exe\StreamBuilder.cs" />
     <Compile Remove="Templates\Exe\Tokenizer.cs" />
     <Compile Remove="Templates\Archive\Native\Native.cs" />
+    <Compile Remove="Walker\Ideas1.cs" />
+    <Compile Remove="Walker\Ideas1.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Walker\Ideas1.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="MetX.QuickScripts.csproj.DotSettings" />
@@ -266,7 +271,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Walker\Ideas1b.cs">
+    <Compile Update="Walker\DatabaseTemplateEditorControlB.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Walker\ListViewSlidePanel.cs">

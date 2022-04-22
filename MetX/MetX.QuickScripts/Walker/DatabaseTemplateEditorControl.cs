@@ -6,14 +6,14 @@ using MetX.Standard.XDString;
 
 namespace XLG.QuickScripts.Walker;
 
-public partial class Ideas2 : UserControl
+public partial class DatabaseTemplateEditorControl : UserControl
 {
     public Control[] ListViewSlidePanels;
     public ListViewSlidePanel MetXWalker, Files, Wrapper, List, Item, Property;
 
     public AssocArrayList States;
 
-    public Ideas2() //AssocArrayList states)
+    public DatabaseTemplateEditorControl() //AssocArrayList states)
     {
         InitializeComponent();
         States = new AssocArrayList();

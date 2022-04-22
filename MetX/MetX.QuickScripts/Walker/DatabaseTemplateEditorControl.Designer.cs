@@ -1,6 +1,6 @@
 ﻿namespace XLG.QuickScripts.Walker;
 
-partial class Ideas2
+partial class DatabaseTemplateEditorControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -138,14 +138,14 @@ partial class Ideas2
             this.VBar.Size = new System.Drawing.Size(276, 826);
             this.VBar.TabIndex = 2;
             // 
-            // Ideas2
+            // DatabaseTemplateEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.VBar);
-            this.Name = "Ideas2";
+            this.Name = "DatabaseTemplateEditorControl";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Size = new System.Drawing.Size(1011, 846);
             this.tableLayoutPanel1.ResumeLayout(false);

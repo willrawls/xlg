@@ -1,6 +1,6 @@
 ﻿namespace XLG.QuickScripts.Walker
 {
-    partial class Ideas3
+    partial class RelationshipEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -688,7 +688,7 @@
             this.columnHeader4.Text = "Columns";
             this.columnHeader4.Width = 250;
             // 
-            // Ideas3
+            // RelationshipEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -698,7 +698,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel5);
-            this.Text = "Ideas3";
+            this.Text = "RelationshipEditor";
             this.Load += new System.EventHandler(this.Ideas3_Load);
             this.Shown += new System.EventHandler(this.Ideas3_Shown);
             this.panel1.ResumeLayout(false);

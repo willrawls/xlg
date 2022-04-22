@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace XLG.QuickScripts.Walker
 {
-    public partial class Ideas2Form : Form
+    public partial class DatabaseTemplateEditorForm : Form
     {
-        public Ideas1b Ideas {get; set; }
-        public Ideas2Form()
+        public DatabaseTemplateEditorControl Ideas {get; set; }
+        public DatabaseTemplateEditorForm()
         {
             InitializeComponent();
-            Ideas = new Ideas1b();
+            Ideas = new DatabaseTemplateEditorControl();
             Controls.Add(Ideas);
             Ideas.Dock = DockStyle.Fill;
         }

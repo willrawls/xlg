@@ -1,6 +1,6 @@
 ﻿namespace XLG.QuickScripts.Walker
 {
-    partial class Ideas2Form
+    public partial class DatabaseTemplateEditorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Ideas2Form
+            // DatabaseTemplateEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 654);
-            this.Name = "Ideas2Form";
-            this.Text = "Ideas2Form";
+            this.Name = "DatabaseTemplateEditorForm";
+            this.Text = "DatabaseTemplateEditorForm";
             this.Shown += new System.EventHandler(this.Ideas2Form_Shown);
             this.ResumeLayout(false);
 

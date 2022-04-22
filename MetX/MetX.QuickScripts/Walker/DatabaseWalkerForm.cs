@@ -29,12 +29,12 @@ namespace XLG.QuickScripts.Walker
             //if (!File.Exists(text))
              //   return;
 
-            new Ideas3(text).Show(this);
+            new RelationshipEditor(text).Show(this);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            new Ideas2Form().Show(this);
+            new DatabaseTemplateEditorForm().Show(this);
         }
     }
 }

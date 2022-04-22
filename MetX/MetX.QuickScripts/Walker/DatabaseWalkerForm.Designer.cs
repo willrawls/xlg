@@ -256,7 +256,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.InputFileTextBox);
             this.Name = "DatabaseWalkerForm";
-            this.Text = "Database Walker";
+            this.Text = "Walker";
             this.Load += new System.EventHandler(this.Ideas4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

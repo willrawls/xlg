@@ -1,6 +1,8 @@
-﻿namespace XLG.QuickScripts.Walker
+﻿using MetX.Controls;
+
+namespace XLG.QuickScripts.Walker
 {
-    partial class Ideas1b
+    partial class DatabaseTemplateEditorControlB
     {
         /// <summary> 
         /// Required designer variable.
@@ -112,9 +114,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.StartPanel = new System.Windows.Forms.Panel();
-            this.BodyPanel = new System.Windows.Forms.Panel();
-            this.FinishPanel = new System.Windows.Forms.Panel();
+            this.StartAreaEditor = new MetX.Controls.QuickScriptControl();
+            this.BodyAreaEditor = new MetX.Controls.QuickScriptControl();
+            this.FinishAreaEditor = new MetX.Controls.QuickScriptControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -225,20 +227,21 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 91.54079F));
-            this.tableLayoutPanel1.Controls.Add(this.FinishPanel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BodyPanel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.StartAreaEditor, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BodyAreaEditor, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.FinishAreaEditor, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.StartPanel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(297, 8);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(579, 618);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -256,7 +259,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Location = new System.Drawing.Point(3, 185);
+            this.label2.Location = new System.Drawing.Point(3, 179);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
             this.label2.TabIndex = 0;
@@ -266,37 +269,52 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Yellow;
-            this.label3.Location = new System.Drawing.Point(3, 432);
+            this.label3.Location = new System.Drawing.Point(3, 418);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "Finish";
             // 
-            // StartPanel
+            // StartAreaEditor
             // 
-            this.StartPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StartPanel.Location = new System.Drawing.Point(51, 3);
-            this.StartPanel.Name = "StartPanel";
-            this.StartPanel.Size = new System.Drawing.Size(525, 179);
-            this.StartPanel.TabIndex = 1;
+            this.StartAreaEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StartAreaEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartAreaEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.StartAreaEditor.IsIconBarVisible = true;
+            this.StartAreaEditor.IsReadOnly = false;
+            this.StartAreaEditor.Location = new System.Drawing.Point(52, 422);
+            this.StartAreaEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartAreaEditor.Name = "StartAreaEditor";
+            this.StartAreaEditor.Size = new System.Drawing.Size(523, 171);
+            this.StartAreaEditor.TabIndex = 2;
             // 
-            // BodyPanel
+            // BodyAreaEditor
             // 
-            this.BodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BodyPanel.Location = new System.Drawing.Point(51, 188);
-            this.BodyPanel.Name = "BodyPanel";
-            this.BodyPanel.Size = new System.Drawing.Size(525, 241);
-            this.BodyPanel.TabIndex = 2;
+            this.BodyAreaEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BodyAreaEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BodyAreaEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BodyAreaEditor.IsIconBarVisible = true;
+            this.BodyAreaEditor.IsReadOnly = false;
+            this.BodyAreaEditor.Location = new System.Drawing.Point(52, 422);
+            this.BodyAreaEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BodyAreaEditor.Name = "BodyAreaEditor";
+            this.BodyAreaEditor.Size = new System.Drawing.Size(523, 171);
+            this.BodyAreaEditor.TabIndex = 2;
             // 
-            // FinishPanel
+            // FinishAreaEditor
             // 
-            this.FinishPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FinishPanel.Location = new System.Drawing.Point(51, 435);
-            this.FinishPanel.Name = "FinishPanel";
-            this.FinishPanel.Size = new System.Drawing.Size(525, 180);
-            this.FinishPanel.TabIndex = 3;
+            this.FinishAreaEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FinishAreaEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FinishAreaEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FinishAreaEditor.IsIconBarVisible = true;
+            this.FinishAreaEditor.IsReadOnly = false;
+            this.FinishAreaEditor.Location = new System.Drawing.Point(52, 422);
+            this.FinishAreaEditor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FinishAreaEditor.Name = "FinishAreaEditor";
+            this.FinishAreaEditor.Size = new System.Drawing.Size(523, 171);
+            this.FinishAreaEditor.TabIndex = 2;
             // 
-            // Ideas1b
+            // DatabaseTemplateEditorControlB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -304,7 +322,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.treeView1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Ideas1b";
+            this.Name = "DatabaseTemplateEditorControlB";
             this.Padding = new System.Windows.Forms.Padding(9, 8, 9, 8);
             this.Size = new System.Drawing.Size(885, 634);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -320,11 +338,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private MetX.Controls.QuickScriptControl quickScriptControl2;
-        private MetX.Controls.QuickScriptControl quickScriptControl1;
-        private MetX.Controls.QuickScriptControl ScriptEditor;
-        private System.Windows.Forms.Panel FinishPanel;
-        private System.Windows.Forms.Panel BodyPanel;
-        private System.Windows.Forms.Panel StartPanel;
+        private QuickScriptControl StartAreaEditor;
+        private QuickScriptControl BodyAreaEditor;
+        private QuickScriptControl FinishAreaEditor;
     }
 }

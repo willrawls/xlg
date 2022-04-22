@@ -13,11 +13,11 @@ using MetX.Standard.Primary.Scripts;
 
 namespace XLG.QuickScripts.Walker
 {
-    public partial class Ideas3 : Form
+    public partial class RelationshipEditor : Form
     {
         public string Filename { get; }
         public xlgDoc XlgDocument { get; set; }
-        public Ideas3(string filename)
+        public RelationshipEditor(string filename)
         {
             Filename = MetX.Windows.Dirs.ResolveVariables(filename);
             InitializeComponent();
