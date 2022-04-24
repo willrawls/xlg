@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using NHotPhrase.Phrase;
+using WilliamPersonalMultiTool.Custom;
 
 namespace WilliamPersonalMultiTool.Acting.Actors
 {
@@ -108,8 +109,7 @@ namespace WilliamPersonalMultiTool.Acting.Actors
                 TextToType = Arguments;
             }
 
-            var customKeySequence = KeySequence;
-            Manager.SendBackspaces(customKeySequence.BackspaceCount);
+            Manager.SendBackspaces(KeySequence.BackspaceCount);
             Manager.InlineExpansionSendKeysAndWait(TextToType);
 
             return false;

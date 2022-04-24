@@ -1,5 +1,10 @@
-﻿using MetX.Standard.Library.Encryption;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using MetX.Standard.Library.Encryption;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.Metadata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WilliamPersonalMultiTool.Tests
@@ -58,6 +63,81 @@ namespace WilliamPersonalMultiTool.Tests
                         Assert.IsTrue(number <= max + iteration);
                     }
                 }
+            }
+        }
+
+        [TestMethod]
+        public void NextString_LetterAndDigits()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                var result  = SuperRandom.NextString(length, true, true, false, false);
+                Assert.AreEqual(length, result.Length);
+                Assert.IsTrue(result.All(x => 
+                    x is >= '0' and <= '9' or >= 'a' and <= 'z' or >= 'A' and <= 'Z'
+                ), $"Length {length}: '{result}'");
+            }
+        }
+
+        [TestMethod]
+        public void NextString_LetterAndDigitsAndSpaceAndSymbols()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                var result  = SuperRandom.NextString(length, true, true, true, true);
+                Assert.AreEqual(length, result.Length);
+                var message = $"Length {length}: '{result}'";
+                Assert.IsTrue(result.All(c => char.IsNumber(c) || char.IsLetter(c) || char.IsSymbol(c) || c == ' '), message);
+                Console.WriteLine(message);
+            }
+        }
+
+        [TestMethod]
+        public void NextString_Letters()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                var result  = SuperRandom.NextString(length, true, false, false, false);
+                Assert.AreEqual(length, result.Length);
+                var message = $"Length {length}: '{result}'";
+                Assert.IsTrue(result.All(x => x is >= 'a' and <= 'z' or >= 'A' and <= 'Z'), message);
+                Console.WriteLine(message);
+            }
+        }
+
+        [TestMethod]
+        public void NextGuid()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                Guid actual  = SuperRandom.NextGuid();
+                Assert.AreNotEqual(Guid.Empty, actual);
+                var message = $"{actual:N}";
+                Console.WriteLine(message);
+            }
+        }
+
+        [TestMethod]
+        public void NextString_Digits()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                var result  = SuperRandom.NextString(length, false, true, false, false);
+                Assert.AreEqual(length, result.Length);
+                Assert.IsTrue(result.All(x => x is >= '0' and <= '9'), $"Length {length}: '{result}'");
+            }
+        }
+
+        [TestMethod]
+        public void NextHexString()
+        {
+            for (var length = 1; length < 256; length++)
+            {
+                var result  = SuperRandom.NextHexString(length);
+                Assert.AreEqual(length * 2, result.Length);
+                Assert.IsTrue(result.All(
+                        x => x is >= '0' and <= '9' or >= 'A' and <= 'E'), 
+                    $"Length {length}: '{result}'");
             }
         }
 
@@ -137,6 +217,37 @@ namespace WilliamPersonalMultiTool.Tests
                 var actual = SuperRandom.NextRoll(1, 20);
                 Assert.IsTrue(actual is >= 1 and <= 20, actual.ToString());
             }
+        }
+
+        [TestMethod]
+        public void GenerateNoiseBytesForTwoSeconds()
+        {
+            var endAfter = DateTime.Now.AddSeconds(2);
+            using var noiseStream = new SuperRandom.NoiseStream(endAfter);
+            var bytesWritten = 0;
+            for (var i = 0; i < 10000000; i++)
+            {
+                byte[] buffer = new byte[100];
+                int actual = noiseStream.Read(buffer, 0, 100);
+                var milliseconds = endAfter.Subtract(DateTime.Now).TotalMilliseconds;
+                if(actual != 0)
+                {
+                    bytesWritten += 100;
+                    Assert.AreEqual(100, actual);
+                    Assert.IsTrue(buffer.Any(b => b != 0), milliseconds.ToString());
+                    Assert.IsTrue(milliseconds > 1, milliseconds.ToString());
+                }
+                else
+                {
+                    Assert.IsTrue(milliseconds < 10, milliseconds.ToString());
+                    break;
+                }
+                Thread.Sleep(10);
+            }
+
+            var millisecondsLeft = DateTime.Now.Subtract(endAfter);
+            Console.WriteLine($"bytesWritten = {bytesWritten}");
+            Console.WriteLine($"Milliseconds 'left' = {millisecondsLeft}");
         }
 
         [TestMethod]

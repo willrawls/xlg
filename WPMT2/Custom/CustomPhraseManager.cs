@@ -113,7 +113,12 @@ namespace WilliamPersonalMultiTool.Custom
             {
                 var actor = ActorHelper.Factory(line, this, previousActor);
                 if (actor == null || actor.ActionableType == ActionableType.Unknown)
-                    throw new Exception($"Invalid Line: {line}");
+                    //throw new Exception($"Invalid Line: {line}");
+                {
+                    Keyboard.KeySequences ??= new KeySequenceList();
+                    return new();
+                }
+
 
                 if (actor.ActionableType == ActionableType.Or)
                 {
@@ -167,7 +172,8 @@ namespace WilliamPersonalMultiTool.Custom
 
                 foreach (var c in toSend)
                 {
-                    SendKeys.SendWait(c.ToString());
+                    lock(SyncRoot)
+                        SendKeys.SendWait(c.ToString());
                     Thread.Sleep(1);
                 }
                 
@@ -201,21 +207,24 @@ namespace WilliamPersonalMultiTool.Custom
             {
                 foreach (var c in textToSend)
                 {
-                    if (c == '{')     SendKeys.SendWait("{{}");
-                    else if(c == '}') SendKeys.SendWait("{}}");
-                    else if(c == '(') SendKeys.SendWait("{(}");
-                    else if(c == ')') SendKeys.SendWait("{)}");
-                    else if(c == '+') SendKeys.SendWait("{+}");
-                    else if(c == '^') SendKeys.SendWait("{^}");
-                    else if(c == '%') SendKeys.SendWait("{%}");
-                    else if(c == '~') SendKeys.SendWait("{~}");
-                    else              SendKeys.SendWait(c.ToString());
-                    Thread.Sleep(millisecondsBetweenKeys);
+                    lock(SyncRoot)
+                    {
+                        if (c == '{') SendKeys.SendWait("{{}");
+                        else if (c == '}') SendKeys.SendWait("{}}");
+                        else if (c == '(') SendKeys.SendWait("{(}");
+                        else if (c == ')') SendKeys.SendWait("{)}");
+                        else if (c == '+') SendKeys.SendWait("{+}");
+                        else if (c == '^') SendKeys.SendWait("{^}");
+                        else if (c == '%') SendKeys.SendWait("{%}");
+                        else if (c == '~') SendKeys.SendWait("{~}");
+                        else SendKeys.SendWait(c.ToString());
+                    }                    Thread.Sleep(millisecondsBetweenKeys);
                 }
                 return;
             }
 
-            SendKeys.SendWait(textToSend);
+            lock(SyncRoot)
+                SendKeys.SendWait(textToSend);
             if(millisecondsBetweenKeys > 0)
                 Thread.Sleep(millisecondsBetweenKeys);
         }

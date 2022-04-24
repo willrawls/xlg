@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(800, 654);
             this.Name = "DatabaseTemplateEditorForm";
             this.Text = "DatabaseTemplateEditorForm";
-            this.Shown += new System.EventHandler(this.Ideas2Form_Shown);
+            this.Shown += new System.EventHandler(this.DatabaseTemplateEditorForm_Shown);
             this.ResumeLayout(false);
 
         }

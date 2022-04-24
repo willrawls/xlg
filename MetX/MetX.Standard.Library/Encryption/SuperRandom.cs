@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using MetX.Standard.Library.Extensions;
@@ -27,22 +30,36 @@ namespace MetX.Standard.Library.Encryption
             FillSaltShaker(saltBytes);
         }
 
+        public static string NextDigits(int length)
+        {
+            if (length <= 0)
+                return "";
+
+            var value = "";
+
+            for (var i = 0; i < length; length++)
+            {
+                value += (((byte) NextChar()) % 10).ToString();
+            }
+
+            return value;
+        }
+
         public static long NextLong(long minValue, long maxExclusiveValue)
         {
             if (minValue >= maxExclusiveValue)
                 throw new ArgumentOutOfRangeException(nameof(minValue),
                     "minValue must be lower than maxExclusiveValue");
 
-            var diff = maxExclusiveValue - minValue;
-            var upperBound = long.MaxValue / diff * diff;
-
             long value;
             do
             {
-                value = NextLong();
-            } while (value >= upperBound);
+                value = Math.Abs(NextLong()) % maxExclusiveValue;
+                if (value < minValue)
+                    value += minValue - value;
+            } while (value < minValue || value > maxExclusiveValue);
 
-            return minValue + value % diff;
+            return value;
         }
 
         public static int NextInteger(int minValue, int maxExclusiveValue)
@@ -120,33 +137,54 @@ namespace MetX.Standard.Library.Encryption
             if (length < 1)
                 return "";
 
-            var bytes = NextBytes(sizeof(char) * length * 100);
-            var result = "";
-            for (var i = 0; i < bytes.Length; i++)
+            var sb = new StringBuilder(length);
+            for (var i = 0; i < length; i++)
             {
-                if (bytes[i] >= 127)
-                    bytes[i] -= 127;
-                if (includeLetters && bytes[i] >= 'a' && bytes[i] <= 'z'
-                    || bytes[i] >= 'A' && bytes[i] <= 'Z')
-                    result += bytes[i];
-                else if (includeNumbers && bytes[i] >= '0' && bytes[i] <= '9')
-                    result += bytes[i];
-                else if (includeSpace && bytes[i] == 32)
-                    result += bytes[i];
-                else if (includeSymbols
-                         && (bytes[i] >= '!' && bytes[i] <= '/'
-                             || bytes[i] >= ':' && bytes[i] <= '@'
-                             || bytes[i] >= '[' && bytes[i] <= '_'))
-                    result += bytes[i];
+                bool valid;
+                char c;
+                do
+                {
+                    c = NextChar();
+                    valid = (includeLetters && char.IsLetter(c))
+                            || (includeNumbers && char.IsNumber(c))
+                            || (includeSpace && c == ' ')
+                            || (includeSymbols && char.IsSymbol(c));
+                } while (!valid);
+
+                sb.Append(c);
             }
 
-            return result;
+            return sb.ToString();
         }
 
         public static char NextChar()
         {
-            var randomBytes = NextBytes(sizeof(char));
-            return BitConverter.ToChar(randomBytes, 0);
+            byte randomByte;
+            do
+            {
+                randomByte = NextByte();
+            } while (randomByte is < 32 or > 126);
+
+            return (char) randomByte;
+        }
+        
+        // One hex is 2 chars long, so length * 2 is produced
+        public static string NextHexString(int length)
+        {
+            length *= 2;
+            var sb = new StringBuilder(length);
+
+            for (var i = 0; i < length; i++)
+            {
+                char randomChar;
+                do
+                {
+                    randomChar = NextChar();
+                } while (!char.IsNumber(randomChar) && randomChar is < 'A' or > 'E');
+
+                sb.Append((char)randomChar);
+            }
+            return sb.ToString();
         }
 
         public static uint NextRoll(int dice, int sides)
@@ -268,6 +306,13 @@ namespace MetX.Standard.Library.Encryption
             return (byte) ((byte) (value >> count) | (value << (32 - count)));
         }
 
+        public static byte NextByte()
+        {
+            var buffer = new byte[1];
+            _provider.GetBytes(buffer);
+            return buffer[0];
+        }
+
         public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
         {
             if (bytesNumber < 1)
@@ -294,6 +339,56 @@ namespace MetX.Standard.Library.Encryption
             var result = new StringBuilder(arrInput.Length);
             for (i = 0; i < arrInput.Length - 1; i++) result.Append(arrInput[i].ToString("X2"));
             return result.ToString();
+        }
+
+        public static Guid NextGuid()
+        {
+            return new Guid(NextBytes(16, true));
+        }
+
+        public class NoiseStream : Stream
+        {
+            public DateTime Until;
+
+            public NoiseStream(DateTime until)
+            {
+                Until = until;
+            }
+
+            public override void Flush()
+            {
+                
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                if (Until.Subtract(DateTime.Now).TotalMilliseconds < 10)
+                    return 0;
+
+                var randomBytes = SuperRandom.NextBytes(count);
+                Array.Copy(randomBytes, buffer, count);
+                return count;
+            }
+
+            public override long Seek(long offset, SeekOrigin origin)
+            {
+                return 0;
+            }
+
+            public override void SetLength(long value)
+            {
+            }
+
+            public override void Write(byte[] buffer, int offset, int count)
+            {
+                
+            }
+
+            public override bool CanRead => true;
+            public override bool CanSeek => false;
+            public override bool CanWrite => false;
+            public override long Length => long.MaxValue;
+            public override long Position { get; set; } = 0;
         }
     }
 }

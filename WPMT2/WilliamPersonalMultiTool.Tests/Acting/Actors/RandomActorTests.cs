@@ -66,7 +66,7 @@ namespace WilliamPersonalMultiTool.Tests.Acting.Actors
             My.AssertAllAreEqual(TestPKeys.Caps123, actual.KeySequence.Sequence);
 
             Assert.IsNotNull(actual.LegalVerbs);
-            Assert.AreEqual(4, actual.LegalVerbs.Count);
+            Assert.AreEqual(6, actual.LegalVerbs.Count);
 
             Assert.IsNotNull(actual.ExtractedVerbs);
             return randomActor;

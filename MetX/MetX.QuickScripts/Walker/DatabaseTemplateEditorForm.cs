@@ -14,7 +14,7 @@ namespace XLG.QuickScripts.Walker
             Ideas.Dock = DockStyle.Fill;
         }
 
-        private void Ideas2Form_Shown(object sender, EventArgs e)
+        private void DatabaseTemplateEditorForm_Shown(object sender, EventArgs e)
         {
             Ideas.Visible = true;
         }

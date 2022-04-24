@@ -1,4 +1,6 @@
-﻿using MetX.Standard.Library.Encryption;
+﻿using System;
+using System.Runtime.ExceptionServices;
+using MetX.Standard.Library.Encryption;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using NHotPhrase.Phrase;
@@ -12,6 +14,8 @@ namespace WilliamPersonalMultiTool.Acting.Actors
         public string Before { get; set; } = "";
         public string After { get; set; } = "";
 
+        public Verb GuidVerb { get; set; }
+        public Verb Hex { get; set; }
         public Verb Dice { get; set; }
         public Verb Number { get; set; }
         public Verb Digits { get; set; }
@@ -26,6 +30,8 @@ namespace WilliamPersonalMultiTool.Acting.Actors
             Digits = AddLegalVerb("digits");
             Number = AddLegalVerb("number");
             Dice = AddLegalVerb("dice");
+            Hex = AddLegalVerb("hex");
+            GuidVerb = AddLegalVerb("guid");
             
             OnAct = Act;
             DefaultVerb = Number;
@@ -55,26 +61,37 @@ namespace WilliamPersonalMultiTool.Acting.Actors
         public bool Act(PhraseEventArguments phraseEventArguments)
         {
             string textToSend = null;
-            if (ExtractedVerbs.Contains(Letters))
+
+            if (Letters.Mentioned || Digits.Mentioned)
             {
-                textToSend = SuperRandom.NextString(Count, true, false, false, false);
+                textToSend = SuperRandom.NextString(Count, Letters.Mentioned, Digits.Mentioned, false, false);
             }
-            else if (ExtractedVerbs.Contains(Digits))
-            {
-                textToSend = SuperRandom.NextString(Count, false, true, false, false);
-            }
-            else if (ExtractedVerbs.Contains(Dice))
+            else if (Dice.Mentioned)
             {
                 textToSend = SuperRandom.NextRoll(Count, Sides).ToString();
             }
+            else if (Hex.Mentioned)
+            {
+                textToSend = SuperRandom.NextHexString(Count);
+            }
+            else if (GuidVerb.Mentioned)
+            {
+                var format = "N";
+                if (Arguments.IsNotEmpty() && Arguments is "N" or "D" or "B" or "P")
+                    format = Arguments;
+
+                textToSend = SuperRandom.NextGuid().ToString(format);
+            }
             else if (ExtractedVerbs.Contains(Number))
             {
-                textToSend = SuperRandom.NextLong(Count, Sides).ToString();
+                textToSend = Math.Abs(SuperRandom.NextLong(0, Count)).ToString();
             }
             else
             {
                 return true;
             }
+
+            Manager.SendBackspaces(KeySequence.BackspaceCount);
 
             if(textToSend.IsNotEmpty())
             {
