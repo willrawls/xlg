@@ -251,6 +251,21 @@ namespace WilliamPersonalMultiTool.Tests
         }
 
         [TestMethod]
+        public void Generate101BytesOfNoise()
+        {
+            using var noiseStream = new SuperRandom.NoiseStream(101);
+
+            byte[] buffer = new byte[100];
+            var actual = noiseStream.Read(buffer, 0, 100);
+            Assert.AreEqual(100, actual);
+            
+            actual = noiseStream.Read(buffer, 0, 100);
+            Assert.AreEqual(1, actual);
+            Assert.IsTrue(buffer[0] > 0);
+            Assert.IsTrue(buffer.Skip(1).All(b => b == 0));
+        }
+
+        [TestMethod]
         public void Repeating_Simple()
         {
             var data = new byte[]{ 1, 2, 3, 4, 5 };

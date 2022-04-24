@@ -348,25 +348,49 @@ namespace MetX.Standard.Library.Encryption
 
         public class NoiseStream : Stream
         {
-            public DateTime Until;
+            public DateTime Until = DateTime.MinValue;
+            private long _length = long.MaxValue;
+            private long _lengthLeft = long.MaxValue;
 
             public NoiseStream(DateTime until)
             {
                 Until = until;
             }
 
+            public NoiseStream(long length)
+            {
+                _length = length;
+                _lengthLeft = _length;
+            }
+
             public override void Flush()
             {
-                
+                ResetProvider(null);
             }
 
             public override int Read(byte[] buffer, int offset, int count)
             {
-                if (Until.Subtract(DateTime.Now).TotalMilliseconds < 10)
+                if (Until == DateTime.MinValue)
+                {
+                    if (_lengthLeft > 0)
+                    {
+                        _lengthLeft -= count;
+                    }
+                }
+                else if (Until.Subtract(DateTime.Now).TotalMilliseconds < 1)
                     return 0;
 
                 var randomBytes = SuperRandom.NextBytes(count);
-                Array.Copy(randomBytes, buffer, count);
+                Array.Copy(randomBytes, 0, buffer, offset, count - offset);
+
+                if (_lengthLeft < 0)
+                {
+                    var bytesToClear = (int) Math.Abs(_lengthLeft);
+                    Array.Clear(buffer, buffer.Length - bytesToClear, bytesToClear);
+                    _lengthLeft = 0;
+                    return count - bytesToClear;
+                }
+
                 return count;
             }
 
@@ -387,7 +411,7 @@ namespace MetX.Standard.Library.Encryption
             public override bool CanRead => true;
             public override bool CanSeek => false;
             public override bool CanWrite => false;
-            public override long Length => long.MaxValue;
+            public override long Length => _length;
             public override long Position { get; set; } = 0;
         }
     }

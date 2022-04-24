@@ -172,9 +172,18 @@ namespace WilliamPersonalMultiTool.Custom
 
                 foreach (var c in toSend)
                 {
-                    lock(SyncRoot)
-                        SendKeys.SendWait(c.ToString());
-                    Thread.Sleep(1);
+                    if(Monitor.TryEnter(SyncRoot))
+                    {
+                        try
+                        {
+                            SendKeys.SendWait(c.ToString());
+                            Thread.Sleep(1);
+                        }
+                        finally
+                        {
+                            Monitor.Exit(SyncRoot);
+                        }
+                    }
                 }
                 
             }
@@ -207,18 +216,26 @@ namespace WilliamPersonalMultiTool.Custom
             {
                 foreach (var c in textToSend)
                 {
-                    lock(SyncRoot)
+                    try
                     {
-                        if (c == '{') SendKeys.SendWait("{{}");
-                        else if (c == '}') SendKeys.SendWait("{}}");
-                        else if (c == '(') SendKeys.SendWait("{(}");
-                        else if (c == ')') SendKeys.SendWait("{)}");
-                        else if (c == '+') SendKeys.SendWait("{+}");
-                        else if (c == '^') SendKeys.SendWait("{^}");
-                        else if (c == '%') SendKeys.SendWait("{%}");
-                        else if (c == '~') SendKeys.SendWait("{~}");
-                        else SendKeys.SendWait(c.ToString());
-                    }                    Thread.Sleep(millisecondsBetweenKeys);
+                        if(Monitor.TryEnter(SyncRoot))
+                        {
+                            if (c == '{') SendKeys.SendWait("{{}");
+                            else if (c == '}') SendKeys.SendWait("{}}");
+                            else if (c == '(') SendKeys.SendWait("{(}");
+                            else if (c == ')') SendKeys.SendWait("{)}");
+                            else if (c == '+') SendKeys.SendWait("{+}");
+                            else if (c == '^') SendKeys.SendWait("{^}");
+                            else if (c == '%') SendKeys.SendWait("{%}");
+                            else if (c == '~') SendKeys.SendWait("{~}");
+                            else SendKeys.SendWait(c.ToString());
+                        }                    
+                        Thread.Sleep(millisecondsBetweenKeys);
+                    }
+                    finally
+                    {
+                        Monitor.Exit(SyncRoot);
+                    }
                 }
                 return;
             }
