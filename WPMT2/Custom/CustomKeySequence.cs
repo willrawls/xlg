@@ -31,7 +31,7 @@ namespace WilliamPersonalMultiTool.Custom
             ForeColor = foreColor ?? DefaultForeColor;
         }
 
-        public CustomKeySequence(string keyText, string arguments, BaseActor actor, List<PKey> keysToPrepend = null)
+        public CustomKeySequence(string keyText, string arguments, BaseActor actor)
         {
             Actor = actor;
             Arguments = arguments;
@@ -39,17 +39,8 @@ namespace WilliamPersonalMultiTool.Custom
             Sequence = keyText.ToPKeyList(null, out var wildcardMatchType, out var wildcardCount);
             WildcardCount = wildcardCount;
             WildcardMatchType = wildcardMatchType;
+            ThenCall((sender, eventArguments) => actor.OnAct(eventArguments));
             BackspaceCount = this.ToBackspaceCount(Sequence);
-
-            ThenCall((sender, eventArguments) =>
-            {
-                // actor.Manager.SendBackspaces(BackspaceCount);
-                actor.OnAct(eventArguments);
-            });
-
-            if (keysToPrepend.IsEmpty())
-                return;
-            Sequence.InsertRange(0, keysToPrepend!);
         }
     }
 }
