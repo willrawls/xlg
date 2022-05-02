@@ -72,10 +72,16 @@
     <Compile Remove="Templates\Exe\StreamBuilder.cs" />
     <Compile Remove="Templates\Exe\Tokenizer.cs" />
     <Compile Remove="Templates\Archive\Native\Native.cs" />
+    <Compile Remove="Walker\DatabaseTemplateEditorControl.cs" />
+    <Compile Remove="Walker\DatabaseTemplateEditorControl.Designer.cs" />
+    <Compile Remove="Walker\DatabaseTemplateEditorControlB.cs" />
+    <Compile Remove="Walker\DatabaseTemplateEditorControlB.Designer.cs" />
     <Compile Remove="Walker\Ideas1.cs" />
     <Compile Remove="Walker\Ideas1.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Walker\DatabaseTemplateEditorControl.resx" />
+    <EmbeddedResource Remove="Walker\DatabaseTemplateEditorControlB.resx" />
     <EmbeddedResource Remove="Walker\Ideas1.resx" />
   </ItemGroup>
   <ItemGroup>
@@ -270,9 +276,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Walker\DatabaseTemplateEditorControlB.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Walker\ListViewSlidePanel.cs">
       <SubType>UserControl</SubType>
