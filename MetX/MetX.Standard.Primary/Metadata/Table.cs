@@ -11,6 +11,7 @@ namespace MetX.Standard.Primary.Metadata
         [XmlAttribute] public string PrimaryKeyColumnName;
         [XmlAttribute] public string RowCount;
         [XmlAttribute] public string TableName;
+        [XmlAttribute] public string Schema;
 
         [XmlArray(ElementName = "Columns")]
         [XmlArrayItem(typeof(Column), ElementName = "Column")]

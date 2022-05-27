@@ -24,10 +24,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Metadata\**" />
+    <Compile Remove="Metadata\ArchivedFiles\2\**" />
     <Compile Remove="Pipelines\Obsolete\**" />
     <EmbeddedResource Remove="Metadata\**" />
+    <EmbeddedResource Remove="Metadata\ArchivedFiles\2\**" />
     <EmbeddedResource Remove="Pipelines\Obsolete\**" />
     <None Remove="Metadata\**" />
+    <None Remove="Metadata\ArchivedFiles\2\**" />
     <None Remove="Pipelines\Obsolete\**" />
   </ItemGroup>
   <ItemGroup>
@@ -42,10 +45,12 @@
     <Compile Include="Metadata\Key.cs" />
     <Compile Include="Metadata\KeyColumn.cs" />
     <Compile Include="Metadata\Parameter.cs" />
+    <Compile Include="Metadata\Relationship.cs" />
+    <Compile Include="Metadata\RelationshipField.cs" />
     <Compile Include="Metadata\StoredProcedure.cs" />
     <Compile Include="Metadata\Table.cs" />
     <Compile Include="Metadata\View.cs" />
-    <Compile Include="Metadata\xlgDocManual.cs" />
+    <Compile Include="Metadata\xlgDoc.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +76,9 @@
   <ItemGroup>
     <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
     <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Metadata\ArchivedFiles\" />
   </ItemGroup>
 
 </Project>

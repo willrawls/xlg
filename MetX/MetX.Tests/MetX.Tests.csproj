@@ -126,6 +126,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Generics\" />
+	  <Folder Include="Standard\Primary\" />
 	</ItemGroup>
 
 </Project>
