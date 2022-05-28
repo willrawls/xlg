@@ -1,0 +1,87 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Primary", "MetX.Standard.Primary\MetX.Standard.Primary.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Aspects", "MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Fiver", "MetX.Five\MetX.Fiver.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Library", "MetX.Standard.Library\MetX.Standard.Library.csproj", "{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators", "MetX.Standard.Generators\MetX.Standard.Generators.csproj", "{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Actual", "MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj", "{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Support", "MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj", "{81885A46-2601-4366-91DF-FCE182426740}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.XDString", "MetX.Standard.XDString\MetX.Standard.XDString.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetX.Console.Tests", "MetX.Console.Tests\MetX.Console.Tests.csproj", "{F5326191-3C44-4281-A78C-BE77A9A3B86A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E40324-BA8F-4F4E-95D8-232B8569BDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81885A46-2601-4366-91DF-FCE182426740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81885A46-2601-4366-91DF-FCE182426740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81885A46-2601-4366-91DF-FCE182426740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81885A46-2601-4366-91DF-FCE182426740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45EE796-23E7-4889-8132-77D894F46512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45EE796-23E7-4889-8132-77D894F46512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45EE796-23E7-4889-8132-77D894F46512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45EE796-23E7-4889-8132-77D894F46512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5326191-3C44-4281-A78C-BE77A9A3B86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5326191-3C44-4281-A78C-BE77A9A3B86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5326191-3C44-4281-A78C-BE77A9A3B86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5326191-3C44-4281-A78C-BE77A9A3B86A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41A3E72D-320F-45B0-B977-4670D4930B3E}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = XLG and MetX.vsmdi
+	EndGlobalSection
+EndGlobal

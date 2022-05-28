@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Authors>William Rawls</Authors>
-    <Product>XLG</Product>
+	<TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
+	<Authors>William Rawls</Authors>
+	<Product>XLG</Product>
     <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
     <Version>5.1.1</Version>

@@ -13,8 +13,4 @@
     <PackageReference Include="Win32Interop.User32" Version="1.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WilliamPersonalMultiTool.csproj" />
-  </ItemGroup>
-
 </Project>

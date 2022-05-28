@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+	<TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
+	<IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestTemplates\TestExe\Program.cs" />
+    <Compile Remove="TestTemplates\TestExe\QuickScriptProcessor.cs" />
+    <Compile Remove="TestTemplates\TestNative\Native.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="TestTemplates\TestExe\Program.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestTemplates\TestExe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestTemplates\TestExe\_.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestTemplates\TestExe\_.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestTemplates\TestNative\Native.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Console.Research\MetX.Console.Research.csproj" />
+    <ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+  </ItemGroup>
+
+</Project>
