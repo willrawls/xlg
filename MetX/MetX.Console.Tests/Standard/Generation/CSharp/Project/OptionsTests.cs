@@ -1,20 +1,19 @@
 ﻿using MetX.Standard.Primary.Generation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.Generation.CSharp.Project
+namespace MetX.Console.Tests.Standard.Generation.CSharp.Project;
+
+[TestClass]
+public class CsProjGeneratorOptionsTests
 {
-    [TestClass]
-    public class CsProjGeneratorOptionsTests
+    [TestMethod]
+    public void AssertValid_OptionsAreValid()
     {
-        [TestMethod]
-        public void AssertValid_OptionsAreValid()
-        {
-            var data = CsProjGeneratorOptions.Defaults();
-            var actual = data.AssertValid();
+        var data = CsProjGeneratorOptions.Defaults();
+        var actual = data.AssertValid();
 
-            Assert.IsNotNull(actual);
-            Assert.IsTrue(actual);
-        }
-
+        Assert.IsNotNull(actual);
+        Assert.IsTrue(actual);
     }
+
 }

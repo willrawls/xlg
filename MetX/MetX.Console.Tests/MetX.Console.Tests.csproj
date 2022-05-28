@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
@@ -39,14 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX.Console.Research\MetX.Console.Research.csproj" />
     <ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
-    <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
   </ItemGroup>
 
   <ItemGroup>

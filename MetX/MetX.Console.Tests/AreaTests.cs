@@ -1,22 +1,20 @@
 ﻿using MetX.Five;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests
+namespace MetX.Console.Tests;
+
+[TestClass]
+public class AreaTests
 {
-    [TestClass]
-    public class AreaTests
+    [TestMethod]
+    public void New_TemplateInstruction_TableQuestionMark()
     {
-        [TestMethod]
-        public void New_TemplateInstruction_TableQuestionMark()
-        {
-            var processingAlreadyBeganPreviously = false;
-            var area = new Area("Template", "~~Template: Table ?", ref processingAlreadyBeganPreviously);
-            Assert.AreEqual(InstructionType.Template, area.InstructionType);
-            Assert.AreEqual(2, area.Arguments.Count);
-            Assert.AreEqual(TemplateType.Table, area.TemplateType);
-            Assert.AreEqual("?", area.Target);
-        }
-
+        var processingAlreadyBeganPreviously = false;
+        var area = new Area("Template", "~~Template: Table ?", ref processingAlreadyBeganPreviously);
+        Assert.AreEqual(InstructionType.Template, area.InstructionType);
+        Assert.AreEqual(2, area.Arguments.Count);
+        Assert.AreEqual(TemplateType.Table, area.TemplateType);
+        Assert.AreEqual("?", area.Target);
     }
-}
 
+}

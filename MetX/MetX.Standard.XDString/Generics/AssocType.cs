@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace MetX.Standard.XDString.Generics
+namespace MetX.Standard.XDString.Generics;
+
+[Serializable]
+public class AssocType<T>
 {
-    [Serializable]
-    public class AssocType<T>
+    public T Target { get; set; }
+
+    public AssocType()
     {
-        public T Target { get; set; }
+    }
 
-        public AssocType()
-        {
-        }
-
-        public AssocType(T target)
-        {
-            Target = target;
-        }
+    public AssocType(T target)
+    {
+        Target = target;
     }
 }

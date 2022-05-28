@@ -6,153 +6,152 @@ using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 using static System.Array;
 
-namespace MetX.Standard.XDString.Generics
+namespace MetX.Standard.XDString.Generics;
+
+[Serializable]
+public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()
 {
-    [Serializable]
-    public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()
+    public string Key { get; }
+    public IAssocItem Parent { get; set; }
+    public string Value { get; set; }
+    public string Name { get; set; }
+    public Guid ID { get; set; }
+
+    public string[] Values
     {
-        public string Key { get; }
-        public IAssocItem Parent { get; set; }
-        public string Value { get; set; }
-        public string Name { get; set; }
-        public Guid ID { get; set; }
-
-        public string[] Values
+        get
         {
-            get
-            {
-                if (Count == 0)
-                    return Empty<string>();
-                var answer = this.Select(i => i.Value).ToArray();
-                return answer;
-            }
+            if (Count == 0)
+                return Empty<string>();
+            var answer = this.Select(i => i.Value).ToArray();
+            return answer;
         }
+    }
 
-        public string[] Names
+    public string[] Names
+    {
+        get
         {
-            get
-            {
-                if (Count == 0)
-                    return Empty<string>();
-                var answer = this.Select(i => i.Name).ToArray();
-                return answer;
-            }
+            if (Count == 0)
+                return Empty<string>();
+            var answer = this.Select(i => i.Name).ToArray();
+            return answer;
         }
+    }
 
-        public string[] Keys
+    public string[] Keys
+    {
+        get
         {
-            get
-            {
-                if (Count == 0)
-                    return Empty<string>();
-                var answer = this.Select(i => i.Key).ToArray();
-                return answer;
-            }
+            if (Count == 0)
+                return Empty<string>();
+            var answer = this.Select(i => i.Key).ToArray();
+            return answer;
         }
+    }
 
-        public Guid[] IDs
+    public Guid[] IDs
+    {
+        get
         {
-            get
-            {
-                if (Count == 0)
-                    return Empty<Guid>();
-                var answer = this.Select(i => i.ID).ToArray();
-                return answer;
-            }
+            if (Count == 0)
+                return Empty<Guid>();
+            var answer = this.Select(i => i.ID).ToArray();
+            return answer;
         }
+    }
 
-        public T[] Items
+    public T[] Items
+    {
+        get
         {
-            get
-            {
-                if (Count == 0)
-                    return Empty<T>();
+            if (Count == 0)
+                return Empty<T>();
 
-                var answer = this.Select(i => i.Item).ToArray();
-                return answer;
-            }
+            var answer = this.Select(i => i.Item).ToArray();
+            return answer;
         }
+    }
 
-        [XmlIgnore] public object SyncRoot = new();
+    [XmlIgnore] public object SyncRoot = new();
 
-        public AssocArray() { }
+    public AssocArray() { }
 
-        public AssocArray(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null)
-        {
-            Key = key;
-            Value = value;
-            ID = id ?? Guid.NewGuid();
-            Name = name;
-            Parent = parent;
-        }
+    public AssocArray(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null)
+    {
+        Key = key;
+        Value = value;
+        ID = id ?? Guid.NewGuid();
+        Name = name;
+        Parent = parent;
+    }
 
-        public AssocItem<T> this[string key]
-        {
-            get
-            {
-                lock (SyncRoot)
-                {
-                    var assocItem = this.FirstOrDefault(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
-                    if (assocItem == null)
-                    {
-                        assocItem = new AssocItem<T>(key);
-                        Add(assocItem);
-                    }
-                    return assocItem;
-                }
-            }
-            set
-            {
-                lock (SyncRoot)
-                {
-                    for (var i = 0; i < Count; i++)
-                    {
-                        var assocItem = this[i];
-                        if (assocItem.Key == key)
-                        {
-                            this[i] = value;
-                            return;
-                        }
-                    }
-                    Add(value);
-                }
-            }
-        }
-
-        public bool ContainsKey(string key)
+    public AssocItem<T> this[string key]
+    {
+        get
         {
             lock (SyncRoot)
             {
-                return this.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
+                var assocItem = this.FirstOrDefault(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
+                if (assocItem == null)
+                {
+                    assocItem = new AssocItem<T>(key);
+                    Add(assocItem);
+                }
+                return assocItem;
             }
         }
-
-        public override string ToString()
+        set
         {
-            var sb = new StringBuilder();
-            sb.AppendLine($"  {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
-            foreach (var item in this)
+            lock (SyncRoot)
             {
-                sb.AppendLine(item.ToString());
+                for (var i = 0; i < Count; i++)
+                {
+                    var assocItem = this[i];
+                    if (assocItem.Key == key)
+                    {
+                        this[i] = value;
+                        return;
+                    }
+                }
+                Add(value);
             }
-            return sb.ToString();
         }
+    }
 
-        public override bool Equals(object obj)
+    public bool ContainsKey(string key)
+    {
+        lock (SyncRoot)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((AssocArray<T>)obj);
+            return this.Any(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
         }
+    }
 
-        protected bool Equals(AssocArray<T> other)
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"  {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
+        foreach (var item in this)
         {
-            return string.Equals(Key, other.Key, StringComparison.InvariantCultureIgnoreCase);
+            sb.AppendLine(item.ToString());
         }
+        return sb.ToString();
+    }
 
-        public override int GetHashCode()
-        {
-            return (Key != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(Key) : 0);
-        }
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == this.GetType() && Equals((AssocArray<T>)obj);
+    }
+
+    protected bool Equals(AssocArray<T> other)
+    {
+        return string.Equals(Key, other.Key, StringComparison.InvariantCultureIgnoreCase);
+    }
+
+    public override int GetHashCode()
+    {
+        return (Key != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(Key) : 0);
     }
 }

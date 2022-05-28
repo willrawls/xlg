@@ -2,33 +2,32 @@
 using System.Text;
 using MetX.Standard.XDString.Interfaces;
 
-namespace MetX.Standard.XDString.Generics
+namespace MetX.Standard.XDString.Generics;
+
+[Serializable]
+public class AssocItem<T> : AssocItem, IAssocItem<T> where T : class, new()
 {
-    [Serializable]
-    public class AssocItem<T> : AssocItem, IAssocItem<T> where T : class, new()
+    public T Item { get; set; }
+
+    public AssocItem()
     {
-        public T Item { get; set; }
+        Item = new T();
+    }
 
-        public AssocItem()
-        {
-            Item = new T();
-        }
+    public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) 
+        : base(key, value, id, name, parent)
+    {
+        Item = item ??  new T();
+    }
 
-        public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) 
-            : base(key, value, id, name, parent)
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"      {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
+        if(Item != null)
         {
-            Item = item ??  new T();
+            sb.AppendLine(Item.ToString());
         }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"      {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
-            if(Item != null)
-            {
-                sb.AppendLine(Item.ToString());
-            }
-            return sb.ToString();
-        }
+        return sb.ToString();
     }
 }

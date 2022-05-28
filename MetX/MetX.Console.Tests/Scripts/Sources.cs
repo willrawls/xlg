@@ -1,16 +1,16 @@
 ﻿using MetX.Standard.Primary.Scripts;
 
-namespace MetX.Console.Tests.Scripts
+namespace MetX.Console.Tests.Scripts;
+
+public static class Sources
 {
-    public static class Sources
-    {
-        // // //
-        public static readonly string WriteStaticLine = BuildMain(
-            @"
+    // // //
+    public static readonly string WriteStaticLine = BuildMain(
+        @"
         System.System.Console.WriteLine(""Simple_Build_Exe"");
 ");
 
-        public static readonly string FirstScript = @"
+    public static readonly string FirstScript = @"
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,7 +63,7 @@ namespace MetX.Scripts
     }
 }";
 
-        public static string CalculateSomething = @"
+    public static string CalculateSomething = @"
     using System;
 
     namespace Foo
@@ -82,56 +82,55 @@ namespace MetX.Scripts
         }
     }";
 
-        public static XlgQuickScript ExampleFirstScript()
-        {
-            return new ("First script", FirstScript);
+    public static XlgQuickScript ExampleFirstScript()
+    {
+        return new ("First script", FirstScript);
 
-        }
+    }
 
-        // // //
-        public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
-        {
-            return $@"
+    // // //
+    public static string WrapWithNamespace(this string source, string namespaceName = "Tests")
+    {
+        return $@"
 namespace {namespaceName} 
 {{
     {source}
 }}";
-        }
+    }
 
-        public static string WrapWithVoidMain(this string source)
-        {
-            return WrapWithNamespace(
-                WrapWithClass("Program",
-                    $@"
+    public static string WrapWithVoidMain(this string source)
+    {
+        return WrapWithNamespace(
+            WrapWithClass("Program",
+                $@"
         // [STAThread]
         public static void Main() 
         {{
         {source}
         }}"));
-        }
+    }
 
-        public static string WrapWithClass(string className, string code)
-        {
-            return $@"
+    public static string WrapWithClass(string className, string code)
+    {
+        return $@"
     public class {className}
     {{
         {code}
     }}
 ";
-        }
-
-        public static string BuildMain(this string sourceInsideVoidMain)
-        {
-            return WrapWithVoidMain(sourceInsideVoidMain);
-        }
-
-        public static XlgQuickScript WriteStaticLineScript()
-        {
-            return new ("Write static line", WriteStaticLine)
-            {
-                TemplateName = "TestExe",
-            };
-        }
-
     }
+
+    public static string BuildMain(this string sourceInsideVoidMain)
+    {
+        return WrapWithVoidMain(sourceInsideVoidMain);
+    }
+
+    public static XlgQuickScript WriteStaticLineScript()
+    {
+        return new ("Write static line", WriteStaticLine)
+        {
+            TemplateName = "TestExe",
+        };
+    }
+
 }

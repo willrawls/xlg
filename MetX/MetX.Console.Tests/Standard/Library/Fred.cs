@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace MetX.Console.Tests.Standard.Library
+namespace MetX.Console.Tests.Standard.Library;
+
+public class Fred
 {
-    public class Fred
-    {
-        public Guid TestGuid { get; set; } = Guid.NewGuid();
-    }
+    public Guid TestGuid { get; set; } = Guid.NewGuid();
 }
