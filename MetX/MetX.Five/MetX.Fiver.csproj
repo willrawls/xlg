@@ -41,4 +41,10 @@
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Glove\" />
+	  <Folder Include="Walker\" />
+	  <Folder Include="SliceAndDice\" />
+	</ItemGroup>
+
 </Project>

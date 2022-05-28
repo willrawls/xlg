@@ -1,4 +1,4 @@
-﻿namespace XLG.QuickScripts.Walker;
+﻿namespace MetX.Five.QuickScripts;
 
 public static class DefaultSoftCode
 {

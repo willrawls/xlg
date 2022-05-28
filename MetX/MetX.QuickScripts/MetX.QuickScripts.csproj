@@ -97,8 +97,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
+		<ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
-		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 	</ItemGroup>
 	<ItemGroup>
