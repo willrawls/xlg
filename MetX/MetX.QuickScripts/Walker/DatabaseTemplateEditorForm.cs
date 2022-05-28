@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using MetX.Five.QuickScripts;
+using MetX.Five;
 using MetX.Standard.XDString;
 
 namespace XLG.QuickScripts.Walker

@@ -1,0 +1,253 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Walker\DatabaseWalker\Code\Extensions.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Code\Global.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Code\Helpers.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Finish (walk).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\ConsoleClipboard.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\DatabaseWalkerProcessor.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\ForStrings.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\Program.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\StreamBuilder.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Project\Tokenizer.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Start (walk).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\Finish (wrapper).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Add list to wrapper.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Construct.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Finish (find).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Start (find).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Finish (list).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Add child list list to item.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Finish (item).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Item has no children.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Boolean.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Bytes.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Date and Time.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Guid.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Integer.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\String.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Finish (property).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Byte.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Currency.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Decimal.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Double.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Float.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Long.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\String.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\2D Associative Array.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\3D Associative Array.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\4D Associative Array.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Associative Array.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\BLOB.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Detect specialized.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Memo.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Start (property).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Start (item).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\No children in list.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\No parent above list.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\No parent and no children in list.cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\List\Start (list).cs" />
+    <Compile Remove="Walker\DatabaseWalker\Wrapper class (top level)\Start (wrapper).cs" />
+    <Compile Remove="Scripts\Templates\Exe\ConsoleClipboard.cs" />
+    <Compile Remove="Scripts\Templates\Exe\ForStrings.cs" />
+    <Compile Remove="Scripts\Templates\Exe\Program.cs" />
+    <Compile Remove="Scripts\Templates\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="Scripts\Templates\Exe\StreamBuilder.cs" />
+    <Compile Remove="Scripts\Templates\Exe\Tokenizer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Walker\DatabaseWalker\Code\Extensions.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Code\Global.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Code\Helpers.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Finish (walk).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\DatabaseWalkerProcessor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\ForStrings.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\Program.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\StreamBuilder.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Project\Tokenizer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Start (walk).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\Finish (wrapper).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Add list to wrapper.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Construct.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Finish (find).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Find (based on index)\Start (find).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Finish (list).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Add child list list to item.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Finish (item).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Item has no children.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Boolean.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Bytes.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Date and Time.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Guid.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\Integer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Basic\String.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Finish (property).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Byte.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Currency.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Decimal.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Double.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Float.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\Long.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Other\String.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\2D Associative Array.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\3D Associative Array.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\4D Associative Array.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Associative Array.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\BLOB.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Detect specialized.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Specialized\Memo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Property\Start (property).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Item\Start (item).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\No children in list.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\No parent above list.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\No parent and no children in list.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\List\Start (list).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Walker\DatabaseWalker\Wrapper class (top level)\Start (wrapper).cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\ForStrings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\StreamBuilder.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\Tokenizer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\_.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\_.sln">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Walker\DatabaseWalker\Code\Assemblies\SomeAssembly.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Walker\DatabaseWalker\Code\Files\SomeFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Walker\DatabaseWalker\Settings.xlg.assoc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Templates\Exe\Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -27,6 +27,7 @@ namespace MetX.Windows
         public const string OldPipesFolderName = "OldPipes";
         public const string OldScriptsFolderName = "OldScripts";
         public const string TemplatesFolderName = "Templates";
+        public const string TemplateManagerFolderName = @"MetX.TemplateManager\Scripts\Templates";
         public const string SupportFolderName = "Support";
 
         public const string RegistryKeySuffix = "_Key";
@@ -146,6 +147,10 @@ namespace MetX.Windows
             get
             {
                 var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, TemplatesFolderName, 5);
+                if (!Directory.Exists(path))
+                {
+                    path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, TemplateManagerFolderName, 5);
+                }
                 return Directory.Exists(path) 
                     ? path 
                     : "";

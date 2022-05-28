@@ -43,8 +43,8 @@
 
 	<ItemGroup>
 	  <Folder Include="Glove\" />
-	  <Folder Include="Walker\" />
 	  <Folder Include="SliceAndDice\" />
+	  <Folder Include="Walker\" />
 	</ItemGroup>
 
 </Project>

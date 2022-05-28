@@ -179,11 +179,14 @@ namespace MetX.Standard.Primary.IO
         {
             return DeepCopy(new DirectoryInfo(source), new DirectoryInfo(dest), 20);
         }
+
         /// <summary>Copies the contents of a folder (including subfolders) from one location to another</summary>
         /// <param name="source">The path from which files and subfolders should be copied</param>
         /// <param name="dest">The path to which those files and folders should be copied</param>
+        /// <param name="maxDepth"></param>
+        /// <param name="overwriteExistingFiles"></param>
         /// <returns>True if the operation was successful, otherwise an exception is thrown</returns>
-        public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest, int maxDepth)
+        public static bool DeepCopy(DirectoryInfo source, DirectoryInfo dest, int maxDepth, bool overwriteExistingFiles = true)
         {
             if (maxDepth < 1)
                 return false;
@@ -201,7 +204,16 @@ namespace MetX.Standard.Primary.IO
                         || (currSource.Attributes & FileAttributes.Archive) == FileAttributes.Archive)
                 {
                     var currSourceFile = (FileInfo)currSource;
-                    currSourceFile.CopyTo(dest.FullName + @"\" + currSourceFile.Name);
+                    var destinationFilePath = dest.FullName + @"\" + currSourceFile.Name;
+                    if(File.Exists(destinationFilePath))
+                    {
+                        if (overwriteExistingFiles)
+                            SafelyDeleteFile(destinationFilePath);
+                    }
+                    else
+                    {
+                        currSourceFile.CopyTo(destinationFilePath);
+                    }
                 }
                 else
                 {
