@@ -20,16 +20,27 @@ public static class Extensions
     {
         foreach (var relationship in xlgDoc.Relationships)
         {
-            if (xlgDoc
-                .Tables
-                .TrueForAll(t =>
-                    string.Equals(t.Schema, relationship.LeftSchema, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(t.TableName, relationship.LeftTable, StringComparison.InvariantCultureIgnoreCase)
-
-                ))
+            var found = 0;
+            foreach(var t in xlgDoc.Tables)
             {
+                found = 0;
+                if (string.Equals(t.Schema, relationship.LeftSchema, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(t.TableName, relationship.LeftTable, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    found++;
+                }
+                if (string.Equals(t.Schema, relationship.RightSchema, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(t.TableName, relationship.RightTable, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    found++;
+                }
 
+                if (found == 2)
+                    break;
             }
+
+            if (found < 2)
+                return false;
         }
 
         return true;

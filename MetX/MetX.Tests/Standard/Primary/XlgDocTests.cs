@@ -66,7 +66,7 @@ public class XlgDocTests
         };
         data.Relationships.Add(relationship);
 
-        bool actual = data.ConfirmRelationships();
+        var actual = data.ConfirmRelationships();
         Assert.IsTrue(actual);
 
     }
