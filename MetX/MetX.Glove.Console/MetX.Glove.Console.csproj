@@ -1,83 +1,99 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>XLG.Pipeliner</RootNamespace>
-    <AssemblyName>xlgPipeliner</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>William Rawls</Authors>
-    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<RootNamespace>XLG.Pipeliner</RootNamespace>
+		<AssemblyName>xlgPipeliner</AssemblyName>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="ClipScriptEditor.cs" />
-    <Compile Remove="ClipScriptEditor.Designer.cs" />
-    <Compile Remove="Extensions.cs" />
-  </ItemGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>5.1.1</Version>
+		<Authors>William Rawls</Authors>
+		<Product>XLG</Product>
+		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>XLG Glove Database metadata collector and post collection code generator</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="ClipScriptEditor.resx" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="ClipScriptEditor.cs" />
+		<Compile Remove="ClipScriptEditor.Designer.cs" />
+		<Compile Remove="Extensions.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="batfile.ico" />
-    <None Include="Resources\126Edit.ico" />
-    <None Include="Resources\107259NewContentPage32x32.png" />
-    <None Include="Resources\1421584661_4.png" />
-    <None Include="Resources\1421584690_2.png" />
-    <None Include="Resources\1421584694_2.png" />
-    <None Include="Resources\1421584753_Cut.png" />
-    <None Include="Resources\1421584808_Copy.png" />
-    <None Include="Resources\1421584898_clipboard.png" />
-    <None Include="Resources\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
-    <None Include="Resources\1421584946_file-48.png" />
-    <None Include="Resources\add_48.png" />
-    <None Include="Resources\AnnotateDefault.ico" />
-    <None Include="Resources\arrow_down_48.png" />
-    <None Include="Resources\button_play.png" />
-    <None Include="Resources\cancel_48.png" />
-    <None Include="Resources\circle_blue.png" />
-    <None Include="Resources\circle_green.png" />
-    <None Include="Resources\circle_orange.png" />
-    <None Include="Resources\console-mock.jpg" />
-    <None Include="Resources\cross_48.png" />
-    <None Include="Resources\database_add_48.png" />
-    <None Include="Resources\database_remove_48.png" />
-    <None Include="Resources\dragon2.png" />
-    <None Include="Resources\floppy_disk_48.png" />
-    <None Include="Resources\folder_48.png" />
-    <None Include="Resources\hops2.png" />
-    <None Include="Resources\Long-dragon-running.png" />
-    <None Include="Resources\refresh_48.png" />
-    <Content Include="Settings.ico" />
-    <None Include="XLG.snk" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="ClipScriptEditor.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="batfile.ico" />
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="Resources\126Edit.ico" />
+		<None Include="Resources\107259NewContentPage32x32.png" />
+		<None Include="Resources\1421584661_4.png" />
+		<None Include="Resources\1421584690_2.png" />
+		<None Include="Resources\1421584694_2.png" />
+		<None Include="Resources\1421584753_Cut.png" />
+		<None Include="Resources\1421584808_Copy.png" />
+		<None Include="Resources\1421584898_clipboard.png" />
+		<None Include="Resources\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
+		<None Include="Resources\1421584946_file-48.png" />
+		<None Include="Resources\add_48.png" />
+		<None Include="Resources\AnnotateDefault.ico" />
+		<None Include="Resources\arrow_down_48.png" />
+		<None Include="Resources\button_play.png" />
+		<None Include="Resources\cancel_48.png" />
+		<None Include="Resources\circle_blue.png" />
+		<None Include="Resources\circle_green.png" />
+		<None Include="Resources\circle_orange.png" />
+		<None Include="Resources\console-mock.jpg" />
+		<None Include="Resources\cross_48.png" />
+		<None Include="Resources\database_add_48.png" />
+		<None Include="Resources\database_remove_48.png" />
+		<None Include="Resources\dragon2.png" />
+		<None Include="Resources\floppy_disk_48.png" />
+		<None Include="Resources\folder_48.png" />
+		<None Include="Resources\hops2.png" />
+		<None Include="Resources\Long-dragon-running.png" />
+		<None Include="Resources\refresh_48.png" />
+		<Content Include="Settings.ico" />
+		<None Include="XLG.snk" />
+	</ItemGroup>
 
 
-  <ItemGroup>
-    <None Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
-    <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="NHotPhrase" Version="6.0.0" />
-    <PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
-    <Compile Update="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\.editorconfig">
+			<Link>.editorconfig</Link>
+		</None>
+		<None Include="app.config" />
+		<None Include="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+		<PackageReference Include="NHotPhrase" Version="6.0.0" />
+		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
+		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
+		<Compile Update="Properties\Settings.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
 </Project>

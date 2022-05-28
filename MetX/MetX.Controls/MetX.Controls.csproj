@@ -1,63 +1,77 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>MetX.Controls</RootNamespace>
-    <AssemblyName>MetX.Controls</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>William Rawls</Authors>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<RootNamespace>MetX.Controls</RootNamespace>
+		<AssemblyName>MetX.Controls</AssemblyName>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>5.1.1</Version>
+		<Authors>William Rawls</Authors>
+		<Product>XLG</Product>
+		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>XLG Glove Database metadata collector and post collection code generator</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-  </PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Extensions.cs" />
+		<Compile Remove="FindAndReplaceForm.cs" />
+		<Compile Remove="FindAndReplaceForm.Designer.cs" />
+		<Compile Remove="TechniqueEditorToolStripMenuItem.cs" />
+		<Compile Remove="TechniquesEditor.cs" />
+		<Compile Remove="TechniquesEditor.Designer.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Extensions.cs" />
-    <Compile Remove="FindAndReplaceForm.cs" />
-    <Compile Remove="FindAndReplaceForm.Designer.cs" />
-    <Compile Remove="TechniqueEditorToolStripMenuItem.cs" />
-    <Compile Remove="TechniquesEditor.cs" />
-    <Compile Remove="TechniquesEditor.Designer.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="FindAndReplaceForm.resx" />
+		<EmbeddedResource Remove="TechniquesEditor.resx" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="FindAndReplaceForm.resx" />
-    <EmbeddedResource Remove="TechniquesEditor.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="license.txt" />
-    <None Remove="MetX.Controls.csproj.DotSettings" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Resources\arrow-down-s-line.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\arrow-up-s-line.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-  </Target>
+	<ItemGroup>
+		<None Remove="license.txt" />
+		<None Remove="MetX.Controls.csproj.DotSettings" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Resources\arrow-down-s-line.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\arrow-up-s-line.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	</Target>
 
 </Project>

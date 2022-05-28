@@ -1,36 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>Latest</LangVersion>
-    <RootNamespace>MetX.Standard.Generators.Actual</RootNamespace>
-    <AssemblyName>MetX.Standard.Generators.Actual</AssemblyName>
-    <ApplicationIcon />
-    <StartupObject />
-    <Version>5.1.1</Version>
-    <Authors>William Rawls</Authors>
-    <Product>XLG</Product>
-    <Description>XLG GenGen support library</Description>
-    <Copyright>MIT 2.0 - William Rawls</Copyright>
-    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>Latest</LangVersion>
+		<RootNamespace>MetX.Standard.Generators.Actual</RootNamespace>
+		<AssemblyName>MetX.Standard.Generators.Actual</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>5.1.1</Version>
+		<Authors>William Rawls</Authors>
+		<Product>XLG</Product>
+		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>XLG Glove Database metadata collector and post collection code generator</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
-    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+	</ItemGroup>
 
 </Project>

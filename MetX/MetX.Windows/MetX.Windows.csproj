@@ -1,70 +1,77 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>MetX.Windows</RootNamespace>
-    <AssemblyName>MetX.Windows</AssemblyName>
-    <ApplicationIcon>batfile.ico</ApplicationIcon>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>William Rawls</Authors>
-    <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<RootNamespace>MetX.Windows</RootNamespace>
+		<AssemblyName>MetX.Windows</AssemblyName>
+		<ApplicationIcon>batfile.ico</ApplicationIcon>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>5.1.1</Version>
+		<Authors>William Rawls</Authors>
+		<Product>XLG</Product>
+		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>XLG Windows / desktop based library of classes</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="XLG.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="batfile.ico" />
-    <Content Include="Properties\arrow_down_48.png" />
-    <Content Include="Properties\circle_blue.png" />
-    <Content Include="Properties\circle_green.png" />
-    <Content Include="Properties\circle_orange.png" />
-    <Content Include="Properties\refresh_48.png" />
-    <Content Include="Properties\1421584661_4.png" />
-    <Content Include="Properties\1421584690_2.png" />
-    <Content Include="Properties\1421584694_2.png" />
-    <Content Include="Properties\1421584753_Cut.png" />
-    <Content Include="Properties\1421584808_Copy.png" />
-    <Content Include="Properties\1421584898_clipboard.png" />
-    <Content Include="Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
-    <Content Include="Properties\1421584946_file-48.png" />
-    <None Include="Properties\folder_48.png" />
-    <None Include="Properties\floppy_disk_48.png" />
-    <None Include="Properties\database_remove_48.png" />
-    <None Include="Properties\database_add_48.png" />
-    <None Include="Properties\cross_48.png" />
-    <None Include="Properties\cancel_48.png" />
-    <None Include="Properties\add_48.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	<ItemGroup>
+		<None Include="XLG.snk" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="batfile.ico" />
+		<Content Include="Properties\arrow_down_48.png" />
+		<Content Include="Properties\circle_blue.png" />
+		<Content Include="Properties\circle_green.png" />
+		<Content Include="Properties\circle_orange.png" />
+		<Content Include="Properties\refresh_48.png" />
+		<Content Include="Properties\1421584661_4.png" />
+		<Content Include="Properties\1421584690_2.png" />
+		<Content Include="Properties\1421584694_2.png" />
+		<Content Include="Properties\1421584753_Cut.png" />
+		<Content Include="Properties\1421584808_Copy.png" />
+		<Content Include="Properties\1421584898_clipboard.png" />
+		<Content Include="Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
+		<Content Include="Properties\1421584946_file-48.png" />
+		<None Include="Properties\folder_48.png" />
+		<None Include="Properties\floppy_disk_48.png" />
+		<None Include="Properties\database_remove_48.png" />
+		<None Include="Properties\database_add_48.png" />
+		<None Include="Properties\cross_48.png" />
+		<None Include="Properties\cancel_48.png" />
+		<None Include="Properties\add_48.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Net.Compilers" Version="4.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
-  </ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+		<PackageReference Include="Microsoft.Net.Compilers" Version="4.1.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+	</ItemGroup>
 
 </Project>

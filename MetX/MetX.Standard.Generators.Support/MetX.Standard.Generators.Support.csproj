@@ -1,17 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Version>5.1.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
-		<Description>XLG .net 5 generator support library</Description>
-		<Copyright>MIT 2.0 - William Rawls</Copyright>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<Description>XLG Support library for MetX.Standard.Generators</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
