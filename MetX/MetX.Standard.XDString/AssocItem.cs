@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.ML;
+using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString
 {
@@ -24,7 +23,7 @@ namespace MetX.Standard.XDString
         public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
         {
             Parent = parent;
-            Key = key.IsEmpty() ? "CetasItem" : key;
+            Key = string.IsNullOrEmpty(key) ? "CetasItem" : key;
             Value = value ?? "";
             Name = name ?? "";
 

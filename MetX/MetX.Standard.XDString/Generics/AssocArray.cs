@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using MetX.Standard.XDString.Interfaces;
 using static System.Array;
 
 namespace MetX.Standard.XDString.Generics

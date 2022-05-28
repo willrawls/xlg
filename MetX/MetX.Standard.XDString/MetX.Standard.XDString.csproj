@@ -20,8 +20,4 @@
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
-  </ItemGroup>
-
 </Project>

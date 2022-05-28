@@ -48,7 +48,7 @@ namespace //~~NameInstance~~//
                     }
                     catch(Exception ex)
                     {
-                        Console.WriteLine("Error processing line " + (number+1) + ":" 
+                        System.Console.WriteLine("Error processing line " + (number+1) + ":" 
                             + Environment.NewLine 
                             + currLine 
                             + Environment.NewLine 
@@ -71,7 +71,7 @@ namespace //~~NameInstance~~//
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                System.Console.WriteLine(e);
             }
         }
     }

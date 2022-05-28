@@ -10,6 +10,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Scripts\**" />
+	  <Compile Remove="Standard\**" />
+	  <EmbeddedResource Remove="Scripts\**" />
+	  <EmbeddedResource Remove="Standard\**" />
+	  <None Remove="Scripts\**" />
+	  <None Remove="Standard\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="PatternWorksTests.cs" />
+	  <Compile Remove="StreamBuilderTests.cs" />
+	  <Compile Remove="StringExtensionsTests.cs" />
 	  <Compile Remove="TestTemplates\TestExe\Program.cs" />
 	  <Compile Remove="TestTemplates\TestExe\QuickScriptProcessor.cs" />
 	  <Compile Remove="TestTemplates\TestNative\Native.cs" />
@@ -52,80 +64,6 @@
 		<ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
 		<ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.XDString.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsFalse.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsTrue.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\Missing.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\EmptyClient.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\FullClient.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsBlank.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsGenerated.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\Missing.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsBlank.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsXyz.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsFalse.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\EqualsTrue.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\Emit\Missing.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\EmptyClient.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\FullClient.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsBlank.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\EqualsGenerated.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\GenerateToPath\Missing.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsBlank.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\EqualsXyz.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Generics\" />
-	  <Folder Include="Standard\Primary\" />
 	</ItemGroup>
 
 </Project>

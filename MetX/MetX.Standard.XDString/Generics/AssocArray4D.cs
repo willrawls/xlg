@@ -1,7 +1,5 @@
 ﻿using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.ML;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 

@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.ML;
+using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString
 {
@@ -23,7 +22,7 @@ namespace MetX.Standard.XDString
 
         public static bool DefaultKeyComparer(string keyOrName, AssocItem item)
         {
-            if (keyOrName.IsEmpty() || item == null) return false;
+            if (string.IsNullOrEmpty(keyOrName) || item == null) return false;
 
             return item.Key.Equals(keyOrName) || item.Name.Equals(keyOrName);
                 

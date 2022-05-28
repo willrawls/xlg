@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
     <Version>5.1.1</Version>
     <Copyright>MIT 2.0 - William Rawls</Copyright>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

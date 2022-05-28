@@ -1,6 +1,4 @@
-﻿using MetX.Standard.Library.ML;
-
-namespace MetX.Standard.XDString.Generics;
+﻿namespace MetX.Standard.XDString.Generics;
 
 public class AssocArray2D<T> : AssocArray1D<AssocArray1D<T>> where T : class, new()
 {

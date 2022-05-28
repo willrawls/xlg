@@ -65,7 +65,7 @@ namespace //~~NameInstance~~//
             {
                 if (string.IsNullOrEmpty(InputFilePath)) InputFilePath = "none";
 
-                Console.WriteLine("Input: " + InputFilePath);
+                System.Console.WriteLine("Input: " + InputFilePath);
                 switch (InputFilePath.ToLower())
                 {
                     case "none": // This is the equivalent of reading an empty file
@@ -85,7 +85,7 @@ namespace //~~NameInstance~~//
                         }
                         else if (!File.Exists(InputFilePath))
                         {
-                            Console.WriteLine("Input file missing: " + InputFilePath);
+                            System.Console.WriteLine("Input file missing: " + InputFilePath);
                             return false;
                         }
                         else
@@ -99,13 +99,13 @@ namespace //~~NameInstance~~//
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                System.Console.WriteLine(e);
                 return false;
             }
 
             if (string.IsNullOrEmpty(InputText))
             {
-                Console.WriteLine("Input empty.");
+                System.Console.WriteLine("Input empty.");
                 return false;
             }
 
@@ -135,10 +135,10 @@ namespace //~~NameInstance~~//
 
         public static MessageBoxResult Ask(string title, string promptText, ref string value)
         {
-            Console.WriteLine("---------------------");
-            Console.WriteLine(title);
-            Console.WriteLine();
-            Console.WriteLine(promptText);
+            System.Console.WriteLine("---------------------");
+            System.Console.WriteLine(title);
+            System.Console.WriteLine();
+            System.Console.WriteLine(promptText);
 
             value = Console.ReadLine().AsString().Trim();
             MetX.Standard.Pipelines.MessageBoxResult messageBoxResult = value.IsNotEmpty() 

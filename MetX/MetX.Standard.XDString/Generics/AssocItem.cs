@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString.Generics
 {

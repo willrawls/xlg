@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
 
 namespace MetX.Standard.XDString.Generics;
 
@@ -66,10 +65,10 @@ public class AssocArrayList<T> : AssocItem<T>
 
     private string DefaultToAssocKey(string target)
     {
-        if (target.IsNotEmpty()) return target;
+        if (!string.IsNullOrEmpty(target)) return target;
 
         var defaultKey = KeyWhenThereIsNoKey();
-        return defaultKey.IsEmpty() 
+        return string.IsNullOrEmpty(defaultKey)
             ? $"{target.ToLowerInvariant()}_aak" 
             : defaultKey;
     }
