@@ -63,7 +63,7 @@ namespace XLG.Pipeliner.Providers
 
         public abstract IDataReader GetSpParams(string spName);
 
-        public abstract string GetForeignKeyTableName(string fkColumnName);
+        public abstract List<Relationship> GetRelationships();
 
         public abstract DbType GetDbType(string dataType);
 

@@ -136,13 +136,51 @@ namespace XLG.Pipeliner.Providers
         /// <summary>C#CD: </summary>
         /// <param name="fkColumnName">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public override string GetForeignKeyTableName(string fkColumnName)
+        public override List<Relationship> GetRelationships()
         {
-            var cmd = new QueryCommand(GetTableSql);
-            cmd.AddParameter("@columnName", fkColumnName);
+            var cmd = new QueryCommand(RelationshipsSql);
+            var list = new List<Relationship>();
+            using var reader = GetReader(cmd);
+            while (reader.Read())
+            {
+                var relationshipName = reader["RelationshipName"].AsString();
+                var leftSchema = reader["LeftSchema"].AsString();
+                var leftTable = reader["LeftTable"].AsString();
+                var leftColumn = reader["LeftColumn"].AsString();
+                var leftPosition = reader["LeftPosition"].AsString().AsInteger(1);
+                var rightSchema = reader["RightSchema"].AsString();
+                var rightTable = reader["RightTable"].AsString();
+                var rightColumn = reader["RightColumn"].AsString();
+                var rightPosition = reader["RightPosition"].AsString().AsInteger(1);
+                var rightKey = reader["RightKey"].AsString();
+                var relationshipType = reader["RelationshipType"].AsString("OneToMany");
 
-            var result = ExecuteScalar(cmd);
-            return result.ToString();
+                var relationship = new Relationship
+                {
+                    Type = relationshipType,
+                    Name = relationshipName,
+                    LeftSchema = leftSchema,
+                    LeftTable = leftTable,
+                    RightSchema = rightSchema,
+                    RightTable = rightTable,
+                    RightKey = rightKey,
+                    Fields = new List<RelationshipField>
+                    {
+                        new RelationshipField
+                        {
+                            Left = leftColumn,
+                            Right = rightColumn,
+                            LeftPosition = leftPosition,
+                            RightPosition = rightPosition,
+                        },
+                    }
+                };
+
+                list.Add(relationship);
+            }
+            reader.Close();
+            reader.Dispose();
+            return list;
         }
 
         /// <summary>C#CD: </summary>
@@ -664,7 +702,6 @@ namespace XLG.Pipeliner.Providers
                                             "FROM         INFORMATION_SCHEMA.PARAMETERS " +
                                             "WHERE SPECIFIC_NAME=@spName";
 
-        //private const string StoredProceduresSql = " SELECT name FROM dbo.sysobjects WHERE (type = 'P')";
         private const string StoredProceduresSql = @"
 SELECT ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_DEFINITION, ROUTINE_BODY
   FROM INFORMATION_SCHEMA.ROUTINES
@@ -700,6 +737,33 @@ from sys.views v
     join sys.sql_modules m 
 		on m.object_id = v.object_id
  order by schema_name, view_name; ";
+
+        private const string RelationshipsSql = @"
+SELECT 
+     KCU1.CONSTRAINT_NAME AS RelationshipName
+    ,KCU1.TABLE_SCHEMA AS LeftSchema
+    ,KCU1.TABLE_NAME AS LeftTable
+    ,KCU1.COLUMN_NAME AS LeftColumn
+    ,KCU1.ORDINAL_POSITION AS LeftPosition
+    ,KCU2.TABLE_SCHEMA AS RightSchema
+    ,KCU2.TABLE_NAME AS RightTable
+    ,KCU2.COLUMN_NAME AS RightColumn
+    ,KCU2.ORDINAL_POSITION AS RightPosition
+    ,KCU2.CONSTRAINT_NAME AS RightKey
+	,'Explicit' As RelationshipType
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS AS RC
+	INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU1 
+		ON KCU1.CONSTRAINT_CATALOG = RC.CONSTRAINT_CATALOG  
+		AND KCU1.CONSTRAINT_SCHEMA = RC.CONSTRAINT_SCHEMA 
+		AND KCU1.CONSTRAINT_NAME = RC.CONSTRAINT_NAME 
+	INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KCU2 
+		ON KCU2.CONSTRAINT_CATALOG = RC.UNIQUE_CONSTRAINT_CATALOG  
+		AND KCU2.CONSTRAINT_SCHEMA = RC.UNIQUE_CONSTRAINT_SCHEMA 
+		AND KCU2.CONSTRAINT_NAME = RC.UNIQUE_CONSTRAINT_NAME 
+		AND KCU2.ORDINAL_POSITION = KCU1.ORDINAL_POSITION 
+ORDER BY 2,3,4,5,6,8,9
+";
+
 
         #endregion Schema Bits
     }

@@ -39,7 +39,7 @@ namespace ICSharpCode.TextEditor.Document.HighlightingStrategy
 					}
 					errors.Add(args);
 				};
-				settings.ValidationType = ValidationType.Schema;
+				settings.ValidationType = ValidationType.Schema;	
 				XmlReader validatingReader = XmlReader.Create(xmlReader, settings);
 
 				XmlDocument doc = new XmlDocument();

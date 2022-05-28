@@ -243,9 +243,9 @@ namespace XLG.Pipeliner
         
         /// <param name="fkColumn">C#CD: </param>
         /// <returns>C#CD: </returns>
-        public string GetForeignKeyTableName(string fkColumn)
+        public List<Relationship> GetRelationships()
         {
-            return Provider.GetForeignKeyTableName(fkColumn);
+            return Provider.GetRelationships();
         }
         
         /// <param name="spName">C#CD: </param>

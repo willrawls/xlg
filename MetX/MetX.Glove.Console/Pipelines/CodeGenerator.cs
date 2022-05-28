@@ -86,6 +86,8 @@ namespace XLG.Pipeliner.Pipelines
 
         private XmlElement _mStoredProceduresToRender;
 
+        private XmlElement _mRelationshipsToRender;
+
         private XmlElement _mTablesToRender;
 
         private string _mUrlExtension;
@@ -111,7 +113,7 @@ namespace XLG.Pipeliner.Pipelines
         /// <summary>
         /// Returns an XmlDocument containing a xlgData document with the child elements: Tables, StoredProcedures, and Xsls relative to the list indicated by the supplied include/skip lists.
         /// </summary>
-        public XmlDocument GetDataXml(string connectionString)
+        public XmlDocument GenerateXmlDocumentFromDatabase(string connectionString)
         {
             ParseDataXml(connectionString);
             var xmlDoc = new XmlDocument();
@@ -146,20 +148,26 @@ namespace XLG.Pipeliner.Pipelines
             root.SetAttribute("MetXAssemblyString", MetXAssemblyString);
 
             xmlDoc.AppendChild(root);
-            foreach (XmlAttribute currAttribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
+            foreach (XmlAttribute attribute in _mXlgDataXmlDoc.DocumentElement.Attributes)
             {
-                root.SetAttribute(currAttribute.Name, currAttribute.Value);
+                root.SetAttribute(attribute.Name, attribute.Value);
             }
 
             if (_mTablesToRender != null)
             {
                 if (TablesXml(xmlDoc) == null) return null;
                 if (ViewsXml(xmlDoc) == null) return null;
+                if (AddRelationshipsToXml(xmlDoc) == null) return null;
             }
 
             if (_mStoredProceduresToRender != null)
             {
-                StoredProceduresXml(xmlDoc);
+                AddStoredProceduresToXml(xmlDoc);
+            }
+
+            if (_mRelationshipsToRender != null)
+            {
+                AddRelationshipsToXml(xmlDoc);
             }
 
             if (_mXslsToRender != null)
@@ -175,6 +183,12 @@ namespace XLG.Pipeliner.Pipelines
             return xmlDoc;
         }
 
+        private XmlDocument AddRelationshipsToXml(XmlDocument xmlDoc)
+        {
+
+            return xmlDoc;
+        }
+
         public string MetXAssemblyString => _mFullName;
 
         /// <summary>Causes generation and returns the code/contents generated</summary>
@@ -186,7 +200,7 @@ namespace XLG.Pipeliner.Pipelines
                 throw new Exception("xlg.xsl missing (1).");
             }
             XlgInstanceId = Guid.NewGuid();
-            CodeXmlDocument = GetDataXml(connectionString);
+            CodeXmlDocument = GenerateXmlDocumentFromDatabase(connectionString);
             if (CodeXmlDocument == null) return null;
             return Helper.GenerateViaXsl(CodeXmlDocument, xlgXsl).ToString();
         }
@@ -270,6 +284,7 @@ namespace XLG.Pipeliner.Pipelines
 
             _mTablesToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Tables");
             _mStoredProceduresToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/StoredProcedures");
+            _mRelationshipsToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Relationships");
             _mXslsToRender = (XmlElement)_mXlgDataXmlDoc.SelectSingleNode("/*/Render/Xsls");
 
             var connectionStringName = Dav(_mXlgDataXmlDoc, "ConnectionStringName", "Default");
@@ -351,7 +366,7 @@ namespace XLG.Pipeliner.Pipelines
         }
 
         // ReSharper disable once UnusedMethodReturnValue.Local
-        private XmlDocument StoredProceduresXml(XmlDocument xmlDoc)
+        private XmlDocument AddStoredProceduresToXml(XmlDocument xmlDoc)
         {
             //get the SP list from the DB
             var storedProcedureList = DataService.Instance.GetStoredProcedureList();
@@ -457,6 +472,50 @@ namespace XLG.Pipeliner.Pipelines
                 AddAttribute(xmlView, "SchemaName", view.Schema);
                 AddAttribute(xmlView, "TSQL", view.TSQL);
                 xmlViews.AppendChild(xmlView);
+            }
+
+            return xmlDoc;
+        }
+
+         public XmlDocument RelationshipXml(XmlDocument xmlDoc)
+        {
+            var root = xmlDoc.DocumentElement;
+            if (root == null)
+            {
+                return null;
+            }
+
+            var xmlViews = xmlDoc.CreateElement("Relationships");
+            root.AppendChild(xmlViews);
+
+            var relationships = DataService.Instance.GetRelationships();
+            foreach (var relationship in relationships)
+            {
+                var xmlRelationship = xmlDoc.CreateElement("Relationship");
+                AddAttribute(xmlRelationship, "Name", relationship.Name);
+                AddAttribute(xmlRelationship, "LeftSchema", relationship.LeftSchema);
+                AddAttribute(xmlRelationship, "LeftTable", relationship.LeftTable);
+                AddAttribute(xmlRelationship, "RightSchema", relationship.RightSchema);
+                AddAttribute(xmlRelationship, "RightTable", relationship.RightTable);
+                AddAttribute(xmlRelationship, "RightKey", relationship.RightKey);
+                AddAttribute(xmlRelationship, "Type", relationship.Type);
+
+                if (relationship.Fields?.Count > 0)
+                {
+                    var xmlFields = xmlDoc.CreateElement("Fields");
+                    xmlRelationship.AppendChild(xmlFields);
+                    foreach (var field in relationship.Fields)
+                    {
+                        var xmlField = xmlDoc.CreateElement("Field");
+                        xmlRelationship.AppendChild(xmlFields);
+                        AddAttribute(xmlField, "Left", field.Left);
+                        AddAttribute(xmlField, "Right", field.Right);
+                        AddAttribute(xmlField, "LeftPosition", field.LeftPosition.AsString("1"));
+                        AddAttribute(xmlField, "RightPosition", field.RightPosition.AsString("1"));
+                    }
+                }
+
+                xmlViews.AppendChild(xmlRelationship);
             }
 
             return xmlDoc;

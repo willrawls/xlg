@@ -11,7 +11,7 @@ public class XlgDocTests
     public void Relationships_Simple_1()
     {
         var data = new xlgDoc();
-
+        data.MakeViable();
         data.Tables.Add(new Table
         {
             ClassName = "Bob_Person",
@@ -45,22 +45,23 @@ public class XlgDocTests
         {
             Name = "FK_PersonID_Person_PersonID",
             Type = "OneToMany",
-            Local = "Bob.Person",
-            Foreign = "dbo.Employee",
+            LeftSchema = "Fred",
+            LeftTable = "Bob.Person",
+            RightSchema = "dbo",
+            RightTable = "dbo.Employee",
             Fields = new List<RelationshipField>
             {
                 new RelationshipField
                 {
-                    Local = "PersonID",
-                    Foreign = "PersonID",
+                    Left = "PersonID",
+                    Right = "PersonID",
+                    LeftPosition = 1,
+                    RightPosition = 1,
                 },
             },
             Tags = new List<string>
             {
-                "hidden",
-                "implied",
                 "explicit",
-                "added"
             }
         };
         data.Relationships.Add(relationship);
