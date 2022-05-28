@@ -39,6 +39,8 @@ namespace MetX.Standard.Primary.Metadata
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
 
+        [XmlArray(ElementName = "Relationships")]
+        [XmlArrayItem(typeof(Relationship), ElementName = "Relationship")]
         public List<Relationship> Relationships { get; set; }
 
         public static xlgDoc Empty(string outputFilePath = "")

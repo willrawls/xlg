@@ -8,67 +8,120 @@ namespace MetX.Tests.Standard.Primary;
 public class XlgDocTests
 {
     [TestMethod]
-    public void Relationships_Simple_1()
+    public void Relationships_Simple_1_Confirmed()
     {
-        var data = new xlgDoc();
-        data.MakeViable();
-        data.Tables.Add(new Table
+        var data = new xlgDoc().MakeViable();
+        data.Tables.Add(_bobPersonTable);
+        data.Tables.Add(_dboEmployeeTable);
+        data.Relationships.Add(_bobPersonDboEmployeeRelationship);
+
+        var actual = data.ConfirmRelationships("", out var confirmed, out var bad);
+        Assert.IsTrue(actual);
+
+        Assert.AreEqual(1, confirmed.Count);
+        Assert.AreEqual(0, bad.Count);
+    }
+
+    [TestMethod]
+    public void Relationships_Simple_1_Bad()
+    {
+        var data = new xlgDoc().MakeViable();
+        data.Tables.Add(_bobPersonTable);
+        data.Tables.Add(_dboEmployeeTable);
+
+        _bobPersonDboEmployeeRelationship.Fields[0].Right = "Paul";
+        data.Relationships.Add(_bobPersonDboEmployeeRelationship);
+
+        var actual = data.ConfirmRelationships("", out var confirmed, out var bad);
+        Assert.IsFalse(actual);
+
+        Assert.AreEqual(0, confirmed.Count);
+        Assert.AreEqual(1, bad.Count);
+    }
+
+    Relationship _bobPersonDboEmployeeRelationship = new Relationship
+    {
+        Name = "FK_PersonID_Person_PersonID",
+        Type = "OneToMany",
+        LeftSchema = "Bob",
+        LeftTable = "Person",
+        RightSchema = "dbo",
+        RightTable = "Employee",
+        Fields = new List<RelationshipField>
         {
-            ClassName = "Bob_Person",
-            Columns = new List<Column>
+            new RelationshipField
             {
-                new Column
-                {
-                    ColumnName = "PersonID",
-                    AutoIncrement = "true",
-                },
+                Left = "PersonID",
+                Right = "PersonID",
+                LeftPosition = 1,
+                RightPosition = 1,
             },
-            TableName = "Person",
-            Schema = "Bob",
-            Keys = new List<Key>
+        },
+        Tags = new List<string>
+        {
+            "explicit",
+        }
+    };
+
+    private Table _bobPersonTable = new Table
+    {
+        Schema = "Bob",
+        TableName = "Person",
+        ClassName = "Bob_Person",
+        Columns = new List<Column>
+        {
+            new Column
             {
-                new Key
+                ColumnName = "PersonID",
+                AutoIncrement = "true",
+            },
+        },
+        Keys = new List<Key>
+        {
+            new Key
+            {
+                Columns = new List<KeyColumn>
                 {
-                    Columns = new List<KeyColumn>
+                    new KeyColumn
                     {
-                        new KeyColumn
-                        {
-                            Column = "PersonID",
-                            Location = "1",
-                        }
+                        Column = "PersonID",
+                        Location = "1",
                     }
                 }
             }
-        });
+        }
+    };
 
-        var relationship = new Relationship
+    private Table _dboEmployeeTable = new Table
+    {
+        Schema = "dbo",
+        TableName = "Employee",
+        ClassName = "dbo_Employee",
+        Columns = new List<Column>
         {
-            Name = "FK_PersonID_Person_PersonID",
-            Type = "OneToMany",
-            LeftSchema = "Fred",
-            LeftTable = "Bob.Person",
-            RightSchema = "dbo",
-            RightTable = "dbo.Employee",
-            Fields = new List<RelationshipField>
+            new Column
             {
-                new RelationshipField
-                {
-                    Left = "PersonID",
-                    Right = "PersonID",
-                    LeftPosition = 1,
-                    RightPosition = 1,
-                },
+                ColumnName = "EmployeeID",
+                AutoIncrement = "true",
             },
-            Tags = new List<string>
+            new Column
             {
-                "explicit",
+                ColumnName = "PersonID",
+            },
+        },
+        Keys = new List<Key>
+        {
+            new Key
+            {
+                Columns = new List<KeyColumn>
+                {
+                    new KeyColumn
+                    {
+                        Column = "EmployeeID",
+                        Location = "1",
+                    }
+                }
             }
-        };
-        data.Relationships.Add(relationship);
-
-        var actual = data.ConfirmRelationships();
-        Assert.IsTrue(actual);
-
-    }
-
+        }
+    };
 }
