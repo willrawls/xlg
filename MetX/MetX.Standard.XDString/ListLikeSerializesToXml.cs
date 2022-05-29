@@ -138,7 +138,8 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
             typeof(TParent),
             typeof(TChild),
             typeof(TKey),
-            typeof(TActual)
+            typeof(TActual),
+            typeof(ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActual>)
         }.ToList();
 
         extraTypes.AddRange(typeof(TParent).GenericTypeArguments);

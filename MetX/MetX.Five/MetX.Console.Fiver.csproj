@@ -50,7 +50,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Glove\" />
 	  <Folder Include="SliceAndDice\" />
 	  <Folder Include="Walker\" />
 	</ItemGroup>

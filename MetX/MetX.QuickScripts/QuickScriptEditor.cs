@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Controls;
 using MetX.Five;
+using MetX.Five.QuickScripts;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Host;

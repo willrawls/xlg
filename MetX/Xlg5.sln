@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.Glove", "MetX.Glove.Console\MetX.Windows.Glove.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.QuickScripts", "MetX.QuickScripts\MetX.QuickScripts.csproj", "{D554998C-4943-4167-8D2C-A7320A9E5A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.QuickScripts", "MetX.QuickScripts\MetX.Windows.QuickScripts.csproj", "{D554998C-4943-4167-8D2C-A7320A9E5A2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Controls", "MetX.Controls\MetX.Controls.csproj", "{1E449E05-F155-4952-BF75-F8268E8695CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.Controls", "MetX.Controls\MetX.Windows.Controls.csproj", "{1E449E05-F155-4952-BF75-F8268E8695CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX.Window
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Aspects", "MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Fiver", "MetX.Five\MetX.Fiver.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Fiver", "MetX.Five\MetX.Console.Fiver.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Library", "MetX.Standard.Library\MetX.Standard.Library.csproj", "{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}"
 EndProject

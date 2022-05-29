@@ -61,7 +61,7 @@
             this.ToggleSizeButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.ToggleSizeButton.FlatAppearance.BorderSize = 0;
             this.ToggleSizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ToggleSizeButton.Image = global::MetX.Controls.Properties.Resources.arrow_up_s_line;
+            this.ToggleSizeButton.Image = global::MetX.Windows.Controls.Properties.Resources.arrow_up_s_line;
             this.ToggleSizeButton.Location = new System.Drawing.Point(331, 8);
             this.ToggleSizeButton.Name = "ToggleSizeButton";
             this.ToggleSizeButton.Size = new System.Drawing.Size(20, 19);

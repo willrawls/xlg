@@ -142,7 +142,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
         }
     }
 
-    private void HandleAutoPersist()
+    public void HandleAutoPersist()
     {
         if (!AutoPersist || FilePath.IsEmpty())
             return;
@@ -150,12 +150,12 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
         Save();
     }
 
-    private void Save()
+    public  void Save()
     {
         SaveXmlToFile(FilePath, true);
     }
 
-    private static AssocArray Load(string filePath = "", bool autoPersist = false)
+    public static AssocArray Load(string filePath = "", bool autoPersist = false)
     {
         if (filePath.IsEmpty() || !File.Exists(filePath))
         {
@@ -169,8 +169,15 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
         if (!File.Exists(filePath)) ret = default(AssocArray);
         else
         {
-            using var xtr = new XmlTextReader(filePath);
-            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xtr);
+            var xml = File
+                .ReadAllText(filePath)
+                .Replace("<ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "<AssocArray")
+                .Replace("</ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "</AssocArray")
+                ;
+
+            using var stringReader = new StringReader(xml);
+            using var xmlTextReader = new XmlTextReader(stringReader);
+            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xmlTextReader);
         }
 
         var aa = ret;

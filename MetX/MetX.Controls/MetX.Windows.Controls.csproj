@@ -4,8 +4,8 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<RootNamespace>MetX.Controls</RootNamespace>
-		<AssemblyName>MetX.Controls</AssemblyName>
+		<RootNamespace>MetX.Windows.Controls</RootNamespace>
+		<AssemblyName>MetX.Windows.Controls</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup>
@@ -47,7 +47,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
-		<ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
+		<ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 	</ItemGroup>
@@ -60,7 +60,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>

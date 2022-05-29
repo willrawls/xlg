@@ -27,13 +27,37 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Data\**" />
+	  <Compile Remove="Gatherers\**" />
+	  <Compile Remove="Interfaces\**" />
+	  <Compile Remove="Pipelines\**" />
+	  <Compile Remove="Providers\**" />
+	  <EmbeddedResource Remove="Data\**" />
+	  <EmbeddedResource Remove="Gatherers\**" />
+	  <EmbeddedResource Remove="Interfaces\**" />
+	  <EmbeddedResource Remove="Pipelines\**" />
+	  <EmbeddedResource Remove="Providers\**" />
+	  <None Remove="Data\**" />
+	  <None Remove="Gatherers\**" />
+	  <None Remove="Interfaces\**" />
+	  <None Remove="Pipelines\**" />
+	  <None Remove="Providers\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Remove="ClipScriptEditor.cs" />
 		<Compile Remove="ClipScriptEditor.Designer.cs" />
+		<Compile Remove="DataService.cs" />
 		<Compile Remove="Extensions.cs" />
+		<Compile Remove="FileSystemWatchers.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Remove="ClipScriptEditor.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="RelationshipsQuery1.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,7 +111,7 @@
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
 		<PackageReference Include="NHotPhrase" Version="6.0.0" />
 		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
-		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+		<ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 		<Compile Update="Properties\Settings.Designer.cs">
 			<AutoGen>True</AutoGen>

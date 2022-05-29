@@ -41,8 +41,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MetX.Controls\MetX.Controls.csproj" />
-		<ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
+		<ProjectReference Include="..\MetX.Controls\MetX.Windows.Controls.csproj" />
+		<ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 	</ItemGroup>

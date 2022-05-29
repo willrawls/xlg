@@ -1,4 +1,4 @@
-﻿namespace MetX.Five;
+﻿namespace MetX.Five.QuickScripts;
 
 public static class DefaultSoftCode
 {

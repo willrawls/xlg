@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using MetX.Five.Glove;
+using MetX.Five.Glove.Pipelines;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Host;
@@ -14,7 +16,6 @@ using MetX.Windows.Library;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
-using XLG.Pipeliner.Pipelines;
 using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner;

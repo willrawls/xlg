@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<TargetFramework>net6.0</TargetFramework>
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetX.Five\MetX.Fiver.csproj" />
+    <ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
@@ -78,6 +78,10 @@
     <None Update="Standard\Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Fiver\" />
   </ItemGroup>
 
 </Project>
