@@ -29,7 +29,7 @@ namespace MetX.Five.Glove
         {
             var directories = new List<string>
             {
-                Dirs.CurrentSupportFolderPath
+                Shared.Dirs.CurrentSupportFolderPath
             };
             AddIfDifferent(directories, Path.GetDirectoryName(settings.Filename));
             foreach (var setting in settings.Sources)

@@ -385,10 +385,10 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             Host.Context.Scripts.Default = script;
             script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
             Host.Context.Scripts.Add(script);
-            Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
+            Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
         }
 
-        Dirs.LastScriptFilePath = filePath;
+        Shared.Dirs.LastScriptFilePath = filePath;
 
         var selectedIndex = RefreshLists();
         if (SelectedScript == null)
@@ -434,7 +434,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         OpenInputFilePathDialog.ShowDialog(this);
         if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
         {
-            Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
+            Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
             LoadQuickScriptsFile(OpenInputFilePathDialog.FileName, true);
         }
     }
@@ -452,7 +452,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         OpenInputFilePathDialog.ShowDialog(this);
         if (!string.IsNullOrEmpty(OpenInputFilePathDialog.FileName))
         {
-            Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
+            Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
             LoadQuickScriptsFile(OpenInputFilePathDialog.FileName, true);
         }
     }
@@ -548,9 +548,9 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             if (string.IsNullOrEmpty(SaveDestinationFilePathDialog.FileName)) return;
 
             Host.Context.Scripts.FilePath = SaveDestinationFilePathDialog.FileName;
-            Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
+            Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
             Text = "Qk Scrptr - " + Host.Context.Scripts.FilePath;
-            Dirs.LastScriptFilePath = Host.Context.Scripts.FilePath;
+            Shared.Dirs.LastScriptFilePath = Host.Context.Scripts.FilePath;
         });
     }
 
@@ -562,7 +562,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             if (string.IsNullOrEmpty(Host.Context.Scripts.FilePath))
                 SaveAs_Click(null, null);
             else
-                Host.Context.Scripts.Save(Dirs.ScriptArchivePath);
+                Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
         });
     }
 
@@ -646,8 +646,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                         break;
 
                     case PostBuildAction.CloneProjectAndOpen:
-                        //var lastProcessorsFolder = Dirs.FromRegistry(Dirs.ProcessorsFolderName);
-                        var lastProcessorsFolder = Dirs.Paths[Dirs.ProcessorsFolderName].Value;
+                        //var lastProcessorsFolder = Shared.Dirs.FromRegistry(Shared.Dirs.ProcessorsFolderName);
+                        var lastProcessorsFolder = Shared.Dirs.Paths[Constants.ProcessorsFolderName].Value;
                         var newCloneFolder = Path.Combine(lastProcessorsFolder, result.Settings.ProjectName,
                             $@"{DateTime.Now:yyyyMMdd_hhddss}\");
 
@@ -655,7 +655,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                                 ref newCloneFolder) ==
                             MessageBoxResult.OK)
                         {
-                            MetX.Five.Dirs.ToSettingsFile(Dirs.ProcessorsFolderName, newCloneFolder);
+                            MetX.Five.Shared.Dirs.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
 
                             if (Directory.Exists(newCloneFolder))
                             {
@@ -805,13 +805,13 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private string BrowseForFolder(string folderKey, string title)
     {
-        var last = Dirs.FromSettingsFile(folderKey);
+        var last = Shared.Dirs.FromSettingsFile(folderKey);
         if (last.IsNotEmpty()) FolderBrowserDialog.SelectedPath = last;
 
         FolderBrowserDialog.Description = title;
         if (FolderBrowserDialog.ShowDialog(this) != DialogResult.OK) return null;
 
-        MetX.Five.Dirs.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
+        MetX.Five.Shared.Dirs.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
         return FolderBrowserDialog.SelectedPath;
     }
 
@@ -848,7 +848,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                 return;
 
             // Choose destination folder (always the base templates folder)
-            var destinationPath = Dirs.CurrentTemplateFolderPath;
+            var destinationPath = Shared.Dirs.CurrentTemplateFolderPath;
             /*
             var destinationPath = BrowseForFolder("CloneTemplateButton_Destination",
                 "Please select folder to contain the cloned template folder");

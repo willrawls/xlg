@@ -18,7 +18,7 @@ namespace XLG.QuickScripts.Walker
         public xlgDoc XlgDocument { get; set; }
         public RelationshipEditor(string filename)
         {
-            Filename = Dirs.ResolveVariables(filename);
+            Filename = Shared.Dirs.ResolveVariables(filename);
             InitializeComponent();
             if (File.Exists(Filename))
                 XlgDocument = xlgDoc.LoadXmlFromFile(Filename).MakeViable();

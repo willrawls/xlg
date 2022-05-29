@@ -11,16 +11,12 @@ public class FiverTests
     public void SettingsFile_RoundTrip()
     {
         var expected = "Fred";
-        Dirs.Initialize();
         
-        Dirs.SettingsFilePath = "SettingsFile_RoundTrip.txt";
-        Dirs.ResetSettingsFile();
-
-        Dirs.SettingsFilePath = "SettingsFile_RoundTrip.txt";
-
-        Dirs.ToSettingsFile("George", expected);
-        var actual = Dirs.FromSettingsFile("George");
-        Dirs.ResetSettingsFile();
+        Shared.InitializeDirs("SettingsFile_RoundTrip.txt", true);
+        
+        Shared.Dirs.ToSettingsFile("George", expected);
+        var actual = Shared.Dirs.FromSettingsFile("George");
+        Shared.Dirs.ResetSettingsFile();
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);
@@ -34,28 +30,28 @@ public class FiverTests
         // Trip 1
         const string filePath = "SettingsFile_RoundTripTwice.txt";
 
-        Dirs.SettingsFilePath = filePath;
-        Dirs.ResetSettingsFile();
+        Shared.Dirs.SettingsFilePath = filePath;
+        Shared.Dirs.ResetSettingsFile();
         Assert.IsFalse(File.Exists(filePath));
 
-        Dirs.ToSettingsFile("George", expected);
+        Shared.Dirs.ToSettingsFile("George", expected);
         Assert.IsTrue(File.Exists(filePath));
 
-        var actual = Dirs.FromSettingsFile("George");
-        Dirs.ResetSettingsFile();
+        var actual = Shared.Dirs.FromSettingsFile("George");
+        Shared.Dirs.ResetSettingsFile();
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);
 
         // Trip 2
-        Dirs.SettingsFilePath = filePath;
-        Dirs.ResetSettingsFile();
+        Shared.Dirs.SettingsFilePath = filePath;
+        Shared.Dirs.ResetSettingsFile();
         Assert.IsFalse(File.Exists(filePath));
 
-        Dirs.ToSettingsFile("George", expected);
+        Shared.Dirs.ToSettingsFile("George", expected);
         Assert.IsTrue(File.Exists(filePath));
 
-        actual = Dirs.FromSettingsFile("George");
-        Dirs.ResetSettingsFile();
+        actual = Shared.Dirs.FromSettingsFile("George");
+        Shared.Dirs.ResetSettingsFile();
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);

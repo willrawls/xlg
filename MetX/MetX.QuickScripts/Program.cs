@@ -17,12 +17,12 @@ public static class Program
         string filePath;
         if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
         {
-            Dirs.LastScriptFilePath = args[0];
+            Shared.Dirs.LastScriptFilePath = args[0];
             filePath = args[0];
         }
         else
         {
-            filePath = Dirs.LastScriptFilePath;
+            filePath = Shared.Dirs.LastScriptFilePath;
         }
         Application.Run(new QuickScriptEditor(filePath));
     }

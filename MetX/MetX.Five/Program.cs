@@ -13,7 +13,7 @@ namespace MetX.Five
 
             if (args.Length > 0 && File.Exists(args[0]) && args[0].EndsWith(".xlgq"))
             {
-                Dirs.LastScriptFilePath = args[0];
+                Shared.Dirs.LastScriptFilePath = args[0];
             }
 
             IProcess processorList = new ArgumentListProcessor(arguments);

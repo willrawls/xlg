@@ -24,7 +24,7 @@ namespace MetX.Controls
         private static readonly object MScriptSyncRoot = new();
 
 
-        public Context(IGenerationHost host = null) : base(Dirs.CurrentTemplateFolderPath, host)
+        public Context(IGenerationHost host = null) : base(Shared.Dirs.CurrentTemplateFolderPath, host)
         {
         }
 
