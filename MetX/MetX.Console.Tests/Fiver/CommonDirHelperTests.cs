@@ -6,8 +6,38 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Console.Tests.Fiver;
 
 [TestClass]
-public class FiverTests
+public class CommonDirHelperTests
 {
+    const string fred = "Fred";
+    const string george = "George";
+    const string harry = "Harry";
+    const string paul = "Paul";
+
+    [TestMethod]
+    public void SettingsFile_WriteValue_NewCDM_WriteAnotherValue_NewCDM_BothValuesShouldBeRead()
+    {
+        var settingsFilePath = "SettingsFile_WriteValue_NewCDM_WriteAnotherValue_NewCDM_BothValuesShouldBeRead.txt";
+
+        FileSystem.SafelyDeleteFile(settingsFilePath);
+        Assert.IsFalse(File.Exists(settingsFilePath));
+
+        Shared.InitializeDirs(settingsFilePath, true);
+
+        Shared.Dirs.ToSettingsFile(fred, harry);
+        Assert.IsTrue(File.Exists(settingsFilePath));
+
+        Shared.InitializeDirs(settingsFilePath, false);
+        Shared.Dirs.ToSettingsFile(george, paul);
+
+        var actual = Shared.Dirs.FromSettingsFile(fred);
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(harry, actual);
+
+        actual = Shared.Dirs.FromSettingsFile(george);
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(paul, actual);
+    }
+    
     [TestMethod]
     public void SettingsFile_RoundTrip()
     {

@@ -221,6 +221,12 @@ public class CommonDirectoryHelper
         }
     }
 
+    public string this[string name]
+    {
+        get => FromSettingsFile(name);
+        set => ToSettingsFile(name, value);
+    }
+
     public string FromSettingsFile(string name)
     {
         lock (_syncRoot)
