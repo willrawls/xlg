@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using MetX.Console.Tests.Standard.XDString;
 using MetX.Standard.Library.ML;
 using MetX.Standard.XDString.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,26 +11,10 @@ namespace MetX.Console.Tests;
 [TestClass()]
 public class ListSerializesToXmlTests
 {
-    public class FredItem
-    {
-        public string Name {get; set; }
-    }
-
-    public class Fred : ListSerializesToXml<Fred, FredItem>
-    {
-
-    }
-
-    public class George : AssocArray1D<George>
-    {
-        [XmlAttribute]
-        public string Name {get; set; }
-    }
-
     [TestMethod()]
     public void FredFromXmlTest()
     {
-        var fred = new Fred { new() { Name = "Mary" } };
+        var fred = new Fred { new() { FredItemName = "Mary" } };
 
         var xml = fred.ToXml();
         Assert.IsNotNull(xml);
@@ -46,8 +31,8 @@ public class ListSerializesToXmlTests
     [TestMethod()]
     public void GeorgeFromXmlTest()
     {
-        var george = new George();
-        george.Items.Add(new AssocItem<George>
+        George george = new George();
+        george.Items.Add(new AssocItem<GeorgeItem>
         {
             Name = "Mary",
             Value = "Something",
@@ -57,28 +42,29 @@ public class ListSerializesToXmlTests
             Key = "SomeKey",
         });
             
-        george.Name = "Henry";
+        george.GeorgeName = "Henry";
 
-        var xml = george.ToXml();
-        Assert.IsNotNull(xml);
-        Debug.WriteLine("XML=" + xml);
+        var expected = george.ToXml();
+        Assert.IsNotNull(expected);
+        Debug.WriteLine(expected);
 
-        Assert.IsTrue(xml.Contains("Henry"));
-        var reGeorge = George.FromXml(xml);
+        Assert.IsTrue(expected.Contains("Henry"));
+        var reGeorge = George.FromXml(expected);
         Assert.IsNotNull(reGeorge);
+        Assert.AreEqual("Henry", reGeorge.GeorgeName);
 
         var actual = reGeorge.ToXml();
-        Debug.WriteLine("ReXML=" + actual);
+        Debug.WriteLine(actual);
 
-        Assert.AreEqual("\n" + xml, "\n" + actual);
+        Assert.AreEqual("\n" + expected, "\n" + actual);
     }
 
-    [TestMethod()]
+    [TestMethod, Ignore]
     public void GeorgeToJsonTest()
     {
-        var george = new George();
+        George george = new George();
         var guid = Guid.NewGuid();
-        george.Items.Add(new AssocItem<George>
+        george.Items.Add(new AssocItem<GeorgeItem>
         {
             Name = "Mary",
             Value = "Something",
@@ -87,7 +73,7 @@ public class ListSerializesToXmlTests
             ID = guid,
             Key = "SomeKey",
         });
-        george.Name = "Henry";
+        george.GeorgeName = "Henry";
 
         var json = george.ToJson();
         Assert.IsNotNull(json);

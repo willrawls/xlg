@@ -6,7 +6,7 @@ public interface IListLikeSerializeToXml<TParent, TChild>
 {
     void SaveXmlToFile(string path, bool easyToRead);
     byte[] ToBytes();
-    string ToXml();
+    string ToXml(bool removeNamespaces, bool normalizeRootNodeName);
     string ToJson();
 
 }

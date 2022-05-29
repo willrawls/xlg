@@ -51,8 +51,20 @@ public class AssocItem : IAssocItem
         return sb.ToString();
     }
 
+/*
     public string ToXml()
     {
         return $"    <AssocItem{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{(Number != 0 ? Number.ToString().ToXmlAttribute("Number") : "")}{Name.ToXmlAttribute("Name")}{Category.ToXmlAttribute("Category")} />";
     }
+
+    
+    public static string ToXmlAttribute(this string value, string name)
+    {
+        if (value.IsEmpty())
+            return string.Empty;
+
+        var attributeString = $" {new XAttribute(name, value)}";
+        return attributeString;
+    }
+ */
 }

@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetX.Standard.Library.Strings;
+using MetX.Five;
 using MetX.Standard.Primary.Metadata;
-using MetX.Standard.Primary.Scripts;
 
 namespace XLG.QuickScripts.Walker
 {
@@ -19,7 +18,7 @@ namespace XLG.QuickScripts.Walker
         public xlgDoc XlgDocument { get; set; }
         public RelationshipEditor(string filename)
         {
-            Filename = MetX.Windows.Dirs.ResolveVariables(filename);
+            Filename = Dirs.ResolveVariables(filename);
             InitializeComponent();
             if (File.Exists(Filename))
                 XlgDocument = xlgDoc.LoadXmlFromFile(Filename).MakeViable();

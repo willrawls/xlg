@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
@@ -9,10 +11,11 @@ namespace MetX.Standard.XDString.Generics;
 /// <summary>
 /// AssocArray1D is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="TChild"></typeparam>
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocItem<T>, string, T> where T : class, new()
+public class AssocArray1D<TParent, TChild> 
+    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItem<TChild>, string, TChild> where TChild : class, new() where TParent : class
 {
     [XmlAttribute]
     public string Key { get; set; }
@@ -102,7 +105,7 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
     }
 
     [XmlIgnore]
-    public new AssocItem<T> this[string key]
+    public new AssocItem<TChild> this[string key]
     {
         get
         {
@@ -111,7 +114,7 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
                 var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new AssocItem<T>(key);
+                assocItem = new AssocItem<TChild>(key);
                 Items.Add(assocItem);
                 return assocItem;
             }
@@ -149,4 +152,20 @@ public class AssocArray1D<T> : ListLikeSerializesToXml<AssocArray1D<T>, AssocIte
         }
         return sb.ToString();
     }
+
+    public new static T FromTypedXml<T>(string xml) where T : class, new()
+    {
+        /*var name = xml.TokenBetween("<", ">").FirstToken();
+        if (name != ActualName)
+            xml = xml
+                    .Replace($"<{name}", $"<AssocArray Name=\"{name}\"")
+                    .Replace($"</{name}", $"</AssocArray ")
+                ;*/
+
+        using var sr = new StringReader(xml);
+        var xmlSerializer = GetSerializer(typeof(T), ExtraTypes());
+
+        return xmlSerializer.Deserialize(sr) as T;
+    }
+
 }

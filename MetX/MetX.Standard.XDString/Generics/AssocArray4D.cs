@@ -1,22 +1,31 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.IO;
+using System.Xml.Serialization;
 using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocArray4D<T> : AssocArray2D<AssocArray2D<T>> where T : class, new()
+public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem> 
+    : AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>> 
+    where T4DParent : class
+    where TItem : class, new()
+    where T3DParent : class
+    where T2DParent : class
+    where T1DParent : class
 {
-    public static string ActualName {get;} = typeof(AssocArray4D<T>).Name.Replace("`1", "Of") + typeof(T).Name;
+    private static Type ActualType = typeof(AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>>);
 
-    [XmlAttribute]
-    public string Name {get; set; }
+    public static string ActualName => "AssocArray"; // ActualType.Name.Replace("`1", "Of") + typeof(TItem).Name;
 
-    public T this[string d1, string d2, string d3, string d4]
+    [XmlAttribute] public string Name {get; set; }
+
+    public TItem this[string d1, string d2, string d3, string d4]
     {
         get => this[d1].Item[d2].Item[d3].Item[d4].Item;
         set => this[d1].Item[d2].Item[d3].Item[d4].Item = value;
     }
     
-    public AssocArray1D<T> this[string d1, string d2, string d3]
+    public AssocArray1D<T1DParent, TItem> this[string d1, string d2, string d3]
     {
         get => this[d1].Item[d2].Item[d3].Item;
         set => this[d1].Item[d2].Item[d3].Item = value;
@@ -33,13 +42,13 @@ public class AssocArray4D<T> : AssocArray2D<AssocArray2D<T>> where T : class, ne
             ;
     }
 
-    public override string ToXml()
+    public override string ToXml(bool removeNamespaces = true, bool normalizeRootNodeName = true)
     {
-        var xml = Xml.ToXml(this, true, ExtraTypes);
+        var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
         if(Name.IsEmpty()) return xml;
 
-        if (Name != ActualName)
-            return xml
+        if (Name != ActualName && normalizeRootNodeName)
+            xml = xml
                 .Replace($"<{ActualName}", $"<{Name}")
                 .Replace($"</{ActualName}", $"</{Name}")
                 .Replace($" Name=\"{Name}\"", "")
@@ -48,7 +57,7 @@ public class AssocArray4D<T> : AssocArray2D<AssocArray2D<T>> where T : class, ne
         return xml;
     }
 
-    public new static AssocArray4D<T> FromXml(string xml)
+    public new static T4DParent FromXml(string xml)
     {
         var name = xml.TokenBetween("<", ">").FirstToken();
         if (name != ActualName)
@@ -57,7 +66,8 @@ public class AssocArray4D<T> : AssocArray2D<AssocArray2D<T>> where T : class, ne
                 .Replace($"</{name}", $"</{ActualName}")
                 ;
 
-        return Xml.FromXml<AssocArray4D<T>>(xml, ExtraTypes);
+        using var sr = new StringReader(xml);
+        return (T4DParent) GetSerializer(ActualType, ExtraTypes()).Deserialize(sr);
     }
 
 }

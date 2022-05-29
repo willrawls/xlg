@@ -1,26 +1,28 @@
 ﻿namespace MetX.Standard.XDString.Generics;
 
-public class AssocArray3D<T> : AssocArray2D<AssocArray1D<T>> where T : class, new()
+public class AssocArray3D<T3DParent, T2DParent, T1DParent, TItem> 
+    : AssocArray1D<T3DParent, AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>>> where TItem : class, new() where T1DParent : class where T3DParent : class where T2DParent : class
 {
-    public T this[string d1, string d2, string d3]
+    public TItem this[string d1, string d2, string d3]
     {
         get => this[d1].Item[d2].Item[d3].Item;
         set => this[d1].Item[d2].Item[d3].Item = value;
     }
     
 
-    public new AssocArray1D<T> this[string d1, string d2]
+    public new AssocArray1D<T1DParent, TItem> this[string d1, string d2]
     {
         get => this[d1].Item[d2].Item;
         set => this[d1].Item[d2].Item = value;
     }
 
-    public override string ToXml()
+    public override string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
     {
-        var xml = Xml.ToXml(this, true, ExtraTypes);
-        var targetNameOfRootElement = typeof(AssocArray3D<T>).Name;
-        if(targetNameOfRootElement != "AssocArray")
-            xml = xml.Replace("<AssocArray", $"<{targetNameOfRootElement}")
+        var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
+        var targetNameOfRootElement = typeof(AssocArray1D<T3DParent, AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>>>).Name;
+        if(targetNameOfRootElement != "AssocArray" && normalizeRootNodeName)
+            xml = xml
+                .Replace("<AssocArray", $"<{targetNameOfRootElement}")
                 .Replace("</AssocArray", $"</{targetNameOfRootElement}");
         return xml;
     }

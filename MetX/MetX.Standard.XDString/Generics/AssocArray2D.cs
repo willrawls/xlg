@@ -1,19 +1,20 @@
 ﻿namespace MetX.Standard.XDString.Generics;
 
-public class AssocArray2D<T> : AssocArray1D<AssocArray1D<T>> where T : class, new()
+public class AssocArray2D<T2DParent, T1DParent, TItem> : AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>> where TItem : class, new() where T2DParent : class where T1DParent : class
 {
-    public T this[string d1, string d2]
+    public TItem this[string d1, string d2]
     {
         get => this[d1].Item[d2].Item;
         set => this[d1].Item[d2].Item = value;
     }
     
-    public override string ToXml()
+    public override string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
     {
-        var xml = Xml.ToXml(this, true, ExtraTypes);
-        var targetNameOfRootElement = typeof(AssocArray2D<T>).Name;
-        if(targetNameOfRootElement != "AssocArray")
-            xml = xml.Replace("<AssocArray", $"<{targetNameOfRootElement}")
+        var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
+        var targetNameOfRootElement = typeof(AssocArray2D<T2DParent, T1DParent, TItem>).Name;
+        if(targetNameOfRootElement != "AssocArray" && normalizeRootNodeName)
+            xml = xml
+                .Replace("<AssocArray", $"<{targetNameOfRootElement}")
                 .Replace("</AssocArray", $"</{targetNameOfRootElement}");
         return xml;
     }}

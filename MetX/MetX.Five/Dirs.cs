@@ -1,15 +1,14 @@
-﻿/*using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Library.ML;
+using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.XDString;
-using Microsoft.Win32;
 
-namespace MetX.Windows
+namespace MetX.Five
 {
     public class Dirs
     {
@@ -53,17 +52,19 @@ namespace MetX.Windows
         {
             get
             {
-                var path = FromRegistry(LastScriptFilenameKey);
+                var path = FromSettingsFile(LastScriptFilenameKey);
                 if (path.IsNotEmpty()) return path;
 
-                path = Path.Combine(Paths[ScriptsFolderName].Value, DefaultScriptFile);
+                path = Path.Combine(Paths[ScriptsFolderName].Value, DefaultScriptFile());
                 LastScriptFilePath = path;
                 return path;
             }
-            set => ToRegistry(LastScriptFilenameKey, value);
+            set => ToSettingsFile(LastScriptFilenameKey, value);
         }
 
-        public static string DefaultScriptFile { get; } = Path.Combine(Paths[ScriptsFolderName].Value, "Default.xlgq");
+        public static string DefaultScriptFile() => Path.Combine(Paths[ScriptsFolderName].Value, "Default.xlgq");
+
+        public static string SettingsFilePath() => Path.Combine(Paths[MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
 
         public static string ScriptArchivePath
         {
@@ -107,8 +108,26 @@ namespace MetX.Windows
                 if(!Directory.Exists(item.Value))
                     Directory.CreateDirectory(item.Value);
 
+            StageSettingsIfNeeded();
+
             StageStaticSupportIfNeeded();
             StageStaticTemplatesIfNeeded();
+        }
+
+        public static AssocArray XlgUserSettings = new();
+
+        private static void StageSettingsIfNeeded()
+        {
+            var settingsFilePath = SettingsFilePath();
+            if (!File.Exists(settingsFilePath))
+            {
+                XlgUserSettings[LastScriptFilenameKey].Value = DefaultScriptFile();
+                XlgUserSettings.SaveXmlToFile(settingsFilePath, true);
+            }
+            else
+            {
+                XlgUserSettings = Xml.LoadFile<AssocArray>(settingsFilePath);
+            }
         }
 
         private static bool StageStaticSupportIfNeeded()
@@ -138,7 +157,7 @@ namespace MetX.Windows
             /*
             foreach (var folder in Directory.GetDirectories(path))
                 FileSystem.DeepCopy(path, Path.Combine(templatesFolder, folder));
-            #1#
+            */
             return true;
         }
 
@@ -171,48 +190,31 @@ namespace MetX.Windows
         public static string CurrentSupportFolderPath => Paths[SupportFolderName].Value;
         public static string CurrentTemplateFolderPath => Paths[TemplatesFolderName].Value;
 
-        /*
-        public static string FromRegistry(string name)
+        public static string FromSettingsFile(string name)
         {
-            RegistryKey registryKey = null;
-            try
+            lock(SyncRoot)
             {
-                registryKey = Application.UserAppDataRegistry;
-                if (registryKey == null)
-                    return "";
+                var value = XlgUserSettings[name].Value;
+                if (Paths[name].Value.IsEmpty() && XlgUserSettings[name].Value.IsNotEmpty())
+                {
+                    Paths[name].Value = XlgUserSettings[name].Value;
+                }
+                return Paths[name].Value;
+            }
 
-                var value = registryKey.GetValue(name + RegistryKeySuffix) as string;
-                if(value.IsEmpty())
-                    return Paths[name].Value;
-                Paths[name].Value = value;
-                return value;
-            }
-            finally
-            {
-                registryKey?.Close();
-            }
         }
-        #1#
 
-        /*
-        public static bool ToRegistry(string name, string value)
+        private static readonly object SyncRoot = new();
+
+        public static bool ToSettingsFile(string name, string value)
         {
-            RegistryKey registryKey = null;
-            try
+            lock(SyncRoot)
             {
-                registryKey = Application.UserAppDataRegistry;
-                if (registryKey == null)
-                    return false;
-                registryKey.SetValue(name + RegistryKeySuffix, value);
-                Paths[name].Value = value;
+                XlgUserSettings[name].Value = value;
+                XlgUserSettings.SaveXmlToFile(SettingsFilePath(), true);
                 return true;
             }
-            finally
-            {
-                registryKey?.Close();
-            }
         }
-        #1#
 
         public static string ResolveVariables(string target)
         {
@@ -228,4 +230,4 @@ namespace MetX.Windows
             return result;
         }
     }
-}*/
+}

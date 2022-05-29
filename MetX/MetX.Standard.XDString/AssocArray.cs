@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString;
 
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocItem, string, string>
+public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocItem, string, string>
 {
-    [XmlElement]
-    public string Key { get; set; }
+    [XmlElement] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public AssocArrayList Parent { get; set; }
+    
+    [XmlIgnore] public bool AutoPersist { get; set; }
+    [XmlIgnore] public string FilePath { get; set; }
 
     public AssocArray() : base(DefaultKeyComparer)
     {
@@ -102,7 +107,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocItem, string,
 
     public IAssocItem FirstKeyContaining(string toFind)
     {
-        return Items.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
+        return Items.FirstOrDefault(i => i.Key.Contains(toFind, StringComparison.InvariantCultureIgnoreCase));
     }
 
     [XmlIgnore]
@@ -129,11 +134,50 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocItem, string,
                     var item = Items[index];
                     if (string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) != 0) continue;
                     Items[index] = value;
+                    HandleAutoPersist();
                     break;
                 }
                 Items.Add(value);
             }
         }
+    }
+
+    private void HandleAutoPersist()
+    {
+        if (!AutoPersist || FilePath.IsEmpty())
+            return;
+
+        Save();
+    }
+
+    private void Save()
+    {
+        SaveXmlToFile(FilePath, true);
+    }
+
+    private static AssocArray Load(string filePath = "", bool autoPersist = false)
+    {
+        if (filePath.IsEmpty() || !File.Exists(filePath))
+        {
+            return new AssocArray
+            {
+                FilePath = ""
+            };
+        }
+
+        AssocArray ret;
+        if (!File.Exists(filePath)) ret = default(AssocArray);
+        else
+        {
+            using var xtr = new XmlTextReader(filePath);
+            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xtr);
+        }
+
+        var aa = ret;
+        aa.FilePath = filePath;
+        aa.AutoPersist = autoPersist;
+
+        return aa;
     }
 
     public bool ContainsKey(string key)

@@ -9,9 +9,11 @@ public static class ConvertToJson
 {
     public static string Xml(string xml)
     {
-        var doc = new XmlDocument();
-        doc.LoadXml(xml);
-        return doc.Xml();
+        var xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(xml);
+        StringBuilder sb = new();
+        XmlToJsonNode(sb, xmlDoc.DocumentElement, true);
+        return sb.ToString();
     }
     public static string Xml(this XmlDocument xmlDoc)
     {
