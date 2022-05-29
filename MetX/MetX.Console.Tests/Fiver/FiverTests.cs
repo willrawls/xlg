@@ -25,7 +25,7 @@ public class FiverTests
         var actual = Shared.Dirs.FromSettingsFile("George");
         Shared.Dirs.ResetSettingsFile();
         Assert.IsFalse(File.Exists(settingsFilePath));
-
+        
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);
     }
