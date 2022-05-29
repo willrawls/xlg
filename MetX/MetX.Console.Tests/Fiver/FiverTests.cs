@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using MetX.Five;
+using MetX.Standard.Primary.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Fiver;
@@ -11,12 +12,19 @@ public class FiverTests
     public void SettingsFile_RoundTrip()
     {
         var expected = "Fred";
-        
-        Shared.InitializeDirs("SettingsFile_RoundTrip.txt", true);
+        var settingsFilePath = "SettingsFile_RoundTrip.txt";
+
+        FileSystem.SafelyDeleteFile(settingsFilePath);
+        Assert.IsFalse(File.Exists(settingsFilePath));
+
+        Shared.InitializeDirs(settingsFilePath, true);
         
         Shared.Dirs.ToSettingsFile("George", expected);
+        Assert.IsTrue(File.Exists(settingsFilePath));
+
         var actual = Shared.Dirs.FromSettingsFile("George");
         Shared.Dirs.ResetSettingsFile();
+        Assert.IsFalse(File.Exists(settingsFilePath));
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);

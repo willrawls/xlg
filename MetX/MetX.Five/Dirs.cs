@@ -25,6 +25,7 @@ public class CommonDirectoryHelper
     public CommonDirectoryHelper(string settingsFilePath = "")
     {
         _settingsFilePath = settingsFilePath ?? "";
+        Initialize();
     }
 
     public string Details
@@ -69,7 +70,6 @@ public class CommonDirectoryHelper
             var path = Paths[Constants.OldScriptsFolderName].Value;
             if (path.IsNotEmpty()) return path;
 
-            InitializeFoldersIfNeeded();
             return Paths[Constants.OldScriptsFolderName].Value;
         }
     }
@@ -105,7 +105,6 @@ public class CommonDirectoryHelper
     {
         Initialized = false;
         InitializeFoldersIfNeeded();
-        //Debug.WriteLine(Details);
     }
 
     public string DefaultScriptFile()
@@ -123,7 +122,8 @@ public class CommonDirectoryHelper
             var basePath = DefaultBasePath;
             Paths[Constants.MyDocumentsXlgFolderName].Value = basePath;
 
-            _settingsFilePath = Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
+            if(_settingsFilePath.IsEmpty())
+                _settingsFilePath = Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
 
             // Top level
             Paths[Constants.ProcessorsFolderName].Value = Path.Combine(basePath, Constants.ProcessorsFolderName);
@@ -154,11 +154,12 @@ public class CommonDirectoryHelper
             StageStaticSupportIfNeeded();
             StageStaticTemplatesIfNeeded();
 
+            ToSettingsFile("Initialized", DateTime.UtcNow.ToString("s"));
             Initialized = true;
         }
     }
 
-    private void StageSettingsIfNeeded()
+    public void StageSettingsIfNeeded()
     {
         lock (_syncRoot)
         {
@@ -175,7 +176,7 @@ public class CommonDirectoryHelper
         }
     }
 
-    private bool StageStaticSupportIfNeeded()
+    public bool StageStaticSupportIfNeeded()
     {
         var supportFolder = Paths[Constants.SupportFolderName].Value;
         var entries = Directory.GetDirectories(supportFolder);
@@ -189,7 +190,7 @@ public class CommonDirectoryHelper
         return true;
     }
 
-    private bool StageStaticTemplatesIfNeeded()
+    public bool StageStaticTemplatesIfNeeded()
     {
         var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
         var entries = Directory.GetDirectories(destinationTemplateFolder);
@@ -208,11 +209,13 @@ public class CommonDirectoryHelper
 
     public void ResetSettingsFile(bool overwriteSettingsFile = true)
     {
-        InitializeFoldersIfNeeded();
-
         lock (_syncRoot)
         {
-            XlgUserSettings.Items.Clear();
+            if (XlgUserSettings == null)
+                XlgUserSettings = new();
+            else 
+                XlgUserSettings.Items.Clear();
+
             if (overwriteSettingsFile)
                 FileSystem.SafelyDeleteFile(SettingsFilePath);
         }
@@ -220,8 +223,6 @@ public class CommonDirectoryHelper
 
     public string FromSettingsFile(string name)
     {
-        InitializeFoldersIfNeeded();
-
         lock (_syncRoot)
         {
             if (XlgUserSettings.FilePath.IsEmpty())
@@ -245,8 +246,6 @@ public class CommonDirectoryHelper
 
     public bool ToSettingsFile(string name, string value)
     {
-        InitializeFoldersIfNeeded();
-
         lock (_syncRoot)
         {
             XlgUserSettings[name].Value = value;
