@@ -33,6 +33,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="QuickScripts\Settings.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Settings.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
 		<PackageReference Include="System.Security.Permissions" Version="6.0.0" />
 	</ItemGroup>
