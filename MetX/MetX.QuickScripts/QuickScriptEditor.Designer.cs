@@ -70,18 +70,19 @@ namespace XLG.QuickScripts
             this.LeftPanel = new System.Windows.Forms.TableLayoutPanel();
             this.QuickScriptList = new System.Windows.Forms.ListBox();
             this.ActionPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.OpenLink = new System.Windows.Forms.LinkLabel();
-            this.SaveAsLink = new System.Windows.Forms.LinkLabel();
-            this.SaveLink = new System.Windows.Forms.LinkLabel();
-            this.ReplaceLink = new System.Windows.Forms.LinkLabel();
-            this.FindLink = new System.Windows.Forms.LinkLabel();
-            this.ViewCodeLink = new System.Windows.Forms.LinkLabel();
-            this.PostBuildActionsLiink = new System.Windows.Forms.LinkLabel();
-            this.BuildExeLink = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.RunQuickScriptLink = new System.Windows.Forms.LinkLabel();
-            this.NewScriptLink = new System.Windows.Forms.LinkLabel();
+            this.SaveLink = new System.Windows.Forms.LinkLabel();
+            this.SaveAsLink = new System.Windows.Forms.LinkLabel();
+            this.OpenLink = new System.Windows.Forms.LinkLabel();
             this.NewFileLink = new System.Windows.Forms.LinkLabel();
+            this.BuildExeLink = new System.Windows.Forms.LinkLabel();
+            this.PostBuildActionsLiink = new System.Windows.Forms.LinkLabel();
+            this.FindLink = new System.Windows.Forms.LinkLabel();
+            this.ReplaceLink = new System.Windows.Forms.LinkLabel();
+            this.NewScriptLink = new System.Windows.Forms.LinkLabel();
             this.button1 = new System.Windows.Forms.Button();
+            this.RestageTemplatesButton = new System.Windows.Forms.LinkLabel();
             this.ScriptNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
@@ -592,77 +593,81 @@ namespace XLG.QuickScripts
             this.ActionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
             this.ActionPanel.ColumnCount = 1;
             this.ActionPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ActionPanel.Controls.Add(this.OpenLink, 0, 12);
-            this.ActionPanel.Controls.Add(this.SaveAsLink, 0, 11);
-            this.ActionPanel.Controls.Add(this.SaveLink, 0, 10);
-            this.ActionPanel.Controls.Add(this.ReplaceLink, 0, 8);
-            this.ActionPanel.Controls.Add(this.FindLink, 0, 7);
-            this.ActionPanel.Controls.Add(this.ViewCodeLink, 0, 5);
-            this.ActionPanel.Controls.Add(this.PostBuildActionsLiink, 0, 4);
+            this.ActionPanel.Controls.Add(this.linkLabel1, 0, 0);
+            this.ActionPanel.Controls.Add(this.RunQuickScriptLink, 0, 1);
+            this.ActionPanel.Controls.Add(this.SaveLink, 0, 11);
+            this.ActionPanel.Controls.Add(this.SaveAsLink, 0, 12);
+            this.ActionPanel.Controls.Add(this.OpenLink, 0, 13);
+            this.ActionPanel.Controls.Add(this.NewFileLink, 0, 14);
+            this.ActionPanel.Controls.Add(this.FindLink, 0, 6);
+            this.ActionPanel.Controls.Add(this.ReplaceLink, 0, 7);
+            this.ActionPanel.Controls.Add(this.NewScriptLink, 0, 9);
+            this.ActionPanel.Controls.Add(this.button1, 0, 18);
+            this.ActionPanel.Controls.Add(this.RestageTemplatesButton, 0, 16);
+            this.ActionPanel.Controls.Add(this.PostBuildActionsLiink, 0, 2);
             this.ActionPanel.Controls.Add(this.BuildExeLink, 0, 3);
-            this.ActionPanel.Controls.Add(this.RunQuickScriptLink, 0, 2);
-            this.ActionPanel.Controls.Add(this.NewScriptLink, 0, 1);
-            this.ActionPanel.Controls.Add(this.NewFileLink, 0, 13);
-            this.ActionPanel.Controls.Add(this.button1, 0, 14);
             this.ActionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ActionPanel.Location = new System.Drawing.Point(7, 32);
             this.ActionPanel.Name = "ActionPanel";
-            this.ActionPanel.RowCount = 15;
+            this.ActionPanel.RowCount = 19;
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.ActionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.ActionPanel.Size = new System.Drawing.Size(142, 716);
             this.ActionPanel.TabIndex = 1;
             this.ActionPanel.Click += new System.EventHandler(this.ActionPanel_Click);
             // 
-            // OpenLink
+            // linkLabel1
             // 
-            this.OpenLink.AutoSize = true;
-            this.OpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.OpenLink.LinkColor = System.Drawing.Color.Aqua;
-            this.OpenLink.Location = new System.Drawing.Point(3, 320);
-            this.OpenLink.Name = "OpenLink";
-            this.OpenLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.OpenLink.Size = new System.Drawing.Size(71, 24);
-            this.OpenLink.TabIndex = 7;
-            this.OpenLink.TabStop = true;
-            this.OpenLink.Text = "Open file";
-            this.toolTip1.SetToolTip(this.OpenLink, "Ctrl+O");
-            this.OpenLink.Click += new System.EventHandler(this.OpenScriptFile_Click);
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkLabel1.LinkColor = System.Drawing.Color.Aqua;
+            this.linkLabel1.Location = new System.Drawing.Point(3, 0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.linkLabel1.Size = new System.Drawing.Size(65, 10);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "New file";
             // 
-            // SaveAsLink
+            // RunQuickScriptLink
             // 
-            this.SaveAsLink.AutoSize = true;
-            this.SaveAsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SaveAsLink.LinkColor = System.Drawing.Color.Aqua;
-            this.SaveAsLink.Location = new System.Drawing.Point(3, 290);
-            this.SaveAsLink.Name = "SaveAsLink";
-            this.SaveAsLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.SaveAsLink.Size = new System.Drawing.Size(66, 24);
-            this.SaveAsLink.TabIndex = 7;
-            this.SaveAsLink.TabStop = true;
-            this.SaveAsLink.Text = "Save as";
-            this.toolTip1.SetToolTip(this.SaveAsLink, "Ctrl+A");
-            this.SaveAsLink.Click += new System.EventHandler(this.SaveAs_Click);
+            this.RunQuickScriptLink.AutoSize = true;
+            this.RunQuickScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RunQuickScriptLink.ForeColor = System.Drawing.Color.White;
+            this.RunQuickScriptLink.LinkColor = System.Drawing.Color.Yellow;
+            this.RunQuickScriptLink.Location = new System.Drawing.Point(3, 10);
+            this.RunQuickScriptLink.Name = "RunQuickScriptLink";
+            this.RunQuickScriptLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.RunQuickScriptLink.Size = new System.Drawing.Size(130, 24);
+            this.RunQuickScriptLink.TabIndex = 1;
+            this.RunQuickScriptLink.TabStop = true;
+            this.RunQuickScriptLink.Text = "Run current script";
+            this.toolTip1.SetToolTip(this.RunQuickScriptLink, "F5");
+            this.RunQuickScriptLink.Click += new System.EventHandler(this.RunQuickScript_Click);
             // 
             // SaveLink
             // 
             this.SaveLink.AutoSize = true;
             this.SaveLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SaveLink.LinkColor = System.Drawing.Color.Aqua;
-            this.SaveLink.Location = new System.Drawing.Point(3, 260);
+            this.SaveLink.Location = new System.Drawing.Point(3, 290);
             this.SaveLink.Name = "SaveLink";
             this.SaveLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
             this.SaveLink.Size = new System.Drawing.Size(108, 24);
@@ -672,68 +677,49 @@ namespace XLG.QuickScripts
             this.toolTip1.SetToolTip(this.SaveLink, "Ctrl-S");
             this.SaveLink.Click += new System.EventHandler(this.SaveQuickScriptFile_Click);
             // 
-            // ReplaceLink
+            // SaveAsLink
             // 
-            this.ReplaceLink.AutoSize = true;
-            this.ReplaceLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ReplaceLink.LinkColor = System.Drawing.Color.White;
-            this.ReplaceLink.Location = new System.Drawing.Point(3, 210);
-            this.ReplaceLink.Name = "ReplaceLink";
-            this.ReplaceLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.ReplaceLink.Size = new System.Drawing.Size(67, 24);
-            this.ReplaceLink.TabIndex = 7;
-            this.ReplaceLink.TabStop = true;
-            this.ReplaceLink.Text = "Replace";
-            this.toolTip1.SetToolTip(this.ReplaceLink, "Ctrl+R\r\nReplace string in current script");
-            this.ReplaceLink.Click += new System.EventHandler(this.ReplaceMenuItem_Click);
+            this.SaveAsLink.AutoSize = true;
+            this.SaveAsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SaveAsLink.LinkColor = System.Drawing.Color.Aqua;
+            this.SaveAsLink.Location = new System.Drawing.Point(3, 320);
+            this.SaveAsLink.Name = "SaveAsLink";
+            this.SaveAsLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.SaveAsLink.Size = new System.Drawing.Size(66, 24);
+            this.SaveAsLink.TabIndex = 7;
+            this.SaveAsLink.TabStop = true;
+            this.SaveAsLink.Text = "Save as";
+            this.toolTip1.SetToolTip(this.SaveAsLink, "Ctrl+A");
+            this.SaveAsLink.Click += new System.EventHandler(this.SaveAs_Click);
             // 
-            // FindLink
+            // OpenLink
             // 
-            this.FindLink.AutoSize = true;
-            this.FindLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FindLink.LinkColor = System.Drawing.Color.White;
-            this.FindLink.Location = new System.Drawing.Point(3, 180);
-            this.FindLink.Name = "FindLink";
-            this.FindLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.FindLink.Size = new System.Drawing.Size(106, 24);
-            this.FindLink.TabIndex = 7;
-            this.FindLink.TabStop = true;
-            this.FindLink.Text = "Find / highlight";
-            this.toolTip1.SetToolTip(this.FindLink, "Ctrl+F\r\nFind string in current script \r\nAnd optionally highlight all occurences");
-            this.FindLink.Click += new System.EventHandler(this.FindMenuItem_Click);
+            this.OpenLink.AutoSize = true;
+            this.OpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.OpenLink.LinkColor = System.Drawing.Color.Aqua;
+            this.OpenLink.Location = new System.Drawing.Point(3, 350);
+            this.OpenLink.Name = "OpenLink";
+            this.OpenLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.OpenLink.Size = new System.Drawing.Size(71, 24);
+            this.OpenLink.TabIndex = 7;
+            this.OpenLink.TabStop = true;
+            this.OpenLink.Text = "Open file";
+            this.toolTip1.SetToolTip(this.OpenLink, "Ctrl+O");
+            this.OpenLink.Click += new System.EventHandler(this.OpenScriptFile_Click);
             // 
-            // ViewCodeLink
+            // NewFileLink
             // 
-            this.ViewCodeLink.AutoSize = true;
-            this.ViewCodeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ViewCodeLink.ForeColor = System.Drawing.Color.White;
-            this.ViewCodeLink.LinkColor = System.Drawing.Color.Yellow;
-            this.ViewCodeLink.Location = new System.Drawing.Point(3, 130);
-            this.ViewCodeLink.Name = "ViewCodeLink";
-            this.ViewCodeLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.ViewCodeLink.Size = new System.Drawing.Size(81, 24);
-            this.ViewCodeLink.TabIndex = 6;
-            this.ViewCodeLink.TabStop = true;
-            this.ViewCodeLink.Text = "View code";
-            this.ViewCodeLink.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip1.SetToolTip(this.ViewCodeLink, "Ctrl+G");
-            this.ViewCodeLink.Click += new System.EventHandler(this.ViewGeneratedCode_Click);
-            // 
-            // PostBuildActionsLiink
-            // 
-            this.PostBuildActionsLiink.AutoSize = true;
-            this.PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PostBuildActionsLiink.ForeColor = System.Drawing.Color.White;
-            this.PostBuildActionsLiink.LinkColor = System.Drawing.Color.Yellow;
-            this.PostBuildActionsLiink.Location = new System.Drawing.Point(3, 100);
-            this.PostBuildActionsLiink.Name = "PostBuildActionsLiink";
-            this.PostBuildActionsLiink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.PostBuildActionsLiink.Size = new System.Drawing.Size(130, 24);
-            this.PostBuildActionsLiink.TabIndex = 3;
-            this.PostBuildActionsLiink.TabStop = true;
-            this.PostBuildActionsLiink.Text = "Post build actions";
-            this.toolTip1.SetToolTip(this.PostBuildActionsLiink, "F12");
-            this.PostBuildActionsLiink.Click += new System.EventHandler(this.PostBuild_Click);
+            this.NewFileLink.AutoSize = true;
+            this.NewFileLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NewFileLink.LinkColor = System.Drawing.Color.Aqua;
+            this.NewFileLink.Location = new System.Drawing.Point(3, 380);
+            this.NewFileLink.Name = "NewFileLink";
+            this.NewFileLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.NewFileLink.Size = new System.Drawing.Size(65, 24);
+            this.NewFileLink.TabIndex = 7;
+            this.NewFileLink.TabStop = true;
+            this.NewFileLink.Text = "New file";
+            this.NewFileLink.Click += new System.EventHandler(this.NewScriptFile_Click);
             // 
             // BuildExeLink
             // 
@@ -751,21 +737,51 @@ namespace XLG.QuickScripts
             this.toolTip1.SetToolTip(this.BuildExeLink, "F6");
             this.BuildExeLink.Click += new System.EventHandler(this.BuildExe_Click);
             // 
-            // RunQuickScriptLink
+            // PostBuildActionsLiink
             // 
-            this.RunQuickScriptLink.AutoSize = true;
-            this.RunQuickScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RunQuickScriptLink.ForeColor = System.Drawing.Color.White;
-            this.RunQuickScriptLink.LinkColor = System.Drawing.Color.Yellow;
-            this.RunQuickScriptLink.Location = new System.Drawing.Point(3, 40);
-            this.RunQuickScriptLink.Name = "RunQuickScriptLink";
-            this.RunQuickScriptLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.RunQuickScriptLink.Size = new System.Drawing.Size(130, 24);
-            this.RunQuickScriptLink.TabIndex = 1;
-            this.RunQuickScriptLink.TabStop = true;
-            this.RunQuickScriptLink.Text = "Run current script";
-            this.toolTip1.SetToolTip(this.RunQuickScriptLink, "F5");
-            this.RunQuickScriptLink.Click += new System.EventHandler(this.RunQuickScript_Click);
+            this.PostBuildActionsLiink.AutoSize = true;
+            this.PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PostBuildActionsLiink.ForeColor = System.Drawing.Color.White;
+            this.PostBuildActionsLiink.LinkColor = System.Drawing.Color.Yellow;
+            this.PostBuildActionsLiink.Location = new System.Drawing.Point(3, 40);
+            this.PostBuildActionsLiink.Name = "PostBuildActionsLiink";
+            this.PostBuildActionsLiink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.PostBuildActionsLiink.Size = new System.Drawing.Size(130, 24);
+            this.PostBuildActionsLiink.TabIndex = 3;
+            this.PostBuildActionsLiink.TabStop = true;
+            this.PostBuildActionsLiink.Text = "Post build actions";
+            this.toolTip1.SetToolTip(this.PostBuildActionsLiink, "F12");
+            this.PostBuildActionsLiink.Click += new System.EventHandler(this.PostBuild_Click);
+            // 
+            // FindLink
+            // 
+            this.FindLink.AutoSize = true;
+            this.FindLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FindLink.LinkColor = System.Drawing.Color.White;
+            this.FindLink.Location = new System.Drawing.Point(3, 148);
+            this.FindLink.Name = "FindLink";
+            this.FindLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.FindLink.Size = new System.Drawing.Size(106, 24);
+            this.FindLink.TabIndex = 7;
+            this.FindLink.TabStop = true;
+            this.FindLink.Text = "Find / highlight";
+            this.toolTip1.SetToolTip(this.FindLink, "Ctrl+F\r\nFind string in current script \r\nAnd optionally highlight all occurences");
+            this.FindLink.Click += new System.EventHandler(this.FindMenuItem_Click);
+            // 
+            // ReplaceLink
+            // 
+            this.ReplaceLink.AutoSize = true;
+            this.ReplaceLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ReplaceLink.LinkColor = System.Drawing.Color.White;
+            this.ReplaceLink.Location = new System.Drawing.Point(3, 174);
+            this.ReplaceLink.Name = "ReplaceLink";
+            this.ReplaceLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.ReplaceLink.Size = new System.Drawing.Size(67, 24);
+            this.ReplaceLink.TabIndex = 7;
+            this.ReplaceLink.TabStop = true;
+            this.ReplaceLink.Text = "Replace";
+            this.toolTip1.SetToolTip(this.ReplaceLink, "Ctrl+R\r\nReplace string in current script");
+            this.ReplaceLink.Click += new System.EventHandler(this.ReplaceMenuItem_Click);
             // 
             // NewScriptLink
             // 
@@ -773,7 +789,7 @@ namespace XLG.QuickScripts
             this.NewScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NewScriptLink.ForeColor = System.Drawing.Color.White;
             this.NewScriptLink.LinkColor = System.Drawing.Color.Yellow;
-            this.NewScriptLink.Location = new System.Drawing.Point(3, 10);
+            this.NewScriptLink.Location = new System.Drawing.Point(3, 230);
             this.NewScriptLink.Name = "NewScriptLink";
             this.NewScriptLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
             this.NewScriptLink.Size = new System.Drawing.Size(78, 24);
@@ -783,29 +799,29 @@ namespace XLG.QuickScripts
             this.toolTip1.SetToolTip(this.NewScriptLink, "Ctrl+N");
             this.NewScriptLink.Click += new System.EventHandler(this.NewQuickScript_Click);
             // 
-            // NewFileLink
-            // 
-            this.NewFileLink.AutoSize = true;
-            this.NewFileLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NewFileLink.LinkColor = System.Drawing.Color.Aqua;
-            this.NewFileLink.Location = new System.Drawing.Point(3, 350);
-            this.NewFileLink.Name = "NewFileLink";
-            this.NewFileLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.NewFileLink.Size = new System.Drawing.Size(65, 24);
-            this.NewFileLink.TabIndex = 7;
-            this.NewFileLink.TabStop = true;
-            this.NewFileLink.Text = "New file";
-            this.NewFileLink.Click += new System.EventHandler(this.NewScriptFile_Click);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 383);
+            this.button1.Location = new System.Drawing.Point(3, 521);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // RestageTemplatesButton
+            // 
+            this.RestageTemplatesButton.AutoSize = true;
+            this.RestageTemplatesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RestageTemplatesButton.LinkColor = System.Drawing.Color.Violet;
+            this.RestageTemplatesButton.Location = new System.Drawing.Point(3, 430);
+            this.RestageTemplatesButton.Name = "RestageTemplatesButton";
+            this.RestageTemplatesButton.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.RestageTemplatesButton.Size = new System.Drawing.Size(136, 24);
+            this.RestageTemplatesButton.TabIndex = 10;
+            this.RestageTemplatesButton.TabStop = true;
+            this.RestageTemplatesButton.Text = "Restage templates";
+            this.RestageTemplatesButton.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RestageTemplatesButton_LinkClicked);
             // 
             // ScriptNameLabel
             // 
@@ -917,7 +933,6 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.LinkLabel ReplaceLink;
         private System.Windows.Forms.LinkLabel BuildExeLink;
         private System.Windows.Forms.LinkLabel PostBuildActionsLiink;
-        private System.Windows.Forms.LinkLabel ViewCodeLink;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.LinkLabel FindLink;
         private System.Windows.Forms.LinkLabel SaveLink;
@@ -940,5 +955,7 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Button ScriptEditorHelpButton;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel RestageTemplatesButton;
     }
 }

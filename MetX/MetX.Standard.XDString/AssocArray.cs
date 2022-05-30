@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -206,4 +207,17 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
     }
 
 
+    public string Resolve(string target)
+    {
+        if (target.IsEmpty()) return "";
+        if (!target.Contains("%")) return target;
+
+        var result = Items
+            .Aggregate(target, 
+                (current, item) => current
+                    .Replace(
+                        $"%{item.Key}%", 
+                        item.Value, true, CultureInfo.InvariantCulture));
+        return result;
+    }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.XDString;
 
@@ -10,23 +8,20 @@ namespace MetX.Five;
 
 public class CommonDirectoryHelper
 {
-    public AssocArray Paths = new();
-
-    public bool Initialized;
-
-    private string _settingsFilePath = "";
-
-    public AssocArray XlgUserSettings = new();
-
-    private readonly object _syncRoot = new();
-
-    public string DefaultBasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Constants.MyDocumentsXlgFolderName);
+    private string _settingsFilePath;
 
     public CommonDirectoryHelper(string settingsFilePath = "")
     {
         _settingsFilePath = settingsFilePath ?? "";
-        Initialize();
+        Settings = new CommonSettingsHelper(this);
+        Initialize(Settings);
     }
+
+    public bool Initialized { get; set; }
+    public AssocArray Paths { get; set; } = new();
+
+    public string DefaultBasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        Constants.MyDocumentsXlgFolderName);
 
     public string Details
     {
@@ -41,14 +36,14 @@ public class CommonDirectoryHelper
     {
         get
         {
-            var path = FromSettingsFile(Constants.LastScriptFilenameKey);
+            var path = Settings.FromSettingsFile(Constants.LastScriptFilenameKey);
             if (path.IsNotEmpty()) return path;
 
             path = Path.Combine(Paths[Constants.ScriptsFolderName].Value, DefaultScriptFile());
             LastScriptFilePath = path;
             return path;
         }
-        set => ToSettingsFile(Constants.LastScriptFilenameKey, value);
+        set => Settings.ToSettingsFile(Constants.LastScriptFilenameKey, value);
     }
 
     public string SettingsFilePath
@@ -56,12 +51,12 @@ public class CommonDirectoryHelper
         get
         {
             if (_settingsFilePath.IsEmpty())
-                _settingsFilePath = Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
+                _settingsFilePath =
+                    Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
             return _settingsFilePath;
         }
         set => _settingsFilePath = value;
     }
-
 
     public string ScriptArchivePath
     {
@@ -78,9 +73,11 @@ public class CommonDirectoryHelper
     {
         get
         {
-            var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplatesFolderName, 5);
+            var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory,
+                Constants.TemplatesFolderName, 5);
             if (!Directory.Exists(path))
-                path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateManagerFolderName, 5);
+                path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory,
+                    Constants.TemplateManagerFolderName, 5);
             return Directory.Exists(path)
                 ? path
                 : "";
@@ -91,7 +88,8 @@ public class CommonDirectoryHelper
     {
         get
         {
-            var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, Constants.SupportFolderName, 5);
+            var path = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory,
+                Constants.SupportFolderName, 5);
             return Directory.Exists(path)
                 ? path
                 : "";
@@ -101,15 +99,20 @@ public class CommonDirectoryHelper
     public string CurrentSupportFolderPath => Paths[Constants.SupportFolderName].Value;
     public string CurrentTemplateFolderPath => Paths[Constants.TemplatesFolderName].Value;
 
-    public void Initialize()
-    {
-        Initialized = false;
-        InitializeFoldersIfNeeded();
-    }
+    public CommonSettingsHelper Settings { get; private set; }
+
+    public object SyncRoot { get; } = new();
 
     public string DefaultScriptFile()
     {
         return Path.Combine(Paths[Constants.ScriptsFolderName].Value, "Default.xlgq");
+    }
+
+    public void Initialize(CommonSettingsHelper settings)
+    {
+        Initialized = false;
+        Settings = settings;
+        InitializeFoldersIfNeeded();
     }
 
     private void InitializeFoldersIfNeeded()
@@ -117,13 +120,14 @@ public class CommonDirectoryHelper
         if (Initialized)
             return;
 
-        lock (_syncRoot)
+        lock (SyncRoot)
         {
             var basePath = DefaultBasePath;
             Paths[Constants.MyDocumentsXlgFolderName].Value = basePath;
 
-            if(_settingsFilePath.IsEmpty())
-                _settingsFilePath = Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
+            if (_settingsFilePath.IsEmpty())
+                _settingsFilePath =
+                    Path.Combine(Paths[Constants.MyDocumentsXlgFolderName].Value, "xlgUserSettings.xml");
 
             // Top level
             Paths[Constants.ProcessorsFolderName].Value = Path.Combine(basePath, Constants.ProcessorsFolderName);
@@ -138,7 +142,8 @@ public class CommonDirectoryHelper
             Paths[Constants.ArchiveFolderName].Value = archiveTopLevel;
 
             // Archives
-            Paths[Constants.OldProcessorsFolderName].Value = Path.Combine(archiveTopLevel, Constants.OldProcessorsFolderName);
+            Paths[Constants.OldProcessorsFolderName].Value =
+                Path.Combine(archiveTopLevel, Constants.OldProcessorsFolderName);
             Paths[Constants.OldPipesFolderName].Value = Path.Combine(archiveTopLevel, Constants.OldPipesFolderName);
             Paths[Constants.OldScriptsFolderName].Value = Path.Combine(archiveTopLevel, Constants.OldScriptsFolderName);
 
@@ -150,30 +155,23 @@ public class CommonDirectoryHelper
                 if (!Directory.Exists(item.Value))
                     Directory.CreateDirectory(item.Value);
 
-            StageSettingsIfNeeded();
+            Settings.StageSettingsIfNeeded();
             StageStaticSupportIfNeeded();
             StageStaticTemplatesIfNeeded();
 
-            ToSettingsFile("Initialized", DateTime.UtcNow.ToString("s"));
+            Settings.ToSettingsFile("Initialized", DateTime.UtcNow.ToString("s"));
             Initialized = true;
         }
     }
 
-    public void StageSettingsIfNeeded()
+    public string ResolveVariables(string target)
     {
-        lock (_syncRoot)
-        {
-            var settingsFilePath = SettingsFilePath;
-            if (!File.Exists(settingsFilePath))
-            {
-                XlgUserSettings[Constants.LastScriptFilenameKey].Value = DefaultScriptFile();
-                XlgUserSettings.SaveXmlToFile(settingsFilePath, true);
-            }
-            else
-            {
-                XlgUserSettings = AssocArray.Load(settingsFilePath);
-            }
-        }
+        if (target.IsEmpty()) return "";
+        if (!target.Contains("%")) return target;
+
+        var result = Paths.Resolve(target);
+        result = Shared.Settings.ForHost.Resolve(result);
+        return result;
     }
 
     public bool StageStaticSupportIfNeeded()
@@ -200,77 +198,20 @@ public class CommonDirectoryHelper
         if (path.IsEmpty()) return false;
 
         FileSystem.DeepCopy(path, destinationTemplateFolder);
-        /*
-        foreach (var folder in Directory.GetDirectories(path))
-            FileSystem.DeepCopy(path, Path.Combine(templatesFolder, folder));
-        */
+
         return true;
     }
 
-    public void ResetSettingsFile(bool overwriteSettingsFile = true)
+    public bool RestageStaticTemplates()
     {
-        lock (_syncRoot)
-        {
-            if (XlgUserSettings == null)
-                XlgUserSettings = new();
-            else 
-                XlgUserSettings.Items.Clear();
+        var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
+        var entries = Directory.GetDirectories(destinationTemplateFolder);
+        
+        var path = StaticTemplatesPath;
+        if (path.IsEmpty()) return false;
 
-            if (overwriteSettingsFile)
-                FileSystem.SafelyDeleteFile(SettingsFilePath);
-        }
-    }
+        FileSystem.DeepCopy(path, destinationTemplateFolder);
 
-    public string this[string name]
-    {
-        get => FromSettingsFile(name);
-        set => ToSettingsFile(name, value);
-    }
-
-    public string FromSettingsFile(string name)
-    {
-        lock (_syncRoot)
-        {
-            if (XlgUserSettings.FilePath.IsEmpty())
-            {
-                XlgUserSettings = Xml.LoadFile<AssocArray>(SettingsFilePath);
-                XlgUserSettings.FilePath = SettingsFilePath;
-            }
-
-            var value = XlgUserSettings[name].Value;
-
-            if (!Paths.ContainsKey(name)) return value;
-
-            if (Paths[name].Value.IsEmpty()
-                && XlgUserSettings[name].Value.IsNotEmpty())
-            {
-                Paths[name].Value = XlgUserSettings[name].Value;
-            }
-            return value;
-        }
-    }
-
-    public bool ToSettingsFile(string name, string value)
-    {
-        lock (_syncRoot)
-        {
-            XlgUserSettings[name].Value = value;
-            XlgUserSettings.SaveXmlToFile(SettingsFilePath, true);
-            return true;
-        }
-    }
-
-    public string ResolveVariables(string target)
-    {
-        if (target.IsEmpty())
-            return "";
-
-        var result = target;
-        foreach (var item in Paths.Items)
-            result = result
-                .Replace(
-                    $"%{item.Key}%",
-                    item.Value, true, CultureInfo.InvariantCulture);
-        return result;
+        return true;
     }
 }

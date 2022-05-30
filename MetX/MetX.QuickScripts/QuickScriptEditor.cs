@@ -655,7 +655,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                                 ref newCloneFolder) ==
                             MessageBoxResult.OK)
                         {
-                            MetX.Five.Shared.Dirs.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
+                            MetX.Five.Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
 
                             if (Directory.Exists(newCloneFolder))
                             {
@@ -805,13 +805,13 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private string BrowseForFolder(string folderKey, string title)
     {
-        var last = Shared.Dirs.FromSettingsFile(folderKey);
+        var last = Shared.Dirs.Settings.FromSettingsFile(folderKey);
         if (last.IsNotEmpty()) FolderBrowserDialog.SelectedPath = last;
 
         FolderBrowserDialog.Description = title;
         if (FolderBrowserDialog.ShowDialog(this) != DialogResult.OK) return null;
 
-        MetX.Five.Shared.Dirs.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
+        MetX.Five.Shared.Dirs.Settings.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
         return FolderBrowserDialog.SelectedPath;
     }
 
@@ -984,5 +984,28 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         var ideas4Form = new DatabaseWalkerForm();
         ideas4Form.Show();
+    }
+
+    private void RestageTemplatesButton_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        try
+        {
+            if (Host?.MessageBox.Show("RESET ALL XLG TEMPLATES?",
+                    "This will reset all the templates in your Documents\\XLG\\ folder to the defaults from the template manager.\n Continue with overwrite?",
+                    MessageBoxChoices.YesNo, MessageBoxStatus.Warning, MessageBoxDefault.Button2
+                    ) 
+                != MessageBoxResult.Yes) return;
+
+            Shared.Dirs.RestageStaticTemplates();
+            Host?.MessageBox.Show($"Templates restaged");
+
+            Host?.Context.LoadTemplates();
+            Host?.MessageBox.Show($"Templates reloaded into memory");
+            
+        }
+        catch (Exception exception)
+        {
+            Host?.MessageBox.Show($"Restage failed\n\n{exception}");
+        }
     }
 }

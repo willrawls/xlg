@@ -74,5 +74,34 @@ namespace //~~NameInstance~~//
                 System.Console.WriteLine(e);
             }
         }
+
+        public string TextEditor = "";
+
+        public string[] Editors = new string[]
+        {
+            @"c:\Program Files (x86)\Notepad++\notepad++.exe",
+            @"c:\Program Files\Notepad++\notepad++.exe",
+            @"c:\Program Files (x86)\Notepad2\notepad2.exe",
+            @"c:\Program Files\Notepad2\notepad2.exe",
+        };
+
+        public void OpenFileInBestAvailableNotepad(string filename)
+        {
+            if (TextEditor.Contains("$SystemRoot"))
+                TextEditor = TextEditor.Replace("$SystemRoot", "%SystemRoot%");
+
+            if (string.IsNullOrEmpty(TextEditor) && File.Exists(TextEditor)) return TextEditor;
+
+            foreach (var editor in Editors)
+            {
+                if (File.Exists(editor))
+                {
+                    TextEditor = editor;
+                    return TextEditor;
+                }
+            }
+            TextEditor = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\Notepad.exe");
+            return TextEditor;
+        }
     }
 }
