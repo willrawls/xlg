@@ -3,7 +3,7 @@ using System.Text;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 
-namespace MetX.Five.QuickScripts;
+namespace MetX.Five.Scripts;
 
 
 public class ConsoleScriptOutput

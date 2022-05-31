@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MetX.Five.QuickScripts
+namespace MetX.Five.Scripts
 {
     public enum PostBuildAction
     {

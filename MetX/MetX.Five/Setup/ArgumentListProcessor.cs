@@ -1,26 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Threading.Tasks;
 using MetX.Standard.Primary.Five;
 using MetX.Standard.Primary.Interfaces;
 
-namespace MetX.Five
+namespace MetX.Five.Setup
 {
-    public class ArgumentSettings
-    {
-        public ArgumentSettings()
-        {
-        }
-
-        public ArgumentNoun Noun;
-        public ArgumentVerb Verb;
-
-        public string Name{ get; set; }
-        public string Path{ get; set; }
-        public string ConnectionString{ get; set; }
-        public List<string> AdditionalArguments { get; set; }
-    }
-
     public class ArgumentListProcessor : IProcess 
     {
         public List<ArgumentProcessor> Processors = new();

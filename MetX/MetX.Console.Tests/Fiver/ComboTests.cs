@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using MetX.Five;
+using MetX.Five.Setup;
+using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Fiver;
@@ -8,33 +9,44 @@ namespace MetX.Console.Tests.Fiver;
 public class ComboTests
 {
     [TestMethod]
-    public void TESTNAME_Simple()
+    public void TestScript_Simple()
     {
-        var data = new ValidCombo<TestActor>(ArgumentVerb.Test, ArgumentNoun.Script);
+        var validCombo = new ValidCombo<TestActor>(ArgumentVerb.Test, ArgumentNoun.Script);
         
-        ArgumentSettings settings = new ArgumentSettings
+        var testActor = validCombo.Factory();
+        testActor.FakeReadyToActResult = true;
+        
+        var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
+        quickScriptTemplate.Name = "George";
+        XlgQuickScript quickScript = new XlgQuickScript("Freddy", "a = b;");
+
+
+        testActor.ResultFromAct = new ProcessorResult
         {
-            Verb = ArgumentVerb.Test ,
+            ActualizationResult = new ActualizationResult(new ActualizationSettings(quickScriptTemplate, true, quickScript, false, null)),
+        };
+
+        var settings = new ArgumentSettings
+        {
+            Verb = ArgumentVerb.Test,
             Noun = ArgumentNoun.Script,
             Name = "Fred",
             AdditionalArguments = new List<string>
             {
-                "George",
+                "George"
             }
         };
 
-        Assert.IsTrue(data.ReadyToAct(settings, out var reason));
+        Assert.IsTrue(testActor.ReadyToAct(settings, out var reason));
         Assert.IsNull(reason);
-        var actual = data.Act(settings);
+        var actual = testActor.Run(settings);
+        Assert.IsNotNull(actual);
+        Assert.IsNotNull(actual.ActualizationResult);
     }
 }
 
-public class TestActor : IAct
+public class TestActor : FiverActorBase
 {
-    public TestActor()
-    {
-    }
-
     public bool FakeReadyToActResult { get; set; }
     public bool ReadyToActWasCalled { get; set; }
     public string FakeReason { get; set; }
@@ -42,14 +54,14 @@ public class TestActor : IAct
 
     public bool ActWasCalled { get; set; }
 
-    public bool ReadyToAct(ArgumentSettings settings, out string reason)
+    public override bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
         reason = FakeReason;
         ReadyToActWasCalled = true;
         return FakeReadyToActResult;
     }
 
-    public ProcessorResult Act(ArgumentSettings settings)
+    public override ProcessorResult Run(ArgumentSettings settings)
     {
         ActWasCalled = true;
         return ResultFromAct;

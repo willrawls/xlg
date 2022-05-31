@@ -9,7 +9,7 @@ using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.QuickScripts;
+namespace MetX.Console.Tests.Scripts;
 
 [TestClass]
 public class XlgQuickScriptTemplateTests

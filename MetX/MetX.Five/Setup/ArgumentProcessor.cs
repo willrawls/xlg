@@ -2,7 +2,7 @@
 using MetX.Standard.Primary.Five;
 using MetX.Standard.Primary.Interfaces;
 
-namespace MetX.Five
+namespace MetX.Five.Setup
 {
     public class ArgumentProcessor : IProcess
     {

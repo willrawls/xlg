@@ -2,11 +2,10 @@
 using System.Linq;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary;
-using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 
-namespace MetX.Five.QuickScripts;
+namespace MetX.Five.Scripts;
 
 public class Wallaby
 {
