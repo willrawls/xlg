@@ -98,6 +98,7 @@ public class CommonDirectoryHelper
 
     public string CurrentSupportFolderPath => Paths[Constants.SupportFolderName].Value;
     public string CurrentTemplateFolderPath => Paths[Constants.TemplatesFolderName].Value;
+    public string ScriptsFolderName => Paths[Constants.ScriptsFolderName].Value;
 
     public CommonSettingsHelper Settings { get; private set; }
 

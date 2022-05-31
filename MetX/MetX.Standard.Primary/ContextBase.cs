@@ -1,5 +1,6 @@
 using System;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 
@@ -17,7 +18,7 @@ namespace MetX.Standard.Primary
         {
             if (pathToTemplates.IsEmpty()) throw new ArgumentException(nameof(pathToTemplates));
 
-            Host = host;
+            Host = host ?? new DoNothingGenerationHost("", this);;
             LoadTemplates(pathToTemplates);
         }
 

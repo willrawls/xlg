@@ -11,6 +11,7 @@ using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Five;
+using MetX.Five.QuickScripts;
 
 #pragma warning disable 414
 namespace MetX.Controls
@@ -148,8 +149,8 @@ namespace MetX.Controls
 
         private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
         {
-            var settings = scriptToRun.BuildSettings(false, host);
-            var result = settings.ActualizeAndCompile();
+            var wallaby = new Wallaby(host);
+            var result = wallaby.FiverRunScript(scriptToRun);
 
             if (!result.CompileSuccessful)
             {

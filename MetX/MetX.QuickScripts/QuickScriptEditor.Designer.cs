@@ -76,13 +76,13 @@ namespace XLG.QuickScripts
             this.SaveAsLink = new System.Windows.Forms.LinkLabel();
             this.OpenLink = new System.Windows.Forms.LinkLabel();
             this.NewFileLink = new System.Windows.Forms.LinkLabel();
-            this.BuildExeLink = new System.Windows.Forms.LinkLabel();
-            this.PostBuildActionsLiink = new System.Windows.Forms.LinkLabel();
             this.FindLink = new System.Windows.Forms.LinkLabel();
             this.ReplaceLink = new System.Windows.Forms.LinkLabel();
             this.NewScriptLink = new System.Windows.Forms.LinkLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.RestageTemplatesButton = new System.Windows.Forms.LinkLabel();
+            this.PostBuildActionsLiink = new System.Windows.Forms.LinkLabel();
+            this.BuildExeLink = new System.Windows.Forms.LinkLabel();
             this.ScriptNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ScriptNameColumn = new System.Windows.Forms.ColumnHeader();
@@ -721,38 +721,6 @@ namespace XLG.QuickScripts
             this.NewFileLink.Text = "New file";
             this.NewFileLink.Click += new System.EventHandler(this.NewScriptFile_Click);
             // 
-            // BuildExeLink
-            // 
-            this.BuildExeLink.AutoSize = true;
-            this.BuildExeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BuildExeLink.ForeColor = System.Drawing.Color.White;
-            this.BuildExeLink.LinkColor = System.Drawing.Color.Yellow;
-            this.BuildExeLink.Location = new System.Drawing.Point(3, 70);
-            this.BuildExeLink.Name = "BuildExeLink";
-            this.BuildExeLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.BuildExeLink.Size = new System.Drawing.Size(131, 24);
-            this.BuildExeLink.TabIndex = 2;
-            this.BuildExeLink.TabStop = true;
-            this.BuildExeLink.Text = "Build cmd line exe";
-            this.toolTip1.SetToolTip(this.BuildExeLink, "F6");
-            this.BuildExeLink.Click += new System.EventHandler(this.BuildExe_Click);
-            // 
-            // PostBuildActionsLiink
-            // 
-            this.PostBuildActionsLiink.AutoSize = true;
-            this.PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PostBuildActionsLiink.ForeColor = System.Drawing.Color.White;
-            this.PostBuildActionsLiink.LinkColor = System.Drawing.Color.Yellow;
-            this.PostBuildActionsLiink.Location = new System.Drawing.Point(3, 40);
-            this.PostBuildActionsLiink.Name = "PostBuildActionsLiink";
-            this.PostBuildActionsLiink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
-            this.PostBuildActionsLiink.Size = new System.Drawing.Size(130, 24);
-            this.PostBuildActionsLiink.TabIndex = 3;
-            this.PostBuildActionsLiink.TabStop = true;
-            this.PostBuildActionsLiink.Text = "Post build actions";
-            this.toolTip1.SetToolTip(this.PostBuildActionsLiink, "F12");
-            this.PostBuildActionsLiink.Click += new System.EventHandler(this.PostBuild_Click);
-            // 
             // FindLink
             // 
             this.FindLink.AutoSize = true;
@@ -822,6 +790,38 @@ namespace XLG.QuickScripts
             this.RestageTemplatesButton.TabStop = true;
             this.RestageTemplatesButton.Text = "Restage templates";
             this.RestageTemplatesButton.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RestageTemplatesButton_LinkClicked);
+            // 
+            // PostBuildActionsLiink
+            // 
+            this.PostBuildActionsLiink.AutoSize = true;
+            this.PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PostBuildActionsLiink.ForeColor = System.Drawing.Color.White;
+            this.PostBuildActionsLiink.LinkColor = System.Drawing.Color.Yellow;
+            this.PostBuildActionsLiink.Location = new System.Drawing.Point(3, 40);
+            this.PostBuildActionsLiink.Name = "PostBuildActionsLiink";
+            this.PostBuildActionsLiink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.PostBuildActionsLiink.Size = new System.Drawing.Size(130, 24);
+            this.PostBuildActionsLiink.TabIndex = 3;
+            this.PostBuildActionsLiink.TabStop = true;
+            this.PostBuildActionsLiink.Text = "Post build actions";
+            this.toolTip1.SetToolTip(this.PostBuildActionsLiink, "F12");
+            this.PostBuildActionsLiink.Click += new System.EventHandler(this.PostBuild_Click);
+            // 
+            // BuildExeLink
+            // 
+            this.BuildExeLink.AutoSize = true;
+            this.BuildExeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BuildExeLink.ForeColor = System.Drawing.Color.White;
+            this.BuildExeLink.LinkColor = System.Drawing.Color.Yellow;
+            this.BuildExeLink.Location = new System.Drawing.Point(3, 70);
+            this.BuildExeLink.Name = "BuildExeLink";
+            this.BuildExeLink.Padding = new System.Windows.Forms.Padding(5, 6, 0, 0);
+            this.BuildExeLink.Size = new System.Drawing.Size(131, 24);
+            this.BuildExeLink.TabIndex = 2;
+            this.BuildExeLink.TabStop = true;
+            this.BuildExeLink.Text = "Build cmd line exe";
+            this.toolTip1.SetToolTip(this.BuildExeLink, "F6");
+            this.BuildExeLink.Click += new System.EventHandler(this.BuildExe_Click);
             // 
             // ScriptNameLabel
             // 
