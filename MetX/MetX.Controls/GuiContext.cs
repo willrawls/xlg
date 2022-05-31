@@ -4,20 +4,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using MetX.Five;
+using MetX.Five.QuickScripts;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
-using MetX.Five;
-using MetX.Five.QuickScripts;
 
 #pragma warning disable 414
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
 
-    public class Context : ContextBase
+    public class GuiContext : ContextBase
     {
         public static readonly List<QuickScriptOutput> OutputWindows = new();
         public static bool ScriptIsRunning { get; private set; }
@@ -25,7 +25,7 @@ namespace MetX.Controls
         private static readonly object MScriptSyncRoot = new();
 
 
-        public Context(IGenerationHost host = null) : base(Shared.Dirs.CurrentTemplateFolderPath, host)
+        public GuiContext(IGenerationHost host = null) : base(Shared.Dirs.CurrentTemplateFolderPath, host)
         {
         }
 

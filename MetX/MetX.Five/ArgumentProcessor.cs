@@ -8,7 +8,7 @@ namespace MetX.Five
     {
         private readonly IProcess _processor;
 
-        public ArgumentProcessor(ProcessorType processorType)
+        public ArgumentProcessor(ArgumentNoun argumentNoun)
         {
             _processor = new XlgDocDatabaseMetadataProcessor("Five.xlgt");
         }

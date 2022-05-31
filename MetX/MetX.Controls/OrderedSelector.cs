@@ -1,11 +1,10 @@
-﻿using MetX.Standard.Library.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using MetX.Standard.Library.Extensions;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
-
     public partial class OrderedSelector : UserControl
     {
         public OrderedSelector()

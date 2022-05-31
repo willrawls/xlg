@@ -1,4 +1,6 @@
-﻿namespace XLG.QuickScripts.Walker
+﻿using MetX.Windows.Controls;
+
+namespace XLG.QuickScripts.Walker
 {
     public partial class DatabaseTemplateEditorForm
     {
@@ -108,12 +110,12 @@
             treeNode4,
             treeNode39});
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.quickScriptControl2 = new MetX.Controls.QuickScriptControl();
-            this.quickScriptControl1 = new MetX.Controls.QuickScriptControl();
+            this.quickScriptControl2 = new QuickScriptControl();
+            this.quickScriptControl1 = new QuickScriptControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.StartAreaEditor = new MetX.Controls.QuickScriptControl();
-            this.BodyAreaEditor = new MetX.Controls.QuickScriptControl();
-            this.FinishAreaEditor = new MetX.Controls.QuickScriptControl();
+            this.StartAreaEditor = new QuickScriptControl();
+            this.BodyAreaEditor = new QuickScriptControl();
+            this.FinishAreaEditor = new QuickScriptControl();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -378,12 +380,12 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private MetX.Controls.QuickScriptControl quickScriptControl2;
-        private MetX.Controls.QuickScriptControl quickScriptControl1;
+        private QuickScriptControl quickScriptControl2;
+        private QuickScriptControl quickScriptControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private MetX.Controls.QuickScriptControl StartAreaEditor;
-        private MetX.Controls.QuickScriptControl BodyAreaEditor;
-        private MetX.Controls.QuickScriptControl FinishAreaEditor;
+        private QuickScriptControl StartAreaEditor;
+        private QuickScriptControl BodyAreaEditor;
+        private QuickScriptControl FinishAreaEditor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

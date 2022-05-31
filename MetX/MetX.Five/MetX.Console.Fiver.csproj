@@ -33,7 +33,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="QuickScripts\Settings.ico" />
+	  <None Remove="Scripts\Settings.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,21 +1,20 @@
 ﻿// ReSharper disable UnusedVariable
 
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document.HighlightingStrategy;
 using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
 using ICSharpCode.TextEditor.Gui;
+using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Scripts;
 using MetX.Windows.Library;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
-    using System;
-    using System.Windows.Forms;
-    using ICSharpCode.TextEditor.Gui.CompletionWindow;
-
     public partial class QuickScriptControl : TextEditorControl
     {
         public XlgQuickScript Current = null;

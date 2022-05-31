@@ -10,7 +10,7 @@ using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public sealed partial class QuickScriptOutput : ScriptRunningWindow, IShowText
     {
@@ -213,7 +213,7 @@ namespace MetX.Controls
             try
             {
                 Window.Host ??= Host;
-                Context.RunQuickScript(this, Script, null, Host);
+                GuiContext.RunQuickScript(this, Script, null, Host);
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
                     watchForChangesToolStripMenuItem.Enabled = true;

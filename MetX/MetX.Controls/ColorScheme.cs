@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public class ColorScheme
     {

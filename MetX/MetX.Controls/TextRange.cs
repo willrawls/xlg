@@ -1,6 +1,6 @@
 ﻿using ICSharpCode.TextEditor.Document;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public class TextRange : AbstractSegment
     {

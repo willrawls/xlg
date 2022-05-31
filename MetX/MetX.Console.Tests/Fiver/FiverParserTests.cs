@@ -1,7 +1,7 @@
 ﻿using MetX.Five;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests;
+namespace MetX.Console.Tests.Fiver;
 
 [TestClass]
 public class FiverParserTests

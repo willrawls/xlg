@@ -1,4 +1,4 @@
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public enum MenuActionType
     {

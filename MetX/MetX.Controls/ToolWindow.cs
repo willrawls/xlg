@@ -4,7 +4,7 @@ using ICSharpCode.TextEditor.Gui;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public partial class ToolWindow : Form //: DockContent
     {
@@ -12,16 +12,16 @@ namespace MetX.Controls
         public IGenerationHost Host { get; set; }
         public static IGenerationHost HostInstance { get; set; }
 
-        public static Context SharedContext
+        public static GuiContext SharedContext
         {
             get
             {
                 if (ContextBase.Default != null)
                 {
-                    return ContextBase.Default as Context;
+                    return ContextBase.Default as GuiContext;
                 }
-                ContextBase.Default = new Context(HostInstance);
-                return (Context)ContextBase.Default;
+                ContextBase.Default = new GuiContext(HostInstance);
+                return (GuiContext)ContextBase.Default;
             }
             set => ContextBase.Default = value;
         }

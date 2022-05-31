@@ -1,7 +1,7 @@
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     /// <summary>
     /// Object that runs scripts targeted at a given control

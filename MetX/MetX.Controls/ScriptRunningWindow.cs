@@ -1,14 +1,14 @@
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
     public class ScriptRunningWindow : ToolWindow, IRunQuickScript
     {
         public void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
         {
             caller ??= this;
-            Context.RunQuickScript(caller, scriptToRun, targetOutput, Host);
+            GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
         }
 
         public ToolWindow Window { get => this; set { } }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.UserControls;
-using MetX.Controls;
 using MetX.Five;
 using MetX.Five.QuickScripts;
 using MetX.Standard.Library.Extensions;
@@ -14,6 +13,7 @@ using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.XDString;
 using MetX.Windows;
+using MetX.Windows.Controls;
 using MetX.Windows.Library;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
@@ -374,7 +374,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     private void LoadQuickScriptsFile(string filePath, bool updateForm)
     {
-        Host.Context ??= new Context(Host);
+        Host.Context ??= new GuiContext(Host);
         var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
         Host.Context.Scripts = xlgQuickScriptFile;
 
@@ -461,13 +461,13 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         try
         {
-            foreach (var outputWindow in Context.OutputWindows)
+            foreach (var outputWindow in GuiContext.OutputWindows)
             {
                 outputWindow.Close();
                 outputWindow.Dispose();
             }
 
-            Context.OutputWindows.Clear();
+            GuiContext.OutputWindows.Clear();
         }
         catch
         {

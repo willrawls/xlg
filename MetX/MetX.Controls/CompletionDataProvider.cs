@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-namespace MetX.Controls
+namespace MetX.Windows.Controls
 {
 	public class CompletionDataProvider : ICompletionDataProvider
 	{
