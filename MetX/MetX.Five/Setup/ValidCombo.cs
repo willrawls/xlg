@@ -4,15 +4,6 @@ namespace MetX.Five.Setup;
 
 public class ValidCombo<T> : FiverActorBase where T : new()
 {
-    public ArgumentNoun Noun;
-    public ArgumentVerb Verb;
-
-    public ValidCombo(ArgumentVerb verb, ArgumentNoun noun)
-    {
-        Verb = verb;
-        Noun = noun;
-    }
-
     public T Factory()
     {
         var actor = new T();
@@ -22,5 +13,9 @@ public class ValidCombo<T> : FiverActorBase where T : new()
     public IAct TheAct()
     {
         return (IAct) this;
+    }
+
+    public ValidCombo(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
     }
 }

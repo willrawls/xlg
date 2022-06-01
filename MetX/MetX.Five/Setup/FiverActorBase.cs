@@ -4,11 +4,23 @@ namespace MetX.Five.Setup;
 
 public class FiverActorBase : FiveActorAbstractBase
 {
+    public FiverActorBase()
+    {
+    }
+
+    public FiverActorBase(ArgumentVerb verb, ArgumentNoun noun)
+    {
+        Verb = verb;
+        Noun = noun;
+    }
 
 }
 
 public abstract class FiveActorAbstractBase : IAct
 {
+    public ArgumentNoun Noun;
+    public ArgumentVerb Verb;
+
     public virtual bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
         reason = null;

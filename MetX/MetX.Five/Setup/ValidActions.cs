@@ -1,9 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MetX.Five.Setup;
 
 public static class Ron
 {
+    public static ArgumentVerb DetermineVerb(string text)
+    {
+        if (Enum.TryParse(
+                typeof(ArgumentVerb),
+                text,
+                true,
+                out var result))
+        {
+            var verb 
+                = (result as ArgumentVerb? 
+                   ?? ArgumentVerb.Unknown);
+            return verb;
+        }
+
+        return ArgumentVerb.Unknown;
+    }
+
+    public static ArgumentNoun DetermineNoun(string text)
+    {
+        if (Enum.TryParse(
+                typeof(ArgumentNoun),
+                text,
+                true,
+                out var result))
+        {
+            var verb 
+                = (result as ArgumentNoun? 
+                   ?? ArgumentNoun.Unknown);
+            return verb;
+        }
+
+        return ArgumentNoun.Unknown;
+    }
+
     public static List<FiverActorBase> SupportedFiverActions => new()
     {
 
@@ -54,16 +89,41 @@ public static class Ron
 
 public class TemplateActor : FiverActorBase
 {
+    public TemplateActor() {}
+    public TemplateActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
+    }
 }
 
 public class LibraryActor : FiverActorBase
 {
+    public LibraryActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
+    }
+
+    public LibraryActor()
+    {
+    }
 }
 
 public class StageActor : FiverActorBase
 {
+    public StageActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
+    }
+
+    public StageActor()
+    {
+    }
 }
 
 public class GenGenActor : FiverActorBase
 {
+    public GenGenActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
+    }
+
+    public GenGenActor()
+    {
+    }
 }

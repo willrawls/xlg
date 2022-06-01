@@ -6,6 +6,14 @@ namespace MetX.Five.Setup;
 
 public class ScriptFiverActor : FiverActorBase
 {
+    public ScriptFiverActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
+    {
+    }
+
+    public ScriptFiverActor()
+    {
+    }
+
     public bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
         reason = null;

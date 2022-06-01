@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Threading.Tasks;
+using MetX.Five.Scripts;
 using MetX.Standard.Primary.Five;
 using MetX.Standard.Primary.Interfaces;
 
@@ -13,6 +14,7 @@ namespace MetX.Five.Setup
 
         public ArgumentListProcessor(List<string> arguments)
         {
+            
             Processors.Add(new ArgumentProcessor(ArgumentNoun.Xlg));
             _argumentSettings = new ArgumentSettings();
         }
@@ -33,4 +35,4 @@ namespace MetX.Five.Setup
             return await Task.Run(Go);
         }
     }
-}
+}*/
