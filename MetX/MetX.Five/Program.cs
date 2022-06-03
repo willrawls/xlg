@@ -51,52 +51,6 @@ namespace MetX.Five
                 return;
             }
 
-            ProcessorResult result = null;
-
-            switch (settings.Verb)
-            {
-                case ArgumentVerb.Unknown:
-                    Console.WriteLine($"Error: Unknown verb");
-                    ShowSyntax();
-                    break;
-
-                case ArgumentVerb.Run:
-                    result = actor.Run(settings);
-                    break;
-
-                case ArgumentVerb.Build:
-                    result = actor.Build(settings);
-                    break;
-                case ArgumentVerb.Gen:
-                    result = actor.Gen(settings);
-                    break;
-                case ArgumentVerb.Regen:
-                    result = actor.Regen(settings);
-                    break;
-                case ArgumentVerb.Walk:
-                    result = actor.Walk(settings);
-                    break;
-                case ArgumentVerb.Stage:
-                    result = actor.Stage(settings);
-                    break;
-                case ArgumentVerb.Add:
-                    result = actor.Add(settings);
-                    break;
-                case ArgumentVerb.Clone:
-                    result = actor.Clone(settings);
-                    break;
-                case ArgumentVerb.Delete:
-                    result = actor.Delete(settings);
-                    break;
-                case ArgumentVerb.Test:
-                    result = actor.Test(settings);
-                    break;
-                case ArgumentVerb.Remove:
-                    result = actor.Remove(settings);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
 
             Console.WriteLine("Ding");
 
