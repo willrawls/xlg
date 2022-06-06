@@ -44,13 +44,14 @@ namespace MetX.Five
                 return;
             }
 
-            if(actor.ReadyToAct(settings, out var reason))
+            if(!actor.ReadyToAct(settings, out var reason))
             {
                 Console.WriteLine($"Error: {reason}");
                 ShowSyntax();
                 return;
             }
 
+            ProcessorResult results = actor[settings](settings);
 
             Console.WriteLine("Ding");
 
