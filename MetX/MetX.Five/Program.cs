@@ -34,24 +34,26 @@ namespace MetX.Five
             if (args.Length > 3) settings.Path = args[3];
             if (args.Length > 4) settings.AdditionalArguments = args.Skip(4).ToList();
 
-            var actor = Ron.SupportedFiverActions
-                .FirstOrDefault(a => 
-                a.Verb == settings.Verb && a.Noun == settings.Noun);
+            Func<ArgumentSettings, ProcessorResult> processingFunction = Ron
+                .SupportedFiverActions
+                .FirstOrDefault(a => a
+                    .Verb == settings.Verb 
+                    && a.Noun == settings.Noun)?[settings];
 
-            if(actor == null)
+            if(processingFunction == null)
             {
                 ShowSyntax();
                 return;
             }
 
-            if(!actor.ReadyToAct(settings, out var reason))
+            if(!processingFunction.ReadyToAct(settings, out var reason))
             {
                 Console.WriteLine($"Error: {reason}");
                 ShowSyntax();
                 return;
             }
 
-            ProcessorResult results = actor[settings](settings);
+            ProcessorResult results = processingFunction[settings](settings);
 
             Console.WriteLine("Ding");
 

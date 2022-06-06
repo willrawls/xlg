@@ -24,7 +24,10 @@ public class ComboTests
 
         testActor.ResultFromAct = new ProcessorResult
         {
-            ActualizationResult = new ActualizationResult(new ActualizationSettings(quickScriptTemplate, true, quickScript, false, null)),
+            ActualizationResult = new ActualizationResult
+                (new ActualizationSettings(
+                    quickScriptTemplate, true, 
+                    quickScript, false, null)),
         };
 
         var settings = new ArgumentSettings
@@ -40,7 +43,7 @@ public class ComboTests
 
         Assert.IsTrue(testActor.ReadyToAct(settings, out var reason));
         Assert.IsNull(reason);
-        var actual = testActor.Run(settings);
+        var actual = testActor[settings](settings);
         Assert.IsNotNull(actual);
         Assert.IsNotNull(actual.ActualizationResult);
     }
