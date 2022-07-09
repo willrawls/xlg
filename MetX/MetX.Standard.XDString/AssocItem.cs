@@ -19,11 +19,14 @@ public class AssocItem : IAssocItem
     [XmlAttribute] public int Number { get; set; }
     [XmlAttribute] public string Category { get; set; }
 
-    public AssocItem() { }
+    public AssocItem()
+    {
+        ID = Guid.NewGuid();
+    }
     public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
     {
         Parent = parent;
-        Key = string.IsNullOrEmpty(key) ? "CetasItem" : key;
+        Key = key ?? "CetasItem";
         Value = value ?? "";
         Name = name ?? "";
 

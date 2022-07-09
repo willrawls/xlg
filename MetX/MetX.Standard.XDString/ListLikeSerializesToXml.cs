@@ -10,27 +10,27 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString;
 
-public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActual> :
-    IListLikeSerializeToXml<TParent, TChild>
-    where TParent : ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActual>, new()
-    where TChild : new()
-    where TTop : class
+public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType> :
+    IListLikeSerializeToXml<TSecondAxis, TItem>
+    where TFirstAxis : class
+    where TSecondAxis : ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType>, new()
+    where TItem : new()
 {
-    protected ListLikeSerializesToXml(Func<TKey, TChild, bool> keyComparer)
+    protected ListLikeSerializesToXml(Func<TKey, TItem, bool> keyComparer)
     {
         KeyComparer = keyComparer;
     }
 
     [XmlArray(ElementName = "Items")]
     [XmlArrayItem(ElementName = "Item")]
-    public virtual List<TChild> Items { get; set; } = new();
+    public virtual List<TItem> Items { get; set; } = new();
 
     [XmlIgnore] public int Count => Items.Count;
 
-    [XmlIgnore] public Func<TKey, TChild, bool> KeyComparer { get; set; }
+    [XmlIgnore] public Func<TKey, TItem, bool> KeyComparer { get; set; }
 
 
-    public virtual TChild this[TKey key]
+    public virtual TItem this[TKey key]
     {
         get
         {
@@ -68,7 +68,7 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
             }
 
             using var xtw = new XmlTextWriter(path, Encoding.UTF8);
-            GetSerializer(typeof(TTop), ExtraTypes())
+            GetSerializer(typeof(TFirstAxis), ExtraTypes())
                 .Serialize(xtw, this);
         }
     }
@@ -99,14 +99,14 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
     /// <returns></returns>
     public virtual string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
     {
-        TTop toSerialize = this as TTop;
+        TFirstAxis toSerialize = this as TFirstAxis;
         var sb = new StringBuilder();
         var settings = new XmlWriterSettings {OmitXmlDeclaration = true, Indent = true};
         var extraTypes = ExtraTypes();
 
         using (var xw = XmlWriter.Create(sb, settings))
         {
-            GetSerializer(typeof(TTop), extraTypes).Serialize(xw, toSerialize);
+            GetSerializer(typeof(TFirstAxis), extraTypes).Serialize(xw, toSerialize);
         }
 
         if (!removeNamespaces) return sb.ToString();
@@ -134,18 +134,18 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
         
         var extraTypes = new[]
         {
-            typeof(TTop),
-            typeof(TParent),
-            typeof(TChild),
+            typeof(TFirstAxis),
+            typeof(TSecondAxis),
+            typeof(TItem),
             typeof(TKey),
-            typeof(TActual),
-            typeof(ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActual>)
+            typeof(TTopLevelType),
+            typeof(ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType>)
         }.ToList();
 
-        extraTypes.AddRange(typeof(TParent).GenericTypeArguments);
-        extraTypes.AddRange(typeof(TChild).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TSecondAxis).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TItem).GenericTypeArguments);
         extraTypes.AddRange(typeof(TKey).GenericTypeArguments);
-        extraTypes.AddRange(typeof(TActual).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TTopLevelType).GenericTypeArguments);
 
         if (extraExtraTypes is {Length: > 0})
         {
@@ -155,19 +155,19 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
         return extraTypes.Distinct().ToArray();
     }
 
-    public static TTop FromXml(string xml)
+    public static TFirstAxis FromXml(string xml)
     {
         if (!xml.Contains("<AssocArray"))
             xml = RewriteRootNodeName_TParentToAssocArray(xml);
         using var sr = new StringReader(xml);
-        var parent = (TTop) GetSerializer(typeof(TTop), null).Deserialize(sr);
+        var parent = (TFirstAxis) GetSerializer(typeof(TFirstAxis), null).Deserialize(sr);
         return parent;
     }
 
     public static string RewriteRootNodeName_AssocArrayToTParent(string xml)
     {
         return xml;
-        var targetNameOfRootElement = typeof(TTop).Name;
+        var targetNameOfRootElement = typeof(TFirstAxis).Name;
         if (targetNameOfRootElement != "AssocArray")
             xml = xml
                 .Replace("<AssocArray", $"<{targetNameOfRootElement}")
@@ -178,7 +178,7 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
     public static string RewriteRootNodeName_TParentToAssocArray(string xml)
     {
         return xml;
-        var targetNameOfRootElement = typeof(TTop).Name;
+        var targetNameOfRootElement = typeof(TFirstAxis).Name;
         if (targetNameOfRootElement != "AssocArray")
             xml = xml
                 .Replace($"<{targetNameOfRootElement}", "<AssocArray")
@@ -186,13 +186,13 @@ public abstract class ListLikeSerializesToXml<TTop, TParent, TChild, TKey, TActu
         return xml;
     }
 
-    public static TTop FromBytes(byte[] bytes)
+    public static TFirstAxis FromBytes(byte[] bytes)
     {
         var xml = Encoding.UTF8.GetString(bytes);
         var aa = !string.IsNullOrEmpty(xml)
             ? FromXml(xml)
             : default;
-        return aa as TTop;
+        return aa as TFirstAxis;
     }
 
     public string ToXml()

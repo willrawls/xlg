@@ -119,6 +119,37 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
         }
     }
 
+    public AssocItem<T> this[Guid id]
+    {
+        get
+        {
+            lock (SyncRoot)
+            {
+                var assocItem = this.FirstOrDefault(i => i.ID == id);
+                if (assocItem != null) return assocItem;
+
+                assocItem = new AssocItem<T>{ ID = id };
+                Add(assocItem);
+                return assocItem;
+            }
+        }
+        set
+        {
+            lock (SyncRoot)
+            {
+                for (var i = 0; i < Count; i++)
+                {
+                    var assocItem = this[i];
+                    if (assocItem.ID != id) continue;
+
+                    this[i] = value;
+                    return;
+                }
+                Add(value);
+            }
+        }
+    }
+
     public bool ContainsKey(string key)
     {
         lock (SyncRoot)
