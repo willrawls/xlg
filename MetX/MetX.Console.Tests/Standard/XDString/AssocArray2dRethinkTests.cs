@@ -1,4 +1,5 @@
 ﻿using MetX.Standard.Library.Encryption;
+using MetX.Standard.Primary.Extensions;
 using MetX.Standard.XDString.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -59,5 +60,42 @@ public class AssocArray2dRethinkTests
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.MaryAssocItemTestGuid);
     }
+
+    [TestMethod]
+    public void ToXml_Simple()
+    {
+        var data = new AssocArray2dRethink<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new GeorgeAssocItem();;
+        var mary = new MaryAssocItem();
+
+        data[fred.Key, george.Key] = mary;
+
+        var expected = "Something";
+        var actual = data.ToXml();
+
+        Assert.IsNotNull(actual);
+        Assert.IsTrue(actual.Contains("</AssocArray2dRethinkOfFredAssocItemGeorgeAssocItemMaryAssocItem>"));
+    }
+
+    [TestMethod]
+    public void FromXml_Simple()
+    {
+        var data = new AssocArray2dRethink<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new GeorgeAssocItem();;
+        var mary = new MaryAssocItem();
+
+        data[fred.Key, george.Key] = mary;
+
+        var expected = data.ToXml();
+        var actual = XDStringExtensions.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem>(expected);
+
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(expected, actual.ToXml());
+    }
+
 
 }
