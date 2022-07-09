@@ -16,7 +16,7 @@ public class ComboTests
         
         var testActor = validCombo.Factory();
         testActor.FakeReadyToActResult = true;
-        
+
         var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
         quickScriptTemplate.Name = "George";
         XlgQuickScript quickScript = new XlgQuickScript("Freddy", "a = b;");
@@ -45,29 +45,5 @@ public class ComboTests
         Assert.IsNull(reason);
         var actual = testActor[settings](settings);
         Assert.IsNotNull(actual);
-        Assert.IsNotNull(actual.ActualizationResult);
-    }
-}
-
-public class TestActor : FiverActorBase
-{
-    public bool FakeReadyToActResult { get; set; }
-    public bool ReadyToActWasCalled { get; set; }
-    public string FakeReason { get; set; }
-    public ProcessorResult ResultFromAct { get; set; } = new();
-
-    public bool ActWasCalled { get; set; }
-
-    public override bool ReadyToAct(ArgumentSettings settings, out string reason)
-    {
-        reason = FakeReason;
-        ReadyToActWasCalled = true;
-        return FakeReadyToActResult;
-    }
-
-    public override ProcessorResult Run(ArgumentSettings settings)
-    {
-        ActWasCalled = true;
-        return ResultFromAct;
     }
 }

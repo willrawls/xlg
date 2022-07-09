@@ -13,5 +13,5 @@ public interface IAct
     ProcessorResult Walk(ArgumentSettings settings) => null;
     ProcessorResult Gen(ArgumentSettings settings) => null;
     ProcessorResult Regen(ArgumentSettings settings) => null;
-
+    ProcessorResult Test(ArgumentSettings settings) => null;
 }

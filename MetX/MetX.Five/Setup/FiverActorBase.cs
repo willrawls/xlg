@@ -81,9 +81,9 @@ public abstract class FiveActorAbstractBase : IAct
         }
     }
 
-    public ProcessorResult Test(ArgumentSettings settings) => throw new NotImplementedException();
+    public virtual ProcessorResult Stage(ArgumentSettings settings) => throw new NotImplementedException();
 
-    public ProcessorResult Stage(ArgumentSettings settings) => throw new NotImplementedException();
+    public virtual ProcessorResult Test(ArgumentSettings settings) => throw new NotImplementedException();
 
     public virtual bool ReadyToAct(ArgumentSettings settings, out string reason)
     {

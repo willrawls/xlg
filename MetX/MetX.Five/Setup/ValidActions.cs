@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MetX.Five.Setup;
 
@@ -85,6 +86,14 @@ public static class Ron
         new ValidCombo<TemplateActor>(ArgumentVerb.Remove, ArgumentNoun.Template),
         new ValidCombo<TemplateActor>(ArgumentVerb.Clone, ArgumentNoun.Template)
     };
+
+    public static FiverActorBase GetActor(this ArgumentVerb verb, ArgumentNoun noun)
+    {
+        return SupportedFiverActions
+            .FirstOrDefault(a => a
+                                 .Verb == verb 
+                                 && a.Noun == noun);
+    }
 }
 
 public class TemplateActor : FiverActorBase
