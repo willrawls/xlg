@@ -46,14 +46,14 @@ namespace MetX.Five
                 return;
             }
 
-            if(!processingFunction.ReadyToAct(settings, out var reason))
+
+            var result = processingFunction(settings);
+            if(result.ActualizationResult.ActualizationSuccessful != true)
             {
-                Console.WriteLine($"Error: {reason}");
+                Console.WriteLine($"Error: {result.ActualizationResult.ActualizeErrorText}");
                 ShowSyntax();
                 return;
             }
-
-            ProcessorResult results = processingFunction[settings](settings);
 
             Console.WriteLine("Ding");
 

@@ -53,4 +53,10 @@
 	  <Folder Include="Walker\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Reference Include="Mvp.Xml">
+	    <HintPath>bin\Debug\net6.0\Mvp.Xml.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
 </Project>
