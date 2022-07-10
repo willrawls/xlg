@@ -1,4 +1,5 @@
-﻿using MetX.Standard.Library.Encryption;
+﻿using System;
+using MetX.Standard.Library.Encryption;
 using MetX.Standard.Primary.Extensions;
 using MetX.Standard.XDString.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -91,7 +92,7 @@ public class AssocArray2dRethinkTests
         data[fred.Key, george.Key] = mary;
 
         var expected = data.ToXml();
-        var actual = XDStringExtensions.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem>(expected);
+        var actual = TwoDimensionalAssocArrayExtensions.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());
@@ -182,7 +183,98 @@ public class AssocArray2dRethinkTests
         data[fred.Key, george.Key] = mary;
 
         var expected = data.ToXml();
-        var actual = XDStringExtensions.FromXml<JustAnAssocItem>(expected);
+        var actual = TwoDimensionalAssocArrayExtensions.FromXml<JustAnAssocItem>(expected);
+
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(expected, actual.ToXml());
+    }
+    #endregion
+
+    #region AxiTheSameDifferentItem
+    [TestMethod]
+    public void AxiTheSameDifferentItem_GetByBothKeysSimplified()
+    {
+        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+
+        var fred = new JustAnAssocItem();
+        var george = new JustAnAssocItem();
+        var mary = new JustAnAssocItem();
+
+        var expected = mary.JustAGuid;
+        data[fred.Key, george.Key] = mary;
+
+        var actual = data[fred.Key, george.Key];
+
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(expected, actual.JustAGuid);
+    }
+
+    [TestMethod]
+    public void AxiTheSameDifferentItem_GetByBothIDsSimplified()
+    {
+        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new FredAssocItem();
+        var mary = new JustAnAssocItem();
+
+        Guid expected = mary.JustAGuid;
+        data[fred.ID, george.ID] = mary;
+
+        JustAnAssocItem actual = data[fred.ID, george.ID];
+
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(expected, actual.JustAGuid);
+    }
+
+    [TestMethod]
+    public void AxiTheSameDifferentItem_GetByBothObjectsSimplified()
+    {
+        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new FredAssocItem();
+        var mary = new JustAnAssocItem();
+
+        var expected = mary.JustAGuid;
+        data[fred, george] = mary;
+
+        var actual = data[fred, george];
+
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(expected, actual.JustAGuid);
+    }
+
+    [TestMethod]
+    public void AxiTheSameDifferentItem_ToXml_Simple()
+    {
+        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new FredAssocItem();
+        var mary = new JustAnAssocItem();
+
+        data[fred.Key, george.Key] = mary;
+
+        var actual = data.ToXml();
+
+        Assert.IsNotNull(actual);
+        Assert.IsTrue(actual.Contains("</TwoDimensionalAssocArrayOfFredAssocItemJustAnAssocItem>"), actual);
+    }
+
+    [TestMethod]
+    public void AxiTheSameDifferentItem_FromXml_Simple()
+    {
+        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+
+        var fred = new FredAssocItem();
+        var george = new FredAssocItem();
+        var mary = new JustAnAssocItem();
+
+        data[fred.Key, george.Key] = mary;
+        
+        var expected = data.ToXml();
+        var actual = TwoDimensionalAssocArrayExtensions.FromXml<FredAssocItem, JustAnAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());

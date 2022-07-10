@@ -81,7 +81,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Metadata\ArchivedFiles\" />
-		<Folder Include="Extensions\" />
 		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>

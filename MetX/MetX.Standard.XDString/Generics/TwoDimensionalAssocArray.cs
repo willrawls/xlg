@@ -4,11 +4,138 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class TwoDimensionalAssocArray<T> 
-    : TwoDimensionalAssocArray<T, T, T>
-    where T : class, IAssocItem, new()
+public class TwoDimensionalAssocArray<TItem> 
+    where TItem : class, IAssocItem, new()
 {
+    public AssocArray<AssocArray<TItem>> FirstAxis = new();
 
+    public TItem this[string firstAxisKey, string secondAxisKey]
+    {
+        get
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return null;
+
+            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item;
+        }
+        set
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return;
+
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item = value;
+        }
+    }
+
+    public TItem this[TItem first, TItem second]
+    {
+        get
+        {
+            if (first == null 
+                || second == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty())
+                return null;
+
+            return FirstAxis[first.Key].Item[second.Key].Item;
+        }
+        set
+        {
+            if (first == null 
+                || second == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty())
+                return;
+
+            FirstAxis[first.Key].Item[second.Key].Item = value;
+        }
+    }
+
+    public TItem this[Guid firstAxisId, Guid secondAxisId]
+    {
+        get
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+                return null;
+
+            return FirstAxis[firstAxisId].Item[secondAxisId].Item;
+        }
+        set
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+                return;
+
+            FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
+        }
+    }
+
+}
+
+public class TwoDimensionalAssocArray<TAxis, TItem> 
+    where TAxis : class, IAssocItem
+    where TItem : class, IAssocItem, new()
+{
+    public AssocArray<AssocArray<TItem>> FirstAxis = new();
+
+    public TItem this[string firstAxisKey, string secondAxisKey]
+    {
+        get
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return null;
+
+            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item;
+        }
+        set
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return;
+
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item = value;
+        }
+    }
+
+    public TItem this[TAxis first, TAxis second]
+    {
+        get
+        {
+            if (first == null 
+                || second == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty())
+                return null;
+
+            return FirstAxis[first.Key].Item[second.Key].Item;
+        }
+        set
+        {
+            if (first == null 
+                || second == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty())
+                return;
+
+            FirstAxis[first.Key].Item[second.Key].Item = value;
+        }
+    }
+
+    public TItem this[Guid firstAxisId, Guid secondAxisId]
+    {
+        get
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+                return null;
+
+            return FirstAxis[firstAxisId].Item[secondAxisId].Item;
+        }
+        set
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+                return;
+
+            FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
+        }
+    }
 }
 
 public class TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem>
@@ -77,19 +204,4 @@ public class TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem>
             FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
         }
     }
-
-
-    /*
-    public override string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
-    {
-        var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
-        var targetNameOfRootElement = typeof(AssocArray2D<TFirstAxis, TSecondAxis, TItem>).Name;
-        if(targetNameOfRootElement != "AssocArray" && normalizeRootNodeName)
-            xml = xml
-                .Replace("<AssocArray", $"<{targetNameOfRootElement}")
-                .Replace("</AssocArray", $"</{targetNameOfRootElement}");
-        return xml;
-    }
-    */
-
 }
