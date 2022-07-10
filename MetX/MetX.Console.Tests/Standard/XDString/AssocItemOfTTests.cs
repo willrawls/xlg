@@ -1,5 +1,6 @@
 ﻿using System;
 using MetX.Console.Tests.Standard.Library;
+using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.XDString;
 using MetX.Standard.XDString.Generics;
 using MetX.Standard.XDString.Interfaces;

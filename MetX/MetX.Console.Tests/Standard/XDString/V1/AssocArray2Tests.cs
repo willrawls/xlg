@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using MetX.Console.Tests.Standard.Library;
-using MetX.Standard.XDString.Generics;
+using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.XDString.Generics.V1;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.XDString.V1;
 
 [TestClass()]
 public class AssocArray2Tests

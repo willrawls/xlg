@@ -1,4 +1,5 @@
 ﻿using System;
+using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.Primary.Extensions;
 using MetX.Standard.XDString.Generics;

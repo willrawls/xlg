@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using MetX.Standard.XDString.Generics;
+using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.XDString.Generics.V1;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.XDString.V1;
 
 public class A4DAA : AssocArray4D<A4DAA, George, GeorgeItem, Fred, FredItem>
 {
@@ -10,13 +10,6 @@ public class A4DAA : AssocArray4D<A4DAA, George, GeorgeItem, Fred, FredItem>
 
     public new static A4DAA FromXml(string xml)
     {
-        /*var name = xml.TokenBetween("<", ">").FirstToken();
-        if (name != ActualName)
-            xml = xml
-                    .Replace($"<{name}", $"<AssocArray Name=\"{name}\"")
-                    .Replace($"</{name}", $"</AssocArray ")
-                ;*/
-
         using var sr = new StringReader(xml);
         var xmlSerializer = GetSerializer(typeof(A4DAA), ExtraTypes());
 

@@ -2,7 +2,7 @@
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.XDString;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 
 public class FredItem
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using MetX.Standard.XDString;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 
 public class MaryAssocItem : AssocItem
 {
