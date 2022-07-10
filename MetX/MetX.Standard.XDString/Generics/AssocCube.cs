@@ -1,0 +1,232 @@
+﻿using System;
+using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.XDString.Support;
+
+namespace MetX.Standard.XDString.Generics;
+
+public class AssocCube<TItem> 
+    where TItem : class, IAssocItem, new()
+{
+    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
+
+    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
+    {
+        get
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
+                return null;
+
+            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+        }
+        set
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
+                return;
+
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+        }
+    }
+
+    public TItem this[TItem first, TItem second, TItem third]
+    {
+        get
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return null;
+
+            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+        }
+        set
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return;
+
+            FirstAxis[first.Key].Item[second.Key].Item[second.Key].Item = value;
+        }
+    }
+
+    public TItem this[Guid firstAxisId, Guid secondAxisId, Guid thirdAxisId]
+    {
+        get
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
+                return null;
+
+            return FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item;
+        }
+        set
+        {
+            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
+                return;
+
+            FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
+        }
+    }
+
+}
+
+public class AssocCube<TAxis, TItem> 
+    where TAxis : class, IAssocItem
+    where TItem : class, IAssocItem, new()
+{
+    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
+
+    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
+    {
+        get
+        {
+            if (firstAxisKey.IsEmpty() 
+                || secondAxisKey.IsEmpty()
+                || thirdAxisKey.IsEmpty())
+                return null;
+
+            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+        }
+        set
+        {
+            if (firstAxisKey.IsEmpty() 
+                || secondAxisKey.IsEmpty()
+                || thirdAxisKey.IsEmpty())
+                return;
+
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+        }
+    }
+
+    public TItem this[TAxis first, TAxis second, TAxis third]
+    {
+        get
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return null;
+
+            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+        }
+        set
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return;
+
+            FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item = value;
+        }
+    }
+
+    public TItem this[Guid firstAxisId, Guid secondAxisId, Guid thirdAxisId]
+    {
+        get
+        {
+            if (firstAxisId == Guid.Empty 
+                || secondAxisId == Guid.Empty
+                || thirdAxisId == Guid.Empty)
+                return null;
+
+            return FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item;
+        }
+        set
+        {
+            if (firstAxisId == Guid.Empty 
+                || secondAxisId == Guid.Empty
+                || thirdAxisId == Guid.Empty)
+                return;
+
+            FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
+        }
+    }
+}
+
+public class AssocCube<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
+    where TFirstAxis : class, IAssocItem 
+    where TSecondAxis : class, IAssocItem
+    where TThirdAxis : class, IAssocItem
+    where TItem : class, IAssocItem, new()
+{
+    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
+
+    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
+    {
+        get
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return null;
+
+            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+        }
+        set
+        {
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+                return;
+
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+        }
+    }
+
+    public TItem this[TFirstAxis first, TSecondAxis second, TThirdAxis third]
+    {
+        get
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return null;
+
+            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+        }
+        set
+        {
+            if (first == null 
+                || second == null
+                || third == null
+                || first.Key.IsEmpty() 
+                || second.Key.IsEmpty()
+                || third.Key.IsEmpty())
+                return;
+
+            FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item = value;
+        }
+    }
+
+    public TItem this[Guid firstAxisId, Guid secondAxisId, Guid thirdAxisId]
+    {
+        get
+        {
+            if (firstAxisId == Guid.Empty 
+                || secondAxisId == Guid.Empty
+                || thirdAxisId == Guid.Empty)
+                return null;
+
+            return FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item;
+        }
+        set
+        {
+            if (firstAxisId == Guid.Empty 
+                || secondAxisId == Guid.Empty
+                || thirdAxisId == Guid.Empty)
+                return;
+
+            FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
+        }
+    }
+}

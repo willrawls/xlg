@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Console.Tests.Standard.XDString;
 
 [TestClass]
-public class TwoDimensionalAssocArrayTests
+public class AssocSheetTests
 {
 #region ThreeDifferentAxisTypes
     [TestMethod]
@@ -93,7 +93,7 @@ public class TwoDimensionalAssocArrayTests
         data[fred.Key, george.Key] = mary;
 
         var expected = data.ToXml();
-        var actual = TwoDimensionalAssocArrayExtensions.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem>(expected);
+        var actual = AssocSheetExtensions.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());
@@ -184,7 +184,7 @@ public class TwoDimensionalAssocArrayTests
         data[fred.Key, george.Key] = mary;
 
         var expected = data.ToXml();
-        var actual = TwoDimensionalAssocArrayExtensions.FromXml<JustAnAssocItem>(expected);
+        var actual = AssocSheetExtensions.FromXml<JustAnAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());
@@ -275,7 +275,7 @@ public class TwoDimensionalAssocArrayTests
         data[fred.Key, george.Key] = mary;
         
         var expected = data.ToXml();
-        var actual = TwoDimensionalAssocArrayExtensions.FromXml<FredAssocItem, JustAnAssocItem>(expected);
+        var actual = AssocSheetExtensions.FromXml<FredAssocItem, JustAnAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());

@@ -6,7 +6,7 @@ using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.Primary.Extensions;
 
-public static class TwoDimensionalAssocArrayExtensions
+public static class AssocSheetExtensions
 {
     #region Three different types
 
