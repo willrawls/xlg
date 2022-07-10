@@ -14,7 +14,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void ThreeDifferentAxisTypes_GetByBothKeysSimplified()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+        var data = new AssocSheet<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem();;
@@ -32,7 +32,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void ThreeDifferentAxisTypes_GetByBothIDsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+        var data = new AssocSheet<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem();;
@@ -50,7 +50,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void ThreeDifferentAxisTypes_GetByBothObjectsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+        var data = new AssocSheet<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem();;
@@ -67,7 +67,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void ThreeDifferentAxisTypes_ToXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+        var data = new AssocSheet<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem();;
@@ -84,7 +84,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void ThreeDifferentAxisTypes_FromXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
+        var data = new AssocSheet<FredAssocItem, GeorgeAssocItem, MaryAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem();;
@@ -104,7 +104,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void SameForAllThree_GetByBothKeysSimplified()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -122,7 +122,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void SameForAllThree_GetByBothIDsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -140,7 +140,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void SameForAllThree_GetByBothObjectsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -158,7 +158,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void SameForAllThree_ToXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -175,7 +175,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void SameForAllThree_FromXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -195,7 +195,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothKeysSimplified()
     {
-        var data = new TwoDimensionalAssocArray<JustAnAssocItem>();
+        var data = new AssocSheet<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem();
@@ -213,7 +213,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothIDsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocSheet<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem();
@@ -231,7 +231,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothObjectsSimplified()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocSheet<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem();
@@ -249,7 +249,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void AxiTheSameDifferentItem_ToXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocSheet<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem();
@@ -266,7 +266,7 @@ public class TwoDimensionalAssocArrayTests
     [TestMethod]
     public void AxiTheSameDifferentItem_FromXml_Simple()
     {
-        var data = new TwoDimensionalAssocArray<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocSheet<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem();

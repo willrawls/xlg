@@ -11,70 +11,70 @@ public static class TwoDimensionalAssocArrayExtensions
     #region Three different types
 
     public static string ToXml<TFirstAxis, TSecondAxis, TItem>(
-        this TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem> assocArray)
+        this AssocSheet<TFirstAxis, TSecondAxis, TItem> assocSheet)
         where TFirstAxis : class, IAssocItem 
         where TSecondAxis : class, IAssocItem
         where TItem : class, IAssocItem, new()
     {
-        if (assocArray == null || assocArray.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
             return "";
 
-        var xml = Xml.ToXml(assocArray);
+        var xml = Xml.ToXml(assocSheet);
         return xml;
     }
 
-    public static TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem> FromXml<TFirstAxis, TSecondAxis, TItem>(string xml)
+    public static AssocSheet<TFirstAxis, TSecondAxis, TItem> FromXml<TFirstAxis, TSecondAxis, TItem>(string xml)
         where TFirstAxis : class, IAssocItem 
         where TSecondAxis : class, IAssocItem
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem>>(xml);
+            : Xml.FromXml<AssocSheet<TFirstAxis, TSecondAxis, TItem>>(xml);
     }
     #endregion
 
     #region One type
 
-    public static string ToXml<T>(this TwoDimensionalAssocArray<T> twoDimensionalAssocArray)
+    public static string ToXml<T>(this AssocSheet<T> assocSheet)
         where T : class, IAssocItem, new()
     {
-        if (twoDimensionalAssocArray == null || twoDimensionalAssocArray.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
             return "";
 
-        var xml = Xml.ToXml(twoDimensionalAssocArray);
+        var xml = Xml.ToXml(assocSheet);
         return xml;
     }
 
-    public static TwoDimensionalAssocArray<TAssocItem> FromXml<TAssocItem>(string xml)
+    public static AssocSheet<TAssocItem> FromXml<TAssocItem>(string xml)
         where TAssocItem : class, IAssocItem , new()
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<TwoDimensionalAssocArray<TAssocItem>>(xml);
+            : Xml.FromXml<AssocSheet<TAssocItem>>(xml);
     }
     #endregion
 
     #region One type for axis, one for item
     public static string ToXml<TAxis, TItem>(
-        this TwoDimensionalAssocArray<TAxis, TItem> twoDimensionalAssocArray)
+        this AssocSheet<TAxis, TItem> assocSheet)
         where TAxis : class, IAssocItem 
         where TItem : class, IAssocItem, new()
     {
-        if (twoDimensionalAssocArray == null || twoDimensionalAssocArray.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
             return "";
 
-        var xml = Xml.ToXml(twoDimensionalAssocArray);
+        var xml = Xml.ToXml(assocSheet);
         return xml;
     }
 
-    public static TwoDimensionalAssocArray<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
+    public static AssocSheet<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
         where TAxis : class, IAssocItem 
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<TwoDimensionalAssocArray<TAxis, TItem>>(xml);
+            : Xml.FromXml<AssocSheet<TAxis, TItem>>(xml);
     }
     #endregion
 }

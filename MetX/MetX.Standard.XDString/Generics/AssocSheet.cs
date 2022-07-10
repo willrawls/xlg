@@ -4,7 +4,7 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class TwoDimensionalAssocArray<TItem> 
+public class AssocSheet<TItem> 
     where TItem : class, IAssocItem, new()
 {
     public AssocArray<AssocArray<TItem>> FirstAxis = new();
@@ -71,7 +71,7 @@ public class TwoDimensionalAssocArray<TItem>
 
 }
 
-public class TwoDimensionalAssocArray<TAxis, TItem> 
+public class AssocSheet<TAxis, TItem> 
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
@@ -138,7 +138,7 @@ public class TwoDimensionalAssocArray<TAxis, TItem>
     }
 }
 
-public class TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem>
+public class AssocSheet<TFirstAxis, TSecondAxis, TItem>
     where TFirstAxis : class, IAssocItem 
     where TSecondAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
