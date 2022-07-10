@@ -78,7 +78,7 @@ public class TwoDimensionalAssocArrayTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</TwoDimensionalAssocArrayOfFredAssocItemGeorgeAssocItemMaryAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocSheetOfFredAssocItemGeorgeAssocItemMaryAssocItem>"), actual);
     }
 
     [TestMethod]
@@ -169,7 +169,7 @@ public class TwoDimensionalAssocArrayTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</TwoDimensionalAssocArrayOfJustAnAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocSheetOfJustAnAssocItem>"), actual);
     }
 
     [TestMethod]
@@ -260,7 +260,7 @@ public class TwoDimensionalAssocArrayTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</TwoDimensionalAssocArrayOfFredAssocItemJustAnAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocSheetOfFredAssocItemJustAnAssocItem>"), actual);
     }
 
     [TestMethod]
