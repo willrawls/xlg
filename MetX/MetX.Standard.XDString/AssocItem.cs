@@ -43,14 +43,14 @@ public class AssocItem : IAssocItem
         var sb = new StringBuilder();
 
         sb.AppendLine($"{indentation}Key:   {Key}");
-        if(Value.IsNotEmpty()) 
-            sb.AppendLine($"{indentation}Value:    {Value}");
-        if(Name.IsNotEmpty()) 
-            sb.AppendLine($"{indentation}Name:     {Name}");
         if(ID != Guid.Empty) 
             sb.AppendLine($"{indentation}ID:       {ID:N}");
         if(Category.IsNotEmpty())
             sb.AppendLine($"{indentation}Category: {Category}");
+        if(Name.IsNotEmpty())
+            sb.AppendLine($"{indentation}Name:     {Name}");
+        if(Value.IsNotEmpty()) 
+            sb.AppendLine($"{indentation}Value:    {Value}");
         if(this.Number != 0)
             sb.AppendLine($"{indentation}Number:   {Number}");
         return sb.ToString();

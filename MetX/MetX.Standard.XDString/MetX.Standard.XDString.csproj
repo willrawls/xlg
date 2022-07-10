@@ -18,6 +18,9 @@
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="AssocArrayList.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />

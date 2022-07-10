@@ -17,7 +17,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
     [XmlElement] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
-    [XmlIgnore] public AssocArrayList Parent { get; set; }
+    //[XmlIgnore] public AssocArrayList Parent { get; set; }
     
     [XmlIgnore] public bool AutoPersist { get; set; }
     [XmlIgnore] public string FilePath { get; set; }
@@ -34,17 +34,18 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
                 
     }
 
-    public AssocArray(string key, AssocArrayList parent = null) : base(DefaultKeyComparer)
+    public AssocArray(string key /* , AssocArrayList parent = null */) : base(DefaultKeyComparer)
     {
         Key = key;
-        Parent = parent;
+        // Parent = parent;
     }
 
+    /*
     public AssocArray(AssocArrayList parent) : base(DefaultKeyComparer)
     {
         Parent = parent;
     }
-
+    */
 
     [XmlIgnore]
     public string[] Values

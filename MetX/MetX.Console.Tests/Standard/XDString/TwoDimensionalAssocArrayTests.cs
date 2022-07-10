@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Console.Tests.Standard.XDString;
 
 [TestClass]
-public class AssocArray2dRethinkTests
+public class TwoDimensionalAssocArrayTests
 {
 #region ThreeDifferentAxisTypes
     [TestMethod]
