@@ -26,7 +26,6 @@ public class AssocArrayListOfTTests
         System.Console.WriteLine(data["Fred"].ToString());
     }
 
-    /*
     [TestMethod]
     public void AssocArrayListOfT_Simple2()
     {
@@ -45,5 +44,4 @@ public class AssocArrayListOfTTests
         watch.Stop();
         Assert.IsTrue(watch.ElapsedMilliseconds < 1000);
     }
-*/
 }

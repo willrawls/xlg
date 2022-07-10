@@ -20,6 +20,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="AssocArrayList.cs" />
+	  <Compile Remove="Generics\V1\AssocArrayList.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
