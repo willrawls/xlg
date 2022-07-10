@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString;
 
@@ -26,20 +28,13 @@ public class AssocItem : IAssocItem
     public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
     {
         Parent = parent;
-        Key = key ?? "CetasItem";
+        Key = key ?? "DefaultKeyWhenThereIsNoKey";
         Value = value ?? "";
         Name = name ?? "";
 
-        if(id.HasValue)
-        {
-            if (id.Value == Guid.Empty)
-                ID = Guid.NewGuid();
-            ID = id.Value;
-        }
-        else
-        {
-            ID = Guid.NewGuid();
-        }
+        ID = id == Guid.Empty 
+            ? Guid.NewGuid() 
+            : id ?? Guid.NewGuid();
     }
 
     public virtual string ToText(int indent = 0)
@@ -48,26 +43,16 @@ public class AssocItem : IAssocItem
         var sb = new StringBuilder();
 
         sb.AppendLine($"{indentation}Key:   {Key}");
-        sb.AppendLine($"{indentation}Value: {Value}");
-        sb.AppendLine($"{indentation}Name:  {Name}");
-        sb.AppendLine($"{indentation}ID:    {ID:N}");
+        if(Value.IsNotEmpty()) 
+            sb.AppendLine($"{indentation}Value:    {Value}");
+        if(Name.IsNotEmpty()) 
+            sb.AppendLine($"{indentation}Name:     {Name}");
+        if(ID != Guid.Empty) 
+            sb.AppendLine($"{indentation}ID:       {ID:N}");
+        if(Category.IsNotEmpty())
+            sb.AppendLine($"{indentation}Category: {Category}");
+        if(this.Number != 0)
+            sb.AppendLine($"{indentation}Number:   {Number}");
         return sb.ToString();
     }
-
-/*
-    public string ToXml()
-    {
-        return $"    <AssocItem{Key.ToXmlAttribute("Key")}{Value.ToXmlAttribute("Value")}{this.ID.ToString("N").ToXmlAttribute("ID")}{(Number != 0 ? Number.ToString().ToXmlAttribute("Number") : "")}{Name.ToXmlAttribute("Name")}{Category.ToXmlAttribute("Category")} />";
-    }
-
-    
-    public static string ToXmlAttribute(this string value, string name)
-    {
-        if (value.IsEmpty())
-            return string.Empty;
-
-        var attributeString = $" {new XAttribute(name, value)}";
-        return attributeString;
-    }
- */
 }

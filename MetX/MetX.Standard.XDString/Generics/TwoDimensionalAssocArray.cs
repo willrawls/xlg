@@ -4,7 +4,14 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocArray2dRethink<TFirstAxis, TSecondAxis, TItem>
+public class TwoDimensionalAssocArray<T> 
+    : TwoDimensionalAssocArray<T, T, T>
+    where T : class, IAssocItem, new()
+{
+
+}
+
+public class TwoDimensionalAssocArray<TFirstAxis, TSecondAxis, TItem>
     where TFirstAxis : class, IAssocItem 
     where TSecondAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()

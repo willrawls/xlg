@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Serialization;
 using MetX.Standard.XDString.Support;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.XDString.Generics.V1;
 
 public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem> 
     : AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>> 
