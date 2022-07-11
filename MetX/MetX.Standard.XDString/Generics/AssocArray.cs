@@ -11,11 +11,11 @@ namespace MetX.Standard.XDString.Generics;
 [Serializable]
 public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()
 {
-    public string Key { get; }
-    public IAssocItem Parent { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
+    [XmlIgnore] public IAssocItem Parent { get; set; }
+    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Value { get; set; }
+    [XmlAttribute] public string Name { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
 
     public string[] Values
     {

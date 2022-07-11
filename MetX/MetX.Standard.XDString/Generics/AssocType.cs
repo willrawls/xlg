@@ -3,7 +3,7 @@
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocType<T>
+public class AssocType<T> : AssocItem
 {
     public T Target { get; set; }
 
@@ -15,4 +15,7 @@ public class AssocType<T>
     {
         Target = target;
     }
+
+    public static AssocType<T> Wrap(T target) => new AssocType<T>(target);
+
 }

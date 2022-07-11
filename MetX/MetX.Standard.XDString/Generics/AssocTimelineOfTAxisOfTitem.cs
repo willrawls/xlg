@@ -4,19 +4,13 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocCube<TAxis, TItem> : IAssocItem
+public class AssocFirstAxis<TAxis, TItem> 
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    public string Key { get; }
-    public IAssocItem Parent { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
+    public AssocArray<AssocArray<AssocArray<AssocArray<TItem>>>> FirstAxis = new();
 
-    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
-
-    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
+    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey, DateTime at]
     {
         get
         {
@@ -25,7 +19,8 @@ public class AssocCube<TAxis, TItem> : IAssocItem
                 || thirdAxisKey.IsEmpty())
                 return null;
 
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+            var assocType = AssocType<DateTime>.Wrap(at);
+            FirstAxis[assocType].Item[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
         }
         set
         {
@@ -34,7 +29,8 @@ public class AssocCube<TAxis, TItem> : IAssocItem
                 || thirdAxisKey.IsEmpty())
                 return;
 
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+            var assocType = AssocType<DateTime>.Wrap(at);
+            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item[assocType] = value;
         }
     }
 
