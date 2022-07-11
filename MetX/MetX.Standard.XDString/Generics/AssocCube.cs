@@ -34,24 +34,24 @@ public class AssocCube<TItem>
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return null;
 
-            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+            return FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item;
         }
         set
         {
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return;
 
-            FirstAxis[first.Key].Item[second.Key].Item[second.Key].Item = value;
+            FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item = value;
         }
     }
 
@@ -110,24 +110,24 @@ public class AssocCube<TAxis, TItem>
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return null;
 
-            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+            return FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item;
         }
         set
         {
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return;
 
-            FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item = value;
+            FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item = value;
         }
     }
 
@@ -187,24 +187,24 @@ public class AssocCube<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return null;
 
-            return FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item;
+            return FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item;
         }
         set
         {
             if (first == null 
                 || second == null
                 || third == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty()
-                || third.Key.IsEmpty())
+                || first.ID == Guid.Empty
+                || second.ID == Guid.Empty
+                || third.ID == Guid.Empty)
                 return;
 
-            FirstAxis[first.Key].Item[second.Key].Item[third.Key].Item = value;
+            FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item = value;
         }
     }
 

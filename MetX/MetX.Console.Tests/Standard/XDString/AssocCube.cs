@@ -10,7 +10,7 @@ namespace MetX.Console.Tests.Standard.XDString;
 [TestClass]
 public class AssocCubeTests
 {
-#region FourDifferentTypes
+    #region FourDifferentTypes
     [TestMethod]
     public void FourDifferentTypes_GetByBothKeysSimplified()
     {
