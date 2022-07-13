@@ -1,15 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 
 namespace MetX.Five.Scripts;
-
-
-public class ConsoleScriptOutput
-{
-    public StringBuilder StringBuilder = new StringBuilder();
-}
 
 public class ConsoleContext : ContextBase
 {

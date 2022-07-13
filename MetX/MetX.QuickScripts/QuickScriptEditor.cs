@@ -12,6 +12,7 @@ using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.XDString;
+using MetX.Standard.XDString.Generics;
 using MetX.Windows;
 using MetX.Windows.Controls;
 using MetX.Windows.Library;
@@ -45,7 +46,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
     public Guid CurrentId { get; set; } = Guid.Empty;
 
-    public AssocArrayList States { get; set; }
+    public AssocSheet States { get; set; }
 
     public QuickScriptEditor(string filePath)
     {

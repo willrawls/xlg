@@ -10,13 +10,4 @@ namespace MetX.Standard.Generators.Support
         void Initialize(GeneratorInitializationContext context);
         void Execute(GeneratorExecutionContext context);
     }
-
-    public abstract class ContextForGeneration : IAmAContextForGeneration
-    {
-        //public ISourceGenerator Parent { get; set; }
-        public bool Succeeded { get; set; }
-
-        public abstract void Execute(GeneratorExecutionContext context);
-        public abstract void Initialize(GeneratorInitializationContext context);
-    }
 }

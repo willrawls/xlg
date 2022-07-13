@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
@@ -49,16 +48,4 @@ namespace MetX.Five.Glove.Data
         public abstract int RecordHashNow();
         public bool HasChanged()  { return IsNew || RecordHashThen == 0 || RecordHashThen != RecordHashNow();  }
     }
-
-    [Serializable]
-    public abstract class ActiveList<T> : List<T> where T : ActiveRecord
-    {
-		public abstract string OuterXml();
-		public abstract string InnerXml();
-		public abstract void ToXml(TextWriter output);
-		public abstract void ToXml(XmlWriter xw);
-		public abstract void ToXml(StringBuilder sb);
-		public abstract void ToXml(StringBuilder sb, string outerTagName);
-	}
-
 }

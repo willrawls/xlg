@@ -7,12 +7,10 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString;
 
+
 [Serializable]
 public class AssocItem : IAssocItem
 {
-    [XmlIgnore]
-    public IAssocItem Parent { get; set; }
-
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
@@ -25,9 +23,8 @@ public class AssocItem : IAssocItem
     {
         ID = Guid.NewGuid();
     }
-    public AssocItem(string key, string value = "", Guid? id = null, string name = null, IAssocItem parent = null)
+    public AssocItem(string key, string value = "", Guid? id = null, string name = null)
     {
-        Parent = parent;
         Key = key ?? "DefaultKeyWhenThereIsNoKey";
         Value = value ?? "";
         Name = name ?? "";

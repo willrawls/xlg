@@ -11,7 +11,10 @@ namespace MetX.Standard.XDString.Generics;
 [Serializable]
 public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()
 {
-    [XmlIgnore] public IAssocItem Parent { get; set; }
+    public Guid Parent { get; set; }
+    public Guid Left { get; set; }
+    public Guid Right { get; set; }
+
     [XmlAttribute] public string Key { get; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
@@ -77,13 +80,15 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
 
     public AssocArray() { }
 
-    public AssocArray(string key, string value = null, Guid? id = null, string name = null, IAssocItem parent = null)
+    public AssocArray(string key, string value = null, Guid? id = null, string name = null, Guid? parent = null, Guid? left = null, Guid? right = null)
     {
         Key = key;
         Value = value;
         ID = id ?? Guid.NewGuid();
         Name = name;
-        Parent = parent;
+        Parent = parent ?? Guid.Empty;
+        Left = left ?? Guid.Empty;
+        Right = right ?? Guid.Empty;
     }
 
     public AssocItem<T> this[string key]

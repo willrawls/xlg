@@ -4,6 +4,11 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
+public class AssocSheet : AssocSheet<AssocType<string>>
+{
+
+}
+
 public class AssocSheet<TItem> 
     where TItem : class, IAssocItem, new()
 {

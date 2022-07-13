@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString.Generics;
@@ -14,8 +15,8 @@ public class AssocItem<T> : AssocItem, IAssocItem<T> where T : class, new()
         Item = new T();
     }
 
-    public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null, IAssocItem parent = null) 
-        : base(key, value, id, name, parent)
+    public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null) 
+        : base(key, value, id, name)
     {
         Item = item ??  new T();
     }

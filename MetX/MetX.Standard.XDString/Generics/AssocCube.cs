@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 using MetX.Standard.XDString.Support;
 
@@ -8,11 +9,10 @@ public class AssocCube<TAxis, TItem> : IAssocItem
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    public string Key { get; }
-    public IAssocItem Parent { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
+    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Value { get; set; }
+    [XmlAttribute] public string Name { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
 
     public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
 

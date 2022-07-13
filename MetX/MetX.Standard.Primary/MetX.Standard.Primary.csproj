@@ -43,6 +43,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="Metadata\Column.cs" />
+		<Compile Include="Metadata\Extensions.cs" />
 		<Compile Include="Metadata\Index.cs" />
 		<Compile Include="Metadata\IndexColumn.cs" />
 		<Compile Include="Metadata\Key.cs" />

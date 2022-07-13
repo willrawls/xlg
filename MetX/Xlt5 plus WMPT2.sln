@@ -2,12 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Glove.Console", "MetX.Glove.Console\MetX.Glove.Console.csproj", "{8492F221-2DE1-4F46-9A1C-A451AA986313}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.QuickScripts", "MetX.QuickScripts\MetX.QuickScripts.csproj", "{D554998C-4943-4167-8D2C-A7320A9E5A2F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Controls", "MetX.Controls\MetX.Controls.csproj", "{1E449E05-F155-4952-BF75-F8268E8695CF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Tests", "MetX.Tests\MetX.Tests.csproj", "{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Primary", "MetX.Standard.Primary\MetX.Standard.Primary.csproj", "{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}"
@@ -15,8 +9,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows", "MetX.Windows\MetX.Windows.csproj", "{0F4912CC-39DB-4D7D-A788-C9DD949117F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Aspects", "MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj", "{3624D670-0F13-493C-82FA-8F1D32CE8CA6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Fiver", "MetX.Five\MetX.Fiver.csproj", "{EB7DA300-BCE1-4254-BC94-57DFD91B5929}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Library", "MetX.Standard.Library\MetX.Standard.Library.csproj", "{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}"
 EndProject
@@ -36,24 +28,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilliamPersonalMultiTool", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilliamPersonalMultiTool.Tests", "..\WPMT2\WilliamPersonalMultiTool.Tests\WilliamPersonalMultiTool.Tests.csproj", "{566C059D-0EDB-4BDB-95A8-22ACF138912C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.Controls", "MetX.Controls\MetX.Windows.Controls.csproj", "{41242496-3C5A-4D77-BC05-F39AE09135A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Fiver", "MetX.Five\MetX.Console.Fiver.csproj", "{E32B2A75-2C7F-431B-B6AA-D048E24C1D6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.Glove", "MetX.Glove.Console\MetX.Windows.Glove.csproj", "{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.QuickScripts", "MetX.QuickScripts\MetX.Windows.QuickScripts.csproj", "{5090BBF4-5AFC-4555-9E38-78D931CC3F54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8492F221-2DE1-4F46-9A1C-A451AA986313}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D554998C-4943-4167-8D2C-A7320A9E5A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D554998C-4943-4167-8D2C-A7320A9E5A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D554998C-4943-4167-8D2C-A7320A9E5A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D554998C-4943-4167-8D2C-A7320A9E5A2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E449E05-F155-4952-BF75-F8268E8695CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E449E05-F155-4952-BF75-F8268E8695CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E449E05-F155-4952-BF75-F8268E8695CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E449E05-F155-4952-BF75-F8268E8695CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94AAD871-7675-49F8-A42C-B8B1CE15F8DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,10 +58,6 @@ Global
 		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3624D670-0F13-493C-82FA-8F1D32CE8CA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB7DA300-BCE1-4254-BC94-57DFD91B5929}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -110,6 +94,22 @@ Global
 		{566C059D-0EDB-4BDB-95A8-22ACF138912C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{566C059D-0EDB-4BDB-95A8-22ACF138912C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{566C059D-0EDB-4BDB-95A8-22ACF138912C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41242496-3C5A-4D77-BC05-F39AE09135A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41242496-3C5A-4D77-BC05-F39AE09135A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41242496-3C5A-4D77-BC05-F39AE09135A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41242496-3C5A-4D77-BC05-F39AE09135A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E32B2A75-2C7F-431B-B6AA-D048E24C1D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E32B2A75-2C7F-431B-B6AA-D048E24C1D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E32B2A75-2C7F-431B-B6AA-D048E24C1D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E32B2A75-2C7F-431B-B6AA-D048E24C1D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

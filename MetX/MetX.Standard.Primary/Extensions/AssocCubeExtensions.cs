@@ -59,14 +59,14 @@ public static class AssocCubeExtensions
 
     #region One type for axis, one for item
     public static string ToXml<TAxis, TItem>(
-        this AssocCube<TAxis, TItem> AssocCube)
+        this AssocCube<TAxis, TItem> assocCube)
         where TAxis : class, IAssocItem 
         where TItem : class, IAssocItem, new()
     {
-        if (AssocCube == null || AssocCube.FirstAxis.Count == 0)
+        if (assocCube == null || assocCube.FirstAxis.Count == 0)
             return "";
 
-        var xml = Xml.ToXml(AssocCube);
+        var xml = Xml.ToXml(assocCube);
         return xml;
     }
 

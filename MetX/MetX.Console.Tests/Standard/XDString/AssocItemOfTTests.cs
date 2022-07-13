@@ -17,14 +17,14 @@ public class AssocItemOfTTests
         var testGuid = Guid.NewGuid();
         Fred fred = new Fred();
         Fred fredItem = new Fred();
-        IAssocItem otherItem = new AssocItem<Fred>("Other", fred);
+        var otherItem = new AssocItem<Fred>("Other", fred);
 
-        var data = new AssocItem<Fred>("Fred", fredItem, "George", testGuid, "Mary", otherItem);
+        var data = new AssocRelativeItem<Fred>("Fred", fredItem, "George", testGuid, "Mary", otherItem.ID);
             
         Assert.AreEqual("Fred", data.Key);
         Assert.AreEqual("George", data.Value);
         Assert.AreEqual(testGuid, data.ID);
         Assert.AreEqual("Mary", data.Name);
-        Assert.AreEqual(otherItem.ID, data.Parent.ID);
+        Assert.AreEqual(otherItem.ID, data.Parent);
     }
 }
