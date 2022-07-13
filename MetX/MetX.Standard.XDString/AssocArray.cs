@@ -17,8 +17,6 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
     [XmlElement] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
-    //[XmlIgnore] public AssocArrayList Parent { get; set; }
-    
     [XmlIgnore] public bool AutoPersist { get; set; }
     [XmlIgnore] public string FilePath { get; set; }
 

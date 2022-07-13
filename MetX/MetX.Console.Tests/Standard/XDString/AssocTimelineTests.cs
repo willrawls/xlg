@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.Primary.Extensions;
 using MetX.Standard.XDString.Generics;
@@ -20,9 +20,9 @@ public class AssocTimelineTests
         var mary = new JustAnAssocItem();
 
         var expected = mary.JustAGuid;
-        data[fred.Key, george.Key, adam.Key, at] = mary;
+        data[at, fred.Key, george.Key, adam.Key] = mary;
 
-        var actual = data[fred.Key, george.Key, adam.Key, at];
+        var actual = data[at, fred.Key, george.Key, adam.Key];
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.JustAGuid);
@@ -38,9 +38,9 @@ public class AssocTimelineTests
         var mary = new JustAnAssocItem();
 
         Guid expected = mary.JustAGuid;
-        data[fred.ID, george.ID, adam.ID, at] = mary;
+        data[at, fred.ID, george.ID, adam.ID] = mary;
 
-        JustAnAssocItem actual = data[fred.ID, george.ID, adam.ID, at];
+        JustAnAssocItem actual = data[at, fred.ID, george.ID, adam.ID];
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.JustAGuid);
@@ -57,9 +57,9 @@ public class AssocTimelineTests
         var mary = new JustAnAssocItem();
 
         var expected = mary.JustAGuid;
-        data[fred, george, adam, at] = mary;
+        data[at, fred, george, adam] = mary;
 
-        var actual = data[fred, george, adam, at];
+        var actual = data[at, fred, george, adam];
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.JustAGuid);
@@ -75,7 +75,7 @@ public class AssocTimelineTests
         var george = new FredAssocItem(); var adam = new FredAssocItem();
         var mary = new JustAnAssocItem();
 
-        data[fred.Key, george.Key, adam.Key, at] = mary;
+        data[at, fred.Key, george.Key, adam.Key] = mary;
 
         var actual = data.ToXml();
 
@@ -91,15 +91,18 @@ public class AssocTimelineTests
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();
         var mary = new JustAnAssocItem();
+        var mary2 = new JustAnAssocItem();
 
-        data[fred.Key, george.Key, adam.Key, at] = mary;
+        data[at, fred.Key, george.Key, adam.Key] = mary;
+        data[at.AddDays(1), fred.Key, george.Key, adam.Key] = mary2;
         
         var expected = data.ToXml();
         var actual = AssocTimelineExtensions.FromXml<FredAssocItem, JustAnAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());
+        System.Console.WriteLine(expected);
     }
     #endregion
 
-}*/
+}
