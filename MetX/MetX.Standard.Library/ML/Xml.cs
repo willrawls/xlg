@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -357,5 +358,48 @@ namespace MetX.Standard.Library.ML
             var attributeString = $" {new XAttribute(name, value)}";
             return attributeString;
         }
+
+        public static Type[] ExtraTypes<T1, T2, T3, T4, T5>(Type[] extraExtraTypes = null)
+        {
+            var extraTypes = new[]
+            {
+                typeof(T1),
+                typeof(T2),
+                typeof(T3),
+                typeof(T4),
+                typeof(T5),
+            }.ToList();
+
+            extraTypes.AddRange(typeof(T2).GenericTypeArguments);
+            extraTypes.AddRange(typeof(T3).GenericTypeArguments);
+            extraTypes.AddRange(typeof(T4).GenericTypeArguments);
+            extraTypes.AddRange(typeof(T5).GenericTypeArguments);
+
+            if (extraExtraTypes is {Length: > 0})
+            {
+                extraTypes.AddRange(extraExtraTypes);
+            }
+
+            return extraTypes.ToArray();
+        }
+
+        public static Type[] ExtraTypes<T1>(Type[] extraExtraTypes = null)
+        {
+            var extraTypes = new[]
+            {
+                typeof(T1),
+            }.ToList();
+
+            extraTypes.AddRange(typeof(T1).GenericTypeArguments);
+
+            if (extraExtraTypes is {Length: > 0})
+            {
+                extraTypes.AddRange(extraExtraTypes);
+            }
+
+            return extraTypes.ToArray();
+        }
     }
+
+
 }

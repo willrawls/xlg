@@ -22,16 +22,17 @@ public class AssocItem : IAssocItem
     public AssocItem()
     {
         ID = Guid.NewGuid();
+        Key = ID.ToString("N");
     }
     public AssocItem(string key, string value = "", Guid? id = null, string name = null)
     {
-        Key = key ?? "DefaultKeyWhenThereIsNoKey";
         Value = value ?? "";
         Name = name ?? "";
 
         ID = id == Guid.Empty 
             ? Guid.NewGuid() 
             : id ?? Guid.NewGuid();
+        Key = key ?? ID.ToString("N");
     }
 
     public virtual string ToText(int indent = 0)

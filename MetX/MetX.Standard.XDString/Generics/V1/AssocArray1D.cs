@@ -16,8 +16,7 @@ namespace MetX.Standard.XDString.Generics.V1;
 public class AssocArray1D<TParent, TChild> 
     : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItem<TChild>, string, TChild> where TChild : class, new() where TParent : class
 {
-    [XmlAttribute]
-    public string Key { get; set; }
+    [XmlAttribute] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 using MetX.Standard.XDString.Support;
 
@@ -143,12 +144,31 @@ public class AssocSheet<TAxis, TItem>
     }
 }
 
-public class AssocSheet<TFirstAxis, TSecondAxis, TItem>
+public class AssocSheet<TFirstAxis, TSecondAxis, TItem> : IAssocItem
     where TFirstAxis : class, IAssocItem 
     where TSecondAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
     public AssocArray<AssocArray<TItem>> FirstAxis = new();
+
+    [XmlAttribute] public string Key { get; set; }
+    [XmlAttribute] public string Value { get; set; }
+    [XmlAttribute] public string Name { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
+
+    public AssocSheet()
+    {
+        ID = Guid.NewGuid();
+        Key = ID.ToString("N");
+    }
+
+    public AssocSheet(string key, string value = null, string name = null, Guid? id = null)
+    {
+        Value = value;
+        Name = name;
+        ID = id ?? Guid.NewGuid();
+        Key = key ?? ID.ToString("N");
+    }
 
     public TItem this[string firstAxisKey, string secondAxisKey]
     {

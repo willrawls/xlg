@@ -1,4 +1,5 @@
-﻿using System.Runtime.ExceptionServices;
+﻿using System;
+using System.Runtime.ExceptionServices;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
 using MetX.Standard.XDString.Generics;
@@ -11,15 +12,16 @@ public static class AssocSheetExtensions
     #region Three different types
 
     public static string ToXml<TFirstAxis, TSecondAxis, TItem>(
-        this AssocSheet<TFirstAxis, TSecondAxis, TItem> assocSheet)
+        this AssocSheet<TFirstAxis, TSecondAxis, TItem> assocSheet, Type[] extraTypes = null)
         where TFirstAxis : class, IAssocItem 
-        where TSecondAxis : class, IAssocItem
+        where TSecondAxis : class, IAssocItem, new()
         where TItem : class, IAssocItem, new()
     {
         if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
             return "";
 
-        var xml = Xml.ToXml(assocSheet);
+        extraTypes = Xml.ExtraTypes<TFirstAxis, TSecondAxis, TItem, string, AssocSheet<TFirstAxis, TSecondAxis, TItem>>(extraTypes);
+        var xml = Xml.ToXml(assocSheet, true, extraTypes);
         return xml;
     }
 

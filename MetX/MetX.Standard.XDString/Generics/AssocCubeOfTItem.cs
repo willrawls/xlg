@@ -1,12 +1,31 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocCube<TItem> 
+public class AssocCube<TItem> : IAssocItem
     where TItem : class, IAssocItem, new()
 {
+    [XmlAttribute] public string Key { get; set; }
+    [XmlAttribute] public string Value { get; set; }
+    [XmlAttribute] public string Name { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
+
+    public AssocCube(string key = null, string value = null, string name = null, Guid? id = null)
+    {
+        Key = key;
+        Value = value;
+        Name = name;
+        ID = id ?? Guid.NewGuid();
+    }
+
+    public AssocCube()
+    {
+        ID = Guid.NewGuid();
+    }
+
     public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
@@ -72,5 +91,4 @@ public class AssocCube<TItem>
             FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
         }
     }
-
 }

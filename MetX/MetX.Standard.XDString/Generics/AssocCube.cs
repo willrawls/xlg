@@ -9,7 +9,7 @@ public class AssocCube<TAxis, TItem> : IAssocItem
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }

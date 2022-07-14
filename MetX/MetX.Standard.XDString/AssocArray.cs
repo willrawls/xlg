@@ -14,7 +14,7 @@ namespace MetX.Standard.XDString;
 [XmlRoot("AssocArray")]
 public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocItem, string, string>
 {
-    [XmlElement] public string Key { get; set; }
+    [XmlAttribute] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public bool AutoPersist { get; set; }

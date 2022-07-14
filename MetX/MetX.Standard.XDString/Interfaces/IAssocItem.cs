@@ -4,11 +4,11 @@ namespace MetX.Standard.XDString.Interfaces;
 
 public interface IAssocItem
 {
-    public string Key { get; }
+    string Key { get; }
 
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
+    string Value { get; set; }
+    string Name { get; set; }
+    Guid ID { get; set; }
 }
 
 public interface IAssocItem<T> : IAssocItem
