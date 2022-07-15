@@ -24,8 +24,8 @@ public class XlgQuickScriptTemplateTests
         Assert.AreEqual(4, quickScriptTemplate.Assets.Count);
         Assert.AreEqual("TestExe", quickScriptTemplate.Name);
 
-        Assert.AreEqual(4, quickScriptTemplate.Assets.Items.Length);
-        CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, quickScriptTemplate.Assets.Keys);
+        Assert.AreEqual(4, quickScriptTemplate.Assets.Items().Length);
+        CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, quickScriptTemplate.Assets.Keys());
 
         XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
 
