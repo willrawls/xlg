@@ -19,10 +19,10 @@ public class AssocItemOfTTests
         Fred fredItem = new Fred();
         var otherItem = new AssocItem<Fred>("Other", fred);
 
-        var data = new AssocRelativeItem<Fred>("Fred", fredItem, "George", testGuid, "Mary", otherItem.ID);
+        var data = new AssocRelativeItem<Fred>("Fred", fredItem, "George1DArray", testGuid, "Mary", otherItem.ID);
             
         Assert.AreEqual("Fred", data.Key);
-        Assert.AreEqual("George", data.Value);
+        Assert.AreEqual("George1DArray", data.Value);
         Assert.AreEqual(testGuid, data.ID);
         Assert.AreEqual("Mary", data.Name);
         Assert.AreEqual(otherItem.ID, data.Parent);

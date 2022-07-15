@@ -1,7 +1,9 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 
+[Serializable]
 public class GeorgeItem
 {
     [XmlAttribute]

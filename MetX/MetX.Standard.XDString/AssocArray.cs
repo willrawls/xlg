@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,15 +14,22 @@ namespace MetX.Standard.XDString;
 
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocItem, string, string>
+public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocItem, string, string>, IAssocItem
 {
     [XmlAttribute] public string Key { get; set; }
+    public string Value { get; set; }
+    public string Name { get; set; }
+    public Guid ID { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public bool AutoPersist { get; set; }
     [XmlIgnore] public string FilePath { get; set; }
 
-    public AssocArray() : base(DefaultKeyComparer)
+    public AssocArray() : base()
+    {
+    }
+
+    public AssocArray(string key = null, string value = null, string name = null, Guid? id = null) : base(key, value, name, id)
     {
     }
 
@@ -32,18 +41,9 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
                 
     }
 
-    public AssocArray(string key /* , AssocArrayList parent = null */) : base(DefaultKeyComparer)
+    public AssocArray(string key) : base(key)
     {
-        Key = key;
-        // Parent = parent;
     }
-
-    /*
-    public AssocArray(AssocArrayList parent) : base(DefaultKeyComparer)
-    {
-        Parent = parent;
-    }
-    */
 
     [XmlIgnore]
     public string[] Values
@@ -204,7 +204,6 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
         }
         return sb.ToString();
     }
-
 
     public string Resolve(string target)
     {

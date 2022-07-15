@@ -18,7 +18,7 @@ public class ComboTests
         testActor.FakeReadyToActResult = true;
 
         var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
-        quickScriptTemplate.Name = "George";
+        quickScriptTemplate.Name = "George1DArray";
         XlgQuickScript quickScript = new XlgQuickScript("Freddy", "a = b;");
 
 
@@ -37,7 +37,7 @@ public class ComboTests
             Name = "Fred",
             AdditionalArguments = new List<string>
             {
-                "George"
+                "George1DArray"
             }
         };
 

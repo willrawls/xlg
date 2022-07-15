@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,42 +11,84 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString;
 
-public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType> :
-    IListLikeSerializeToXml<TSecondAxis, TItem>
+public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType> 
+    : IListLikeSerializeToXml<TSecondAxis, TItem>, 
+      IEnumerable<TItem>,
+      IAssocItem
     where TFirstAxis : class
     where TSecondAxis : ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType>, new()
-    where TItem : new()
+    where TItem : IAssocItem, new()
 {
-    protected ListLikeSerializesToXml(Func<TKey, TItem, bool> keyComparer)
-    {
-        KeyComparer = keyComparer;
-    }
 
-    [XmlArray(ElementName = "Items")]
-    [XmlArrayItem(ElementName = "Item")]
+    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Value { get; set; }
+    [XmlAttribute] public string Name { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
+
+    [XmlArray(ElementName = "Items"), XmlArrayItem(ElementName = "Item")]
     public virtual List<TItem> Items { get; set; } = new();
 
     [XmlIgnore] public int Count => Items.Count;
 
-    [XmlIgnore] public Func<TKey, TItem, bool> KeyComparer { get; set; }
 
+    protected ListLikeSerializesToXml(string key = null, string value = null, string name = null, Guid? id = null)
+    {
+        ID = id ?? Guid.NewGuid();
+        Key = key ?? ID.ToString("N");
+        Value = value;
+        Name = name;
+    }
+
+
+    public IEnumerator<TItem> GetEnumerator()
+    {
+        return Items.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public void Add(TItem item)
+    {
+        if (item == null)
+            return;
+        Items.Add(item);
+    }
 
     public virtual TItem this[TKey key]
     {
         get
         {
+            if (key == null)
+                return default;
+
+            var keyString = 
+                key is string s
+                    ? s
+                    : key.ToString();
+
             foreach (var item in Items)
-                if (KeyComparer(key, item))
+                if (string.Equals(keyString, item.Key, StringComparison.InvariantCultureIgnoreCase))
                     return item;
 
             return default;
         }
         set
         {
+            if (key == null)
+                return;
+
+            var keyString = 
+                key is string s
+                    ? s
+                    : key.ToString();
+
             for (var index = 0; index < Items.Count; index++)
             {
                 var item = Items[index];
-                if (!KeyComparer(key, item)) continue;
+                if (!string.Equals(keyString, item.Key, StringComparison.InvariantCultureIgnoreCase)) continue;
 
                 Items.Insert(index, value);
                 Items.RemoveAt(index + 1);
@@ -217,5 +260,4 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
 
         return xmlSerializer;
     }
-
 }

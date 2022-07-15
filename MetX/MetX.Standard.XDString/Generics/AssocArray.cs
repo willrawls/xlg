@@ -30,60 +30,45 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
         Key = key ?? ID.ToString("N");
     }
 
-    public string[] Values
+    public string[] Values()
     {
-        get
-        {
-            if (Count == 0)
-                return Empty<string>();
-            var answer = this.Select(i => i.Value).ToArray();
-            return answer;
-        }
+        if (Count == 0)
+            return Empty<string>();
+        var answer = this.Select(i => i.Value).ToArray();
+        return answer;
     }
 
-    public string[] Names
+    public string[] Names()
     {
-        get
-        {
-            if (Count == 0)
-                return Empty<string>();
-            var answer = this.Select(i => i.Name).ToArray();
-            return answer;
-        }
+        if (Count == 0)
+            return Empty<string>();
+        var answer = this.Select(i => i.Name).ToArray();
+        return answer;
     }
 
-    public string[] Keys
+    public string[] Keys()
     {
-        get
-        {
-            if (Count == 0)
-                return Empty<string>();
-            var answer = this.Select(i => i.Key).ToArray();
-            return answer;
-        }
+        if (Count == 0)
+            return Empty<string>();
+        var answer = this.Select(i => i.Key).ToArray();
+        return answer;
     }
 
-    public Guid[] IDs
+    public Guid[] IDs()
     {
-        get
-        {
-            if (Count == 0)
-                return Empty<Guid>();
-            var answer = this.Select(i => i.ID).ToArray();
-            return answer;
-        }
+        if (Count == 0)
+            return Empty<Guid>();
+        var answer = this.Select(i => i.ID).ToArray();
+        return answer;
     }
 
-    public T[] Items
+    public T[] Items()
     {
-        get
-        {
-            if (Count == 0)
-                return Empty<T>();
+        if (Count == 0)
+            return Empty<T>();
 
-            var answer = this.Select(i => i.Item).ToArray();
-            return answer;
-        }
+        var answer = this.Select(i => i.Item).ToArray();
+        return answer;
     }
 
     [XmlIgnore] public object SyncRoot = new();

@@ -10,6 +10,6 @@ public class GeorgeAssocItem : AssocItem
 
     public GeorgeAssocItem()
     {
-        Key = "George";
+        Key = "George1DArray";
     }
 }

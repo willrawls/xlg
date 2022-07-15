@@ -13,10 +13,10 @@ public class AssocArrayTests
     {
         var data = new AssocArray
         {
-            ["Fred"] = { Value = "George" }
+            ["Fred"] = { Value = "George1DArray" }
         };
 
-        Assert.AreEqual("George", data["Fred"].Value);
+        Assert.AreEqual("George1DArray", data["Fred"].Value);
     }
 
     [TestMethod]
@@ -78,16 +78,16 @@ Item Value2
     [TestMethod]
     public void AssocArray_ValuesArray_Simple()
     {
-        var data = new AssocArray { ["Fred"] = { Value = "Henry" }, ["George"] = { Value = "Mary" } };
+        var data = new AssocArray { ["Fred"] = { Value = "Henry" }, ["George1DArray"] = { Value = "Mary" } };
         CollectionAssert.AreEqual(new[] { "Henry", "Mary" }, data.Values);
     }
 
     [TestMethod]
     public void AssocArray_KeysArray_Simple()
     {
-        var data = new AssocArray { ["Fred"] = { Value = "Henry" }, ["George"] = { Value = "Mary" } };
+        var data = new AssocArray { ["Fred"] = { Value = "Henry" }, ["George1DArray"] = { Value = "Mary" } };
         Assert.IsNotNull(data.Keys);
-        CollectionAssert.AreEqual(new[] { "Fred", "George" }, data.Keys);
+        CollectionAssert.AreEqual(new[] { "Fred", "George1DArray" }, data.Keys);
     }
 
     [TestMethod]
@@ -96,7 +96,7 @@ Item Value2
         var data = new AssocArray
         {
             ["Fred"] = { Number = int.MaxValue },
-            ["George"] = { Number = int.MinValue }
+            ["George1DArray"] = { Number = int.MinValue }
         };
         Assert.IsNotNull(data.Numbers);
         CollectionAssert.AreEqual(new[] { int.MaxValue, int.MinValue }, data.Numbers);
@@ -105,7 +105,7 @@ Item Value2
     [TestMethod]
     public void AssocArray_NamesArray_Simple()
     {
-        var data = new AssocArray { ["Fred"] = { Name = "Henry" }, ["George"] = { Name = "Mary" } };
+        var data = new AssocArray { ["Fred"] = { Name = "Henry" }, ["George1DArray"] = { Name = "Mary" } };
         var dataNames = data.Names;
         Assert.IsNotNull(dataNames);
 
@@ -117,11 +117,11 @@ Item Value2
     [TestMethod]
     public void AssocArray_IDsArray_Simple()
     {
-        var data = new AssocArray { ["Fred"] = { Name = "Henry" }, ["George"] = { Name = "Mary" } };
+        var data = new AssocArray { ["Fred"] = { Name = "Henry" }, ["George1DArray"] = { Name = "Mary" } };
         Assert.IsNotNull(data.Ids);
         Assert.AreEqual(2, data.Ids.Length);
         Assert.AreEqual(data.Ids[0], data["Fred"].ID);
-        Assert.AreEqual(data.Ids[1], data["George"].ID);
+        Assert.AreEqual(data.Ids[1], data["George1DArray"].ID);
     }
 
     [TestMethod]
@@ -129,13 +129,13 @@ Item Value2
     {
         var assocArray = new AssocArray
         {
-            ["Fred"] = { Value = "George" },
+            ["Fred"] = { Value = "George1DArray" },
             ["Mary"] = { Value = "Beth" },
             ["Henry"] = { Value = "Greg" }
         };
 
         Assert.AreEqual(3, assocArray.Count);
-        Assert.AreEqual("George", assocArray.Items[0].Value);
+        Assert.AreEqual("George1DArray", assocArray.Items[0].Value);
         Assert.AreEqual("Beth", assocArray.Items[1].Value);
         Assert.AreEqual("Greg", assocArray.Items[2].Value);
     }

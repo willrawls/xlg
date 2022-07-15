@@ -41,12 +41,12 @@ public class AssocArrayOfTTests
         var fred = new Fred();
         var data = new AssocArray<AssocArray<Fred>>();
         data["Fred"].Item = new AssocArray<Fred>();
-        data["Fred"].Item["George"].Item = fred;
-        Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George"].Item.TestGuid);
+        data["Fred"].Item["George1DArray"].Item = fred;
+        Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George1DArray"].Item.TestGuid);
 
         fred = new Fred();
         data = new AssocArray<AssocArray<Fred>>();
-        data["Fred"].Item["George"].Item = fred;
-        Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George"].Item.TestGuid);
+        data["Fred"].Item["George1DArray"].Item = fred;
+        Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George1DArray"].Item.TestGuid);
     }
 }

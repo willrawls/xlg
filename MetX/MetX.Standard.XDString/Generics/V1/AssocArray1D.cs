@@ -11,28 +11,23 @@ namespace MetX.Standard.XDString.Generics.V1;
 /// AssocArray1D is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly
 /// </summary>
 /// <typeparam name="TChild"></typeparam>
+/// <typeparam name="TParent"></typeparam>
 [Serializable]
 [XmlRoot("AssocArray")]
 public class AssocArray1D<TParent, TChild> 
-    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItem<TChild>, string, TChild> where TChild : class, new() where TParent : class
+    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItem<TChild>, string, TChild> 
+    where TParent : class
+    where TChild : class, new() 
 {
     [XmlAttribute] public string Key { get; set; }
 
     [XmlIgnore] public object SyncRoot { get; } = new();
 
-    public AssocArray1D() : base(DefaultKeyComparer)
+    public AssocArray1D()
     {
     }
 
-    public static bool DefaultKeyComparer(string keyOrName, AssocItem item)
-    {
-        if (string.IsNullOrEmpty(keyOrName) || item == null) return false;
-
-        return item.Key.Equals(keyOrName) || item.Name.Equals(keyOrName);
-                
-    }
-
-    public AssocArray1D(string key) : base(DefaultKeyComparer)
+    public AssocArray1D(string key) 
     {
         Key = key;
     }
@@ -153,13 +148,6 @@ public class AssocArray1D<TParent, TChild>
 
     public new static T FromTypedXml<T>(string xml) where T : class, new()
     {
-        /*var name = xml.TokenBetween("<", ">").FirstToken();
-        if (name != ActualName)
-            xml = xml
-                    .Replace($"<{name}", $"<AssocArray Name=\"{name}\"")
-                    .Replace($"</{name}", $"</AssocArray ")
-                ;*/
-
         using var sr = new StringReader(xml);
         var xmlSerializer = GetSerializer(typeof(T), ExtraTypes());
 

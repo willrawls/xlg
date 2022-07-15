@@ -16,8 +16,8 @@ public class FiverParserTests
 
 ~~BeginProcessing: %Input%
 
-~~Area: George
-    string z = ""George"";
+~~Area: George1DArray
+    string z = ""George1DArray"";
     z += ""z"";
     z += ""Mary"";
 ";
@@ -48,8 +48,8 @@ public class FiverParserTests
 ~~Area: Fred
     string y = ""Fred"";
     y = y.Trim();
-~~Area: George
-    string z = ""George"";
+~~Area: George1DArray
+    string z = ""George1DArray"";
     z += ""z"";
     z += ""Mary"";
 ");
@@ -58,14 +58,14 @@ public class FiverParserTests
 
         Assert.AreEqual("Default", data.Templates[0].Name);
         Assert.AreEqual("Fred", data.Areas[0].Name);
-        Assert.AreEqual("George", data.Areas[1].Name);
+        Assert.AreEqual("George1DArray", data.Areas[1].Name);
             
         Assert.AreEqual(1, data.Templates[0].Lines.Count);
         Assert.AreEqual(2, data.Areas[0].Lines.Count);
         Assert.AreEqual(3, data.Areas[1].Lines.Count);
             
         Assert.IsTrue(data.Areas[0].Lines[0].Contains("Fred"));
-        Assert.IsTrue(data.Areas[1].Lines[0].Contains("George"));
+        Assert.IsTrue(data.Areas[1].Lines[0].Contains("George1DArray"));
     }
         
     [TestMethod]

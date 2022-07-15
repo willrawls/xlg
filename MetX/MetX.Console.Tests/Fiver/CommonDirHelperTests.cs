@@ -9,7 +9,7 @@ namespace MetX.Console.Tests.Fiver;
 public class CommonDirHelperTests
 {
     const string fred = "Fred";
-    const string george = "George";
+    const string george = "George1DArray";
     const string harry = "Harry";
     const string paul = "Paul";
 
@@ -49,10 +49,10 @@ public class CommonDirHelperTests
 
         Shared.InitializeDirs(settingsFilePath, true);
         
-        Shared.Dirs.Settings.ToSettingsFile("George", expected);
+        Shared.Dirs.Settings.ToSettingsFile("George1DArray", expected);
         Assert.IsTrue(File.Exists(settingsFilePath));
 
-        var actual = Shared.Dirs.Settings.FromSettingsFile("George");
+        var actual = Shared.Dirs.Settings.FromSettingsFile("George1DArray");
         Shared.Dirs.Settings.ResetSettingsFile();
         Assert.IsFalse(File.Exists(settingsFilePath));
         
@@ -72,10 +72,10 @@ public class CommonDirHelperTests
         Shared.Dirs.Settings.ResetSettingsFile();
         Assert.IsFalse(File.Exists(filePath));
 
-        Shared.Dirs.Settings.ToSettingsFile("George", expected);
+        Shared.Dirs.Settings.ToSettingsFile("George1DArray", expected);
         Assert.IsTrue(File.Exists(filePath));
 
-        var actual = Shared.Dirs.Settings.FromSettingsFile("George");
+        var actual = Shared.Dirs.Settings.FromSettingsFile("George1DArray");
         Shared.Dirs.Settings.ResetSettingsFile();
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);
@@ -85,10 +85,10 @@ public class CommonDirHelperTests
         Shared.Dirs.Settings.ResetSettingsFile();
         Assert.IsFalse(File.Exists(filePath));
 
-        Shared.Dirs.Settings.ToSettingsFile("George", expected);
+        Shared.Dirs.Settings.ToSettingsFile("George1DArray", expected);
         Assert.IsTrue(File.Exists(filePath));
 
-        actual = Shared.Dirs.Settings.FromSettingsFile("George");
+        actual = Shared.Dirs.Settings.FromSettingsFile("George1DArray");
         Shared.Dirs.Settings.ResetSettingsFile();
 
         Assert.IsNotNull(actual);

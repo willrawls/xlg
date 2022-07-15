@@ -60,7 +60,7 @@ public class xlgDocTests
         Assert.IsNotNull(actualTable.Columns);
         Assert.AreEqual(1, actualTable.Columns.Count);
         Assert.AreEqual("Fred", actualTable.TableName);
-        Assert.AreEqual("George", actualTable.Columns[0].ColumnName);
+        Assert.AreEqual("George1DArray", actualTable.Columns[0].ColumnName);
 
         Assert.IsNotNull(actualTable.Keys);
         Assert.AreEqual(1, actualTable.Keys.Count);
@@ -76,7 +76,7 @@ public class xlgDocTests
         Assert.AreEqual(2, actual.Views.Count);
         Assert.AreEqual("bob", actual.Views[0].ViewName);
         Assert.IsNotNull(actual.Views[0].TSQL);
-        Assert.AreEqual("select George from Fred", actual.Views[1].TSQL);
+        Assert.AreEqual("select George1DArray from Fred", actual.Views[1].TSQL);
     }
 
     string FredsXml = @"
@@ -84,7 +84,7 @@ public class xlgDocTests
   <Tables>
     <Table TableName=""Fred"">
         <Columns>
-            <Column ColumnName=""George"" />
+            <Column ColumnName=""George1DArray"" />
         </Columns>
         <Keys>
             <Key Name=""Mary"">
@@ -104,7 +104,7 @@ public class xlgDocTests
   </Tables>
   <Views>
     <View ViewName=""bob"" TSQL=""bob_sql"" />
-    <View ViewName=""mandy"" TSQL=""select George from Fred"" />
+    <View ViewName=""mandy"" TSQL=""select George1DArray from Fred"" />
   </Views>
 </xlgDoc>
 ";
