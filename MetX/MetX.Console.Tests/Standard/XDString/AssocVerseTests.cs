@@ -11,7 +11,7 @@ namespace MetX.Console.Tests.Standard.XDString;
 public class AssocVerseTests
 {
     [TestMethod]
-    public void AxiTheSameDifferentItem_GetByIDsSimplified()
+    public void GetByIDsSimplified()
     {
         var at = DateTime.Now;
         var verse = new AssocVerse();
@@ -37,6 +37,9 @@ public class AssocVerseTests
         var expected = vector.ID;
         verse[realityLongAssocType.ID, vector.ID].Spin = 1;
 
+
+        VectorAssocType x = verse[Guid.NewGuid(), Guid.NewGuid()];
+        var y = reality.FirstAxis[].Item[].Item[]
         var actual = vector.ID;
 
         System.Console.WriteLine(verse.ToXml(new[] { typeof(AssocVerse) }));
