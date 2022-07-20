@@ -7,14 +7,40 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.XDString;
 
+public class AssocVerse2 : AssocArray
+{
+    public AssocReality Reality { get; set; }
+}
+
+public class AssocReality : AssocArray
+{
+    public AssocDimension Dimension { get; set; }
+}
+
+public class AssocDimension : AssocArray
+{
+
+}
+
 [TestClass]
 public class AssocVerseTests
 {
     [TestMethod]
     public void GetByIDsSimplified()
     {
+        var mv = new AssocVerse2();
         var at = DateTime.Now;
-        var verse = new AssocVerse();
+        mv.Key = "Alpha";
+        var r = mv.Reality["Beta"];
+        var d = r.Dimension["Charlie"];
+        var s = d.Space["Theta", "Charlie", "Wilco"];
+        var t = d.Time["+1.5287354", "+35.201"];
+        var g = t.Gravity["0", "-90", "+Infinity"];
+        var o = t.Vector["200", "45", "10.00043"];
+
+        var l = mv[mv, r, point, t];
+
+
         var realityLongAssocType = new LongAssocType {Target = 1};
         var reality = new AssocReality();
         AssocSpacetime spacetime = new ();
@@ -23,7 +49,7 @@ public class AssocVerseTests
 
         var vectorAssocType = reality[realityLongAssocType, spacetime];
 
-        verse[realityLongAssocType.ID, reality.ID] = vectorAssocType;
+        mv[realityLongAssocType.ID, reality.ID] = vectorAssocType;
 
         var space = new AssocCube<AssocItem>
         {
@@ -33,16 +59,16 @@ public class AssocVerseTests
         var atDateTimeAssocType = AssocType<DateTime>.Wrap(at);
         
         var secondSpacetime = spacetime[atDateTimeAssocType.ID, space.ID];
-        var vector = reality[realityLongAssocType.ID, secondSpacetime.ID];
+        var vector2 = reality[realityLongAssocType.ID, secondSpacetime.ID];
         var expected = vector.ID;
-        verse[realityLongAssocType.ID, vector.ID].Spin = 1;
+        mv[realityLongAssocType.ID, vector.ID].Spin = 1;
 
 
-        VectorAssocType x = verse[Guid.NewGuid(), Guid.NewGuid()];
-        var y = reality.FirstAxis[].Item[].Item[]
+        VectorAssocType x = mv[Guid.NewGuid(), Guid.NewGuid()];
+        
         var actual = vector.ID;
 
-        System.Console.WriteLine(verse.ToXml(new[] { typeof(AssocVerse) }));
+        System.Console.WriteLine(mv.ToXml(new[] { typeof(AssocVerse) }));
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual);
