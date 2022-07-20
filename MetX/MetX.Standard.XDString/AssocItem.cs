@@ -11,18 +11,66 @@ namespace MetX.Standard.XDString;
 [Serializable]
 public class AssocItem : IAssocItem
 {
-    [XmlAttribute] public string Key { get; set; }
-    [XmlAttribute] public string Value { get; set; }
-    [XmlAttribute] public string Name { get; set; }
-    [XmlAttribute] public Guid ID { get; set; }
+    private string _value;
+    private int _number;
+    private string _name;
+    private string _category;
 
-    [XmlAttribute] public int Number { get; set; }
-    [XmlAttribute] public string Category { get; set; }
+    [XmlAttribute] public string Key { get; set; }
+    [XmlAttribute] public Guid ID { get; set; }
+    
+    [XmlAttribute]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            Modified = DateTime.Now;
+        }
+    }
+
+    [XmlAttribute]
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            Modified = DateTime.Now;
+        }
+    }
+
+    [XmlAttribute]
+    public int Number
+    {
+        get => _number;
+        set
+        {
+            _number = value;
+            Modified = DateTime.Now;
+        }
+    }
+
+    [XmlAttribute]
+    public string Category
+    {
+        get => _category;
+        set
+        {
+            _category = value;
+            Modified = DateTime.Now;
+        }
+    }
+
+    [XmlAttribute] public DateTime At { get; set; }
+    [XmlAttribute] public DateTime Modified { get; set; }
 
     public AssocItem()
     {
         ID = Guid.NewGuid();
         Key = ID.ToString("N");
+        At = DateTime.Now;
     }
     public AssocItem(string key, string value = "", Guid? id = null, string name = null)
     {
@@ -33,6 +81,7 @@ public class AssocItem : IAssocItem
             ? Guid.NewGuid() 
             : id ?? Guid.NewGuid();
         Key = key ?? ID.ToString("N");
+        At = DateTime.Now;
     }
 
     public virtual string ToText(int indent = 0)
@@ -51,6 +100,9 @@ public class AssocItem : IAssocItem
             sb.AppendLine($"{indentation}Value:    {Value}");
         if(this.Number != 0)
             sb.AppendLine($"{indentation}Number:   {Number}");
+        sb.AppendLine(    $"{indentation}At:       {At:G}");
+        if(Modified != DateTime.MinValue)
+            sb.AppendLine($"{indentation}Modified: {Modified:G}");
         return sb.ToString();
     }
 }
