@@ -4,7 +4,7 @@ namespace MetX.Standard.XDString.Interfaces;
 
 public interface IAssocItem
 {
-    string Key { get; }
+    string Key { get; set; }
 
     string Value { get; set; }
     string Name { get; set; }

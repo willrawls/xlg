@@ -20,7 +20,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
     where TItem : IAssocItem, new()
 {
 
-    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
