@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Xml.Serialization;
 using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.XDString.Generics;
-using MetX.Standard.XDString.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.XDString;
 
 [TestClass]
-public class AssocItemOfTTests
+public class AssocWithInheritedItemsTests
 {
     [TestMethod]
-    public void AssocItemOfT_Simple()
+    public void AssocItem_Simple()
     {
+        var array = new AssocWithInheritedItems<OwenAssocItem>();
         var testGuid = Guid.NewGuid();
-        var fred = new Fred();
+        var owen = new Fred();
         var fredItem = new Fred();
-        var otherItem = new AssocItemOfT<Fred>("Other", fred);
+        var otherItem = new OwenAssocItem();
 
         var data = new AssocRelativeItem<Fred>("Fred", fredItem, "George1DArray", testGuid, "Mary", otherItem.ID);
 
@@ -26,17 +25,4 @@ public class AssocItemOfTTests
         Assert.AreEqual("Mary", data.Name);
         Assert.AreEqual(otherItem.ID, data.Parent);
     }
-}
-
-public class OwenAssocItem : IAssocItem
-{
-    public string OwenItemName {get; set; }
-    public Guid OwenItemTestGuid { get; set; } = Guid.NewGuid();
-
-    public string Key { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
-    public int Number { get; set; }
-    public string Category { get; set; }
 }

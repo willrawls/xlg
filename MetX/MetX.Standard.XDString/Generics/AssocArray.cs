@@ -9,12 +9,14 @@ using static System.Array;
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new()
+public class AssocArray<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, new()
 {
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
     public AssocArray()
     {
@@ -22,10 +24,12 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
         Key = ID.ToString("N");
     }
 
-    public AssocArray(string key, string value = null, string name = null, Guid? id = null)
+    public AssocArray(string key, string value = null, string name = null, Guid? id = null, int number = 0, string category = null)
     {
         Value = value;
         Name = name;
+        Number = number;
+        Category = category;
         ID = id ?? Guid.NewGuid();
         Key = key ?? ID.ToString("N");
     }
@@ -73,7 +77,7 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
 
     [XmlIgnore] public object SyncRoot = new();
 
-    public AssocItem<T> this[string key]
+    public AssocItemOfT<T> this[string key]
     {
         get
         {
@@ -82,7 +86,7 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
                 var assocItem = this.FirstOrDefault(i => string.Equals(i.Key, key, StringComparison.InvariantCultureIgnoreCase));
                 if (assocItem == null)
                 {
-                    assocItem = new AssocItem<T>(key);
+                    assocItem = new AssocItemOfT<T>(key);
                     Add(assocItem);
                 }
                 return assocItem;
@@ -106,16 +110,16 @@ public class AssocArray<T> : List<AssocItem<T>>, IAssocItem where T : class, new
         }
     }
 
-    public AssocItem<T> this[Guid id]
+    public AssocItemOfT<T> this[Guid id]
     {
         get
         {
             lock (SyncRoot)
             {
-                var assocItem = this.FirstOrDefault(i => i.ID == id);
+                AssocItemOfT<T> assocItem = this.FirstOrDefault(i => i.ID == id);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new AssocItem<T>{ ID = id };
+                assocItem = new AssocItemOfT<T>{ ID = id };
                 Add(assocItem);
                 return assocItem;
             }

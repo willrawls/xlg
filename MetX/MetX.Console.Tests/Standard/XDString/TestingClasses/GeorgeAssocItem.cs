@@ -3,7 +3,7 @@ using MetX.Standard.XDString;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 
-public class GeorgeAssocItem : AssocItem
+public class GeorgeAssocItem : TimeTrackingAssocItem
 {
     [XmlAttribute]
     public string GeorgeAssocItemName {get; set; }

@@ -13,6 +13,8 @@ public class AssocCube<TAxis, TItem> : IAssocItem
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
     public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
 

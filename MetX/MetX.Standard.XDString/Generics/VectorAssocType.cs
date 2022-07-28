@@ -2,7 +2,7 @@
 
 namespace MetX.Standard.XDString.Generics;
 
-public class VectorAssocType : AssocItem
+public class VectorAssocType : BasicAssocItem
 {
     [XmlAttribute] public decimal Speed { get; set; }
     [XmlAttribute] public decimal Spin { get; set; }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocTimeline : AssocTimeline<AssocItem, AssocItem>
+public class AssocTimeline : AssocTimeline<BasicAssocItem, BasicAssocItem>
 {
 
 }

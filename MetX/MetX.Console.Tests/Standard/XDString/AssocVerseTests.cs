@@ -24,10 +24,12 @@ public class AssocDimension : AssocCube<AssocSpace>
 
 public class AssocSpace : AssocSheet<AssocTime>, IAssocItem
 {
-    [XmlAttribute] public string Key { get; }
+    [XmlAttribute] public string Key { get; set;  }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
     public AssocSpace() : base()
     {
@@ -42,7 +44,7 @@ public class AssocGravity : AssocCube<AssocVector>
 {
 }
 
-public class AssocVector : AssocItem
+public class AssocVector : TimeTrackingAssocItem
 {
 }
 

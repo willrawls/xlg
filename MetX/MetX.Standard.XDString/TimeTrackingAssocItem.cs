@@ -9,7 +9,7 @@ namespace MetX.Standard.XDString;
 
 
 [Serializable]
-public class AssocItem : IAssocItem
+public class TimeTrackingAssocItem : IAssocItem
 {
     private string _value;
     private int _number;
@@ -66,13 +66,13 @@ public class AssocItem : IAssocItem
     [XmlAttribute] public DateTime At { get; set; }
     [XmlAttribute] public DateTime Modified { get; set; }
 
-    public AssocItem()
+    public TimeTrackingAssocItem()
     {
         ID = Guid.NewGuid();
         Key = ID.ToString("N");
         At = DateTime.Now;
     }
-    public AssocItem(string key, string value = "", Guid? id = null, string name = null)
+    public TimeTrackingAssocItem(string key, string value = "", Guid? id = null, string name = null)
     {
         Value = value ?? "";
         Name = name ?? "";

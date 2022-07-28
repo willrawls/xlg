@@ -8,21 +8,23 @@ using MetX.Standard.XDString.Interfaces;
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocArrayOfInheritingAssocItem<T> : List<T>, IAssocItem 
+public class AssocWithInheritedItems<T> : List<T>, IAssocItem 
     where T : IAssocItem, new()
 {
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
-    public AssocArrayOfInheritingAssocItem()
+    public AssocWithInheritedItems()
     {
         ID = Guid.NewGuid();
         Key = ID.ToString("N");
     }
 
-    public AssocArrayOfInheritingAssocItem(string key, string value = null, string name = null, Guid? id = null)
+    public AssocWithInheritedItems(string key, string value = null, string name = null, Guid? id = null)
     {
         Value = value;
         Name = name;
@@ -153,10 +155,10 @@ public class AssocArrayOfInheritingAssocItem<T> : List<T>, IAssocItem
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((AssocArrayOfInheritingAssocItem<T>)obj);
+        return obj.GetType() == this.GetType() && Equals((AssocWithInheritedItems<T>)obj);
     }
 
-    protected bool Equals(AssocArrayOfInheritingAssocItem<T> other)
+    protected bool Equals(AssocWithInheritedItems<T> other)
     {
         return string.Equals(Key, other.Key, StringComparison.InvariantCultureIgnoreCase);
     }

@@ -12,6 +12,8 @@ public class AssocCube<TItem> : IAssocItem
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
     public AssocCube(string key = null, string value = null, string name = null, Guid? id = null)
     {

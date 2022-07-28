@@ -6,18 +6,19 @@ using MetX.Standard.XDString.Interfaces;
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocItem<T> : AssocItem, IAssocItem<T> where T : class, new()
+public class AssocItemOfT<T> : BasicAssocItem, IAssocItem<T> where T : class, new()
 {
     public T Item { get; set; }
 
-    public AssocItem()
+    public AssocItemOfT()
     {
         Item = new T();
     }
 
-    public AssocItem(string key, T item = default, string value = null, Guid? id = null, string name = null) 
+    public AssocItemOfT(string key, T item = default, string value = null, Guid? id = null, string name = null, int number = 0) 
         : base(key, value, id, name)
     {
+        Number = number;
         Item = item ??  new T();
     }
 

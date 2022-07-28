@@ -8,7 +8,7 @@ public class DatabaseFiverActor : FiverActorBase
     {
     }
 
-    public bool ReadyToAct(ArgumentSettings settings, out string reason)
+    public new bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
         throw new NotImplementedException();
     }

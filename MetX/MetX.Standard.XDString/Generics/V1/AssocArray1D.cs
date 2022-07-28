@@ -15,12 +15,10 @@ namespace MetX.Standard.XDString.Generics.V1;
 [Serializable]
 [XmlRoot("AssocArray")]
 public class AssocArray1D<TParent, TChild> 
-    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItem<TChild>, string, TChild> 
+    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItemOfT<TChild>, string, TChild> 
     where TParent : class
     where TChild : class, new() 
 {
-    [XmlAttribute] public string Key { get; set; }
-
     [XmlIgnore] public object SyncRoot { get; } = new();
 
     public AssocArray1D()
@@ -98,7 +96,7 @@ public class AssocArray1D<TParent, TChild>
     }
 
     [XmlIgnore]
-    public new AssocItem<TChild> this[string key]
+    public new AssocItemOfT<TChild> this[string key]
     {
         get
         {
@@ -107,7 +105,7 @@ public class AssocArray1D<TParent, TChild>
                 var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new AssocItem<TChild>(key);
+                assocItem = new AssocItemOfT<TChild>(key);
                 Items.Add(assocItem);
                 return assocItem;
             }

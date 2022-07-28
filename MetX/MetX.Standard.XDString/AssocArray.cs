@@ -14,13 +14,8 @@ namespace MetX.Standard.XDString;
 
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocItem, string, string>, IAssocItem
+public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, TimeTrackingAssocItem, string, string>, IAssocItem
 {
-    [XmlAttribute] public string Key { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
-
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public bool AutoPersist { get; set; }
     [XmlIgnore] public string FilePath { get; set; }
@@ -33,7 +28,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
     {
     }
 
-    public static bool DefaultKeyComparer(string keyOrName, AssocItem item)
+    public static bool DefaultKeyComparer(string keyOrName, TimeTrackingAssocItem item)
     {
         if (string.IsNullOrEmpty(keyOrName) || item == null) return false;
 
@@ -111,7 +106,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
     }
 
     [XmlIgnore]
-    public override AssocItem this[string key]
+    public override TimeTrackingAssocItem this[string key]
     {
         get
         {
@@ -120,7 +115,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, AssocI
                 var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new AssocItem(key);
+                assocItem = new TimeTrackingAssocItem(key);
                 Items.Add(assocItem);
                 return assocItem;
             }

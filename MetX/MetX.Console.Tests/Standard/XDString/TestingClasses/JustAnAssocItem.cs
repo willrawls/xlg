@@ -4,7 +4,7 @@ using MetX.Standard.XDString;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 
-public class JustAnAssocItem : AssocItem
+public class JustAnAssocItem : TimeTrackingAssocItem
 {
     public string JustAName {get; set; }
     public Guid JustAGuid { get; set; } = Guid.NewGuid();

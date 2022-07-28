@@ -4,7 +4,7 @@ using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocTimelineItem<TAxis, TItem> : AssocItem
+public class AssocTimelineItem<TAxis, TItem> : BasicAssocItem
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {

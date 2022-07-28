@@ -60,7 +60,7 @@ public class ListSerializesToXmlTests
     {
         George1DArray george1DArray = new George1DArray();
         var guid = Guid.NewGuid();
-        george1DArray.Items.Add(new AssocItem<GeorgeItem>
+        george1DArray.Items.Add(new AssocItemOfT<GeorgeItem>
         {
             Name = "Mary",
             Value = "Something",

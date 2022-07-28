@@ -13,7 +13,7 @@ public class AssocRelativeItemTests
     public void AssocItem_Simple()
     {
         var testGuid = Guid.NewGuid();
-        var otherItem = new AssocItem("Other");
+        var otherItem = new TimeTrackingAssocItem("Other");
         var data = new AssocRelativeItem("Fred", "George1DArray", testGuid, "Mary", otherItem.ID);
             
         Assert.AreEqual("Fred", data.Key);

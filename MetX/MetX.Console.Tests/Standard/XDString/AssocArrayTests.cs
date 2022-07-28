@@ -29,10 +29,10 @@ public class AssocArrayTests
 
         var data = new AssocArray
         {
-            Items = new List<AssocItem>
+            Items = new List<TimeTrackingAssocItem>
             {
-                new AssocItem("Item Key", "Item Value", itemId, "Item Name"),
-                new AssocItem("Item Key2", "Item Value2", itemId2, "Item Name2")
+                new TimeTrackingAssocItem("Item Key", "Item Value", itemId, "Item Name"),
+                new TimeTrackingAssocItem("Item Key2", "Item Value2", itemId2, "Item Name2")
             }
         };
 
@@ -64,7 +64,7 @@ Item Value2
         var itemId = Guid.NewGuid();
         var data = new AssocArray();
 
-        data.Items.Add(new AssocItem("Item Key", "Item Value", itemId, "Item Name"));
+        data.Items.Add(new TimeTrackingAssocItem("Item Key", "Item Value", itemId, "Item Name"));
 
         var expected =
             $@"<AssocArray>

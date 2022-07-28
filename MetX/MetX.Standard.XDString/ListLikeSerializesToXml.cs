@@ -24,6 +24,8 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
+    [XmlAttribute] public int Number { get; set; }
+    [XmlAttribute] public string Category { get; set; }
 
     [XmlArray(ElementName = "Items"), XmlArrayItem(ElementName = "Item")]
     public virtual List<TItem> Items { get; set; } = new();

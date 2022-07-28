@@ -17,8 +17,6 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
 
     public static string ActualName => "AssocArray"; // ActualType.Name.Replace("`1", "Of") + typeof(TItem).Name;
 
-    [XmlAttribute] public string Name {get; set; }
-
     public TItem this[string d1, string d2, string d3, string d4]
     {
         get => this[d1].Item[d2].Item[d3].Item[d4].Item;

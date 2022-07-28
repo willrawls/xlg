@@ -4,7 +4,7 @@ using MetX.Standard.XDString.Interfaces;
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocRelativeItem : AssocItem, IAssocRelativeItem
+public class AssocRelativeItem : BasicAssocItem, IAssocRelativeItem
 {
     public Guid Parent { get; set; }
     public Guid Left { get; set; }
@@ -27,9 +27,6 @@ public class AssocRelativeItem : AssocItem, IAssocRelativeItem
 [Serializable]
 public class AssocRelativeItem<T> : AssocRelativeItem, IAssocItem<T> where T : new()
 {
-    public Guid Parent { get; set; }
-    public Guid Left { get; set; }
-    public Guid Right { get; set; }
     public T Item { get; set; }
 
     public AssocRelativeItem()
