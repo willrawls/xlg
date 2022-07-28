@@ -6,6 +6,22 @@ using MetX.Standard.XDString.Interfaces;
 namespace MetX.Standard.XDString;
 
 [Serializable]
+public class AssocItemWithChildren : BasicAssocItem
+{
+    public AssocArray Children = new();
+
+    public AssocItemWithChildren(string key, string value = null, Guid? id = null, string name = null, string category = null) : base(key, value, id, name, category)
+    {
+    }
+
+    public AssocItemWithChildren()
+    {
+    }
+
+
+}
+
+[Serializable]
 public class BasicAssocItem : IAssocItem
 {
     [XmlAttribute] public string Key { get; set; }
@@ -39,3 +55,4 @@ public class BasicAssocItem : IAssocItem
         return sb.ToString();
     }
 }
+
