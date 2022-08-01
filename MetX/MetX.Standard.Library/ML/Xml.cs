@@ -6,7 +6,6 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
 

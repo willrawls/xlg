@@ -22,8 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSharpCode.TextEditorEx", "..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj", "{7EFFD36B-54F2-4148-A74F-B46D54A9502D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.XDString", "MetX.Standard.XDString\MetX.Standard.XDString.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilliamPersonalMultiTool", "..\WPMT2\WilliamPersonalMultiTool.csproj", "{5D95CFC0-994D-49D2-A06C-E6C9D0CFC9D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilliamPersonalMultiTool.Tests", "..\WPMT2\WilliamPersonalMultiTool.Tests\WilliamPersonalMultiTool.Tests.csproj", "{566C059D-0EDB-4BDB-95A8-22ACF138912C}"
@@ -35,6 +33,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.Glove", "MetX.Glove.Console\MetX.Windows.Glove.csproj", "{5EB08A46-3D31-477F-A6CD-A4771B69FF9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Windows.QuickScripts", "MetX.QuickScripts\MetX.Windows.QuickScripts.csproj", "{5090BBF4-5AFC-4555-9E38-78D931CC3F54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Strings", "MetX.Standard.Strings\MetX.Standard.Strings.csproj", "{EF1A86D4-1CF0-4DFE-B88F-C8B43D7FE7AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,10 +82,6 @@ Global
 		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C45EE796-23E7-4889-8132-77D894F46512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C45EE796-23E7-4889-8132-77D894F46512}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C45EE796-23E7-4889-8132-77D894F46512}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C45EE796-23E7-4889-8132-77D894F46512}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D95CFC0-994D-49D2-A06C-E6C9D0CFC9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D95CFC0-994D-49D2-A06C-E6C9D0CFC9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D95CFC0-994D-49D2-A06C-E6C9D0CFC9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -110,6 +106,10 @@ Global
 		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5090BBF4-5AFC-4555-9E38-78D931CC3F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1A86D4-1CF0-4DFE-B88F-C8B43D7FE7AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1A86D4-1CF0-4DFE-B88F-C8B43D7FE7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1A86D4-1CF0-4DFE-B88F-C8B43D7FE7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1A86D4-1CF0-4DFE-B88F-C8B43D7FE7AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

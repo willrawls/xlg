@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings.Extensions;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using WilliamPersonalMultiTool.Acting;

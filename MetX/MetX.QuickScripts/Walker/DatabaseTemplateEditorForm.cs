@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using MetX.Five;
+﻿using System.Windows.Forms;
 using MetX.Five.Scripts;
-using MetX.Standard.XDString;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings.Generics;
 
 namespace XLG.QuickScripts.Walker
 {

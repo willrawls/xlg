@@ -5,7 +5,6 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
 

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using MetX.Standard.Library.Extensions;
 using NHotPhrase.Keyboard;
 using WilliamPersonalMultiTool.Custom;
 using MetX.Standard.Library.Encryption;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace WilliamPersonalMultiTool
 {

@@ -8,9 +8,9 @@ using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
 using ICSharpCode.TextEditor.Gui;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.TextEditor.UserControls;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using MetX.Windows.Library;
 
 namespace MetX.Windows.Controls

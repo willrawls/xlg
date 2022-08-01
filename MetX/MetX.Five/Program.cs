@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MetX.Five.Setup;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five

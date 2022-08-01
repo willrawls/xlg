@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Xml.Serialization;
 using MetX.Five.Glove.Providers;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 // ReSharper disable NotAccessedField.Global

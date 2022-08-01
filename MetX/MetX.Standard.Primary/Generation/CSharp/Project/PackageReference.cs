@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Generation.CSharp.Project

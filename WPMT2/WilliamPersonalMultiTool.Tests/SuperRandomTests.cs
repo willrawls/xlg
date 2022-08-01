@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using MetX.Standard.Library.Encryption;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Primary.Metadata;
+using MetX.Standard.Strings.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WilliamPersonalMultiTool.Tests

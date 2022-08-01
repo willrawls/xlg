@@ -1,5 +1,4 @@
-﻿using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.ML;
+﻿using MetX.Standard.Library.ML;
 using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;

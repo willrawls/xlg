@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
+using MetX.Standard.Strings.Extensions;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library

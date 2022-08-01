@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MetX.Standard.Library.Extensions;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Windows.Controls
 {

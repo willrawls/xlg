@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using MetX.Five.Scripts;
+﻿using MetX.Five.Scripts;
 using MetX.Standard.Primary.Interfaces;
 
 namespace MetX.Five.Setup;

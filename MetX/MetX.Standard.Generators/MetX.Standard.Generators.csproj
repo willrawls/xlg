@@ -50,6 +50,7 @@
 		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

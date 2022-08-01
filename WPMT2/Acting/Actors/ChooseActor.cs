@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using NHotPhrase.Phrase;
 
 namespace WilliamPersonalMultiTool.Acting.Actors

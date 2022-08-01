@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using MetX.Standard.Library.Extensions;
+using MetX.Standard.Strings.Extensions;
 
 namespace WilliamPersonalMultiTool.Acting
 {

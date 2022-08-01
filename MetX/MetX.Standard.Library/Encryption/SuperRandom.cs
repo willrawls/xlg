@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Library.Encryption

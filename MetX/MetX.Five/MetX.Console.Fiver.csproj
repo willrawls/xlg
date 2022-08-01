@@ -46,6 +46,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
