@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using MetX.Five.Glove.Pipelines;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five.Glove
 {

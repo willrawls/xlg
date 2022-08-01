@@ -1,8 +1,6 @@
-﻿using System;
-using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+﻿using MetX.Standard.Strings.Generics;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings;
 
 public class AssocReality : AssocSheet<LongAssocType, AssocSpacetime, VectorAssocType>
 {

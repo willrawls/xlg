@@ -1,10 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Xml;
+﻿using System.Xml;
 
-namespace MetX.Standard.Library.Strings;
+namespace MetX.Standard.Strings;
 
-// ReSharper disable once UnusedType.Global
-[SuppressMessage("ReSharper", "StringIndexOfIsCultureSpecific.1")]
 public class ConvertFromJson
 {
     public static XmlDocument ToXml(string json)

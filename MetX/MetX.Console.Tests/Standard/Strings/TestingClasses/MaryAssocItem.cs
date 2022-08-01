@@ -1,5 +1,5 @@
 ﻿using System;
-using MetX.Standard.XDString;
+using MetX.Standard.Strings;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 

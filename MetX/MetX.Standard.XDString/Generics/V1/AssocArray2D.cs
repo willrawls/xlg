@@ -1,4 +1,4 @@
-﻿namespace MetX.Standard.XDString.Generics.V1;
+﻿namespace MetX.Standard.Strings.Generics.V1;
 
 public class AssocArray2D<T2DParent, T1DParent, TItem> : AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>> where TItem : class, new() where T2DParent : class where T1DParent : class
 {

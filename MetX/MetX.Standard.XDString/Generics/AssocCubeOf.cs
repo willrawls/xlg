@@ -1,8 +1,8 @@
 ﻿using System;
-using MetX.Standard.XDString.Interfaces;
-using MetX.Standard.XDString.Support;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
     where TFirstAxis : class, IAssocItem 

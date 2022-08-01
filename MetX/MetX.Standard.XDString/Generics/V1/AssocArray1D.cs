@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics.V1;
+namespace MetX.Standard.Strings.Generics.V1;
 
 /// <summary>
 /// AssocArray1D is like AssocArray but can be inherited and serialized to/from xml with top level attributes properly

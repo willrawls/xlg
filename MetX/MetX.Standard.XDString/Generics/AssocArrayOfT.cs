@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Interfaces;
 using static System.Array;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 [Serializable]
 public class AssocArrayOfT<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, new()

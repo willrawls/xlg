@@ -8,8 +8,9 @@ using System.Xml;
 using MetX.Five.Glove.Data;
 using MetX.Five.Glove.Gatherers;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Metadata;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 //using Microsoft.VisualBasic;
 

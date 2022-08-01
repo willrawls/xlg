@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
-using MetX.Standard.XDString.Support;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 [Serializable]
 [XmlRoot("AssocArray")]

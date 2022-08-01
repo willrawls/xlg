@@ -2,8 +2,9 @@
 using System.Runtime.ExceptionServices;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
-using MetX.Standard.XDString.Generics;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Generics;
+using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Primary.Extensions;
 

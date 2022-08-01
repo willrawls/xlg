@@ -1,4 +1,4 @@
-namespace MetX.Standard.XDString.Interfaces;
+namespace MetX.Standard.Strings.Interfaces;
 
 public interface IListLikeSerializeToXml<TParent, TChild> 
     where TParent : IListLikeSerializeToXml<TParent, TChild>, new()

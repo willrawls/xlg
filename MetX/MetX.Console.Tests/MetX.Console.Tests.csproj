@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Standard\XDString\AssocArrayListOfTTests.cs" />
-    <Compile Remove="Standard\XDString\AssocArrayListTests.cs" />
+    <Compile Remove="Standard\Strings\AssocArrayListOfTTests.cs" />
+    <Compile Remove="Standard\Strings\AssocArrayListTests.cs" />
     <Compile Remove="TestTemplates\TestExe\Program.cs" />
     <Compile Remove="TestTemplates\TestExe\QuickScriptProcessor.cs" />
     <Compile Remove="TestTemplates\TestNative\Native.cs" />

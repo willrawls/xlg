@@ -1,8 +1,7 @@
-﻿using System;
-using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+﻿using MetX.Standard.Strings.Generics;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings;
 
 public class AssocSpacetime : AssocSheet<DateTimeAssocType, AssocCubeOf<BasicAssocItem>, VectorAssocType>, IAssocItem
 {

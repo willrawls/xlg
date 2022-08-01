@@ -3,10 +3,12 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using MetX.Standard.Library.Extensions;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Standard.Library.Strings
+namespace MetX.Standard.Library
 {
     public class StreamBuilder
     {

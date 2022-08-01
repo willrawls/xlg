@@ -8,7 +8,8 @@ using System.Net;
 using System.Text;
 using System.Xml.XPath;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Library.ML
 {

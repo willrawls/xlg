@@ -1,6 +1,6 @@
 ﻿using System;
 using MetX.Standard.Library.Encryption;
-using MetX.Standard.XDString;
+using MetX.Standard.Strings;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 

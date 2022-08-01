@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings;
 
 namespace MetX.Five.Scripts;
 

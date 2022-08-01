@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Generics;
 
 namespace MetX.Standard.Primary.Scripts
 {

@@ -19,6 +19,11 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="Support\**" />
+	  <EmbeddedResource Remove="Support\**" />
+	  <None Remove="Support\**" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Compile Remove="AssocArrayList.cs" />
 	  <Compile Remove="Generics\V1\AssocArrayList.cs" />
 	</ItemGroup>

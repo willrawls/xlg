@@ -1,7 +1,7 @@
 ﻿using System;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings;
 
 [Serializable]
 public class AssocRelativeItem : BasicAssocItem, IAssocRelativeItem

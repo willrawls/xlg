@@ -1,9 +1,8 @@
-﻿using MetX.Standard.XDString.Interfaces;
-using MetX.Standard.XDString.Support;
-using System;
-using System.Linq;
+﻿using System;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 public class AssocTimeline : AssocTimeline<BasicAssocItem, BasicAssocItem>
 {

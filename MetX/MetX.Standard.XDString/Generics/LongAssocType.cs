@@ -1,6 +1,4 @@
-﻿using MetX.Standard.XDString.Support;
-
-namespace MetX.Standard.XDString.Generics;
+﻿namespace MetX.Standard.Strings.Generics;
 
 public class LongAssocType : AssocType<long>
 {

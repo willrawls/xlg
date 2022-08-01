@@ -3,6 +3,7 @@ using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary
 {

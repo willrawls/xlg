@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 [Serializable]
 public class AssocWithInheritedItems<T> : List<T>, IAssocItem 

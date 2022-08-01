@@ -1,7 +1,7 @@
 ﻿using System;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings.Generics;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 [Serializable]
 public class AssocVerse : AssocSheet<LongAssocType, AssocReality, VectorAssocType>

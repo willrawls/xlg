@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
-using MetX.Standard.XDString.Support;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 
 [Serializable]

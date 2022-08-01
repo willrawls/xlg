@@ -12,11 +12,12 @@ using System.Xml.Xsl;
 using MetX.Five.Glove.Data;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Pipelines;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using Mvp.Xml.Common.Xsl;
 using Mvp.Xml.Exslt;
 

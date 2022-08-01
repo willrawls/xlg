@@ -7,9 +7,10 @@ using System.Xml;
 using System.Xml.Serialization;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five.Glove.Pipelines
 {

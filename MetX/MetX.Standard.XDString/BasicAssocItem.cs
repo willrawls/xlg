@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 [Serializable]
 public class AssocItemWithChildren : BasicAssocItem

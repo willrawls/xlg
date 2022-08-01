@@ -2,6 +2,7 @@
 using System.IO;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.IO;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Generation
 {

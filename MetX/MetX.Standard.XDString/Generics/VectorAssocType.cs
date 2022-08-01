@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 public class VectorAssocType : BasicAssocItem
 {

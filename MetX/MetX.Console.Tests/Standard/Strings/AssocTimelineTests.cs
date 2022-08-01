@@ -1,7 +1,7 @@
 ﻿using System;
 using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.Primary.Extensions;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.XDString;

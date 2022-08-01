@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using MetX.Console.Tests.Standard.XDString.TestingClasses;
-using MetX.Standard.XDString.Generics.V1;
+using MetX.Standard.Strings.Generics.V1;
 
 namespace MetX.Console.Tests.Standard.XDString.V1;
 

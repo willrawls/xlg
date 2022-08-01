@@ -1,6 +1,4 @@
 ﻿using MetX.Standard.Primary.Scripts;
-using MetX.Standard.XDString;
-using MetX.Standard.XDString.Generics;
 
 namespace MetX.Five;
 

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.XDString.Interfaces;
-using MetX.Standard.XDString.Support;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType> 
     : IListLikeSerializeToXml<TSecondAxis, TItem>, 
@@ -128,10 +128,11 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
 
     public string ToJson()
     {
-        var xml = ToXml(true, false);
+        /*var xml = ToXml(true, false);
         return xml.IsNotEmpty()
-            ? ConvertToJson.Xml(xml)
-            : "";
+            ? MetX.Standard.Strings.ConvertToJson.Xml(xml)
+            : "";*/
+        return "";
     }
 
     /// <summary>

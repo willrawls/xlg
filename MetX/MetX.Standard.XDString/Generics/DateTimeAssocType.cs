@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Standard.XDString.Generics;
+namespace MetX.Standard.Strings.Generics;
 
 public class DateTimeAssocType : AssocType<DateTime>
 {

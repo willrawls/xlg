@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Scripts
 {

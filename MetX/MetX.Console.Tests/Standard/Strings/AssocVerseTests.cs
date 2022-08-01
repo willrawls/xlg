@@ -2,9 +2,9 @@
 using System.Xml.Serialization;
 using MetX.Console.Tests.Standard.XDString.TestingClasses;
 using MetX.Standard.Primary.Extensions;
-using MetX.Standard.XDString;
-using MetX.Standard.XDString.Generics;
-using MetX.Standard.XDString.Interfaces;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Generics;
+using MetX.Standard.Strings.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.XDString;

@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-using MetX.Standard.XDString;
+using MetX.Standard.Strings;
 
 namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
 

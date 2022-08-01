@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests;

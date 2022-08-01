@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetX.Standard.XDString.Interfaces;
+namespace MetX.Standard.Strings.Interfaces;
 
 public interface IAssocRelativeItem<T> : IAssocRelativeItem, IAssocItem<T>
 {

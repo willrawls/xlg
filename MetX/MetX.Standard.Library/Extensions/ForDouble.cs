@@ -1,4 +1,5 @@
 using System;
+using MetX.Standard.Strings.Extensions;
 
 // ReSharper disable UnusedMember.Global
 

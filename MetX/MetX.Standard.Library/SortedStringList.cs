@@ -1,7 +1,7 @@
 using System.Text;
 using MetX.Standard.Library.ML;
 
-namespace MetX.Standard.Library.Strings
+namespace MetX.Standard.Library
 {
     /// <summary>
     /// Basic implementation of a Sorted String List (Basically the same as System.Collections.Generic.SortedList&lt;string, string>)
@@ -30,8 +30,8 @@ namespace MetX.Standard.Library.Strings
             {
                 var ret = new StringBuilder();
                 ret.AppendLine("<" + tagName + "s" + (tagAttributes != null ? " " + tagAttributes : string.Empty) + ">");
-                foreach (var currItem in this)
-                    ret.AppendLine("<" + tagName + " Name=\"" + Xml.AttributeEncode(currItem.Key) + "\" Value=\"" + Xml.AttributeEncode(currItem.Value) + "\"/>");
+                foreach (var item in this)
+                    ret.AppendLine("<" + tagName + " Name=\"" + Xml.AttributeEncode(item.Key) + "\" Value=\"" + Xml.AttributeEncode(item.Value) + "\"/>");
                 ret.AppendLine("</" + tagName + "s>");
                 return ret.ToString();
             }

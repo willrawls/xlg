@@ -2,7 +2,8 @@
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.XDString;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five;
 

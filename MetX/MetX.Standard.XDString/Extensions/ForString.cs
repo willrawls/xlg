@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using MetX.Standard.Library.Strings;
 
-namespace MetX.Standard.Library.Extensions
+namespace MetX.Standard.Strings.Extensions
 {
     /// <summary>Provides simple methods for retrieving tokens from a string.
     /// <para>A token is a piece of a delimited string. For instance in the string "this is a test" when " " (a space) is used as a delimiter, "this" is the first token and "test" is the last (4th) token.</para>

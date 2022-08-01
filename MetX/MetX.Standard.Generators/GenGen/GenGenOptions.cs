@@ -2,8 +2,9 @@
 using System.IO;
 using CommandLine;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary.Generation;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Generators.GenGen
 {
