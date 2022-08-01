@@ -9,15 +9,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.XDString;
 
-public class AssocVerse2 : AssocArray<AssocReality>
+public class AssocVerse2 : AssocArrayOfT<AssocReality>
 {
 }
 
-public class AssocReality : AssocArray<AssocDimension>
+public class AssocReality : AssocArrayOfT<AssocDimension>
 {
 }
 
-public class AssocDimension : AssocCube<AssocSpace>
+public class AssocDimension : AssocCubeOf<AssocSpace>
 {
 
 }
@@ -36,11 +36,11 @@ public class AssocSpace : AssocSheet<AssocTime>, IAssocItem
     }
 }
 
-public class AssocTime : AssocCube<AssocGravity>
+public class AssocTime : AssocCubeOf<AssocGravity>
 {
 }
 
-public class AssocGravity : AssocCube<AssocVector>
+public class AssocGravity : AssocCubeOf<AssocVector>
 {
 }
 

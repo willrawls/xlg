@@ -9,5 +9,5 @@ public class AssocTimelineItem<TAxis, TItem> : BasicAssocItem
     where TItem : class, IAssocItem, new()
 {
     [XmlAttribute] public DateTime At { get; set; } = DateTime.Now;
-    public AssocCube<TAxis, TItem> FirstAxis { get; set; } = new();
+    public AssocCubeOfT2<TAxis, TItem> FirstAxis { get; set; } = new();
 }

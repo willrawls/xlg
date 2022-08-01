@@ -13,7 +13,7 @@ namespace MetX.Standard.Primary.Scripts
         public string Name { get; set; }
         public string TemplatePath { get; set; }
 
-        public AssocArray<Asset> Assets = new();
+        public AssocArrayOfT<Asset> Assets = new();
 
         public XlgQuickScriptTemplate(string templatePath, string name = null)
         {

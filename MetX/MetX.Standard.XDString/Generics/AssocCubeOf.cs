@@ -1,46 +1,36 @@
 ﻿using System;
-using System.Xml.Serialization;
 using MetX.Standard.XDString.Interfaces;
 using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocCube<TAxis, TItem> : IAssocItem
-    where TAxis : class, IAssocItem
+public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
+    where TFirstAxis : class, IAssocItem 
+    where TSecondAxis : class, IAssocItem
+    where TThirdAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    [XmlAttribute] public string Key { get; set; }
-    [XmlAttribute] public string Value { get; set; }
-    [XmlAttribute] public string Name { get; set; }
-    [XmlAttribute] public Guid ID { get; set; }
-    [XmlAttribute] public int Number { get; set; }
-    [XmlAttribute] public string Category { get; set; }
-
-    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
+    public AssocArrayOfT<AssocArrayOfT<AssocArrayOfT<TItem>>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
     {
         get
         {
-            if (firstAxisKey.IsEmpty() 
-                || secondAxisKey.IsEmpty()
-                || thirdAxisKey.IsEmpty())
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return null;
 
             return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
         }
         set
         {
-            if (firstAxisKey.IsEmpty() 
-                || secondAxisKey.IsEmpty()
-                || thirdAxisKey.IsEmpty())
+            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return;
 
             FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
         }
     }
 
-    public TItem this[TAxis first, TAxis second, TAxis third]
+    public TItem this[TFirstAxis first, TSecondAxis second, TThirdAxis third]
     {
         get
         {

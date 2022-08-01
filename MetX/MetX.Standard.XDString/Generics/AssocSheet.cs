@@ -13,7 +13,7 @@ public class AssocSheet : AssocSheet<AssocType<string>>
 public class AssocSheet<TItem> 
     where TItem : class, IAssocItem, new()
 {
-    public AssocArray<AssocArray<TItem>> FirstAxis = new();
+    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey]
     {
@@ -81,7 +81,7 @@ public class AssocSheet<TAxis, TItem>
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    public AssocArray<AssocArray<TItem>> FirstAxis = new();
+    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey]
     {
@@ -149,7 +149,7 @@ public class AssocSheet<TFirstAxis, TSecondAxis, TItem> : IAssocItem
     where TSecondAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    public AssocArray<AssocArray<TItem>> FirstAxis = new();
+    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
 
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }

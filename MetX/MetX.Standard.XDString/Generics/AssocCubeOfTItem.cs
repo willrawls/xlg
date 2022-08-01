@@ -5,7 +5,7 @@ using MetX.Standard.XDString.Support;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocCube<TItem> : IAssocItem
+public class AssocCubeOf<TItem> : IAssocItem
     where TItem : class, IAssocItem, new()
 {
     [XmlAttribute] public string Key { get; set; }
@@ -15,7 +15,7 @@ public class AssocCube<TItem> : IAssocItem
     [XmlAttribute] public int Number { get; set; }
     [XmlAttribute] public string Category { get; set; }
 
-    public AssocCube(string key = null, string value = null, string name = null, Guid? id = null)
+    public AssocCubeOf(string key = null, string value = null, string name = null, Guid? id = null)
     {
         Key = key;
         Value = value;
@@ -23,12 +23,12 @@ public class AssocCube<TItem> : IAssocItem
         ID = id ?? Guid.NewGuid();
     }
 
-    public AssocCube()
+    public AssocCubeOf()
     {
         ID = Guid.NewGuid();
     }
 
-    public AssocArray<AssocArray<AssocArray<TItem>>> FirstAxis = new();
+    public AssocArrayOfT<AssocArrayOfT<AssocArrayOfT<TItem>>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
     {

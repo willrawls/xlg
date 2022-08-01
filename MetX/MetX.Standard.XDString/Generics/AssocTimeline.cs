@@ -14,7 +14,7 @@ public class AssocTimeline<TAxis, TItem>
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
-    public AssocArray<AssocTimelineItem<TAxis, TItem>> Timeline = new();
+    public AssocArrayOfT<AssocTimelineItem<TAxis, TItem>> Timeline = new();
 
     public TItem this[DateTime at, string firstAxisKey, string secondAxisKey, string thirdAxisKey]
     {

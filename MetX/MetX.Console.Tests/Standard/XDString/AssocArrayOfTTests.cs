@@ -12,7 +12,7 @@ public class AssocArrayOfTTests
     public void AssocArrayOfT_Simple()
     {
         var item = new Fred();
-        var data = new AssocArray<Fred>
+        var data = new AssocArrayOfT<Fred>
         {
             ["Fred"] =
             {
@@ -26,7 +26,7 @@ public class AssocArrayOfTTests
     public void AssocArrayOfT_AssocTypeOfInt()
     {
         var assocType = new AssocType<int>(12);
-        var data = new AssocArray<AssocType<int>>
+        var data = new AssocArrayOfT<AssocType<int>>
         {
             ["Fred"] =
             {
@@ -39,13 +39,13 @@ public class AssocArrayOfTTests
     public void AssocArrayOfAssocArrayOfT_Simple()
     {
         var fred = new Fred();
-        var data = new AssocArray<AssocArray<Fred>>();
-        data["Fred"].Item = new AssocArray<Fred>();
+        var data = new AssocArrayOfT<AssocArrayOfT<Fred>>();
+        data["Fred"].Item = new AssocArrayOfT<Fred>();
         data["Fred"].Item["George1DArray"].Item = fred;
         Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George1DArray"].Item.TestGuid);
 
         fred = new Fred();
-        data = new AssocArray<AssocArray<Fred>>();
+        data = new AssocArrayOfT<AssocArrayOfT<Fred>>();
         data["Fred"].Item["George1DArray"].Item = fred;
         Assert.AreEqual(fred.TestGuid, data["Fred"].Item["George1DArray"].Item.TestGuid);
     }

@@ -9,7 +9,7 @@ using static System.Array;
 namespace MetX.Standard.XDString.Generics;
 
 [Serializable]
-public class AssocArray<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, new()
+public class AssocArrayOfT<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, new()
 {
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
@@ -18,13 +18,13 @@ public class AssocArray<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, 
     [XmlAttribute] public int Number { get; set; }
     [XmlAttribute] public string Category { get; set; }
 
-    public AssocArray()
+    public AssocArrayOfT()
     {
         ID = Guid.NewGuid();
         Key = ID.ToString("N");
     }
 
-    public AssocArray(string key, string value = null, string name = null, Guid? id = null, int number = 0, string category = null)
+    public AssocArrayOfT(string key, string value = null, string name = null, Guid? id = null, int number = 0, string category = null)
     {
         Value = value;
         Name = name;
@@ -164,10 +164,10 @@ public class AssocArray<T> : List<AssocItemOfT<T>>, IAssocItem where T : class, 
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((AssocArray<T>)obj);
+        return obj.GetType() == this.GetType() && Equals((AssocArrayOfT<T>)obj);
     }
 
-    protected bool Equals(AssocArray<T> other)
+    protected bool Equals(AssocArrayOfT<T> other)
     {
         return string.Equals(Key, other.Key, StringComparison.InvariantCultureIgnoreCase);
     }

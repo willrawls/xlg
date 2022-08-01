@@ -14,7 +14,7 @@ public class AssocCubeTests
     [TestMethod]
     public void FourDifferentTypes_GetByBothKeysSimplified()
     {
-        var data = new AssocCube<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOf<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem(); 
         var mary = new MaryAssocItem();
@@ -32,7 +32,7 @@ public class AssocCubeTests
     [TestMethod]
     public void FourDifferentTypes_GetByBothIDsSimplified()
     {
-        var data = new AssocCube<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOf<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem(); 
         var mary = new MaryAssocItem();
@@ -50,7 +50,7 @@ public class AssocCubeTests
     [TestMethod]
     public void FourDifferentTypes_GetByBothObjectsSimplified()
     {
-        var data = new AssocCube<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOf<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem(); 
         var mary = new MaryAssocItem();
@@ -73,7 +73,7 @@ public class AssocCubeTests
     [TestMethod]
     public void FourDifferentTypes_ToXml_Simple()
     {
-        var data = new AssocCube<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOf<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem(); 
         var mary = new MaryAssocItem();
@@ -84,13 +84,13 @@ public class AssocCubeTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</AssocCubeOfFredAssocItemGeorgeAssocItemMaryAssocItemJustAnAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocCubeOfOfFredAssocItemGeorgeAssocItemMaryAssocItemJustAnAssocItem>"), actual);
     }
 
     [TestMethod]
     public void FourDifferentTypes_FromXml_Simple()
     {
-        var data = new AssocCube<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOf<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>();
         var fred = new FredAssocItem();
         var george = new GeorgeAssocItem(); 
         var mary = new MaryAssocItem();
@@ -110,7 +110,7 @@ public class AssocCubeTests
     [TestMethod]
     public void SameTypesForAll_GetByBothKeysSimplified()
     {
-        var data = new AssocCube<JustAnAssocItem>();
+        var data = new AssocCubeOf<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem(); var adam = new JustAnAssocItem();
@@ -128,7 +128,7 @@ public class AssocCubeTests
     [TestMethod]
     public void SameTypesForAll_GetByBothIDsSimplified()
     {
-        var data = new AssocCube<JustAnAssocItem>();
+        var data = new AssocCubeOf<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem(); var adam = new JustAnAssocItem();
@@ -146,7 +146,7 @@ public class AssocCubeTests
     [TestMethod]
     public void SameTypesForAll_GetByBothObjectsSimplified()
     {
-        var data = new AssocCube<JustAnAssocItem>();
+        var data = new AssocCubeOf<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem(); var adam = new JustAnAssocItem();
@@ -164,7 +164,7 @@ public class AssocCubeTests
     [TestMethod]
     public void SameTypesForAll_ToXml_Simple()
     {
-        var data = new AssocCube<JustAnAssocItem>();
+        var data = new AssocCubeOf<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem(); var adam = new JustAnAssocItem();
@@ -175,13 +175,13 @@ public class AssocCubeTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</AssocCubeOfJustAnAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocCubeOfOfJustAnAssocItem>"), actual);
     }
 
     [TestMethod]
     public void SameTypesForAll_FromXml_Simple()
     {
-        var data = new AssocCube<JustAnAssocItem>();
+        var data = new AssocCubeOf<JustAnAssocItem>();
 
         var fred = new JustAnAssocItem();
         var george = new JustAnAssocItem(); var adam = new JustAnAssocItem();
@@ -201,7 +201,7 @@ public class AssocCubeTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothKeysSimplified()
     {
-        var data = new AssocCube<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOfT2<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();
@@ -219,7 +219,7 @@ public class AssocCubeTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothIDsSimplified()
     {
-        var data = new AssocCube<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOfT2<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();
@@ -237,7 +237,7 @@ public class AssocCubeTests
     [TestMethod]
     public void AxiTheSameDifferentItem_GetByBothObjectsSimplified()
     {
-        var data = new AssocCube<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOfT2<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();
@@ -255,7 +255,7 @@ public class AssocCubeTests
     [TestMethod]
     public void AxiTheSameDifferentItem_ToXml_Simple()
     {
-        var data = new AssocCube<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOfT2<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();
@@ -266,13 +266,13 @@ public class AssocCubeTests
         var actual = data.ToXml();
 
         Assert.IsNotNull(actual);
-        Assert.IsTrue(actual.Contains("</AssocCubeOfFredAssocItemJustAnAssocItem>"), actual);
+        Assert.IsTrue(actual.Contains("</AssocItemOfTOfAssocArrayOfTOfAssocArrayOfTOfJustAnAssocItem>"), actual);
     }
 
     [TestMethod]
     public void AxiTheSameDifferentItem_FromXml_Simple()
     {
-        var data = new AssocCube<FredAssocItem, JustAnAssocItem>();
+        var data = new AssocCubeOfT2<FredAssocItem, JustAnAssocItem>();
 
         var fred = new FredAssocItem();
         var george = new FredAssocItem(); var adam = new FredAssocItem();

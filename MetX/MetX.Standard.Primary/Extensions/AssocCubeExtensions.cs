@@ -10,7 +10,7 @@ public static class AssocCubeExtensions
     #region All different types
 
     public static string ToXml<TFirstAxis, TSecondAxis, TThirdAxis, TItem>(
-        this AssocCube<TFirstAxis, TSecondAxis, TThirdAxis, TItem> AssocCube)
+        this AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem> AssocCube)
         where TFirstAxis : class, IAssocItem 
         where TSecondAxis : class, IAssocItem
         where TThirdAxis : class, IAssocItem
@@ -23,7 +23,7 @@ public static class AssocCubeExtensions
         return xml;
     }
 
-    public static AssocCube<TFirstAxis, TSecondAxis, TThirdAxis, TItem> 
+    public static AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem> 
         FromXml<TFirstAxis, TSecondAxis, TThirdAxis, TItem>(string xml)
         where TFirstAxis : class, IAssocItem 
         where TSecondAxis : class, IAssocItem
@@ -32,13 +32,13 @@ public static class AssocCubeExtensions
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<AssocCube<TFirstAxis, TSecondAxis, TThirdAxis, TItem>>(xml);
+            : Xml.FromXml<AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>>(xml);
     }
     #endregion
 
     #region One type
 
-    public static string ToXml<T>(this AssocCube<T> AssocCube)
+    public static string ToXml<T>(this AssocCubeOf<T> AssocCube)
         where T : class, IAssocItem, new()
     {
         if (AssocCube == null || AssocCube.FirstAxis.Count == 0)
@@ -48,18 +48,18 @@ public static class AssocCubeExtensions
         return xml;
     }
 
-    public static AssocCube<TAssocItem> FromXml<TAssocItem>(string xml)
+    public static AssocCubeOf<TAssocItem> FromXml<TAssocItem>(string xml)
         where TAssocItem : class, IAssocItem , new()
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<AssocCube<TAssocItem>>(xml);
+            : Xml.FromXml<AssocCubeOf<TAssocItem>>(xml);
     }
     #endregion
 
     #region One type for axis, one for item
     public static string ToXml<TAxis, TItem>(
-        this AssocCube<TAxis, TItem> assocCube)
+        this AssocCubeOfT2<TAxis, TItem> assocCube)
         where TAxis : class, IAssocItem 
         where TItem : class, IAssocItem, new()
     {
@@ -70,13 +70,13 @@ public static class AssocCubeExtensions
         return xml;
     }
 
-    public static AssocCube<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
+    public static AssocCubeOfT2<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
         where TAxis : class, IAssocItem 
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
             ? new() 
-            : Xml.FromXml<AssocCube<TAxis, TItem>>(xml);
+            : Xml.FromXml<AssocCubeOfT2<TAxis, TItem>>(xml);
     }
     #endregion
 }

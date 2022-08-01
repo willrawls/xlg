@@ -4,6 +4,6 @@ using MetX.Standard.XDString.Interfaces;
 
 namespace MetX.Standard.XDString.Generics;
 
-public class AssocSpacetime : AssocSheet<DateTimeAssocType, AssocCube<BasicAssocItem>, VectorAssocType>, IAssocItem
+public class AssocSpacetime : AssocSheet<DateTimeAssocType, AssocCubeOf<BasicAssocItem>, VectorAssocType>, IAssocItem
 {
 }
