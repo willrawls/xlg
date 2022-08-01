@@ -55,7 +55,7 @@ public class XlgQuickScriptTemplateTests
         Assert.IsNotNull(actual);
         Assert.IsNull(actual.ActualizeErrorText);
         Assert.AreEqual(4, actual.OutputFiles.Count);
-        Assert.IsFalse(actual.OutputFiles["_.csproj"].Name?.Contains("_"));
+        Assert.IsFalse(actual.OutputFiles["_.csproj"].Value?.Contains("_"));
 
         if (actual.Warnings.Count == 0)
             return;

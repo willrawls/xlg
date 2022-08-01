@@ -12,7 +12,7 @@ namespace MetX.Standard.Strings;
 
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, TimeTrackingAssocItem, string, string>, IAssocItem
+public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicAssocItem, string, string>, IAssocItem
 {
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public bool AutoPersist { get; set; }
@@ -104,7 +104,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, TimeTr
     }
 
     [XmlIgnore]
-    public override TimeTrackingAssocItem this[string key]
+    public override BasicAssocItem this[string key]
     {
         get
         {
@@ -113,7 +113,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, TimeTr
                 var assocItem = Items.FirstOrDefault(item => string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocItem != null) return assocItem;
 
-                assocItem = new TimeTrackingAssocItem(key);
+                assocItem = new BasicAssocItem(key);
                 Items.Add(assocItem);
                 return assocItem;
             }
