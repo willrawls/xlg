@@ -9,7 +9,7 @@ namespace MetX.Standard.XDString.Support;
 /// <summary>
 ///     String extension methods for finding and returning a substring based on delimiter placement and position.
 /// </summary>
-public static class Tokenizer
+internal static class Tokenizer
 {
     /// <summary>
     ///     Conveniently wraps string.Split for returning a string arr
@@ -24,7 +24,7 @@ public static class Tokenizer
     ///     NOTE: Never returns null. Each delimited token returned in a string array, with empty entries optionally
     ///     removed.
     /// </returns>
-    public static List<string> AllTokens(this string target, string delimiter = " ", StringSplitOptions compare = StringSplitOptions.None)
+    internal static List<string> AllTokens(this string target, string delimiter = " ", StringSplitOptions compare = StringSplitOptions.None)
     {
 
         var result = new List<string>();
@@ -35,7 +35,7 @@ public static class Tokenizer
         return result;
     }
 
-    public static List<string> AllTokensIgnoreCase(this string target, string delimiter = " ")
+    internal static List<string> AllTokensIgnoreCase(this string target, string delimiter = " ")
     {
         var indexes = TokenIndexes(target, delimiter, StringComparison
                 .InvariantCultureIgnoreCase)
@@ -44,7 +44,7 @@ public static class Tokenizer
         return target.Carve(indexes, delimiterLength).ToList();
     }
 
-    public static string[] Carve(this string target, int[] indexes, int delimiterLength)
+    internal static string[] Carve(this string target, int[] indexes, int delimiterLength)
     {
         if (delimiterLength < 0)
             delimiterLength = 0;
@@ -101,7 +101,7 @@ public static class Tokenizer
     ///  // x = "this is"
     ///  </code>
     /// </example>
-    public static string FirstToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string FirstToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         return TokenAt(target, 1, delimiter, compare);
     }
@@ -111,7 +111,7 @@ public static class Tokenizer
     /// </summary>
     /// <param name="target">The string to parse</param>
     /// <returns></returns>
-    public static string LastPathToken(this string target)
+    internal static string LastPathToken(this string target)
     {
         return TokenAt(target, TokenCount(target, @"\"), @"\");
     }
@@ -120,7 +120,7 @@ public static class Tokenizer
     /// <param name="target">The string to parse</param>
     /// <param name="delimiter">The token delimiter</param>
     /// <param name="compare"></param>
-    public static string LastToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string LastToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         var tokenCount = TokenCount(target, delimiter, compare);
         return TokenAt(target, tokenCount, delimiter, compare);
@@ -167,7 +167,7 @@ public static class Tokenizer
     /// <param name="delimiter">The string inside 'target' which separators tokens. Defaults to a space (" ").</param>
     /// <param name="compare"> Specifies the culture, case, and sort rules to be used. Defaults to OrdinalIgnoreCase (case insensitive)</param>
     /// <returns>Returns the substring from 'target' before the Nth (token) occurrence of 'delimiter'.</returns>
-    public static string TokenAt(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string TokenAt(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         //  Empty delimiter string means an return the target or blank if target is null
         if (string.IsNullOrEmpty(delimiter))
@@ -216,7 +216,7 @@ public static class Tokenizer
     /// </param>
     /// <param name="compare"></param>
     /// <returns></returns>
-    public static string TokenBetween(this string target, 
+    internal static string TokenBetween(this string target, 
         string leftDelimiter, 
         string rightDelimiter, 
         StringComparison compare = StringComparison.OrdinalIgnoreCase)
@@ -237,7 +237,7 @@ public static class Tokenizer
     /// <param name="rightDelimiter"></param>
     /// <param name="compare"></param>
     /// <returns></returns>
-    public static List<string> EveryTokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static List<string> EveryTokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         if (string.IsNullOrEmpty(target))
             return new List<string>();
@@ -270,7 +270,7 @@ public static class Tokenizer
         return names;
     }
 
-    public static IEnumerable<string> Splice(this string target, string leftDelimiter, string rightDelimiter)
+    internal static IEnumerable<string> Splice(this string target, string leftDelimiter, string rightDelimiter)
     {
         if (target.IsEmpty())
         {
@@ -346,7 +346,7 @@ public static class Tokenizer
             yield return target.Substring(currentLocation);
     }
         
-    public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
+    internal static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
         bool consumeDelimiters, Func<string, string> tokenProcessor)
     {
         if (target.IsEmpty())
@@ -390,7 +390,7 @@ public static class Tokenizer
     ///  // x = 4;
     ///  </code>
     /// </example>
-    public static int TokenCount(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static int TokenCount(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         //  Empty target means no tokens
         if (string.IsNullOrEmpty(target))
@@ -423,7 +423,7 @@ public static class Tokenizer
     ///  // x = 5;
     ///  </code>
     /// </example>
-    public static int TokenIndex(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static int TokenIndex(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         //  Empty target means no index
         if (string.IsNullOrEmpty(target))
@@ -457,7 +457,7 @@ public static class Tokenizer
         return target.Length;
     }
 
-    public static IEnumerable<int> TokenIndexes(this string target, string delimiter = " ", StringComparison compare = StringComparison.InvariantCultureIgnoreCase)
+    internal static IEnumerable<int> TokenIndexes(this string target, string delimiter = " ", StringComparison compare = StringComparison.InvariantCultureIgnoreCase)
     {
         //  Empty target means no index
         if (string.IsNullOrEmpty(target))
@@ -498,7 +498,7 @@ public static class Tokenizer
     ///  // x = "a test"
     ///  </code>
     /// </example>
-    public static string TokensAfter(this string target, int token = 1, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string TokensAfter(this string target, int token = 1, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         int index;
         var delimiterLength = delimiter.Length;
@@ -534,7 +534,7 @@ public static class Tokenizer
     /// <param name="target">The string to parse</param>
     /// <param name="delimiter">The token delimiter</param>
     /// <param name="compare"></param>
-    public static string TokensAfterFirst(this string target, 
+    internal static string TokensAfterFirst(this string target, 
         string delimiter = " ", 
         StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
@@ -548,7 +548,7 @@ public static class Tokenizer
     /// <param name="rightDelimiter"></param>
     /// <param name="compare"></param>
     /// <returns></returns>
-    public static string TokensAround(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string TokensAround(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(leftDelimiter) || string.IsNullOrEmpty(rightDelimiter))
             return string.Empty;
@@ -574,7 +574,7 @@ public static class Tokenizer
     ///  // x = "this is"
     ///  </code>
     /// </example>
-    public static string TokensBefore(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string TokensBefore(this string target, int token, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         //  First, Zeroth, or Negative tokens or empty delimiter strings mean an empty string returned
         if (token < 2 || delimiter.Length < 1)
@@ -601,7 +601,7 @@ public static class Tokenizer
     ///  // x = "this is"
     ///  </code>
     /// </example>
-    public static string TokensBeforeLast(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+    internal static string TokensBeforeLast(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
         var tokenCount = target.TokenCount(delimiter, compare);
         return target.TokensBefore(tokenCount, delimiter, compare);
@@ -618,7 +618,7 @@ public static class Tokenizer
     /// <param name="right"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static IEnumerable<string> Splice(this string target, string left, string right, StringSplitOptions options = StringSplitOptions.None)
+    internal static IEnumerable<string> Splice(this string target, string left, string right, StringSplitOptions options = StringSplitOptions.None)
     {
         if (target.IsEmpty())
             yield return null;
