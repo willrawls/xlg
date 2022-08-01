@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Strings", "MetX.Standard.XDString\MetX.Standard.Strings.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Strings", "MetX.Standard.Strings\MetX.Standard.Strings.csproj", "{C45EE796-23E7-4889-8132-77D894F46512}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Tests", "MetX.Console.Tests\MetX.Console.Tests.csproj", "{F5326191-3C44-4281-A78C-BE77A9A3B86A}"
 EndProject

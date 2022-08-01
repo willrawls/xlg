@@ -44,6 +44,7 @@
     <ProjectReference Include="..\MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
     <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
   </ItemGroup>
 
   <ItemGroup>
