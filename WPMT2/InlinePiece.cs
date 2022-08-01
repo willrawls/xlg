@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Library.Strings;
+﻿using MetX.Standard.Strings;
 
 namespace WilliamPersonalMultiTool
 {

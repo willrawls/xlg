@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.ExceptionServices;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Generics;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using NHotPhrase.Phrase;
 using Win32Interop.Structs;
 

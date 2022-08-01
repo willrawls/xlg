@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
 

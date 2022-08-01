@@ -1,4 +1,3 @@
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five.Glove.Gatherers

@@ -1,14 +1,13 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.XDString;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.Generics;
 
 namespace XLG.QuickScripts.Walker
 {
     public partial class ListViewSlidePanel : UserControl
     {
-        public AssocArray<AssocArray<AssocType<string>>> State;
+        public AssocArrayOfT<AssocArrayOfT<AssocType<string>>> State;
 
         public ListViewSlidePanel()
         {
@@ -24,7 +23,7 @@ namespace XLG.QuickScripts.Walker
             Visible = true;
             ChildControl.Visible = true;
             ChildControl.View = View.Details;
-            foreach(var item in State.Items)
+            foreach(var item in State)
             {
                 var listViewItem = new ListViewItem(item.Key);
                 if (item.Value.IsNotEmpty())

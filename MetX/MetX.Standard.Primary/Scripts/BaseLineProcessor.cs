@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MetX.Standard.Library;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings.Extensions;

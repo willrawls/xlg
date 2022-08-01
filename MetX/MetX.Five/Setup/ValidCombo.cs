@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-
-namespace MetX.Five.Setup;
+﻿namespace MetX.Five.Setup;
 
 public class ValidCombo<T> : FiverActorBase where T : new()
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using CommandLine;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Generation;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;

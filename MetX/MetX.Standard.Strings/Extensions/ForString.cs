@@ -12,6 +12,21 @@ namespace MetX.Standard.Strings.Extensions
     /// </summary>
     public static class ForString
     {
+        public static string InsertXEveryYCharacters(this string target, int y = 100, string toInsert = " ")
+        {
+            if (target.IsEmpty() || target.Length < y || toInsert == "")
+                return target;
+
+            var result = target.Left(y);
+            for (var i = y; i < target.Length; i+=y)
+            {
+                result += toInsert;
+                result += target.Mid(i, y);
+            }
+
+            return result;
+        }
+
         public static string ImplicitReplace(this string str, string toFind, string replaceWith, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
         {
             replaceWith ??= "";

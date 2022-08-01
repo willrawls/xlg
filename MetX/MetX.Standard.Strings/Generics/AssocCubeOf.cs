@@ -4,6 +4,12 @@ using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
 
+public class AssocCubeOf<TAxis, TItem> : AssocCubeOf<TAxis, TAxis, TAxis, TItem>
+    where TAxis : class, IAssocItem
+    where TItem : class, IAssocItem, new()
+{
+}
+
 public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
     where TFirstAxis : class, IAssocItem 
     where TSecondAxis : class, IAssocItem

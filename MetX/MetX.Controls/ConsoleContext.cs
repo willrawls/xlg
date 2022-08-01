@@ -6,12 +6,12 @@ using System.Threading;
 using System.Windows.Forms;
 using MetX.Five;
 using MetX.Five.Scripts;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Library.Strings;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Windows.Controls;
 

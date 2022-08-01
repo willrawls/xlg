@@ -35,7 +35,7 @@
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.Strings.csproj" />
+	  <ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="README.md">

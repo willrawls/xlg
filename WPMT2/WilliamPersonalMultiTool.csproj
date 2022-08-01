@@ -32,6 +32,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MetX\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+    <ProjectReference Include="..\MetX\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

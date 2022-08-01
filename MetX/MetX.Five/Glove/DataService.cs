@@ -7,7 +7,6 @@ using MetX.Five.Glove.Data;
 using MetX.Five.Glove.Gatherers;
 using MetX.Five.Glove.Interfaces;
 using MetX.Five.Glove.Providers;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Metadata;
 using MetX.Standard.Strings.Extensions;

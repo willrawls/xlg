@@ -1,7 +1,6 @@
 using System;
 using System.Data;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Five.Glove.Data

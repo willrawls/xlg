@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;

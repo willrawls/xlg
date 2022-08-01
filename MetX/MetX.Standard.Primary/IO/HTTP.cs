@@ -1,7 +1,6 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.IO

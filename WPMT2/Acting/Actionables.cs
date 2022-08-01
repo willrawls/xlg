@@ -1,9 +1,9 @@
 ﻿using System;
-using MetX.Standard.XDString.Generics;
+using MetX.Standard.Strings.Generics;
 
 namespace WilliamPersonalMultiTool.Acting
 {
-    public class Actionables : AssocArray<ActionableItem>
+    public class Actionables : AssocArrayOfT<ActionableItem>
     {
         public bool ContainsActionableKeyword(string line)
         {

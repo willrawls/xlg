@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 using System.Xml;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.IO

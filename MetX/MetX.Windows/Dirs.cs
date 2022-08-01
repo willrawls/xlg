@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.XDString;
+using MetX.Standard.Strings;
 using Microsoft.Win32;
 
 namespace MetX.Windows

@@ -78,7 +78,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
-		<ProjectReference Include="..\MetX.Standard.XDString\MetX.Standard.Strings.csproj" />
+		<ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Metadata\ArchivedFiles\" />
