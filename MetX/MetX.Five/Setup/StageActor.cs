@@ -2,11 +2,17 @@
 
 public class StageActor : FiverActorBase
 {
+    public StageActor()
+    {
+
+    }
+
     public StageActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
     {
     }
 
-    public StageActor()
+    public override ProcessorResult Run(ArgumentSettings settings)
     {
+        throw new System.NotImplementedException();
     }
 }

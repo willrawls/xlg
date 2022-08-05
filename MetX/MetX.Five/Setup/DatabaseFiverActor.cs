@@ -4,11 +4,17 @@ namespace MetX.Five.Setup;
 
 public class DatabaseFiverActor : FiverActorBase
 {
-    public DatabaseFiverActor()
+    public new bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
+        throw new NotImplementedException();
     }
 
-    public new bool ReadyToAct(ArgumentSettings settings, out string reason)
+    public DatabaseFiverActor()
+    {
+        
+    }
+
+    public override ProcessorResult Run(ArgumentSettings settings)
     {
         throw new NotImplementedException();
     }

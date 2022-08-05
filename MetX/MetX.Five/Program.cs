@@ -31,11 +31,11 @@ namespace MetX.Five
             if (args.Length > 3) settings.Path = args[3];
             if (args.Length > 4) settings.AdditionalArguments = args.Skip(4).ToList();
 
-            var actor = settings.Verb.GetActor(settings.Noun);
+            FiverActorBase actor = settings.Verb.GetActor(settings.Noun);
             Func<ArgumentSettings, ProcessorResult> processingFunction = null;
             if (actor != null)
             {
-                processingFunction = actor[settings];
+                processingFunction = actor.GetProcessingFunction(settings);
             }
 
             if(processingFunction == null)
@@ -43,7 +43,6 @@ namespace MetX.Five
                 ShowSyntax();
                 return;
             }
-
 
             var result = processingFunction(settings);
             if(result.ActualizationResult.ActualizationSuccessful != true)

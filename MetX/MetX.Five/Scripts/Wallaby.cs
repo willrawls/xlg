@@ -4,6 +4,7 @@ using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MetX.Five.Scripts;
 
@@ -57,7 +58,7 @@ public class Wallaby
 
         if (!File.Exists(filePath))
             return null;
-
+        <<< Start here
         var scriptList = XlgQuickScriptFile.Load(filePath);
         return scriptList.FirstOrDefault(s => string.Equals(scriptName, s.Name));
     }

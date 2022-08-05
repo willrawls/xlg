@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MetX.Console.Fiver": {
+      "commandName": "Project",
+      "commandLineArgs": "run script \"Test 8\" \"Extract full_text tweets\" "
+    }
+  }
+}

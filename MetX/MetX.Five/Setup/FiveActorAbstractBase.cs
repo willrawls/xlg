@@ -2,70 +2,77 @@
 
 namespace MetX.Five.Setup;
 
-public abstract class FiveActorAbstractBase : IAct
+public abstract class FiverActorBase : IAct
 {
     public ArgumentNoun Noun;
     public ArgumentVerb Verb;
 
-    public Func<ArgumentSettings, ProcessorResult> this[ArgumentSettings settings]
+    public FiverActorBase(ArgumentVerb verb, ArgumentNoun noun)
     {
-        get
+        Verb = verb;
+        Noun = noun;
+    }
+
+    protected FiverActorBase()
+    {
+    }
+
+    public Func<ArgumentSettings, ProcessorResult> GetProcessingFunction(ArgumentSettings settings)
+    {
+        Func<ArgumentSettings, ProcessorResult> processor = null;
+
+        switch (settings.Verb)
         {
-            Func<ArgumentSettings, ProcessorResult> processor = null;
+            case ArgumentVerb.Unknown:
+                return null;
 
-            switch (settings.Verb)
-            {
-                case ArgumentVerb.Unknown:
-                    return null;
+            case ArgumentVerb.Run:
+                processor = Run;
+                break;
+            case ArgumentVerb.Build:
+                processor = Build;
+                break;
 
-                case ArgumentVerb.Run:
-                    processor = Run;
-                    break;
-                case ArgumentVerb.Build:
-                    processor = Build;
-                    break;
+            case ArgumentVerb.Gen:
+                processor = Gen;
+                break;
+            case ArgumentVerb.Regen:
+                processor = Regen;
+                break;
 
-                case ArgumentVerb.Gen:
-                    processor = Gen;
-                    break;
-                case ArgumentVerb.Regen:
-                    processor = Regen;
-                    break;
+            case ArgumentVerb.Walk:
+                processor = Walk;
+                break;
 
-                case ArgumentVerb.Walk:
-                    processor = Walk;
-                    break;
-                
-                case ArgumentVerb.Add:
-                    processor = Add;
-                    break;
-                
-                case ArgumentVerb.Clone:
-                    processor = Clone;
-                    break;
-                
-                case ArgumentVerb.Delete:
-                    processor = Delete;
-                    break;
-                
-                case ArgumentVerb.Stage:
-                    processor = Stage;
-                    break;
-                
-                case ArgumentVerb.Test:
-                    processor = Test;
-                    break;
-                
-                case ArgumentVerb.Remove:
-                    processor = Remove;
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            case ArgumentVerb.Add:
+                processor = Add;
+                break;
 
-            return processor;
+            case ArgumentVerb.Clone:
+                processor = Clone;
+                break;
+
+            case ArgumentVerb.Delete:
+                processor = Delete;
+                break;
+
+            case ArgumentVerb.Stage:
+                processor = Stage;
+                break;
+
+            case ArgumentVerb.Test:
+                processor = Test;
+                break;
+
+            case ArgumentVerb.Remove:
+                processor = Remove;
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+
+        return processor;
     }
 
     public virtual ProcessorResult Stage(ArgumentSettings settings) => throw new NotImplementedException();
@@ -78,7 +85,8 @@ public abstract class FiveActorAbstractBase : IAct
         return false;
     }
 
-    public virtual ProcessorResult Run(ArgumentSettings settings) => null;
+    public abstract ProcessorResult Run(ArgumentSettings settings);
+    //public virtual ProcessorResult Run(ArgumentSettings settings) => null;
 
     public virtual ProcessorResult Build(ArgumentSettings settings) => null;
 

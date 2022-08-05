@@ -43,7 +43,7 @@ public class ComboTests
 
         Assert.IsTrue(testActor.ReadyToAct(settings, out var reason));
         Assert.IsNull(reason);
-        var actual = testActor[settings](settings);
+        Func<ArgumentSettings, ProcessorResult> actual = testActor.GetProcessingFunction(settings);
         Assert.IsNotNull(actual);
     }
 }

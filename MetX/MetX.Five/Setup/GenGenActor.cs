@@ -2,11 +2,17 @@
 
 public class GenGenActor : FiverActorBase
 {
+    public GenGenActor()
+    {
+
+    }
+
     public GenGenActor(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
     {
     }
 
-    public GenGenActor()
+    public override ProcessorResult Run(ArgumentSettings settings)
     {
+        throw new System.NotImplementedException();
     }
 }

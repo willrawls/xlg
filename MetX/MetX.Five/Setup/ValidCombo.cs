@@ -1,4 +1,6 @@
-﻿namespace MetX.Five.Setup;
+﻿using System;
+
+namespace MetX.Five.Setup;
 
 public class ValidCombo<T> : FiverActorBase where T : new()
 {
@@ -15,5 +17,10 @@ public class ValidCombo<T> : FiverActorBase where T : new()
 
     public ValidCombo(ArgumentVerb verb, ArgumentNoun noun) : base(verb, noun)
     {
+    }
+
+    public override ProcessorResult Run(ArgumentSettings settings)
+    {
+        throw new NotImplementedException();
     }
 }

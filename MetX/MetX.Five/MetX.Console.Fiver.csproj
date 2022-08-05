@@ -6,7 +6,7 @@
 		<ApplicationIcon />
 		<OutputType>Exe</OutputType>
 		<StartupObject>MetX.Five.Program</StartupObject>
-		<AssemblyName>Fiver</AssemblyName>
+		<AssemblyName>Fimm</AssemblyName>
 		<RootNamespace>MetX.Five</RootNamespace>
 	</PropertyGroup>
 
@@ -30,6 +30,10 @@
 		<Compile Remove="Metadata\**" />
 		<EmbeddedResource Remove="Metadata\**" />
 		<None Remove="Metadata\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Setup\FiverActorBase.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

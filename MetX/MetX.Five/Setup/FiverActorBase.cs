@@ -1,6 +1,6 @@
-﻿namespace MetX.Five.Setup;
+﻿/*namespace MetX.Five.Setup;
 
-public class FiverActorBase : FiveActorAbstractBase
+public class FiverActorBase
 {
     public FiverActorBase()
     {
@@ -11,4 +11,4 @@ public class FiverActorBase : FiveActorAbstractBase
         Verb = verb;
         Noun = noun;
     }
-}
+}*/
