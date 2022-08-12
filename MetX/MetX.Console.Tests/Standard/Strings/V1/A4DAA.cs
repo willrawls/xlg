@@ -1,10 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Xml.Serialization;
-using MetX.Console.Tests.Standard.XDString.TestingClasses;
+using MetX.Console.Tests.Standard.Strings.TestingClasses;
 using MetX.Standard.Strings.Generics.V1;
 
-namespace MetX.Console.Tests.Standard.XDString.V1;
+namespace MetX.Console.Tests.Standard.Strings.V1;
 
 [Serializable]
 public class A4DAA : AssocArray4D<A4DAA, George1DArray, GeorgeItem, Fred, FredItem>

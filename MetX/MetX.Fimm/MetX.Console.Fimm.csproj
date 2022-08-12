@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<ApplicationIcon />
+		<OutputType>Exe</OutputType>
+		<StartupObject>MetX.Fimm.Program</StartupObject>
+		<AssemblyName>Fimm</AssemblyName>
+		<RootNamespace>MetX.Fimm</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Version>5.1.1</Version>
+		<Authors>William Rawls</Authors>
+		<Product>XLG</Product>
+		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>XLG Glove Database metadata collector and post collection code generator</Description>
+		<Copyright>MIT 2.0 - William Rawls</Copyright>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
+		<IsPublishable>False</IsPublishable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Metadata\**" />
+		<EmbeddedResource Remove="Metadata\**" />
+		<None Remove="Metadata\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Scripts\Settings.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Settings.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="SliceAndDice\" />
+	  <Folder Include="Walker\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Mvp.Xml">
+	    <HintPath>..\StaticReferences\Mvp.Xml.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

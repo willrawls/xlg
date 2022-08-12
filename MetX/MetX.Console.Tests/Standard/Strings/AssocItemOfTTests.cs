@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Xml.Serialization;
-using MetX.Console.Tests.Standard.XDString.TestingClasses;
+using MetX.Console.Tests.Standard.Strings.TestingClasses;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.Strings;
 
 [TestClass]
 public class AssocItemOfTTests

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MetX.Standard.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.Strings;
 
 [TestClass]
 public class AssocArrayTests

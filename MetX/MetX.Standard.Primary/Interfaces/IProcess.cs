@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MetX.Standard.Primary.Five;
+using MetX.Standard.Primary.Fimm;
 
 namespace MetX.Standard.Primary.Interfaces
 {

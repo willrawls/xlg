@@ -2,7 +2,7 @@
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.Strings;
 
-namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
+namespace MetX.Console.Tests.Standard.Strings.TestingClasses;
 
 public class JustAnAssocItem : TimeTrackingAssocItem
 {

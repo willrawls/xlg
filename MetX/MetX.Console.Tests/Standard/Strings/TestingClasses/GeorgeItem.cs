@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace MetX.Console.Tests.Standard.XDString.TestingClasses;
+namespace MetX.Console.Tests.Standard.Strings.TestingClasses;
 
 [Serializable]
 public class GeorgeItem

@@ -1,10 +1,10 @@
 ﻿using System;
-using MetX.Console.Tests.Standard.XDString.TestingClasses;
+using MetX.Console.Tests.Standard.Strings.TestingClasses;
 using MetX.Standard.Primary.Extensions;
 using MetX.Standard.Strings.Generics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Console.Tests.Standard.Strings;
 
 [TestClass]
 public class AssocTimelineTests
