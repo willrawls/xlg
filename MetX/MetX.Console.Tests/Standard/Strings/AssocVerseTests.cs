@@ -1,50 +1,7 @@
 ﻿using System;
-using System.Xml.Serialization;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Generics;
-using MetX.Standard.Strings.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.Strings;
-
-public class AssocVerse2 : AssocArrayOfT<AssocReality>
-{
-}
-
-public class AssocReality : AssocArrayOfT<AssocDimension>
-{
-}
-
-public class AssocDimension : AssocCubeOf<AssocSpace>
-{
-
-}
-
-public class AssocSpace : AssocSheet<AssocTime>, IAssocItem
-{
-    [XmlAttribute] public string Key { get; set;  }
-    [XmlAttribute] public string Value { get; set; }
-    [XmlAttribute] public string Name { get; set; }
-    [XmlAttribute] public Guid ID { get; set; }
-    [XmlAttribute] public int Number { get; set; }
-    [XmlAttribute] public string Category { get; set; }
-
-    public AssocSpace() : base()
-    {
-    }
-}
-
-public class AssocTime : AssocCubeOf<AssocGravity>
-{
-}
-
-public class AssocGravity : AssocCubeOf<AssocVector>
-{
-}
-
-public class AssocVector : TimeTrackingAssocItem
-{
-}
 
 [TestClass]
 public class AssocVerseTests

@@ -52,8 +52,7 @@ namespace MetX.Fimm
                 return;
             }
 
-            Console.WriteLine("Ding");
-
+            System.Console.WriteLine("Ding");
         }
 
         private static void ShowSyntax()

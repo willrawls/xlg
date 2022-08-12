@@ -27,6 +27,17 @@ namespace MetX.Standard.Primary.Scripts
                                           && OutputText.AsString().Contains(" 0 Error(s)")
                                           && File.Exists(DestinationExecutableFilePath));
 
+        public string Errors
+        {
+            get
+            {
+                if (!CompileSuccessful || ActualizeErrorText.IsNotEmpty() || CompileErrorText.IsNotEmpty())
+                    return ActualizeErrorText.AsString() + "\n" + CompileErrorText;
+                return "";
+            }
+
+        }
+
         public ActualizationResult(ActualizationSettings settings)
         {
             Settings = settings;

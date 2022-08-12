@@ -1,7 +1,6 @@
 ﻿using System;
 using MetX.Console.Tests.Standard.Strings.TestingClasses;
 using MetX.Standard.Strings.Generics;
-using MetX.Standard.Strings.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.Strings;
@@ -25,17 +24,4 @@ public class AssocItemOfTTests
         Assert.AreEqual("Mary", data.Name);
         Assert.AreEqual(otherItem.ID, data.Parent);
     }
-}
-
-public class OwenAssocItem : IAssocItem
-{
-    public string OwenItemName {get; set; }
-    public Guid OwenItemTestGuid { get; set; } = Guid.NewGuid();
-
-    public string Key { get; set; }
-    public string Value { get; set; }
-    public string Name { get; set; }
-    public Guid ID { get; set; }
-    public int Number { get; set; }
-    public string Category { get; set; }
 }
