@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
@@ -45,7 +46,7 @@ public class Wallaby
             return null;
 
         var scriptList = XlgQuickScriptFile.Load(filePath);
-        return scriptList.FirstOrDefault(s => string.Equals(scriptName, s.Name));
+        return scriptList[scriptName];
     }
 
     public XlgQuickScript FindScript(string scriptName)
@@ -58,9 +59,9 @@ public class Wallaby
 
         if (!File.Exists(filePath))
             return null;
-        <<< Start here
+        
         var scriptList = XlgQuickScriptFile.Load(filePath);
-        return scriptList.FirstOrDefault(s => string.Equals(scriptName, s.Name));
+        return scriptList[scriptName];
     }
 
 

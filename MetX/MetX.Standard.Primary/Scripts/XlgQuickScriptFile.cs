@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -16,6 +18,19 @@ namespace MetX.Standard.Primary.Scripts
         public string FilePath { get; set; }
 
         public XlgQuickScriptFile(string filePath) { FilePath = filePath; }
+
+        public XlgQuickScript this[string scriptName]
+        {
+            get
+            {
+                if (scriptName.IsEmpty())
+                    return null;
+                
+                return this.FirstOrDefault(s =>
+                    string.Equals(scriptName, s.Name, StringComparison
+                        .InvariantCultureIgnoreCase));
+            }
+        }
 
         public bool Save(string backupPath)
         {
