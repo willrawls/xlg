@@ -55,6 +55,8 @@ public class Wallaby
         {
             return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
         }
+        
+        
         var filePath = Shared.Dirs.LastScriptFilePath;
 
         if (!File.Exists(filePath))

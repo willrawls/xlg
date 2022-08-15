@@ -29,7 +29,7 @@ namespace MetX.Fimm
             };
 
             if (args.Length > 3) settings.Path = args[3];
-            if (args.Length > 4) settings.AdditionalArguments = args.Skip(4).ToList();
+            if (args.Length > 4) settings.AdditionalArguments = args.Skip(3).ToList();
 
             FimmActorBase actor = settings.Verb.GetActor(settings.Noun);
             Func<ArgumentSettings, ProcessorResult> processingFunction = null;

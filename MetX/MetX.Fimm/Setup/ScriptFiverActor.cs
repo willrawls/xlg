@@ -1,5 +1,7 @@
 ﻿using MetX.Fimm.Scripts;
 using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Setup;
 
@@ -15,10 +17,19 @@ public class ScriptFimmActor : FimmActorBase
 
     public override ProcessorResult Run(ArgumentSettings settings)
     {
+        XlgQuickScript scriptToRun = null;
+
         var context = new ConsoleContext();
         IGenerationHost host = new ConsoleGenerationHost(context);
         var wallaby = new Wallaby(host);
-        var scriptToRun = wallaby.FindScript(settings.Name);
+        if(settings.AdditionalArguments.IsNotEmpty())
+        {
+            scriptToRun = wallaby.FindScript(settings.Name, settings.AdditionalArguments[0]);
+        }
+        else
+        {
+            scriptToRun = wallaby.FindScript(settings.Name);
+        }
 
         return new ProcessorResult
         {
