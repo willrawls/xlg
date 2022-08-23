@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.UserControls;
-using MetX.Five;
-using MetX.Five.Scripts;
+using MetX.Fimm;
+using MetX.Fimm.Scripts;
+
+
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
@@ -654,7 +656,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                                 ref newCloneFolder) ==
                             MessageBoxResult.OK)
                         {
-                            MetX.Five.Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
+                            MetX.Fimm.Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
 
                             if (Directory.Exists(newCloneFolder))
                             {
@@ -810,7 +812,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         FolderBrowserDialog.Description = title;
         if (FolderBrowserDialog.ShowDialog(this) != DialogResult.OK) return null;
 
-        MetX.Five.Shared.Dirs.Settings.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
+        Shared.Dirs.Settings.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
         return FolderBrowserDialog.SelectedPath;
     }
 

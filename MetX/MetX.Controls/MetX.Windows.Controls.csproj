@@ -47,6 +47,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj" />
+		<ProjectReference Include="..\MetX.Fimm\MetX.Console.Fimm.csproj" />
 		<ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />

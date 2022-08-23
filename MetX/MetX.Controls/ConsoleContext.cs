@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using MetX.Five;
-using MetX.Five.Scripts;
+using MetX.Fimm;
+using MetX.Fimm.Scripts;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
@@ -148,7 +148,7 @@ public class ConsoleContext : ContextBase
     private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
     {
         var wallaby = new Wallaby(host);
-        var result = wallaby.FiverRunScript(scriptToRun);
+        var result = wallaby.RunQuickScript(scriptToRun);
 
         if (!result.CompileSuccessful)
         {

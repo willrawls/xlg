@@ -66,6 +66,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.IndexListView = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.TableListView = new System.Windows.Forms.ListView();
@@ -75,6 +77,8 @@
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.label5 = new System.Windows.Forms.Label();
             this.KeysListView = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -112,10 +116,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -137,13 +138,15 @@
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.TableListView);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(321, 42);
+            this.panel1.ForeColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(372, 42);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(341, 560);
             this.panel1.TabIndex = 1;
             // 
             // button14
             // 
+            this.button14.ForeColor = System.Drawing.Color.Black;
             this.button14.Location = new System.Drawing.Point(147, 351);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(39, 23);
@@ -153,6 +156,7 @@
             // 
             // button15
             // 
+            this.button15.ForeColor = System.Drawing.Color.Black;
             this.button15.Location = new System.Drawing.Point(102, 352);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(39, 23);
@@ -162,6 +166,7 @@
             // 
             // button8
             // 
+            this.button8.ForeColor = System.Drawing.Color.Black;
             this.button8.Location = new System.Drawing.Point(102, 27);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(39, 23);
@@ -171,6 +176,7 @@
             // 
             // button9
             // 
+            this.button9.ForeColor = System.Drawing.Color.Black;
             this.button9.Location = new System.Drawing.Point(57, 28);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(39, 23);
@@ -201,16 +207,26 @@
             // 
             // IndexListView
             // 
-            this.IndexListView.BackColor = System.Drawing.Color.Gray;
+            this.IndexListView.BackColor = System.Drawing.Color.Black;
             this.IndexListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.IndexListView.ForeColor = System.Drawing.Color.White;
             this.IndexListView.Location = new System.Drawing.Point(19, 379);
             this.IndexListView.Name = "IndexListView";
             this.IndexListView.Size = new System.Drawing.Size(302, 153);
             this.IndexListView.TabIndex = 14;
             this.IndexListView.UseCompatibleStateImageBehavior = false;
             this.IndexListView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Columns";
+            this.columnHeader2.Width = 250;
             // 
             // label4
             // 
@@ -232,12 +248,13 @@
             // 
             // TableListView
             // 
-            this.TableListView.BackColor = System.Drawing.Color.Gray;
+            this.TableListView.BackColor = System.Drawing.Color.Black;
             this.TableListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
+            this.TableListView.ForeColor = System.Drawing.Color.White;
             this.TableListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem5,
             listViewItem6,
@@ -280,10 +297,11 @@
             // 
             // KeysListView
             // 
-            this.KeysListView.BackColor = System.Drawing.Color.Gray;
+            this.KeysListView.BackColor = System.Drawing.Color.Black;
             this.KeysListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
+            this.KeysListView.ForeColor = System.Drawing.Color.White;
             this.KeysListView.Location = new System.Drawing.Point(11, 379);
             this.KeysListView.Name = "KeysListView";
             this.KeysListView.Size = new System.Drawing.Size(302, 153);
@@ -291,23 +309,35 @@
             this.KeysListView.UseCompatibleStateImageBehavior = false;
             this.KeysListView.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Columns";
+            this.columnHeader4.Width = 250;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel2.Controls.Add(this.button6);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.RelationshipTreeView);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.ForeColor = System.Drawing.Color.White;
             this.panel2.Location = new System.Drawing.Point(0, 42);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(321, 560);
+            this.panel2.Size = new System.Drawing.Size(372, 560);
             this.panel2.TabIndex = 2;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(272, 6);
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(86, 6);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(39, 23);
             this.button3.TabIndex = 9;
@@ -316,17 +346,19 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(3, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
+            this.label1.Size = new System.Drawing.Size(366, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "Relationships";
             // 
             // RelationshipTreeView
             // 
-            this.RelationshipTreeView.BackColor = System.Drawing.Color.Gray;
-            this.RelationshipTreeView.Location = new System.Drawing.Point(12, 30);
+            this.RelationshipTreeView.BackColor = System.Drawing.Color.Black;
+            this.RelationshipTreeView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.RelationshipTreeView.ForeColor = System.Drawing.Color.White;
+            this.RelationshipTreeView.Location = new System.Drawing.Point(0, 35);
             this.RelationshipTreeView.Name = "RelationshipTreeView";
             treeNode8.ForeColor = System.Drawing.Color.Red;
             treeNode8.Name = "Node2";
@@ -348,20 +380,23 @@
             treeNode10,
             treeNode12,
             treeNode14});
-            this.RelationshipTreeView.Size = new System.Drawing.Size(298, 249);
+            this.RelationshipTreeView.Size = new System.Drawing.Size(372, 266);
             this.RelationshipTreeView.TabIndex = 6;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 282);
+            this.label2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(0, 301);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 15);
+            this.label2.Size = new System.Drawing.Size(372, 15);
             this.label2.TabIndex = 7;
             this.label2.Text = "Relationship Properties";
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.comboBox6);
@@ -377,9 +412,10 @@
             this.panel3.Controls.Add(this.comboBox4);
             this.panel3.Controls.Add(this.comboBox3);
             this.panel3.Controls.Add(this.comboBox2);
-            this.panel3.Location = new System.Drawing.Point(12, 300);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 316);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(299, 244);
+            this.panel3.Size = new System.Drawing.Size(372, 244);
             this.panel3.TabIndex = 8;
             // 
             // button5
@@ -528,14 +564,16 @@
             this.panel4.Controls.Add(this.ColumnsListView);
             this.panel4.Controls.Add(this.KeysListView);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(662, 42);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.ForeColor = System.Drawing.Color.White;
+            this.panel4.Location = new System.Drawing.Point(713, 42);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(322, 560);
+            this.panel4.Size = new System.Drawing.Size(354, 560);
             this.panel4.TabIndex = 3;
             // 
             // button12
             // 
+            this.button12.ForeColor = System.Drawing.Color.Black;
             this.button12.Location = new System.Drawing.Point(123, 352);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(39, 23);
@@ -545,6 +583,7 @@
             // 
             // button13
             // 
+            this.button13.ForeColor = System.Drawing.Color.Black;
             this.button13.Location = new System.Drawing.Point(78, 353);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(39, 23);
@@ -554,6 +593,7 @@
             // 
             // button10
             // 
+            this.button10.ForeColor = System.Drawing.Color.Black;
             this.button10.Location = new System.Drawing.Point(144, 27);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(39, 23);
@@ -563,6 +603,7 @@
             // 
             // button11
             // 
+            this.button11.ForeColor = System.Drawing.Color.Black;
             this.button11.Location = new System.Drawing.Point(99, 28);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(39, 23);
@@ -581,12 +622,13 @@
             // 
             // ColumnsListView
             // 
-            this.ColumnsListView.BackColor = System.Drawing.Color.Gray;
+            this.ColumnsListView.BackColor = System.Drawing.Color.Black;
             this.ColumnsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Name,
             this.Type,
             this.Size,
             this.Indexed});
+            this.ColumnsListView.ForeColor = System.Drawing.Color.White;
             this.ColumnsListView.FullRowSelect = true;
             this.ColumnsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ColumnsListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
@@ -617,15 +659,16 @@
             // 
             // panel5
             // 
-            this.panel5.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel5.BackColor = System.Drawing.Color.Navy;
             this.panel5.Controls.Add(this.checkBox2);
             this.panel5.Controls.Add(this.checkBox1);
             this.panel5.Controls.Add(this.button7);
             this.panel5.Controls.Add(this.button4);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.ForeColor = System.Drawing.Color.White;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1015, 42);
+            this.panel5.Size = new System.Drawing.Size(1067, 42);
             this.panel5.TabIndex = 4;
             // 
             // checkBox2
@@ -654,57 +697,51 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(878, 12);
+            this.button7.ForeColor = System.Drawing.Color.Black;
+            this.button7.Location = new System.Drawing.Point(928, 11);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(106, 23);
+            this.button7.Size = new System.Drawing.Size(65, 23);
             this.button7.TabIndex = 1;
             this.button7.Text = "Save";
             this.button7.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(710, 12);
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.Location = new System.Drawing.Point(785, 11);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 23);
+            this.button4.Size = new System.Drawing.Size(120, 23);
             this.button4.TabIndex = 0;
             this.button4.Text = "Refresh Database";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // columnHeader1
+            // button6
             // 
-            this.columnHeader1.Text = "Name";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Columns";
-            this.columnHeader2.Width = 250;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Name";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Columns";
-            this.columnHeader4.Width = 250;
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Location = new System.Drawing.Point(130, 6);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(39, 23);
+            this.button6.TabIndex = 17;
+            this.button6.Text = "-";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // RelationshipEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ClientSize = new System.Drawing.Size(1015, 602);
+            this.ClientSize = new System.Drawing.Size(1067, 602);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel5);
-            this.Text = "RelationshipEditor";
+            this.Name = "RelationshipEditor";
+            this.Text = "Relationship Editor";
             this.Load += new System.EventHandler(this.Ideas3_Load);
             this.Shown += new System.EventHandler(this.Ideas3_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -774,5 +811,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Button button6;
     }
 }
