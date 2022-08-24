@@ -107,9 +107,9 @@
             this.button11 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.ColumnsListView = new System.Windows.Forms.ListView();
-            this.Name = new System.Windows.Forms.ColumnHeader();
-            this.Type = new System.Windows.Forms.ColumnHeader();
-            this.Size = new System.Windows.Forms.ColumnHeader();
+            this.NameColumnHeader = new System.Windows.Forms.ColumnHeader();
+            this.TypeColumnHeader = new System.Windows.Forms.ColumnHeader();
+            this.SizeColumnHeader = new System.Windows.Forms.ColumnHeader();
             this.Indexed = new System.Windows.Forms.ColumnHeader();
             this.panel5 = new System.Windows.Forms.Panel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -624,9 +624,9 @@
             // 
             this.ColumnsListView.BackColor = System.Drawing.Color.Black;
             this.ColumnsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Name,
-            this.Type,
-            this.Size,
+            this.NameColumnHeader,
+            this.TypeColumnHeader,
+            this.SizeColumnHeader,
             this.Indexed});
             this.ColumnsListView.ForeColor = System.Drawing.Color.White;
             this.ColumnsListView.FullRowSelect = true;
@@ -643,15 +643,15 @@
             // 
             // Name
             // 
-            this.Name.Text = "Name";
+            this.NameColumnHeader.Text = "Name";
             // 
             // Type
             // 
-            this.Type.Text = "Type";
+            this.TypeColumnHeader.Text = "Type";
             // 
             // Size
             // 
-            this.Size.Text = "Size";
+            this.SizeColumnHeader.Text = "Size";
             // 
             // Indexed
             // 
@@ -803,9 +803,9 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.ColumnHeader Name;
-        private System.Windows.Forms.ColumnHeader Type;
-        private System.Windows.Forms.ColumnHeader Size;
+        private System.Windows.Forms.ColumnHeader NameColumnHeader;
+        private System.Windows.Forms.ColumnHeader TypeColumnHeader;
+        private System.Windows.Forms.ColumnHeader SizeColumnHeader;
         private System.Windows.Forms.ColumnHeader Indexed;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
