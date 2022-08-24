@@ -1,13 +1,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XLG.QuickScripts.Walker;
 
-namespace MetX.Windows.Tests;
+namespace MetX.Windows.Tests.QuickScripts;
 
 [TestClass]
-public class UnitTest1
+public class RelationshipEditorTests
 {
     [TestMethod]
-    public void TestMethod1()
+    public void LoadXmlLoadsControlsCorrectly()
     {
-        Assert.IsTrue(true);
+        var target = new RelationshipEditor(null);
+        
     }
 }

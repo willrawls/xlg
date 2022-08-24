@@ -8,8 +8,14 @@ namespace XLG.QuickScripts.Walker
 {
     public partial class RelationshipEditor : Form
     {
-        public string Filename { get; }
-        public xlgDoc XlgDocument { get; set; }
+        public bool UpdatingInterface;
+        public string Filename;
+        public xlgDoc XlgDocument;
+
+        public TreeNode RelatedNode;
+        public TreeNode LookupNode;
+        public TreeNode OtherNode;
+
         public RelationshipEditor(string filename)
         {
             Filename = Shared.Dirs.ResolveVariables(filename);
@@ -20,8 +26,9 @@ namespace XLG.QuickScripts.Walker
                 XlgDocument = xlgDoc.Empty(Filename);
         }
 
-        private void Ideas3_Load(object sender, System.EventArgs e)
+        private void RelationshipEditor_Load(object sender, System.EventArgs e)
         {
+            ReloadInterfaceFromXlgDocument();
             foreach (TreeNode node in RelationshipTreeView.Nodes)
             {
                 node.ExpandAll();
@@ -30,12 +37,13 @@ namespace XLG.QuickScripts.Walker
 
         private void Ideas3_Shown(object sender, System.EventArgs e)
         {
-            UpdateItAll();
+            ReloadInterfaceFromXlgDocument();
         }
 
-        private void UpdateItAll()
+        private void ReloadInterfaceFromXlgDocument()
         {
-            RelationshipTreeView.Nodes.Clear();
+            ClearInterfaces();
+
 
             RelatedNode = RelationshipTreeView.Nodes.Add("Related", "Related");
             LookupNode = RelationshipTreeView.Nodes.Add("Lookup", "Lookup");
@@ -50,8 +58,38 @@ namespace XLG.QuickScripts.Walker
             }
         }
 
-        public TreeNode RelatedNode { get; set; }
-        public TreeNode LookupNode { get; set; }
-        public TreeNode OtherNode { get; set; }
+        private void ClearInterfaces()
+        {
+            if (UpdatingInterface)
+                return;
+
+            UpdatingInterface = true;
+            
+            RelationshipTreeView.Nodes.Clear();
+            RelationshipNameTextBox.Text = "";
+            RelationshipTypeComboBox.Text = "";
+            RelationshipTagsTextBox.Text = "";
+
+            ClearRelationshipFields();
+
+            SchemaComboBox.Text = "";
+            SchemaComboBox.Items.Clear();
+            TableListView.Items.Clear();
+            ColumnsListView.Items.Clear();
+            IndexListView.Items.Clear();
+            KeysListView.Items.Clear();
+
+            UpdatingInterface = false;
+        }
+
+        private void ClearRelationshipFields()
+        {
+            RelationshipFieldLeftComboBox1.Text = "";
+            RelationshipFieldLeftComboBox2.Text = "";
+            RelationshipFieldRightComboBox1.Text = "";
+            RelationshipFieldRightComboBox2.Text = "";
+        }
+
+
     }
 }
