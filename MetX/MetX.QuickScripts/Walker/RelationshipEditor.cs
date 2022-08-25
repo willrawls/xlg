@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MetX.Fimm;
 
 using MetX.Standard.Primary.Metadata;
+using MetX.Standard.Strings.Extensions;
 
 namespace XLG.QuickScripts.Walker
 {
@@ -44,18 +47,68 @@ namespace XLG.QuickScripts.Walker
         {
             ClearInterfaces();
 
-
             RelatedNode = RelationshipTreeView.Nodes.Add("Related", "Related");
             LookupNode = RelationshipTreeView.Nodes.Add("Lookup", "Lookup");
             OtherNode = RelationshipTreeView.Nodes.Add("Other", "Other");
 
-            TableListView.Items.Clear();
+            ReloadTableListView();
+            ReloadRelationships();
+        }
 
+        private void ReloadRelationships()
+        {
+            ReloadDatabaseRelationships();
+            ReloadCustomRelationships();
+            ReloadLookupRelationships();
+            ReloadOtherRelationships();
+        }
+
+        private void ReloadDatabaseRelationships()
+        {
+            foreach (var relationship in XlgDocument.Relationships)
+            {
+
+            }
+        }
+
+        private void ReloadCustomRelationships()
+        {
+            
+        }
+
+        private void ReloadLookupRelationships()
+        {
+            
+        }
+
+        private void ReloadOtherRelationships()
+        {
+            
+        }
+
+        private void ReloadTableListView()
+        {
             foreach (var table in XlgDocument.Tables)
             {
-                ListViewItem listViewItem = new ListViewItem();
+                ListViewItem listViewItem = new();
+
+                listViewItem.SubItems.Add(table.TableName);
+                listViewItem.SubItems.Add(table.RowCount.AsString("0"));
+                listViewItem.SubItems.Add(ChildrenOf(table).Count.AsString("0"));
+                listViewItem.SubItems.Add(ParentOf(table).TableName.AsString());
+                
                 TableListView.Items.Add(listViewItem);
             }
+        }
+
+        private Table ParentOf(Table table)
+        {
+            return "";
+        }
+
+        private List<Table> ChildrenOf(Table table)
+        {
+            return new();
         }
 
         private void ClearInterfaces()

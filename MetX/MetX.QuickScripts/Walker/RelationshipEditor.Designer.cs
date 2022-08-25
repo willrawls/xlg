@@ -76,6 +76,7 @@
             this.IndexListView = new System.Windows.Forms.ListView();
             this.IndexColumnName = new System.Windows.Forms.ColumnHeader();
             this.IndexColumnColumns = new System.Windows.Forms.ColumnHeader();
+            this.IndexColumnStatus = new System.Windows.Forms.ColumnHeader();
             this.panel7 = new System.Windows.Forms.Panel();
             this.KeysListView = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -121,7 +122,6 @@
             this.ShowCustomRelationshipsCheckBox = new System.Windows.Forms.CheckBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.RefreshFromDatabaseButton = new System.Windows.Forms.Button();
-            this.IndexColumnStatus = new System.Windows.Forms.ColumnHeader();
             this.panel1.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -147,7 +147,7 @@
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(372, 42);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(347, 481);
+            this.panel1.Size = new System.Drawing.Size(371, 481);
             this.panel1.TabIndex = 1;
             // 
             // TableListView
@@ -166,7 +166,7 @@
             listViewItem7});
             this.TableListView.Location = new System.Drawing.Point(0, 34);
             this.TableListView.Name = "TableListView";
-            this.TableListView.Size = new System.Drawing.Size(347, 232);
+            this.TableListView.Size = new System.Drawing.Size(371, 232);
             this.TableListView.TabIndex = 25;
             this.TableListView.UseCompatibleStateImageBehavior = false;
             this.TableListView.View = System.Windows.Forms.View.Details;
@@ -200,7 +200,7 @@
             this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(347, 34);
+            this.panel12.Size = new System.Drawing.Size(371, 34);
             this.panel12.TabIndex = 23;
             // 
             // label3
@@ -250,7 +250,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel10.Location = new System.Drawing.Point(0, 266);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(347, 26);
+            this.panel10.Size = new System.Drawing.Size(371, 26);
             this.panel10.TabIndex = 21;
             // 
             // button15
@@ -278,7 +278,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel9.Location = new System.Drawing.Point(0, 292);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(347, 179);
+            this.panel9.Size = new System.Drawing.Size(371, 179);
             this.panel9.TabIndex = 20;
             // 
             // IndexListView
@@ -292,7 +292,7 @@
             this.IndexListView.ForeColor = System.Drawing.Color.White;
             this.IndexListView.Location = new System.Drawing.Point(0, 0);
             this.IndexListView.Name = "IndexListView";
-            this.IndexListView.Size = new System.Drawing.Size(347, 179);
+            this.IndexListView.Size = new System.Drawing.Size(371, 179);
             this.IndexListView.TabIndex = 15;
             this.IndexListView.UseCompatibleStateImageBehavior = false;
             this.IndexListView.View = System.Windows.Forms.View.Details;
@@ -306,12 +306,16 @@
             this.IndexColumnColumns.Text = "Columns";
             this.IndexColumnColumns.Width = 230;
             // 
+            // IndexColumnStatus
+            // 
+            this.IndexColumnStatus.Text = "Status";
+            // 
             // panel7
             // 
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel7.Location = new System.Drawing.Point(0, 471);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(347, 10);
+            this.panel7.Size = new System.Drawing.Size(371, 10);
             this.panel7.TabIndex = 19;
             // 
             // KeysListView
@@ -324,7 +328,7 @@
             this.KeysListView.ForeColor = System.Drawing.Color.White;
             this.KeysListView.Location = new System.Drawing.Point(0, 292);
             this.KeysListView.Name = "KeysListView";
-            this.KeysListView.Size = new System.Drawing.Size(345, 179);
+            this.KeysListView.Size = new System.Drawing.Size(344, 179);
             this.KeysListView.TabIndex = 14;
             this.KeysListView.UseCompatibleStateImageBehavior = false;
             this.KeysListView.View = System.Windows.Forms.View.Details;
@@ -493,7 +497,7 @@
             // 
             this.RelationshipTagsTextBox.Location = new System.Drawing.Point(56, 71);
             this.RelationshipTagsTextBox.Name = "RelationshipTagsTextBox";
-            this.RelationshipTagsTextBox.Size = new System.Drawing.Size(240, 23);
+            this.RelationshipTagsTextBox.Size = new System.Drawing.Size(284, 23);
             this.RelationshipTagsTextBox.TabIndex = 9;
             this.RelationshipTagsTextBox.Text = "hidden implied explicit  added";
             // 
@@ -605,9 +609,9 @@
             this.panel4.Controls.Add(this.panel8);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.ForeColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(719, 42);
+            this.panel4.Location = new System.Drawing.Point(743, 42);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(345, 481);
+            this.panel4.Size = new System.Drawing.Size(344, 481);
             this.panel4.TabIndex = 3;
             // 
             // ColumnsListView
@@ -627,7 +631,7 @@
             this.ColumnsListView.Location = new System.Drawing.Point(0, 33);
             this.ColumnsListView.MultiSelect = false;
             this.ColumnsListView.Name = "ColumnsListView";
-            this.ColumnsListView.Size = new System.Drawing.Size(345, 226);
+            this.ColumnsListView.Size = new System.Drawing.Size(344, 226);
             this.ColumnsListView.TabIndex = 16;
             this.ColumnsListView.UseCompatibleStateImageBehavior = false;
             this.ColumnsListView.View = System.Windows.Forms.View.Details;
@@ -655,7 +659,7 @@
             this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel13.Location = new System.Drawing.Point(0, 0);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(345, 33);
+            this.panel13.Size = new System.Drawing.Size(344, 33);
             this.panel13.TabIndex = 25;
             // 
             // button11
@@ -684,7 +688,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel11.Location = new System.Drawing.Point(0, 259);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(345, 33);
+            this.panel11.Size = new System.Drawing.Size(344, 33);
             this.panel11.TabIndex = 23;
             // 
             // button13
@@ -711,7 +715,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel8.Location = new System.Drawing.Point(0, 471);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(345, 10);
+            this.panel8.Size = new System.Drawing.Size(344, 10);
             this.panel8.TabIndex = 21;
             // 
             // panel5
@@ -725,7 +729,7 @@
             this.panel5.ForeColor = System.Drawing.Color.White;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1064, 42);
+            this.panel5.Size = new System.Drawing.Size(1087, 42);
             this.panel5.TabIndex = 4;
             // 
             // ShowDatabaseRelationshipsCheckBox
@@ -772,16 +776,12 @@
             this.RefreshFromDatabaseButton.Text = "Refresh from database";
             this.RefreshFromDatabaseButton.UseVisualStyleBackColor = true;
             // 
-            // IndexColumnStatus
-            // 
-            this.IndexColumnStatus.Text = "Status";
-            // 
             // RelationshipEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 523);
+            this.ClientSize = new System.Drawing.Size(1087, 523);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
