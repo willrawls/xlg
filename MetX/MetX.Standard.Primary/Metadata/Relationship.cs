@@ -26,3 +26,20 @@ public class Relationship
 
     [XmlAttribute] public string RightKey { get; set; }
 }
+
+[Serializable]
+public class LookupTable
+{
+    [XmlAttribute] public string Name { get; set; }
+    
+    [XmlAttribute] public string Schema { get; set; }
+    [XmlAttribute] public string Table { get; set; }
+
+    [XmlArray(ElementName = "Fields")]
+    [XmlArrayItem(typeof(RelationshipField), ElementName = "Field")]
+    public List<RelationshipField> Fields { get; set; }
+
+    [XmlArray(ElementName = "Tags")]
+    [XmlArrayItem(typeof(string), ElementName = "Tag")]
+    public List<string> Tags { get; set; }
+}
