@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace XLG.QuickScripts.Walker
                 XlgDocument = xlgDoc.Empty(Filename);
         }
 
-        private void RelationshipEditor_Load(object sender, System.EventArgs e)
+        public void RelationshipEditor_Load(object sender, System.EventArgs e)
         {
             ReloadInterfaceFromXlgDocument();
             foreach (TreeNode node in RelationshipTreeView.Nodes)
@@ -38,12 +39,12 @@ namespace XLG.QuickScripts.Walker
             }
         }
 
-        private void Ideas3_Shown(object sender, System.EventArgs e)
+        public void Ideas3_Shown(object sender, System.EventArgs e)
         {
             ReloadInterfaceFromXlgDocument();
         }
 
-        private void ReloadInterfaceFromXlgDocument()
+        public void ReloadInterfaceFromXlgDocument()
         {
             ClearInterfaces();
 
@@ -55,7 +56,7 @@ namespace XLG.QuickScripts.Walker
             ReloadRelationships();
         }
 
-        private void ReloadRelationships()
+        public void ReloadRelationships()
         {
             ReloadDatabaseRelationships();
             ReloadCustomRelationships();
@@ -63,7 +64,7 @@ namespace XLG.QuickScripts.Walker
             ReloadOtherRelationships();
         }
 
-        private void ReloadDatabaseRelationships()
+        public void ReloadDatabaseRelationships()
         {
             foreach (var relationship in XlgDocument.Relationships)
             {
@@ -71,22 +72,22 @@ namespace XLG.QuickScripts.Walker
             }
         }
 
-        private void ReloadCustomRelationships()
+        public void ReloadCustomRelationships()
         {
             
         }
 
-        private void ReloadLookupRelationships()
+        public void ReloadLookupRelationships()
         {
             
         }
 
-        private void ReloadOtherRelationships()
+        public void ReloadOtherRelationships()
         {
             
         }
 
-        private void ReloadTableListView()
+        public void ReloadTableListView()
         {
             foreach (var table in XlgDocument.Tables)
             {
@@ -94,24 +95,25 @@ namespace XLG.QuickScripts.Walker
 
                 listViewItem.SubItems.Add(table.TableName);
                 listViewItem.SubItems.Add(table.RowCount.AsString("0"));
-                listViewItem.SubItems.Add(ChildrenOf(table).Count.AsString("0"));
-                listViewItem.SubItems.Add(ParentOf(table).TableName.AsString());
+                listViewItem.SubItems.Add(ChildrenOf(table)?.Count.AsString("0"));
+                listViewItem.SubItems.Add(ParentOf(table));
                 
                 TableListView.Items.Add(listViewItem);
             }
         }
 
-        private Table ParentOf(Table table)
+        public string ParentOf(Table table)
         {
+            XlgDocument.Relationships 
             return "";
         }
 
-        private List<Table> ChildrenOf(Table table)
+        public List<Table> ChildrenOf(Table table)
         {
             return new();
         }
 
-        private void ClearInterfaces()
+        public void ClearInterfaces()
         {
             if (UpdatingInterface)
                 return;
@@ -135,7 +137,7 @@ namespace XLG.QuickScripts.Walker
             UpdatingInterface = false;
         }
 
-        private void ClearRelationshipFields()
+        public void ClearRelationshipFields()
         {
             RelationshipFieldLeftComboBox1.Text = "";
             RelationshipFieldLeftComboBox2.Text = "";

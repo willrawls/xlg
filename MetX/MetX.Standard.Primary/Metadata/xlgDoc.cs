@@ -38,11 +38,24 @@ namespace MetX.Standard.Primary.Metadata
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
 
+        [XmlArray(ElementName = "LookupTables")]
+        [XmlArrayItem(typeof(LookupTable), ElementName = "LookupTable")]
+        public List<LookupTable> LookupTables { get; set; }
+
         [XmlArray(ElementName = "Relationships")]
         [XmlArrayItem(typeof(Relationship), ElementName = "Relationship")]
         public List<Relationship> Relationships { get; set; }
 
-        public static xlgDoc Empty(string outputFilePath = "")
+    }
+
+    public static class xlgDocExtensions
+    {
+        public static string ParentNameOf(this xlgDoc target, Table table)
+        {
+            
+        }
+
+        public static xlgDoc Factory(string outputFilePath = "")
         {
             var name = outputFilePath.LastPathToken().FirstToken(".");
             var result = new xlgDoc
@@ -66,16 +79,18 @@ namespace MetX.Standard.Primary.Metadata
 
             return result;
         }
-
-        public xlgDoc MakeViable()
+        
+        public static xlgDoc MakeViable(this xlgDoc target)
         {
-            StoredProcedures ??= new List<StoredProcedure>();
-            Tables ??= new List<Table>();
-            Views ??= new List<View>();
-            Relationships ??= new List<Relationship>();
-            if(XlgInstanceID.IsEmpty()) XlgInstanceID = Guid.NewGuid().ToString("N");
-            Now ??= DateTime.Now.ToString("s");
-            return this;
+            target.StoredProcedures ??= new List<StoredProcedure>();
+            target.Tables ??= new List<Table>();
+            target.Views ??= new List<View>();
+            target.Relationships ??= new List<Relationship>();
+            if(target.XlgInstanceID.IsEmpty()) 
+                target.XlgInstanceID = Guid.NewGuid().ToString("N");
+            target.Now ??= DateTime.Now.ToString("s");
+            return target;
         }
     }
+
 }
