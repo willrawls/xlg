@@ -28,7 +28,7 @@ public class Relationship
 }
 
 [Serializable]
-public class LookupTable
+public class Lookup
 {
     [XmlAttribute] public string Name { get; set; }
     

@@ -185,6 +185,8 @@ namespace MetX.Fimm.Glove.Pipelines
 
         private XmlDocument AddRelationshipsToXml(XmlDocument xmlDoc)
         {
+            LookupXml(xmlDoc);
+            RelationshipXml(xmlDoc);
 
             return xmlDoc;
         }
@@ -477,7 +479,21 @@ namespace MetX.Fimm.Glove.Pipelines
             return xmlDoc;
         }
 
-         public XmlDocument RelationshipXml(XmlDocument xmlDoc)
+        public XmlDocument LookupXml(XmlDocument xmlDoc)
+        {
+            var root = xmlDoc.DocumentElement;
+            if (root == null)
+            {
+                return null;
+            }
+
+            var xmlLookups = xmlDoc.CreateElement("Lookups");
+            root.AppendChild(xmlLookups);
+
+            return xmlDoc;
+        }
+
+        public XmlDocument RelationshipXml(XmlDocument xmlDoc)
         {
             var root = xmlDoc.DocumentElement;
             if (root == null)

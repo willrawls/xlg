@@ -38,9 +38,9 @@ namespace MetX.Standard.Primary.Metadata
         [XmlArrayItem(typeof(StoredProcedure), ElementName = "StoredProcedure")]
         public List<StoredProcedure> StoredProcedures;
 
-        [XmlArray(ElementName = "LookupTables")]
-        [XmlArrayItem(typeof(LookupTable), ElementName = "LookupTable")]
-        public List<LookupTable> LookupTables { get; set; }
+        [XmlArray(ElementName = "Lookups")]
+        [XmlArrayItem(typeof(Lookup), ElementName = "Lookup")]
+        public List<Lookup> LookupTables { get; set; }
 
         [XmlArray(ElementName = "Relationships")]
         [XmlArrayItem(typeof(Relationship), ElementName = "Relationship")]
@@ -50,6 +50,11 @@ namespace MetX.Standard.Primary.Metadata
 
     public static class xlgDocExtensions
     {
+        public static string ParentNameOf(this xlgDoc target, Table table)
+        {
+            target.Relationships[0].Type
+        }
+
         public static string ParentNameOf(this xlgDoc target, Table table)
         {
             
