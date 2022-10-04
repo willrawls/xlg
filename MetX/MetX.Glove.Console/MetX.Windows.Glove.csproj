@@ -113,6 +113,9 @@
 		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
 		<ProjectReference Include="..\MetX.Five\MetX.Console.Fiver.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
+		<Reference Include="Fimm">
+		  <HintPath>..\MetX.Fimm\bin\Debug\net6.0\Fimm.dll</HintPath>
+		</Reference>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<AutoGen>True</AutoGen>
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>

@@ -52,6 +52,11 @@
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Reference Include="Fimm">
+	    <HintPath>..\MetX.Fimm\bin\Debug\net6.0\Fimm.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

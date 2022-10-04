@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using MetX.Five.Scripts;
+using MetX.Fimm.Scripts;
 using MetX.Standard.Strings.Generics;
 
 namespace XLG.QuickScripts.Walker

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Scripts\Templates\Exe2\ConsoleClipboard.cs" />
+    <Compile Remove="Scripts\Templates\Exe2\ForStrings.cs" />
+    <Compile Remove="Scripts\Templates\Exe2\Program.cs" />
+    <Compile Remove="Scripts\Templates\Exe2\QuickScriptProcessor.cs" />
+    <Compile Remove="Scripts\Templates\Exe2\StreamBuilder.cs" />
+    <Compile Remove="Scripts\Templates\Exe2\Tokenizer.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Extensions.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Global.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Helpers.cs" />
@@ -64,6 +70,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Scripts\Templates\Exe2\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\ForStrings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\StreamBuilder.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\Tokenizer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\_.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe2\_.sln">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Walker\DatabaseWalker\Code\Extensions.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -235,6 +265,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Scripts\Templates\Exe2\Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Walker\DatabaseWalker\Code\Assemblies\SomeAssembly.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

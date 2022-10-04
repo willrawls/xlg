@@ -193,7 +193,7 @@ public class CommonDirectoryHelper
     {
         var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
         var entries = Directory.GetDirectories(destinationTemplateFolder);
-        if (entries.IsNotEmpty()) return true;
+        if (entries.IsEmpty()) return true;
 
         var path = StaticTemplatesPath;
         if (path.IsEmpty()) return false;
