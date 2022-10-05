@@ -14,6 +14,9 @@ public static class Shared
             if (_dirs != null) return _dirs;
 
             _dirs = new CommonDirectoryHelper();
+             var settings = new CommonSettingsHelper(commonDirectoryHelper);
+             _dirs.Initialize(settings);
+             
             Debug.WriteLine("Shared.Dirs: Created CommonDirectoryHelper");
 
             return _dirs;

@@ -61,10 +61,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
         Host = new WinFormGenerationHost<QuickScriptEditor>(this, Clipboard.GetText);
 
-        commonDirectoryHelper = new();
-        settings = new CommonSettingsHelper(commonDirectoryHelper);
-        Shared.Dirs.Initialize(settings);
-
         LoadQuickScriptsFile(filePath, false);
         InitializeHotPhrases();
         Updating = false;
