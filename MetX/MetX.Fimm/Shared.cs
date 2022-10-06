@@ -5,50 +5,52 @@ namespace MetX.Fimm;
 
 public static class Shared
 {
-    private static CommonDirectoryHelper _dirs = null;
-    private static CommonSettingsHelper _settings = null;
+    private static CommonDirectoryHelper _directoryHelper = null;
+    private static CommonSettingsHelper _settingsHelper = null;
+
     public static CommonDirectoryHelper Dirs
     {
         get 
         {
-            if (_dirs != null) return _dirs;
+            if (_directoryHelper != null) return _directoryHelper;
 
-            _dirs = new CommonDirectoryHelper();
-             var settings = new CommonSettingsHelper(commonDirectoryHelper);
-             _dirs.Initialize(settings);
+            _directoryHelper = new CommonDirectoryHelper();
+            var settings = new CommonSettingsHelper(_directoryHelper);
+
+//             _directoryHelper.Initialize(settings);
              
             Debug.WriteLine("Shared.Dirs: Created CommonDirectoryHelper");
 
-            return _dirs;
+            return _directoryHelper;
         }
-        set => _dirs = value;
+        set => _directoryHelper = value;
     }
 
     public static CommonSettingsHelper Settings
     {
         get 
         {
-            if(_settings == null)
+            if(_settingsHelper == null)
             {
-                _settings = new CommonSettingsHelper(Dirs);
+                _settingsHelper = new CommonSettingsHelper(Dirs);
                 Debug.WriteLine("Shared.Settings: Created CommonSettingsHelper");
             }
             
-            return _settings;
+            return _settingsHelper;
         }
-        set => _settings = value;
+        set => _settingsHelper = value;
     }
 
     public static CommonDirectoryHelper InitializeDirs(string settingsFilePath = "", bool removeAllSettings = false)
     {
-        _dirs = new CommonDirectoryHelper(settingsFilePath);
-        _settings = new CommonSettingsHelper(_dirs);
+        _directoryHelper = new CommonDirectoryHelper(settingsFilePath);
+        _settingsHelper = new CommonSettingsHelper(_directoryHelper);
 
-        if (!removeAllSettings || !File.Exists(settingsFilePath)) return _dirs;
+        if (!removeAllSettings || !File.Exists(settingsFilePath)) return _directoryHelper;
 
         Debug.WriteLine($"Shared.Dirs: Initializing to settings file at {settingsFilePath}");
-        _dirs.Settings.ResetSettingsFile();
-        return _dirs;
+        _directoryHelper.Settings.ResetSettingsFile();
+        return _directoryHelper;
     }
 
 }

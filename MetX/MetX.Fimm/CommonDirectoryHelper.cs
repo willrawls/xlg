@@ -111,8 +111,13 @@ public class CommonDirectoryHelper
 
     public void Initialize(CommonSettingsHelper settings)
     {
-        Initialized = false;
         Settings = settings;
+        InnerInitialize();
+    }
+
+    public void InnerInitialize()
+    {   
+        Initialized = false;
         InitializeFoldersIfNeeded();
     }
 
@@ -123,6 +128,9 @@ public class CommonDirectoryHelper
 
         lock (SyncRoot)
         {
+            if (Initialized)
+                return;
+
             var basePath = DefaultBasePath;
             Paths[Constants.MyDocumentsXlgFolderName].Value = basePath;
 
@@ -177,6 +185,8 @@ public class CommonDirectoryHelper
 
     public bool StageStaticSupportIfNeeded()
     {
+        if (Initialized) return true;
+
         var supportFolder = Paths[Constants.SupportFolderName].Value;
         var entries = Directory.GetDirectories(supportFolder);
         if (entries.IsNotEmpty()) return true;
@@ -191,6 +201,8 @@ public class CommonDirectoryHelper
 
     public bool StageStaticTemplatesIfNeeded()
     {
+        if (Initialized) return true;
+
         var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
         var entries = Directory.GetDirectories(destinationTemplateFolder);
         if (entries.IsEmpty()) return true;
@@ -203,8 +215,10 @@ public class CommonDirectoryHelper
         return true;
     }
 
-    public bool RestageStaticTemplates()
+    public bool RestageStaticTemplates(bool onlyIfNeeded = true)
     {
+        if (Initialized && onlyIfNeeded) return true;
+
         var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
         var entries = Directory.GetDirectories(destinationTemplateFolder);
         

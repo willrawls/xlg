@@ -63,6 +63,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
         LoadQuickScriptsFile(filePath, false);
         InitializeHotPhrases();
+        
         Updating = false;
 
         UpdateForm(Host.Context.Scripts.Default);

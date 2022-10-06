@@ -10,6 +10,12 @@ namespace //~~NameInstance~~//
     /// </summary>
     public static class ForStrings
     {
+
+        public static string ExampleX(this string target)
+        {
+            return target ?? "";
+        }
+
         public static string RemoveBlankLines(this string target)
         {
             if (target.IsEmpty())
