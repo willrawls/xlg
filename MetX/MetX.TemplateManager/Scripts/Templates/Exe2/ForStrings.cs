@@ -16,6 +16,16 @@ namespace //~~NameInstance~~//
             return target ?? "";
         }
 
+        public static string ExampleY(this string target)
+        {
+            return target ?? "";
+        }
+
+        public static string ExampleZ(this string target)
+        {
+            return (target ?? "") + "Z2";
+        }
+
         public static string RemoveBlankLines(this string target)
         {
             if (target.IsEmpty())

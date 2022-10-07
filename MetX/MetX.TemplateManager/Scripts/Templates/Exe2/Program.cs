@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using Microsoft.CSharp;
+using System.Linq;
 
 //~~Usings~~//
 
@@ -19,47 +20,57 @@ namespace //~~NameInstance~~//
 */            
     public static class Program
     {
+        public static bool CheckForArgument(ref string[] args, string name)
+        {
+            var found = args.Any(a => a.ToLower() == name);
+            if (!found)
+                return false;
+            args = args.Where(a => a.ToLower() == name).ToArray();
+            return true;
+        }
+
         [STAThread()] // Needed to access clipboard
         public static void Main(string[] args)
         {
             try
             {
                 QuickScriptProcessor processor = new QuickScriptProcessor();
+                
                 processor.InputFilePath = @"//~~InputFilePath~~//";
                 processor.DestinationFilePath = @"//~~DestinationFilePath~~//";
+                processor.WritingToConsole = CheckForArgument(ref args, "console");
+                processor.OpenNotepad = CheckForArgument(ref args, "notepad") 
+                                        || CheckForArgument(ref args, "open");
 
                 if (args.Length > 0) processor.InputFilePath = args[0];
                 if (args.Length > 1) processor.DestinationFilePath = args[1];
 
-                bool writingToConsole = processor.DestinationFilePath.ToLower() == "console";
-
-                if(!writingToConsole)
+                if (!processor.WritingToConsole)
                 {
                     Console.WriteLine();
                     Console.WriteLine("-----[ //~~Script Name~~// ]-----");
                     Console.WriteLine();
                     Console.WriteLine("Input:    " + processor.InputFilePath);
                     Console.WriteLine("Output:   " + processor.DestinationFilePath);
-                }
-                if (args.Length > 2 && args[2].ToLower() == "open")
-                {
-                    processor.OpenNotepad = true;
-                    if(!writingToConsole)
-                        Console.WriteLine("Then:     Open in notepad");
+                    if (processor.OpenNotepad)
+                    {
+                        if (!processor.WritingToConsole)
+                            Console.WriteLine("Then:     Open in notepad");
+                    }
                 }
 
-                if(!writingToConsole) Console.Write("Progress: ");
+                if(!processor.WritingToConsole) Console.Write("Progress: ");
 
-                if(!writingToConsole) Console.Write("Read ");
+                if(!processor.WritingToConsole) Console.Write("Read ");
                 if (!processor.ReadInput()) return;
 
-                if(!writingToConsole) Console.Write("Start ");
+                if(!processor.WritingToConsole) Console.Write("Start ");
                 if (!processor.Start()) return;
 
-                if(!writingToConsole) Console.Write("Lines ");
+                if(!processor.WritingToConsole) Console.Write("Lines ");
                 if (!ProcessLines(processor)) return;
 
-                if(!writingToConsole) Console.Write(" Finish ");
+                if(!processor.WritingToConsole) Console.Write(" Finish ");
                 if (!processor.Finish()) return;
 
                 if (processor.Output == null || processor.Output.Length == 0) return;
@@ -70,7 +81,7 @@ namespace //~~NameInstance~~//
                     var clipboard = new ConsoleClipboard();
                     clipboard.Set(processor.OutputStringBuilder.ToString());
                 }
-                else if(writingToConsole)
+                else if(processor.WritingToConsole)
                 {
                     Console.WriteLine(processor.OutputStringBuilder);
                 }
@@ -85,7 +96,7 @@ namespace //~~NameInstance~~//
                         System.Diagnostics.Process.Start("notepad", processor.DestinationFilePath);
                     }
                 }
-                if(!writingToConsole) 
+                if(!processor.WritingToConsole) 
                     Console.WriteLine();
             }
             catch (Exception e)
@@ -114,14 +125,18 @@ namespace //~~NameInstance~~//
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine("Error processing line " + (number+1) + ":" 
-                                      + Environment.NewLine 
-                                      + currLine 
-                                      + Environment.NewLine 
-                                      + Environment.NewLine 
-                                      + "CONTINUE PROCESSING ?");
-                    ConsoleKeyInfo answer = Console.ReadKey();
-                    if (answer.Key.ToString().ToLower() == "n") return false;
+                    if (processor.WritingToConsole)
+                    {
+                        Console.WriteLine("Error processing line " + (number + 1) + ":"
+                                          + Environment.NewLine
+                                          + currLine
+                                          + Environment.NewLine
+                                          + Environment.NewLine
+                                          + "CONTINUE PROCESSING ?");
+                        ConsoleKeyInfo answer = Console.ReadKey();
+                        if (answer.Key.ToString().ToLower() == "n") return false;
+                    }
+                    else return false;
                 }
             }
 

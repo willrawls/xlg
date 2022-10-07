@@ -998,7 +998,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                     ) 
                 != MessageBoxResult.Yes) return;
 
-            Shared.Dirs.RestageStaticTemplates();
+            Shared.Dirs.Initialized = false;
+            Shared.Dirs.RestageStaticTemplates(false);
             Host?.Context.LoadTemplates();
             Host?.MessageBox.Show($"Templates restaged and reloaded into memory");
             
