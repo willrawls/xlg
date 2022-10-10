@@ -803,6 +803,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             return;
 
         TemplateFolderPath.Text = path;
+        UpdateScript();
     }
 
     private string BrowseForFolder(string folderKey, string title)

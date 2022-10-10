@@ -34,13 +34,14 @@ namespace //~~NameInstance~~//
         {
             try
             {
-                QuickScriptProcessor processor = new QuickScriptProcessor();
+                XlgTemplateSetProcessor processor = new ();
                 
                 processor.InputFilePath = @"//~~InputFilePath~~//";
                 processor.DestinationFilePath = @"//~~DestinationFilePath~~//";
+
                 processor.WritingToConsole = CheckForArgument(ref args, "console");
-                processor.OpenNotepad = CheckForArgument(ref args, "notepad") 
-                                        || CheckForArgument(ref args, "open");
+                processor.WritingToClipboard = CheckForArgument(ref args, "clipboard");
+                processor.OpenNotepad = CheckForArgument(ref args, "notepad") || CheckForArgument(ref args, "open");
 
                 if (args.Length > 0) processor.InputFilePath = args[0];
                 if (args.Length > 1) processor.DestinationFilePath = args[1];
@@ -59,31 +60,46 @@ namespace //~~NameInstance~~//
                     }
                 }
 
-                if(!processor.WritingToConsole) Console.Write("Progress: ");
+                if (!processor.WritingToConsole)
+                {
+                    Console.Write("Progress: ");
+                    Console.Write("Read ");
+                }
 
-                if(!processor.WritingToConsole) Console.Write("Read ");
                 if (!processor.ReadInput()) return;
 
                 if(!processor.WritingToConsole) Console.Write("Start ");
                 if (!processor.Start()) return;
 
-                if(!processor.WritingToConsole) Console.Write("Lines ");
-                if (!ProcessLines(processor)) return;
+                if(!processor.WritingToConsole) Console.Write("Tables ");
+                if (!ProcessTables(processor)) return;
+
+                if(!processor.WritingToConsole) Console.Write("Stored Procedures ");
+                if (!ProcessStoredProcedures(processor)) return;
+
+                if(!processor.WritingToConsole) Console.Write("Relationships ");
+                if (!ProcessRelationships(processor)) return;
 
                 if(!processor.WritingToConsole) Console.Write(" Finish ");
                 if (!processor.Finish()) return;
 
                 if (processor.Output == null || processor.Output.Length == 0) return;
 
-                if (processor.DestinationFilePath == "clipboard")
+                if (processor.WritingToClipboard)
                 {
-                    Console.Write("To clipboard ");
+                    if(processor.WritingToConsole)
+                        Console.Write("To clipboard ");
+
                     var clipboard = new ConsoleClipboard();
                     clipboard.Set(processor.OutputStringBuilder.ToString());
                 }
                 else if(processor.WritingToConsole)
                 {
                     Console.WriteLine(processor.OutputStringBuilder);
+                }
+                else if (Console.IsOutputRedirected)
+                {
+                    Console.Out.Write(processor.OutputStringBuilder);
                 }
                 else
                 {
@@ -106,7 +122,7 @@ namespace //~~NameInstance~~//
             }
         }
 
-        public static bool ProcessLines(QuickScriptProcessor processor)
+        public static bool ProcessLines(XlgTemplateSetProcessor processor)
         {
             int progressInterval = 100;
             if (processor.Lines.Count > 1000000) progressInterval = 50000;

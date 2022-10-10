@@ -7,12 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Scripts\Templates\Exe2\ConsoleClipboard.cs" />
-    <Compile Remove="Scripts\Templates\Exe2\ForStrings.cs" />
-    <Compile Remove="Scripts\Templates\Exe2\Program.cs" />
-    <Compile Remove="Scripts\Templates\Exe2\QuickScriptProcessor.cs" />
-    <Compile Remove="Scripts\Templates\Exe2\StreamBuilder.cs" />
-    <Compile Remove="Scripts\Templates\Exe2\Tokenizer.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\ConsoleClipboard.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\ForStrings.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\Program.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\StreamBuilder.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\Tokenizer.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\ConsoleClipboard.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\ForStrings.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\Program.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\QuickScriptProcessor.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\StreamBuilder.cs" />
+    <Compile Remove="Scripts\Templates\LineProcessor2\Tokenizer.cs" />
+    <Compile Remove="Scripts\Templates\Xlg1\XlgTemplateSettProcessor.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Extensions.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Global.cs" />
     <Compile Remove="Walker\DatabaseWalker\Code\Helpers.cs" />
@@ -70,28 +76,52 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Scripts\Templates\Exe2\ConsoleClipboard.cs">
+    <None Include="Scripts\Templates\Xlg1\ConsoleClipboard.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\ForStrings.cs">
+    <None Include="Scripts\Templates\Xlg1\ForStrings.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\Program.cs">
+    <None Include="Scripts\Templates\Xlg1\Program.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\QuickScriptProcessor.cs">
+    <None Include="Scripts\Templates\Xlg1\XlgTemplateSettProcessor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\StreamBuilder.cs">
+    <None Include="Scripts\Templates\Xlg1\StreamBuilder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\Tokenizer.cs">
+    <None Include="Scripts\Templates\Xlg1\Tokenizer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\_.csproj">
+    <None Include="Scripts\Templates\Xlg1\_.csproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Templates\Exe2\_.sln">
+    <None Include="Scripts\Templates\Xlg1\_.sln">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\ForStrings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\StreamBuilder.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\Tokenizer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\_.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\LineProcessor2\_.sln">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Walker\DatabaseWalker\Code\Extensions.cs">
@@ -265,7 +295,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Scripts\Templates\Exe2\Properties\launchSettings.json">
+    <None Update="Scripts\Templates\Xlg1\Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Templates\LineProcessor2\Properties\launchSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Walker\DatabaseWalker\Code\Assemblies\SomeAssembly.dll">

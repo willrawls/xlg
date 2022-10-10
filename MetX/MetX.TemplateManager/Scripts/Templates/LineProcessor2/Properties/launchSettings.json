@@ -10,7 +10,7 @@
     },
     "Clipboard to results.txt": {
       "commandName": "Project",
-      "commandLineArgs": "clipboard results.txt open"
+      "commandLineArgs": "clipboard results.txt notepad"
     }
   }
 }

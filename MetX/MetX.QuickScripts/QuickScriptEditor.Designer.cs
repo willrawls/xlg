@@ -38,7 +38,7 @@ namespace XLG.QuickScripts
             this.RunningLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ScriptEditor = new QuickScriptControl();
+            this.ScriptEditor = new MetX.Windows.Controls.QuickScriptControl();
             this.TopPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();

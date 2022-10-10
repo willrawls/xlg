@@ -11,7 +11,7 @@ using Microsoft.CSharp;
 
 namespace //~~NameInstance~~//
 {
-    public class QuickScriptProcessor
+    public class XlgTemplateSetProcessor
     {
         public readonly StringBuilder OutputStringBuilder = new StringBuilder();
         public readonly StreamBuilder Output;
@@ -22,6 +22,7 @@ namespace //~~NameInstance~~//
         public string DestinationFilePath;
         public string InputFilePath;
         public bool WritingToConsole;
+        public bool WritingToClipboard;
         public bool OpenNotepad;
 
 // ---- Beginning of ClassMembers from script
@@ -29,7 +30,7 @@ namespace //~~NameInstance~~//
 
         // ---- End of ClassMembers from script
 
-        public QuickScriptProcessor()
+        public XlgTemplateSetProcessor()
         {
             Output = new StreamBuilder(OutputStringBuilder);
         }
