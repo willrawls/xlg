@@ -26,14 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
-		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
 		<PackageReference Include="Win32Interop.User32" Version="1.0.1" />
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NHotPhrase\src\NHotPhrase.WindowsForms\NHotPhrase.WindowsForms.csproj" />
+    <ProjectReference Include="..\..\NHotPhrase\src\NHotPhrase\NHotPhrase.csproj" />
     <ProjectReference Include="..\MetX\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
     <ProjectReference Include="..\MetX\MetX.Standard.Library\MetX.Standard.Library.csproj" />
     <ProjectReference Include="..\MetX\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
+    <ProjectReference Include="..\MetX\MetX.Windows\MetX.Windows.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
