@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using MetX.Standard.Library.Extensions;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library

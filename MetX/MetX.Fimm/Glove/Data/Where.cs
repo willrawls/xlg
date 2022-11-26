@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Glove.Data
 {

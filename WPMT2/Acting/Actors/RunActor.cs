@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows.Forms;
 using MetX.Standard.Strings;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.Strings.Extensions;
 using NHotPhrase.Phrase;
 
 namespace WilliamPersonalMultiTool.Acting.Actors

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Windows.Controls.Properties;
 
 namespace XLG.QuickScripts.Walker

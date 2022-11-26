@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 // ReSharper disable UnusedMember.Global
 

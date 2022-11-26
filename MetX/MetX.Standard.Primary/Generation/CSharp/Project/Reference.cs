@@ -2,7 +2,7 @@
 using MetX.Standard.Library;
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Generation.CSharp.Project;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Generation.CSharp.Project
 {

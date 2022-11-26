@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Library.Encryption
 {

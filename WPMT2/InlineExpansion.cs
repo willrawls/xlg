@@ -6,7 +6,6 @@ using NHotPhrase.Keyboard;
 using WilliamPersonalMultiTool.Custom;
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 namespace WilliamPersonalMultiTool
 {

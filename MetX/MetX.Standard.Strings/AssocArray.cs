@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Strings.Generics.V1;
 

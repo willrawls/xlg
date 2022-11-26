@@ -1,7 +1,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.IO
 {

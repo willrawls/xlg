@@ -1,5 +1,5 @@
 ﻿using System;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;

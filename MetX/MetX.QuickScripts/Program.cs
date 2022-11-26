@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using MetX.Five;
+using MetX.Fimm;
 
 namespace XLG.QuickScripts;
 

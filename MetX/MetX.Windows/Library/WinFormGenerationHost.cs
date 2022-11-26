@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using MetX.Standard.Primary.Host;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Windows.Library;
 

@@ -1,4 +1,4 @@
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Glove.Gatherers
 {

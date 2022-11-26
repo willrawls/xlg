@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Windows.WinApi;
 
 namespace MetX.Windows.Library

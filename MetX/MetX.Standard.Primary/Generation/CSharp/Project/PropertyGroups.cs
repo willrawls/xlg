@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Generation.CSharp.Project
 {

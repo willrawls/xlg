@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Scripts
 {

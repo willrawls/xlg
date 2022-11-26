@@ -1,7 +1,6 @@
 ﻿using System;
 using MetX.Standard.Library.Encryption;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 using NHotPhrase.Phrase;
 
 namespace WilliamPersonalMultiTool.Acting.Actors

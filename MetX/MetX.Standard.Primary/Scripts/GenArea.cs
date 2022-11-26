@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Scripts
 {

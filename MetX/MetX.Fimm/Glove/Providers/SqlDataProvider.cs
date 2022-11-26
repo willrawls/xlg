@@ -9,7 +9,6 @@ using MetX.Fimm.Glove.Data;
 using MetX.Fimm.Glove.Gatherers;
 using MetX.Standard.Primary.Metadata;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 //using Microsoft.VisualBasic;
 

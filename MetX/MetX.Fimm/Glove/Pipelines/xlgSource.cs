@@ -9,7 +9,6 @@ using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Glove.Pipelines
 {

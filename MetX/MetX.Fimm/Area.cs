@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm
 {

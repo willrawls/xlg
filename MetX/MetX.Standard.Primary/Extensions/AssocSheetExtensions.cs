@@ -1,6 +1,6 @@
 ﻿using System;
 using MetX.Standard.Library.ML;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
 

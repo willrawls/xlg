@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Forms;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Windows.Library
 {

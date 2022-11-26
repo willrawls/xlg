@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.Strings.Extensions;
+namespace MetX.Standard.Strings;
 
 public static class ForAssoc
 {

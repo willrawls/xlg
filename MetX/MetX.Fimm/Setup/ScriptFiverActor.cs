@@ -1,7 +1,7 @@
 ﻿using MetX.Fimm.Scripts;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Setup;
 

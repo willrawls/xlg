@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Xml.Serialization;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Glove.Data
 {

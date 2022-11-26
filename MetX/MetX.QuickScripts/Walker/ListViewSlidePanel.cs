@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Generics;
 
 namespace XLG.QuickScripts.Walker

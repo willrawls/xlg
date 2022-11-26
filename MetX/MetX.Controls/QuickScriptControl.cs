@@ -10,7 +10,6 @@ using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 using MetX.Windows.Library;
 
 namespace MetX.Windows.Controls

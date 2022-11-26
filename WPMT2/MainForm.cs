@@ -315,7 +315,7 @@ namespace WilliamPersonalMultiTool
             {
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 
-                Clipboard.SetText(MetX.Standard.Strings.Extensions.ForString.AsString(files, "\n"));
+                Clipboard.SetText(MetX.Standard.Strings.ForString.AsString(files, "\n"));
             }
             catch 
             {

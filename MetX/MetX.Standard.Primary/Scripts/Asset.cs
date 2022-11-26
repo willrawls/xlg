@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Scripts
 {

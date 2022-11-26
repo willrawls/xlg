@@ -1,6 +1,6 @@
 using System;
 using MetX.Fimm.Glove.Providers;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Glove.Data
 {

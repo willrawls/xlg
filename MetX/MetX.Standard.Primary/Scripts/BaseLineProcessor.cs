@@ -5,7 +5,7 @@ using System.Text;
 using MetX.Standard.Library;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Scripts
 {

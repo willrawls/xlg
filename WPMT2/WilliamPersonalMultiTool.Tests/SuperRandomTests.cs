@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using MetX.Standard.Library.Encryption;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WilliamPersonalMultiTool.Tests
