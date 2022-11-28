@@ -51,7 +51,7 @@ namespace MetX.Windows.Library
 
             foreach (var choice in Choices)
             {
-                EntryArea.Items.Add(choice.AsString());
+                EntryArea.Items.Add(choice.AsStringFromObject());
             }
 
             if (DefaultValue >= 0 && DefaultValue < Choices.Length)

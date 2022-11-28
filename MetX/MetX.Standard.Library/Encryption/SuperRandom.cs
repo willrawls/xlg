@@ -15,6 +15,8 @@ namespace MetX.Standard.Library.Encryption
 
         public static int StartSaltingAtIndex;
         public static byte[] Salt;
+        private static byte[] _computeHash;
+        private static byte[] toArray;
 
         static SuperRandom()
         {
@@ -205,12 +207,15 @@ namespace MetX.Standard.Library.Encryption
 
         public static string NextHash(byte[] bytes)
         {
-            return _shaProvider.ComputeHash(bytes).AsString();
+            return _shaProvider.ComputeHash(bytes).AsStringFromObject();
         }
 
         public static string NextHash(IEnumerable<byte> bytes)
         {
-            return _shaProvider.ComputeHash(bytes.ToArray()).AsString();
+            return _shaProvider
+                .ComputeHash(
+                    bytes.ToArray()).
+                AsStringFromArray();
         }
 
         public static string NextSaltedHash(string data)
@@ -329,14 +334,6 @@ namespace MetX.Standard.Library.Encryption
                 buffer[bytesNumber-1] = 0;
 
             return buffer;
-        }
-
-        public static string AsString(this byte[] arrInput)
-        {
-            int i;
-            var result = new StringBuilder(arrInput.Length);
-            for (i = 0; i < arrInput.Length - 1; i++) result.Append(arrInput[i].ToString("X2"));
-            return result.ToString();
         }
 
         public static Guid NextGuid()

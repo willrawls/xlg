@@ -13,7 +13,7 @@ namespace MetX.Fimm.Glove.Data
         public Aggregate() {  }
         public Aggregate(DataProvider instance, AggregateFunction agg, string columnName, string alias)
         {
-            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsString().ToUpper() + "(" + instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
+            AggregateString = Enum.GetName(typeof(AggregateFunction), agg).AsStringFromObject().ToUpper() + "(" + instance.ValidIdentifier(columnName) + ") as '" + alias + "'";
         }
         public static Aggregate New(DataProvider instance, AggregateFunction agg, string columnName, string alias) { return new(instance, agg, columnName, alias); }
     }

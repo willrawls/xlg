@@ -432,7 +432,7 @@ namespace MetX.Standard.Library.ML
         /// <returns>The lowercase version of the string</returns>
         public string Lower(string sOriginalText)
         {
-            return sOriginalText.AsString().ToLower();
+            return sOriginalText.AsStringFromObject().ToLower();
         }
 
 
@@ -441,14 +441,14 @@ namespace MetX.Standard.Library.ML
         /// <returns>The uppercase version of the string</returns>
         public string Upper(string sOriginalText)
         {
-            return sOriginalText.AsString().ToUpper();
+            return sOriginalText.AsStringFromObject().ToUpper();
         }
 
         public string Camel(string sOriginalText)
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            var ret = sOriginalText.AsString();
+            var ret = sOriginalText.AsStringFromObject();
             ret = ret == ret.ToUpper() 
                 ? ret.ToLower() 
                 : ret[0].ToString().ToLower() + ret.Substring(1);
@@ -459,7 +459,7 @@ namespace MetX.Standard.Library.ML
         {
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
-            var ret = sOriginalText.AsString();
+            var ret = sOriginalText.AsStringFromObject();
             ret = ret[0].ToString().ToUpper() + ret.Substring(1);
             return ret;
         }

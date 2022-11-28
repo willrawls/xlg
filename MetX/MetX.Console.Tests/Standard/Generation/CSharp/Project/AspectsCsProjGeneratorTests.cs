@@ -1,7 +1,8 @@
 ﻿using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Generation;
 using MetX.Standard.Primary.Generation.CSharp.Project;
-using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.Generation.CSharp.Project;
@@ -16,7 +17,7 @@ public partial class AspectsCsProjGeneratorTests
             .SetupGenerator<AspectsCsProjGenerator>(GenFramework.Standard20);
         Assert.IsNotNull(generator);
         generator.Generate();
-        var actual = generator.Document.OuterXml.AsFormattedXml();
+        var actual = generator.Document.OuterXml.AsStringFromFormattedXml();
             
         Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual);
         Assert.IsFalse(actual.Contains("Analyzer"), actual);

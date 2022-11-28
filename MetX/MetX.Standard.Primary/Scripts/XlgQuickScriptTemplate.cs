@@ -135,7 +135,7 @@ namespace MetX.Standard.Primary.Scripts
             result.Settings.Answers["Slice At"].Value = result.Settings.Script.SliceAt;
             result.Settings.Answers["Dice At"].Value = result.Settings.Script.DiceAt;
             result.Settings.Answers["Generated At"].Value = DateTime.Now.ToUniversalTime().ToString("s");
-            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsString("Unknown");
+            result.Settings.Answers["UserName"].Value = Environment.UserName.LastToken(@"\").AsStringFromObject("Unknown");
 
             result.Settings.Answers["NameInstance"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension.Replace("-", "").Replace(" ", "_");
             result.Settings.Answers["Project Name"].Value = result.Settings.TemplateNameAsLegalFilenameWithoutExtension;

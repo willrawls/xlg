@@ -332,7 +332,7 @@ namespace MetX.Standard.Primary.IO
         {
             if (path.Length <= 0) return string.Empty;
             var dir = new DirectoryInfo(path);
-            return dir.Parent.AsString();
+            return dir.Parent.AsStringFromObject();
         }
 
         public static string InsureFolderExists(IGenerationHost host, string path, bool stripOffFilename)

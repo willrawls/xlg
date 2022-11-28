@@ -2,7 +2,7 @@
 using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable StringLiteralTypo
@@ -206,7 +206,7 @@ public class TokenizerTests
         Assert.IsNotNull(actual);
         Assert.IsFalse(actual.IsEmpty());
 
-        Assert.AreEqual(expected.Length, actual.Length, actual.AsString());
+        Assert.AreEqual(expected.Length, actual.Length, actual.AsStringFromList());
 
         for (var i = 0; i < expected.Length; i++) Assert.AreEqual(expected[i], actual[i]);
     }

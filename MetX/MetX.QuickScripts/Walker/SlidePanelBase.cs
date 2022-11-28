@@ -41,7 +41,7 @@ namespace XLG.QuickScripts.Walker
 
         private void ToggleSizeButton_Click(object sender, EventArgs e)
         {
-            if (ToggleSizeButton.Tag.AsString().Contains("open"))
+            if (ToggleSizeButton.Tag.AsStringFromObject().Contains("open"))
             {
                 // Open going to closed
                 ToggleSizeButton.Tag = "closed";

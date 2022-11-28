@@ -206,12 +206,12 @@ namespace MetX.Fimm.Glove.Pipelines
 
         public void Initialize(string xlgFilePath, string xlgXslFilePath, string settingsFilePath)
         {
-            VirtualPath = Path.GetDirectoryName(xlgFilePath).AsString().Replace("\\", "/");
+            VirtualPath = Path.GetDirectoryName(xlgFilePath).AsStringFromObject().Replace("\\", "/");
             VirtualxlgFilePath = xlgFilePath;
             XlgFilename = xlgXslFilePath;
             XlgDataXml = GetVirtualFile(VirtualxlgFilePath);
 
-            Namespace = Path.GetFileNameWithoutExtension(VirtualxlgFilePath).AsString();
+            Namespace = Path.GetFileNameWithoutExtension(VirtualxlgFilePath).AsStringFromObject();
             if (Namespace.ToUpper().EndsWith(".GLOVE"))
             {
                 Namespace = Namespace.Substring(0, Namespace.Length - 6);
@@ -509,8 +509,8 @@ namespace MetX.Fimm.Glove.Pipelines
                         xmlRelationship.AppendChild(xmlFields);
                         AddAttribute(xmlField, "Left", field.Left);
                         AddAttribute(xmlField, "Right", field.Right);
-                        AddAttribute(xmlField, "LeftPosition", field.LeftPosition.AsString("1"));
-                        AddAttribute(xmlField, "RightPosition", field.RightPosition.AsString("1"));
+                        AddAttribute(xmlField, "LeftPosition", field.LeftPosition.AsStringFromObject("1"));
+                        AddAttribute(xmlField, "RightPosition", field.RightPosition.AsStringFromObject("1"));
                     }
                 }
 
@@ -881,9 +881,9 @@ namespace MetX.Fimm.Glove.Pipelines
             switch (dbType)
             {
                 case DbType.AnsiString:
-                    return "Worker.AsString";
+                    return "Worker.AsStringFromBytes";
                 case DbType.AnsiStringFixedLength:
-                    return "Worker.AsString";
+                    return "Worker.AsStringFromBytes";
                 case DbType.Binary:
                     return "Worker.nzByteArray";
                 case DbType.Boolean:
@@ -915,9 +915,9 @@ namespace MetX.Fimm.Glove.Pipelines
                 case DbType.Single:
                     return "Worker.nzFloat";
                 case DbType.String:
-                    return "Worker.AsString";
+                    return "Worker.AsStringFromBytes";
                 case DbType.StringFixedLength:
-                    return "Worker.AsString";
+                    return "Worker.AsStringFromBytes";
                 case DbType.Time:
                     return "Worker.nzTimeSpan";
                 case DbType.UInt16:
@@ -929,7 +929,7 @@ namespace MetX.Fimm.Glove.Pipelines
                 case DbType.VarNumeric:
                     return "Worker.nzDecimal";
                 default:
-                    return "Worker.AsString";
+                    return "Worker.AsStringFromBytes";
             }
         }
 

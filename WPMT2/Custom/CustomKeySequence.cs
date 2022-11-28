@@ -35,7 +35,7 @@ namespace WilliamPersonalMultiTool.Custom
             Actor = actor;
             Arguments = arguments;
             Name = arguments;
-            Sequence = keyText.ToPKeyList(null, out var wildcardMatchType, out var wildcardCount);
+            Sequence = keyText.ToPKeyList(null, wildcardMatchType: out WildcardMatchType wildcardMatchType, out int wildcardCount);
             WildcardCount = wildcardCount;
             WildcardMatchType = wildcardMatchType;
             ThenCall((sender, eventArguments) => actor.OnAct(eventArguments));

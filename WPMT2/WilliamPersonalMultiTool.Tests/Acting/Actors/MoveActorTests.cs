@@ -6,7 +6,7 @@ using WilliamPersonalMultiTool.Acting;
 using WilliamPersonalMultiTool.Acting.Actors;
 using WilliamPersonalMultiTool.Custom;
 using Win32Interop.Structs;
-using MetX.Standard.Strings;
+using MetX.Standard.Library.Extensions;
 using MetX.Standard.Strings.Generics;
 
 namespace WilliamPersonalMultiTool.Tests.Acting.Actors

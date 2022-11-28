@@ -31,7 +31,7 @@ namespace MetX.Standard.Primary.Generation.CSharp.Project
         public bool EmitCompilerGeneratedFilesMissing => Parent.IsElementMissing(XPaths.EmitCompilerGeneratedFiles);
         public bool EmitCompilerGeneratedFiles
         {
-            get => Parent.InnerTextAt(XPaths.EmitCompilerGeneratedFiles).AsString().ToLower() == "true";
+            get => Parent.InnerTextAt(XPaths.EmitCompilerGeneratedFiles).AsStringFromObject().ToLower() == "true";
             set => Parent.SetElementInnerText(XPaths.EmitCompilerGeneratedFiles, value);
         }
         

@@ -142,17 +142,17 @@ namespace MetX.Fimm.Glove.Providers
             using var reader = GetReader(cmd);
             while (reader.Read())
             {
-                var relationshipName = reader["RelationshipName"].AsString();
-                var leftSchema = reader["LeftSchema"].AsString();
-                var leftTable = reader["LeftTable"].AsString();
-                var leftColumn = reader["LeftColumn"].AsString();
-                var leftPosition = reader["LeftPosition"].AsString().AsInteger(1);
-                var rightSchema = reader["RightSchema"].AsString();
-                var rightTable = reader["RightTable"].AsString();
-                var rightColumn = reader["RightColumn"].AsString();
-                var rightPosition = reader["RightPosition"].AsString().AsInteger(1);
-                var rightKey = reader["RightKey"].AsString();
-                var relationshipType = reader["RelationshipType"].AsString("OneToMany");
+                var relationshipName = reader["RelationshipName"].AsStringFromObject();
+                var leftSchema = reader["LeftSchema"].AsStringFromObject();
+                var leftTable = reader["LeftTable"].AsStringFromObject();
+                var leftColumn = reader["LeftColumn"].AsStringFromObject();
+                var leftPosition = reader["LeftPosition"].AsStringFromObject().AsInteger(1);
+                var rightSchema = reader["RightSchema"].AsStringFromObject();
+                var rightTable = reader["RightTable"].AsStringFromObject();
+                var rightColumn = reader["RightColumn"].AsStringFromObject();
+                var rightPosition = reader["RightPosition"].AsStringFromObject().AsInteger(1);
+                var rightKey = reader["RightKey"].AsStringFromObject();
+                var relationshipType = reader["RelationshipType"].AsStringFromObject("OneToMany");
 
                 var relationship = new Relationship
                 {
@@ -213,10 +213,10 @@ namespace MetX.Fimm.Glove.Providers
             while (reader.Read())
             {
                 // ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_DEFINITION, ROUTINE_BODY
-                var schema = reader["ROUTINE_SCHEMA"].AsString();
-                var name = reader["ROUTINE_NAME"].AsString();
-                var definition = reader["ROUTINE_DEFINITION"].AsString();
-                var body = reader["ROUTINE_BODY"].AsString();
+                var schema = reader["ROUTINE_SCHEMA"].AsStringFromObject();
+                var name = reader["ROUTINE_NAME"].AsStringFromObject();
+                var definition = reader["ROUTINE_DEFINITION"].AsStringFromObject();
+                var body = reader["ROUTINE_BODY"].AsStringFromObject();
 
                 var storedProcedure = new StoredProcedure
                 {
@@ -288,8 +288,8 @@ namespace MetX.Fimm.Glove.Providers
             {
                 var pair = new OwnerTablePair
                 {
-                    Owner = rdr["Owner"].AsString("dbo"),
-                    TableName = rdr["Name"].AsString(),
+                    Owner = rdr["Owner"].AsStringFromObject("dbo"),
+                    TableName = rdr["Name"].AsStringFromObject(),
                 };
                 result.Add(pair);
             }
@@ -310,9 +310,9 @@ namespace MetX.Fimm.Glove.Providers
                 // schema_name, view_name, definition
                 views.Add(new View
                 {
-                    Schema = reader["schema_name"].AsString(),
-                    ViewName = reader["view_name"].AsString(),
-                    TSQL = reader["definition"].AsString()
+                    Schema = reader["schema_name"].AsStringFromObject(),
+                    ViewName = reader["view_name"].AsStringFromObject(),
+                    TSQL = reader["definition"].AsStringFromObject()
                 });
             }
             reader.Close();

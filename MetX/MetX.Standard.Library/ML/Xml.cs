@@ -150,7 +150,7 @@ namespace MetX.Standard.Library.ML
         /// </example>
         public static string AttributeEncode(object strIn)
         {
-            var sb = new StringBuilder(strIn.AsString());
+            var sb = new StringBuilder(strIn.AsStringFromObject());
             sb.Replace(Convert.ToString((char)147), "&quot;");
             sb.Replace(Convert.ToString((char)148), "&quot;");
             sb.Replace(Convert.ToString((char)150), "-");

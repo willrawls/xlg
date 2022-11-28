@@ -23,7 +23,7 @@ namespace MetX.Standard.Primary.Scripts
         public bool CompileSuccessful => Settings.Simulate || 
                                          (ActualizationSuccessful 
                                           && CompileErrorText.IsEmpty()
-                                          && OutputText.AsString().Contains(" 0 Error(s)")
+                                          && OutputText.AsStringFromObject().Contains(" 0 Error(s)")
                                           && File.Exists(DestinationExecutableFilePath));
 
         public string Errors
@@ -31,7 +31,7 @@ namespace MetX.Standard.Primary.Scripts
             get
             {
                 if (!CompileSuccessful || ActualizeErrorText.IsNotEmpty() || CompileErrorText.IsNotEmpty())
-                    return ActualizeErrorText.AsString() + "\n" + CompileErrorText;
+                    return ActualizeErrorText.AsStringFromObject() + "\n" + CompileErrorText;
                 return "";
             }
 

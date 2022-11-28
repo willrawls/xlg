@@ -16,7 +16,7 @@
 		<Copyright>MIT 2.0 - William Rawls</Copyright>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
-		<IsPublishable>False</IsPublishable>
+		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

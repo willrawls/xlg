@@ -222,7 +222,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
         IfNotUpdating(() =>
         {
-            ScriptEditor.Current.Name = QuickScriptName.Text.AsString(DateTime.Now.ToString("s"));
+            ScriptEditor.Current.Name = QuickScriptName.Text.AsStringFromObject(DateTime.Now.ToString("s"));
             ScriptEditor.Current.Script = ScriptEditor.Text;
             Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out ScriptEditor.Current.Destination);
             ScriptEditor.Current.Input = InputList.Text;
@@ -230,7 +230,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             ScriptEditor.Current.DiceAt = DiceAt.Text;
             ScriptEditor.Current.InputFilePath = InputParam.Text;
             ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-            ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsString("Exe");
+            ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsStringFromObject("Exe");
             Host.Context.Scripts.Default = ScriptEditor.Current;
         });
     }

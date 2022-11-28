@@ -72,7 +72,7 @@ public static class Extensions
 
         foreach (var table in xlgDoc.Tables)
         {
-            if (string.Equals(table.Schema.AsString("dbo"), schemaName.AsString("dbo"), StringComparison.InvariantCultureIgnoreCase) 
+            if (string.Equals(table.Schema.AsStringFromObject("dbo"), schemaName.AsStringFromObject("dbo"), StringComparison.InvariantCultureIgnoreCase) 
                 && string.Equals(table.TableName, tableName, StringComparison.InvariantCultureIgnoreCase)) 
                 return table;
         }

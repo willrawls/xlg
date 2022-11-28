@@ -196,7 +196,7 @@ namespace MetX.Fimm.Glove.Data
             {
                 sValue.Append("(");
                 sValue.Append("'");
-                sValue.Append(value.AsString().Replace("'", "''"));
+                sValue.Append(value.AsStringFromObject().Replace("'", "''"));
                 sValue.Append("'");
             }
             sValue.Append(")");

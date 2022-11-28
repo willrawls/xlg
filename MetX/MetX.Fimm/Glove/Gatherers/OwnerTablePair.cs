@@ -8,7 +8,7 @@ namespace MetX.Fimm.Glove.Gatherers
         public string TableName;
         public override string ToString()
         {
-            return Owner.AsString("dbo") + "." + TableName.AsString();
+            return Owner.AsStringFromObject("dbo") + "." + TableName.AsStringFromObject();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace XLG.QuickScripts.Walker
 
         private void ToggleSizeButton_Click(object sender, System.EventArgs e)
         {
-            if (ToggleSizeButton.Tag.AsString() == "open")
+            if (ToggleSizeButton.Tag.AsStringFromObject() == "open")
             {
                 // Close
                 Height = TitleLabel.Height + 20;

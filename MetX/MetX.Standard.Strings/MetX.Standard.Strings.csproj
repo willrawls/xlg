@@ -11,12 +11,15 @@
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Description>XLG Associative arrays, generic associative, and multidiemtional associative arrays </Description>
+		<Description>A bunch of string extenion functions, XLG Associative arrays, generic associative, and multidiemtional associative arrays </Description>
 		<Copyright>MIT 2.0 - William Rawls</Copyright>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
-		<IsPublishable>False</IsPublishable>
+		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>True</Optimize>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="Support\**" />

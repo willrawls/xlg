@@ -47,7 +47,7 @@ namespace MetX.Fimm.Glove.Data
         [XmlAttribute]
         public string Value 
         { 
-            get => ParameterValue == null ? "(DbNull.Value)" : ParameterValue.AsString();
+            get => ParameterValue == null ? "(DbNull.Value)" : ParameterValue.AsStringFromObject();
             set => ParameterValue = value == "(DbNull.Value)" ? null : value;
         }
     }

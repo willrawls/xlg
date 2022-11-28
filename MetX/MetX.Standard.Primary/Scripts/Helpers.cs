@@ -47,7 +47,7 @@ namespace MetX.Standard.Primary.Scripts
                 var tag = $"%{environmentVariable.Key}%";
                 if (scriptLine.IndexOf(tag, StringComparison.InvariantCultureIgnoreCase) <= -1) continue;
 
-                var value = environmentVariable.Value.AsString("");
+                var value = environmentVariable.Value.AsStringFromObject("");
                 scriptLine = scriptLine.ImplicitReplace(tag, value);
             }
 
@@ -100,10 +100,11 @@ namespace MetX.Standard.Primary.Scripts
             var result = target.Replace("\r", "")
                 .LineList()
                 .Select(line => $"~~:{line}")
-                .ToList()
-                .AsString("\n");
+                .ToList().AsStringFromList("\n");
+            
             if (!result.EndsWith("\n"))
                 result += "\n";
+            
             return result;
         }
     }

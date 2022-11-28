@@ -2,7 +2,7 @@
 using MetX.Standard.Primary.Generation;
 using MetX.Standard.Primary.Generation.CSharp.Project;
 using MetX.Standard.Strings;
-using MetX.Standard.Strings.Extensions;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Standard.Generation.CSharp.Project;
@@ -17,7 +17,7 @@ public class GeneratorsCsProjGeneratorTests
         Assert.IsNotNull(generator);
         generator.Generate();
             
-        var actual = generator.Document.OuterXml.AsFormattedXml();
+        var actual = generator.Document.OuterXml.AsStringFromFormattedXml();
         Assert.IsNotNull(actual);
             
         Assert.IsFalse(actual.Contains(CsProjGeneratorOptions.Delimiter), actual.TokenAt(2, CsProjGeneratorOptions.Delimiter));

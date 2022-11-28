@@ -84,7 +84,7 @@ namespace MetX.Standard.Library.Extensions
                     return charValue;
             }
 
-            var ret = AsString(value);
+            var ret = AsStringFromBytes(value);
             return ret.Length == 0 ? new char() : ret[0];
         }
         */
@@ -96,7 +96,7 @@ namespace MetX.Standard.Library.Extensions
         public static double NzDouble(object value)
         {
             double ret = 0;
-            var text = value.AsString();
+            var text = value.AsStringFromObject();
             if (text.Length <= 0) return ret;
 
             try

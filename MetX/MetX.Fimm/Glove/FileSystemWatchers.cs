@@ -63,7 +63,7 @@ namespace MetX.Fimm.Glove
 
         private static void AddIfDifferent(List<string> directories, string currDir)
         {
-            currDir = currDir.AsString().ToLower();
+            currDir = currDir.AsStringFromObject().ToLower();
             if (!currDir.EndsWith(@"\"))
             {
                 currDir += @"\";

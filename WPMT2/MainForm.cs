@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MetX.Standard.Strings;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using WilliamPersonalMultiTool.Custom;
@@ -313,9 +314,12 @@ namespace WilliamPersonalMultiTool
             e.Effect = DragDropEffects.None;
             try
             {
-                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (e.Data == null) return;
+                string[] files = (string[]) e.Data.GetData(DataFormats.FileDrop);
                 
-                Clipboard.SetText(MetX.Standard.Strings.ForString.AsString(files, "\n"));
+                Clipboard.SetText(files.AsStringFromList("\n"));
+
+                //Clipboard.SetText(MetX.Standard.Strings.ForString.AsStringFromBytes(files, "\n"));
             }
             catch 
             {

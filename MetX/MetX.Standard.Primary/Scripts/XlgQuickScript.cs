@@ -162,16 +162,16 @@ namespace MetX.Standard.Primary.Scripts
         {
             return
                 $@"
-~~QuickScriptName:{Name.AsString()}
-~~QuickScriptInput:{Input.AsString()}
-~~QuickScriptDestination:{Destination.AsString()}
-~~QuickScriptId:{Id.AsString()}
+~~QuickScriptName:{Name.AsStringFromObject()}
+~~QuickScriptInput:{Input.AsStringFromObject()}
+~~QuickScriptDestination:{Destination.AsStringFromObject()}
+~~QuickScriptId:{Id.AsStringFromGuid()}
 ~~QuickScriptInputFilePath:{InputFilePath}
 ~~QuickScriptDestinationFilePath:{DestinationFilePath}
 ~~QuickScriptSliceAt:{SliceAt}
 ~~QuickScriptDiceAt:{DiceAt}
 ~~QuickScriptTemplate:{TemplateName}
-{(isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty)}{Script.AsString()}";
+{(isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty)}{Script.AsStringFromObject()}";
         }
 
         public override string ToString()
