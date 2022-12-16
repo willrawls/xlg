@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Techniques;
+﻿using MetX.Standard.Primary.Techniques;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Techniques.Tests

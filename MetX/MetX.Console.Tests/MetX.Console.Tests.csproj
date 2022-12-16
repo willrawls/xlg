@@ -41,7 +41,7 @@
 
   <ItemGroup>
     
-    <ProjectReference Include="..\MetX.Fimm\MetX.Console.Fimm.csproj" />
+    <ProjectReference Include="..\MetX.Console.Fimm\MetX.Console.Fimm.csproj" />
     
     <ProjectReference Include="..\MetX.Standard.Generators.Actual\MetX.Standard.Generators.Actual.csproj" />
     <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />

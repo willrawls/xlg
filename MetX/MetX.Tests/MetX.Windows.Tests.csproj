@@ -73,7 +73,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MetX.Fimm\MetX.Console.Fimm.csproj" />
+		<ProjectReference Include="..\MetX.Console.Fimm\MetX.Console.Fimm.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators.Aspects\MetX.Standard.Generators.Aspects.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators.Support\MetX.Standard.Generators.Support.csproj" />
 		<ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
