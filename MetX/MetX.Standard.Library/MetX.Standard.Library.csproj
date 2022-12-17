@@ -6,18 +6,19 @@
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>5.1.1</Version>
+		<Version>6.0.0</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
+		<RepositoryType></RepositoryType>
 		<Description>XLG Library of classes in .net standard 2.1</Description>
 		<Copyright>MIT 2.0 - William Rawls</Copyright>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,6 +31,12 @@
 		<Compile Remove="AssocArrayList.cs" />
 		<Compile Remove="AssocItem.cs" />
 		<Compile Remove="AssocSupport.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
