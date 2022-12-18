@@ -1,8 +1,23 @@
 {
   "profiles": {
-    "MetX.Console.Fimm": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "Run script fimm 2": {
       "commandName": "Project",
-      "commandLineArgs": "run script \"New1\" \"First script\" "
+      "commandLineArgs": "run script \"fimm 2\"",
+      "workingDirectory": "C:\\Users\\willr\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Tests\\TestFimmScripts\\"
+    },
+    "Run script fimm1": {
+      "commandName": "Project",
+      "commandLineArgs": "run script fimm1",
+      "workingDirectory": "C:\\Users\\willr\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Tests\\TestFimmScripts\\"
+    },
+    "Run script doesnt exist": {
+      "commandName": "Project",
+      "commandLineArgs": "run script doesntexist",
+      "workingDirectory": "C:\\Users\\willr\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Tests\\TestFimmScripts\\"
     }
   }
 }

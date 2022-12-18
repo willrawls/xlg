@@ -30,5 +30,5 @@ public class TestHost : IGenerationHost
     {
     }
 
-    public static TestHost Factory(string text = "") => new TestHost(text);
+    public static TestHost Factory(string text = "") => new(text);
 }

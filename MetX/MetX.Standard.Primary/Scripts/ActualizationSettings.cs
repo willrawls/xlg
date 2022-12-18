@@ -14,7 +14,10 @@ namespace MetX.Standard.Primary.Scripts
         {
             Host = host;
             TemplateNameAsLegalFilenameWithoutExtension = Guid.NewGuid().ToString("N");
-            QuickScriptTemplate = quickScriptTemplate ?? throw new ArgumentNullException(nameof(quickScriptTemplate));
+            QuickScriptTemplate = quickScriptTemplate;
+            if (QuickScriptTemplate == null)
+                return;
+
             Simulate = simulate;
             Script = scriptToRun;
             ForExecutable = forExecutable;

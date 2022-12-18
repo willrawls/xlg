@@ -17,19 +17,12 @@ public class ScriptFimmActor : FimmActorBase
 
     public override ProcessorResult Run(ArgumentSettings settings)
     {
-        XlgQuickScript scriptToRun = null;
-
         var context = new ConsoleContext();
         IGenerationHost host = new ConsoleGenerationHost(context);
         var wallaby = new Wallaby(host);
-        if(settings.AdditionalArguments.IsNotEmpty())
-        {
-            scriptToRun = wallaby.FindScript(settings.Name, settings.AdditionalArguments[0]);
-        }
-        else
-        {
-            scriptToRun = wallaby.FindScript(settings.Name);
-        }
+        var scriptToRun = settings.AdditionalArguments.IsNotEmpty() 
+            ? wallaby.FindScript(settings.Name, settings.AdditionalArguments[0]) // Run Script NameInFile FilenameWithOptionalPath
+            : wallaby.FindScript(settings.Name); // Run script FilenameWithOptionalPath (only the first script runs)
 
         return new ProcessorResult
         {

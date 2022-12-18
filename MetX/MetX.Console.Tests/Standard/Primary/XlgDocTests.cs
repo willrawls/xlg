@@ -39,7 +39,7 @@ public class XlgDocTests
         Assert.AreEqual(1, bad.Count);
     }
 
-    Relationship _bobPersonDboEmployeeRelationship = new Relationship
+    Relationship _bobPersonDboEmployeeRelationship = new()
     {
         Name = "FK_PersonID_Person_PersonID",
         Type = "OneToMany",
@@ -49,7 +49,7 @@ public class XlgDocTests
         RightTable = "Employee",
         Fields = new List<RelationshipField>
         {
-            new RelationshipField
+            new()
             {
                 Left = "PersonID",
                 Right = "PersonID",
@@ -63,14 +63,14 @@ public class XlgDocTests
         }
     };
 
-    private Table _bobPersonTable = new Table
+    private Table _bobPersonTable = new()
     {
         Schema = "Bob",
         TableName = "Person",
         ClassName = "Bob_Person",
         Columns = new List<Column>
         {
-            new Column
+            new()
             {
                 ColumnName = "PersonID",
                 AutoIncrement = "true",
@@ -78,11 +78,11 @@ public class XlgDocTests
         },
         Keys = new List<Key>
         {
-            new Key
+            new()
             {
                 Columns = new List<KeyColumn>
                 {
-                    new KeyColumn
+                    new()
                     {
                         Column = "PersonID",
                         Location = "1",
@@ -92,30 +92,30 @@ public class XlgDocTests
         }
     };
 
-    private Table _dboEmployeeTable = new Table
+    private Table _dboEmployeeTable = new()
     {
         Schema = "dbo",
         TableName = "Employee",
         ClassName = "dbo_Employee",
         Columns = new List<Column>
         {
-            new Column
+            new()
             {
                 ColumnName = "EmployeeID",
                 AutoIncrement = "true",
             },
-            new Column
+            new()
             {
                 ColumnName = "PersonID",
             },
         },
         Keys = new List<Key>
         {
-            new Key
+            new()
             {
                 Columns = new List<KeyColumn>
                 {
-                    new KeyColumn
+                    new()
                     {
                         Column = "EmployeeID",
                         Location = "1",

@@ -35,6 +35,13 @@ public class Wallaby
 
     public ActualizationResult RunQuickScript(XlgQuickScript scriptToRun)
     {
+        if (scriptToRun == null)
+        {
+            var actualizationSettings = new ActualizationSettings(null, false, scriptToRun, true, null);
+            var actualizationResult = new ActualizationResult(actualizationSettings);
+            return actualizationResult;
+        }
+
         var settings = scriptToRun.BuildSettings(false, Host);
         var result = settings.ActualizeAndCompile();
         return result;

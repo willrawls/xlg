@@ -11,19 +11,20 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Version>6.0.0</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/willrawls/xlg</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Description>XLG Glove Database metadata collector and post collection code generator</Description>
+		<Description>William's 5th code generator. Fimm is Finnish for Five</Description>
 		<Copyright>MIT 2.0 - William Rawls</Copyright>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>William's fifth code genertator. Fimm is Finnish for Five</Title>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -51,6 +52,13 @@
 	<ItemGroup>
 	  <Folder Include="SliceAndDice\" />
 	  <Folder Include="Walker\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -31,8 +31,8 @@ public class AssocArrayTests
         {
             Items = new List<BasicAssocItem >
             {
-                new BasicAssocItem ("Item Key", "Item Value", itemId, "Item Name"),
-                new BasicAssocItem ("Item Key2", "Item Value2", itemId2, "Item Name2")
+                new("Item Key", "Item Value", itemId, "Item Name"),
+                new("Item Key2", "Item Value2", itemId2, "Item Name2")
             }
         };
 
