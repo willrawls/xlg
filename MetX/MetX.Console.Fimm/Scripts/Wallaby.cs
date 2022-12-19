@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MetX.Fimm.Scripts;
 
@@ -15,15 +13,51 @@ public class Wallaby
 
     public Wallaby(IGenerationHost host = null)
     {
-        if (host == null)
-        {
-            Context = new ContextBase(Shared.Dirs.ScriptsFolderName, null);
-        }
+        if (host == null) Context = new ContextBase(Shared.Dirs.ScriptsFolderName, null);
 
         Host = host;
     }
 
     public IGenerationHost Host { get; set; }
+
+    public XlgQuickScript FindScript(string filePath, string scriptName)
+    {
+        string fileActual = null;
+        if (filePath == null)
+            return null;
+
+        if (File.Exists(filePath))
+        {
+            fileActual = filePath;
+        }
+        else
+        {
+            fileActual = Path.Combine(filePath, scriptName);
+            if (!File.Exists(fileActual))
+                return null;
+        }
+
+        XlgQuickScriptFile scriptList = XlgQuickScriptFile.Load(fileActual);
+
+        var scriptToReturn = scriptList.FirstOrDefault(x => x.TemplateName.ToLower() == scriptName);
+        return scriptToReturn ?? (scriptList.Count > 0
+            ? scriptList[0] // Lone Fimm 
+            : null);
+    }
+
+    public XlgQuickScript FindScript(string scriptName)
+    {
+        if (scriptName.Contains("+")) return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
+
+
+        var filePath = Shared.Dirs.LastScriptFilePath;
+
+        if (!File.Exists(filePath))
+            return null;
+
+        var scriptList = XlgQuickScriptFile.Load(filePath);
+        return scriptList[scriptName];
+    }
 
     public ActualizationResult RunQuickScript(string scriptName)
     {
@@ -40,7 +74,7 @@ public class Wallaby
             var actualizationSettings = new ActualizationSettings(null, false, scriptToRun, true, null);
             var actualizationResult = new ActualizationResult(actualizationSettings)
             {
-                CompileErrorText = $"No script provided to Wallaby.RunQuickScript(), exiting."
+                CompileErrorText = "No script provided to Wallaby.RunQuickScript(), exiting."
             };
             return actualizationResult;
         }
@@ -49,32 +83,4 @@ public class Wallaby
         var result = settings.ActualizeAndCompile();
         return result;
     }
-
-    public XlgQuickScript FindScript(string filePath, string scriptName)
-    {
-        if (!File.Exists(filePath))
-            return null;
-
-        var scriptList = XlgQuickScriptFile.Load(filePath);
-        return scriptList[scriptName];
-    }
-
-    public XlgQuickScript FindScript(string scriptName)
-    {
-        if (scriptName.Contains("+"))
-        {
-            return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
-        }
-        
-        
-        var filePath = Shared.Dirs.LastScriptFilePath;
-
-        if (!File.Exists(filePath))
-            return null;
-        
-        var scriptList = XlgQuickScriptFile.Load(filePath);
-        return scriptList[scriptName];
-    }
-
-
 }

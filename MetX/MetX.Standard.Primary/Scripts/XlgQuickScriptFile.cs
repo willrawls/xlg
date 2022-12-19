@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Strings;
@@ -76,28 +77,71 @@ namespace MetX.Standard.Primary.Scripts
 
         public static XlgQuickScriptFile Load(string filePath)
         {
-            var ret = new XlgQuickScriptFile(filePath);
-            if (!File.Exists(ret.FilePath))
+            var scriptFile = new XlgQuickScriptFile(filePath);
+            if (!File.Exists(scriptFile.FilePath))
             {
-                return ret;
+                return scriptFile;
             }
-            var rawScripts = File
-                .ReadAllText(ret.FilePath)
-                .Split(new[] { "~~QuickScriptName:" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var rawScripts = new string[1];
+
+            var scriptNameSection = "~~QuickScriptName:";
+            if (filePath.ToLower().EndsWith(".fimm"))
+            {
+                var fimmScript = File.ReadAllText(scriptFile.FilePath);
+                if (fimmScript.Contains(scriptNameSection))
+                    rawScripts[0] = $"{fimmScript}";
+                else
+                {
+                    if (!fimmScript.ToLower().Contains("~~Line:"))
+                        fimmScript = $"~~Line:\n{fimmScript}";
+
+                    var xlgFimmScript =
+                        new XlgQuickScript(scriptFile.FilePath.LastPathToken().FirstToken("."), fimmScript)
+                        {
+                            Input = "Clipboard",
+                            Destination = QuickScriptDestination.Clipboard,
+                            Id = Guid.NewGuid(),
+                            TemplateName = "Exe",
+                        };
+
+                    scriptFile.Add(xlgFimmScript);
+                    return scriptFile;
+                    /*
+rawScripts[0] = xlgFimmScript.ToFileFormat(true);
+$@"
+{scriptNameSection} {scriptFile.FilePath.LastPathToken().FirstToken(".")}
+~~QuickScriptID: {Guid.NewGuid():B}
+~~QuickScriptInput: Clipboard
+~~QuickScriptDestination: Clipboard
+__QuickScriptDefault:
+~~
+~~Line:
+{fimmScript}";
+                     */
+                }
+
+            }
+            else
+            {
+                rawScripts = File
+                    .ReadAllText(scriptFile.FilePath)
+                    .Split(new[] {scriptNameSection}, StringSplitOptions.RemoveEmptyEntries);
+            }            
             foreach (var rawScript in rawScripts)
             {
                 if (string.IsNullOrWhiteSpace(rawScript)) continue;
                 var script = new XlgQuickScript();
                 var isDefault = script.Load(rawScript);
-                ret.Add(script);
-                if (isDefault) ret.Default = script;
+                scriptFile.Add(script);
+                if (isDefault) scriptFile.Default = script;
             }
-            ret.Sort((script, quickScript) => string.CompareOrdinal(script.Name, quickScript.Name));
-            if (ret.Default == null && ret.Count > 0)
+            scriptFile.Sort((script, quickScript) => string.CompareOrdinal(script.Name, quickScript.Name));
+            if (scriptFile.Default == null && scriptFile.Count > 0)
             {
-                ret.Default = ret[0];
+                scriptFile.Default = scriptFile[0];
             }
-            return ret;
+            return scriptFile;
         }
 
         public string[] ScriptNames()

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MetX.Fimm;
 using MetX.Fimm.Setup;
+using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,12 +15,16 @@ namespace MetX.Console.Tests.Fimm;
 public class FimmRunQuickScriptTests
 {
     public XlgQuickScript FimDoesNotExist = new("fimm1");
-
     public XlgQuickScript TestScript1 = new("TestScript1", @"
 ~~Finish:
   ~~:Ding
 ");
 
+    public static string TempPath => Environment.GetEnvironmentVariable("TEMP");
+
+    public static string RandomizedTempScriptFilename(string name) =>
+        Path.Combine(TempPath, name + Guid.NewGuid().ToString("N") + ".test.fimm");
+    
     private static ArgumentSettings ArgumentSettingsFactory(string scriptName, string scriptPath = "",
         params string[] additionalArguments)
     {
@@ -57,17 +63,29 @@ public class FimmRunQuickScriptTests
     }
 
     [TestMethod]
-    public void SingleFimmScript_ExistsOutputs_Ding()
+    public void SingleFimmScript_Exists_Outputs_Ding()
     {
+        var fimmOutputDing = "fimmOutputDing";
+        var testFimm = SetupTestFimmAndGetFilename(fimmOutputDing, TestScript1.Script);
         var args = new[]
         {
-            "run", "script", "fimmOutputsDing"
+            "run", "script", testFimm 
         };
+        Assert.IsTrue(testFimm.IsNotEmpty());
         var results = TestHarnessAction(args, out var stringBuilder);
-        Assert.IsTrue(results.Contains("Error"));
+
+       FileSystem.SafelyDeleteFile(testFimm);
+       Assert.IsFalse(results.Contains("Error"), results );
     }
 
-    private static string TestHarnessAction(string[] args, out StringBuilder stringBuilder)
+    public string SetupTestFimmAndGetFilename(string name, string script)
+    {
+        var filename = RandomizedTempScriptFilename(name);
+        File.WriteAllText(filename, script);
+        return filename;
+    }
+
+    public static string TestHarnessAction(string[] args, out StringBuilder stringBuilder)
     {
         stringBuilder = new StringBuilder();
         using TextWriter textWriter = new StringWriter(stringBuilder);
