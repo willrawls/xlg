@@ -52,12 +52,27 @@ public class FimmRunQuickScriptTests
         {
             "run", "script", "scriptthatdoesnotexist"
         };
+        var results = TestHarnessAction(args, out var stringBuilder);
+        Assert.IsTrue(results.Contains("Error"));
+    }
 
-        var stringBuilder = new StringBuilder();
+    [TestMethod]
+    public void SingleFimmScript_ExistsOutputs_Ding()
+    {
+        var args = new[]
+        {
+            "run", "script", "fimmOutputsDing"
+        };
+        var results = TestHarnessAction(args, out var stringBuilder);
+        Assert.IsTrue(results.Contains("Error"));
+    }
+
+    private static string TestHarnessAction(string[] args, out StringBuilder stringBuilder)
+    {
+        stringBuilder = new StringBuilder();
         using TextWriter textWriter = new StringWriter(stringBuilder);
         Harness.ActOn(args, textWriter);
         var results = stringBuilder.ToString();
-
-        Assert.IsTrue(results.Contains("Error"));
+        return results;
     }
 }
