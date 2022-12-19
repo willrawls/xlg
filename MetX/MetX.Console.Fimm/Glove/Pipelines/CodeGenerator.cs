@@ -579,7 +579,7 @@ namespace MetX.Fimm.Glove.Pipelines
                         ? GetProperName(tableSchema.Name, tableSchema.PrimaryKey.ColumnName, "Field")
                         : string.Empty);
 
-                int count = -1;
+                var count = -1;
                 try
                 {
                     var command = new QueryCommand(tableSchema.CountSql);

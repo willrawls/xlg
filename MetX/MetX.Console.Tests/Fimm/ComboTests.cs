@@ -17,9 +17,11 @@ public class ComboTests
         var testActor = validCombo.Factory();
         testActor.FakeReadyToActResult = true;
 
-        var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
-        quickScriptTemplate.Name = "George1DArray";
-        XlgQuickScript quickScript = new XlgQuickScript("Freddy", "a = b;");
+        var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe")
+        {
+            Name = "George1DArray"
+        };
+        var quickScript = new XlgQuickScript("Freddy", "a = b;");
 
 
         testActor.ResultFromAct = new ProcessorResult
@@ -43,7 +45,7 @@ public class ComboTests
 
         Assert.IsTrue(testActor.ReadyToAct(settings, out var reason));
         Assert.IsNull(reason);
-        Func<ArgumentSettings, ProcessorResult> actual = testActor.GetProcessingFunction(settings);
+        var actual = testActor.GetProcessingFunction(settings);
         Assert.IsNotNull(actual);
     }
 }

@@ -23,10 +23,9 @@ public class ScriptFimmActor : FimmActorBase
         var scriptToRun = settings.AdditionalArguments.IsNotEmpty() 
             ? wallaby.FindScript(settings.Name, settings.AdditionalArguments[0]) // Run Script NameInFile FilenameWithOptionalPath
             : wallaby.FindScript(settings.Name); // Run script FilenameWithOptionalPath (only the first script runs)
-
         return new ProcessorResult
         {
-            ActualizationResult = wallaby.RunQuickScript(scriptToRun),
+            ActualizationResult = wallaby.RunQuickScript(scriptToRun)
         };
     }
 }

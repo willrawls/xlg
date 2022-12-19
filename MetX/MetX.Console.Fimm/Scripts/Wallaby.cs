@@ -38,7 +38,10 @@ public class Wallaby
         if (scriptToRun == null)
         {
             var actualizationSettings = new ActualizationSettings(null, false, scriptToRun, true, null);
-            var actualizationResult = new ActualizationResult(actualizationSettings);
+            var actualizationResult = new ActualizationResult(actualizationSettings)
+            {
+                CompileErrorText = $"No script provided to Wallaby.RunQuickScript(), exiting."
+            };
             return actualizationResult;
         }
 
