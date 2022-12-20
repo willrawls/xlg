@@ -75,59 +75,28 @@ namespace MetX.Standard.Primary.Scripts
             return true;
         }
 
+        const string scriptNameSection = "~~QuickScriptName:";
+
         public static XlgQuickScriptFile Load(string filePath)
         {
             var scriptFile = new XlgQuickScriptFile(filePath);
+
             if (!File.Exists(scriptFile.FilePath))
             {
                 return scriptFile;
             }
 
-            var rawScripts = new string[1];
-
-            var scriptNameSection = "~~QuickScriptName:";
             if (filePath.ToLower().EndsWith(".fimm"))
             {
-                var fimmScript = File.ReadAllText(scriptFile.FilePath);
-                if (fimmScript.Contains(scriptNameSection))
-                    rawScripts[0] = $"{fimmScript}";
-                else
-                {
-                    if (!fimmScript.ToLower().Contains("~~Line:"))
-                        fimmScript = $"~~Line:\n{fimmScript}";
-
-                    var xlgFimmScript =
-                        new XlgQuickScript(scriptFile.FilePath.LastPathToken().FirstToken("."), fimmScript)
-                        {
-                            Input = "Clipboard",
-                            Destination = QuickScriptDestination.Clipboard,
-                            Id = Guid.NewGuid(),
-                            TemplateName = "Exe",
-                        };
-
-                    scriptFile.Add(xlgFimmScript);
-                    return scriptFile;
-                    /*
-rawScripts[0] = xlgFimmScript.ToFileFormat(true);
-$@"
-{scriptNameSection} {scriptFile.FilePath.LastPathToken().FirstToken(".")}
-~~QuickScriptID: {Guid.NewGuid():B}
-~~QuickScriptInput: Clipboard
-~~QuickScriptDestination: Clipboard
-__QuickScriptDefault:
-~~
-~~Line:
-{fimmScript}";
-                     */
-                }
-
+                var fimmScript = FimmFactory(File.ReadAllText(scriptFile.FilePath));
+                var file = new XlgQuickScriptFile(scriptFile.FilePath);
+                return file;
             }
-            else
-            {
-                rawScripts = File
-                    .ReadAllText(scriptFile.FilePath)
-                    .Split(new[] {scriptNameSection}, StringSplitOptions.RemoveEmptyEntries);
-            }            
+
+            var rawScripts = File
+                .ReadAllText(scriptFile.FilePath)
+                .Split(new[] {scriptNameSection}, StringSplitOptions.RemoveEmptyEntries);
+
             foreach (var rawScript in rawScripts)
             {
                 if (string.IsNullOrWhiteSpace(rawScript)) continue;
@@ -142,6 +111,33 @@ __QuickScriptDefault:
                 scriptFile.Default = scriptFile[0];
             }
             return scriptFile;
+        }
+
+        public static string FimmFileFormatScriptFactory(string script)
+        {
+            if (script.Contains(scriptNameSection))
+                return script;
+
+            var xlgScriptFile = new XlgQuickScriptFile(Guid.NewGuid().ToString("N"));
+            var xlgFimmScript = FimmFactory(script, xlgScriptFile);
+
+            return xlgFimmScript.ToString();
+        }
+
+        public static XlgQuickScript FimmFactory(string fimmScript, XlgQuickScriptFile scriptFile)
+        {
+            if (!fimmScript.ToLower().Contains("~~line:"))
+                fimmScript = $"~~Line:\n{fimmScript}";
+
+            var xlgFimmScript =
+                new XlgQuickScript(scriptFile.FilePath.LastPathToken().FirstToken("."), fimmScript)
+                {
+                    Input = "Clipboard",
+                    Destination = QuickScriptDestination.Clipboard,
+                    Id = Guid.NewGuid(),
+                    TemplateName = "Exe",
+                };
+            return xlgFimmScript;
         }
 
         public string[] ScriptNames()

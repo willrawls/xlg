@@ -8,6 +8,7 @@ using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MetX.Console.Tests.Fimm;
 
@@ -24,6 +25,13 @@ public class FimmRunQuickScriptTests
 
     public static string RandomizedTempScriptFilename(string name) =>
         Path.Combine(TempPath, name + Guid.NewGuid().ToString("N") + ".test.fimm");
+
+    public static void CleanUpTestFimmFilesInTemp()
+    {
+        var files = Directory.GetFiles(Environment.GetEnvironmentVariable("TEMP"), ".test.fimm");
+        foreach (var file in files)
+            FileSystem.SafelyDeleteFile(file);
+    }
     
     private static ArgumentSettings ArgumentSettingsFactory(string scriptName, string scriptPath = "",
         params string[] additionalArguments)
@@ -80,8 +88,10 @@ public class FimmRunQuickScriptTests
 
     public string SetupTestFimmAndGetFilename(string name, string script)
     {
+        CleanUpTestFimmFilesInTemp();
         var filename = RandomizedTempScriptFilename(name);
-        File.WriteAllText(filename, script);
+        var xlgScript = XlgQuickScriptFile.FimmFileFormatScriptFactory(script);
+        File.WriteAllText(filename, xlgScript);
         return filename;
     }
 
