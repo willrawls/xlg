@@ -8,7 +8,6 @@ using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MetX.Console.Tests.Fimm;
 
@@ -16,6 +15,7 @@ namespace MetX.Console.Tests.Fimm;
 public class FimmRunQuickScriptTests
 {
     public XlgQuickScript FimDoesNotExist = new("fimm1");
+
     public XlgQuickScript TestScript1 = new("TestScript1", @"
 ~~Finish:
   ~~:Ding
@@ -23,16 +23,6 @@ public class FimmRunQuickScriptTests
 
     public static string TempPath => Environment.GetEnvironmentVariable("TEMP");
 
-    public static string RandomizedTempScriptFilename(string name) =>
-        Path.Combine(TempPath, name + Guid.NewGuid().ToString("N") + ".test.fimm");
-
-    public static void CleanUpTestFimmFilesInTemp()
-    {
-        var files = Directory.GetFiles(Environment.GetEnvironmentVariable("TEMP"), ".test.fimm");
-        foreach (var file in files)
-            FileSystem.SafelyDeleteFile(file);
-    }
-    
     private static ArgumentSettings ArgumentSettingsFactory(string scriptName, string scriptPath = "",
         params string[] additionalArguments)
     {
@@ -48,6 +38,13 @@ public class FimmRunQuickScriptTests
         return settings;
     }
 
+    public static void CleanUpTestFimmFilesInTemp()
+    {
+        var files = Directory.GetFiles(Environment.GetEnvironmentVariable("TEMP"), ".test.fimm");
+        foreach (var file in files)
+            FileSystem.SafelyDeleteFile(file);
+    }
+
     [TestMethod]
     public void FindScript_JustLikeFimmProgram()
     {
@@ -57,6 +54,20 @@ public class FimmRunQuickScriptTests
         Assert.IsNotNull(actual.ActualizationResult);
 
         Assert.IsTrue(actual.ActualizationResult.ActualizationSuccessful, actual.ActualizationResult.Errors);
+    }
+
+    public static string RandomizedTempScriptFilename(string name)
+    {
+        return Path.Combine(TempPath, name + Guid.NewGuid().ToString("N") + ".test.fimm");
+    }
+
+    public string SetupTestFimmAndGetFilename(string name, string script)
+    {
+        CleanUpTestFimmFilesInTemp();
+        var filename = RandomizedTempScriptFilename(name);
+        var xlgScript = XlgQuickScriptFile.FimmFileFormatScriptFactory(script);
+        File.WriteAllText(filename, xlgScript);
+        return filename;
     }
 
     [TestMethod]
@@ -77,22 +88,13 @@ public class FimmRunQuickScriptTests
         var testFimm = SetupTestFimmAndGetFilename(fimmOutputDing, TestScript1.Script);
         var args = new[]
         {
-            "run", "script", testFimm 
+            "run", "script", testFimm
         };
         Assert.IsTrue(testFimm.IsNotEmpty());
-        var results = TestHarnessAction(args, out var stringBuilder);
+        var results = TestHarnessAction(args, out _);
 
-       FileSystem.SafelyDeleteFile(testFimm);
-       Assert.IsFalse(results.Contains("Error"), results );
-    }
-
-    public string SetupTestFimmAndGetFilename(string name, string script)
-    {
-        CleanUpTestFimmFilesInTemp();
-        var filename = RandomizedTempScriptFilename(name);
-        var xlgScript = XlgQuickScriptFile.FimmFileFormatScriptFactory(script);
-        File.WriteAllText(filename, xlgScript);
-        return filename;
+        FileSystem.SafelyDeleteFile(testFimm);
+        Assert.IsFalse(results.Contains("Error"), results);
     }
 
     public static string TestHarnessAction(string[] args, out StringBuilder stringBuilder)

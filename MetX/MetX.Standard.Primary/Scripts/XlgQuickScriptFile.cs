@@ -79,22 +79,22 @@ namespace MetX.Standard.Primary.Scripts
 
         public static XlgQuickScriptFile Load(string filePath)
         {
-            var scriptFile = new XlgQuickScriptFile(filePath);
-
-            if (!File.Exists(scriptFile.FilePath))
+            if (filePath.IsEmpty() || !File.Exists(filePath))
             {
-                return scriptFile;
+                return null;
             }
+
+            var quickScriptFile = new XlgQuickScriptFile(filePath);
 
             if (filePath.ToLower().EndsWith(".fimm"))
             {
-                var fimmScript = FimmFactory(File.ReadAllText(scriptFile.FilePath));
-                var file = new XlgQuickScriptFile(scriptFile.FilePath);
-                return file;
+                var fimmScript = FimmFactory(File.ReadAllText(quickScriptFile.FilePath), quickScriptFile);
+                quickScriptFile.Add(fimmScript);
+                return quickScriptFile;
             }
 
             var rawScripts = File
-                .ReadAllText(scriptFile.FilePath)
+                .ReadAllText(quickScriptFile.FilePath)
                 .Split(new[] {scriptNameSection}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var rawScript in rawScripts)
@@ -102,15 +102,15 @@ namespace MetX.Standard.Primary.Scripts
                 if (string.IsNullOrWhiteSpace(rawScript)) continue;
                 var script = new XlgQuickScript();
                 var isDefault = script.Load(rawScript);
-                scriptFile.Add(script);
-                if (isDefault) scriptFile.Default = script;
+                quickScriptFile.Add(script);
+                if (isDefault) quickScriptFile.Default = script;
             }
-            scriptFile.Sort((script, quickScript) => string.CompareOrdinal(script.Name, quickScript.Name));
-            if (scriptFile.Default == null && scriptFile.Count > 0)
+            quickScriptFile.Sort((script, quickScript) => string.CompareOrdinal(script.Name, quickScript.Name));
+            if (quickScriptFile.Default == null && quickScriptFile.Count > 0)
             {
-                scriptFile.Default = scriptFile[0];
+                quickScriptFile.Default = quickScriptFile[0];
             }
-            return scriptFile;
+            return quickScriptFile;
         }
 
         public static string FimmFileFormatScriptFactory(string script)
@@ -121,7 +121,7 @@ namespace MetX.Standard.Primary.Scripts
             var xlgScriptFile = new XlgQuickScriptFile(Guid.NewGuid().ToString("N"));
             var xlgFimmScript = FimmFactory(script, xlgScriptFile);
 
-            return xlgFimmScript.ToString();
+            return xlgFimmScript.ToFileFormat(true);
         }
 
         public static XlgQuickScript FimmFactory(string fimmScript, XlgQuickScriptFile scriptFile)

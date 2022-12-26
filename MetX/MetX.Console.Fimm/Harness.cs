@@ -24,9 +24,10 @@ public static class Harness
             return false;
         }
 
-        if (result.ActualizationResult.Errors.IsNotEmpty())
+        var actualizationResultErrors = result.ActualizationResult.Errors;
+        if (actualizationResultErrors.IsNotEmpty())
         {
-            textWriter.WriteLine($"Errors: {result.ActualizationResult.Errors}");
+            textWriter.WriteLine($"Errors: {actualizationResultErrors}");
         }
 
         textWriter.WriteLine("Done");

@@ -30,9 +30,15 @@ namespace MetX.Standard.Primary.Scripts
         {
             get
             {
-                if (!CompileSuccessful || ActualizeErrorText.IsNotEmpty() || CompileErrorText.IsNotEmpty())
-                    return ActualizeErrorText.AsStringFromObject() + "\n" + CompileErrorText;
-                return "";
+                if (CompileSuccessful && ActualizeErrorText.IsEmpty() && CompileErrorText.IsEmpty()) return "";
+
+                var errorsText = ActualizeErrorText.AsStringFromObject() ?? "";
+                if (CompileErrorText.IsEmpty()) return errorsText;
+
+                if(errorsText.IsNotEmpty())
+                    return errorsText + "\n" + CompileErrorText;
+                else
+                    return CompileErrorText;
             }
 
         }
