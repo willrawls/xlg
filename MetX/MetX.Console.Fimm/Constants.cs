@@ -15,4 +15,5 @@ public class Constants
     public const string TemplateManagerFolderName = @"MetX.TemplateManager\Scripts\Templates";
     public const string SupportFolderName = "Support";
     public const string RegistryKeySuffix = "_Key";
+    public const string FimmFolderName = "Fimm";
 }

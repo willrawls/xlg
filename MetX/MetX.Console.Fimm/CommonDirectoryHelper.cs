@@ -98,6 +98,7 @@ public class CommonDirectoryHelper
     public string CurrentSupportFolderPath => Paths[Constants.SupportFolderName].Value;
     public string CurrentTemplateFolderPath => Paths[Constants.TemplatesFolderName].Value;
     public string ScriptsFolderName => Paths[Constants.ScriptsFolderName].Value;
+    public string FimmFolderPath => Paths[Constants.FimmFolderName].Value;
 
     public CommonSettingsHelper Settings { get; private set; }
 
@@ -150,6 +151,10 @@ public class CommonDirectoryHelper
             // Sub folders
             Paths[Constants.TemplatesFolderName].Value = Path.Combine(scripts, Constants.TemplatesFolderName);
             Paths[Constants.SupportFolderName].Value = Path.Combine(pipes, Constants.SupportFolderName);
+
+            // Fimm
+            Paths[Constants.FimmFolderName].Value = Path.Combine(basePath, Constants.FimmFolderName);
+
 
             foreach (var item in Paths.Items)
                 if (!Directory.Exists(item.Value))

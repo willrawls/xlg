@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿
+using System;
+using System.IO;
 using System.Linq;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
@@ -50,13 +52,37 @@ public class Wallaby
         if (scriptName.Contains("+")) return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
 
 
-        var filePath = Shared.Dirs.LastScriptFilePath;
+        var filePath = ResolveFimmFilePath(scriptName);
+        
 
         if (!File.Exists(filePath))
             return null;
 
         var scriptList = XlgQuickScriptFile.Load(filePath);
         return scriptList[scriptName];
+    }
+
+    private string ResolveFimmFilePath(string scriptName)
+    {
+        if (scriptName.IsEmpty())
+            return "";
+
+        var resolvedFimmFilePath = scriptName;
+        if (resolvedFimmFilePath.ToLower() != ".fimm")
+            resolvedFimmFilePath += ".fimm";
+
+        if (File.Exists(resolvedFimmFilePath))
+            return resolvedFimmFilePath;
+
+        var possibility = Path.Combine(Environment.CurrentDirectory, scriptName);
+        if (File.Exists(possibility))
+            return possibility;
+
+        possibility = Path.Combine(Shared.Dirs.FimmFolderPath, scriptName);
+        if (File.Exists(possibility))
+            return possibility;
+
+        return "";
     }
 
     public ActualizationResult RunQuickScript(string scriptName)
@@ -71,7 +97,7 @@ public class Wallaby
     {
         if (scriptToRun == null)
         {
-            var actualizationSettings = new ActualizationSettings(null, false, scriptToRun, true, null);
+            var actualizationSettings = new ActualizationSettings(null, false, null, true, null);
             var actualizationResult = new ActualizationResult(actualizationSettings)
             {
                 CompileErrorText = "No script provided to Wallaby.RunQuickScript(), exiting."

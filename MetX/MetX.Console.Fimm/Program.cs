@@ -9,10 +9,11 @@ namespace MetX.Fimm
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 3 && Harness.ActOn(args, Console.Out)) 
+            if (args.Length < 3) 
                 return;
 
-            Console.WriteLine("Syntax: Fimm Verb Noun Name [Maybe Path] [Maybe connection string] [Maybe additional arguments]");
+            if(!Harness.ActOn(args, Console.Out))
+                Console.WriteLine("Syntax: Fimm Verb Noun Name [Maybe Path] [Maybe connection string] [Maybe additional arguments]");
         }
     }
 }
