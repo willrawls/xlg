@@ -17,7 +17,7 @@ public class ComboTests
         var testActor = validCombo.Factory();
         testActor.FakeReadyToActResult = true;
 
-        var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe")
+        var quickScriptTemplate = new XlgQuickScriptTemplate("TestTemplates", "TestExe")
         {
             Name = "George1DArray"
         };

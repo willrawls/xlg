@@ -24,7 +24,7 @@ namespace MetX.Standard.Primary.Scripts
             if (script == null) return null;
 
             var templateLoaded = host.Context.Templates.Contains(script.TemplateName);
-            if (!templateLoaded)
+            if (!templateLoaded || host.Context.Templates[script.TemplateName].Assets.Count == 0)
             {
                 host.Context.LoadTemplates();
             }

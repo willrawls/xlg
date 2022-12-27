@@ -26,9 +26,9 @@ namespace MetX.Standard.Primary
         {
             if(pathToTemplates.IsEmpty())
             {
-                if (Templates.TemplatesPath.IsEmpty())
+                if (Templates.TemplatesFolderPath.IsEmpty())
                     return;
-                pathToTemplates = Templates.TemplatesPath;
+                pathToTemplates = Templates.TemplatesFolderPath;
             }
 
             Templates = pathToTemplates.IsNotEmpty()

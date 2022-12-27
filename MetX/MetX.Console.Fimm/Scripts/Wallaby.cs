@@ -11,6 +11,8 @@ namespace MetX.Fimm.Scripts;
 
 public class Wallaby
 {
+    public const string FimmExtension = ".fimm";
+    public const string XlgExtension = ".xlg";
     public ContextBase Context;
 
     public Wallaby(IGenerationHost host = null)
@@ -22,10 +24,10 @@ public class Wallaby
 
     public IGenerationHost Host { get; set; }
 
-    public XlgQuickScript FindScript(string filePath, string scriptName)
+    public static XlgQuickScript FindScript(string filePath, string scriptName)
     {
         string fileActual = null;
-        if (filePath == null)
+        if (filePath.IsEmpty() || scriptName.IsEmpty())
             return null;
 
         if (File.Exists(filePath))
@@ -36,10 +38,17 @@ public class Wallaby
         {
             fileActual = Path.Combine(filePath, scriptName);
             if (!File.Exists(fileActual))
-                return null;
+            {
+                fileActual = ResolveScriptFilePath(scriptName, XlgExtension);
+                if (!File.Exists(fileActual))
+                {
+                    fileActual = ResolveScriptFilePath(scriptName, FimmExtension);
+                    return null;
+                }
+            }
         }
 
-        XlgQuickScriptFile scriptList = XlgQuickScriptFile.Load(fileActual);
+        var scriptList = XlgQuickScriptFile.Load(fileActual);
 
         var scriptToReturn = scriptList.FirstOrDefault(x => x.TemplateName.ToLower() == scriptName);
         return scriptToReturn ?? (scriptList.Count > 0
@@ -47,44 +56,42 @@ public class Wallaby
             : null);
     }
 
-    public XlgQuickScript FindScript(string scriptName)
+    public static XlgQuickScript FindScript(string scriptName)
     {
         if (scriptName.Contains("+")) return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
 
-
-        var filePath = ResolveFimmFilePath(scriptName);
-        
-
-        if (!File.Exists(filePath))
+        var filePath = ResolveScriptFilePath(scriptName, FimmExtension);
+        if(filePath.IsEmpty())
             return null;
 
         var scriptList = XlgQuickScriptFile.Load(filePath);
         return scriptList[scriptName];
     }
 
-    private string ResolveFimmFilePath(string scriptName)
+    public static string ResolveScriptFilePath(string filename, string extension)
     {
-        if (scriptName.IsEmpty())
-            return "";
+        if (filename.IsEmpty())
+            return null;
 
-        var resolvedFimmFilePath = scriptName;
-        if (resolvedFimmFilePath.ToLower() != ".fimm")
-            resolvedFimmFilePath += ".fimm";
+        var resolvedFimmFilePath = filename;
+        if (resolvedFimmFilePath.ToLower() != extension)
+            resolvedFimmFilePath += extension;
 
         if (File.Exists(resolvedFimmFilePath))
             return resolvedFimmFilePath;
 
-        var possibility = Path.Combine(Environment.CurrentDirectory, scriptName);
+        var possibility = Path.Combine(Environment.CurrentDirectory, filename);
         if (File.Exists(possibility))
             return possibility;
 
-        possibility = Path.Combine(Shared.Dirs.FimmFolderPath, scriptName);
+        possibility = Path.Combine(Shared.Dirs.FimmFolderPath, filename);
         if (File.Exists(possibility))
             return possibility;
 
-        return "";
+        return null;
     }
 
+    /*
     public ActualizationResult RunQuickScript(string scriptName)
     {
         var scriptToRun = FindScript(scriptName);
@@ -92,6 +99,7 @@ public class Wallaby
         var result = settings.ActualizeAndCompile();
         return result;
     }
+    */
 
     public ActualizationResult RunQuickScript(XlgQuickScript scriptToRun)
     {

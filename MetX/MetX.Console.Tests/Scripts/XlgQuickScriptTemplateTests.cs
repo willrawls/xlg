@@ -18,7 +18,7 @@ public class XlgQuickScriptTemplateTests
     [TestMethod]
     public void ResolveExeTemplate()
     {
-        var quickScriptTemplate = new XlgQuickScriptTemplate(@"TestTemplates\TestExe");
+        var quickScriptTemplate = new XlgQuickScriptTemplate("TestTemplates", @"TestTemplates\TestExe");
 
         Assert.IsNotNull(quickScriptTemplate);
         Assert.IsNotNull(quickScriptTemplate.Assets);

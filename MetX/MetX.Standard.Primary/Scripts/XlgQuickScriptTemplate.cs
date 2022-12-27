@@ -10,20 +10,22 @@ namespace MetX.Standard.Primary.Scripts
     public class XlgQuickScriptTemplate
     {
         public string Name { get; set; }
+        public string TemplateListFolder { get; }
         public string TemplatePath { get; set; }
 
         public AssocArrayOfT<Asset> Assets = new();
 
-        public XlgQuickScriptTemplate(string templatePath, string name = null)
+        public XlgQuickScriptTemplate(string templateListFolder, string templatePath, string name = null)
         {
+            TemplateListFolder = templateListFolder;
             TemplatePath = templatePath;
             Name = name ?? TemplatePath.LastPathToken();
             if (!Directory.Exists(TemplatePath)) return;
 
-            ProcessPath(TemplatePath, TemplatePath);
+            ProcessPath(TemplatePath);
         }
 
-        private void ProcessPath(string originalPath, string path)
+        private void ProcessPath(string path)
         {
             foreach (var file in Directory.GetFiles(path))
             {
@@ -31,14 +33,14 @@ namespace MetX.Standard.Primary.Scripts
                 var asset = Assets[assetName].Item;
                 asset.Template = File.ReadAllText(file);
                 asset.OriginalAssetFilename = assetName;
-                asset.RelativePath = path.LastToken(originalPath);
+                asset.RelativePath = TemplateListFolder;
                 if (asset.RelativePath.StartsWith(@"\"))
                     asset.RelativePath = asset.RelativePath.Substring(1);
             }
 
             foreach (var subfolder in Directory.GetDirectories(path))
             {
-                ProcessPath(originalPath, subfolder);
+                ProcessPath(subfolder);
             }
         }
 

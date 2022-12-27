@@ -15,22 +15,51 @@ public static class Harness
             return false;
         }
 
+        textWriter.WriteLine();
+        textWriter.WriteLine("-----");
         textWriter.WriteLine("Processing...");
+        textWriter.WriteLine();
         var result = processingFunction(settings);
+
+        textWriter.WriteLine();
+        textWriter.WriteLine("-----");
+        textWriter.WriteLine($"Output: {result.ActualizationResult.OutputText}");
+        textWriter.WriteLine();
 
         if (result.ActualizationResult.ActualizationSuccessful != true)
         {
+            textWriter.WriteLine();
+            textWriter.WriteLine("-----");
             textWriter.WriteLine($"Error: {result.ActualizationResult.ActualizeErrorText}");
+            textWriter.WriteLine();
             return false;
         }
 
         var actualizationResultErrors = result.ActualizationResult.Errors;
         if (actualizationResultErrors.IsNotEmpty())
         {
+            textWriter.WriteLine();
+            textWriter.WriteLine("-----");
             textWriter.WriteLine($"Errors: {actualizationResultErrors}");
+            textWriter.WriteLine();
         }
 
+        textWriter.WriteLine();
+        textWriter.WriteLine("-----");
         textWriter.WriteLine("Done");
+
+        if (!File.Exists(result.ActualizationResult.DestinationExecutableFilePath))
+        {
+            textWriter.WriteLine();
+            textWriter.WriteLine("-----");
+            textWriter.WriteLine("Something went wrong. Actualize / build was not successful.");
+            textWriter.WriteLine($"Executable was not found at: {result.ActualizationResult.DestinationExecutableFilePath}");
+            return false;
+        }
+        textWriter.WriteLine();
+        textWriter.WriteLine("-----");
+        textWriter.WriteLine($"Executable at: {result.ActualizationResult.DestinationExecutableFilePath}");
+        
         return true;
     }
 

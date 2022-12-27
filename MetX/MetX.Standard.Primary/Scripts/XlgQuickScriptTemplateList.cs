@@ -9,17 +9,20 @@ namespace MetX.Standard.Primary.Scripts
     [XmlType(Namespace = "", AnonymousType = true)]
     public class XlgQuickScriptTemplateList : List<XlgQuickScriptTemplate>
     {
-        public string TemplatesPath;
+        public string TemplatesFolderPath;
+        public bool Initialized;
 
-        public XlgQuickScriptTemplateList(string pathToTemplates)
+        public XlgQuickScriptTemplateList(string templatesFolderPath)
         {
-            TemplatesPath = pathToTemplates;
-            if (!Directory.Exists(TemplatesPath)) return;
+            TemplatesFolderPath = templatesFolderPath;
+            if (!Directory.Exists(TemplatesFolderPath)) return;
 
-            foreach (var directory in Directory.GetDirectories(TemplatesPath))
+            foreach (var directory in Directory.GetDirectories(TemplatesFolderPath))
             {
-                Add(new XlgQuickScriptTemplate(directory));
+                Add(new XlgQuickScriptTemplate(TemplatesFolderPath, directory));
             }
+
+            Initialized = true;
         }
 
         public bool Contains(string name)
