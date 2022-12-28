@@ -26,7 +26,7 @@ namespace MetX.Standard.Primary.Scripts
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
             var targetFolder = Path.Combine(tempFolder, "QuickScriptProcessors");
-            ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension);
+            ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension, $"On_{DateTime.Now:yyyyMMddhhmmss}");
             Directory.CreateDirectory(ProjectFolder);
 
             if(!simulate)

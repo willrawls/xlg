@@ -44,9 +44,12 @@ namespace MetX.Standard.Primary.Scripts
                 filename = settings.TemplateNameAsLegalFilenameWithoutExtension + filename.Substring(1);
             }
 
-            return RelativePath.IsEmpty() 
-                ? Path.Combine(settings.ProjectFolder, filename) 
-                : Path.Combine(settings.ProjectFolder, RelativePath, filename);
+            if (RelativePath.IsEmpty())
+            {
+                return Path.Combine(settings.ProjectFolder, filename);
+            }
+            
+            return Path.Combine(settings.ProjectFolder, RelativePath, filename);
         }
 
         public string ResolveVariables(ActualizationResult result)
@@ -78,6 +81,8 @@ namespace MetX.Standard.Primary.Scripts
                 result.ActualizeErrorText = $"Unresolvable variables encountered: {string.Join("\n", unresolved)}";
                 return "";
             }
+
+            resolvedCode = resolvedCode.Replace("~~QuickScript", "  // ");
 
             return resolvedCode;
         }

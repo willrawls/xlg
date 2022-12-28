@@ -31,7 +31,7 @@ namespace MetX.Standard.Primary.Scripts
             get
             {
                 if (CompileSuccessful && ActualizeErrorText.IsEmpty() && CompileErrorText.IsEmpty()) return "";
-                if (!OutputText.Contains("MSBUILD : error")) return "";
+                if (OutputText.IsNotEmpty() && !OutputText.Contains("MSBUILD : error")) return "";
 
                 var errorsText = ActualizeErrorText.AsStringFromObject() ?? "";
                 if (CompileErrorText.IsEmpty()) return errorsText;

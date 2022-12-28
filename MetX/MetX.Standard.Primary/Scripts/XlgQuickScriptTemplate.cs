@@ -33,9 +33,16 @@ namespace MetX.Standard.Primary.Scripts
                 var asset = Assets[assetName].Item;
                 asset.Template = File.ReadAllText(file);
                 asset.OriginalAssetFilename = assetName;
-                asset.RelativePath = TemplateListFolder;
-                if (asset.RelativePath.StartsWith(@"\"))
-                    asset.RelativePath = asset.RelativePath.Substring(1);
+                if(TemplateListFolder.IsNotEmpty() && !TemplateListFolder.ToLower().Contains("c:\\"))
+                {
+                    asset.RelativePath = TemplateListFolder;
+                    if (asset.RelativePath.StartsWith(@"\"))
+                        asset.RelativePath = asset.RelativePath.Substring(1);
+                }
+                else
+                {
+                    asset.RelativePath = "";
+                }
             }
 
             foreach (var subfolder in Directory.GetDirectories(path))
@@ -46,6 +53,14 @@ namespace MetX.Standard.Primary.Scripts
 
         public ActualizationResult ActualizeCode(ActualizationSettings settings)
         {
+            if (Assets.Count == 0)
+            {
+                return new ActualizationResult(settings)
+                {
+                    ActualizeErrorText = "Assets for template are not loaded",
+
+                };
+            }
             if (!settings.Simulate)
                 Directory.CreateDirectory(settings.ProjectFolder);
             var result = new ActualizationResult(settings);

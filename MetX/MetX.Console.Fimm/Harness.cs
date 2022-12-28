@@ -30,7 +30,7 @@ public static class Harness
         {
             textWriter.WriteLine();
             textWriter.WriteLine("-----");
-            textWriter.WriteLine($"Error: {result.ActualizationResult.ActualizeErrorText}");
+            textWriter.WriteLine($"Actualization Error: {result.ActualizationResult.ActualizeErrorText}");
             textWriter.WriteLine();
             return false;
         }
