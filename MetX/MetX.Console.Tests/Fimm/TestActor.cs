@@ -13,6 +13,7 @@ public class TestActor : FimmActorBase
 
     public bool ActWasCalled { get; set; }
 
+
     public override bool ReadyToAct(ArgumentSettings settings, out string reason)
     {
         reason = FakeReason;

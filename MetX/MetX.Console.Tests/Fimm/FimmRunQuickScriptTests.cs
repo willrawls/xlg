@@ -94,7 +94,7 @@ public class FimmRunQuickScriptTests
         var results = TestHarnessAction(args, out _);
 
         FileSystem.SafelyDeleteFile(testFimm);
-        Assert.IsFalse(results.Contains("Error"), results);
+        Assert.IsTrue(results.Contains("0 Error(s)"), results);
     }
 
     public static string TestHarnessAction(string[] args, out StringBuilder stringBuilder)
