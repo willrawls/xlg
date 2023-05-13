@@ -237,7 +237,12 @@ namespace WilliamPersonalMultiTool
 
         public void EditButton_Click(object sender, EventArgs e)
         {
-            var startInfo = new ProcessStartInfo("notepad.exe", $"\"{WpmtPath()}\"");
+            var notepadExe = "c:\\program files\\notepad.exe";
+            var notepadPlusPlus = "c:\\Program Files\\Notepad++\\notepad++.exe";
+
+            if (File.Exists(notepadPlusPlus)) notepadExe = notepadPlusPlus;
+
+            var startInfo = new ProcessStartInfo(notepadExe, $"\"{WpmtPath()}\"");
             var notepad = Process.Start(startInfo);
         }
 
