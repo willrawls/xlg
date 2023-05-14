@@ -100,7 +100,12 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
     public IAssocItem FirstKeyContaining(string toFind)
     {
+#if NETSTANDARD2_1
         return Items.FirstOrDefault(i => i.Key.Contains(toFind, StringComparison.InvariantCultureIgnoreCase));
+#else
+        toFind = toFind.ToLower();
+        return Items.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
+#endif
     }
 
     [XmlIgnore]
@@ -208,7 +213,12 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
                 (current, item) => current
                     .Replace(
                         $"%{item.Key}%", 
-                        item.Value, true, CultureInfo.InvariantCulture));
+                        item.Value
+#if NETSTANDARD2_1
+                        , true, CultureInfo.InvariantCulture
+#else
+#endif
+                        ));
         return result;
     }
 }

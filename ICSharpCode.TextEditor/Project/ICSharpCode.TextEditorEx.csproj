@@ -16,6 +16,10 @@
 		<RootNamespace>ICSharpCode.TextEditor</RootNamespace>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
+		<TieredPGO>true</TieredPGO>
+		<PublishAot>true</PublishAot>
+		<AssemblyVersion>2023.2.0.2</AssemblyVersion>
+		<FileVersion>2023.2.0.2</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

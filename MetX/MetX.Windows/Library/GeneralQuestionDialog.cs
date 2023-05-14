@@ -33,14 +33,14 @@ namespace MetX.Windows.Library
                 }
         */
 
-        public virtual TReturn Ask(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default(TReturn), int height = 110, int width = 400)
+        public virtual TReturn Ask(int top, int left, string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default(TReturn), int height = 110, int width = 400)
         {
-            Initialize(promptText, title, defaultValue, height, width);
+            Initialize(top, left, promptText, title, defaultValue, height, width);
             ShowDialog();
             return SelectedValue;
         }
 
-        public virtual void Initialize(string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default(TReturn), int height = 110, int width = 400)
+        public virtual void Initialize(int top, int left, string promptText = "Choose", string title = "USER PROMPT", TReturn defaultValue = default(TReturn), int height = 250, int width = 400)
         {
             DefaultValue = defaultValue;
             ConstructedForm = new Form();
@@ -57,21 +57,21 @@ namespace MetX.Windows.Library
             OkButton.DialogResult = DialogResult.OK;
             CancelButton.DialogResult = DialogResult.Cancel;
 
-            PromptLabel.SetBounds(9, 20, 372, 13);
-            EntryArea.SetBounds(12, 36, 372, 20);
-            OkButton.SetBounds(228, 72, 75, 23);
-            CancelButton.SetBounds(309, 72, 75, 23);
-
             PromptLabel.AutoSize = true;
             EntryArea.Anchor = EntryArea.Anchor | AnchorStyles.Right;
             OkButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ConstructedForm.ClientSize = new Size(width, height);
-            ConstructedForm.Controls.AddRange(
-                new Control[] { PromptLabel, EntryArea, OkButton, CancelButton });
-            ConstructedForm.ClientSize = new Size(
-                Math.Max(300, PromptLabel.Right + 10),
-                ConstructedForm.ClientSize.Height);
+            ConstructedForm.Top = top;
+            ConstructedForm.Left = left;
+            ConstructedForm.Controls.AddRange(new Control[] { PromptLabel, EntryArea, OkButton, CancelButton });
+            ConstructedForm.Width = width;
+            ConstructedForm.Height = height;
+
+            PromptLabel.SetBounds(9, 10, width - 50, 13);
+            EntryArea.SetBounds(12, 26, width - 50, 20);
+            OkButton.SetBounds(9, 60, 75, 35);
+            CancelButton.SetBounds(120, 60, 75, 35);
+            
             ConstructedForm.FormBorderStyle = FormBorderStyle.FixedDialog;
             ConstructedForm.StartPosition = FormStartPosition.CenterScreen;
             ConstructedForm.MinimizeBox = false;

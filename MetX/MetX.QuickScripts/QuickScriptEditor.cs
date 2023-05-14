@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Fimm;
@@ -94,7 +95,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             var chooseQuickScript = new ChooseFromListDialog();
             var choices = Host.Context.Scripts.ScriptNames();
             if (LastChoice > choices.Length) LastChoice = 0;
-            var choice = chooseQuickScript.Ask(choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN",
+            var choice = chooseQuickScript.Ask(Top, Left, choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN",
                 LastChoice);
             if (choice >= 0)
             {
@@ -374,15 +375,11 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         Host.Context ??= new GuiContext(Host);
         var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
-        Host.Context.Scripts = xlgQuickScriptFile;
+        Host.Context.Scripts = xlgQuickScriptFile ?? new XlgQuickScriptFile(filePath);
 
         if (Host.Context.Scripts.Count == 0)
         {
-            var script = new XlgQuickScript("First script", QuickScriptWorker.FirstScript);
-            Host.Context.Scripts.Add(script);
-            Host.Context.Scripts.Default = script;
-            script = new XlgQuickScript("Example / Tutorial", QuickScriptWorker.ExampleTutorialScript);
-            Host.Context.Scripts.Add(script);
+            DefaultTemplates.BuildDefaultUserScriptsFile(Host.Context.Scripts);
             Host.Context.Scripts.Save(Shared.Dirs.ScriptArchivePath);
         }
 
@@ -406,15 +403,23 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             var answer = Host.InputBox("New Script Name", "Please enter the name for the new script.", ref name);
             if (answer != MessageBoxResult.OK || (name ?? string.Empty).Trim() == string.Empty) return;
 
-            var newScript = new XlgQuickScript(name, string.Empty)
+            var newScript = new XlgQuickScript(name, DefaultTemplates.SingleFile)
             {
-                Input = "Clipboard"
+                Input = "Clipboard",
             };
+
+            if (Host.Context.Scripts.Any(s =>
+                    string.Equals(s.Name, newScript.Name, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                Host.MessageBox.Show($"A script with the name '{newScript.Name}' already exists.");
+                return;
+            }
 
             QuickScriptList.SelectedItems.Clear();
             Host.Context.Scripts.Add(newScript);
             var newIndex = QuickScriptList.Items.Add(newScript);
             QuickScriptList.SelectedIndex = newIndex;
+            Updating = false;
             UpdateForm(newScript);
         });
     }
@@ -622,7 +627,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                    || singlePass && ++passCount > 1)
             {
                 var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing);
-                answer = dialog.Ask(answer,
+                answer = dialog.Ask(Top, Left, answer,
                     (result.Settings.Simulate
                         ? ""
                         : File.Exists(result.DestinationExecutableFilePath)
@@ -857,7 +862,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
 
             // Choose new name of template
             var dialog = new AskForStringDialog();
-            var answer = dialog.Ask("What would you like to call the new template folder?", "NEW TEMPLATE NAME");
+            var answer = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: "What would you like to call the new template folder?", title: "NEW TEMPLATE NAME");
             if (answer.IsEmpty()) return;
 
             // Create subfolder (new name) in destination folder
@@ -991,13 +996,13 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             if (Host?.MessageBox.Show("RESET ALL XLG TEMPLATES?",
                     "This will reset all the templates in your Documents\\XLG\\ folder to the defaults from the template manager.\n Continue with overwrite?",
                     MessageBoxChoices.YesNo, MessageBoxStatus.Warning, MessageBoxDefault.Button2
-                    ) 
+                    )
                 != MessageBoxResult.Yes) return;
 
             Shared.Dirs.RestageStaticTemplates();
             Host?.Context.LoadTemplates();
             Host?.MessageBox.Show($"Templates restaged and reloaded into memory");
-            
+
         }
         catch (Exception exception)
         {

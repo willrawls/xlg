@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>netstandard2.1</TargetFrameworks>
 		<RootNamespace>MetX.Standard.Primary</RootNamespace>
 		<AssemblyName>MetX.Standard.Primary</AssemblyName>
 		<ApplicationIcon>batfile.ico</ApplicationIcon>
 		<LangVersion>latest</LangVersion>
+		<TieredPGO>true</TieredPGO>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>7.0.0</Version>
+		<Version>7.2023.5</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -21,7 +23,23 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>MetX Library of classes used throughout the XLG suite (QuickScriptr, Glove, Fimm, etc.)</Title>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<AssemblyVersion>2023.2.*</AssemblyVersion>
+		<Deterministic>false</Deterministic>
+		<FileVersion>2023.2.0.7</FileVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>
 	</PropertyGroup>
@@ -29,12 +47,15 @@
 		<Compile Remove="Metadata\**" />
 		<Compile Remove="Metadata\ArchivedFiles\2\**" />
 		<Compile Remove="Pipelines\Obsolete\**" />
+		<Compile Remove="Properties\**" />
 		<EmbeddedResource Remove="Metadata\**" />
 		<EmbeddedResource Remove="Metadata\ArchivedFiles\2\**" />
 		<EmbeddedResource Remove="Pipelines\Obsolete\**" />
+		<EmbeddedResource Remove="Properties\**" />
 		<None Remove="Metadata\**" />
 		<None Remove="Metadata\ArchivedFiles\2\**" />
 		<None Remove="Pipelines\Obsolete\**" />
+		<None Remove="Properties\**" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="IO\DatabaseUpdates.cs" />
@@ -82,7 +103,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Metadata\ArchivedFiles\" />
-		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="README.md">

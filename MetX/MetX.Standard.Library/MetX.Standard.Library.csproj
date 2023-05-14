@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>7.0.0</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -19,7 +19,22 @@
 		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<TieredPGO>true</TieredPGO>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<Deterministic>false</Deterministic>
+		<Version>7.2023.5</Version>
+		<AssemblyVersion>2023.2.*</AssemblyVersion>
+		<FileVersion>2023.2.0.4</FileVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Generics\**" />

@@ -106,7 +106,8 @@ public class CommonDirectoryHelper
 
     public string DefaultScriptFile()
     {
-        return Path.Combine(Paths[Constants.ScriptsFolderName].Value, "Default.xlgq");
+        var userName = Environment.UserName;
+        return Path.Combine(Paths[Constants.ScriptsFolderName].Value, $"Default_{userName}.xlgq");
     }
 
     public void Initialize(CommonSettingsHelper settings)

@@ -25,7 +25,7 @@ public class WinFormGenerationHost<T> : GenerationHost where T : Form
         {
             ValueToReturnOnCancel = "~|~|"
         };
-        var response = dialog.Ask(description, title, itemName, 140, 700);
+        var response = dialog.Ask(Form.Top + 50, Form.Left + 50, promptText: description, title: title, defaultValue: itemName, height: 140, width: 700);
 
         if (response.IsEmpty() || response == dialog.ValueToReturnOnCancel)
             return MessageBoxResult.Cancel;

@@ -21,6 +21,7 @@ namespace MetX.Windows.Library
         public override int SelectedValue => Result == DialogResult.Cancel ? ValueToReturnOnCancel : EntryArea.SelectedIndex;
 
         public int AskFromListOfStrings(
+            int top, int left, 
             string[] choices,
             string promptText = "Please select one from the list",
             string title = "CHOOSE ONE",
@@ -28,7 +29,7 @@ namespace MetX.Windows.Library
         {
             Choices = choices;
 
-            Initialize(promptText, title, defaultValue, 110, 400);
+            Initialize(top, left, promptText, title, defaultValue, 110, 400);
             if(WindowHandle == IntPtr.Zero)
             {
                 Result = ConstructedForm.ShowDialog();

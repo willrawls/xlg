@@ -7,10 +7,12 @@
 		<RootNamespace>MetX.Windows.Controls</RootNamespace>
 		<AssemblyName>MetX.Windows.Controls</AssemblyName>
 		<LangVersion>latest</LangVersion>
+		<TieredPGO>true</TieredPGO>
+		<PublishAot>true</PublishAot>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.0.0</Version>
+		<Version>7.2023.5</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>

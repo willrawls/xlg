@@ -21,6 +21,7 @@ namespace MetX.Windows.Library
             : EntryArea.SelectedIndex;
 
         public int Ask(
+            int top, int left, 
             string[] choices,
             string promptText = "Please select one from the list",
             string title = "CHOOSE ONE",
@@ -28,7 +29,7 @@ namespace MetX.Windows.Library
         {
             Choices = choices;
 
-            Initialize(promptText, title, defaultValue, 400, 500);
+            Initialize(top, left, promptText, title, defaultValue, 400, 500);
             if(WindowHandle == IntPtr.Zero)
             {
                 Result = ConstructedForm.ShowDialog();

@@ -6,10 +6,12 @@
 		<AssemblyName>MetX.Windows</AssemblyName>
 		<ApplicationIcon>batfile.ico</ApplicationIcon>
 		<LangVersion>latest</LangVersion>
+		<TieredPGO>true</TieredPGO>
+		<PublishAot>true</PublishAot>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.0.0</Version>
+		<Version>7.2023.5</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -21,6 +23,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AssemblyVersion>2023.2.0.21</AssemblyVersion>
+		<FileVersion>2023.2.0.21</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>

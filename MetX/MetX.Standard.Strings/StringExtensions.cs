@@ -12,7 +12,11 @@ namespace MetX.Standard.Strings;
 /// </summary>
 public static class StringExtensions
 {
+#if NETSTANDARD2_1
     public static string AsStringFromStringArray(this ReadOnlySpan<char> items, string separator = "\n", string postFix = "")
+#else
+    public static string AsStringFromStringArray(this string items, string separator = "\n", string postFix = "")
+#endif
     {
 
         if (items == null || items.Length < 1)
@@ -39,8 +43,13 @@ public static class StringExtensions
         var index = target.Length / 2;
         return new[]
         {
+#if NETSTANDARD2_1
             target[..index],
             target[index..]
+#else
+            target.Substring(0, index),
+            target.Substring(index)
+#endif
         };
     }
 

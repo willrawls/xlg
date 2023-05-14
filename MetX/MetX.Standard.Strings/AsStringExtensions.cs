@@ -7,7 +7,11 @@ namespace MetX.Standard.Strings
 {
     public static class AsStringExtensions
     {
+#if NETSTANDARD2_1
         public static string AsStringFromBytes(this ReadOnlySpan<byte>  arrInput)
+#else
+        public static string AsStringFromBytes(this byte[]  arrInput)
+#endif
         {
             
             List<List<string>> fred = new();

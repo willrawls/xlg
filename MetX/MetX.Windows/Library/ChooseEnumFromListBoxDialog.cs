@@ -31,7 +31,7 @@ namespace MetX.Windows.Library
             }
         }
 
-        public TEnum Ask(TEnum valueToInitiallySelect, string promptText = "Please select one from the list", string title = "CHOOSE ONE")
+        public TEnum Ask(int top, int left, TEnum valueToInitiallySelect, string promptText = "Please select one from the list", string title = "CHOOSE ONE")
         {
             Choices = new List<string>();
             
@@ -47,7 +47,7 @@ namespace MetX.Windows.Library
                 DEnumToIndex.Add(item, i);
             }
             
-            Initialize(promptText, title, valueToInitiallySelect, 550, 650);
+            Initialize(top, left, promptText, title, valueToInitiallySelect, 550, 650);
 
             if(WindowHandle == IntPtr.Zero)
             {

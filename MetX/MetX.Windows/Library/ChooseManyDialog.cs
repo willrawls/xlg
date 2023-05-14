@@ -44,6 +44,7 @@ namespace MetX.Windows.Library
             }
         }
 
+        /*
         public int[] Ask(
             string[] choices,
             string promptText = "Please select one from the list",
@@ -51,8 +52,9 @@ namespace MetX.Windows.Library
             int[] initiallySelectedIndexes = null)
         {
             Items = choices;
-            return Ask(promptText, title, initiallySelectedIndexes, 400);
+            return Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: promptText, title: title, defaultValue: initiallySelectedIndexes, height: 400);
         }
+        */
 
         public override void SetupEntryArea()
         {

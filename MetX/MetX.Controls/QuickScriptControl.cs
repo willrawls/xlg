@@ -125,7 +125,8 @@ namespace MetX.Windows.Controls
         public void FindNext()
         {
             var dialog = new AskForStringDialog();
-            var toFind = dialog.Ask("What would you like to find?", "REPLACE ALL - TO FIND", LastFind);
+            
+            var toFind = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: "What would you like to find?", title: "REPLACE ALL - TO FIND", defaultValue: LastFind);
             if (toFind.IsEmpty())
                 return;
 
@@ -152,11 +153,11 @@ namespace MetX.Windows.Controls
         public void ReplaceAll()
         {
             var dialog = new AskForStringDialog();
-            var toFind = dialog.Ask("What would you like to find?", "REPLACE ALL - TO FIND", LastFind);
+            var toFind = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: "What would you like to find?", title: "REPLACE ALL - TO FIND", defaultValue: LastFind);
             if (toFind.IsEmpty())
                 return;
             
-            var replacement = dialog.Ask($"Replace with what?\n\nTo Find: {toFind}", "REPLACE ALL - CHOOSE REPLACEMENT", LastReplace);
+            var replacement = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: $"Replace with what?\n\nTo Find: {toFind}", title: "REPLACE ALL - CHOOSE REPLACEMENT", defaultValue: LastReplace);
             
             LastFind = toFind;
             LastReplace = replacement;

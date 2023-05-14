@@ -8,11 +8,13 @@
 		<StartupObject>MetX.Fimm.Program</StartupObject>
 		<AssemblyName>Fimm</AssemblyName>
 		<RootNamespace>MetX.Fimm</RootNamespace>
+		<TieredPGO>true</TieredPGO>
+		<PublishAot>true</PublishAot>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>7.0.0</Version>
+		<Version>7.2023.5</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -25,6 +27,8 @@
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>William's fifth code genertator. Fimm is Finnish for Five</Title>
+		<AssemblyVersion>2023.2.0.5</AssemblyVersion>
+		<FileVersion>2023.2.0.5</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

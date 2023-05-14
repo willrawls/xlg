@@ -22,6 +22,10 @@ public static class Program
         else
         {
             filePath = Shared.Dirs.LastScriptFilePath;
+            if (!File.Exists(filePath))
+            {
+                Shared.Dirs.LastScriptFilePath = Shared.Dirs.DefaultScriptFile();
+            }
         }
         Application.Run(new QuickScriptEditor(filePath));
     }
