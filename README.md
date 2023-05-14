@@ -140,7 +140,8 @@ It's up to you which you prefer. Note that if you want to acutally output a % or
 inside the %variable%, you may find you can't use the ~~: shorthand on that line.
 
 XLG QuickScripts: Code areas
---------------------------
+===
+	
 Ther's a number of other QuickScript commands available which include the ability to break out of the single
 line processing method and run code before the first line is processed and after the last line is processed.
 
@@ -148,7 +149,7 @@ You deliniate the areas of code by adding commands.
 ```
 ~~Start:
    Any C# lines you put here run befor the first line
-~~Body:
+~~Line:
    Runs for each line in the input
 ~~Finish:
    Runs after the last line
@@ -175,7 +176,7 @@ Here's an example that brings it all together. This script asks the user for an
 	if(string.IsNullOrEmpty(arrayName)) return false;
 	Output.Append("string[] " + arrayName + " = {" + Environment.NewLine + "\t");
 	
-~~Body:
+~~Line:
 	if((number+1) % 50 == 0)
 	{
 		Output.AppendLine();
@@ -190,7 +191,8 @@ Here's an example that brings it all together. This script asks the user for an
 ```
 
 XLG QuickScripts: Ask()
---------------------------
+===
+	
 You'll notice a call to an Ask() function. This is automatically included in your script. It's defined as:
 ````
   string Ask(string title, string promptText, string defaultValue)
@@ -202,7 +204,8 @@ I decided not to make this a command like ~~Ask: because the syntax just wasn't 
 a piece of information is fairly common. 
 
 XLG QuickScripts: Namespaces
---------------------------
+===
+	
 Scripts have access to the following namespaces:
 ```
   System;
@@ -220,7 +223,8 @@ When the script is run using the "Run" button it also has access to:
 ```
 
 XLG QuickScripts: GUI Buttons
---------------------------
+===
+	
 This brings up the point of the buttons that execute the script. "Run" and "Gen Exe". 
 ```
 "Run" compiles and executes the script in side the QuickScript GUI. If there are any errors in the code, you'll 
@@ -242,19 +246,23 @@ I recommend using notepad2 or notepad++. I use notepad2 because it actually repl
 ```
 
 XLG QuickScripts: The XLGQ file format
---------------------------
+===
+	
 NOTE: I'm aware my file format is... unusual. Why didn't I just put it into an XML file like I do with everything
 else... I probably will. I went back and forth and for now the half of my brain that's saying it's a format that 
 is more easily human readable is winning. I will likely support an xml format as well as I love XML (obviously).
 
+UPDATE: No on the XML file format but I have another format to implement which is much easier to read and understand. There will also soon be a new file type: x.fimm . Fimm script files have only a single script in them. Fimm.exe can run scripts from the command line generating entire programs with a simple command.
+	
 With that said, the current file format is itself a QuickScript command marked up list of quick scripts. 
 
 You can associate xlgq with MetX.QuickScripts.exe and any xlgq file you double click on will be opened by the editor.
 
-There is no facility currently to load a different file. That will likely change.
+Support exists for saving/loading  xlgq files whereever you like.  By default everything will be under "C:\Users\Username\Documents\XLG\". This folder is evolving and now contains many things which I will document at a later time including the csproj and cs templates that get combined with a script to make a fully compilable c# program. More template sets are going to follow with a template manager.
 
 XLG QuickScripts: Script fields
---------------------------
+===
+	
 ```
   "Script:"   - The name of the script you're editing. There's way to directly rename (yet).
   "Input:"    - You can set this to Clipboard (the default) or file. If file, you must set "Input File Path"
@@ -267,7 +275,7 @@ XLG QuickScripts: Script fields
 ```
 
 XLG Pipeliner:
------------------
+===
 This guy is going to get overhauled. It's a really amazing tool, but the interface is just too clunkly
 and there's some edges that need to be smoothed out. This guy is my pride and joy in many ways as it allows you
 to take a meta data source (such as the structure of a database or the structure of a folder) and turn that into
