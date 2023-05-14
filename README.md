@@ -1,3 +1,67 @@
+MetX.Standard.Strings 
+===
+* A library of turning strings into tokens at break neck speeds
+Example: 
+```
+	var fred = "I (am a) string of text";
+	var george = fred.TokenBetween("(", ")"); // Equals "am a"
+	george = fred.FirstToken(); // Equals "I"
+	george = fred.LastToken(); // Equals "text"
+	george = fred.TokenAt(5) // Equals "of"
+```
+Many other string and tokenizing functions available.
+
+* A set of associative array classes that automatically add to themselves and support multiple dimentions 
+Example:
+```
+	var fred = new AssocArray();
+	fred["george"].Value = "mary";
+	fred["george"].Number = 12;
+	var serializedXml = fred.ToXml();	
+```
+And much much more. More documentation needed.
+
+--------------------------
+MetX.Standard.Library
+===
+* A library of general extension methods for enumerations, double, int, list, long, tasks, encryption, randomness, automated serialization of classes/lists to/from xml, html, xml, xsl, a super simple in memory cache, a stream builder, and more.
+* Please note that this is an aging library with functionality covered by later frameworks. Still a few gems in here though like:
+* 
+Example:
+```
+public class fred : SerializesToXml<fred>
+{
+	public string george;
+}
+
+var mary = new fred();
+mary.george = "jill";
+var xml = mary.ToXml();
+var clone = fred.FromXml(xml);
+
+fred.SaveXmlToFile("somefile.xml");
+var henry = fred.LoadXmlFromFile("somefile.xml");
+
+var bytes = clone.ToBytes();
+var clone2 = bytes.FromBytes();
+```
+
+* Also ListSerializedToXml<Parent,Child> which works on List like objects (parent with child objects)
+Example:
+```
+public class Mary : ListSerializesToXml<Mary, MaryItem>
+{
+    public Guid TestGuid { get; set; } = Guid.NewGuid();
+}
+
+public class MaryItem
+{
+    public string MaryItemName {get; set; }
+    public Guid MaryItemTestGuid { get; set; } = Guid.NewGuid();
+}
+```
+Which works pretty much the same as SerializesToXml<T>
+--------------------------
 XLG - The Xml Library Generator
 ===
 
