@@ -395,7 +395,7 @@ namespace XLG.QuickScripts
             // SliceAt
             // 
             SliceAt.FormattingEnabled = true;
-            SliceAt.Items.AddRange(new object[] { "End of line", "Equal sign", "Tab", "Pipe", "Space" });
+            SliceAt.Items.AddRange(new object[] { "End of line", "Equal sign", "Colon", "Tab", "Pipe", "Space" });
             SliceAt.Location = new System.Drawing.Point(88, 157);
             SliceAt.Name = "SliceAt";
             SliceAt.Size = new System.Drawing.Size(102, 21);
@@ -405,7 +405,7 @@ namespace XLG.QuickScripts
             // DiceAt
             // 
             DiceAt.FormattingEnabled = true;
-            DiceAt.Items.AddRange(new object[] { "Space", "Tab", "Equal sign", "Pipe", "End of line" });
+            DiceAt.Items.AddRange(new object[] { "Space", "Tab", "Equal sign", "Colon", "Pipe", "End of line" });
             DiceAt.Location = new System.Drawing.Point(88, 187);
             DiceAt.Name = "DiceAt";
             DiceAt.Size = new System.Drawing.Size(102, 21);
