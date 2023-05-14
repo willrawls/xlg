@@ -23,6 +23,7 @@
 		<Title>MetX String library for parsing text and using various types of associative arrays</Title>
 		<PackageIcon>1421584661_4.png</PackageIcon>
 		<PackageTags>text parsing rapid prototype tool quick script code generator glove xml c# </PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 	<PropertyGroup>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>

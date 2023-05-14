@@ -23,6 +23,7 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Title>MetX Library of classes used throughout the XLG suite (QuickScriptr, Glove, Fimm, etc.)</Title>
 	</PropertyGroup>
 
@@ -30,7 +31,7 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<AssemblyVersion>2023.2.*</AssemblyVersion>
 		<Deterministic>false</Deterministic>
-		<FileVersion>2023.2.0.7</FileVersion>
+		<FileVersion>2023.2.0.8</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">
