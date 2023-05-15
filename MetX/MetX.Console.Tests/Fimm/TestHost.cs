@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace MetX.Console.Tests.Fimm;
 
@@ -29,6 +29,8 @@ public class TestHost : IGenerationHost
     public void WaitFor(Action action)
     {
     }
+
+    public Rectangle Boundary => new Rectangle(0, 0, 1024, 1024);
 
     public static TestHost Factory(string text = "") => new(text);
 }

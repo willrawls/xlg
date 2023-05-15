@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using MetX.Standard.Primary.Host;
 
 namespace MetX.Standard.Primary.Interfaces
@@ -10,5 +11,6 @@ namespace MetX.Standard.Primary.Interfaces
         Func<string> GetTextForProcessing { get; set; }
         ContextBase Context { get; set; }
         void WaitFor(Action action);
+        Rectangle Boundary { get; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using MetX.Fimm.Scripts;
+using System.Drawing;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
@@ -8,7 +8,7 @@ namespace MetX.Fimm.Setup;
 
 public class ConsoleGenerationHost : IGenerationHost
 {
-    public ConsoleGenerationHost(ConsoleContext context)
+    public ConsoleGenerationHost(ContextBase context)
     {
         Context = context;
     }
@@ -28,4 +28,6 @@ public class ConsoleGenerationHost : IGenerationHost
     {
         throw new NotImplementedException();
     }
+
+    public Rectangle Boundary => new Rectangle(Console.WindowLeft, Console.WindowTop, Console.WindowWidth, Console.WindowHeight);
 }

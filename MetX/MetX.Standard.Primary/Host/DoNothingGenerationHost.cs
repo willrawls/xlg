@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using MetX.Standard.Primary.Interfaces;
 
 namespace MetX.Standard.Primary.Host
@@ -24,5 +25,7 @@ namespace MetX.Standard.Primary.Host
         public void WaitFor(Action action)
         {
         }
+
+        public Rectangle Boundary => new Rectangle(0, 0, 1024, 1024);
     }
 }

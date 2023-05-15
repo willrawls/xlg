@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -34,11 +35,28 @@ public class ConsoleContext : ContextBase
         quickScriptOutput.BringToFront();
     }
 
-    public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host)
+    public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
     {
-        var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host);
+        var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host, putNextToThisWindow);
         OutputWindows.Add(quickScriptOutput);
         return quickScriptOutput;
+    }
+
+    public static void CloseAllWindows()
+    {
+        foreach (var window in OutputWindows)
+        {
+            try
+            {
+                window.Close();
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        OutputWindows.Clear();
     }
 
     public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
@@ -151,13 +169,16 @@ public class ConsoleContext : ContextBase
 
         if (!result.CompileSuccessful)
         {
+            CloseAllWindows();
+            QuickScriptOutput.LastLocation = Rectangle.Empty;
+
             var source = result.OutputFiles["QuickScriptProcessor.cs"].Value;
             var finalDetails = result.FinalDetails(out var keyLines);
                 
-            var x = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
-            x.Find("|Error");
+            var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
+            sourceCodeWindow.Find("|Error");
 
-            ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host);
+            ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host, sourceCodeWindow);
 
             return new RunResult
             {

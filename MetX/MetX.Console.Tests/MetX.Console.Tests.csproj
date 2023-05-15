@@ -4,8 +4,8 @@
 	<TargetFramework>net7.0</TargetFramework>
 	<LangVersion>latest</LangVersion>
 	<IsPackable>false</IsPackable>
-	<AssemblyVersion>2023.2.0.6</AssemblyVersion>
-	<FileVersion>2023.2.0.6</FileVersion>
+	<AssemblyVersion>2023.2.0.8</AssemblyVersion>
+	<FileVersion>2023.2.0.8</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

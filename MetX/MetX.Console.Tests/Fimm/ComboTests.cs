@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MetX.Fimm.Setup;
 using MetX.Standard.Primary.Scripts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -36,9 +36,9 @@ namespace MetX.Windows.Controls
             quickScriptOutput.BringToFront();
         }
 
-        public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host)
+        public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
         {
-            var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host);
+            var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host, putNextToThisWindow);
             OutputWindows.Add(quickScriptOutput);
             return quickScriptOutput;
         }
@@ -89,6 +89,7 @@ namespace MetX.Windows.Controls
                         case QuickScriptDestination.TextBox:
                             if (targetOutput == null)
                             {
+                                CloseAllWindows();
                                 ViewInNewQuickScriptOutputWindow(
                                     caller,
                                     scriptToRun,
@@ -155,11 +156,13 @@ namespace MetX.Windows.Controls
             {
                 var source = result.OutputFiles["QuickScriptProcessor.cs"].Value;
                 var finalDetails = result.FinalDetails(out var keyLines);
-                
-                var x = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
-                x.Find("|Error");
 
-                ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host);
+                CloseAllWindows();
+                
+                var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
+                sourceCodeWindow.Find("|Error");
+
+                ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host, sourceCodeWindow);
 
                 return new RunResult
                 {
@@ -194,6 +197,23 @@ namespace MetX.Windows.Controls
             runResult.KeepGoing = true;
             caller.Progress();
             return runResult;
+        }
+
+        public static void CloseAllWindows()
+        {
+            foreach (var window in OutputWindows)
+            {
+                try
+                {
+                    window.Close();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            OutputWindows.Clear();
         }
     }
 }
