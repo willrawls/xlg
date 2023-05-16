@@ -6,6 +6,7 @@ namespace MetX.Standard.Primary.Scripts
         TextBox,
         Clipboard,
         Notepad,
-        File
+        File,
+        Folder
     }
 }

@@ -170,6 +170,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         {
             Updating = true;
             QuickScriptName.Text = selectedScript.Name;
+            TargetFramework.Text = selectedScript.TargetFramework ?? "net7.0-windows";
 
             var script = selectedScript.Script;
             ScriptEditor.Refresh();
@@ -231,7 +232,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             ScriptEditor.Current.DiceAt = DiceAt.Text;
             ScriptEditor.Current.InputFilePath = InputParam.Text;
             ScriptEditor.Current.DestinationFilePath = DestinationParam.Text;
-            ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsStringFromObject("Exe");
+            ScriptEditor.Current.TemplateName = TemplateFolderPath.Text.AsStringFromString("Exe");
+            ScriptEditor.Current.TargetFramework = TargetFramework.Text.AsStringFromString("net7.0-windows");
             Host.Context.Scripts.Default = ScriptEditor.Current;
         });
     }
@@ -649,16 +651,15 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                         break;
 
                     case PostBuildAction.CloneProjectAndOpen:
-                        //var lastProcessorsFolder = Shared.Dirs.FromRegistry(Shared.Dirs.ProcessorsFolderName);
-                        var lastProcessorsFolder = Shared.Dirs.Paths[Constants.ProcessorsFolderName].Value;
-                        var newCloneFolder = Path.Combine(lastProcessorsFolder, result.Settings.ProjectName,
-                            $@"{DateTime.Now:yyyyMMdd_hhddss}\");
+                        var processorsFolder = Shared.Dirs.Paths[Constants.ProcessorsFolderName].Value;
+                        var newCloneFolder = Path.Combine(processorsFolder, result.Settings.ProjectName, $@"{DateTime.Now:yyyyMMdd_hhddss}\");
 
-                        if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder",
-                                ref newCloneFolder) ==
-                            MessageBoxResult.OK)
+                        var scriptsFolder = Shared.Dirs.Paths[Constants.ScriptsFolderName].Value;
+                        var templateFolder = Path.Combine(scriptsFolder, "Templates", result.Settings.Script.TemplateName);
+
+                        if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) == MessageBoxResult.OK)
                         {
-                            MetX.Fimm.Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
+                            Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
 
                             if (Directory.Exists(newCloneFolder))
                             {
@@ -672,7 +673,8 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                             LastSuccessfulCloneFolder = newCloneFolder;
                             FileSystem.CleanFolder(newCloneFolder);
                             Directory.CreateDirectory(newCloneFolder);
-                            FileSystem.DeepCopy(result.Settings.ProjectFolder, newCloneFolder);
+                            throw new Exception("Start Here. Need to resolve all files first (ActualizeCode?)")
+                            FileSystem.DeepCopy(templateFolder, newCloneFolder);
                             answer = PostBuildAction.DoNothing;
 
                             var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();
@@ -735,7 +737,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         if (ScriptEditor.Current == null) return;
 
-        var settings = ScriptEditor.Current.BuildSettings(true, Host);
+        var settings = ScriptEditor.Current.BuildSettings(false, Host);
         settings.UpdateBinPath();
         var filename =
             settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(
@@ -814,7 +816,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         FolderBrowserDialog.Description = title;
         if (FolderBrowserDialog.ShowDialog(this) != DialogResult.OK) return null;
 
-        MetX.Fimm.Shared.Dirs.Settings.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
+        Shared.Dirs.Settings.ToSettingsFile(folderKey, FolderBrowserDialog.SelectedPath);
         return FolderBrowserDialog.SelectedPath;
     }
 

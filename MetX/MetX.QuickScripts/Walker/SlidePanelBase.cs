@@ -22,8 +22,8 @@ namespace XLG.QuickScripts.Walker
             SizeWhenClosed = sizeWhenClosed;
             SizeWhenOpen = sizeWhenOpen;
 
-            this.SuspendLayout();
-            this.TitleLabel.Text = title;
+            SuspendLayout();
+            TitleLabel.Text = title;
             
             ChildPanel.Controls.Clear();
             ChildPanel.Controls.Add(ChildControl);
@@ -32,11 +32,11 @@ namespace XLG.QuickScripts.Walker
             ChildControl.Dock = DockStyle.Fill;
             ChildControl.Visible = true;
 
-            this.MinimumSize = sizeWhenClosed;
-            this.MaximumSize = sizeWhenOpen;
-            this.Size = startOpen ? sizeWhenOpen : sizeWhenClosed;
-            this.ResumeLayout();
-            this.Refresh();
+            MinimumSize = sizeWhenClosed;
+            MaximumSize = sizeWhenOpen;
+            Size = startOpen ? sizeWhenOpen : sizeWhenClosed;
+            ResumeLayout();
+            Refresh();
         }
 
         private void ToggleSizeButton_Click(object sender, EventArgs e)

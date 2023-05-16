@@ -26,7 +26,7 @@ namespace MetX.Standard.Generators
                     Directory.CreateDirectory(options.RootFolder);
                     AspectsProjectGenerator = new AspectsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard21));
                     GeneratorsProjectGenerator = new GeneratorsCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Standard21));
-                    ClientProjectGenerator = new ClientCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Net60));
+                    ClientProjectGenerator = new ClientCsProjGenerator(options.ToCsProjGeneratorOptions(GenFramework.Net70));
 
                     var aspectsFolder = AspectsProjectGenerator.Setup().Generate().Save().Options.OutputPathResolved();
                     GeneratorsProjectGenerator.Setup().Generate().Save();

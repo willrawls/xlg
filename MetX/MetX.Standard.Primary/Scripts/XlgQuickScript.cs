@@ -42,6 +42,8 @@ namespace MetX.Standard.Primary.Scripts
 
         [XmlAttribute] public string TemplateName;
 
+        [XmlAttribute] public string TargetFramework;
+
         [XmlAttribute]
         public string DestinationFilePath
         {
@@ -62,6 +64,7 @@ namespace MetX.Standard.Primary.Scripts
             SliceAt = "End of line";
             DiceAt = "Space";
             TemplateName = "Exe";
+            TargetFramework = "net7.0-windows";
         }
 
         public XlgQuickScript Clone(string name)
@@ -74,7 +77,8 @@ namespace MetX.Standard.Primary.Scripts
                 Input = Input,
                 InputFilePath = InputFilePath,
                 SliceAt = SliceAt,
-                TemplateName = TemplateName
+                TemplateName = TemplateName,
+                TargetFramework = TargetFramework ?? "net7.0-windows"
             };
         }
 
@@ -147,6 +151,12 @@ namespace MetX.Standard.Primary.Scripts
                     {
                         DestinationFilePath = line.TokensAfterFirst(":");
                     }
+                    else if (line.StartsWith("~~QuickScriptTargetFramework:"))
+                    {
+                        TargetFramework = line.TokensAfterFirst(":");
+                        if(TargetFramework.IsEmpty())
+                            TargetFramework = "net7.0-windows";
+                    }
                     else
                     {
                         sb.AppendLine(line);
@@ -171,6 +181,7 @@ namespace MetX.Standard.Primary.Scripts
 ~~QuickScriptSliceAt:{SliceAt}
 ~~QuickScriptDiceAt:{DiceAt}
 ~~QuickScriptTemplate:{TemplateName}
+~~QuickScriptTemplate:{TargetFramework}
 {(isDefault ? "~~QuickScriptDefault:" + Environment.NewLine : string.Empty)}{Script.AsStringFromObject()}";
         }
 

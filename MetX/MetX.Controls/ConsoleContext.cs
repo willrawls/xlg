@@ -165,7 +165,7 @@ public class ConsoleContext : ContextBase
     private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
     {
         var wallaby = new Wallaby(host);
-        var result = wallaby.RunQuickScript(scriptToRun);
+        var result = wallaby.BuildActualizeAndCompileQuickScript(scriptToRun);
 
         if (!result.CompileSuccessful)
         {

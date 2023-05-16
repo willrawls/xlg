@@ -21,7 +21,7 @@ namespace MetX.Windows.Controls
         public static readonly List<QuickScriptOutput> OutputWindows = new();
         public static bool ScriptIsRunning { get; private set; }
 
-        private static readonly object MScriptSyncRoot = new();
+        private static readonly object _syncRoot = new();
 
 
         public GuiContext(IGenerationHost host = null) : base(Shared.Dirs.CurrentTemplateFolderPath, host)
@@ -52,7 +52,7 @@ namespace MetX.Windows.Controls
             }
 
             var lockTaken = false;
-            Monitor.TryEnter(MScriptSyncRoot, ref lockTaken);
+            Monitor.TryEnter(_syncRoot, ref lockTaken);
             if (!lockTaken) return;
 
             try
@@ -73,14 +73,16 @@ namespace MetX.Windows.Controls
                     }
                 }
 
-                var runResult = Run(caller, host.Context, scriptToRun, host, scriptToRun.Destination != QuickScriptDestination.TextBox);
+                var fireAndForget = scriptToRun.Destination != QuickScriptDestination.TextBox;
+                var runResult = Run(caller, scriptToRun, host, fireAndForget);
                 if (runResult.InputMissing)
                     caller.SetFocus("InputParam");
-                //if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
-                //    host.MessageBox.Show(runResult.ErrorOutput);
-
-                if (!runResult.KeepGoing || runResult.GatheredOutput.IsEmpty())
+                
+                if (!runResult.KeepGoing || fireAndForget)
                     return;
+
+                if(runResult.GatheredOutput.IsEmpty())
+                    runResult.GatheredOutput = "No output was generated.";
 
                 try
                 {
@@ -100,34 +102,15 @@ namespace MetX.Windows.Controls
                             {
                                 targetOutput.Title = scriptToRun.Name + " at " + DateTime.Now.ToString("G");
                                 targetOutput.TextToShow = runResult.GatheredOutput;
-                                //targetOutput.TextToShow = runResult.QuickScriptProcessor.Output.ToString();
                             }
 
                             break;
 
                         case QuickScriptDestination.Clipboard:
-                            // Nothing to do. The executable did this
-                            /* 
-                            Clipboard.Clear();
-                            var textForClipboard = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
-                            Clipboard.SetText(textForClipboard);
-                            */
-                            break;
-                        
                         case QuickScriptDestination.Notepad:
-                            // Nothing to do. The executable did this
-                            /*
-                            QuickScriptWorker.ViewFile(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
-                            */
-                            break;
-
+                        case QuickScriptDestination.Folder:
                         case QuickScriptDestination.File:
-                            // Nothing to do. The executable did this
-                            /*
-                            runResult.QuickScriptProcessor.Output?.Finish();
-                            runResult.QuickScriptProcessor.Output = null;
-                            QuickScriptWorker.ViewFile(caller.Host, scriptToRun.DestinationFilePath);
-                            */
+                            // Nothing to do. The executable does this
                             break;
                     }
                 }
@@ -143,14 +126,18 @@ namespace MetX.Windows.Controls
             finally
             {
                 ScriptIsRunning = false;
-                Monitor.Exit(MScriptSyncRoot);
+                Monitor.Exit(_syncRoot);
             }
         }
 
-        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
+        private static RunResult Run(
+            ScriptRunningWindow caller, 
+            XlgQuickScript scriptToRun, 
+            IGenerationHost host, 
+            bool fireAndForget)
         {
             var wallaby = new Wallaby(host);
-            var result = wallaby.RunQuickScript(scriptToRun);
+            var result = wallaby.BuildActualizeAndCompileQuickScript(scriptToRun);
 
             if (!result.CompileSuccessful)
             {
@@ -174,17 +161,20 @@ namespace MetX.Windows.Controls
             string parameters = result.Settings.Script.AsParameters();
 
             string errorOutput = "";
+            string gatherOutputAndErrors = "";
             if (fireAndForget)
             {
                 FileSystem.FireAndForget(result.DestinationExecutableFilePath, parameters, Environment.GetEnvironmentVariable("TEMP"), ProcessWindowStyle.Hidden);
+            }
+            else
+            {
+                gatherOutputAndErrors = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden);
             }
 
             var runResult = new RunResult
             {
                 ActualizationResult = result,
-                GatheredOutput = fireAndForget
-                    ? ""
-                    : FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden),
+                GatheredOutput = gatherOutputAndErrors,
                 KeepGoing = true,
                 ErrorOutput = errorOutput,
             };

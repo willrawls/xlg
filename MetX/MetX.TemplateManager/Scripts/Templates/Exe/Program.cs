@@ -17,7 +17,7 @@ namespace //~~NameInstance~~//
     Script Id:   //~~Script Id~~//
     Generated:   //~~Generated At~~//
     By:          //~~UserName~~//
-*/            
+*/
     public static class Program
     {
         public static bool CheckForArgument(ref string[] args, string name)
@@ -40,18 +40,21 @@ namespace //~~NameInstance~~//
                 processor.DestinationFilePath = @"//~~DestinationFilePath~~//";
                 processor.WritingToConsole = CheckForArgument(ref args, "console") || processor.DestinationFilePath == "console";
                 processor.OpenNotepad = CheckForArgument(ref args, "notepad") || CheckForArgument(ref args, "open");
+                processor.WritingToClipboard = CheckForArgument(ref args, "clipboard") || processor.DestinationFilePath == "clipboard";
+
 
                 if (args.Length > 0) processor.InputFilePath = args[0];
                 if (args.Length > 1) processor.DestinationFilePath = args[1];
 
-                if (processor.DestinationFilePath == null || processor.DestinationFilePath == "console") 
-			        processor.DestinationFilePath = "";
+                if (processor.DestinationFilePath == null 
+                    || processor.DestinationFilePath == "console" 
+                    || processor.DestinationFilePath == "open")
+                    processor.DestinationFilePath = "";
 
                 if (!processor.WritingToConsole)
                 {
                     Console.WriteLine();
                     Console.WriteLine("-----[ //~~Script Name~~// ]-----");
-                    Console.WriteLine();
                     Console.WriteLine("Input:    " + processor.InputFilePath);
                     Console.WriteLine("Output:   " + processor.DestinationFilePath);
                     if (processor.OpenNotepad)
@@ -77,7 +80,7 @@ namespace //~~NameInstance~~//
 
                 if (processor.Output == null || processor.Output.Length == 0) return;
 
-                if (processor.DestinationFilePath == "clipboard")
+                if (processor.WritingToClipboard)
                 {
                     Console.Write("To clipboard ");
                     var clipboard = new ConsoleClipboard();

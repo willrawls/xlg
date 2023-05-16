@@ -21,7 +21,7 @@ public class TestFimmActor : FimmActorBase
 
         return new ProcessorResult
         {
-            ActualizationResult = wallaby.RunQuickScript(scriptToRun),
+            ActualizationResult = wallaby.BuildActualizeAndCompileQuickScript(scriptToRun),
         };
     }
 }

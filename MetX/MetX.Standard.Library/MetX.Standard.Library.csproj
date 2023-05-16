@@ -27,7 +27,7 @@
 		<Deterministic>false</Deterministic>
 		<Version>7.2023.5</Version>
 		<AssemblyVersion>2023.2.*</AssemblyVersion>
-		<FileVersion>2023.2.0.6</FileVersion>
+		<FileVersion>2023.2.0.8</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">

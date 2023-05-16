@@ -22,12 +22,14 @@ namespace //~~NameInstance~~//
         public string DestinationFilePath;
         public string InputFilePath;
         public bool WritingToConsole;
+        public bool WritingToClipboard;
         public bool OpenNotepad;
 
 // ---- Beginning of ClassMembers from script
+
         //~~ClassMembers~~//
 
-        // ---- End of ClassMembers from script
+// ---- End of ClassMembers from script
 
         public QuickScriptProcessor()
         {
