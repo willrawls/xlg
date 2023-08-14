@@ -18,8 +18,8 @@
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2023.2.0.6</AssemblyVersion>
-		<FileVersion>2023.2.0.6</FileVersion>
+		<AssemblyVersion>2023.3.0.9</AssemblyVersion>
+		<FileVersion>2023.3.0.9</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

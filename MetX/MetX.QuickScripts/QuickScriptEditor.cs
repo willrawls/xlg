@@ -673,8 +673,12 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                             LastSuccessfulCloneFolder = newCloneFolder;
                             FileSystem.CleanFolder(newCloneFolder);
                             Directory.CreateDirectory(newCloneFolder);
-                            throw new Exception("Start Here. Need to resolve all files first (ActualizeCode?)")
+
+                            throw new Exception(
+                                "<<< Start Here. Need to resolve all files first (ActualizeCode?)");
+
                             FileSystem.DeepCopy(templateFolder, newCloneFolder);
+
                             answer = PostBuildAction.DoNothing;
 
                             var cloneDevEnv = FileSystem.LatestVisualStudioDevEnvFilePath();

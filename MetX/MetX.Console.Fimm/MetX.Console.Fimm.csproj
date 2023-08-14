@@ -27,8 +27,8 @@
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>William's fifth code genertator. Fimm is Finnish for Five</Title>
-		<AssemblyVersion>2023.2.0.18</AssemblyVersion>
-		<FileVersion>2023.2.0.18</FileVersion>
+		<AssemblyVersion>2023.3.0.22</AssemblyVersion>
+		<FileVersion>2023.3.0.22</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

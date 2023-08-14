@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Strings", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Fimm", "MetX.Console.Fimm\MetX.Console.Fimm.csproj", "{4D9D18F1-A38F-4476-9B1A-42BCE486C180}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.MAUI.Flimm", "MetX.MAUI.Flimm\MetX.MAUI.Flimm.csproj", "{9201932E-DC74-48CF-810D-526CA71968B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,20 +112,18 @@ Global
 		{4D9D18F1-A38F-4476-9B1A-42BCE486C180}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D9D18F1-A38F-4476-9B1A-42BCE486C180}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D9D18F1-A38F-4476-9B1A-42BCE486C180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9201932E-DC74-48CF-810D-526CA71968B9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41A3E72D-320F-45B0-B977-4670D4930B3E}
-	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion = False
-		UpdateAssemblyFileVersion = False
-		UpdateAssemblyInfoVersion = False
-		UpdatePackageVersion = False
-		AssemblyInfoVersionType = SettingsVersion
-		InheritWinAppVersionFrom = None
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = XLG and MetX.vsmdi
