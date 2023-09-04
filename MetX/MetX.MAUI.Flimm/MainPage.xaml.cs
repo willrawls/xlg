@@ -16,10 +16,9 @@ namespace MetX.MAUI.Flimm;
 
 public partial class MainPage : ContentPage, IRunQuickScript
 {
-    //public XlgQuickScriptFile Scripts { get; set; }
+    private ObservableCollection<XlgQuickScript> _scripts = null;
+    public ObservableCollection<XlgQuickScript> Scripts => _scripts;
 
-    public ObservableCollection<XlgQuickScript> ObservableScripts =  new();
-    
     public bool Updating;
 
     public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
@@ -42,29 +41,52 @@ public partial class MainPage : ContentPage, IRunQuickScript
     public IGenerationHost Host { get; set; }
     public static IGenerationHost HostInstance { get; set; }
 
-	public MainPage(string filePath)
-	{
-		InitializeComponent();
-        //Host.Context.Scripts = new XlgQuickScriptFile(filePath);
-
-        Updating = true;
-        InitializeComponent();
-
-        //InputParam.GotFocus += InputParam_GotFocus;
-        //DestinationParam.GotFocus += DestinationParam_GotFocus;
-
-        string ClipboardText() => Clipboard.Default.HasText ? Clipboard.Default.GetTextAsync().Result : "";
-
-        Host = new MauiFormGenerationHost<MainPage>(this, ClipboardText);
-
-        LoadQuickScriptsFile(filePath, false);
-        InitializeHotPhrases();
-        Updating = false;
-
-        UpdateForm(Host.Context.Scripts.Default);
+    public MainPage() : this(null)
+    {
     }
 
-    public void LoadQuickScriptsFile(string filePath, bool updateForm)
+	public MainPage(string filePath)
+	{
+        try
+        {
+            string ClipboardText() => Clipboard.Default.HasText ? Clipboard.Default.GetTextAsync().Result : "";
+            Host = new MauiFormGenerationHost<MainPage>(this, ClipboardText);
+
+            filePath ??= Shared.Dirs.LastScriptFilePath;
+            LoadQuickScriptsFile(filePath);
+
+            try
+            {
+                Updating = true;
+
+                //InputParam.GotFocus += InputParam_GotFocus;
+                //DestinationParam.GotFocus += DestinationParam_GotFocus;
+
+                InitializeHotPhrases();
+                Updating = false;
+
+                var selectedIndex = RefreshLists();
+                SelectedScriptIndex = selectedIndex;
+
+            }
+            catch (Exception e)
+            {
+                Content = new Label {Text = e.ToString()};
+            }
+
+            InitializeComponent();
+            QuickScriptList.SetBinding(ItemsView.ItemsSourceProperty, "Scripts");
+            QuickScriptList.SelectedItem = SelectedScript;
+            UpdateForm(Host.Context.Scripts.Default);
+            this.BindingContext = this;    
+        }
+        catch (Exception e)
+        {
+            Content = new Label { Text = e.ToString() };
+        }
+    }
+
+    public void LoadQuickScriptsFile(string filePath)
     {
         Host.Context ??= new GuiContext(Host);
         var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
@@ -77,26 +99,22 @@ public partial class MainPage : ContentPage, IRunQuickScript
         }
 
         Shared.Dirs.LastScriptFilePath = filePath;
-
-        var selectedIndex = RefreshLists();
-        if (SelectedScript == null)
-            SelectedScriptIndex = selectedIndex;
-        if (updateForm)
-            UpdateForm(Host.Context.Scripts.Default);
-        ScriptFileTitle.Text = "Quick Script - " + filePath;
     }
 
     public int RefreshLists()
     {
-        ObservableScripts.Clear();
         var selectedIndex = 0;
+
+        _scripts = new ObservableCollection<XlgQuickScript>(Host.Context.Scripts);
+
         for (var index = 0; index < Host.Context.Scripts.Count; index++)
         {
             var script = Host.Context.Scripts[index];
-            ObservableScripts.Add(script);
+
             if (Host.Context.Scripts.Default == null || script != Host.Context.Scripts.Default) continue;
 
             selectedIndex = index;
+            break;
         }
 
         return selectedIndex;
@@ -321,10 +339,7 @@ public partial class MainPage : ContentPage, IRunQuickScript
                 ? "Text Box"
                 : selectedScript.Destination.ToString().Replace("Box", " Box");
 
-            InputList.SetBinding(Picker.ItemsSourceProperty, "InputListItems");
-            
-
-            var index = InputList.SelectedItem = selectedScript.Input;
+            InputList.SelectedItem = selectedScript.Input;
             /*
             InputList.SelectedIndex = index > -1
                 ? index

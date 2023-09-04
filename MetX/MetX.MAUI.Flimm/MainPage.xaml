@@ -113,11 +113,14 @@
                     HorizontalOptions="Start" />
 
                 <ListView x:Name="QuickScriptList"
-                          ItemsSource="{Binding Scripts}" ItemSelected="OnScriptSelected">
+                          ItemSelected="OnScriptSelected"
+                          HeightRequest="800"
+                          WidthRequest="300"
+                          VerticalOptions="Fill" HorizontalOptions="Fill"
+                          Margin="10,10,0,0">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding Name}"
-                                      Detail="{Binding TargetFramework}" />
+                            <TextCell  Text="{Binding Name}" Height="25" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -133,12 +136,12 @@
                     FontSize="24"
                     HorizontalOptions="Start" />
 
-                <Grid RowDefinitions="Auto,Auto"
-                      ColumnDefinitions="0.5*,0.5*">
-                    <Label Text="QuickScriptName" Margin="10,10,0,0" /> <Entry x:Name="QuickScriptName" />
-                    <Label Text="TargetFramework" Margin="10,10,0,0" /> <Entry x:Name="TargetFramework" />
-                    <Label Text="DestinationList" Margin="10,10,0,0" />
-                    <Picker x:Name="DestinationList">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      ColumnDefinitions="100*,100*">
+                    <Label Grid.Row="1" Text="QuickScriptName" Margin="10,10,0,0" /> <Entry Grid.Row="1" Grid.Column="2" x:Name="QuickScriptName" />
+                    <Label Grid.Row="2" Text="TargetFramework" Margin="10,10,0,0" /> <Entry Grid.Row="2" Grid.Column="2" x:Name="TargetFramework" />
+                    <Label Grid.Row="3" Text="DestinationList" Margin="10,10,0,0" />
+                    <Picker Grid.Row="3" Grid.Column="2" x:Name="DestinationList">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>File</x:String>
@@ -149,8 +152,8 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Text="QuickScriptName" Margin="10,10,0,0" />
-                    <Picker x:Name="InputList">
+                    <Label Grid.Row="4" Text="QuickScriptName" Margin="10,10,0,0" />
+                    <Picker Grid.Row="4" Grid.Column="2" x:Name="InputList">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>File</x:String>
@@ -163,14 +166,15 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Text="TemplateFolderPath" Margin="10,10,0,0" /> <Entry x:Name="TemplateFolderPath" />
-                    <Label Text="InputParam" Margin="10,10,0,0" /> <Entry x:Name="InputParam" />
-                    <Label Text="DestinationParam" Margin="10,10,0,0" /> <Entry x:Name="DestinationParam" />
+                    <Label Grid.Row="5" Text="TemplateFolderPath" Margin="10,10,0,0" /> <Entry Grid.Row="5" Grid.Column="2" x:Name="TemplateFolderPath" />
+                    <Label Grid.Row="6" Text="InputParam" Margin="10,10,0,0" /> <Entry Grid.Row="6" Grid.Column="2" x:Name="InputParam" />
+                    <Label Grid.Row="7" Text="DestinationParam" Margin="10,10,0,0" /> <Entry Grid.Row="7" Grid.Column="2" x:Name="DestinationParam" />
                 </Grid>
                 <Editor x:Name="ScriptEditor"
-                        MaxLength="20" HeightRequest="500"
-                        Style="{StaticResource CommonEditorStyle}"
-                        Text="This is the text." Keyboard="Text"
+                        MaxLength="500" 
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Keyboard="Text"
                         TextChanged="OnEditorTextChanged"
                         Completed="OnEditorCompleted" />
 
