@@ -299,10 +299,9 @@ public partial class MainPage : ContentPage, IRunQuickScript
         GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
     }
 
-    public ToolWindow CallerWindow { get; set; }
+    public IToolWindow ToolWindow { get; set; }
 
-    public string[] InputListItems = new string[] { "File", "File pattern", "Folder", "Clipboard", "Database Query", "Web Address", "None" };
-
+    
     public void UpdateForm(XlgQuickScript selectedScript)
     {
         if (Updating) return;

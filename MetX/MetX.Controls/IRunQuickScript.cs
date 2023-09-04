@@ -19,7 +19,7 @@ namespace MetX.Windows.Controls
         /// <summary>
         /// The provided window for output
         /// </summary>
-        ToolWindow CallerWindow { get; set; }
+        IToolWindow ToolWindow { get; set; }
 
         void Progress(int index = -1);
     }

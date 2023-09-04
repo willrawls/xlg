@@ -11,7 +11,7 @@ namespace MetX.Windows.Controls
             GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
         }
 
-        public ToolWindow CallerWindow { get => this; set { } }
+        public IToolWindow ToolWindow { get => this; set { } }
         public void Progress(int index = -1) { }
 
         private void InitializeComponent()
