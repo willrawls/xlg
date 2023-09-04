@@ -5,14 +5,14 @@ namespace MetX.Windows.Controls
 {
     public class ScriptRunningWindow : ToolWindow, IRunQuickScript
     {
-        public void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput)
+        public void RunQuickScript(IRunQuickScript caller, XlgQuickScript scriptToRun, IShowText targetOutput)
         {
             caller ??= this;
             GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
         }
 
-        public ToolWindow Window { get => this; set { } }
-        public virtual void Progress(int index = -1) { }
+        public ToolWindow CallerWindow { get => this; set { } }
+        public void Progress(int index = -1) { }
 
         private void InitializeComponent()
         {

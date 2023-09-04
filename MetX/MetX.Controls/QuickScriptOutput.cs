@@ -203,7 +203,7 @@ namespace MetX.Windows.Controls
         {
             try
             {
-                Window.Host ??= Host;
+                CallerWindow.Host ??= Host;
                 GuiContext.RunQuickScript(this, Script, null, Host);
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
@@ -260,7 +260,7 @@ namespace MetX.Windows.Controls
             {
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
-                    Window.Host ??= Host;
+                    CallerWindow.Host ??= Host;
                     Scriptr.RunQuickScript(this, Script, this);
                 }
                 else

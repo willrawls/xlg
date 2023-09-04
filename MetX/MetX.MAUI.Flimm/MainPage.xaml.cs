@@ -8,15 +8,18 @@ using MetX.Windows.Library;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
+using System.Collections.ObjectModel;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace MetX.MAUI.Flimm;
 
 
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, IRunQuickScript
 {
     //public XlgQuickScriptFile Scripts { get; set; }
 
+    public ObservableCollection<XlgQuickScript> ObservableScripts =  new();
+    
     public bool Updating;
 
     public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
@@ -77,7 +80,7 @@ public partial class MainPage : ContentPage
 
         var selectedIndex = RefreshLists();
         if (SelectedScript == null)
-            QuickScriptList.SelectedIndices.Add(selectedIndex);
+            SelectedScriptIndex = selectedIndex;
         if (updateForm)
             UpdateForm(Host.Context.Scripts.Default);
         ScriptFileTitle.Text = "Quick Script - " + filePath;
@@ -85,12 +88,12 @@ public partial class MainPage : ContentPage
 
     public int RefreshLists()
     {
+        ObservableScripts.Clear();
         var selectedIndex = 0;
-        QuickScriptList.Items.Clear();
         for (var index = 0; index < Host.Context.Scripts.Count; index++)
         {
             var script = Host.Context.Scripts[index];
-            QuickScriptList.Items.Add(script);
+            ObservableScripts.Add(script);
             if (Host.Context.Scripts.Default == null || script != Host.Context.Scripts.Default) continue;
 
             selectedIndex = index;
@@ -103,6 +106,7 @@ public partial class MainPage : ContentPage
     {
         XlgQuickScript item = args.SelectedItem as XlgQuickScript;
     }
+
 	/*
 	public void OnCounterClicked(object sender, EventArgs e)
 	{
@@ -256,10 +260,10 @@ public partial class MainPage : ContentPage
         {
             SelectedScript.Name = QuickScriptName.Text.AsStringFromObject(DateTime.Now.ToString("s"));
             SelectedScript.Script = ScriptEditor.Text;
-            Enum.TryParse(DestinationList.Text.Replace(" ", string.Empty), out SelectedScript.Destination);
-            SelectedScript.Input = InputList.Text;
-            SelectedScript.SliceAt = SliceAt.Text;
-            SelectedScript.DiceAt = DiceAt.Text;
+            Enum.TryParse(DestinationList.SelectedItem.AsStringFromObject().Replace(" ", string.Empty), out SelectedScript.Destination);
+            SelectedScript.Input = InputList.SelectedItem.AsStringFromObject();
+            //SelectedScript.SliceAt = SliceAt.Text;
+            //SelectedScript.DiceAt = DiceAt.Text;
             SelectedScript.InputFilePath = InputParam.Text;
             SelectedScript.DestinationFilePath = DestinationParam.Text;
             SelectedScript.TemplateName = TemplateFolderPath.Text.AsStringFromString("Exe");
@@ -290,10 +294,12 @@ public partial class MainPage : ContentPage
 
     }
 
-    public void RunQuickScript(ContentPage caller, XlgQuickScript scriptToRun, IShowText targetOutput)
+    public void RunQuickScript(IRunQuickScript caller, XlgQuickScript scriptToRun, IShowText targetOutput)
     {
         GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
     }
+
+    public ToolWindow CallerWindow { get; set; }
 
     public string[] InputListItems = new string[] { "File", "File pattern", "Folder", "Clipboard", "Database Query", "Web Address", "None" };
 
@@ -311,17 +317,20 @@ public partial class MainPage : ContentPage
             var script = selectedScript.Script;
             ScriptEditor.Text = script;
 
-            DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
+            DestinationList.SelectedItem = 
+                selectedScript.Destination == QuickScriptDestination.Unknown
                 ? "Text Box"
                 : selectedScript.Destination.ToString().Replace("Box", " Box");
 
             InputList.SetBinding(Picker.ItemsSourceProperty, "InputListItems");
             
 
-            var index = InputList.FindString(selectedScript.Input);
+            var index = InputList.SelectedItem = selectedScript.Input;
+            /*
             InputList.SelectedIndex = index > -1
                 ? index
                 : 0;
+                */
 
             /*
             index = SliceAt.FindString(selectedScript.SliceAt);
@@ -375,6 +384,11 @@ public partial class MainPage : ContentPage
         {
             Updating = false;
         }
+    }
+
+    public void Progress(int index = -1)
+    {
+        throw new NotImplementedException();
     }
 }
 

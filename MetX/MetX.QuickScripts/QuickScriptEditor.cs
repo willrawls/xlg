@@ -139,7 +139,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    public override void Progress(int index = -1)
+    public void Progress(int index = -1)
     {
         if (InvokeRequired)
         {

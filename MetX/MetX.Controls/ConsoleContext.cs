@@ -29,9 +29,9 @@ public class ConsoleContext : ContextBase
 
     public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output)
     {
-        var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.Window.Host);
+        var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.CallerWindow.Host);
         OutputWindows.Add(quickScriptOutput);
-        quickScriptOutput.Show(caller.Window);
+        quickScriptOutput.Show(caller.CallerWindow);
         quickScriptOutput.BringToFront();
     }
 

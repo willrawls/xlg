@@ -30,9 +30,9 @@ namespace MetX.Windows.Controls
 
         public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output)
         {
-            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.Window.Host);
+            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.CallerWindow.Host);
             OutputWindows.Add(quickScriptOutput);
-            quickScriptOutput.Show(caller.Window);
+            quickScriptOutput.Show(caller.CallerWindow);
             quickScriptOutput.BringToFront();
         }
 
@@ -43,14 +43,20 @@ namespace MetX.Windows.Controls
             return quickScriptOutput;
         }
 
-        public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
+        public static void RunQuickScript(IRunQuickScript caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
         {
-            if (caller.InvokeRequired)
+            var callerIsAWinForm = caller is Form;
+            Form callerAsWinForm = null;
             {
-                caller.Invoke(new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript), caller, scriptToRun, targetOutput, host);
-                return;
+                callerAsWinForm = caller as Form;
+                if (callerAsWinForm is {InvokeRequired: true})
+                {
+                    callerAsWinForm.Invoke(
+                        new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript),
+                        caller, scriptToRun, targetOutput, host);
+                    return;
+                }
             }
-
             var lockTaken = false;
             Monitor.TryEnter(_syncRoot, ref lockTaken);
             if (!lockTaken) return;
@@ -62,8 +68,13 @@ namespace MetX.Windows.Controls
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
                     {
-                        MessageBox.Show(caller, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
-                        caller.SetFocus("DestinationParam");
+                        if(callerAsWinForm != null)
+                        {
+                            MessageBox.Show(callerAsWinForm, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
+                            callerAsWinForm.Controls["DestinationParam"]?.Focus();
+                        }
+                        else
+                            MessageBox.Show("Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
                         return;
                     }
 
@@ -75,9 +86,9 @@ namespace MetX.Windows.Controls
 
                 var fireAndForget = scriptToRun.Destination != QuickScriptDestination.TextBox;
                 var runResult = Run(caller, scriptToRun, host, fireAndForget);
-                if (runResult.InputMissing)
-                    caller.SetFocus("InputParam");
-                
+                if (runResult.InputMissing) 
+                    callerAsWinForm?.Controls["InputParam"]?.Focus();
+
                 if (!runResult.KeepGoing || fireAndForget)
                     return;
 
@@ -131,7 +142,7 @@ namespace MetX.Windows.Controls
         }
 
         private static RunResult Run(
-            ScriptRunningWindow caller, 
+            IRunQuickScript caller, 
             XlgQuickScript scriptToRun, 
             IGenerationHost host, 
             bool fireAndForget)
