@@ -8,6 +8,7 @@ using ICSharpCode.TextEditor.UserControls;
 using MetX.Fimm;
 using MetX.Fimm.Scripts;
 using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
@@ -28,7 +29,6 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     public HotPhraseManagerForWinForms PhraseManager { get; set; } = new();
 
     public int LastChoice { get; set; }
-
 
     public XlgQuickScript SelectedScript =>
         QuickScriptList.SelectedItems.Count != 0
@@ -66,7 +66,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         UpdateForm(Host.Context.Scripts.Default);
     }
 
-    private void InitializeHotPhrases()
+    public void InitializeHotPhrases()
     {
         try
         {
@@ -84,7 +84,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void OnPickAndRunQuickScript(object sender, PhraseEventArguments e)
+    public void OnPickAndRunQuickScript(object sender, PhraseEventArguments e)
     {
         if (Updating) return;
         if (ScriptEditor.Current == null) return;
@@ -112,7 +112,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         e.Handled = true;
     }
 
-    private void OnRunCurrentQuickScript(object sender, PhraseEventArguments e)
+    public void OnRunCurrentQuickScript(object sender, PhraseEventArguments e)
     {
         if (Updating) return;
 
@@ -161,7 +161,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void UpdateForm(XlgQuickScript selectedScript)
+    public void UpdateForm(XlgQuickScript selectedScript)
     {
         if (Updating) return;
         if (selectedScript == null) return;
@@ -238,7 +238,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void BrowseDestinationFilePath_Click(object sender, EventArgs e)
+    public void BrowseDestinationFilePath_Click(object sender, EventArgs e)
     {
         if (Updating) return;
 
@@ -253,7 +253,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             DestinationParam.Text = SaveDestinationFilePathDialog.FileName;
     }
 
-    private void BrowseInputFilePath_Click(object sender, EventArgs e)
+    public void BrowseInputFilePath_Click(object sender, EventArgs e)
     {
         if (Updating) return;
 
@@ -291,7 +291,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void DeleteScript_Click(object sender, EventArgs e)
+    public void DeleteScript_Click(object sender, EventArgs e)
     {
         IfNotUpdating(() =>
         {
@@ -322,50 +322,50 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
+    public void DestinationList_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Updating) return;
         UpdateScript();
     }
 
-    private void DestinationParam_Enter(object sender, EventArgs e)
+    public void DestinationParam_Enter(object sender, EventArgs e)
     {
         if (Updating) return;
         DestinationParam.SelectAll();
     }
 
-    private void DestinationParam_GotFocus(object sender, EventArgs e)
+    public void DestinationParam_GotFocus(object sender, EventArgs e)
     {
         if (Updating) return;
         if (MouseButtons != MouseButtons.None) return;
         DestinationParam.SelectAll();
     }
 
-    private void EditDestinationFilePath_Click(object sender, EventArgs e)
+    public void EditDestinationFilePath_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         QuickScriptWorker.ViewFile(Host, DestinationParam.Text);
     }
 
-    private void EditInputFilePath_Click(object sender, EventArgs e)
+    public void EditInputFilePath_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         QuickScriptWorker.ViewFile(Host, InputParam.Text);
     }
 
-    private void InputList_SelectedIndexChanged(object sender, EventArgs e)
+    public void InputList_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Updating) return;
         UpdateScript();
     }
 
-    private void InputParam_Enter(object sender, EventArgs e)
+    public void InputParam_Enter(object sender, EventArgs e)
     {
         if (Updating) return;
         InputParam.SelectAll();
     }
 
-    private void InputParam_GotFocus(object sender, EventArgs e)
+    public void InputParam_GotFocus(object sender, EventArgs e)
     {
         if (Updating) return;
         if (MouseButtons != MouseButtons.None) return;
@@ -373,7 +373,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         InputParam.SelectAll();
     }
 
-    private void LoadQuickScriptsFile(string filePath, bool updateForm)
+    public void LoadQuickScriptsFile(string filePath, bool updateForm)
     {
         Host.Context ??= new GuiContext(Host);
         var xlgQuickScriptFile = XlgQuickScriptFile.Load(filePath);
@@ -395,7 +395,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         Text = "Quick Script - " + filePath;
     }
 
-    private void NewQuickScript_Click(object sender, EventArgs e)
+    public void NewQuickScript_Click(object sender, EventArgs e)
     {
         IfNotUpdating(() =>
         {
@@ -426,7 +426,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void NewScriptFile_Click(object sender, EventArgs e)
+    public void NewScriptFile_Click(object sender, EventArgs e)
     {
         OpenInputFilePathDialog.FileName = string.Empty;
         OpenInputFilePathDialog.InitialDirectory = Host.Context.Scripts.FilePath.TokensBeforeLast(@"\");
@@ -444,7 +444,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void OpenScriptFile_Click(object sender, EventArgs e)
+    public void OpenScriptFile_Click(object sender, EventArgs e)
     {
         OpenInputFilePathDialog.FileName = string.Empty;
         OpenInputFilePathDialog.InitialDirectory = Host.Context.Scripts.FilePath.TokensBeforeLast(@"\");
@@ -462,7 +462,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void QuickScriptEditor_FormClosing(object sender, FormClosingEventArgs e)
+    public void QuickScriptEditor_FormClosing(object sender, FormClosingEventArgs e)
     {
         try
         {
@@ -482,7 +482,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         SaveQuickScriptFile_Click(sender, null);
     }
 
-    private void QuickScriptEditor_ResizeEnd(object sender, EventArgs e)
+    public void QuickScriptEditor_ResizeEnd(object sender, EventArgs e)
     {
         // 785 - X = 450
         // 785 = X + 450
@@ -496,7 +496,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         DestinationParam.Width = InputParam.Width;
     }
 
-    private int RefreshLists()
+    public int RefreshLists()
     {
         var selectedIndex = 0;
         QuickScriptList.Items.Clear();
@@ -512,7 +512,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         return selectedIndex;
     }
 
-    private void RefreshNameForSelectedIndexInScriptList()
+    public void RefreshNameForSelectedIndexInScriptList()
     {
         var selectedScript = SelectedScript;
         var selectedScriptIndex = SelectedScriptIndex;
@@ -526,7 +526,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         QuickScriptList.Refresh();
     }
 
-    private void RunQuickScript_Click(object sender, EventArgs e)
+    public void RunQuickScript_Click(object sender, EventArgs e)
     {
         if (ScriptEditor.Current == null) return;
         Host.WaitFor(() =>
@@ -536,7 +536,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void SaveAs_Click(object sender, EventArgs e)
+    public void SaveAs_Click(object sender, EventArgs e)
     {
         IfNotUpdating(() =>
         {
@@ -559,7 +559,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void SaveQuickScriptFile_Click(object sender, EventArgs e)
+    public void SaveQuickScriptFile_Click(object sender, EventArgs e)
     {
         UpdateScript();
         IfNotUpdating(() =>
@@ -571,24 +571,24 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void ViewGeneratedCode_Click(object sender, EventArgs e)
+    public void ViewGeneratedCode_Click(object sender, EventArgs e)
     {
         DisplayExpandedQuickScriptSourceInNotepad();
     }
 
-    private void FindMenuItem_Click(object sender, EventArgs e)
+    public void FindMenuItem_Click(object sender, EventArgs e)
     {
         ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm();
         ScriptEditor.FindAndReplaceForm.ShowFor(ScriptEditor, false);
     }
 
-    private void ReplaceMenuItem_Click(object sender, EventArgs e)
+    public void ReplaceMenuItem_Click(object sender, EventArgs e)
     {
         ScriptEditor.FindAndReplaceForm ??= new FindAndReplaceForm();
         ScriptEditor.FindAndReplaceForm.ShowFor(ScriptEditor, true);
     }
 
-    private void BuildExe_Click(object sender, EventArgs e)
+    public void BuildExe_Click(object sender, EventArgs e)
     {
         if (ScriptEditor.Current == null) return;
 
@@ -613,7 +613,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private bool ShowPostBuildMenu(ActualizationResult result, bool singlePass, PostBuildAction defaultAction)
+    public bool ShowPostBuildMenu(ActualizationResult result, bool singlePass, PostBuildAction defaultAction)
     {
         try
         {
@@ -737,7 +737,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         return false;
     }
 
-    private void PostBuild_Click(object sender, EventArgs e)
+    public void PostBuild_Click(object sender, EventArgs e)
     {
         if (ScriptEditor.Current == null) return;
 
@@ -755,11 +755,11 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         ShowPostBuildMenu(result, false, PostBuildAction.OpenBinFolderInCommandLine);
     }
 
-    private void InputParam_Leave(object sender, EventArgs e)
+    public void InputParam_Leave(object sender, EventArgs e)
     {
     }
 
-    private void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
+    public void QuickScriptList_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Updating) return;
 
@@ -768,7 +768,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         RefreshNameForSelectedIndexInScriptList();
     }
 
-    private void ActionPanel_Click(object sender, EventArgs e)
+    public void ActionPanel_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         try
@@ -797,7 +797,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
+    public void BrowseTemplateFolderPathButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         var path = BrowseForFolder("BrowseTemplateFolderPathButton",
@@ -812,7 +812,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         TemplateFolderPath.Text = path;
     }
 
-    private string BrowseForFolder(string folderKey, string title)
+    public string BrowseForFolder(string folderKey, string title)
     {
         var last = Shared.Dirs.Settings.FromSettingsFile(folderKey);
         if (last.IsNotEmpty()) FolderBrowserDialog.SelectedPath = last;
@@ -824,7 +824,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         return FolderBrowserDialog.SelectedPath;
     }
 
-    private void CloneScriptButton_Click(object sender, EventArgs e)
+    public void CloneScriptButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         if (Host.Context.Scripts == null) return;
@@ -843,7 +843,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         RefreshLists();
     }
 
-    private void CloneTemplateButton_Click(object sender, EventArgs e)
+    public void CloneTemplateButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         Host.WaitFor(() =>
@@ -895,19 +895,19 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void GitHubButton_Click(object sender, EventArgs e)
+    public void GitHubButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         OpenUrl("https://www.github.com/willrawls/xlg");
     }
 
-    private void FeedbackButton_Click(object sender, EventArgs e)
+    public void FeedbackButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         OpenUrl("https://github.com/willrawls/xlg/issues/new");
     }
 
-    private void ScriptEditorHelpButton_Click(object sender, EventArgs e)
+    public void ScriptEditorHelpButton_Click(object sender, EventArgs e)
     {
         if (Updating) return;
         OpenUrl("https://github.com/willrawls/xlg/wiki");
@@ -929,7 +929,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         }
     }
 
-    private void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
+    public void QuickScriptEditor_KeyUp(object sender, KeyEventArgs e)
     {
         if (Updating) return;
         Host.WaitFor(() =>
@@ -977,25 +977,25 @@ public partial class QuickScriptEditor : ScriptRunningWindow
         });
     }
 
-    private void SliceAt_SelectedIndexChanged(object sender, EventArgs e)
+    public void SliceAt_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Updating) return;
         UpdateScript();
     }
 
-    private void DiceAt_SelectedIndexChanged(object sender, EventArgs e)
+    public void DiceAt_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (Updating) return;
         UpdateScript();
     }
 
-    private void Button1_Click(object sender, EventArgs e)
+    public void Button1_Click(object sender, EventArgs e)
     {
         var ideas4Form = new DatabaseWalkerForm();
         ideas4Form.Show();
     }
 
-    private void RestageTemplatesButton_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    public void RestageTemplatesButton_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         try
         {
@@ -1015,4 +1015,5 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             Host?.MessageBox.Show($"Restage failed\n\n{exception}");
         }
     }
+
 }

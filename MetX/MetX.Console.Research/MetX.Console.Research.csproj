@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -19,8 +19,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2023.3.0.11</AssemblyVersion>
-		<FileVersion>2023.3.0.11</FileVersion>
+		<AssemblyVersion>2023.3.0.16</AssemblyVersion>
+		<FileVersion>2023.3.0.16</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

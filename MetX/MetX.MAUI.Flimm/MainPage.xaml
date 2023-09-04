@@ -5,24 +5,99 @@
              x:Class="MetX.MAUI.Flimm.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
+        <HorizontalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
 
             <VerticalStackLayout
                 Spacing="25"
                 Padding="30,0"
                 VerticalOptions="Start">
                 <Label
-                    Text="Save &amp; Run"
+                    Text="Actions"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="RunButton"
+                    Text="Run current script"
+                    Clicked="OnRunButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="PostBuildActionButton"
+                    Text="Post build actions"
+                    Clicked="OnPostBuildActionButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="BuildCmdLineExeButton"
+                    Text="Build cmd line exe"
+                    Clicked="OnBuildCmdLineExeButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
                     FontSize="16"
                     HorizontalOptions="End" />
 
                 <Button
-                    x:Name="RunButton"
-                    Text="Run"
-                    Clicked="OnRunButtonClicked"
+                    x:Name="FindHighlightButton"
+                    Text="Find / highlight"
+                    Clicked="OnFindHighlightButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="ReplaceButton"
+                    Text="Replace"
+                    Clicked="OnReplaceButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
+                    FontSize="16"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="SaveButton"
+                    Text="Save file (xlgq)"
+                    Clicked="OnSaveButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
+                    FontSize="16"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="AddScriptButton"
+                    Text="Add script"
+                    Clicked="OnAddScriptButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="SaveAsButton"
+                    Text="Save as"
+                    Clicked="OnSaveAsButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="OpenButton"
+                    Text="Open file"
+                    Clicked="OnOpenButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="NewFileButton"
+                    Text="New file"
+                    Clicked="OnNewFileButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="RestageTemplatesButton"
+                    Text="Restage templates"
+                    Clicked="OnRestageTemplatesButtonClicked"
                     HorizontalOptions="Start" />
 
             </VerticalStackLayout>
@@ -32,21 +107,40 @@
                 VerticalOptions="Start">
 
                 <Label
-                    Text="Welcome to .NET Multi-platform App UI"
-                    SemanticProperties.HeadingLevel="Level2"
-                    SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                    FontSize="18"
-                    HorizontalOptions="Center" />
+                    Text="Scripts"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
 
-                <Button
-                    x:Name="CounterBtn"
-                    Text="Click me"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="OnCounterClicked"
-                    HorizontalOptions="Center" />
+                <ListView x:Name="ScriptsList"
+                    ItemsSource="{Binding Scripts}" ItemSelected="OnScriptSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Name}"
+                                      Detail="{Binding TargetFramework}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>                
+                </ListView>
 
             </VerticalStackLayout>
-        </VerticalStackLayout>
+            <VerticalStackLayout
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Start">
+
+                <Label
+                    Text="Script Properties"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
+
+                <Editor x:Name="ScriptEditor"
+                    MaxLength="20" HeightRequest="500"
+                    Style="{StaticResource CommonEditorStyle}"
+                    Text="This is the text." Keyboard="Text" 
+                    TextChanged="OnEditorTextChanged"
+                    Completed="OnEditorCompleted" />
+
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
     </ScrollView>
 
 </ContentPage>
