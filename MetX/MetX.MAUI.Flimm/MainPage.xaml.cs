@@ -1,6 +1,7 @@
 ﻿using MetX.Fimm;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Generics;
 using MetX.Windows.Controls;
 using MetX.Windows.Library;
@@ -14,7 +15,7 @@ namespace MetX.MAUI.Flimm;
 
 public partial class MainPage : ContentPage
 {
-    public XlgQuickScriptFile Scripts { get; set; }
+    //public XlgQuickScriptFile Scripts { get; set; }
 
     public bool Updating;
 
@@ -22,15 +23,12 @@ public partial class MainPage : ContentPage
 
     public int LastChoice { get; set; }
 
-    public XlgQuickScript SelectedScript =>
-        Scripts.SelectedItems.Count != 0
-            ? QuickScriptList.SelectedItem as XlgQuickScript
+    public XlgQuickScript SelectedScript => 
+        SelectedScriptIndex >= 0
+            ? Host.Context.Scripts[SelectedScriptIndex]
             : null;
 
-    public int SelectedScriptIndex =>
-        QuickScriptList.SelectedItems.Count != 0
-            ? QuickScriptList.SelectedIndex
-            : -1;
+    public int SelectedScriptIndex { get; set; }
 
     public string LastSuccessfulCloneFolder { get; set; }
 
@@ -44,7 +42,7 @@ public partial class MainPage : ContentPage
 	public MainPage(string filePath)
 	{
 		InitializeComponent();
-        Scripts = new XlgQuickScriptFile(filePath);
+        //Host.Context.Scripts = new XlgQuickScriptFile(filePath);
 
         Updating = true;
         InitializeComponent();
@@ -52,16 +50,9 @@ public partial class MainPage : ContentPage
         //InputParam.GotFocus += InputParam_GotFocus;
         //DestinationParam.GotFocus += DestinationParam_GotFocus;
 
-        Func<string> clipboardText = () =>
-        {
-            if (Clipboard.Default.HasText)
-            {
-                return Clipboard.Default.GetTextAsync().Result;
-            }
+        string ClipboardText() => Clipboard.Default.HasText ? Clipboard.Default.GetTextAsync().Result : "";
 
-            return "";
-        };
-        Host = new MauiFormGenerationHost<MainPage>(this, clipboardText);
+        Host = new MauiFormGenerationHost<MainPage>(this, ClipboardText);
 
         LoadQuickScriptsFile(filePath, false);
         InitializeHotPhrases();
@@ -89,7 +80,7 @@ public partial class MainPage : ContentPage
             QuickScriptList.SelectedIndices.Add(selectedIndex);
         if (updateForm)
             UpdateForm(Host.Context.Scripts.Default);
-        Text = "Quick Script - " + filePath;
+        ScriptFileTitle.Text = "Quick Script - " + filePath;
     }
 
     public int RefreshLists()
@@ -221,7 +212,7 @@ public partial class MainPage : ContentPage
             var chooseQuickScript = new ChooseFromListDialog();
             var choices = Host.Context.Scripts.ScriptNames();
             if (LastChoice > choices.Length) LastChoice = 0;
-            var choice = chooseQuickScript.Ask(Y, X, choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN",
+            var choice = chooseQuickScript.Ask((int) Y, (int) X, choices, "Run which quick script?", "CHOOSE QUICK SCRIPT TO RUN",
                 LastChoice);
             if (choice >= 0)
             {
@@ -302,6 +293,88 @@ public partial class MainPage : ContentPage
     public void RunQuickScript(ContentPage caller, XlgQuickScript scriptToRun, IShowText targetOutput)
     {
         GuiContext.RunQuickScript(caller, scriptToRun, targetOutput, Host);
+    }
+
+    public string[] InputListItems = new string[] { "File", "File pattern", "Folder", "Clipboard", "Database Query", "Web Address", "None" };
+
+    public void UpdateForm(XlgQuickScript selectedScript)
+    {
+        if (Updating) return;
+        if (selectedScript == null) return;
+
+        try
+        {
+            Updating = true;
+            QuickScriptName.Text = selectedScript.Name;
+            TargetFramework.Text = selectedScript.TargetFramework ?? "net7.0-windows";
+
+            var script = selectedScript.Script;
+            ScriptEditor.Text = script;
+
+            DestinationList.Text = selectedScript.Destination == QuickScriptDestination.Unknown
+                ? "Text Box"
+                : selectedScript.Destination.ToString().Replace("Box", " Box");
+
+            InputList.SetBinding(Picker.ItemsSourceProperty, "InputListItems");
+            
+
+            var index = InputList.FindString(selectedScript.Input);
+            InputList.SelectedIndex = index > -1
+                ? index
+                : 0;
+
+            /*
+            index = SliceAt.FindString(selectedScript.SliceAt);
+            SliceAt.SelectedIndex = index > -1
+                ? index
+                : SliceAt.Items.Add(selectedScript.SliceAt);
+
+            index = DiceAt.FindString(selectedScript.DiceAt);
+            DiceAt.SelectedIndex = index > -1
+                ? index
+                : DiceAt.Items.Add(selectedScript.DiceAt);
+                */
+
+            TemplateFolderPath.Text = selectedScript.TemplateName;
+
+            InputParam.Text = selectedScript.InputFilePath;
+            //if (InputParam.Text.Length > 0) InputParam.SelectionStart = InputParam.Text.Length;
+
+            DestinationParam.Text = selectedScript.DestinationFilePath;
+            //if (DestinationParam.Text.Length > 0) DestinationParam.SelectionStart = DestinationParam.Text.Length;
+
+            //DestinationList_SelectedIndexChanged(null, null);
+            //InputList_SelectedIndexChanged(null, null);
+
+            ScriptEditor.Focus();
+            ScriptEditor.Text = selectedScript.Script;
+            CurrentId = selectedScript.Id;
+        }
+        finally
+        {
+            Updating = false;
+        }
+    }
+
+    public void IfNotUpdating(Action action)
+    {
+        if (Updating
+            || Host?.Context?.Scripts == null
+            || SelectedScript == null) return;
+
+        try
+        {
+            Updating = true;
+            action();
+        }
+        catch (Exception exception)
+        {
+            Host.MessageBox.Show(exception.ToString());
+        }
+        finally
+        {
+            Updating = false;
+        }
     }
 }
 

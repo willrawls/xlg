@@ -5,6 +5,7 @@
              x:Class="MetX.MAUI.Flimm.MainPage">
 
     <ScrollView>
+        <Label x:Name="ScriptFileTitle" />
         <HorizontalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -111,7 +112,7 @@
                     FontSize="24"
                     HorizontalOptions="Start" />
 
-                <ListView x:Name="ScriptsList"
+                <ListView x:Name="QuickScriptList"
                     ItemsSource="{Binding Scripts}" ItemSelected="OnScriptSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -132,6 +133,30 @@
                     FontSize="24"
                     HorizontalOptions="Start" />
 
+                <Grid RowDefinitions="Auto,Auto"
+                      ColumnDefinitions="0.5*,0.5*">
+                    <Label Text="QuickScriptName" Margin="10,10,0,0"/> <Entry x:Name="QuickScriptName"></Entry>
+                    <Label Text="TargetFramework" Margin="10,10,0,0"/> <Entry x:Name="TargetFramework"></Entry>
+                    <Label Text="DestinationList" Margin="10,10,0,0"/> 
+                    <Picker x:Name="DestinationList">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>File</x:String>
+                                <x:String>Folder</x:String>
+                                <x:String>Clipboard</x:String>
+                                <x:String>Text Box</x:String>
+                                <x:String>Notepad</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                        </Picker>
+                    <Label Text="QuickScriptName" Margin="10,10,0,0"/> 
+                    <Picker x:Name="InputList">
+
+                    </Picker>
+                    <Label Text="TemplateFolderPath" Margin="10,10,0,0"/> <Entry x:Name="TemplateFolderPath"></Entry>
+                    <Label Text="InputParam" Margin="10,10,0,0"/> <Entry x:Name="InputParam"></Entry>
+                    <Label Text="DestinationParam" Margin="10,10,0,0"/> <Entry x:Name="DestinationParam"></Entry>
+                </Grid>
                 <Editor x:Name="ScriptEditor"
                     MaxLength="20" HeightRequest="500"
                     Style="{StaticResource CommonEditorStyle}"
