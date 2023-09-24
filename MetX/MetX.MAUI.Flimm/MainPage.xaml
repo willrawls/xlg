@@ -29,7 +29,7 @@
                 <Button
                     x:Name="PostBuildActionButton"
                     Text="Post build actions"
-                    Clicked="OnPostBuildActionButtonClicked"
+                    Clicked="PostBuild_Click"
                     HorizontalOptions="Start" />
 
                 <Button

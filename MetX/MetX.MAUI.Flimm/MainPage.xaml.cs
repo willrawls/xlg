@@ -1,4 +1,6 @@
 ﻿using MetX.Fimm;
+using MetX.Fimm.Scripts;
+using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
@@ -231,9 +233,159 @@ public partial class MainPage : ContentPage, IRunQuickScript
         e.Handled = true;
     }
 
-    public void OnPostBuildActionButtonClicked(object sender, EventArgs e)
+    public void PostBuild_Click(object sender, EventArgs e)
     {
+        if (SelectedScript == null) return;
+
+        var settings = SelectedScript.BuildSettings(false, Host);
+        settings.UpdateBinPath();
+        var filename =
+            settings.TemplateNameAsLegalFilenameWithoutExtension.AsFilename(
+                settings.ForExecutable ? ".exe" : ".dll");
+
+        var result = new ActualizationResult(settings)
+        {
+            DestinationExecutableFilePath = Path.Combine(settings.BinPath, filename),
+            OutputText = ""
+        };
+        ShowPostBuildMenu(result, false, PostBuildAction.OpenBinFolderInCommandLine);
     }
+
+    public bool ShowPostBuildMenu(ActualizationResult result, bool singlePass, PostBuildAction defaultAction)
+    {
+        try
+        {
+            if (result == null
+                || result.DestinationExecutableFilePath.IsEmpty())
+                return true;
+
+            var answer = defaultAction;
+            LastSuccessfulCloneFolder = "";
+
+            var passCount = 0;
+            while (answer != PostBuildAction.DoNothing
+                   || singlePass && ++passCount > 1)
+            {
+                var dialog = new ChooseEnumFromListBoxDialog<PostBuildAction>(PostBuildAction.DoNothing);
+                answer = dialog.Ask((int) Bounds.Top, (int) Bounds.Left, answer,
+                    (result.Settings.Simulate
+                        ? ""
+                        : File.Exists(result.DestinationExecutableFilePath)
+                            ? "Executable generated successfully"
+                            : "No exe found") +
+                    $"\n\n\tFolder: {result.Settings.ProjectFolder}\n\tExe:    {result.DestinationExecutableFilePath}",
+                    result.Settings.Simulate
+                        ? "WHAT NEXT?"
+                        : "SUCCESS. WHAT NEXT?");
+
+                switch (answer)
+                {
+                    case PostBuildAction.DoNothing:
+                        break;
+
+                    case PostBuildAction.RunNow:
+                        QuickScriptWorker.RunInCommandLine(result.DestinationExecutableFilePath,
+                            result.Settings.BinPath, Host);
+                        break;
+
+                    case PostBuildAction.CloneProjectAndOpen:
+                        var processorsFolder = Shared.Dirs.Paths[Constants.ProcessorsFolderName].Value;
+                        var newCloneFolder = Path.Combine(processorsFolder, result.Settings.ProjectName, $@"{DateTime.Now:yyyyMMdd_hhddss}\");
+
+                        var scriptsFolder = Shared.Dirs.Paths[Constants.ScriptsFolderName].Value;
+                        var templateFolder = Path.Combine(scriptsFolder, "Templates", result.Settings.Script.TemplateName);
+
+                        if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) == MessageBoxResult.OK)
+                        {
+                            Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
+
+                            if (Directory.Exists(newCloneFolder))
+                            {
+                                var overwriteAnswer = "";
+                                if (Host.InputBox("OVERWRITE CLONE?",
+                                        $"That folder already exists. Click OK to completely overwrite folder:\n  {newCloneFolder}",
+                                        ref overwriteAnswer) != MessageBoxResult.OK)
+                                    break;
+                            }
+
+                            LastSuccessfulCloneFolder = newCloneFolder;
+                            MetX.Standard.Primary.IO.FileSystem.CleanFolder(newCloneFolder);
+                            Directory.CreateDirectory(newCloneFolder);
+                            // MetX.Standard.Primary.IO.FileSystem.DeepCopy(templateFolder, newCloneFolder);
+
+                            var settings = SelectedScript.BuildSettings(false, this.Host);
+                            settings.ProjectFolder = newCloneFolder;
+                            var actualizationResult = settings.ActualizeAndCompile();
+
+                            answer = PostBuildAction.DoNothing;
+
+                            var askResult =
+                                Host.MessageBox.Show(
+                                    $"Project cloned to:\n\t{newCloneFolder}\n\nWould you like to copy this path to the clipboard?",
+                                    $"COPY PATH TO CLIPBOARD?",
+                                    MessageBoxChoices.YesNo);
+                            if (askResult == MessageBoxResult.Yes)
+                                Clipboard.SetTextAsync(newCloneFolder);
+
+                            var cloneDevEnv = 
+                                MetX.Standard.Primary.IO.FileSystem.LatestVisualStudioDevEnvFilePath();
+
+                            if (cloneDevEnv.IsNotEmpty() && File.Exists(cloneDevEnv))
+                            {
+                                var cloneProjectFilePath = Path.Combine(newCloneFolder,
+                                    result.Settings.ProjectName + ".csproj");
+                                MetX.Standard.Primary.IO.FileSystem
+                                    .FireAndForget(cloneDevEnv, "\"" + cloneProjectFilePath + "\"",
+                                    newCloneFolder);
+                            }
+                        }
+
+                        break;
+
+                    case PostBuildAction.OpenTempProjectVisualStudio:
+                        var devEnv = MetX.Standard.Primary.IO.FileSystem.LatestVisualStudioDevEnvFilePath();
+                        if (devEnv.IsNotEmpty() && File.Exists(devEnv))
+                        {
+                            MetX.Standard.Primary.IO.FileSystem.FireAndForget(devEnv, result.Settings.ProjectFilePath,
+                                result.Settings.ProjectFolder);
+                            answer = PostBuildAction.DoNothing;
+                        }
+
+                        break;
+
+                    case PostBuildAction.CopyProjectFolderPath:
+                        Clipboard.SetTextAsync(result.Settings.ProjectFolder);
+                        break;
+                    case PostBuildAction.CopyExePath:
+                        Clipboard.SetTextAsync(result.DestinationExecutableFilePath);
+                        break;
+
+                    case PostBuildAction.OpenBinFolderInCommandLine:
+                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.BinPath, Host);
+                        break;
+                    case PostBuildAction.OpenBinFolderInExplorer:
+                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.BinPath, Host);
+                        break;
+                    case PostBuildAction.OpenProjectFolderInCommandLine:
+                        QuickScriptWorker.OpenFolderInCommandLine(result.Settings.ProjectFolder, Host);
+                        break;
+                    case PostBuildAction.OpenProjectFolderOnExplorer:
+                        QuickScriptWorker.ViewFolderInExplorer(result.Settings.ProjectFolder, Host);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            Host.MessageBox.Show(exception.ToString());
+        }
+
+        return false;
+    }
+
 
     public void OnReplaceButtonClicked(object sender, EventArgs e)
     {
