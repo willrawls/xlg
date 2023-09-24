@@ -5,11 +5,11 @@
              x:Class="MetX.MAUI.Flimm.MainPage">
 
     <ScrollView>
-        <Label x:Name="ScriptFileTitle" />
         <HorizontalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Start">
+            <Label x:Name="ScriptFileTitle" />
 
             <VerticalStackLayout
                 Spacing="25"
@@ -103,9 +103,8 @@
 
             </VerticalStackLayout>
             <VerticalStackLayout
-                Spacing="25"
-                Padding="30,0"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                HorizontalOptions="Fill">
 
                 <Label
                     Text="Scripts"
@@ -114,17 +113,14 @@
 
                 <ListView x:Name="QuickScriptList"
                           ItemSelected="OnScriptSelected"
-                          HeightRequest="800"
-                          WidthRequest="300"
-                          VerticalOptions="Fill" HorizontalOptions="Fill"
-                          Margin="10,10,0,0">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell  Text="{Binding Name}" Height="25" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
+                          Margin="10,10,10,10"
+                          BackgroundColor="DarkBlue" 
+                            SeparatorColor="WhiteSmoke"
+                          
+                          VerticalOptions="Start" HorizontalOptions="Fill"
+                          WidthRequest="500"
+                          HeightRequest="700"
+                />
             </VerticalStackLayout>
             <VerticalStackLayout
                 Spacing="25"
@@ -138,9 +134,11 @@
 
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                       ColumnDefinitions="100*,100*">
-                    <Label Grid.Row="1" Text="QuickScriptName" Margin="10,10,0,0" /> <Entry Grid.Row="1" Grid.Column="2" x:Name="QuickScriptName" />
-                    <Label Grid.Row="2" Text="TargetFramework" Margin="10,10,0,0" /> <Entry Grid.Row="2" Grid.Column="2" x:Name="TargetFramework" />
-                    <Label Grid.Row="3" Text="DestinationList" Margin="10,10,0,0" />
+                    <Label Grid.Row="1" Text="QuickScriptName" Margin="10,10,0,0" />
+                    <Entry Grid.Row="1" Grid.Column="2" x:Name="QuickScriptName" />
+                    <Label Grid.Row="2" Text="Target Framework" Margin="10,10,0,0" />
+                    <Entry Grid.Row="2" Grid.Column="2" x:Name="TargetFramework" />
+                    <Label Grid.Row="3" Text="Destination" Margin="10,10,0,0" />
                     <Picker Grid.Row="3" Grid.Column="2" x:Name="DestinationList">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -152,7 +150,7 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Grid.Row="4" Text="QuickScriptName" Margin="10,10,0,0" />
+                    <Label Grid.Row="4" Text="Source" Margin="10,10,0,0" />
                     <Picker Grid.Row="4" Grid.Column="2" x:Name="InputList">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -166,17 +164,23 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <Label Grid.Row="5" Text="TemplateFolderPath" Margin="10,10,0,0" /> <Entry Grid.Row="5" Grid.Column="2" x:Name="TemplateFolderPath" />
-                    <Label Grid.Row="6" Text="InputParam" Margin="10,10,0,0" /> <Entry Grid.Row="6" Grid.Column="2" x:Name="InputParam" />
-                    <Label Grid.Row="7" Text="DestinationParam" Margin="10,10,0,0" /> <Entry Grid.Row="7" Grid.Column="2" x:Name="DestinationParam" />
+                    <Label Grid.Row="5" Text="Template Folder Path" Margin="10,10,0,0" />
+                    <Entry Grid.Row="5" Grid.Column="2" x:Name="TemplateFolderPath" />
+                    <Label Grid.Row="6" Text="Input Parameter" Margin="10,10,0,0" />
+                    <Entry Grid.Row="6" Grid.Column="2" x:Name="InputParam" />
+                    <Label Grid.Row="7" Text="Destination Parameter" Margin="10,10,0,0" />
+                    <Entry Grid.Row="7" Grid.Column="2" x:Name="DestinationParam" />
                 </Grid>
                 <Editor x:Name="ScriptEditor"
-                        MaxLength="500" 
-                        HorizontalOptions="Fill"
+                        MaxLength="25000"
+                        HorizontalOptions="FillAndExpand"
                         VerticalOptions="Fill"
+                        WidthRequest="1000"
+                        HeightRequest="1000"
                         Keyboard="Text"
                         TextChanged="OnEditorTextChanged"
-                        Completed="OnEditorCompleted" />
+                        Completed="OnEditorCompleted" BackgroundColor="#303030" MinimumHeightRequest="300" TextColor="#FFFFFF"
+                        />
 
             </VerticalStackLayout>
         </HorizontalStackLayout>

@@ -34,7 +34,7 @@ namespace MetX.Standard.Primary.Scripts
 
         [XmlAttribute] public string InputFilePath;
 
-        [XmlAttribute] public string Name;
+        [XmlAttribute] public string Name { get; set; }
 
         [XmlAttribute] public string Script;
 

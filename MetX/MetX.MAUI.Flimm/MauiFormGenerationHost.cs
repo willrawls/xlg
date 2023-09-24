@@ -14,18 +14,28 @@ public class MauiFormGenerationHost<T> : GenerationHost where T : ContentPage
     public object SyncRoot { get; } = new();
 
     private Rectangle _boundary;
-    public sealed override Rectangle Boundary => new Rectangle((int) ContentPage.Bounds.X, (int) ContentPage.Bounds.Y, (int) ContentPage.Bounds.Width, (int) ContentPage.Bounds.Height);
+    public sealed override Rectangle Boundary => _boundary;
+    private void UpdateBoundary()
+    {
+        if((int) ContentPage.Bounds.Width > 0 && (int) ContentPage.Bounds.Height > 0)
+            _boundary = new Rectangle((int) ContentPage.Bounds.X, (int) ContentPage.Bounds.Y, (int) ContentPage.Bounds.Width, (int) ContentPage.Bounds.Height);
+        else
+        {
+            _boundary = new Rectangle(0, 0, 800, 600);
+        }
+    }
 
     public MauiFormGenerationHost(T contentPage, Func<string> getTextForProcessing)
     {
         ContentPage = contentPage;
-        _boundary = Boundary;
+        UpdateBoundary();
         MessageBox = new MauiFormMessageBoxHost<T>(ContentPage, this);
         GetTextForProcessing = getTextForProcessing;
     }
 
     public override MessageBoxResult InputBox(string title, string description, ref string itemName)
     {
+        UpdateBoundary();
         var dialog = new AskForStringDialog
         {
             ValueToReturnOnCancel = "~|~|"
@@ -44,6 +54,7 @@ public class MauiFormGenerationHost<T> : GenerationHost where T : ContentPage
 
         try
         {
+            UpdateBoundary();
             Cursor.Current = Cursors.WaitCursor;
             action();
         }

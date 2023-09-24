@@ -18,8 +18,9 @@
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2023.3.0.13</AssemblyVersion>
-		<FileVersion>2023.3.0.13</FileVersion>
+		<AssemblyVersion>2023.3.0.19</AssemblyVersion>
+		<FileVersion>2023.3.0.19</FileVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

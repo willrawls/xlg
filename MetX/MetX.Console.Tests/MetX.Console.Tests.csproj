@@ -4,8 +4,9 @@
 	<TargetFramework>net8.0</TargetFramework>
 	<LangVersion>latest</LangVersion>
 	<IsPackable>false</IsPackable>
-	<AssemblyVersion>2023.3.0.21</AssemblyVersion>
-	<FileVersion>2023.3.0.21</FileVersion>
+	<AssemblyVersion>2023.3.0.28</AssemblyVersion>
+	<FileVersion>2023.3.0.28</FileVersion>
+	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

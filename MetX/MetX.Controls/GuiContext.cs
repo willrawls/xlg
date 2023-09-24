@@ -28,11 +28,18 @@ namespace MetX.Windows.Controls
         {
         }
 
-        public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output)
+        public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output, IGenerationHost host)
         {
-            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.ToolWindow.Host);
+            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, host);
             OutputWindows.Add(quickScriptOutput);
-            caller.ToolWindow.Show(quickScriptOutput);
+
+            if (caller.ToolWindow != null) 
+                caller.ToolWindow.Show(quickScriptOutput);
+            else if(host != null)
+            {
+                quickScriptOutput.Bounds = host.Boundary;
+                quickScriptOutput.Show();
+            }
         }
 
         public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
@@ -106,7 +113,8 @@ namespace MetX.Windows.Controls
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
-                                    runResult.GatheredOutput);
+                                    runResult.GatheredOutput,
+                                    host);
                             }
                             else
                             {

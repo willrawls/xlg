@@ -9,6 +9,7 @@
 		<LangVersion>latest</LangVersion>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>

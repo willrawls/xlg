@@ -7,6 +7,7 @@
 		<ApplicationIcon>batfile.ico</ApplicationIcon>
 		<LangVersion>latest</LangVersion>
 		<TieredPGO>true</TieredPGO>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -31,7 +32,7 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<AssemblyVersion>2023.3.*</AssemblyVersion>
 		<Deterministic>false</Deterministic>
-		<FileVersion>2023.3.0.29</FileVersion>
+		<FileVersion>2023.3.0.38</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">
@@ -43,6 +44,11 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <DocumentationFile />
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="Metadata\**" />

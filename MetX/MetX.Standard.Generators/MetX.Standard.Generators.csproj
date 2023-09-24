@@ -6,6 +6,7 @@
 		<StartupObject>MetX.Standard.Generators.Program</StartupObject>
 		<RootNamespace>MetX.Standard.Generators</RootNamespace>
 		<AssemblyName>MetX.Standard.Generators</AssemblyName>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -21,8 +22,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2023.3.0.18</AssemblyVersion>
-		<FileVersion>2023.3.0.18</FileVersion>
+		<AssemblyVersion>2023.3.0.25</AssemblyVersion>
+		<FileVersion>2023.3.0.25</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="Templates\CSharp\Project\**" />

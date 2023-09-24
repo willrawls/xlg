@@ -10,6 +10,7 @@
 		<RootNamespace>MetX.Fimm</RootNamespace>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -27,8 +28,8 @@
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>William's fifth code genertator. Fimm is Finnish for Five</Title>
-		<AssemblyVersion>2023.3.0.32</AssemblyVersion>
-		<FileVersion>2023.3.0.32</FileVersion>
+		<AssemblyVersion>2023.3.0.40</AssemblyVersion>
+		<FileVersion>2023.3.0.40</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

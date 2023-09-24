@@ -4,6 +4,7 @@
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<TieredPGO>true</TieredPGO>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -29,7 +30,7 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<AssemblyVersion>2023.3.*</AssemblyVersion>
 		<Deterministic>false</Deterministic>
-		<FileVersion>2023.3.0.13</FileVersion>
+		<FileVersion>2023.3.0.19</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">
@@ -38,6 +39,9 @@
 		</None>
 	</ItemGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 	  <Optimize>True</Optimize>
 	</PropertyGroup>
 	<ItemGroup>
