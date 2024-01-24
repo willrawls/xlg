@@ -123,16 +123,6 @@ namespace XLG.Pipeliner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _1421584808_Copy {
-            get {
-                object obj = ResourceManager.GetObject("_1421584808_Copy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap _1421584898_clipboard {
             get {
                 object obj = ResourceManager.GetObject("_1421584898_clipboard", resourceCulture);

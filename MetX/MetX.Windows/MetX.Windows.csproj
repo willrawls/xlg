@@ -24,8 +24,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2023.3.0.60</AssemblyVersion>
-		<FileVersion>2023.3.0.60</FileVersion>
+		<AssemblyVersion>2024.1.0.63</AssemblyVersion>
+		<FileVersion>2024.1.0.63</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>
@@ -55,7 +55,6 @@
 		<Content Include="Properties\1421584690_2.png" />
 		<Content Include="Properties\1421584694_2.png" />
 		<Content Include="Properties\1421584753_Cut.png" />
-		<Content Include="Properties\1421584808_Copy.png" />
 		<Content Include="Properties\1421584898_clipboard.png" />
 		<Content Include="Properties\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
 		<Content Include="Properties\1421584946_file-48.png" />
@@ -68,12 +67,12 @@
 		<None Include="Properties\add_48.png" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.0-preview.7.8842" />
+		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.6" />
 		<PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
 		<PackageReference Include="Microsoft.Net.Compilers" Version="4.2.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
