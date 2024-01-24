@@ -12,7 +12,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -24,8 +24,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.63</AssemblyVersion>
-		<FileVersion>2024.1.0.63</FileVersion>
+		<AssemblyVersion>2024.1.0.67</AssemblyVersion>
+		<FileVersion>2024.1.0.67</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>

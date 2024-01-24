@@ -6,7 +6,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -18,8 +18,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.19</AssemblyVersion>
-		<FileVersion>2024.1.0.19</FileVersion>
+		<AssemblyVersion>2024.1.0.22</AssemblyVersion>
+		<FileVersion>2024.1.0.22</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />

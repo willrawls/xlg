@@ -26,9 +26,9 @@
 	<PropertyGroup>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<Deterministic>false</Deterministic>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<AssemblyVersion>2024.1.*</AssemblyVersion>
-		<FileVersion>2024.1.0.23</FileVersion>
+		<FileVersion>2024.1.0.27</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">
