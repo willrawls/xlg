@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using MetX.Console.Tests.Standard.Strings.TestingClasses;
 using MetX.Standard.Strings.Generics;
+using MetX.Standard.Test.TestingClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests;

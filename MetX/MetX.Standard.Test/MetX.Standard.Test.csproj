@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,8 +7,8 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <AssemblyVersion>2024.1.0.1</AssemblyVersion>
-    <FileVersion>2024.1.0.1</FileVersion>
+    <AssemblyVersion>2024.1.0.14</AssemblyVersion>
+    <FileVersion>2024.1.0.14</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
     <ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
   </ItemGroup>
 

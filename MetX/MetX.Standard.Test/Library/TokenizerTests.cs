@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using MetX.Standard.Primary.Scripts;
+﻿using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // ReSharper disable StringLiteralTypo
 
-namespace MetX.Console.Tests.Standard.Library;
+namespace MetX.Standard.Test.Library;
 
 [TestClass]
 public class TokenizerTests

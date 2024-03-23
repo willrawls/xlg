@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using MetX.Standard.Strings;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MetX.Standard.Strings;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 [TestClass]
 public class AssocArrayTests

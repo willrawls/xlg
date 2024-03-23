@@ -1,8 +1,6 @@
-﻿using System;
-using MetX.Standard.Primary.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MetX.Standard.Primary.IO;
 
-namespace MetX.Console.Tests.Standard.IO;
+namespace MetX.Standard.Test.IO;
 
 [TestClass]
 public class FileSystemTests

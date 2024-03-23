@@ -1,11 +1,9 @@
 ﻿using System.Diagnostics;
-using MetX.Console.Tests.Standard.Library;
-using MetX.Standard.XDString;
-using MetX.Standard.XDString.Generics;
-using MetX.Standard.XDString.Generics.V1;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Strings.Generics;
+using MetX.Standard.Test.TestingClasses;
+using AssocArrayList = MetX.Standard.Strings.AssocArrayList;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Standard.Test.Strings;
 
 [TestClass]
 public class AssocArrayListOfTTests
@@ -13,23 +11,27 @@ public class AssocArrayListOfTTests
     [TestMethod]
     public void AssocArrayListOfT_Simple()
     {
-        var fred = new Fred();
-        var data = new AssocArrayList<Fred>("Mike");
-        data["Fred"]["George"].Item = fred;
-            
-        Assert.AreEqual("Fred", data["Fred"].Key);
-        Assert.AreEqual("George", data["Fred"]["George"].Key);
-        Assert.AreEqual(fred.TestGuid, data["Fred"]["George"].Item.TestGuid);
+        var fred = new FredItem();
+        var data = new AssocArrayOfT<FredItem>();
+        data["Mike"].Key = "Fred";
+        AssocItemOfT<FredItem>? fredObject = data["Fred"];
+        var georgeObject = data["George"];
+        georgeObject.Name = "Mary";
+        var guid = Guid.NewGuid();
+        fred.FredItemTestGuid = guid;
 
-        data["Mary"]["Frank"].Value = "Tim";
-        Assert.AreEqual("Tim", data["Mary"]["Frank"].Value);
-        System.Console.WriteLine(data["Fred"].ToString());
+        Assert.AreEqual("Fred", data["Fred"].Key);
+        Assert.AreEqual("George", data["George"].Key);
+        Assert.AreEqual(fred.FredItemTestGuid, guid);
+
     }
 
     [TestMethod]
     public void AssocArrayListOfT_Simple2()
     {
-        var data = new AssocArrayList();
+        var fred = new FredItem();
+        var data = new AssocArrayOfT<FredItem>();
+
         var watch = new Stopwatch();
         watch.Start();
         for (int i = 0; i < 100; i++)
@@ -38,7 +40,7 @@ public class AssocArrayListOfTTests
             for (int j = 0; j < 100; j++)
             {
                 var key1 = $"key{i++}.{j++}";
-                assocArray[$"{key1} item"].Value = $"{key1} value";
+                data[$"item {key1}"].Value = $"{key1} value";
             }
         }
         watch.Stop();

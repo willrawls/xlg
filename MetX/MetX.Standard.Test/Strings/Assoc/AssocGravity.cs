@@ -1,6 +1,6 @@
 ﻿using MetX.Standard.Strings.Generics;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 public class AssocGravity : AssocCubeOf<AssocVector>
 {

@@ -1,10 +1,8 @@
-﻿using System;
-using MetX.Console.Tests.Standard.Strings.TestingClasses;
-using MetX.Standard.Primary.Extensions;
+﻿using MetX.Standard.Primary.Extensions;
 using MetX.Standard.Strings.Generics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Test.TestingClasses;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 [TestClass]
 public class AssocTimelineTests
@@ -81,6 +79,7 @@ public class AssocTimelineTests
 
         Assert.IsNotNull(actual);
         Assert.IsTrue(actual.Contains("</AssocTimelineOfFredAssocItemJustAnAssocItem>"), actual);
+        Console.Write(actual);
     }
 
     [TestMethod]
@@ -101,7 +100,7 @@ public class AssocTimelineTests
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());
-        System.Console.WriteLine(expected);
+        Console.Write(actual);
     }
     #endregion
 

@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-using MetX.Standard.XDString;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Strings;
 
-namespace MetX.Console.Tests.Standard.XDString;
+namespace MetX.Standard.Test.Strings;
 
 [TestClass]
 public class AssocArrayListTests

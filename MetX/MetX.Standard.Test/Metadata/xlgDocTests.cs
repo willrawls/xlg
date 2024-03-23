@@ -1,10 +1,8 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Primary.Metadata;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.Metadata;
+namespace MetX.Standard.Test.Metadata;
 
 [TestClass]
 public class xlgDocTests

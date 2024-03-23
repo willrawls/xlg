@@ -1,9 +1,8 @@
 ﻿using System.Xml;
-using MetX.Console.Tests.Standard.Generation.CSharp.Project.Pieces;
 using MetX.Standard.Primary.Generation.CSharp.Project;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Test.Generation.CSharp.Project.Pieces;
 
-namespace MetX.Console.Tests.Standard.Generation.CSharp.Project;
+namespace MetX.Standard.Test.Generation.CSharp.Project;
 
 public partial class ConsoleClientCsProjGeneratorTests
 {

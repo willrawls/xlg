@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.XDString;
+namespace MetX.Standard.Strings;
 
 [Serializable]
 public class AssocArrayList : List<AssocArray>
@@ -21,7 +22,7 @@ public class AssocArrayList : List<AssocArray>
                     string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
                 if (assocArray != null) return assocArray;
 
-                assocArray = new AssocArray(key, this);
+                assocArray = new AssocArray(key);
                 Add(assocArray);
                 return assocArray;
             }
@@ -41,5 +42,4 @@ public class AssocArrayList : List<AssocArray>
             }
         }
     }
-
 }

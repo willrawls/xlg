@@ -1,10 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using MetX.Console.Tests.Standard.Strings.TestingClasses;
+﻿using System.Diagnostics;
 using MetX.Standard.Strings.Generics.V1;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Test.TestingClasses;
 
-namespace MetX.Console.Tests.Standard.Strings.V1;
+namespace MetX.Standard.Test.Strings.V1;
 
 [TestClass()]
 public class AssocArray2Tests

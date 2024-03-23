@@ -1,10 +1,8 @@
-﻿using System;
-using MetX.Console.Tests.Standard.Strings.TestingClasses;
-using MetX.Standard.Primary.Extensions;
+﻿using MetX.Standard.Primary.Extensions;
 using MetX.Standard.Strings.Generics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MetX.Standard.Test.TestingClasses;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 [TestClass]
 public class AssocCubeTests

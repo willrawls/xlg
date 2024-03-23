@@ -1,7 +1,6 @@
 ﻿using MetX.Standard.Library.Encryption;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.Library;
+namespace MetX.Standard.Test.Library;
 
 [TestClass]
 public class CryptoTestsTests

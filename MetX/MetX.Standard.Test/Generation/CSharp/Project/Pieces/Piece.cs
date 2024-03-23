@@ -1,10 +1,7 @@
-﻿using System;
-using System.IO;
-using MetX.Standard.Primary.Generation.CSharp.Project;
+﻿using MetX.Standard.Primary.Generation.CSharp.Project;
 using MetX.Standard.Strings;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.Generation.CSharp.Project.Pieces;
+namespace MetX.Standard.Test.Generation.CSharp.Project.Pieces;
 
 public static class Piece
 {
@@ -16,7 +13,7 @@ public static class Piece
     {
         if (area.IsNotEmpty() && !area.EndsWith(@"\"))
             area += @"\";
-            
+
         var filePath = $@"{AppDomain.CurrentDomain.BaseDirectory}{PiecesDirectory}{area}{pieceName}.xml";
         Assert.IsTrue(File.Exists(filePath), $"Can't find: {filePath}");
         return new ClientCsProjGenerator(filePath);
@@ -25,13 +22,13 @@ public static class Piece
     public static ClientCsProjGenerator GetEmptyClient()
     {
         return Get("EmptyClient", null);
-            
+
     }
 
     public static ClientCsProjGenerator GetFullClient()
     {
         return Get("FullClient", null);
-            
+
     }
 
     public const string GenerateToPath = @"GenerateToPath";

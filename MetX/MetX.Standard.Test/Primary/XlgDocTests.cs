@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using MetX.Standard.Primary.Metadata;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MetX.Standard.Primary.Metadata;
 
-namespace MetX.Console.Tests.Standard.Primary;
+namespace MetX.Standard.Test.Primary;
 
 [TestClass]
 public class XlgDocTests

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 public class AssocSpace : AssocSheet<AssocTime>, IAssocItem
 {

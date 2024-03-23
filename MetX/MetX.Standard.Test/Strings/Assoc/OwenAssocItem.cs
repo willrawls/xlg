@@ -1,7 +1,6 @@
-﻿using System;
-using MetX.Standard.Strings.Interfaces;
+﻿using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Console.Tests.Standard.Strings.Assoc;
+namespace MetX.Standard.Test.Strings.Assoc;
 
 public class OwenAssocItem : IAssocItem
 {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using MetX.Standard.Primary.Generation;
+﻿using MetX.Standard.Primary.Generation;
 using MetX.Standard.Primary.Generation.CSharp.Project;
 
-namespace MetX.Console.Tests.Standard.Generation.CSharp.Project;
+namespace MetX.Standard.Test.Generation.CSharp.Project;
 
 public class TestHelpers
 {

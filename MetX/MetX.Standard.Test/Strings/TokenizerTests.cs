@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using MetX.Standard.Strings;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests.Standard.Strings;
+namespace MetX.Standard.Test.Strings;
 
 [TestClass]
 public class TokenizerTests
