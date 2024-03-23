@@ -31,7 +31,7 @@ namespace MetX.Standard.Primary.Scripts
         }
 
         public string OriginalAssetFilename { get; set; }
-        public string RelativePath { get; set; }
+        public string RelativePath { get; set; } = ".";
         public string RelativeFilePath => RelativePath.IsEmpty()
             ? OriginalAssetFilename
             : Path.Combine(RelativePath, OriginalAssetFilename);
@@ -43,13 +43,12 @@ namespace MetX.Standard.Primary.Scripts
             {
                 filename = settings.TemplateNameAsLegalFilenameWithoutExtension + filename.Substring(1);
             }
-
-            if (RelativePath.IsEmpty())
+            
+            if(settings.QuickScriptTemplate.TemplatePath.StartsWith(RelativePath))
             {
                 return Path.Combine(settings.ProjectFolder, filename);
             }
-            
-            return Path.Combine(settings.ProjectFolder, RelativePath, filename);
+            return Path.Combine(settings.ProjectFolder, RelativeFilePath, filename);
         }
 
         public string ResolveVariables(ActualizationResult result)

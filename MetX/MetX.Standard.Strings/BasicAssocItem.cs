@@ -17,8 +17,6 @@ public class AssocItemWithChildren : BasicAssocItem
     public AssocItemWithChildren()
     {
     }
-
-
 }
 
 [Serializable]

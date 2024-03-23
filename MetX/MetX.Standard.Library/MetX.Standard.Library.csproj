@@ -3,6 +3,7 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -25,9 +26,9 @@
 	<PropertyGroup>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<Deterministic>false</Deterministic>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<AssemblyVersion>2024.1.*</AssemblyVersion>
-		<FileVersion>2024.1.0.6</FileVersion>
+		<FileVersion>2024.1.0.33</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">

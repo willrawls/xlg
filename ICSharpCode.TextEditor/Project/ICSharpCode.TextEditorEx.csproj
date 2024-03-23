@@ -18,8 +18,9 @@
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2024.1.0.3</AssemblyVersion>
-		<FileVersion>2024.1.0.3</FileVersion>
+		<AssemblyVersion>2024.1.0.26</AssemblyVersion>
+		<FileVersion>2024.1.0.26</FileVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -38,7 +39,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
 
 		<Compile Update="Properties\Resources.Designer.cs">

@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MetX.MAUI.Flimm.MainPage">
+
+    <ScrollView>
+        <HorizontalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Start">
+            <Label x:Name="ScriptFileTitle" />
+
+            <VerticalStackLayout
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Start">
+                <Label
+                    Text="Actions"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="RunButton"
+                    Text="Run current script"
+                    Clicked="OnRunButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="PostBuildActionButton"
+                    Text="Post build actions"
+                    Clicked="PostBuild_Click"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="BuildCmdLineExeButton"
+                    Text="Build cmd line exe"
+                    Clicked="OnBuildCmdLineExeButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
+                    FontSize="16"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="FindHighlightButton"
+                    Text="Find / highlight"
+                    Clicked="OnFindHighlightButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="ReplaceButton"
+                    Text="Replace"
+                    Clicked="OnReplaceButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
+                    FontSize="16"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="SaveButton"
+                    Text="Save file (xlgq)"
+                    Clicked="OnSaveButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text=""
+                    FontSize="16"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="AddScriptButton"
+                    Text="Add script"
+                    Clicked="OnAddScriptButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="SaveAsButton"
+                    Text="Save as"
+                    Clicked="OnSaveAsButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="OpenButton"
+                    Text="Open file"
+                    Clicked="OnOpenButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="NewFileButton"
+                    Text="New file"
+                    Clicked="OnNewFileButtonClicked"
+                    HorizontalOptions="Start" />
+
+                <Button
+                    x:Name="RestageTemplatesButton"
+                    Text="Restage templates"
+                    Clicked="OnRestageTemplatesButtonClicked"
+                    HorizontalOptions="Start" />
+
+            </VerticalStackLayout>
+            <VerticalStackLayout
+                VerticalOptions="Start"
+                HorizontalOptions="Fill">
+
+                <Label
+                    Text="Scripts"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
+
+                <ListView x:Name="QuickScriptList"
+                          ItemSelected="OnScriptSelected"
+                          Margin="10,10,10,10"
+                          BackgroundColor="DarkBlue" 
+                            SeparatorColor="WhiteSmoke"
+                          
+                          VerticalOptions="Start" HorizontalOptions="Fill"
+                          WidthRequest="500"
+                          HeightRequest="700"
+                />
+            </VerticalStackLayout>
+            <VerticalStackLayout
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Start">
+
+                <Label
+                    Text="Script Properties"
+                    FontSize="24"
+                    HorizontalOptions="Start" />
+
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      ColumnDefinitions="100*,100*">
+                    <Label Grid.Row="1" Text="QuickScriptName" Margin="10,10,0,0" />
+                    <Entry Grid.Row="1" Grid.Column="2" x:Name="QuickScriptName" />
+                    <Label Grid.Row="2" Text="Target Framework" Margin="10,10,0,0" />
+                    <Entry Grid.Row="2" Grid.Column="2" x:Name="TargetFramework" />
+                    <Label Grid.Row="3" Text="Destination" Margin="10,10,0,0" />
+                    <Picker Grid.Row="3" Grid.Column="2" x:Name="DestinationList">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>File</x:String>
+                                <x:String>Folder</x:String>
+                                <x:String>Clipboard</x:String>
+                                <x:String>Text Box</x:String>
+                                <x:String>Notepad</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Grid.Row="4" Text="Source" Margin="10,10,0,0" />
+                    <Picker Grid.Row="4" Grid.Column="2" x:Name="InputList">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>File</x:String>
+                                <x:String>File pattern</x:String>
+                                <x:String>Folder</x:String>
+                                <x:String>Clipboard</x:String>
+                                <x:String>Database Query</x:String>
+                                <x:String>Web Address</x:String>
+                                <x:String>None"</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Grid.Row="5" Text="Template Folder Path" Margin="10,10,0,0" />
+                    <Entry Grid.Row="5" Grid.Column="2" x:Name="TemplateFolderPath" />
+                    <Label Grid.Row="6" Text="Input Parameter" Margin="10,10,0,0" />
+                    <Entry Grid.Row="6" Grid.Column="2" x:Name="InputParam" />
+                    <Label Grid.Row="7" Text="Destination Parameter" Margin="10,10,0,0" />
+                    <Entry Grid.Row="7" Grid.Column="2" x:Name="DestinationParam" />
+                </Grid>
+                <Editor x:Name="ScriptEditor"
+                        MaxLength="25000"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Fill"
+                        WidthRequest="1000"
+                        HeightRequest="1000"
+                        Keyboard="Text"
+                        TextChanged="OnEditorTextChanged"
+                        Completed="OnEditorCompleted" BackgroundColor="#303030" MinimumHeightRequest="300" TextColor="#FFFFFF"
+                        />
+
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+    </ScrollView>
+
+</ContentPage>

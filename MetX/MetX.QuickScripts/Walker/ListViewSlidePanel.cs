@@ -28,7 +28,7 @@ namespace XLG.QuickScripts.Walker
                 var listViewItem = new ListViewItem(item.Key);
                 if (item.Value.IsNotEmpty())
                 {
-                    listViewItem.Font = new Font(Font, System.Drawing.FontStyle.Bold);
+                    listViewItem.Font = new Font(Font, FontStyle.Bold);
                 }
                 ChildControl.Items.Add(listViewItem);
             }

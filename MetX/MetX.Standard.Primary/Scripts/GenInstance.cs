@@ -273,6 +273,7 @@ namespace MetX.Standard.Primary.Scripts
             }
         }
 
+        /*
         public string ProcessCommandWithPathParameters(string command, string lineFunction, string currScriptLine)
         {
             var filePath = currScriptLine
@@ -286,6 +287,7 @@ namespace MetX.Standard.Primary.Scripts
             _targetGenArea.Lines.Add($"{lineFunction}(@\"{resolvedFilePath}\");");
             return resolvedFilePath;
         }
+        */
 
         private void SetArea(string areaName)
         {

@@ -6,7 +6,7 @@ public class SlidePanel<TControl, TState> : SlidePanelBase
     where TControl : Control
     where TState : new()
 {
-    public TControl Child => (TControl) base.ChildControl;
+    public TControl Child => (TControl) ChildControl;
     public TState State { get; set; }
 
     public SlidePanel(TState state = default)

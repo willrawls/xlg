@@ -43,7 +43,7 @@ namespace XLG.QuickScripts.Generated
                             if(attribute.Name.ToString() == "MapTo" ||
                                attribute.Name.ToString() == "MapToAttribute")
                             {
-                                this.Candidates.Add(typeDeclarationSyntax);
+                                Candidates.Add(typeDeclarationSyntax);
                             }
                         }
                     }

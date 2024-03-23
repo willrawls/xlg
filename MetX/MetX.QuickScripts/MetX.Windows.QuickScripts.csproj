@@ -2,16 +2,17 @@
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>XLG.QuickScripts</RootNamespace>
 		<AssemblyName>xlgQuickScripts</AssemblyName>
 		<TieredPGO>true</TieredPGO>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -39,6 +40,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="MetX.QuickScripts.csproj.DotSettings" />
+		<None Remove="MetX.Windows.QuickScripts.csproj.DotSettings" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -49,7 +51,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
-		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
+		<PackageReference Include="NHotPhrase.WindowsForms" Version="62.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Content Include="Settings.ico" />

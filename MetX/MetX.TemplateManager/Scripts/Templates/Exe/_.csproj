@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>//~~NameInstance~~//</RootNamespace>
     <StartupObject>//~~NameInstance~~//.Program</StartupObject>
     <Authors>//~~UserName~~//</Authors>

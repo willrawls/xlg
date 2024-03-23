@@ -14,11 +14,13 @@ namespace MetX.Windows.Controls
         /// <param name="caller"></param>
         /// <param name="scriptToRun"></param>
         /// <param name="targetOutput"></param>
-        void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput);
+        void RunQuickScript(IRunQuickScript caller, XlgQuickScript scriptToRun, IShowText targetOutput);
 
         /// <summary>
         /// The provided window for output
         /// </summary>
-        ToolWindow Window { get; set; }
+        IToolWindow ToolWindow { get; set; }
+
+        void Progress(int index = -1);
     }
 }

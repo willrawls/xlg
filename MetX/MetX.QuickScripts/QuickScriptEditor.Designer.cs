@@ -41,7 +41,6 @@ namespace XLG.QuickScripts
             ScriptEditor = new QuickScriptControl();
             TopPanel = new System.Windows.Forms.TableLayoutPanel();
             label10 = new System.Windows.Forms.Label();
-            label14 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             BrowseDestinationFilePath = new System.Windows.Forms.Button();
@@ -58,15 +57,19 @@ namespace XLG.QuickScripts
             TemplateFolderPath = new System.Windows.Forms.TextBox();
             CloneTemplateButton = new System.Windows.Forms.Button();
             SliceAt = new System.Windows.Forms.ComboBox();
-            DiceAt = new System.Windows.Forms.ComboBox();
             QuickScriptName = new System.Windows.Forms.TextBox();
             CloneScriptButton = new System.Windows.Forms.Button();
             DeleteScriptButton = new System.Windows.Forms.Button();
             label6 = new System.Windows.Forms.Label();
+            panel2 = new System.Windows.Forms.Panel();
+            label8 = new System.Windows.Forms.Label();
+            DiceAt = new System.Windows.Forms.ComboBox();
             label7 = new System.Windows.Forms.Label();
-            GitHubButton = new System.Windows.Forms.Button();
             FeedbackButton = new System.Windows.Forms.Button();
+            GitHubButton = new System.Windows.Forms.Button();
             ScriptEditorHelpButton = new System.Windows.Forms.Button();
+            label9 = new System.Windows.Forms.Label();
+            TargetFramework = new System.Windows.Forms.TextBox();
             LeftPanel = new System.Windows.Forms.TableLayoutPanel();
             QuickScriptList = new System.Windows.Forms.ListBox();
             ActionPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -91,6 +94,7 @@ namespace XLG.QuickScripts
             FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             statusStrip1.SuspendLayout();
             TopPanel.SuspendLayout();
+            panel2.SuspendLayout();
             LeftPanel.SuspendLayout();
             ActionPanel.SuspendLayout();
             SuspendLayout();
@@ -133,23 +137,22 @@ namespace XLG.QuickScripts
             ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             ScriptEditor.IsIconBarVisible = true;
             ScriptEditor.IsReadOnly = false;
-            ScriptEditor.Location = new System.Drawing.Point(426, 254);
+            ScriptEditor.Location = new System.Drawing.Point(426, 274);
             ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             ScriptEditor.Name = "ScriptEditor";
-            ScriptEditor.Size = new System.Drawing.Size(818, 496);
+            ScriptEditor.Size = new System.Drawing.Size(818, 476);
             ScriptEditor.TabIndex = 0;
             // 
             // TopPanel
             // 
             TopPanel.ColumnCount = 6;
-            TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             TopPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 4F));
             TopPanel.Controls.Add(label10, 0, 2);
-            TopPanel.Controls.Add(label14, 0, 7);
             TopPanel.Controls.Add(label2, 0, 6);
             TopPanel.Controls.Add(label5, 0, 5);
             TopPanel.Controls.Add(BrowseDestinationFilePath, 4, 4);
@@ -166,20 +169,22 @@ namespace XLG.QuickScripts
             TopPanel.Controls.Add(TemplateFolderPath, 1, 5);
             TopPanel.Controls.Add(CloneTemplateButton, 3, 5);
             TopPanel.Controls.Add(SliceAt, 1, 6);
-            TopPanel.Controls.Add(DiceAt, 1, 7);
             TopPanel.Controls.Add(QuickScriptName, 1, 2);
             TopPanel.Controls.Add(CloneScriptButton, 3, 2);
             TopPanel.Controls.Add(DeleteScriptButton, 4, 2);
             TopPanel.Controls.Add(label6, 0, 1);
-            TopPanel.Controls.Add(label7, 0, 8);
-            TopPanel.Controls.Add(GitHubButton, 4, 7);
-            TopPanel.Controls.Add(FeedbackButton, 3, 7);
-            TopPanel.Controls.Add(ScriptEditorHelpButton, 4, 8);
+            TopPanel.Controls.Add(panel2, 2, 6);
+            TopPanel.Controls.Add(label7, 0, 9);
+            TopPanel.Controls.Add(FeedbackButton, 3, 6);
+            TopPanel.Controls.Add(GitHubButton, 4, 6);
+            TopPanel.Controls.Add(ScriptEditorHelpButton, 4, 9);
+            TopPanel.Controls.Add(label9, 0, 7);
+            TopPanel.Controls.Add(TargetFramework, 1, 7);
             TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             TopPanel.ForeColor = System.Drawing.Color.WhiteSmoke;
             TopPanel.Location = new System.Drawing.Point(426, 0);
             TopPanel.Name = "TopPanel";
-            TopPanel.RowCount = 9;
+            TopPanel.RowCount = 10;
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4F));
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -188,9 +193,9 @@ namespace XLG.QuickScripts
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 9F));
-            TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TopPanel.Size = new System.Drawing.Size(818, 250);
+            TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TopPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TopPanel.Size = new System.Drawing.Size(818, 270);
             TopPanel.TabIndex = 25;
             // 
             // label10
@@ -203,23 +208,13 @@ namespace XLG.QuickScripts
             label10.TabIndex = 41;
             label10.Text = "Name:";
             // 
-            // label14
-            // 
-            label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label14.Location = new System.Drawing.Point(3, 184);
-            label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(79, 30);
-            label14.TabIndex = 32;
-            label14.Text = "Dice at:";
-            // 
             // label2
             // 
             label2.Dock = System.Windows.Forms.DockStyle.Fill;
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label2.Location = new System.Drawing.Point(3, 154);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(79, 30);
+            label2.Size = new System.Drawing.Size(89, 30);
             label2.TabIndex = 27;
             label2.Text = "Slice at:";
             // 
@@ -229,7 +224,7 @@ namespace XLG.QuickScripts
             label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label5.Location = new System.Drawing.Point(3, 124);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(79, 30);
+            label5.Size = new System.Drawing.Size(89, 30);
             label5.TabIndex = 14;
             label5.Text = "Template:";
             // 
@@ -265,9 +260,9 @@ namespace XLG.QuickScripts
             // DestinationParam
             // 
             DestinationParam.Dock = System.Windows.Forms.DockStyle.Fill;
-            DestinationParam.Location = new System.Drawing.Point(196, 97);
+            DestinationParam.Location = new System.Drawing.Point(206, 97);
             DestinationParam.Name = "DestinationParam";
-            DestinationParam.Size = new System.Drawing.Size(518, 20);
+            DestinationParam.Size = new System.Drawing.Size(508, 20);
             DestinationParam.TabIndex = 9;
             DestinationParam.Enter += DestinationParam_Enter;
             // 
@@ -277,7 +272,7 @@ namespace XLG.QuickScripts
             DestinationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             DestinationList.FormattingEnabled = true;
             DestinationList.Items.AddRange(new object[] { "File", "Folder", "Clipboard", "Text Box", "Notepad" });
-            DestinationList.Location = new System.Drawing.Point(88, 97);
+            DestinationList.Location = new System.Drawing.Point(98, 97);
             DestinationList.Name = "DestinationList";
             DestinationList.Size = new System.Drawing.Size(102, 21);
             DestinationList.TabIndex = 8;
@@ -289,7 +284,7 @@ namespace XLG.QuickScripts
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label3.Location = new System.Drawing.Point(3, 94);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(79, 30);
+            label3.Size = new System.Drawing.Size(89, 30);
             label3.TabIndex = 5;
             label3.Text = "Output:";
             // 
@@ -299,7 +294,7 @@ namespace XLG.QuickScripts
             label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label1.Location = new System.Drawing.Point(3, 64);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(79, 30);
+            label1.Size = new System.Drawing.Size(89, 30);
             label1.TabIndex = 0;
             label1.Text = "Input:";
             // 
@@ -309,7 +304,7 @@ namespace XLG.QuickScripts
             InputList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             InputList.FormattingEnabled = true;
             InputList.Items.AddRange(new object[] { "File", "File pattern", "Folder", "Clipboard", "Database Query", "Web Address", "None" });
-            InputList.Location = new System.Drawing.Point(88, 67);
+            InputList.Location = new System.Drawing.Point(98, 67);
             InputList.Name = "InputList";
             InputList.Size = new System.Drawing.Size(102, 21);
             InputList.TabIndex = 4;
@@ -318,9 +313,9 @@ namespace XLG.QuickScripts
             // InputParam
             // 
             InputParam.Dock = System.Windows.Forms.DockStyle.Fill;
-            InputParam.Location = new System.Drawing.Point(196, 67);
+            InputParam.Location = new System.Drawing.Point(206, 67);
             InputParam.Name = "InputParam";
-            InputParam.Size = new System.Drawing.Size(518, 20);
+            InputParam.Size = new System.Drawing.Size(508, 20);
             InputParam.TabIndex = 5;
             InputParam.Enter += InputParam_Enter;
             InputParam.Leave += InputParam_Leave;
@@ -372,9 +367,9 @@ namespace XLG.QuickScripts
             // 
             TopPanel.SetColumnSpan(TemplateFolderPath, 2);
             TemplateFolderPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            TemplateFolderPath.Location = new System.Drawing.Point(88, 127);
+            TemplateFolderPath.Location = new System.Drawing.Point(98, 127);
             TemplateFolderPath.Name = "TemplateFolderPath";
-            TemplateFolderPath.Size = new System.Drawing.Size(626, 20);
+            TemplateFolderPath.Size = new System.Drawing.Size(616, 20);
             TemplateFolderPath.TabIndex = 12;
             // 
             // CloneTemplateButton
@@ -396,30 +391,20 @@ namespace XLG.QuickScripts
             // 
             SliceAt.FormattingEnabled = true;
             SliceAt.Items.AddRange(new object[] { "End of line", "Equal sign", "Colon", "Tab", "Pipe", "Space" });
-            SliceAt.Location = new System.Drawing.Point(88, 157);
+            SliceAt.Location = new System.Drawing.Point(98, 157);
             SliceAt.Name = "SliceAt";
             SliceAt.Size = new System.Drawing.Size(102, 21);
             SliceAt.TabIndex = 15;
             SliceAt.SelectedIndexChanged += SliceAt_SelectedIndexChanged;
-            // 
-            // DiceAt
-            // 
-            DiceAt.FormattingEnabled = true;
-            DiceAt.Items.AddRange(new object[] { "Space", "Tab", "Equal sign", "Colon", "Pipe", "End of line" });
-            DiceAt.Location = new System.Drawing.Point(88, 187);
-            DiceAt.Name = "DiceAt";
-            DiceAt.Size = new System.Drawing.Size(102, 21);
-            DiceAt.TabIndex = 16;
-            DiceAt.SelectedIndexChanged += DiceAt_SelectedIndexChanged;
             // 
             // QuickScriptName
             // 
             QuickScriptName.BackColor = System.Drawing.SystemColors.Control;
             TopPanel.SetColumnSpan(QuickScriptName, 2);
             QuickScriptName.Dock = System.Windows.Forms.DockStyle.Fill;
-            QuickScriptName.Location = new System.Drawing.Point(88, 37);
+            QuickScriptName.Location = new System.Drawing.Point(98, 37);
             QuickScriptName.Name = "QuickScriptName";
-            QuickScriptName.Size = new System.Drawing.Size(626, 20);
+            QuickScriptName.Size = new System.Drawing.Size(616, 20);
             QuickScriptName.TabIndex = 2;
             // 
             // CloneScriptButton
@@ -465,34 +450,48 @@ namespace XLG.QuickScripts
             label6.TabIndex = 2;
             label6.Text = "Script Properties";
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(label8);
+            panel2.Controls.Add(DiceAt);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(206, 157);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(508, 24);
+            panel2.TabIndex = 10000000;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label8.Location = new System.Drawing.Point(3, -3);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(58, 18);
+            label8.TabIndex = 17;
+            label8.Text = "Dice at:";
+            // 
+            // DiceAt
+            // 
+            DiceAt.FormattingEnabled = true;
+            DiceAt.Items.AddRange(new object[] { "Space", "Tab", "Equal sign", "Colon", "Pipe", "End of line" });
+            DiceAt.Location = new System.Drawing.Point(67, -2);
+            DiceAt.Name = "DiceAt";
+            DiceAt.Size = new System.Drawing.Size(102, 21);
+            DiceAt.TabIndex = 16;
+            DiceAt.SelectedIndexChanged += DiceAt_SelectedIndexChanged;
+            // 
             // label7
             // 
             label7.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             label7.AutoSize = true;
             TopPanel.SetColumnSpan(label7, 4);
             label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            label7.Location = new System.Drawing.Point(0, 224);
+            label7.Location = new System.Drawing.Point(0, 248);
             label7.Margin = new System.Windows.Forms.Padding(0);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(144, 26);
             label7.TabIndex = 2;
             label7.Text = "Script Editor";
-            // 
-            // GitHubButton
-            // 
-            GitHubButton.BackColor = System.Drawing.Color.Lavender;
-            GitHubButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            GitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            GitHubButton.ForeColor = System.Drawing.Color.White;
-            GitHubButton.Image = Properties.Resources.github_fill;
-            GitHubButton.Location = new System.Drawing.Point(769, 185);
-            GitHubButton.Margin = new System.Windows.Forms.Padding(1);
-            GitHubButton.Name = "GitHubButton";
-            GitHubButton.Size = new System.Drawing.Size(44, 28);
-            GitHubButton.TabIndex = 45;
-            GitHubButton.TabStop = false;
-            GitHubButton.UseVisualStyleBackColor = false;
-            GitHubButton.Click += GitHubButton_Click;
             // 
             // FeedbackButton
             // 
@@ -501,7 +500,7 @@ namespace XLG.QuickScripts
             FeedbackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             FeedbackButton.ForeColor = System.Drawing.Color.White;
             FeedbackButton.Image = Properties.Resources.feedback_fill;
-            FeedbackButton.Location = new System.Drawing.Point(718, 185);
+            FeedbackButton.Location = new System.Drawing.Point(718, 155);
             FeedbackButton.Margin = new System.Windows.Forms.Padding(1);
             FeedbackButton.Name = "FeedbackButton";
             FeedbackButton.Size = new System.Drawing.Size(49, 28);
@@ -510,6 +509,22 @@ namespace XLG.QuickScripts
             FeedbackButton.UseVisualStyleBackColor = false;
             FeedbackButton.Click += FeedbackButton_Click;
             // 
+            // GitHubButton
+            // 
+            GitHubButton.BackColor = System.Drawing.Color.Lavender;
+            GitHubButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            GitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            GitHubButton.ForeColor = System.Drawing.Color.White;
+            GitHubButton.Image = Properties.Resources.github_fill;
+            GitHubButton.Location = new System.Drawing.Point(769, 155);
+            GitHubButton.Margin = new System.Windows.Forms.Padding(1);
+            GitHubButton.Name = "GitHubButton";
+            GitHubButton.Size = new System.Drawing.Size(44, 28);
+            GitHubButton.TabIndex = 45;
+            GitHubButton.TabStop = false;
+            GitHubButton.UseVisualStyleBackColor = false;
+            GitHubButton.Click += GitHubButton_Click;
+            // 
             // ScriptEditorHelpButton
             // 
             ScriptEditorHelpButton.BackColor = System.Drawing.Color.Lavender;
@@ -517,13 +532,30 @@ namespace XLG.QuickScripts
             ScriptEditorHelpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ScriptEditorHelpButton.ForeColor = System.Drawing.Color.White;
             ScriptEditorHelpButton.Image = Properties.Resources.question_fill;
-            ScriptEditorHelpButton.Location = new System.Drawing.Point(769, 215);
+            ScriptEditorHelpButton.Location = new System.Drawing.Point(769, 245);
             ScriptEditorHelpButton.Margin = new System.Windows.Forms.Padding(1);
             ScriptEditorHelpButton.Name = "ScriptEditorHelpButton";
-            ScriptEditorHelpButton.Size = new System.Drawing.Size(44, 34);
+            ScriptEditorHelpButton.Size = new System.Drawing.Size(44, 28);
             ScriptEditorHelpButton.TabIndex = 17;
             ScriptEditorHelpButton.UseVisualStyleBackColor = false;
             ScriptEditorHelpButton.Click += ScriptEditorHelpButton_Click;
+            // 
+            // label9
+            // 
+            label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label9.Location = new System.Drawing.Point(3, 184);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(89, 30);
+            label9.TabIndex = 10000001;
+            label9.Text = "Framework";
+            // 
+            // TargetFramework
+            // 
+            TargetFramework.Location = new System.Drawing.Point(98, 187);
+            TargetFramework.Name = "TargetFramework";
+            TargetFramework.Size = new System.Drawing.Size(100, 20);
+            TargetFramework.TabIndex = 10000002;
             // 
             // LeftPanel
             // 
@@ -829,7 +861,7 @@ namespace XLG.QuickScripts
             // 
             panel1.BackColor = System.Drawing.Color.White;
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            panel1.Location = new System.Drawing.Point(426, 250);
+            panel1.Location = new System.Drawing.Point(426, 270);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(818, 4);
             panel1.TabIndex = 27;
@@ -865,6 +897,8 @@ namespace XLG.QuickScripts
             statusStrip1.PerformLayout();
             TopPanel.ResumeLayout(false);
             TopPanel.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             LeftPanel.ResumeLayout(false);
             LeftPanel.PerformLayout();
             ActionPanel.ResumeLayout(false);
@@ -897,7 +931,6 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Button BrowseTemplateFolderPathButton;
         private System.Windows.Forms.TextBox TemplateFolderPath;
         private System.Windows.Forms.Button CloneTemplateButton;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox SliceAt;
         private System.Windows.Forms.ComboBox DiceAt;
@@ -931,5 +964,9 @@ namespace XLG.QuickScripts
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel RestageTemplatesButton;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox TargetFramework;
     }
 }

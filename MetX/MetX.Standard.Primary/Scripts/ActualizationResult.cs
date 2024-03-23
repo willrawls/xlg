@@ -79,7 +79,7 @@ namespace MetX.Standard.Primary.Scripts
             sb.AppendLine("-----[ Output Folder ]-----");
             sb.AppendLine($"{Settings.ProjectFolder}");
 
-            if (CompileErrorText.IsEmpty() && !OutputText.Contains(": error "))
+            if (CompileErrorText.IsEmpty() && OutputText != null && !OutputText.Contains(": error "))
             {
                 sb.AppendLine();
                 sb.AppendLine();
@@ -101,6 +101,9 @@ namespace MetX.Standard.Primary.Scripts
             var projectFolder = Settings.ProjectFolder;
             if (projectFolder != @"\")
                 projectFolder += @"\";
+            if (OutputText.IsEmpty())
+                OutputText = "No source output detected. This is an error in Quick scripts.";
+
             var massagedOutputText = OutputText
                     .Replace($"[{this.Settings.ProjectFilePath}]", "")
                     .Replace(projectFolder, "...")

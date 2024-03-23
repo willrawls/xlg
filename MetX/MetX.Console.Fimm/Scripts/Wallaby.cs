@@ -101,7 +101,7 @@ public class Wallaby
     }
     */
 
-    public ActualizationResult RunQuickScript(XlgQuickScript scriptToRun)
+    public ActualizationResult BuildActualizeAndCompileQuickScript(XlgQuickScript scriptToRun)
     {
         if (scriptToRun == null)
         {

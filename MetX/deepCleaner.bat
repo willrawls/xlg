@@ -2,6 +2,7 @@
 rmdir /q /s MetX.Five\bin
 rmdir /q /s MetX.Controls\bin
 rmdir /q /s MetX.Glove.Console\bin
+rmdir /q /s MetX\MetX.Console.Fimm\bin
 rmdir /q /s MetX.Console.Research\bin
 rmdir /q /s MetX.QuickScripts\bin
 rmdir /q /s MetX.Standard.Primary\bin
@@ -20,6 +21,7 @@ rmdir /q /s MetX.Windows\bin
 rmdir /q /s MetX.Five\obj
 rmdir /q /s MetX.Aspects\obj
 rmdir /q /s MetX.Controls\obj
+rmdir /q /s MetX\MetX.Console.Fimm\obj
 rmdir /q /s MetX.Console.Research\obj
 rmdir /q /s MetX.Generators\obj
 rmdir /q /s MetX.Glove.Console\obj

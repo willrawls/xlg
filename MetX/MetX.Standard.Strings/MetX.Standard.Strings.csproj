@@ -4,11 +4,12 @@
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<TieredPGO>true</TieredPGO>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -29,7 +30,7 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<AssemblyVersion>2024.1.*</AssemblyVersion>
 		<Deterministic>false</Deterministic>
-		<FileVersion>2024.1.0.4</FileVersion>
+		<FileVersion>2024.1.0.31</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">
@@ -38,6 +39,9 @@
 		</None>
 	</ItemGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 	  <Optimize>True</Optimize>
 	</PropertyGroup>
 	<ItemGroup>
@@ -49,7 +53,6 @@
 	  <None Remove="Support\**" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Remove="AssocArrayList.cs" />
 	  <Compile Remove="Generics\V1\AssocArrayList.cs" />
 	</ItemGroup>
 	<ItemGroup>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<ApplicationIcon />
 		<OutputType>Exe</OutputType>
@@ -10,11 +10,12 @@
 		<RootNamespace>MetX.Fimm</RootNamespace>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -27,8 +28,8 @@
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Title>William's fifth code genertator. Fimm is Finnish for Five</Title>
-		<AssemblyVersion>2024.1.0.7</AssemblyVersion>
-		<FileVersion>2024.1.0.7</FileVersion>
+		<AssemblyVersion>2024.1.0.65</AssemblyVersion>
+		<FileVersion>2024.1.0.65</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

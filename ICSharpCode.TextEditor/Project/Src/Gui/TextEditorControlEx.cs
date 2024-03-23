@@ -442,7 +442,7 @@ namespace ICSharpCode.TextEditor
             );
 
             mnu.AddToolStripMenuItem("Cop&y",
-                showImages ? Resources.sc_copy : null,
+                null, //showImages ? Resources.sc_copy : null,
                 (sender, e) => DoCopy(),
                 showKeys ? Keys.Control | Keys.C : Keys.None,
                 CanCopy

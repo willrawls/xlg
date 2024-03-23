@@ -21,38 +21,53 @@ namespace MetX.Windows.Controls
         public static readonly List<QuickScriptOutput> OutputWindows = new();
         public static bool ScriptIsRunning { get; private set; }
 
-        private static readonly object MScriptSyncRoot = new();
+        private static readonly object _syncRoot = new();
 
 
         public GuiContext(IGenerationHost host = null) : base(Shared.Dirs.CurrentTemplateFolderPath, host)
         {
         }
 
-        public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output)
+        public static void ViewInNewQuickScriptOutputWindow(IRunQuickScript caller, XlgQuickScript script, string title, string output, IGenerationHost host)
         {
-            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, caller.Window.Host);
+            var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, host);
             OutputWindows.Add(quickScriptOutput);
-            quickScriptOutput.Show(caller.Window);
-            quickScriptOutput.BringToFront();
+
+            if (caller.ToolWindow != null) 
+                caller.ToolWindow.Show(quickScriptOutput);
+            else if(host != null)
+            {
+                quickScriptOutput.Bounds = host.Boundary;
+                quickScriptOutput.Show();
+            }
         }
 
-        public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host)
+        public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
         {
-            var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host);
+            if (text.IsEmpty())
+                return null;
+
+            var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host, putNextToThisWindow);
             OutputWindows.Add(quickScriptOutput);
             return quickScriptOutput;
         }
 
-        public static void RunQuickScript(ScriptRunningWindow caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
+        public static void RunQuickScript(IRunQuickScript caller, XlgQuickScript scriptToRun, IShowText targetOutput, IGenerationHost host)
         {
-            if (caller.InvokeRequired)
+            var callerIsAWinForm = caller is Form;
+            Form callerAsWinForm = null;
             {
-                caller.Invoke(new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript), caller, scriptToRun, targetOutput, host);
-                return;
+                callerAsWinForm = caller as Form;
+                if (callerAsWinForm is {InvokeRequired: true})
+                {
+                    callerAsWinForm.Invoke(
+                        new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript),
+                        caller, scriptToRun, targetOutput, host);
+                    return;
+                }
             }
-
             var lockTaken = false;
-            Monitor.TryEnter(MScriptSyncRoot, ref lockTaken);
+            Monitor.TryEnter(_syncRoot, ref lockTaken);
             if (!lockTaken) return;
 
             try
@@ -62,8 +77,13 @@ namespace MetX.Windows.Controls
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
                     {
-                        MessageBox.Show(caller, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
-                        caller.SetFocus("DestinationParam");
+                        if(callerAsWinForm != null)
+                        {
+                            MessageBox.Show(callerAsWinForm, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
+                            callerAsWinForm.Controls["DestinationParam"]?.Focus();
+                        }
+                        else
+                            MessageBox.Show("Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
                         return;
                     }
 
@@ -73,14 +93,16 @@ namespace MetX.Windows.Controls
                     }
                 }
 
-                var runResult = Run(caller, host.Context, scriptToRun, host, scriptToRun.Destination != QuickScriptDestination.TextBox);
-                if (runResult.InputMissing)
-                    caller.SetFocus("InputParam");
-                //if (runResult.ErrorOutput.IsNotEmpty() && runResult.ErrorOutput.Contains(": error"))
-                //    host.MessageBox.Show(runResult.ErrorOutput);
+                var fireAndForget = scriptToRun.Destination != QuickScriptDestination.TextBox;
+                var runResult = Run(caller, scriptToRun, host, fireAndForget);
+                if (runResult.InputMissing) 
+                    callerAsWinForm?.Controls["InputParam"]?.Focus();
 
-                if (!runResult.KeepGoing || runResult.GatheredOutput.IsEmpty())
+                if (!runResult.KeepGoing || fireAndForget)
                     return;
+
+                if(runResult.GatheredOutput.IsEmpty())
+                    runResult.GatheredOutput = "No output was generated.";
 
                 try
                 {
@@ -89,44 +111,27 @@ namespace MetX.Windows.Controls
                         case QuickScriptDestination.TextBox:
                             if (targetOutput == null)
                             {
+                                CloseAllWindows();
                                 ViewInNewQuickScriptOutputWindow(
                                     caller,
                                     scriptToRun,
                                     scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
-                                    runResult.GatheredOutput);
+                                    runResult.GatheredOutput,
+                                    host);
                             }
                             else
                             {
                                 targetOutput.Title = scriptToRun.Name + " at " + DateTime.Now.ToString("G");
                                 targetOutput.TextToShow = runResult.GatheredOutput;
-                                //targetOutput.TextToShow = runResult.QuickScriptProcessor.Output.ToString();
                             }
 
                             break;
 
                         case QuickScriptDestination.Clipboard:
-                            // Nothing to do. The executable did this
-                            /* 
-                            Clipboard.Clear();
-                            var textForClipboard = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
-                            Clipboard.SetText(textForClipboard);
-                            */
-                            break;
-                        
                         case QuickScriptDestination.Notepad:
-                            // Nothing to do. The executable did this
-                            /*
-                            QuickScriptWorker.ViewFile(caller.Host, runResult.QuickScriptProcessor.Output.FilePath);
-                            */
-                            break;
-
+                        case QuickScriptDestination.Folder:
                         case QuickScriptDestination.File:
-                            // Nothing to do. The executable did this
-                            /*
-                            runResult.QuickScriptProcessor.Output?.Finish();
-                            runResult.QuickScriptProcessor.Output = null;
-                            QuickScriptWorker.ViewFile(caller.Host, scriptToRun.DestinationFilePath);
-                            */
+                            // Nothing to do. The executable does this
                             break;
                     }
                 }
@@ -142,24 +147,30 @@ namespace MetX.Windows.Controls
             finally
             {
                 ScriptIsRunning = false;
-                Monitor.Exit(MScriptSyncRoot);
+                Monitor.Exit(_syncRoot);
             }
         }
 
-        private static RunResult Run(ScriptRunningWindow caller, ContextBase @base, XlgQuickScript scriptToRun, IGenerationHost host, bool fireAndForget)
+        private static RunResult Run(
+            IRunQuickScript caller, 
+            XlgQuickScript scriptToRun, 
+            IGenerationHost host, 
+            bool fireAndForget)
         {
             var wallaby = new Wallaby(host);
-            var result = wallaby.RunQuickScript(scriptToRun);
+            var result = wallaby.BuildActualizeAndCompileQuickScript(scriptToRun);
 
             if (!result.CompileSuccessful)
             {
                 var source = result.OutputFiles["QuickScriptProcessor.cs"].Value;
                 var finalDetails = result.FinalDetails(out var keyLines);
-                
-                var x = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
-                x.Find("|Error");
 
-                ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host);
+                CloseAllWindows();
+                
+                var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
+                sourceCodeWindow?.Find("|Error");
+
+                ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host, sourceCodeWindow);
 
                 return new RunResult
                 {
@@ -171,17 +182,20 @@ namespace MetX.Windows.Controls
             string parameters = result.Settings.Script.AsParameters();
 
             string errorOutput = "";
+            string gatherOutputAndErrors = "";
             if (fireAndForget)
             {
                 FileSystem.FireAndForget(result.DestinationExecutableFilePath, parameters, Environment.GetEnvironmentVariable("TEMP"), ProcessWindowStyle.Hidden);
+            }
+            else
+            {
+                gatherOutputAndErrors = FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden);
             }
 
             var runResult = new RunResult
             {
                 ActualizationResult = result,
-                GatheredOutput = fireAndForget
-                    ? ""
-                    : FileSystem.GatherOutputAndErrors(result.DestinationExecutableFilePath, parameters, out errorOutput, Environment.GetEnvironmentVariable("TEMP"), 30, ProcessWindowStyle.Hidden),
+                GatheredOutput = gatherOutputAndErrors,
                 KeepGoing = true,
                 ErrorOutput = errorOutput,
             };
@@ -194,6 +208,23 @@ namespace MetX.Windows.Controls
             runResult.KeepGoing = true;
             caller.Progress();
             return runResult;
+        }
+
+        public static void CloseAllWindows()
+        {
+            foreach (var window in OutputWindows)
+            {
+                try
+                {
+                    window.Close();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            OutputWindows.Clear();
         }
     }
 }

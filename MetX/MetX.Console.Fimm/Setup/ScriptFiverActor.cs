@@ -43,7 +43,7 @@ public class ScriptFimmActor : FimmActorBase
         var wallaby = new Wallaby(host);
         return new ProcessorResult
         {
-            ActualizationResult = wallaby.RunQuickScript(scriptToRun)
+            ActualizationResult = wallaby.BuildActualizeAndCompileQuickScript(scriptToRun)
         };
     }
 }

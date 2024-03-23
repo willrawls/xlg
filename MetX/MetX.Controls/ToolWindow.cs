@@ -6,10 +6,20 @@ using MetX.Standard.Primary.Interfaces;
 
 namespace MetX.Windows.Controls
 {
-    public partial class ToolWindow : Form //: DockContent
+    public interface IToolWindow
+    {
+        IGenerationHost Host { get; set; }
+        void SetFocus(string controlName);
+        void Show(QuickScriptOutput quickScriptOutput);
+        void Hide();
+    }
+
+    public partial class ToolWindow : Form, IToolWindow
     {
 
         public IGenerationHost Host { get; set; }
+
+        /*
         public static IGenerationHost HostInstance { get; set; }
 
         public static GuiContext SharedContext
@@ -25,6 +35,7 @@ namespace MetX.Windows.Controls
             }
             set => ContextBase.Default = value;
         }
+        */
 
         public ToolWindow()
         {
@@ -37,12 +48,19 @@ namespace MetX.Windows.Controls
             try
             {
                 if (Controls.ContainsKey(controlName))
-                    Controls[controlName].Focus();
+                    Controls[controlName]?.Focus();
             }
             catch (Exception)
             {
                 // Ignore
             }
+        }
+
+        public void Show(QuickScriptOutput quickScriptOutput)
+        {
+            quickScriptOutput.Show(this);
+            quickScriptOutput.BringToFront();
+
         }
 
         public static bool EnableThemes = false;

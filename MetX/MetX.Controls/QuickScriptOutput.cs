@@ -17,55 +17,21 @@ namespace MetX.Windows.Controls
         public IRunQuickScript Scriptr;
         public FileSystemWatcher Watcher;
 
-        public static int LastTopLeftPosition;
+        public static Rectangle LastLocation;
 
-        public Point? MyTopLeftPosition;
-
-        private static Point[] _topLeftPositions;
-        public static Point[] TopLeftPositions
-        {
-            get
-            {
-                if (_topLeftPositions != null) return _topLeftPositions;
-
-                _topLeftPositions = new Point[]
-                {
-                    CalculateTopLeftPosition(5, 5),
-                    CalculateTopLeftPosition(25, 5),
-                    CalculateTopLeftPosition(45, 5),
-                    CalculateTopLeftPosition(65, 5),
-                    CalculateTopLeftPosition(85, 5),
-
-                    CalculateTopLeftPosition(5, 35),
-                    CalculateTopLeftPosition(25, 35),
-                    CalculateTopLeftPosition(45, 35),
-                    CalculateTopLeftPosition(65, 35),
-                    CalculateTopLeftPosition(85, 35),
-
-                    CalculateTopLeftPosition(5, 75),
-                    CalculateTopLeftPosition(25, 75),
-                    CalculateTopLeftPosition(45, 75),
-                    CalculateTopLeftPosition(65, 75),
-                    CalculateTopLeftPosition(85, 75),
-                };
-
-                return _topLeftPositions;
-            }
-        }
-
-        public static Point CalculateTopLeftPosition(int percentX, int percentY)
-        {
-            var onePercentX = Screen.PrimaryScreen.Bounds.Width / 100.0;
-            var onePercentY = Screen.PrimaryScreen.Bounds.Height / 100.0;
-
-            return new Point((int) onePercentX * percentX, (int) onePercentY * percentY);
-        }
+        private const int FIRST_OFFSET_Y = 50;
+        private const int FOLLOWING_OFFSET_Y = 25;
+        
+        private const int FIRST_OFFSET_X = 25;
+        private const int FOLLOWING_OFFSET_X = 15;
+        
+        private static int nextOffsetX = FIRST_OFFSET_X;
+        private static int nextOffsetY = FIRST_OFFSET_Y;
 
         public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output, IGenerationHost host) 
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
-            MyTopLeftPosition = null;
             Output.Text = output;
             Script = script;
             Scriptr = scriptr;
@@ -76,30 +42,63 @@ namespace MetX.Windows.Controls
             }
         }
 
-        public static QuickScriptOutput View(string title, string output, bool addLineNumbers, List<int> keyLines, bool wrapText, IGenerationHost host) 
+        public static QuickScriptOutput View(string title, string output, bool addLineNumbers, List<int> keyLines,
+            bool wrapText, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null) 
         {
             var quickScriptOutput = new QuickScriptOutput(title, output, addLineNumbers, keyLines, wrapText, host);
 
+            Thread.Sleep(1);
             quickScriptOutput.Show();
             Thread.Sleep(1);
             quickScriptOutput.BringToFront();
             Thread.Sleep(1);
-            quickScriptOutput.MoveIntoPosition();
+            quickScriptOutput.MoveIntoPosition(putNextToThisWindow);
             
             return quickScriptOutput;
         }
 
-        private void MoveIntoPosition()
+        private void MoveIntoPosition(QuickScriptOutput putNextToThisWindow = null)
         {
-            if (MyTopLeftPosition == null)
+            if (putNextToThisWindow != null)
             {
-                MyTopLeftPosition = TopLeftPositions[LastTopLeftPosition];
-                LastTopLeftPosition++;
-                if (LastTopLeftPosition > TopLeftPositions.Length - 1)
-                    LastTopLeftPosition = 0;
+                var boundsX = putNextToThisWindow.Bounds.X + putNextToThisWindow.Bounds.Width;
+                var boundsY = putNextToThisWindow.Bounds.Y;
+
+                LastLocation = new Rectangle(
+                    boundsX, boundsY, 
+                    putNextToThisWindow.Width, putNextToThisWindow.Height);
             }
-            Top = MyTopLeftPosition.Value.Y;
-            Left = MyTopLeftPosition.Value.X;
+            else if (LastLocation == Rectangle.Empty)
+            {
+                nextOffsetX = FIRST_OFFSET_X;
+                nextOffsetY = FIRST_OFFSET_Y;
+                LastLocation = Host.Boundary with
+                {
+                    X = Host.Boundary.Left + nextOffsetX, 
+                    Y = Host.Boundary.Top + nextOffsetY,
+                    Width = 700, 
+                    Height = 500
+                };
+            }
+            else
+            {
+                LastLocation = new Rectangle(LastLocation.X + nextOffsetX, LastLocation.Y + nextOffsetY, Width, Height);
+
+                if(LastLocation.Top + 100 > Host.Boundary.Top + Host.Boundary.Height / 2
+                   || LastLocation.Left + 100 > Host.Boundary.Left + Host.Boundary.Width / 2)
+                {
+                    LastLocation = Host.Boundary with
+                    {
+                        X = Host.Boundary.Left + nextOffsetX, 
+                        Y = Host.Boundary.Top + nextOffsetY,
+                    };
+                }
+            }
+
+            nextOffsetX = FOLLOWING_OFFSET_X;
+            nextOffsetY = FOLLOWING_OFFSET_Y;
+
+            Bounds = LastLocation;
         }
 
         public void Find(string toFind)
@@ -133,7 +132,6 @@ namespace MetX.Windows.Controls
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
-            MyTopLeftPosition = null;
             Host = host;
 
             Output.Text = addLineNumbers 
@@ -142,12 +140,6 @@ namespace MetX.Windows.Controls
             Output.WordWrap = wrapText;
             Output.SelectionStart = 0;
             Output.SelectionLength = 0;
-        }
-
-        static QuickScriptOutput()
-        {
-            LastTopLeftPosition = 0;
-            _topLeftPositions = null;
         }
 
         public string Title
@@ -211,7 +203,7 @@ namespace MetX.Windows.Controls
         {
             try
             {
-                Window.Host ??= Host;
+                ToolWindow.Host ??= Host;
                 GuiContext.RunQuickScript(this, Script, null, Host);
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
@@ -268,7 +260,7 @@ namespace MetX.Windows.Controls
             {
                 if (!string.IsNullOrEmpty(Script.InputFilePath))
                 {
-                    Window.Host ??= Host;
+                    ToolWindow.Host ??= Host;
                     Scriptr.RunQuickScript(this, Script, this);
                 }
                 else

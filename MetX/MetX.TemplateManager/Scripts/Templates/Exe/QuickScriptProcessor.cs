@@ -21,16 +21,21 @@ namespace //~~NameInstance~~//
         public string InputText;
         public string DestinationFilePath;
         public string InputFilePath;
-
+        public bool WritingToConsole;
+        public bool WritingToClipboard;
         public bool OpenNotepad;
 
+// ---- Beginning of ClassMembers from script
+
         //~~ClassMembers~~//
+
+// ---- End of ClassMembers from script
 
         public QuickScriptProcessor()
         {
             Output = new StreamBuilder(OutputStringBuilder);
         }
-        
+
         public bool Start()
         {
 //~~Start~~//
@@ -80,8 +85,19 @@ namespace //~~NameInstance~~//
                     default:
                         if (!File.Exists(InputFilePath))
                         {
-                            Console.WriteLine("Input file missing: " + InputFilePath);
-                            return false;
+                            if (Console.IsInputRedirected)
+                            {
+                                using (var sr = new StreamReader(Console.OpenStandardInput(), Console.InputEncoding))
+                                {
+                                    InputText = sr.ReadToEnd();
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Input file missing: " + InputFilePath);
+                                return false;
+                            }
+
                         }
                         else
                         {

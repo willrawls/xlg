@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using MetX.Standard.Library.Extensions;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.IO;

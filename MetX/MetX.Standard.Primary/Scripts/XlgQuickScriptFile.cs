@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Authentication;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Strings;

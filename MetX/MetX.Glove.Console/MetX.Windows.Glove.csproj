@@ -2,17 +2,18 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>XLG.Pipeliner</RootNamespace>
 		<AssemblyName>xlgPipeliner</AssemblyName>
 		<LangVersion>latest</LangVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -72,7 +73,6 @@
 		<None Include="Resources\1421584690_2.png" />
 		<None Include="Resources\1421584694_2.png" />
 		<None Include="Resources\1421584753_Cut.png" />
-		<None Include="Resources\1421584808_Copy.png" />
 		<None Include="Resources\1421584898_clipboard.png" />
 		<None Include="Resources\1421584916_Noun_Project_100Icon_10px_grid-06-48.png" />
 		<None Include="Resources\1421584946_file-48.png" />
@@ -109,8 +109,8 @@
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
-		<PackageReference Include="NHotPhrase" Version="6.0.0" />
-		<PackageReference Include="NHotPhrase.WindowsForms" Version="6.0.0" />
+		<PackageReference Include="NHotPhrase" Version="62.0.0" />
+		<PackageReference Include="NHotPhrase.WindowsForms" Version="62.0.0" />
 		<ProjectReference Include="..\MetX.Console.Fimm\MetX.Console.Fimm.csproj" />
 		<ProjectReference Include="..\MetX.Windows\MetX.Windows.csproj" />
 		<Compile Update="Properties\Settings.Designer.cs">

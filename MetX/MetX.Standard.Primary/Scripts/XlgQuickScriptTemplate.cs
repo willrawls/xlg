@@ -41,7 +41,7 @@ namespace MetX.Standard.Primary.Scripts
                 }
                 else
                 {
-                    asset.RelativePath = "";
+                    asset.RelativePath = ".";
                 }
             }
 
@@ -161,6 +161,7 @@ namespace MetX.Standard.Primary.Scripts
             result.Settings.Answers["Guid Project 1"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Project 2"].Value = Guid.NewGuid().ToString("D");
             result.Settings.Answers["Guid Solution"].Value = Guid.NewGuid().ToString("D");
+            result.Settings.Answers["TargetFramework"].Value = result.Settings.Script.TargetFramework;
 
             var generationInstance = result.Settings.GeneratedAreas;
             generationInstance.ParseAndBuildAreas();

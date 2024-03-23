@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>//~~TargetFramework~~//</TargetFramework>
     <RootNamespace>//~~NameInstance~~//</RootNamespace>
     <StartupObject>//~~NameInstance~~//.Program</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>

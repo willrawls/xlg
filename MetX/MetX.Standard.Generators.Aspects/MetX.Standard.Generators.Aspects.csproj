@@ -2,10 +2,11 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>latest</LangVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>7.2023.5</Version>
+		<Version>8.2024.1</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -17,8 +18,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.4</AssemblyVersion>
-		<FileVersion>2024.1.0.4</FileVersion>
+		<AssemblyVersion>2024.1.0.23</AssemblyVersion>
+		<FileVersion>2024.1.0.23</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />

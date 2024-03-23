@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <AssemblyVersion>2024.1.0.27</AssemblyVersion>
+    <FileVersion>2024.1.0.27</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_LangVersion.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_PackageReference.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Reference.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX.Standard.Generators\MetX.Standard.Generators.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />
+    <ProjectReference Include="..\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Generation\CSharp\Project\Pieces\Emit\EqualsFalse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\Emit\EqualsTrue.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\Emit\Missing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\EmptyClient.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\FullClient.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\GenerateToPath\EqualsBlank.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\GenerateToPath\EqualsGenerated.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\GenerateToPath\Missing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\LangVersion\EqualsBlank.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\LangVersion\EqualsXyz.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Generation\CSharp\Project\Pieces\LangVersion\Missing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

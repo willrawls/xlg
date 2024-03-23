@@ -140,7 +140,7 @@ else
     if(word.Length > 0) d[""previous""] += word[0] + "", "";
 
 // The following two lines are equivalent
-    Output.AppendLine(""\""Example\"":\t\"" + number + \"" (\"" + word[0] + ""): \"""" + line + ""\"""");
+    Output.AppendLine(""\""Example\"":\\t"" + number + "" ("" + (word.Length <= 0 ? string.Empty : word[0]) + ""): \"""" + line + ""\"""");
     ~~:""Example"":\t%number% (%word 0%): ""%line%""
 // Note that you cannot say %word[0]% at this time.
 
