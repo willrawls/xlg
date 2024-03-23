@@ -41,7 +41,7 @@ namespace MetX.Standard.Primary.Scripts
                 }
                 else
                 {
-                    asset.RelativePath = "";
+                    asset.RelativePath = ".";
                 }
             }
 

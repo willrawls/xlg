@@ -657,7 +657,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                         var scriptsFolder = Shared.Dirs.Paths[Constants.ScriptsFolderName].Value;
                         var templateFolder = Path.Combine(scriptsFolder, "Templates", result.Settings.Script.TemplateName);
 
-                        if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder", ref newCloneFolder) == MessageBoxResult.OK)
+                        if (Host.InputBox("FOLDER TO CLONE INTO", "Path to the target folder (will be copied to clipboard)", ref newCloneFolder) == MessageBoxResult.OK)
                         {
                             Shared.Dirs.Settings.ToSettingsFile(Constants.ProcessorsFolderName, newCloneFolder);
 
@@ -673,9 +673,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
                             LastSuccessfulCloneFolder = newCloneFolder;
                             FileSystem.CleanFolder(newCloneFolder);
                             Directory.CreateDirectory(newCloneFolder);
-
-                            throw new Exception(
-                                "<<< Start Here. Need to resolve all files first (ActualizeCode?)");
+                            Clipboard.SetText(newCloneFolder);
 
                             FileSystem.DeepCopy(templateFolder, newCloneFolder);
 
@@ -752,6 +750,7 @@ public partial class QuickScriptEditor : ScriptRunningWindow
             DestinationExecutableFilePath = Path.Combine(settings.BinPath, filename),
             OutputText = ""
         };
+
         ShowPostBuildMenu(result, false, PostBuildAction.OpenBinFolderInCommandLine);
     }
 
