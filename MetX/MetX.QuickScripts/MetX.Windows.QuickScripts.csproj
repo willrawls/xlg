@@ -40,6 +40,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="MetX.QuickScripts.csproj.DotSettings" />
+		<None Remove="MetX.Windows.QuickScripts.csproj.DotSettings" />
 	</ItemGroup>
 
 	<ItemGroup>

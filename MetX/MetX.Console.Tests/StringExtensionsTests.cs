@@ -1,7 +1,5 @@
 ﻿using MetX.Standard.Strings;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace MetX.Console.Tests;
 
 [TestClass]
