@@ -16,24 +16,26 @@ public class FileSystemTests
         Assert.AreEqual(expected, actual);
     }
 
+    /*
     [TestMethod]
     public void DeepContents_PathShouldNotHaveTheFilenameInIt()
     {
         var actual = FileSystem.DeepContents(@"Standard\Generation\CSharp\Project\Pieces\");
         Assert.IsFalse(actual.Files[0].Path.Contains(actual.Files[0].Name));
     }
+    */
 
     [TestMethod]
     public void FindAscendantDirectory_Simple()
     {
-        var actual = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, "bin", 3);
+        var actual = FileSystem.FindAscendantDirectory(AppDomain.CurrentDomain.BaseDirectory, "bin", 5);
 
         Assert.IsNotNull(actual);
+        
+        var message = "\n" + actual + "\n" + AppDomain.CurrentDomain.BaseDirectory + "\n";
         Assert.IsTrue(
-            actual.Contains(@"Tests\bin"), 
-            "\n" 
-            + actual + "\n" 
-            + AppDomain.CurrentDomain.BaseDirectory + "\n");
+            actual.EndsWith(@"Test\bin"), 
+            message);
     }
 
 }

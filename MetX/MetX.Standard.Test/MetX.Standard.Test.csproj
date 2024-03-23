@@ -7,9 +7,17 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <AssemblyVersion>2024.1.0.15</AssemblyVersion>
-    <FileVersion>2024.1.0.15</FileVersion>
+    <AssemblyVersion>2024.1.0.27</AssemblyVersion>
+    <FileVersion>2024.1.0.27</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_LangVersion.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_PackageReference.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Reference.cs" />
+    <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />

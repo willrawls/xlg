@@ -10,7 +10,7 @@ public class TestHelpers
         var options = CsProjGeneratorOptions
                 .Defaults()
                 .WithFramework(genFramework)
-                .WithPathToTemplatesFolder(@"..\..\..\..\MetX.Standard.Generators\Templates")
+                .WithPathToTemplatesFolder(@"..\..\..\MetX.Standard.Generators\Templates")
                 .WithOutputPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product"))
             ;
 

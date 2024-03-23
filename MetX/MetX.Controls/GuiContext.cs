@@ -44,6 +44,9 @@ namespace MetX.Windows.Controls
 
         public static QuickScriptOutput ViewInNewQuickScriptOutputWindow(string title, string text, bool addLineNumbers, List<int> keyLines, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
         {
+            if (text.IsEmpty())
+                return null;
+
             var quickScriptOutput = QuickScriptOutput.View(title, text, addLineNumbers, keyLines, !addLineNumbers, host, putNextToThisWindow);
             OutputWindows.Add(quickScriptOutput);
             return quickScriptOutput;
@@ -165,7 +168,7 @@ namespace MetX.Windows.Controls
                 CloseAllWindows();
                 
                 var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
-                sourceCodeWindow.Find("|Error");
+                sourceCodeWindow?.Find("|Error");
 
                 ViewInNewQuickScriptOutputWindow("Error detail / Compile results", finalDetails, false, null, host, sourceCodeWindow);
 
