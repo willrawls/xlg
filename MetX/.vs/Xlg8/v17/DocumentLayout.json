@@ -1,48 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\io\\filesystemtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\io\\filesystemtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\io\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\io\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\consoleclientcsprojgeneratortests_target_addsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\consoleclientcsprojgeneratortests_target_addsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\consoleclientcsprojgeneratortests_emitcompilergeneratedfiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\consoleclientcsprojgeneratortests_emitcompilergeneratedfiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\generatorscsprojgeneratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\generatorscsprojgeneratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\metxgeneratorsexetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\metxgeneratorsexetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}|MetX.Standard.Generators\\MetX.Standard.Generators.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.generators\\addstaticcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63BC1D54-2674-43E2-8FCD-BFC692DA2BBD}|MetX.Standard.Generators\\MetX.Standard.Generators.csproj|solutionrelative:metx.standard.generators\\addstaticcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\generation\\csharp\\project\\aspectscsprojgeneratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\generation\\csharp\\project\\aspectscsprojgeneratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\generation\\csharp\\project\\igeneratecsproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\generation\\csharp\\project\\igeneratecsproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -50,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -91,136 +50,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FileSystem.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\IO\\FileSystem.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\IO\\FileSystem.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\IO\\FileSystem.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\IO\\FileSystem.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAIwBYAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:43:26.163Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FileSystemTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\IO\\FileSystemTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\IO\\FileSystemTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\IO\\FileSystemTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\IO\\FileSystemTests.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAkwCYAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:42:55.439Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ConsoleClientCsProjGeneratorTests_Target_AddSource.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:42:16.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GeneratorsCsProjGeneratorTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\GeneratorsCsProjGeneratorTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\GeneratorsCsProjGeneratorTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\GeneratorsCsProjGeneratorTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\GeneratorsCsProjGeneratorTests.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:40:55.358Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MetXGeneratorsExeTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\MetXGeneratorsExeTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\MetXGeneratorsExeTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\MetXGeneratorsExeTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\MetXGeneratorsExeTests.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:39:53.703Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\ConsoleClientCsProjGeneratorTests_EmitCompilerGeneratedFiles.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAADgvx4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:36:07.483Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AddStaticCode.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Generators\\AddStaticCode.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Generators\\AddStaticCode.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Generators\\AddStaticCode.cs",
-              "RelativeToolTip": "MetX.Standard.Generators\\AddStaticCode.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:35:49.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TestHelpers.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\TestHelpers.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\TestHelpers.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\TestHelpers.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\TestHelpers.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:34:12.24Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IGenerateCsProj.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Generation\\CSharp\\Project\\IGenerateCsProj.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\Generation\\CSharp\\Project\\IGenerateCsProj.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Generation\\CSharp\\Project\\IGenerateCsProj.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\Generation\\CSharp\\Project\\IGenerateCsProj.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAB0AAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:33:52.458Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AspectsCsProjGeneratorTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\AspectsCsProjGeneratorTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Generation\\CSharp\\Project\\AspectsCsProjGeneratorTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Generation\\CSharp\\Project\\AspectsCsProjGeneratorTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Generation\\CSharp\\Project\\AspectsCsProjGeneratorTests.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T21:33:15.614Z",
-              "EditorCaption": ""
             }
           ]
         },

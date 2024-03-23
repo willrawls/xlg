@@ -4,8 +4,8 @@
 	<TargetFramework>net8.0</TargetFramework>
 	<LangVersion>latest</LangVersion>
 	<IsPackable>false</IsPackable>
-	<AssemblyVersion>2024.1.0.60</AssemblyVersion>
-	<FileVersion>2024.1.0.60</FileVersion>
+	<AssemblyVersion>2024.1.0.62</AssemblyVersion>
+	<FileVersion>2024.1.0.62</FileVersion>
 	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -34,10 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
-    <PackageReference Include="coverlet.collector" Version="6.0.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.2.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
