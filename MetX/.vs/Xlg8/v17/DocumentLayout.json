@@ -19,34 +19,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 10,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LICENSE",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-24T22:18:30.327Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ICSharpCode.TextEditorEx",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-24T22:16:55.83Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -89,11 +63,37 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LICENSE",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
+              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
+              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-03-24T22:25:35.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ICSharpCode.TextEditorEx.csproj",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
+              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
+              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-03-24T22:16:55.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "NuGet.Build.Tasks.Pack.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\Sdks\\NuGet.Build.Tasks.Pack\\buildCrossTargeting\\NuGet.Build.Tasks.Pack.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\Sdks\\NuGet.Build.Tasks.Pack\\buildCrossTargeting\\NuGet.Build.Tasks.Pack.targets",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAMcAAAAAAAAAAAAhwNwAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2024-03-24T22:15:48.123Z",
               "EditorCaption": ""

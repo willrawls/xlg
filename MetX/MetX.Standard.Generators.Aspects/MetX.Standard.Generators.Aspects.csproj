@@ -18,8 +18,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.28</AssemblyVersion>
-		<FileVersion>2024.1.0.28</FileVersion>
+		<AssemblyVersion>2024.1.0.29</AssemblyVersion>
+		<FileVersion>2024.1.0.29</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
