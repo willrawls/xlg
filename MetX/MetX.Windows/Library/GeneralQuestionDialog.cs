@@ -46,6 +46,8 @@ namespace MetX.Windows.Library
             EntryArea = new TEntryArea();
             OkButton = new Button();
             PromptLabel = new Label();
+            
+            ConstructedForm.SizeGripStyle = SizeGripStyle.Show;
 
             ConstructedForm.Text = title;
             PromptLabel.Text = promptText;
@@ -70,8 +72,8 @@ namespace MetX.Windows.Library
             OkButton.SetBounds(9, 60, 75, 35);
             CancelButton.SetBounds(120, 60, 75, 35);
             
-            ConstructedForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            ConstructedForm.StartPosition = FormStartPosition.CenterScreen;
+            ConstructedForm.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            ConstructedForm.StartPosition = FormStartPosition.CenterParent;
             ConstructedForm.MinimizeBox = false;
             ConstructedForm.MaximizeBox = false;
             ConstructedForm.AcceptButton = OkButton;

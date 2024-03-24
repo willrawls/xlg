@@ -3,13 +3,28 @@
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7EFFD36B-54F2-4148-A74F-B46D54A9502D}|..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj|e:\\onedrive\\data\\code\\github\\xlg\\icsharpcode.texteditor\\project\\license||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.windows\\library\\generalquestiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|solutionrelative:metx.windows\\library\\generalquestiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7EFFD36B-54F2-4148-A74F-B46D54A9502D}|..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj|e:\\onedrive\\data\\code\\github\\xlg\\icsharpcode.texteditor\\project\\icsharpcode.texteditorex.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.windows\\library\\chooseenumfromlistboxdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|solutionrelative:metx.windows\\library\\chooseenumfromlistboxdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\8.0.202\\Sdks\\NuGet.Build.Tasks.Pack\\buildCrossTargeting\\NuGet.Build.Tasks.Pack.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\toolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\toolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\quickscriptcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\quickscriptcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\completiondataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\completiondataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -64,38 +79,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LICENSE",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\LICENSE",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-24T22:25:35.487Z",
+              "Title": "GeneralQuestionDialog.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\GeneralQuestionDialog.cs",
+              "RelativeDocumentMoniker": "MetX.Windows\\Library\\GeneralQuestionDialog.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\GeneralQuestionDialog.cs",
+              "RelativeToolTip": "MetX.Windows\\Library\\GeneralQuestionDialog.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAcwDcAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T23:03:06.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ICSharpCode.TextEditorEx.csproj",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-24T22:16:55.83Z",
+              "Title": "ChooseEnumFromListBoxDialog.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
+              "RelativeDocumentMoniker": "MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
+              "RelativeToolTip": "MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAADMAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T23:02:33.681Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "NuGet.Build.Tasks.Pack.targets",
-              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\Sdks\\NuGet.Build.Tasks.Pack\\buildCrossTargeting\\NuGet.Build.Tasks.Pack.targets",
-              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\Sdks\\NuGet.Build.Tasks.Pack\\buildCrossTargeting\\NuGet.Build.Tasks.Pack.targets",
-              "ViewState": "AQIAAMcAAAAAAAAAAAAhwNwAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2024-03-24T22:15:48.123Z",
+              "Title": "QuickScriptEditor.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\QuickScriptEditor.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
+              "RelativeToolTip": "MetX.QuickScripts\\QuickScriptEditor.cs",
+              "ViewState": "AQIAAGMCAAAAAAAAAAAcwHYCAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:59:49.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ToolWindow.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\ToolWindow.cs",
+              "RelativeDocumentMoniker": "MetX.Controls\\ToolWindow.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\ToolWindow.cs",
+              "RelativeToolTip": "MetX.Controls\\ToolWindow.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:59:14.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "QuickScriptControl.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\QuickScriptControl.cs",
+              "RelativeDocumentMoniker": "MetX.Controls\\QuickScriptControl.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\QuickScriptControl.cs",
+              "RelativeToolTip": "MetX.Controls\\QuickScriptControl.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:58:58.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CompletionDataProvider.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\CompletionDataProvider.cs",
+              "RelativeDocumentMoniker": "MetX.Controls\\CompletionDataProvider.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\CompletionDataProvider.cs",
+              "RelativeToolTip": "MetX.Controls\\CompletionDataProvider.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:58:47.282Z",
               "EditorCaption": ""
             }
           ]

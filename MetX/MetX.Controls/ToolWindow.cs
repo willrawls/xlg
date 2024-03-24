@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Gui;
-using MetX.Standard.Primary;
+using ICSharpCode.TextEditor;
 using MetX.Standard.Primary.Interfaces;
 
 namespace MetX.Windows.Controls
@@ -101,18 +100,17 @@ namespace MetX.Windows.Controls
                     component.Controls[0].BackColor = scheme.TextBoxBG;
                     component.Controls[0].ForeColor = scheme.TextBoxFG;
                 }
-                else if (component is TextArea)
+                else if (component is TextArea textArea)
                 {
-                    ChangeTheme(scheme, component.Controls);
-                    component.BackColor = scheme.TextBoxBG;
-                    component.ForeColor = scheme.TextBoxFG;
-                    if (component.Controls.Count > 0)
+                    ChangeTheme(scheme, textArea.Controls);
+                    textArea.BackColor = scheme.TextBoxBG;
+                    textArea.ForeColor = scheme.TextBoxFG;
+                    if (textArea.Controls.Count > 0)
                     {
-                        component.Controls[0].BackColor = scheme.TextBoxBG;
-                        component.Controls[0].ForeColor = scheme.TextBoxFG;
+                        textArea.Controls[0].BackColor = scheme.TextBoxBG;
+                        textArea.Controls[0].ForeColor = scheme.TextBoxFG;
                     }
 
-                    var textArea = (TextArea) component;
                     textArea.BackColor = scheme.TextBoxBG;
                     textArea.ForeColor = scheme.TextBoxFG;
                 }

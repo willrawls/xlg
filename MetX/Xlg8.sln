@@ -26,8 +26,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Standard.Generators.Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Research", "MetX.Console.Research\MetX.Console.Research.csproj", "{726899B3-F379-4C09-A937-E5DB0B5BAC04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICSharpCode.TextEditorEx", "..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditorEx.csproj", "{7EFFD36B-54F2-4148-A74F-B46D54A9502D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.TemplateManager", "MetX.TemplateManager\MetX.TemplateManager.csproj", "{C292F88D-8A70-48C2-B89E-377A9A49A2EA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetX.Console.Tests", "MetX.Console.Tests\MetX.Console.Tests.csproj", "{51A7E103-3E71-4A44-8D62-F7E673978063}"
@@ -144,14 +142,6 @@ Global
 		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|x64.ActiveCfg = Release|x64
 		{726899B3-F379-4C09-A937-E5DB0B5BAC04}.Release|x64.Build.0 = Release|x64
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Debug|x64.ActiveCfg = Debug|x64
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Debug|x64.Build.0 = Debug|x64
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|x64.ActiveCfg = Release|x64
-		{7EFFD36B-54F2-4148-A74F-B46D54A9502D}.Release|x64.Build.0 = Release|x64
 		{C292F88D-8A70-48C2-B89E-377A9A49A2EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C292F88D-8A70-48C2-B89E-377A9A49A2EA}.Debug|x64.ActiveCfg = Debug|x64
 		{C292F88D-8A70-48C2-B89E-377A9A49A2EA}.Release|Any CPU.ActiveCfg = Release|Any CPU

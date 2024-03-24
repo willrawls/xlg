@@ -3,9 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Document.HighlightingStrategy;
-using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
-using ICSharpCode.TextEditor.Gui;
+using ICSharpCode.TextEditor;
+using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Primary.Scripts;

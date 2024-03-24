@@ -80,7 +80,7 @@ namespace MetX.Windows.Library
             EntryArea.Top = 125;
             EntryArea.Width = ConstructedForm.Width - EntryArea.Left * 2;
             EntryArea.Height = ConstructedForm.Height - EntryArea.Top * 2;
-
+            
             OkButton.Top = EntryArea.Top + EntryArea.Height + 10;
             CancelButton.Top = OkButton.Top;
 
