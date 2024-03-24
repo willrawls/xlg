@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TieredPGO>true</TieredPGO>
 	<PublishAot>true</PublishAot>
-	<AssemblyVersion>2024.1.0.22</AssemblyVersion>
-	<FileVersion>2024.1.0.22</FileVersion>
+	<AssemblyVersion>2024.1.0.23</AssemblyVersion>
+	<FileVersion>2024.1.0.23</FileVersion>
 	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

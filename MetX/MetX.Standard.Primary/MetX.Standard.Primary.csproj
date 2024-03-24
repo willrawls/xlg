@@ -31,7 +31,7 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<AssemblyVersion>2024.1.*</AssemblyVersion>
 		<Deterministic>false</Deterministic>
-		<FileVersion>2024.1.0.32</FileVersion>
+		<FileVersion>2024.1.0.33</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">

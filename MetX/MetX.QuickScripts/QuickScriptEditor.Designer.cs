@@ -106,41 +106,41 @@ namespace XLG.QuickScripts
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { RunningLabel, toolStripStatusLabel2, ProgressLabel });
-            statusStrip1.Location = new System.Drawing.Point(426, 750);
+            statusStrip1.Location = new System.Drawing.Point(426, 748);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new System.Drawing.Size(818, 26);
+            statusStrip1.Size = new System.Drawing.Size(818, 28);
             statusStrip1.TabIndex = 23;
             statusStrip1.Text = "statusStrip1";
             // 
             // RunningLabel
             // 
             RunningLabel.Name = "RunningLabel";
-            RunningLabel.Size = new System.Drawing.Size(95, 21);
+            RunningLabel.Size = new System.Drawing.Size(104, 23);
             RunningLabel.Text = "Not running";
             // 
             // toolStripStatusLabel2
             // 
             toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            toolStripStatusLabel2.Size = new System.Drawing.Size(22, 21);
+            toolStripStatusLabel2.Size = new System.Drawing.Size(24, 23);
             toolStripStatusLabel2.Text = " | ";
             // 
             // ProgressLabel
             // 
             ProgressLabel.Name = "ProgressLabel";
-            ProgressLabel.Size = new System.Drawing.Size(19, 21);
+            ProgressLabel.Size = new System.Drawing.Size(19, 23);
             ProgressLabel.Text = "0";
             // 
             // ScriptEditor
             // 
             ScriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             ScriptEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ScriptEditor.Font = new System.Drawing.Font("Courier New", 10F);
             ScriptEditor.IsIconBarVisible = true;
             ScriptEditor.IsReadOnly = false;
             ScriptEditor.Location = new System.Drawing.Point(426, 274);
             ScriptEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             ScriptEditor.Name = "ScriptEditor";
-            ScriptEditor.Size = new System.Drawing.Size(818, 476);
+            ScriptEditor.Size = new System.Drawing.Size(818, 474);
             ScriptEditor.TabIndex = 0;
             // 
             // TopPanel
@@ -201,7 +201,7 @@ namespace XLG.QuickScripts
             // label10
             // 
             label10.AutoSize = true;
-            label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label10.Location = new System.Drawing.Point(3, 34);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(52, 18);
@@ -211,7 +211,7 @@ namespace XLG.QuickScripts
             // label2
             // 
             label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label2.Location = new System.Drawing.Point(3, 154);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(89, 30);
@@ -221,7 +221,7 @@ namespace XLG.QuickScripts
             // label5
             // 
             label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label5.Location = new System.Drawing.Point(3, 124);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(89, 30);
@@ -281,7 +281,7 @@ namespace XLG.QuickScripts
             // label3
             // 
             label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label3.Location = new System.Drawing.Point(3, 94);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(89, 30);
@@ -291,7 +291,7 @@ namespace XLG.QuickScripts
             // label1
             // 
             label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label1.Location = new System.Drawing.Point(3, 64);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(89, 30);
@@ -442,7 +442,7 @@ namespace XLG.QuickScripts
             // 
             label6.AutoSize = true;
             TopPanel.SetColumnSpan(label6, 3);
-            label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             label6.Location = new System.Drawing.Point(0, 4);
             label6.Margin = new System.Windows.Forms.Padding(0);
             label6.Name = "label6";
@@ -463,7 +463,7 @@ namespace XLG.QuickScripts
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label8.Location = new System.Drawing.Point(3, -3);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(58, 18);
@@ -485,7 +485,7 @@ namespace XLG.QuickScripts
             label7.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             label7.AutoSize = true;
             TopPanel.SetColumnSpan(label7, 4);
-            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             label7.Location = new System.Drawing.Point(0, 248);
             label7.Margin = new System.Windows.Forms.Padding(0);
             label7.Name = "label7";
@@ -543,7 +543,7 @@ namespace XLG.QuickScripts
             // label9
             // 
             label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             label9.Location = new System.Drawing.Point(3, 184);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(89, 30);
@@ -584,7 +584,7 @@ namespace XLG.QuickScripts
             QuickScriptList.BackColor = System.Drawing.Color.FromArgb(0, 77, 134);
             QuickScriptList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             QuickScriptList.Dock = System.Windows.Forms.DockStyle.Fill;
-            QuickScriptList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            QuickScriptList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             QuickScriptList.ForeColor = System.Drawing.Color.White;
             QuickScriptList.ItemHeight = 20;
             QuickScriptList.Items.AddRange(new object[] { "<Empty this should never be seen>" });
@@ -643,7 +643,7 @@ namespace XLG.QuickScripts
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             linkLabel1.LinkColor = System.Drawing.Color.Aqua;
             linkLabel1.Location = new System.Drawing.Point(3, 0);
             linkLabel1.Name = "linkLabel1";
@@ -656,7 +656,7 @@ namespace XLG.QuickScripts
             // RunQuickScriptLink
             // 
             RunQuickScriptLink.AutoSize = true;
-            RunQuickScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            RunQuickScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             RunQuickScriptLink.ForeColor = System.Drawing.Color.White;
             RunQuickScriptLink.LinkColor = System.Drawing.Color.Yellow;
             RunQuickScriptLink.Location = new System.Drawing.Point(3, 10);
@@ -672,7 +672,7 @@ namespace XLG.QuickScripts
             // SaveLink
             // 
             SaveLink.AutoSize = true;
-            SaveLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            SaveLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             SaveLink.LinkColor = System.Drawing.Color.Aqua;
             SaveLink.Location = new System.Drawing.Point(3, 290);
             SaveLink.Name = "SaveLink";
@@ -687,7 +687,7 @@ namespace XLG.QuickScripts
             // SaveAsLink
             // 
             SaveAsLink.AutoSize = true;
-            SaveAsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            SaveAsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             SaveAsLink.LinkColor = System.Drawing.Color.Aqua;
             SaveAsLink.Location = new System.Drawing.Point(3, 320);
             SaveAsLink.Name = "SaveAsLink";
@@ -702,7 +702,7 @@ namespace XLG.QuickScripts
             // OpenLink
             // 
             OpenLink.AutoSize = true;
-            OpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            OpenLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             OpenLink.LinkColor = System.Drawing.Color.Aqua;
             OpenLink.Location = new System.Drawing.Point(3, 350);
             OpenLink.Name = "OpenLink";
@@ -717,7 +717,7 @@ namespace XLG.QuickScripts
             // NewFileLink
             // 
             NewFileLink.AutoSize = true;
-            NewFileLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            NewFileLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             NewFileLink.LinkColor = System.Drawing.Color.Aqua;
             NewFileLink.Location = new System.Drawing.Point(3, 380);
             NewFileLink.Name = "NewFileLink";
@@ -731,7 +731,7 @@ namespace XLG.QuickScripts
             // FindLink
             // 
             FindLink.AutoSize = true;
-            FindLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            FindLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             FindLink.LinkColor = System.Drawing.Color.White;
             FindLink.Location = new System.Drawing.Point(3, 148);
             FindLink.Name = "FindLink";
@@ -746,7 +746,7 @@ namespace XLG.QuickScripts
             // ReplaceLink
             // 
             ReplaceLink.AutoSize = true;
-            ReplaceLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ReplaceLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             ReplaceLink.LinkColor = System.Drawing.Color.White;
             ReplaceLink.Location = new System.Drawing.Point(3, 174);
             ReplaceLink.Name = "ReplaceLink";
@@ -761,7 +761,7 @@ namespace XLG.QuickScripts
             // NewScriptLink
             // 
             NewScriptLink.AutoSize = true;
-            NewScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            NewScriptLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             NewScriptLink.ForeColor = System.Drawing.Color.White;
             NewScriptLink.LinkColor = System.Drawing.Color.Yellow;
             NewScriptLink.Location = new System.Drawing.Point(3, 230);
@@ -787,7 +787,7 @@ namespace XLG.QuickScripts
             // RestageTemplatesButton
             // 
             RestageTemplatesButton.AutoSize = true;
-            RestageTemplatesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            RestageTemplatesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             RestageTemplatesButton.LinkColor = System.Drawing.Color.Violet;
             RestageTemplatesButton.Location = new System.Drawing.Point(3, 430);
             RestageTemplatesButton.Name = "RestageTemplatesButton";
@@ -801,7 +801,7 @@ namespace XLG.QuickScripts
             // PostBuildActionsLiink
             // 
             PostBuildActionsLiink.AutoSize = true;
-            PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            PostBuildActionsLiink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             PostBuildActionsLiink.ForeColor = System.Drawing.Color.White;
             PostBuildActionsLiink.LinkColor = System.Drawing.Color.Yellow;
             PostBuildActionsLiink.Location = new System.Drawing.Point(3, 40);
@@ -817,7 +817,7 @@ namespace XLG.QuickScripts
             // BuildExeLink
             // 
             BuildExeLink.AutoSize = true;
-            BuildExeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            BuildExeLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             BuildExeLink.ForeColor = System.Drawing.Color.White;
             BuildExeLink.LinkColor = System.Drawing.Color.Yellow;
             BuildExeLink.Location = new System.Drawing.Point(3, 70);
@@ -833,7 +833,7 @@ namespace XLG.QuickScripts
             // ScriptNameLabel
             // 
             ScriptNameLabel.AutoSize = true;
-            ScriptNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ScriptNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             ScriptNameLabel.Location = new System.Drawing.Point(152, 4);
             ScriptNameLabel.Margin = new System.Windows.Forms.Padding(0);
             ScriptNameLabel.Name = "ScriptNameLabel";
@@ -844,7 +844,7 @@ namespace XLG.QuickScripts
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             label4.Location = new System.Drawing.Point(4, 4);
             label4.Margin = new System.Windows.Forms.Padding(0);
             label4.Name = "label4";

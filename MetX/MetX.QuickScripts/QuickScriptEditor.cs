@@ -998,10 +998,9 @@ public partial class QuickScriptEditor : ScriptRunningWindow
     {
         try
         {
-            if (Host?.MessageBox.Show("RESET ALL XLG TEMPLATES?",
-                    "This will reset all the templates in your Documents\\XLG\\ folder to the defaults from the template manager.\n Continue with overwrite?",
-                    MessageBoxChoices.YesNo, MessageBoxStatus.Warning, MessageBoxDefault.Button2
-                    )
+            if (Host?.MessageBox.Show("RESET ALL TEMPLATES?",
+                    "This will reset all the templates in your Documents\\XLG\\ folder to the defaults from the template manager. Proceeding will PERMANENTLY ERASE the contents. This would be useful while development a template and keeping it in the TemplateManager\n Continue with overwrite?",
+                    MessageBoxChoices.YesNo, MessageBoxStatus.Warning, MessageBoxDefault.Button2)
                 != MessageBoxResult.Yes) return;
 
             Shared.Dirs.RestageStaticTemplates();
