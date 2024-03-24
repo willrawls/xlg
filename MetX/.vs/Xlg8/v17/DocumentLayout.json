@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.templatemanager\\metx.templatemanager.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|solutionrelative:metx.templatemanager\\metx.templatemanager.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,6 +55,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MetX.TemplateManager",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\MetX.TemplateManager.csproj",
+              "RelativeDocumentMoniker": "MetX.TemplateManager\\MetX.TemplateManager.csproj",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\MetX.TemplateManager.csproj",
+              "RelativeToolTip": "MetX.TemplateManager\\MetX.TemplateManager.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-03-24T05:42:49.945Z",
+              "EditorCaption": ""
             }
           ]
         },
