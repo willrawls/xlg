@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>//~~NameInstance~~//</RootNamespace>
+    <StartupObject>//~~NameInstance~~//.Program</StartupObject>
+    <Authors>//~~UserName~~//</Authors>
+    <RepositoryUrl>https://github.com///~~UserName~~/////~~NameInstance~~//</RepositoryUrl>
+    <PackageProjectUrl>https://github.com///~~UserName~~/////~~NameInstance~~//</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>
