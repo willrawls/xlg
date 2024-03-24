@@ -18,21 +18,14 @@
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2024.1.0.29</AssemblyVersion>
-		<FileVersion>2024.1.0.29</FileVersion>
+		<AssemblyVersion>2024.1.0.38</AssemblyVersion>
+		<FileVersion>2024.1.0.38</FileVersion>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
 		<Reference Include="System.Windows.Forms" />

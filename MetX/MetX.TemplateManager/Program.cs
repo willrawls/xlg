@@ -1,2 +1,1 @@
-﻿
-Console.WriteLine("Hello, World!");
+﻿Console.WriteLine("Ding 1");

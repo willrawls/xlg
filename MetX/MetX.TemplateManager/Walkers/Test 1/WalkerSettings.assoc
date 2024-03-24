@@ -1,0 +1,3 @@
+SINGLE_FILE_OUTPUT = True
+DATABASE_CONNECTION_STRING = Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\OneDrive\Data\code\GitHub\xlg\MetX\TestFiles\TestDbForTest1WalkerTemplate.accdb
+XML_FILE_OUTPUT = True
