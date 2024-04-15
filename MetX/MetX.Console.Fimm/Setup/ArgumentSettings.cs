@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Setup;
@@ -13,6 +14,7 @@ public class ArgumentSettings
     public string Path{ get; set; }
     public string ConnectionString{ get; set; }
     public List<string> AdditionalArguments { get; set; } = new();
+    public IGenerationHost Host;
 
     public bool IsValid
     {

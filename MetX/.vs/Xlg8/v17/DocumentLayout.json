@@ -3,27 +3,123 @@
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\templateactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\templateactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\fiveactorabstractbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\fiveactorabstractbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.tests\\walkers\\test 1\\test1generatexlgdocfromwalkertemplatefolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|solutionrelative:metx.console.tests\\walkers\\test 1\\test1generatexlgdocfromwalkertemplatefolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.tests\\fimm\\testhost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|solutionrelative:metx.console.tests\\fimm\\testhost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\ron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\ron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\argumentnoun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\argumentnoun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\consolegenerationhost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\consolegenerationhost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\argumentverb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\argumentverb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\metx.console.fimm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\metx.console.fimm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\commondirectoryhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\commondirectoryhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\walker\\databasetemplateeditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\walker\\databasetemplateeditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\walker\\databasewalkerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\walker\\databasewalkerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\walker\\databasewalkerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\walker\\databasewalkerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.glove.console\\metx.windows.glove.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|solutionrelative:metx.glove.console\\metx.windows.glove.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.templatemanager\\walkers\\test 1\\database\\finish.txt.fimm||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|solutionrelative:metx.templatemanager\\walkers\\test 1\\database\\finish.txt.fimm||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.templatemanager\\walkers\\test 1\\database\\begin.txt.fimm||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C292F88D-8A70-48C2-B89E-377A9A49A2EA}|MetX.TemplateManager\\MetX.TemplateManager.csproj|solutionrelative:metx.templatemanager\\walkers\\test 1\\database\\begin.txt.fimm||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\pipelines\\xlgsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\pipelines\\xlgsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\pipelines\\xlgsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\pipelines\\xlgsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\dataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\pipelines\\codegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\pipelines\\codegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|solutionrelative:metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|solutionrelative:metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.windows\\library\\generalquestiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|solutionrelative:metx.windows\\library\\generalquestiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.windows\\library\\chooseenumfromlistboxdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\metx.windows\\library\\chooseenumfromlistboxdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F4912CC-39DB-4D7D-A788-C9DD949117F4}|MetX.Windows\\MetX.Windows.csproj|solutionrelative:metx.windows\\library\\chooseenumfromlistboxdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\toolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\metx.controls\\toolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\toolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\quickscriptcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\metx.controls\\quickscriptcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\quickscriptcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.controls\\completiondataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\metx.controls\\completiondataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E449E05-F155-4952-BF75-F8268E8695CF}|MetX.Controls\\MetX.Windows.Controls.csproj|solutionrelative:metx.controls\\completiondataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -34,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,20 +174,341 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TestHost.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\Fimm\\TestHost.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Tests\\Fimm\\TestHost.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\Fimm\\TestHost.cs",
+              "RelativeToolTip": "MetX.Console.Tests\\Fimm\\TestHost.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T05:15:43.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TemplateActor.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\TemplateActor.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\TemplateActor.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\TemplateActor.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\TemplateActor.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T05:06:06.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FiveActorAbstractBase.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\FiveActorAbstractBase.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\FiveActorAbstractBase.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\FiveActorAbstractBase.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\FiveActorAbstractBase.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAvwGQAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T05:03:19.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ArgumentNoun.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ArgumentNoun.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\ArgumentNoun.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ArgumentNoun.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\ArgumentNoun.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T05:00:52.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Ron.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\Ron.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\Ron.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\Ron.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\Ron.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAD4v18AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T05:00:12.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Program.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Program.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Program.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Program.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAADYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:54:50.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Test1GenerateXlgDocFromWalkerTemplateFolder.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\Walkers\\Test 1\\Test1GenerateXlgDocFromWalkerTemplateFolder.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Tests\\Walkers\\Test 1\\Test1GenerateXlgDocFromWalkerTemplateFolder.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\Walkers\\Test 1\\Test1GenerateXlgDocFromWalkerTemplateFolder.cs",
+              "RelativeToolTip": "MetX.Console.Tests\\Walkers\\Test 1\\Test1GenerateXlgDocFromWalkerTemplateFolder.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:51:51.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ArgumentVerb.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ArgumentVerb.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\ArgumentVerb.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ArgumentVerb.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\ArgumentVerb.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:56:48.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ConsoleGenerationHost.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ConsoleGenerationHost.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\ConsoleGenerationHost.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\ConsoleGenerationHost.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\ConsoleGenerationHost.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:58:29.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CommonDirectoryHelper.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\CommonDirectoryHelper.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\CommonDirectoryHelper.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\CommonDirectoryHelper.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\CommonDirectoryHelper.cs",
+              "ViewState": "AQIAALgAAAAAAAAAAAAswL4AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:46:27.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DatabaseWalkerForm.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "RelativeToolTip": "MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:45:14.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "QuickScriptEditor.cs [Design]",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\QuickScriptEditor.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs [Design]",
+              "RelativeToolTip": "MetX.QuickScripts\\QuickScriptEditor.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:44:03.424Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MetX.Windows.Glove",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\MetX.Windows.Glove.csproj",
+              "RelativeDocumentMoniker": "MetX.Glove.Console\\MetX.Windows.Glove.csproj",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\MetX.Windows.Glove.csproj",
+              "RelativeToolTip": "MetX.Glove.Console\\MetX.Windows.Glove.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-15T04:43:44.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MetX.Console.Fimm",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\MetX.Console.Fimm.csproj",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\MetX.Console.Fimm.csproj",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\MetX.Console.Fimm.csproj",
+              "RelativeToolTip": "MetX.Console.Fimm\\MetX.Console.Fimm.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-15T04:42:43.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DatabaseTemplateEditorForm.cs [Design]",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseTemplateEditorForm.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\Walker\\DatabaseTemplateEditorForm.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseTemplateEditorForm.cs [Design]",
+              "RelativeToolTip": "MetX.QuickScripts\\Walker\\DatabaseTemplateEditorForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:45:46.56Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Finish.txt.fimm",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\Walkers\\Test 1\\Database\\Finish.txt.fimm",
+              "RelativeDocumentMoniker": "MetX.TemplateManager\\Walkers\\Test 1\\Database\\Finish.txt.fimm",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\Walkers\\Test 1\\Database\\Finish.txt.fimm",
+              "RelativeToolTip": "MetX.TemplateManager\\Walkers\\Test 1\\Database\\Finish.txt.fimm",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-04-15T04:41:50.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "QuickScriptEditor.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\QuickScriptEditor.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
+              "RelativeToolTip": "MetX.QuickScripts\\QuickScriptEditor.cs",
+              "ViewState": "AQIAAM4DAAAAAAAAAADgv+0DAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:59:49.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "DatabaseWalkerForm.cs [Design]",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs [Design]",
+              "RelativeToolTip": "MetX.QuickScripts\\Walker\\DatabaseWalkerForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:45:20.689Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Begin.txt.fimm",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\Walkers\\Test 1\\Database\\Begin.txt.fimm",
+              "RelativeDocumentMoniker": "MetX.TemplateManager\\Walkers\\Test 1\\Database\\Begin.txt.fimm",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.TemplateManager\\Walkers\\Test 1\\Database\\Begin.txt.fimm",
+              "RelativeToolTip": "MetX.TemplateManager\\Walkers\\Test 1\\Database\\Begin.txt.fimm",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-04-15T04:41:38.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "XlgSettings.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\XlgSettings.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\Pipelines\\XlgSettings.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\XlgSettings.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\Pipelines\\XlgSettings.cs",
+              "ViewState": "AQIAADMAAAAAAAAAAAAIwEAAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:35:43.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "DataService.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\DataService.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\DataService.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\DataService.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\DataService.cs",
+              "ViewState": "AQIAAHAAAAAAAAAAAAAAAIwAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:37:36.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "xlgSource.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\xlgSource.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\Pipelines\\xlgSource.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\xlgSource.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\Pipelines\\xlgSource.cs",
+              "ViewState": "AQIAAH4AAAAAAAAAAAD4v5cAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:31:35.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "GloveMain.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs",
+              "RelativeDocumentMoniker": "MetX.Glove.Console\\GloveMain.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs",
+              "RelativeToolTip": "MetX.Glove.Console\\GloveMain.cs",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAuwKgAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:30:53.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "GloveMain.cs [Design]",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs",
+              "RelativeDocumentMoniker": "MetX.Glove.Console\\GloveMain.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs [Design]",
+              "RelativeToolTip": "MetX.Glove.Console\\GloveMain.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:30:41.695Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CodeGenerator.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\CodeGenerator.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\Pipelines\\CodeGenerator.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Pipelines\\CodeGenerator.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\Pipelines\\CodeGenerator.cs",
+              "ViewState": "AQIAAK0AAAAAAAAAAAD4v8EAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:28:46.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "GeneralQuestionDialog.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\GeneralQuestionDialog.cs",
               "RelativeDocumentMoniker": "MetX.Windows\\Library\\GeneralQuestionDialog.cs",
               "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\GeneralQuestionDialog.cs",
               "RelativeToolTip": "MetX.Windows\\Library\\GeneralQuestionDialog.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAcwDcAAAApAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-24T23:03:06.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 26,
               "Title": "ChooseEnumFromListBoxDialog.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
               "RelativeDocumentMoniker": "MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
@@ -99,25 +516,11 @@
               "RelativeToolTip": "MetX.Windows\\Library\\ChooseEnumFromListBoxDialog.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAAADMAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T23:02:33.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-24T23:02:33.681Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QuickScriptEditor.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
-              "RelativeDocumentMoniker": "MetX.QuickScripts\\QuickScriptEditor.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
-              "RelativeToolTip": "MetX.QuickScripts\\QuickScriptEditor.cs",
-              "ViewState": "AQIAAGMCAAAAAAAAAAAcwHYCAAA8AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T22:59:49.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 27,
               "Title": "ToolWindow.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\ToolWindow.cs",
               "RelativeDocumentMoniker": "MetX.Controls\\ToolWindow.cs",
@@ -125,12 +528,11 @@
               "RelativeToolTip": "MetX.Controls\\ToolWindow.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAH4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T22:59:14.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-24T22:59:14.711Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 28,
               "Title": "QuickScriptControl.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\QuickScriptControl.cs",
               "RelativeDocumentMoniker": "MetX.Controls\\QuickScriptControl.cs",
@@ -138,12 +540,11 @@
               "RelativeToolTip": "MetX.Controls\\QuickScriptControl.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T22:58:58.431Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-24T22:58:58.431Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 29,
               "Title": "CompletionDataProvider.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Controls\\CompletionDataProvider.cs",
               "RelativeDocumentMoniker": "MetX.Controls\\CompletionDataProvider.cs",
@@ -151,8 +552,7 @@
               "RelativeToolTip": "MetX.Controls\\CompletionDataProvider.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T22:58:47.282Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-24T22:58:47.282Z"
             }
           ]
         },

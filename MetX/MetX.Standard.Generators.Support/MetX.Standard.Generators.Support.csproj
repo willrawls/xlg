@@ -20,8 +20,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.27</AssemblyVersion>
-		<FileVersion>2024.1.0.27</FileVersion>
+		<AssemblyVersion>2024.2.0.28</AssemblyVersion>
+		<FileVersion>2024.2.0.28</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

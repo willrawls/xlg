@@ -63,6 +63,7 @@ public static class Ron
         new FileActor(ArgumentVerb.Walk, ArgumentNoun.Xml),
         new FileActor(ArgumentVerb.Walk, ArgumentNoun.Xsd),
         new FileActor(ArgumentVerb.Walk, ArgumentNoun.Json),
+
         new FileActor(ArgumentVerb.Add, ArgumentNoun.Xml),
         new FileActor(ArgumentVerb.Add, ArgumentNoun.Xsd),
         new FileActor(ArgumentVerb.Add, ArgumentNoun.Json),
@@ -84,7 +85,10 @@ public static class Ron
 
         new TemplateActor(ArgumentVerb.Add, ArgumentNoun.Template),
         new TemplateActor(ArgumentVerb.Remove, ArgumentNoun.Template),
-        new TemplateActor(ArgumentVerb.Clone, ArgumentNoun.Template)
+        new TemplateActor(ArgumentVerb.Clone, ArgumentNoun.Template),
+        new TemplateActor(ArgumentVerb.Walk, ArgumentNoun.TemplateFolder),
+        new TemplateActor(ArgumentVerb.Walk, ArgumentNoun.Database),
+        new TemplateActor(ArgumentVerb.Walk, ArgumentNoun.Folder),
     };
 
     public static FimmActorBase GetActor(this ArgumentVerb verb, ArgumentNoun noun)

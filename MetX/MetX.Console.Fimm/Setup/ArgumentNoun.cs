@@ -13,5 +13,6 @@ public enum ArgumentNoun
     Project,
     GenGen,
     Library,
-    Template
+    Template,
+    TemplateFolder
 }
