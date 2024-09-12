@@ -31,6 +31,8 @@
 	<ItemGroup>
 	  <Compile Remove="AssocArrayList.cs" />
 	  <Compile Remove="Generics\V1\AssocArrayList.cs" />
+	  <Compile Remove="Interfaces\IListSerializeToXml.cs" />
+	  <Compile Remove="Interfaces\ISerializeToXml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
