@@ -1,6 +1,6 @@
 using System.Text;
 using MetX.Fimm.Glove.Providers;
-using MetX.Standard.Library.ML;
+using MetX.Standard.Strings.ML;
 
 namespace MetX.Fimm.Glove.Gatherers
 {

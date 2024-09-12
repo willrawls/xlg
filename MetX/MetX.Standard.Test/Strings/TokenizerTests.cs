@@ -1,4 +1,5 @@
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Test.Strings;
 

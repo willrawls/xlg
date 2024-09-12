@@ -3,88 +3,92 @@
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.library\\ml\\serializestoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|solutionrelative:metx.standard.library\\ml\\serializestoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\assoctimelineextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\assoctimelineextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\generics\\v3\\assoccube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\generics\\v3\\assoccube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\assoccubeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\assoccubeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\interfaces\\ilistlikeserializetoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\interfaces\\ilistlikeserializetoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\assocsheetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\assocsheetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\generics\\assoccubeoftitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\generics\\assoccubeoftitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assoc\\assoccubetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assoc\\assoccubetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assoc\\assocarraytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assoc\\assocarraytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assocarraylisttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assocarraylisttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.tests\\listserializestoxmltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|solutionrelative:metx.console.tests\\listserializestoxmltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assoc\\assoctimelinetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assoc\\assoctimelinetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\associativearrayextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\associativearrayextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assoc\\assocsheettests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assoc\\assocsheettests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assocarraylistofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assocarraylistofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\generics\\assocsheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\generics\\assocsheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\commonsettingshelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\commonsettingshelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\ml\\xml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\ml\\xml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\assocarray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\assocarray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\assoc\\assoccubetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\assoc\\assoccubetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\extensions\\assoctimelineextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\extensions\\assoctimelineextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.tests\\listserializestoxmltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{51A7E103-3E71-4A44-8D62-F7E673978063}|MetX.Console.Tests\\MetX.Console.Tests.csproj|solutionrelative:metx.console.tests\\listserializestoxmltests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\extensions\\assocsheetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\extensions\\assocsheetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.library\\metx.standard.library.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|solutionrelative:metx.standard.library\\metx.standard.library.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\extensions\\assoccubeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\extensions\\assoccubeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\walker\\listviewslidepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\walker\\listviewslidepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.test\\testingclasses\\george1darray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\testingclasses\\george1darray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\fordouble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\fordouble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\setup\\templateactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\setup\\templateactor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\forlong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\forlong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\metx.standard.strings.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\metx.standard.strings.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\forlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\forlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\metx.windows.quickscripts.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\metx.windows.quickscripts.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\forint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\forint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D554998C-4943-4167-8D2C-A7320A9E5A2F}|MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj|solutionrelative:metx.quickscripts\\quickscripteditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\extensions\\enumhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\extensions\\enumhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.library\\encryption\\crypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F21CCCB8-2B43-4E5D-80F6-3EBD3FE22150}|MetX.Standard.Library\\MetX.Standard.Library.csproj|solutionrelative:metx.standard.library\\encryption\\crypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\ml\\xlgurn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\ml\\xlgurn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\ml\\inmemorycache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\ml\\inmemorycache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\providers\\dataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\providers\\dataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\ml\\ilistserializetoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\ml\\ilistserializetoxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\ml\\xsl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\ml\\xsl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -94,8 +98,268 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AssocSheetExtensions.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocSheetExtensions.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\AssocSheetExtensions.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocSheetExtensions.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\AssocSheetExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:25:34.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AssocTimelineExtensions.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocTimelineExtensions.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\AssocTimelineExtensions.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocTimelineExtensions.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\AssocTimelineExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:25:34.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AssocCubeExtensions.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocCubeExtensions.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\AssocCubeExtensions.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssocCubeExtensions.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\AssocCubeExtensions.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAAAFAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:25:30.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AssociativeArrayExtensions.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssociativeArrayExtensions.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\AssociativeArrayExtensions.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\AssociativeArrayExtensions.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\AssociativeArrayExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:23:25.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AssocSheet.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\AssocSheet.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Generics\\AssocSheet.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\AssocSheet.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Generics\\AssocSheet.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAIwEQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:22:29.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AssocSheetTests.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
+              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
+              "ViewState": "AgIAAKAAAAAAAAAAAAD4v7cAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:22:07.284Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Xml.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\Xml.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\ML\\Xml.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\Xml.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\ML\\Xml.cs",
+              "ViewState": "AgIAAB8BAAAAAAAAAAAIwDsBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:17:54.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MetX.Standard.Library",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\MetX.Standard.Library.csproj",
+              "RelativeDocumentMoniker": "MetX.Standard.Library\\MetX.Standard.Library.csproj",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\MetX.Standard.Library.csproj",
+              "RelativeToolTip": "MetX.Standard.Library\\MetX.Standard.Library.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-09-12T18:16:43.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ListSerializesToXmlTests.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\ListSerializesToXmlTests.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Tests\\ListSerializesToXmlTests.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\ListSerializesToXmlTests.cs",
+              "RelativeToolTip": "MetX.Console.Tests\\ListSerializesToXmlTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:15:20.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ListViewSlidePanel.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\ListViewSlidePanel.cs",
+              "RelativeDocumentMoniker": "MetX.QuickScripts\\Walker\\ListViewSlidePanel.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\Walker\\ListViewSlidePanel.cs",
+              "RelativeToolTip": "MetX.QuickScripts\\Walker\\ListViewSlidePanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:39.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AssocCubeTests.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
+              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAD4v2IAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:26.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EnumHelper.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\EnumHelper.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\EnumHelper.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\EnumHelper.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\EnumHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:09.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ForInt.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForInt.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\ForInt.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForInt.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\ForInt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:09.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ForList.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForList.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\ForList.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForList.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\ForList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:09.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ForLong.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForLong.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\ForLong.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForLong.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\ForLong.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:09.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ForDouble.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForDouble.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Extensions\\ForDouble.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Extensions\\ForDouble.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\Extensions\\ForDouble.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:14:04.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Crypt.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\Encryption\\Crypt.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Library\\Encryption\\Crypt.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\Encryption\\Crypt.cs",
+              "RelativeToolTip": "MetX.Standard.Library\\Encryption\\Crypt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:12:59.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "XlgUrn.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\XlgUrn.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\ML\\XlgUrn.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\XlgUrn.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\ML\\XlgUrn.cs",
+              "ViewState": "AgIAAHwBAAAAAAAAAAD4v5UBAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:12:33.41Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DataProvider.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Providers\\DataProvider.cs",
+              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\Providers\\DataProvider.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Providers\\DataProvider.cs",
+              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\Providers\\DataProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:12:26.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "InMemoryCache.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\InMemoryCache.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\ML\\InMemoryCache.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\InMemoryCache.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\ML\\InMemoryCache.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T18:12:21.86Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -138,275 +402,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SerializesToXml.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\ML\\SerializesToXml.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Library\\ML\\SerializesToXml.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\ML\\SerializesToXml.cs",
-              "RelativeToolTip": "MetX.Standard.Library\\ML\\SerializesToXml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 21,
+              "Title": "Xsl.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\Xsl.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\ML\\Xsl.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\Xsl.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\ML\\Xsl.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T18:00:02.51Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IListLikeSerializeToXml.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Interfaces\\IListLikeSerializeToXml.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Interfaces\\IListLikeSerializeToXml.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Interfaces\\IListLikeSerializeToXml.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Interfaces\\IListLikeSerializeToXml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:54:45.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AssocCubeOfTItem.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\AssocCubeOfTItem.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Generics\\AssocCubeOfTItem.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\AssocCubeOfTItem.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Generics\\AssocCubeOfTItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:52:26.674Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AssocCube.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\V3\\AssocCube.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Generics\\V3\\AssocCube.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\Generics\\V3\\AssocCube.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Generics\\V3\\AssocCube.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAkwBkAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:51:56.941Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AssocArrayTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocArrayTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocArrayTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocArrayTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocArrayTests.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAD4v0YAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:32:48.552Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AssocArrayListTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\AssocArrayListTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\AssocArrayListTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\AssocArrayListTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\AssocArrayListTests.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAIwCoAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:32:30.773Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AssocTimelineTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocTimelineTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocTimelineTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocTimelineTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocTimelineTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:27:58.743Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AssocSheetTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocSheetTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:27:53.521Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AssocCubeTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Assoc\\AssocCubeTests.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAD4v2IAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:21:53.912Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AssocArrayListOfTTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\AssocArrayListOfTTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\AssocArrayListOfTTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\Strings\\AssocArrayListOfTTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\AssocArrayListOfTTests.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:26:51.144Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "AssocArray.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\AssocArray.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\AssocArray.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\AssocArray.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\AssocArray.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAkwJoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:25:53.137Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CommonSettingsHelper.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\CommonSettingsHelper.cs",
-              "RelativeDocumentMoniker": "MetX.Console.Fimm\\CommonSettingsHelper.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\CommonSettingsHelper.cs",
-              "RelativeToolTip": "MetX.Console.Fimm\\CommonSettingsHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:23:32.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ListSerializesToXmlTests.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\ListSerializesToXmlTests.cs",
-              "RelativeDocumentMoniker": "MetX.Console.Tests\\ListSerializesToXmlTests.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Tests\\ListSerializesToXmlTests.cs",
-              "RelativeToolTip": "MetX.Console.Tests\\ListSerializesToXmlTests.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAIwCcAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:18:15.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AssocTimelineExtensions.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocTimelineExtensions.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\Extensions\\AssocTimelineExtensions.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocTimelineExtensions.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\Extensions\\AssocTimelineExtensions.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAIwDYAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:23:20.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AssocSheetExtensions.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocSheetExtensions.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\Extensions\\AssocSheetExtensions.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocSheetExtensions.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\Extensions\\AssocSheetExtensions.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAIwFAAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:22:42.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "George1DArray.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\TestingClasses\\George1DArray.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\TestingClasses\\George1DArray.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Test\\TestingClasses\\George1DArray.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\TestingClasses\\George1DArray.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:18:26.376Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TemplateActor.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\TemplateActor.cs",
-              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Setup\\TemplateActor.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Console.Fimm\\Setup\\TemplateActor.cs",
-              "RelativeToolTip": "MetX.Console.Fimm\\Setup\\TemplateActor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:17:43.911Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "AssocCubeExtensions.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocCubeExtensions.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\Extensions\\AssocCubeExtensions.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Primary\\Extensions\\AssocCubeExtensions.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\Extensions\\AssocCubeExtensions.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAIwFEAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T17:17:16.39Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MetX.Standard.Strings",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\MetX.Standard.Strings.csproj",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\MetX.Standard.Strings.csproj",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\MetX.Standard.Strings.csproj",
-              "RelativeToolTip": "MetX.Standard.Strings\\MetX.Standard.Strings.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-09-12T17:16:56.659Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "MetX.Windows.QuickScripts",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj",
-              "RelativeDocumentMoniker": "MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj",
-              "RelativeToolTip": "MetX.QuickScripts\\MetX.Windows.QuickScripts.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-09-12T17:14:17.595Z",
+              "WhenOpened": "2024-09-12T18:11:08.871Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
-              "Title": "QuickScriptEditor.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
-              "RelativeDocumentMoniker": "MetX.QuickScripts\\QuickScriptEditor.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.QuickScripts\\QuickScriptEditor.cs",
-              "RelativeToolTip": "MetX.QuickScripts\\QuickScriptEditor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "IListSerializeToXml.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\IListSerializeToXml.cs",
+              "RelativeDocumentMoniker": "MetX.Standard.Strings\\ML\\IListSerializeToXml.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Strings\\ML\\IListSerializeToXml.cs",
+              "RelativeToolTip": "MetX.Standard.Strings\\ML\\IListSerializeToXml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T17:40:32.88Z",
+              "WhenOpened": "2024-09-12T18:09:23.817Z",
               "EditorCaption": ""
             }
           ]

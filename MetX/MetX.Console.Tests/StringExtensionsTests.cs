@@ -1,4 +1,5 @@
 ﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Console.Tests;
 

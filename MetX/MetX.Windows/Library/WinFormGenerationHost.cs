@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Windows.Library;
 

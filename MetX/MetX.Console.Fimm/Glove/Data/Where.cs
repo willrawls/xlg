@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Glove.Data
 {

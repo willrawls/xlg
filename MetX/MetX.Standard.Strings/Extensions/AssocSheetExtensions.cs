@@ -1,10 +1,9 @@
-﻿/*using System;
-using MetX.Standard.Library.ML;
-using MetX.Standard.Strings;
+﻿using System;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
+using MetX.Standard.Strings.ML;
 
-namespace MetX.Standard.Primary.Extensions;
+namespace MetX.Standard.Strings.Extensions;
 
 public static class AssocSheetExtensions
 {
@@ -12,11 +11,11 @@ public static class AssocSheetExtensions
 
     public static string ToXml<TFirstAxis, TSecondAxis, TItem>(
         this AssocSheet<TFirstAxis, TSecondAxis, TItem> assocSheet, Type[] extraTypes = null)
-        where TFirstAxis : class, IAssocItem 
+        where TFirstAxis : class, IAssocItem , new()
         where TSecondAxis : class, IAssocItem, new()
         where TItem : class, IAssocItem, new()
     {
-        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.Count == 0)
             return "";
 
         extraTypes = Xml.ExtraTypes<TFirstAxis, TSecondAxis, TItem, string, AssocSheet<TFirstAxis, TSecondAxis, TItem>>(extraTypes);
@@ -25,8 +24,8 @@ public static class AssocSheetExtensions
     }
 
     public static AssocSheet<TFirstAxis, TSecondAxis, TItem> FromXml<TFirstAxis, TSecondAxis, TItem>(string xml)
-        where TFirstAxis : class, IAssocItem 
-        where TSecondAxis : class, IAssocItem
+        where TFirstAxis : class, IAssocItem, new() 
+        where TSecondAxis : class, IAssocItem, new()
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
@@ -40,7 +39,7 @@ public static class AssocSheetExtensions
     public static string ToXml<T>(this AssocSheet<T> assocSheet)
         where T : class, IAssocItem, new()
     {
-        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.Count == 0)
             return "";
 
         var xml = Xml.ToXml(assocSheet);
@@ -59,10 +58,10 @@ public static class AssocSheetExtensions
     #region One type for axis, one for item
     public static string ToXml<TAxis, TItem>(
         this AssocSheet<TAxis, TItem> assocSheet)
-        where TAxis : class, IAssocItem 
+        where TAxis : class, IAssocItem , new()
         where TItem : class, IAssocItem, new()
     {
-        if (assocSheet == null || assocSheet.FirstAxis.Count == 0)
+        if (assocSheet == null || assocSheet.Count == 0)
             return "";
 
         var xml = Xml.ToXml(assocSheet);
@@ -70,7 +69,7 @@ public static class AssocSheetExtensions
     }
 
     public static AssocSheet<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
-        where TAxis : class, IAssocItem 
+        where TAxis : class, IAssocItem , new()
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
@@ -78,4 +77,4 @@ public static class AssocSheetExtensions
             : Xml.FromXml<AssocSheet<TAxis, TItem>>(xml);
     }
     #endregion
-}*/
+}

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using MetX.Fimm.Glove.Pipelines;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Glove
 {

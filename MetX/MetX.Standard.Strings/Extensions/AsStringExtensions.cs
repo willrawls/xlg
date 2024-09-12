@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
 
-namespace MetX.Standard.Strings
+namespace MetX.Standard.Strings.Extensions
 {
     public static class AsStringExtensions
     {

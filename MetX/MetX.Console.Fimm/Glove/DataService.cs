@@ -10,6 +10,7 @@ using MetX.Fimm.Glove.Providers;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Metadata;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Glove
 {

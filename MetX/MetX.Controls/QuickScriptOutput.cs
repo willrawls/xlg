@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Windows.Controls
 {

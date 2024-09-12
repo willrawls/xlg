@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Strings.Generics.V1;
 

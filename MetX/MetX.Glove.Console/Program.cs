@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using MetX.Fimm.Glove.Pipelines;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace XLG.Pipeliner
 {

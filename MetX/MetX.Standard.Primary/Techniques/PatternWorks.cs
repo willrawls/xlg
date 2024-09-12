@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
-using MetX.Standard.Library.ML;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.ML;
 
 #pragma warning disable 1591
 

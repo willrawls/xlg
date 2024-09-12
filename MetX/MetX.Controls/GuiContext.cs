@@ -11,6 +11,7 @@ using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 #pragma warning disable 414
 namespace MetX.Windows.Controls

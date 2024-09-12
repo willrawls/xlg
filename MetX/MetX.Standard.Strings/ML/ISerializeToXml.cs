@@ -1,4 +1,4 @@
-namespace MetX.Standard.Library.ML
+namespace MetX.Standard.Strings.ML
 {
     public interface ISerializeToXml<T> where T : SerializesToXml<T>, new()
     {

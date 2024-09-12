@@ -7,10 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.XPath;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
-namespace MetX.Standard.Library.ML
+namespace MetX.Standard.Strings.ML
 {
 
     /// <summary>This class is automatically made available as urn:xlg while rendering xsl pages from any of the MetX.Web xsl rendering classes. Each function provides some string, date, and totaling capability as well as some basic variable storage that can survive template calls.

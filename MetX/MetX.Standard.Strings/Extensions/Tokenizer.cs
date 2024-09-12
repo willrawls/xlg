@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MetX.Standard.Strings;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Standard.Strings
+namespace MetX.Standard.Strings.Extensions
 {
     /// <summary>
     ///     String extension methods for finding and returning a substring based on delimiter placement and position.

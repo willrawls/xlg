@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Primary.Scripts
 {

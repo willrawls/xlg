@@ -1,4 +1,4 @@
-﻿using MetX.Standard.Library.ML;
+﻿using MetX.Standard.Strings.ML;
 
 namespace MetX.Standard.Test.TestingClasses;
 

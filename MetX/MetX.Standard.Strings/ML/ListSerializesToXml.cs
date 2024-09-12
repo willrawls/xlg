@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
-namespace MetX.Standard.Library.ML;
+namespace MetX.Standard.Strings.ML;
 
 public abstract class ListSerializesToXml<TParent, TChild> : List<TChild>, IListSerializeToXml<TParent, TChild>
     where TParent : ListSerializesToXml<TParent, TChild>, new()

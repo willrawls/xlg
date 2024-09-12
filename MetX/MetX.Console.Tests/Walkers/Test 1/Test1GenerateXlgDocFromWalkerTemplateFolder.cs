@@ -1,13 +1,8 @@
-﻿using System;
-using System.Net;
-using MetX.Console.Tests.Fimm;
-using MetX.Fimm;
-using MetX.Fimm.Glove.Pipelines;
-using MetX.Fimm.Scripts;
+﻿using MetX.Console.Tests.Fimm;
 using MetX.Fimm.Setup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetX.Console.Tests;
+namespace MetX.Console.Tests.Walkers.Test_1;
 
 [TestClass]
 public class DatabaseWalking

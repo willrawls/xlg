@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
-namespace MetX.Standard.Library.ML
+namespace MetX.Standard.Strings.ML
 {
     public abstract class SerializesToXml<T> : ISerializeToXml<T> where T : SerializesToXml<T>, new()
     {

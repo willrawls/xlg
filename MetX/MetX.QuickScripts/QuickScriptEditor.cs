@@ -12,6 +12,7 @@ using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Generics;
 using MetX.Windows.Controls;
 using MetX.Windows.Library;

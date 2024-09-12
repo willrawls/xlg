@@ -1,9 +1,8 @@
-﻿/*using MetX.Standard.Library.ML;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Generics;
+﻿using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Interfaces;
+using MetX.Standard.Strings.ML;
 
-namespace MetX.Standard.Primary.Extensions;
+namespace MetX.Standard.Strings.Extensions;
 
 public static class AssocTimelineExtensions
 {
@@ -28,15 +27,15 @@ public static class AssocTimelineExtensions
             : Xml.FromXml<AssocTimeline<TAssocItem>>(xml);
     }
     #endregion
-    #1#
+    */
 
     #region One type for axis, one for item
     public static string ToXml<TAxis, TItem>(
         this AssocTimeline<TAxis, TItem> assocTimeline)
-        where TAxis : class, IAssocItem 
+        where TAxis : class, IAssocItem, new() 
         where TItem : class, IAssocItem, new()
     {
-        if (assocTimeline == null || assocTimeline.Timeline == null || assocTimeline.Timeline.Count == 0)
+        if (assocTimeline?.Timeline == null || assocTimeline.Timeline.Count == 0)
             return "";
 
         var xml = Xml.ToXml(assocTimeline);
@@ -44,7 +43,7 @@ public static class AssocTimelineExtensions
     }
 
     public static AssocTimeline<TAxis, TItem> FromXml<TAxis, TItem>(string xml)
-        where TAxis : class, IAssocItem 
+        where TAxis : class, IAssocItem , new()
         where TItem : class, IAssocItem, new()
     {
         return xml.IsEmpty() 
@@ -52,4 +51,4 @@ public static class AssocTimelineExtensions
             : Xml.FromXml<AssocTimeline<TAxis, TItem>>(xml);
     }
     #endregion
-}*/
+}

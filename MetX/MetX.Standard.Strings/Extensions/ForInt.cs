@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace MetX.Standard.Library.Extensions
+namespace MetX.Standard.Strings.Extensions
 {
     public static class ForInt
     {

@@ -1,6 +1,7 @@
 ﻿using MetX.Standard.Primary.Generation;
 using MetX.Standard.Primary.Generation.CSharp.Project;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Standard.Test.Generation.CSharp.Project;
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using MetX.Fimm.Setup;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm
 {

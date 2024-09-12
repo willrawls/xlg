@@ -1,9 +1,8 @@
 using System;
-using MetX.Standard.Strings;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Standard.Library.Extensions
+namespace MetX.Standard.Strings.Extensions
 {
 	
 	/// <summary>General helper functions</summary>

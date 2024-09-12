@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Strings.ML;
 using Microsoft.Win32;
 
 namespace XLG.Pipeliner

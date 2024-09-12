@@ -1,13 +1,14 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Generics;
 
 namespace XLG.QuickScripts.Walker
 {
     public partial class ListViewSlidePanel : UserControl
     {
-        public AssocArrayOfT<AssocArrayOfT<AssocType<string>>> State;
+        public AssocSheet State;
 
         public ListViewSlidePanel()
         {
@@ -16,7 +17,7 @@ namespace XLG.QuickScripts.Walker
 
         public ListViewSlidePanel Setup(int tabIndex, AssocSheet states, string name)
         {
-            State = states.FirstAxis;
+            State = states;
             TitleLabel.Text = name;
             TabIndex = tabIndex;
             Height = TitleLabel.Height + 20 + (State.Count + 1) * Font.Height;

@@ -1,4 +1,4 @@
-namespace MetX.Standard.Library.ML;
+namespace MetX.Standard.Strings.ML;
 
 public interface IListSerializeToXml<TParent, TChild> 
     where TParent : ListSerializesToXml<TParent, TChild>, new()

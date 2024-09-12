@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Generics.V3;
 using MetX.Standard.Strings.Interfaces;
 

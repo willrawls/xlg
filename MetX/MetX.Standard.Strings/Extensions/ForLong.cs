@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace MetX.Standard.Library.Extensions
+namespace MetX.Standard.Strings.Extensions
 {
     // ReSharper disable once UnusedType.Global
     public static class ForLong

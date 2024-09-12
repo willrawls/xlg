@@ -20,8 +20,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.3.0.58</AssemblyVersion>
-		<FileVersion>2024.3.0.58</FileVersion>
+		<AssemblyVersion>2024.3.0.62</AssemblyVersion>
+		<FileVersion>2024.3.0.62</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">

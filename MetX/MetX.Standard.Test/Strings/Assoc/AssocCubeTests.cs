@@ -96,7 +96,7 @@ public class AssocCubeTests
         data[fred.Key, george.Key, mary.Key] = adam;
 
         var expected = data.ToXml();
-        var actual = AssocCube.From<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>(expected);
+        var actual = AssocCube.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());

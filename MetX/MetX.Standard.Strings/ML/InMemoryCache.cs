@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
-namespace MetX.Standard.Library
+namespace MetX.Standard.Strings.ML
 {
     public class InMemoryCache<T> where T : class
     {

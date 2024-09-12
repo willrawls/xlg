@@ -6,7 +6,7 @@ using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-
+using MetX.Standard.Strings.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetX.Console.Tests.Scripts;

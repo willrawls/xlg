@@ -1,5 +1,6 @@
 ﻿using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 // ReSharper disable StringLiteralTypo
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 namespace MetX.Fimm.Setup;
 

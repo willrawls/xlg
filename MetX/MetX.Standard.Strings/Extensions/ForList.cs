@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MetX.Standard.Library.Extensions
+namespace MetX.Standard.Strings.Extensions
 {
 	/// <summary>
 	/// Container for extension functions for the System.Collections.Generic.IList{T} and System.Collections.IList

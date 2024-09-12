@@ -6,11 +6,11 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Extensions;
 
 // // using MetX.Web;
 
-namespace MetX.Standard.Library.ML
+namespace MetX.Standard.Strings.ML
 {
     /// <summary>Helper functions for dealing with xml strings</summary>
 	public static class Xml
@@ -292,6 +292,26 @@ namespace MetX.Standard.Library.ML
             using var xtw = new XmlTextWriter(filePath, Encoding.UTF8);
             Serializer(typeof(T), extraTypes).Serialize(xtw, toSerialize);
 		}
+
+        public static string ToXml(this object toSerialize, bool removeNamespaces = true, Type[] extraTypes = null)
+        {
+            var topLevelType = toSerialize.GetType();
+            var sb = new StringBuilder();
+            using (var xw = Writer(sb))
+                Serializer(topLevelType, extraTypes).Serialize(xw, toSerialize);
+            
+            if (!removeNamespaces) return sb.ToString();
+            sb.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
+            sb.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
+            
+            if (!extraTypes.IsNotEmpty()) return sb.ToString();
+            foreach (var extraType in extraTypes!)
+            {
+                sb.Replace($" xsi:type=\"{extraType.Name}\"", string.Empty);
+                sb.Replace($" xsi:type=\"{extraType.Name.FirstToken("`")}\"", string.Empty);
+            }
+            return sb.ToString();
+        }
 
         /// <summary>
         /// Turns an object into an xml string
