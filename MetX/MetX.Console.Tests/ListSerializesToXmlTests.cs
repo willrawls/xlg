@@ -37,16 +37,16 @@ public class ListSerializesToXmlTests
             
         george1DArray.GeorgeName = "Henry";
 
-        var expected = george1DArray.ToXml();
+        var expected = george1DArray.ToXml<George1DArray>();
         Assert.IsNotNull(expected);
         Debug.WriteLine(expected);
         
         Assert.IsTrue(expected.Contains("Henry"));
-        var reGeorge = George1DArray.FromXml(expected);
+        var reGeorge = George1DArray.FromXml<George1DArray>(expected);
         Assert.IsNotNull(reGeorge);
         Assert.AreEqual("Henry", reGeorge.GeorgeName);
 
-        var actual = reGeorge.ToXml();
+        var actual = reGeorge.ToXml<George1DArray>();
         Debug.WriteLine(actual);
 
         Assert.AreEqual("\n" + expected, "\n" + actual);

@@ -30,7 +30,6 @@ public class BasicAssocItem : IAssocItem
     [XmlAttribute] public string Category { get; set; }
 
     public BasicAssocItem(string key, string value = null, Guid? id = null, string name = null, string category = null)
-
     {
         Value = value;
         Name = name;

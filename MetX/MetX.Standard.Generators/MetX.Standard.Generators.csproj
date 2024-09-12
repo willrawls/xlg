@@ -22,8 +22,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.2.0.56</AssemblyVersion>
-		<FileVersion>2024.2.0.56</FileVersion>
+		<AssemblyVersion>2024.3.0.63</AssemblyVersion>
+		<FileVersion>2024.3.0.63</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="Templates\CSharp\Project\**" />

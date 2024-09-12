@@ -1,5 +1,4 @@
-﻿using MetX.Standard.Primary.Extensions;
-using MetX.Standard.Strings.Generics;
+﻿using MetX.Standard.Strings.Generics;
 using MetX.Standard.Test.TestingClasses;
 
 namespace MetX.Standard.Test.Strings.Assoc;

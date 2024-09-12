@@ -1,16 +1,62 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TieredPGO>true</TieredPGO>
+	<PublishAot>true</PublishAot>
+	<AssemblyVersion>2024.3.0.23</AssemblyVersion>
+	<FileVersion>2024.3.0.23</FileVersion>
+	<Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
 
-		<TieredPGO>true</TieredPGO>
-		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2024.1.0.27</AssemblyVersion>
-		<FileVersion>2024.1.0.27</FileVersion>
-		<Platforms>AnyCPU;x64</Platforms>
-	</PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Walker\**" />
+    <EmbeddedResource Remove="Walker\**" />
+    <None Remove="Walker\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Scripts\Templates\Exe\ConsoleClipboard.cs" />
+    <Compile Remove="Scripts\Templates\Exe\ForStrings.cs" />
+    <Compile Remove="Scripts\Templates\Exe\Program.cs" />
+    <Compile Remove="Scripts\Templates\Exe\QuickScriptProcessor.cs" />
+    <Compile Remove="Scripts\Templates\Exe\StreamBuilder.cs" />
+    <Compile Remove="Scripts\Templates\Exe\Tokenizer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Scripts\Templates\Exe\ConsoleClipboard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\ForStrings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\QuickScriptProcessor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\StreamBuilder.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\Tokenizer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\_.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Templates\Exe\_.sln">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scripts\Templates\Exe\Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

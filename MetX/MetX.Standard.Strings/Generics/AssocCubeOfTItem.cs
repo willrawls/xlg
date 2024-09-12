@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Xml.Serialization;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Generics.V3;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
 
-public class AssocCubeOf<TItem> : IAssocItem
+public class AssocCubeOf<TItem> : FoldedAssocArray3D<TItem>, IAssocItem
     where TItem : class, IAssocItem, new()
 {
     [XmlAttribute] public string Key { get; set; }
@@ -27,23 +29,21 @@ public class AssocCubeOf<TItem> : IAssocItem
         ID = Guid.NewGuid();
     }
 
-    public AssocArrayOfT<AssocArrayOfT<AssocArrayOfT<TItem>>> FirstAxis = new();
-
-    public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
+    public TItem this[string thisKey, string secondAxisKey, string thirdAxisKey]
     {
         get
         {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
+            if (thisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
                 return null;
 
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+            return this[thisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
         }
         set
         {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
+            if (thisKey.IsEmpty() || secondAxisKey.IsEmpty() || thirdAxisKey.IsEmpty())
                 return;
 
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+            this[thisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
         }
     }
 
@@ -59,7 +59,7 @@ public class AssocCubeOf<TItem> : IAssocItem
                 || third.ID == Guid.Empty)
                 return null;
 
-            return FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item;
+            return this[first.ID].Item[second.ID].Item[third.ID].Item;
         }
         set
         {
@@ -71,25 +71,25 @@ public class AssocCubeOf<TItem> : IAssocItem
                 || third.ID == Guid.Empty)
                 return;
 
-            FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item = value;
+            this[first.ID].Item[second.ID].Item[third.ID].Item = value;
         }
     }
 
-    public TItem this[Guid firstAxisId, Guid secondAxisId, Guid thirdAxisId]
+    public TItem this[Guid thisId, Guid secondAxisId, Guid thirdAxisId]
     {
         get
         {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
+            if (thisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
                 return null;
 
-            return FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item;
+            return this[thisId].Item[secondAxisId].Item[thirdAxisId].Item;
         }
         set
         {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
+            if (thisId == Guid.Empty || secondAxisId == Guid.Empty || thirdAxisId == Guid.Empty)
                 return;
 
-            FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
+            this[thisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
         }
     }
 }

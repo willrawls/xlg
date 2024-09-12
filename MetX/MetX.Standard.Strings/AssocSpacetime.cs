@@ -3,6 +3,6 @@ using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;
 
-public class AssocSpaceTime : AssocSheet<DateTimeAssocType, AssocCubeOf<BasicAssocItem>, VectorAssocType>, IAssocItem
+public class AssocSpacetime : AssocSheet<DateTimeAssocType, AssocCubeOf<BasicAssocItem>, VectorAssocType>, IAssocItem
 {
 }

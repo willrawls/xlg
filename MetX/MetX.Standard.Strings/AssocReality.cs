@@ -2,6 +2,6 @@
 
 namespace MetX.Standard.Strings;
 
-public class AssocReality : AssocSheet<LongAssocType, AssocSpaceTime, VectorAssocType>
+public class AssocReality : AssocSheet<LongAssocType, AssocSpacetime, VectorAssocType>
 {
 }

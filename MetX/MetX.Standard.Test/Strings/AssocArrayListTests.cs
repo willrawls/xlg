@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿/*using System.Diagnostics;
 using MetX.Standard.Strings;
 
 namespace MetX.Standard.Test.Strings;
@@ -40,4 +40,4 @@ public class AssocArrayListTests
         watch.Stop();
         Assert.IsTrue(watch.ElapsedMilliseconds < 1000);
     }
-}
+}*/

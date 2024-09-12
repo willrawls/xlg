@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;
 
 [Serializable]
 [XmlRoot("AssocArray")]
-public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicAssocItem, string, string>, IAssocItem
+public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicAssocItem, string>
 {
     [XmlIgnore] public object SyncRoot { get; } = new();
     [XmlIgnore] public bool AutoPersist { get; set; }
@@ -99,12 +100,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
     public IAssocItem FirstKeyContaining(string toFind)
     {
-#if NETSTANDARD2_1
-        return Items.FirstOrDefault(i => i.Key.Contains(toFind, StringComparison.InvariantCultureIgnoreCase));
-#else
-        toFind = toFind.ToLower();
         return Items.FirstOrDefault(i => i.Key.ToLower().Contains(toFind));
-#endif
     }
 
     [XmlIgnore]
@@ -149,7 +145,12 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
     public  void Save()
     {
-        SaveXmlToFile(FilePath, true);
+        SaveXmlToFile<AssocArray>(FilePath, true);
+    }
+
+    public void SaveXmlToFile(string path, bool easyToRead = false)
+    {
+        base.SaveXmlToFile<AssocArray>(path, easyToRead);
     }
 
     public static AssocArray Load(string filePath = "", bool autoPersist = false)
@@ -174,7 +175,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
             using var stringReader = new StringReader(xml);
             using var xmlTextReader = new XmlTextReader(stringReader);
-            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xmlTextReader);
+            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes<AssocArray>()).Deserialize(xmlTextReader);
         }
 
         var aa = ret;
@@ -210,14 +211,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
         var result = Items
             .Aggregate(target, 
                 (current, item) => current
-                    .Replace(
-                        $"%{item.Key}%", 
-                        item.Value
-#if NETSTANDARD2_1
-                        , true, CultureInfo.InvariantCulture
-#else
-#endif
-                        ));
+                    .Replace($"%{item.Key}%", item.Value));
         return result;
     }
 }

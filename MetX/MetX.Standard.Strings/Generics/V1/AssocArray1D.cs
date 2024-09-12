@@ -12,12 +12,13 @@ namespace MetX.Standard.Strings.Generics.V1;
 /// </summary>
 /// <typeparam name="TChild"></typeparam>
 /// <typeparam name="TParent"></typeparam>
+/// <typeparam name="TTopLevelType"></typeparam>
 [Serializable]
 [XmlRoot("AssocArray")]
 public class AssocArray1D<TParent, TChild> 
-    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItemOfT<TChild>, string, TChild> 
-    where TParent : class
-    where TChild : class, new() 
+    : ListLikeSerializesToXml<TParent, AssocArray1D<TParent, TChild>, AssocItemOfT<TChild>, string> 
+    where TParent : class, new()
+    where TChild : class, new()
 {
     [XmlIgnore] public object SyncRoot { get; } = new();
 
@@ -147,7 +148,7 @@ public class AssocArray1D<TParent, TChild>
     public new static T FromTypedXml<T>(string xml) where T : class, new()
     {
         using var sr = new StringReader(xml);
-        var xmlSerializer = GetSerializer(typeof(T), ExtraTypes());
+        var xmlSerializer = GetSerializer(typeof(T), ExtraTypes<AssocArray1D<TParent, TChild>>());
 
         return xmlSerializer.Deserialize(sr) as T;
     }

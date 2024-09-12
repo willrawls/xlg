@@ -1,34 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Generics.V1;
+using MetX.Standard.Strings.Generics.V3;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
 
-public class AssocSheet : AssocSheet<AssocType<string>>
-{
+public class AssocSheet : AssocSheet<AssocType<BasicAssocItem>> { }
 
-}
+public class AssocSheet<TAxis, TItem> : AssocArray2D<TAxis, TAxis, TItem>, IAssocItem
+    where TAxis : class, IAssocItem, new()
+    where TItem : class, IAssocItem, new() { }
 
-public class AssocSheet<TItem> 
+
+public class AssocSheet<TItem> : AssocArrayOfT<AssocArrayOfT<TItem>>
     where TItem : class, IAssocItem, new()
 {
-    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
-
-    public TItem this[string firstAxisKey, string secondAxisKey]
+    public TItem this[string thisKey, string secondAxisKey]
     {
         get
         {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+            if (thisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return null;
 
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item;
+            return this[thisKey].Item[secondAxisKey].Item;
         }
         set
         {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
+            if (thisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return;
 
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item = value;
+            this[thisKey].Item[secondAxisKey].Item = value;
         }
     }
 
@@ -42,7 +46,7 @@ public class AssocSheet<TItem>
                 || second.Key.IsEmpty())
                 return null;
 
-            return FirstAxis[first.Key].Item[second.Key].Item;
+            return this[first.ID].Item[second.ID].Item;
         }
         set
         {
@@ -52,104 +56,35 @@ public class AssocSheet<TItem>
                 || second.Key.IsEmpty())
                 return;
 
-            FirstAxis[first.Key].Item[second.Key].Item = value;
+            this[first.ID].Item[second.ID].Item = value;
         }
     }
 
-    public TItem this[Guid firstAxisId, Guid secondAxisId]
+    public TItem this[Guid thisId, Guid secondAxisId]
     {
         get
         {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+            if (thisId == Guid.Empty || secondAxisId == Guid.Empty)
                 return null;
 
-            return FirstAxis[firstAxisId].Item[secondAxisId].Item;
+            return this[thisId].Item[secondAxisId].Item;
         }
         set
         {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
+            if (thisId == Guid.Empty || secondAxisId == Guid.Empty)
                 return;
 
-            FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
+            this[thisId].Item[secondAxisId].Item = value;
         }
     }
 
 }
 
-public class AssocSheet<TAxis, TItem> 
-    where TAxis : class, IAssocItem
+public class AssocSheet<TFirstAxis, TSecondAxis, TItem> : AssocArray2D<TFirstAxis, TSecondAxis, TItem>, IAssocItem
+    where TFirstAxis : class, IAssocItem, new()
+    where TSecondAxis : class, IAssocItem, new()
     where TItem : class, IAssocItem, new()
 {
-    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
-
-    public TItem this[string firstAxisKey, string secondAxisKey]
-    {
-        get
-        {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
-                return null;
-
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item;
-        }
-        set
-        {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
-                return;
-
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item = value;
-        }
-    }
-
-    public TItem this[TAxis first, TAxis second]
-    {
-        get
-        {
-            if (first == null 
-                || second == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty())
-                return null;
-
-            return FirstAxis[first.Key].Item[second.Key].Item;
-        }
-        set
-        {
-            if (first == null 
-                || second == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty())
-                return;
-
-            FirstAxis[first.Key].Item[second.Key].Item = value;
-        }
-    }
-
-    public TItem this[Guid firstAxisId, Guid secondAxisId]
-    {
-        get
-        {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
-                return null;
-
-            return FirstAxis[firstAxisId].Item[secondAxisId].Item;
-        }
-        set
-        {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
-                return;
-
-            FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
-        }
-    }
-}
-
-public class AssocSheet<TFirstAxis, TSecondAxis, TItem> : IAssocItem
-    where TFirstAxis : class, IAssocItem 
-    where TSecondAxis : class, IAssocItem
-    where TItem : class, IAssocItem, new()
-{
-    public AssocArrayOfT<AssocArrayOfT<TItem>> FirstAxis = new();
-
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public string Value { get; set; }
     [XmlAttribute] public string Name { get; set; }
@@ -171,63 +106,4 @@ public class AssocSheet<TFirstAxis, TSecondAxis, TItem> : IAssocItem
         Key = key ?? ID.ToString("N");
     }
 
-    public TItem this[string firstAxisKey, string secondAxisKey]
-    {
-        get
-        {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
-                return null;
-
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item;
-        }
-        set
-        {
-            if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
-                return;
-
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item = value;
-        }
-    }
-
-    public TItem this[TFirstAxis first, TSecondAxis second]
-    {
-        get
-        {
-            if (first == null 
-                || second == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty())
-                return null;
-
-            return FirstAxis[first.Key].Item[second.Key].Item;
-        }
-        set
-        {
-            if (first == null 
-                || second == null
-                || first.Key.IsEmpty() 
-                || second.Key.IsEmpty())
-                return;
-
-            FirstAxis[first.Key].Item[second.Key].Item = value;
-        }
-    }
-
-    public TItem this[Guid firstAxisId, Guid secondAxisId]
-    {
-        get
-        {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
-                return null;
-
-            return FirstAxis[firstAxisId].Item[secondAxisId].Item;
-        }
-        set
-        {
-            if (firstAxisId == Guid.Empty || secondAxisId == Guid.Empty)
-                return;
-
-            FirstAxis[firstAxisId].Item[secondAxisId].Item = value;
-        }
-    }
 }

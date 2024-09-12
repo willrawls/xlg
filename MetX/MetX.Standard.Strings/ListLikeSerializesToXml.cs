@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;
 
-public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType> 
+public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey> 
     : IListLikeSerializeToXml<TSecondAxis, TItem>, 
       IEnumerable<TItem>,
       IAssocItem
-    where TFirstAxis : class
-    where TSecondAxis : ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType>, new()
+    where TFirstAxis : class, new()
+    where TSecondAxis : ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey>, new()
     where TItem : IAssocItem, new()
 {
 
@@ -30,7 +32,6 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
     public virtual List<TItem> Items { get; set; } = new();
 
     [XmlIgnore] public int Count => Items.Count;
-
 
     protected ListLikeSerializesToXml(string key = null, string value = null, string name = null, Guid? id = null)
     {
@@ -97,11 +98,13 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         }
     }
 
-    public virtual void SaveXmlToFile(string path, bool easyToRead)
+
+    public virtual void SaveXmlToFile<TConcreteType>(string path, bool easyToRead = false)
+        where TConcreteType : class, new()
     {
         if (easyToRead)
         {
-            File.WriteAllText(path, ToXml());
+            File.WriteAllText(path, ToXml<TConcreteType>());
         }
         else
         {
@@ -112,17 +115,17 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
             }
 
             using var xtw = new XmlTextWriter(path, Encoding.UTF8);
-            GetSerializer(typeof(TFirstAxis), ExtraTypes())
+            GetSerializer(typeof(TConcreteType), ExtraTypes<TConcreteType>())
                 .Serialize(xtw, this);
         }
     }
 
-    public virtual byte[] ToBytes()
+    public virtual byte[] ToBytes<TConcreteType>()
+        where TConcreteType : class, new()
     {
-        var xml = ToXml();
-        return xml.IsEmpty()
-            ? Array.Empty<byte>()
-            : Encoding.UTF8.GetBytes(xml);
+        var xml = ToXml<TConcreteType>();
+        if(xml.IsEmpty()) return Array.Empty<byte>();
+        return Encoding.UTF8.GetBytes(xml);
     }
 
     public string ToJson()
@@ -138,20 +141,21 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
     ///     Turns an object into an xml string
     /// </summary>
     /// <typeparam name="T">The type to return a XmlSerializer for</typeparam>
+    /// <typeparam name="TConcreteType"></typeparam>
     /// <param name="toSerialize">The object to serialize</param>
     /// <param name="removeNamespaces"></param>
     /// <param name="normalizeRootNodeName"></param>
     /// <returns></returns>
-    public virtual string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
+    public virtual string ToXml<TConcreteType>(bool removeNamespaces, bool normalizeRootNodeName) where TConcreteType : class, new()
     {
-        TFirstAxis toSerialize = this as TFirstAxis;
+        TConcreteType toSerialize = this as TConcreteType;
         var sb = new StringBuilder();
         var settings = new XmlWriterSettings {OmitXmlDeclaration = true, Indent = true};
-        var extraTypes = ExtraTypes();
+        var extraTypes = ExtraTypes<TConcreteType>();
 
         using (var xw = XmlWriter.Create(sb, settings))
         {
-            GetSerializer(typeof(TFirstAxis), extraTypes).Serialize(xw, toSerialize);
+            GetSerializer(typeof(TConcreteType), extraTypes).Serialize(xw, toSerialize);
         }
 
         if (!removeNamespaces) return sb.ToString();
@@ -174,23 +178,60 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         return sb.ToString();
     }
 
-    public static Type[] ExtraTypes(Type[] extraExtraTypes = null)
+    public virtual string ToXml(bool removeNamespaces, bool normalizeRootNodeName)
     {
-        
+        var topLevelType = TopLevelType();
+        var toSerialize = GetType();
+        var sb = new StringBuilder();
+        var settings = new XmlWriterSettings {OmitXmlDeclaration = true, Indent = true};
+        var extraTypes = ExtraTypes(toSerialize);
+
+        using (var xw = XmlWriter.Create(sb, settings))
+        {
+            GetSerializer(toSerialize, extraTypes).Serialize(xw, toSerialize);
+        }
+
+        if (!removeNamespaces) return sb.ToString();
+
+        sb.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
+        sb.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
+        sb.Replace(" xsi:nil=\"true\"", string.Empty);
+
+        if (extraTypes == null || extraTypes.Length == 0) 
+            return sb.ToString();
+
+        foreach (var extraType in extraTypes!)
+        {
+            sb.Replace($" xsi:type=\"{extraType.Name}\"", string.Empty);
+            sb.Replace($" xsi:type=\"{extraType.Name.FirstToken("`")}\"", string.Empty);
+        }
+
+        if (normalizeRootNodeName) return RewriteRootNodeName_AssocArrayToTParent(sb.ToString());
+
+        return sb.ToString();
+    }
+
+    public Type TopLevelType()
+    {
+        return GetType();
+    }
+
+    public static Type[] ExtraTypes<TConcreteType>(Type[] extraExtraTypes = null)
+    {
         var extraTypes = new[]
         {
             typeof(TFirstAxis),
             typeof(TSecondAxis),
             typeof(TItem),
             typeof(TKey),
-            typeof(TTopLevelType),
-            typeof(ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey, TTopLevelType>)
+            typeof(TConcreteType),
+            typeof(ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey>)
         }.ToList();
 
         extraTypes.AddRange(typeof(TSecondAxis).GenericTypeArguments);
         extraTypes.AddRange(typeof(TItem).GenericTypeArguments);
         extraTypes.AddRange(typeof(TKey).GenericTypeArguments);
-        extraTypes.AddRange(typeof(TTopLevelType).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TConcreteType).GenericTypeArguments);
 
         if (extraExtraTypes is {Length: > 0})
         {
@@ -200,14 +241,59 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         return extraTypes.Distinct().ToArray();
     }
 
-    public static TFirstAxis FromXml(string xml)
+    public static Type[] ExtraTypes(Type concreteType, Type[] extraExtraTypes = null)
+    {
+        var extraTypes = new[]
+        {
+            typeof(TFirstAxis),
+            typeof(TSecondAxis),
+            typeof(TItem),
+            typeof(TKey),
+            concreteType,
+            typeof(ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey>)
+        }.ToList();
+
+        extraTypes.AddRange(typeof(TSecondAxis).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TItem).GenericTypeArguments);
+        extraTypes.AddRange(typeof(TKey).GenericTypeArguments);
+        extraTypes.AddRange(concreteType.GenericTypeArguments);
+
+        if (extraExtraTypes is {Length: > 0})
+        {
+            extraTypes.AddRange(extraExtraTypes);
+        }
+
+        return extraTypes.Distinct().ToArray();
+    }
+
+    public static TConcreteType FromXml<TConcreteType>(string xml)
     {
         if (!xml.Contains("<AssocArray"))
             xml = RewriteRootNodeName_TParentToAssocArray(xml);
         using var sr = new StringReader(xml);
-        var parent = (TFirstAxis) GetSerializer(typeof(TFirstAxis), null).Deserialize(sr);
+        var parent = (TConcreteType) GetSerializer(typeof(TConcreteType), null).Deserialize(sr);
         return parent;
     }
+
+    public static TConcreteClass LoadXmlFromFile<TConcreteClass>(string path)
+        where TConcreteClass: ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey>
+    {
+        if (!File.Exists(path))
+        {
+            return null;
+        }
+
+        using var xtw = new XmlTextReader(path);
+
+        var deserializedObject = 
+            GetSerializer(
+                    typeof(TConcreteClass), 
+                    ExtraTypes<TConcreteClass>())
+                .Deserialize(xtw) as TConcreteClass;
+
+        return deserializedObject;
+    }
+
 
     public static string RewriteRootNodeName_AssocArrayToTParent(string xml)
     {
@@ -231,19 +317,27 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         return xml;
     }
 
-    public static TFirstAxis FromBytes(byte[] bytes)
+    public static TConcreteType FromBytes<TConcreteType>(byte[] bytes)
+        where TConcreteType : ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TKey>
     {
         var xml = Encoding.UTF8.GetString(bytes);
-        var aa = !string.IsNullOrEmpty(xml)
-            ? FromXml(xml)
+        var item = xml.IsNotEmpty()
+            ? FromXml<TConcreteType>(xml)
             : default;
-        return aa as TFirstAxis;
+        return item;
+    }
+
+    public string ToXml<TConcreteType>()
+        where TConcreteType : class, new()
+    {
+        return ToXml<TConcreteType>(true, true);
     }
 
     public string ToXml()
     {
         return ToXml(true, true);
     }
+
 
     /// <summary>
     ///     Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are
@@ -263,3 +357,4 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         return xmlSerializer;
     }
 }
+

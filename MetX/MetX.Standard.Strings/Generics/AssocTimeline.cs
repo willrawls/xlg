@@ -1,4 +1,5 @@
 ﻿using System;
+using MetX.Standard.Strings;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
@@ -9,7 +10,7 @@ public class AssocTimeline : AssocTimeline<BasicAssocItem, BasicAssocItem>
 }
 
 public class AssocTimeline<TAxis, TItem> 
-    where TAxis : class, IAssocItem
+    where TAxis : class, IAssocItem, new()
     where TItem : class, IAssocItem, new()
 {
     public AssocArrayOfT<AssocTimelineItem<TAxis, TItem>> Timeline = new();

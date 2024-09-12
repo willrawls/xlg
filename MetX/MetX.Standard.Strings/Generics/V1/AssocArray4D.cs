@@ -1,15 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using MetX.Standard.Strings;
 
 namespace MetX.Standard.Strings.Generics.V1;
 
 public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem> 
     : AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>> 
-    where T4DParent : class
+    where T4DParent : class, new()
     where TItem : class, new()
-    where T3DParent : class
-    where T2DParent : class
-    where T1DParent : class
+    where T3DParent : class, new()
+    where T2DParent : class, new()
+    where T1DParent : class, new()
 {
     private static Type ActualType = typeof(AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>>);
 
@@ -38,6 +40,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
             ;
     }
 
+    /*
     public override string ToXml(bool removeNamespaces = true, bool normalizeRootNodeName = true)
     {
         var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
@@ -52,8 +55,10 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
 
         return xml;
     }
+    */
 
-    public new static T4DParent FromXml(string xml)
+    public new static TConcreteType FromXml<TConcreteType>(string xml) 
+        where TConcreteType : class, new()
     {
         var name = xml.TokenBetween("<", ">").FirstToken();
         if (name != ActualName)
@@ -63,7 +68,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
                 ;
 
         using var sr = new StringReader(xml);
-        return (T4DParent) GetSerializer(ActualType, ExtraTypes()).Deserialize(sr);
+        return GetSerializer(ActualType, ExtraTypes<TConcreteType>()).Deserialize(sr) as TConcreteType;
     }
 
 }

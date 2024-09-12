@@ -1,21 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Generics.V3;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
 
 public class AssocCubeOf<TAxis, TItem> : AssocCubeOf<TAxis, TAxis, TAxis, TItem>
-    where TAxis : class, IAssocItem
+    where TAxis : class, IAssocItem, new()
     where TItem : class, IAssocItem, new()
 {
 }
 
-public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
-    where TFirstAxis : class, IAssocItem 
-    where TSecondAxis : class, IAssocItem
-    where TThirdAxis : class, IAssocItem
+public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem> : AssocSheet<TFirstAxis, AssocSheets<TSecondAxis, TThirdAxis, TItem>>
+    where TFirstAxis : class, IAssocItem, new()
+    where TSecondAxis : class, IAssocItem, new()
+    where TThirdAxis : class, IAssocItem, new()
     where TItem : class, IAssocItem, new()
 {
-    public AssocArrayOfT<AssocArrayOfT<AssocArrayOfT<TItem>>> FirstAxis = new();
 
     public TItem this[string firstAxisKey, string secondAxisKey, string thirdAxisKey]
     {
@@ -24,14 +26,14 @@ public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
             if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return null;
 
-            return FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item;
+            return this[firstAxisKey, secondAxisKey, thirdAxisKey];
         }
         set
         {
             if (firstAxisKey.IsEmpty() || secondAxisKey.IsEmpty())
                 return;
 
-            FirstAxis[firstAxisKey].Item[secondAxisKey].Item[thirdAxisKey].Item = value;
+            this[firstAxisKey, secondAxisKey, thirdAxisKey] = value;
         }
     }
 
@@ -47,7 +49,7 @@ public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
                 || third.ID == Guid.Empty)
                 return null;
 
-            return FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item;
+            return this[first.ID, second.ID, third.ID];
         }
         set
         {
@@ -59,7 +61,7 @@ public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
                 || third.ID == Guid.Empty)
                 return;
 
-            FirstAxis[first.ID].Item[second.ID].Item[third.ID].Item = value;
+            this[first.ID, second.ID, third.ID] = value;
         }
     }
 
@@ -72,7 +74,7 @@ public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
                 || thirdAxisId == Guid.Empty)
                 return null;
 
-            return FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item;
+            return this[firstAxisId, secondAxisId, thirdAxisId];
         }
         set
         {
@@ -81,7 +83,7 @@ public class AssocCubeOf<TFirstAxis, TSecondAxis, TThirdAxis, TItem>
                 || thirdAxisId == Guid.Empty)
                 return;
 
-            FirstAxis[firstAxisId].Item[secondAxisId].Item[thirdAxisId].Item = value;
+            this[firstAxisId, secondAxisId, thirdAxisId] = value;
         }
     }
 }

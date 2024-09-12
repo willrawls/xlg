@@ -1,4 +1,5 @@
-﻿using MetX.Fimm.Scripts;
+﻿using System;
+using MetX.Fimm.Scripts;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
@@ -18,7 +19,8 @@ public class TemplateActor : FimmActorBase
 
     public override ProcessorResult Walk(ArgumentSettings settings)
     {
-        <<<<< Start here
+        throw new Exception("Start here");
+        // <<<<< Start here
         return base.Walk(settings);
     }
 
