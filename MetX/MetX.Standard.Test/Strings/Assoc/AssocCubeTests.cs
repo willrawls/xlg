@@ -1,6 +1,8 @@
 ﻿using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.Generics.V3;
+using MetX.Standard.Strings.ML;
 using MetX.Standard.Test.TestingClasses;
+using AssocCubeExtensions = MetX.Standard.Strings.Extensions.AssocCubeExtensions;
 
 namespace MetX.Standard.Test.Strings.Assoc;
 
@@ -96,7 +98,8 @@ public class AssocCubeTests
         data[fred.Key, george.Key, mary.Key] = adam;
 
         var expected = data.ToXml();
-        var actual = AssocCube.FromXml<FredAssocItem, GeorgeAssocItem, MaryAssocItem, JustAnAssocItem>(expected);
+
+        var actual = Xml.FromXml<AssocCube>(expected);
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.ToXml());

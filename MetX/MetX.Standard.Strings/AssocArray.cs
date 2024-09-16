@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Interfaces;
+using MetX.Standard.Strings.ML;
 
 namespace MetX.Standard.Strings;
 
@@ -176,7 +177,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
             using var stringReader = new StringReader(xml);
             using var xmlTextReader = new XmlTextReader(stringReader);
-            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes<AssocArray>()).Deserialize(xmlTextReader);
+            ret = (AssocArray) Xml.Serializer(typeof(AssocArray), ExtraTypes<AssocArray>()).Deserialize(xmlTextReader);
         }
 
         var aa = ret;

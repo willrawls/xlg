@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
 using MetX.Standard.Strings.Interfaces;
+using MetX.Standard.Strings.ML;
 
 namespace MetX.Standard.Strings;
 
@@ -116,7 +117,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
             }
 
             using var xtw = new XmlTextWriter(path, Encoding.UTF8);
-            GetSerializer(typeof(TConcreteType), ExtraTypes<TConcreteType>())
+            Xml.Serializer(typeof(TConcreteType), ExtraTypes<TConcreteType>())
                 .Serialize(xtw, this);
         }
     }
@@ -156,7 +157,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
 
         using (var xw = XmlWriter.Create(sb, settings))
         {
-            GetSerializer(typeof(TConcreteType), extraTypes).Serialize(xw, toSerialize);
+            Xml.Serializer(typeof(TConcreteType), extraTypes).Serialize(xw, toSerialize);
         }
 
         if (!removeNamespaces) return sb.ToString();
@@ -189,7 +190,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
 
         using (var xw = XmlWriter.Create(sb, settings))
         {
-            GetSerializer(toSerialize, extraTypes).Serialize(xw, toSerialize);
+            Xml.Serializer(toSerialize, extraTypes).Serialize(xw, toSerialize);
         }
 
         if (!removeNamespaces) return sb.ToString();
@@ -272,7 +273,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         if (!xml.Contains("<AssocArray"))
             xml = RewriteRootNodeName_TParentToAssocArray(xml);
         using var sr = new StringReader(xml);
-        var parent = (TConcreteType) GetSerializer(typeof(TConcreteType), null).Deserialize(sr);
+        var parent = (TConcreteType) Xml.Serializer(typeof(TConcreteType), null).Deserialize(sr);
         return parent;
     }
 
@@ -287,7 +288,7 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
         using var xtw = new XmlTextReader(path);
 
         var deserializedObject = 
-            GetSerializer(
+            Xml.Serializer(
                     typeof(TConcreteClass), 
                     ExtraTypes<TConcreteClass>())
                 .Deserialize(xtw) as TConcreteClass;
@@ -340,22 +341,5 @@ public abstract class ListLikeSerializesToXml<TFirstAxis, TSecondAxis, TItem, TK
     }
 
 
-    /// <summary>
-    ///     Returns a XmlSerializer for the given type. Repeated calls pull the serializer previously used. Serializers are
-    ///     stored internally in a sorted list for quick retrieval.
-    /// </summary>
-    /// <param name="type">The type to return a XmlSerializer for</param>
-    /// <param name="extraTypes"></param>
-    /// <returns>The XmlSerializer for the type</returns>
-    public static XmlSerializer GetSerializer(Type type, Type[] extraTypes)
-    {
-        if (type.FullName == null) return null;
-
-        var xmlSerializer = extraTypes is {Length: > 0}
-            ? new XmlSerializer(type, extraTypes)
-            : new XmlSerializer(type);
-
-        return xmlSerializer;
-    }
 }
 

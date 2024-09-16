@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Extensions;
+using MetX.Standard.Strings.ML;
 
 namespace MetX.Standard.Strings.Generics.V1;
 
@@ -69,7 +70,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
                 ;
 
         using var sr = new StringReader(xml);
-        return GetSerializer(ActualType, ExtraTypes<TConcreteType>()).Deserialize(sr) as TConcreteType;
+        return Xml.Serializer(ActualType, ExtraTypes<TConcreteType>()).Deserialize(sr) as TConcreteType;
     }
 
 }

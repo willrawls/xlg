@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MetX.Standard.Strings.Interfaces;
+using MetX.Standard.Strings.ML;
 
 namespace MetX.Standard.Strings.Generics.V1;
 
@@ -97,6 +98,39 @@ public class AssocArray1D<TParent, TChild>
     }
 
     [XmlIgnore]
+    public new AssocItemOfT<TChild> this[Guid id]
+    {
+        get
+        {
+            lock (SyncRoot)
+            {
+                var assocItem = Items.FirstOrDefault(item => item.ID == id);
+                if (assocItem != null) return assocItem;
+
+                assocItem = new AssocItemOfT<TChild>()
+                {
+                    ID = id
+                };
+                Items.Add(assocItem);
+                return assocItem;
+            }
+        }
+        set
+        {
+            lock (SyncRoot)
+            {
+                for (var index = 0; index < Items.Count; index++)
+                {
+                    var item = Items[index];
+                    if (item.ID != id) continue;
+                    Items[index] = value;
+                    break;
+                }
+                Items.Add(value);
+            }
+        }
+    }
+    [XmlIgnore]
     public new AssocItemOfT<TChild> this[string key]
     {
         get
@@ -148,7 +182,7 @@ public class AssocArray1D<TParent, TChild>
     public new static T FromTypedXml<T>(string xml) where T : class, new()
     {
         using var sr = new StringReader(xml);
-        var xmlSerializer = GetSerializer(typeof(T), ExtraTypes<AssocArray1D<TParent, TChild>>());
+        var xmlSerializer = Xml.Serializer(typeof(T), ExtraTypes<AssocArray1D<TParent, TChild>>());
 
         return xmlSerializer.Deserialize(sr) as T;
     }

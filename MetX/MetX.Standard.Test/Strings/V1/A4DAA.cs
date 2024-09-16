@@ -13,7 +13,7 @@ public class A4DAA : AssocArray4D<A4DAA, George1DArray, GeorgeItem, Fred, FredIt
     public new static A4DAA FromXml(string xml)
     {
         using var sr = new StringReader(xml);
-        var xmlSerializer = GetSerializer(typeof(A4DAA), ExtraTypes());
+        var xmlSerializer = Xml.Serializer(typeof(A4DAA), ExtraTypes());
 
         return xmlSerializer.Deserialize(sr) as A4DAA;
     }*/

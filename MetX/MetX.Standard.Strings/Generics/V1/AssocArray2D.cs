@@ -20,11 +20,10 @@ public class AssocArray2D : AssocArray2D<AssocArray2D_T2DParent, AssocArray2D_T1
 {
 }
 
-public class AssocArray2D<T2DParent, T1DParent, TItem> : AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>>,
-    IAssocItem
-    where TItem : class, new()
-    where T2DParent : class, new()
-    where T1DParent : class, new()
+public class AssocArray2D<T2DParent, T1DParent, TItem> : AssocArray1D<T2DParent, AssocArray1D<T1DParent, TItem>>
+    where TItem : class, IAssocItem, new()
+    where T2DParent : class, IAssocItem, new()
+    where T1DParent : class, IAssocItem, new()
 {
     public new string Name;
 
@@ -44,4 +43,21 @@ public class AssocArray2D<T2DParent, T1DParent, TItem> : AssocArray1D<T2DParent,
         set => this[d1].Item[d2].Item = value;
     }
 
+    public AssocArray1D<T1DParent, TItem> this[Guid id1]
+    {
+        get => this[id1];
+        set => this[id1] = value;
+    }
+
+    public TItem this[Guid id1, Guid id2]
+    {
+        get => this[id1, id2];
+        set => this[id1, id2] = value;
+    }
+
+    public TItem this[TItem id1, TItem id2]
+    {
+        get => this[id1.ID][id2.ID].Item;
+        set => this[id1.ID][id2.ID].Item = value;
+    }
 }

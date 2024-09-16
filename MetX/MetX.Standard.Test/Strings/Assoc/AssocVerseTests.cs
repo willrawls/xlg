@@ -13,7 +13,7 @@ public class AssocVerseTests
         var dimension = reality["Charlie"].Item;
         var space = dimension["Theta", "Charlie", "Wilco"];
         var time = space["+1.5287354", "+35.201"];
-        var gravity = time["0", "-90", "+Infinity"].FirstAxis;
+        var gravity = time["0", "-90", "+Infinity"];
         var o = gravity["200"].Item;
 
         //var l = mv[mv, r, point, t];

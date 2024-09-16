@@ -17,8 +17,8 @@
 		<AssemblyOriginatorKeyFile>XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>True</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.3.0.12</AssemblyVersion>
-		<FileVersion>2024.3.0.12</FileVersion>
+		<AssemblyVersion>2024.3.0.20</AssemblyVersion>
+		<FileVersion>2024.3.0.20</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <Optimize>True</Optimize>

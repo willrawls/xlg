@@ -1,6 +1,7 @@
 ﻿using MetX.Standard.Strings.Generics;
 using MetX.Standard.Strings.ML;
 using MetX.Standard.Test.TestingClasses;
+using AssocSheetExtensions = MetX.Standard.Strings.Extensions.AssocSheetExtensions;
 
 namespace MetX.Standard.Test.Strings.Assoc;
 
@@ -53,9 +54,9 @@ public class AssocSheetTests
         var george = new GeorgeAssocItem(); ;
         var mary = new MaryAssocItem();
         var expected = mary.MaryAssocItemTestGuid;
-        data[fred, george] = mary;
+        data[fred.ID, george.ID] = mary;
 
-        var actual = data[fred, george];
+        var actual = data[fred.ID, george.ID];
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.MaryAssocItemTestGuid);
@@ -235,9 +236,9 @@ public class AssocSheetTests
         var mary = new JustAnAssocItem();
 
         var expected = mary.JustAGuid;
-        data[fred, george] = mary;
+        data[fred.ID, george.ID] = mary;
 
-        var actual = data[fred, george];
+        var actual = data[fred.ID, george.ID];
 
         Assert.IsNotNull(actual);
         Assert.AreEqual(expected, actual.JustAGuid);

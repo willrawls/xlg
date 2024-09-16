@@ -24,8 +24,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.3.0.96</AssemblyVersion>
-		<FileVersion>2024.3.0.96</FileVersion>
+		<AssemblyVersion>2024.3.0.99</AssemblyVersion>
+		<FileVersion>2024.3.0.99</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DocumentationFile></DocumentationFile>

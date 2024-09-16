@@ -1,7 +1,7 @@
 using System.IO;
 using MetX.Standard.Strings.ML;
 
-namespace MetX.Standard.Primary.Techniques
+namespace MetX.Standard.Strings.Generics
 {
     // ReSharper disable once UnusedType.Global
     public abstract class SerializeToXml<T>

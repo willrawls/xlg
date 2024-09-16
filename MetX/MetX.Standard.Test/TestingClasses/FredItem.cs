@@ -1,6 +1,8 @@
-﻿namespace MetX.Standard.Test.TestingClasses;
+﻿using MetX.Standard.Strings;
 
-public class FredItem
+namespace MetX.Standard.Test.TestingClasses;
+
+public class FredItem : BasicAssocItem
 {
     public string FredItemName { get; set; }
     public Guid FredItemTestGuid { get; set; } = Guid.NewGuid();
