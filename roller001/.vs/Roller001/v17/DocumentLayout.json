@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\app_code\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:app_code\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 341,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0504ff91-9d61-11d0-a794-00a0c9110051}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{83db2937-846e-58ce-afe9-53ba9785f39e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{2e7065be-2911-5d06-9444-328203e57925}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Helpers.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Roller001\\App_Code\\Helpers.cs",
+              "RelativeDocumentMoniker": "App_Code\\Helpers.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Roller001\\App_Code\\Helpers.cs",
+              "RelativeToolTip": "App_Code\\Helpers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T22:00:10.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RollerA.razor",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\RollerA.razor",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
+              "RelativeToolTip": "Components\\Pages\\RollerA.razor",
+              "ViewState": "AgIAAOIAAAAAAAAAAAAYwOkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-18T21:42:07.304Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 209,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3f72f409-5143-5ecd-bf1b-a9db81b00b65}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 209,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6bd997bb-d151-584f-9e60-18a921a96d60}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

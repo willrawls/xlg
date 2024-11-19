@@ -1,0 +1,251 @@
+﻿@page "/rollera"
+@using MetX.Standard.Library.Encryption
+@using System.Text
+@using Microsoft.AspNetCore.Html
+@rendermode InteractiveServer
+
+<style>
+    @@media (max-width: 600px) {
+        body {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+        }
+    }
+    .nospacing {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+</style>
+
+<PageTitle>Roller A</PageTitle>
+
+<h1>Roller A</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="FullRoll">Roll</button>
+
+<div class="col-10 nospacing">
+    Have Giant strength? <input type="checkbox" @bind="hasGiantStrength" @onclick="HasGiantStrength_Click" /><br />
+    Hasted? <input type="checkbox" @bind="hasHaste" @onclick="HasHaste_Click" /><br/>
+    Blessed? <input type="checkbox" @bind="hasBless" @onclick="HasBless_Click" /><br/>
+    Berserk? <input type="checkbox" @bind="hasBerserk" @onclick="HasBerserk_Click" /><br/>
+    THAC0: <input type="number" class="col-4" @bind="thac0" />
+    Target AC: <input type="number" class="col-4" @bind="targetAC" />
+</div>
+<table class="table nospacing">
+    <thead>
+        <tr>
+            <th>Weapon</th>
+            <th>Attacks</th>
+            <th>To Hit</th>
+            <th>Dice</th>
+            <th></th>
+            <th>Sides</th>
+            <th>Plus</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Hands</td>
+            <td><input type="number" class="col-4"  @bind="handsAttacks" /></td>
+            <td><input type="number" class="col-4"  @bind="handsToHit" /></td>
+            <td><input type="number" class="col-4"  @bind="handsDice" /></td>
+            <td>D</td>
+            <td><input type="number" class="col-4"  @bind="handsSides" /></td>
+            <td>+</td>
+            <td><input type="number" class="col-4"  @bind="handsPlus" /></td>
+        </tr>
+        <tr>
+            <td>Cestis +3</td>
+            <td><input type="number" class="col-4"  @bind="cestis3Attacks" /></td>
+            <td><input type="number" class="col-4"  @bind="cestis3ToHit" /></td>
+            <td><input type="number" class="col-4"  @bind="cestis3Dice" /></td>
+            <td>D</td>
+            <td><input type="number" class="col-4"  @bind="cestis3Sides" /></td>
+            <td>+</td>
+            <td><input type="number" class="col-4"  @bind="cestis3Plus" /></td>
+        </tr>
+        <tr>
+            <td>Cestis +2</td>
+            <td><input type="number" class="col-4"  @bind="cestis2Attacks" /></td>
+            <td><input type="number" class="col-4"  @bind="cestis2ToHit" /></td>
+            <td><input type="number" class="col-4"  @bind="cestis2Dice" /></td>
+            <td>D</td>
+            <td><input type="number" class="col-4"  @bind="cestis2Sides" /></td>
+            <td>+</td>
+            <td><input type="number" class="col-4"  @bind="cestis2Plus" /></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="table">
+    <div class="row">
+        <div class="col">Minimum damage is @MinimumDamage() when all attacks hit</div>
+        <div class="col">Damage multiplier is @DamageMultiplier()</div>
+        <div class="col">Attacks multiplier is @AttacksMultiplier()</div>
+    </div>
+</div>
+
+
+<div class="table">
+    <div class="row">
+        <div class="col"><b>Weapon</b></div>
+        <div class="col"><b>#</b></div>
+        <div class="col"><b>Roll</b></div>
+        <div class="col"><b>Damage</b></div>
+    </div>
+    @for (var i = 1; i < handsAttacks + 1; i++)
+    {
+        <div class='row'>
+            <div class='col'>Hands</div>
+            <div class='col'>@i</div>
+            <div class='col'>@RollD20(handsToHit, out var natural20, out var natural1, out var roll)</div>
+            <div class='col'>@CalculateDamage(handsDice, handsSides, handsPlus, natural20, natural1)</div>
+            </div>
+    }
+    @for (var i = 1; i < cestis3Attacks + 1; i++)
+    {
+        <div class='row'>
+            <div class='col'>Cestis+3</div>
+            <div class='col'>@i</div>
+            <div class='col'>@RollD20(cestis3ToHit, out var natural20, out var natural1, out var roll)</div>
+            <div class='col'>@CalculateDamage(cestis3Dice, cestis3Sides, cestis3Plus, natural20, natural1)</div>
+            </div>
+    }
+    @for (var i = 1; i < cestis2Attacks + 1; i++)
+    {
+        <div class='row'>
+            <div class='col'>Cestis+2</div>
+            <div class='col'>@i</div>
+            <div class='col'>@RollD20(cestis2ToHit, out var natural20, out var natural1, out var roll)</div>
+            <div class='col'>@CalculateDamage(cestis2Dice, cestis2Sides, cestis2Plus, natural20, natural1)</div>
+            </div>
+    }
+</div>
+
+
+@code {
+    private int currentCount = 0;
+
+    private int thac0 = 12;
+    private int targetAC = 0;
+    private bool hasGiantStrength = true;
+    private bool hasBerserk = false;
+    private bool hasBless = false;
+    private bool hasHaste = false;
+
+    private int handsAttacks = 3;
+    private int handsToHit = 3;
+    private int handsDice = 4;
+    private int handsSides = 6;
+    private int handsPlus = 2;
+
+    private int cestis3Attacks = 1;
+    private int cestis3ToHit = 7;
+    private int cestis3Dice = 3;
+    private int cestis3Sides = 8;
+    private int cestis3Plus = 8;
+
+    private int cestis2Attacks = 1;
+    private int cestis2ToHit = 6;
+    private int cestis2Dice = 3;
+    private int cestis2Sides = 8;
+    private int cestis2Plus = 7;
+    private int damageMultiplier = 2;
+    private int attacksMultiplier = 1;
+
+    private void FullRoll()
+    {
+        
+    }
+
+    private void HasGiantStrength_Click()
+    {
+        hasGiantStrength = !hasGiantStrength;
+        damageMultiplier = hasGiantStrength ? 2 : 1;
+    }
+    private void HasHaste_Click()
+    {
+        hasHaste = !hasHaste;
+        attacksMultiplier = hasHaste ? 2 : 1;
+    }
+
+    private void HasBless_Click()
+    {
+        hasBless = !hasBless;
+    }
+
+    private void HasBerserk_Click()
+    {
+        hasBerserk = !hasBerserk;
+        if(hasBerserk)
+        {
+            handsAttacks = 4;
+            cestis3Attacks = 2;
+            cestis2Attacks = 1;
+        }
+        else
+        {
+            handsAttacks = 3;
+            cestis3Attacks = 1;
+            cestis2Attacks = 1;
+        }
+    }
+
+    private int MinimumDamage()
+    {
+        return (MinimumHandDamage() + MinimumCestis3Damage() + MinimumCestis2Damage());
+    }
+
+    private int MinimumHandDamage()
+    {
+        return ((handsAttacks * handsDice) + (handsPlus + (hasBless ? 1 : 0)) * handsAttacks) * damageMultiplier * attacksMultiplier;
+    }
+
+    private int MinimumCestis3Damage()
+    {
+        return ((cestis3Attacks * cestis3Dice) + (cestis3Plus + (hasBless ? 1 : 0)) * cestis3Attacks) * damageMultiplier * attacksMultiplier;
+    }
+
+    private int MinimumCestis2Damage()
+    {
+        return ((cestis2Attacks * cestis2Dice) + (cestis2Plus + (hasBless ? 1 : 0)) * cestis2Attacks) * damageMultiplier * attacksMultiplier;
+    }
+
+    private int DamageMultiplier()
+    {
+        return damageMultiplier;
+    }
+
+    private int AttacksMultiplier()
+    {
+        return attacksMultiplier;
+    }
+
+    private int RollD20(int bonus, out bool natural20, out bool natural1, out int hitRoll)
+    {
+        var roll = (int) SuperRandom.NextRoll(1, 20);
+        natural20 = roll == 20;
+        natural1 = roll == 1;
+        hitRoll = roll + bonus + (hasBless ? 1 : 0);
+        return hitRoll;
+    }
+
+    private string CalculateDamage(int dice, int sides, int bonusToDamage, bool natural20, bool natural1, int hitRoll)
+    {
+        if (natural1)
+        {
+            hitRoll = -1;
+            return "Skip next";
+        }
+
+        var damageRoll = (int) SuperRandom.NextRoll(dice, sides);
+
+        var baseDamage = damageRoll + bonusToDamage;
+        return (baseDamage
+                * (hasGiantStrength ? 2 : 1)
+                * (natural20 ? 2 : 1)).ToString();
+    }
+
+}
