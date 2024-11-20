@@ -27,8 +27,8 @@
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<Deterministic>false</Deterministic>
 		<Version>8.2024.1</Version>
-		<AssemblyVersion>2024.1.*</AssemblyVersion>
-		<FileVersion>2024.1.0.35</FileVersion>
+		<AssemblyVersion>2024.4.*</AssemblyVersion>
+		<FileVersion>2024.4.0.37</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="README.md">

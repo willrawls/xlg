@@ -4,22 +4,23 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>2024.4.0.30</AssemblyVersion>
-    <FileVersion>2024.4.0.30</FileVersion>
+    <AssemblyVersion>2024.4.0.63</AssemblyVersion>
+    <FileVersion>2024.4.0.63</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Components\Pages\RollerAState" />
     <None Remove="MetX.Standard.Library.dll" />
     <None Remove="MetX.Standard.Strings.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MetX.Standard.Library">
-      <HintPath>MetX.Standard.Library.dll</HintPath>
-    </Reference>
-    <Reference Include="MetX.Standard.Strings">
-      <HintPath>MetX.Standard.Strings.dll</HintPath>
-    </Reference>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetX\MetX.Standard.Library\MetX.Standard.Library.csproj" />
+    <ProjectReference Include="..\MetX\MetX.Standard.Strings\MetX.Standard.Strings.csproj" />
   </ItemGroup>
 
 </Project>

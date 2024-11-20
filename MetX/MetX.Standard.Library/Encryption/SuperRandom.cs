@@ -194,7 +194,7 @@ namespace MetX.Standard.Library.Encryption
 
             uint result = 0;
             for (var i = 0; i < dice; i++) 
-                result += NextUnsignedInteger((uint) 1, (uint) sides);
+                result += NextUnsignedInteger((uint) 1, (uint) sides + 1);
 
             return result;
         }
