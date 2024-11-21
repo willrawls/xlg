@@ -18,8 +18,8 @@
 		<AssemblyOriginatorKeyFile>..\..\MetX\XLG.snk</AssemblyOriginatorKeyFile>
 		<TieredPGO>true</TieredPGO>
 		<PublishAot>true</PublishAot>
-		<AssemblyVersion>2024.1.0.28</AssemblyVersion>
-		<FileVersion>2024.1.0.28</FileVersion>
+		<AssemblyVersion>2024.4.0.31</AssemblyVersion>
+		<FileVersion>2024.4.0.31</FileVersion>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
