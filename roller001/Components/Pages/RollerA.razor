@@ -1,5 +1,6 @@
 ﻿@page "/rollera"
 @using Roller001.App_Code
+@using MetX.Standard.Library.Encryption
 @rendermode InteractiveServer
 
 <style>
@@ -95,8 +96,8 @@
         <div class='row'>
             <div class='col'>Hands</div>
             <div class='col'>@i</div>
-            <div class='col'>@State.RollD20(State, State.HandsToHit, out var natural20, out var natural1, out var roll)</div>
-            <div class='col'>@State.CalculateDamage(State.HandsDice, State.HandsSides, State.HandsPlus, natural20, natural1, roll)</div>
+            <div class='col'>@State.RollD20(State, State.HandsToHit, out var rollState)</div>
+            <div class='col'>@State.CalculateDamage(State.HandsDice, State.HandsSides, State.HandsPlus, rollState)</div>
             </div>
     }
     @for (var i = 1; i < (State.Cestis3Attacks * State.AttacksMultiplier) + 1; i++)
@@ -104,8 +105,8 @@
         <div class='row'>
             <div class='col'>Cestis+3</div>
             <div class='col'>@i</div>
-            <div class='col'>@State.RollD20(State, State.Cestis3ToHit, out var natural20, out var natural1, out var roll)</div>
-            <div class='col'>@State.CalculateDamage(State.Cestis3Dice, State.Cestis3Sides, State.Cestis3Plus, natural20, natural1, roll)</div>
+            <div class='col'>@State.RollD20(State, State.Cestis3ToHit, out var rollState)</div>
+            <div class='col'>@State.CalculateDamage(State.Cestis3Dice, State.Cestis3Sides, State.Cestis3Plus, rollState)</div>
             </div>
     }
     @for (var i = 1; i < (State.Cestis2Attacks * State.AttacksMultiplier) + 1; i++)
@@ -113,22 +114,47 @@
         <div class='row'>
             <div class='col'>Cestis+2</div>
             <div class='col'>@i</div>
-            <div class='col'>@State.RollD20(State, State.Cestis2ToHit, out var natural20, out var natural1, out var roll)</div>
-            <div class='col'>@State.CalculateDamage(State.Cestis2Dice, State.Cestis2Sides, State.Cestis2Plus, natural20, natural1, roll)</div>
+            <div class='col'>@State.RollD20(State, State.Cestis2ToHit, out var rollState)</div>
+            <div class='col'>@State.CalculateDamage(State.Cestis2Dice, State.Cestis2Sides, State.Cestis2Plus, rollState)</div>
+            </div>
+    }
+    @for (var i = 1; i < (State.HandsAttacks * State.AttacksMultiplier) + 1; i++)
+    {
+        <div class='row'>
+            <div class='col'>Bite</div>
+            <div class='col'>@i</div>
+            <div class='col'>@State.RollD20(State, 0, out var rollState)</div>
+            <div class='col'>@State.CalculateDamage(1, 4, 0, rollState)</div>
             </div>
     }
 </div>
 
+<div class="table">
+    @for (var i = 1; i < 21; i++)
+    {
+        <div class='row'>
+            <div class='col'>@i</div>
+            <div class='col'>@fairness.Number[i]</div>
+        </div>
+    }
+</div>
+<p>Fairness average: @fairness.Average() (should be around @(10000/20))</p>
+<p>Fairness min: @fairness.Min()</p>
+<p>Fairness max: @fairness.Max()</p>
 @inject IWebHostEnvironment WebHostEnvironment
 
 @code {
+    public FairnessState fairness;
+
     protected override void OnInitialized()
     {
+        fairness = new FairnessState();
         State = RollerAState.Load(RollerAStateFilePath);
     }
 
     public void FullRoll()
     {
+        fairness = new FairnessState();
         State.Save(RollerAStateFilePath);
     }
 

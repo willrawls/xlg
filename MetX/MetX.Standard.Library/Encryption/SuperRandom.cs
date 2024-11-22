@@ -254,6 +254,18 @@ namespace MetX.Standard.Library.Encryption
             Salt = Repeating(salt, randomLength);
         }
 
+        public static byte[] GenerateRegularSalt()
+        {
+            var r = new Random();
+            var b = new byte[2141];
+            r.NextBytes(b);
+            for (var i = 0; i < b.Length; i++)
+            {
+                b[i] = SpiceBlender(b[i]);
+            }
+            return b;
+        }
+
         public static byte[] Repeating(byte[] bytes, int targetLength)
         {
             if (bytes == null) return null;
@@ -286,9 +298,11 @@ namespace MetX.Standard.Library.Encryption
         }
         
         public static Func<byte, byte> SpiceBlender => DefaultSpiceBlender;
+        public static ulong spice = 997;
         private static byte DefaultSpiceBlender(byte byteIn)
         {
-            return byteIn.RotateLeft(3);
+            return (byte) ((byte) (byteIn + spice++) % 254);
+            //return byteIn.RotateLeft(3);
         }
         public static IEnumerable<byte> SpiceBlendShaker(IEnumerable<byte> bytes)
         {
@@ -313,7 +327,7 @@ namespace MetX.Standard.Library.Encryption
         {
             var buffer = new byte[1];
             _provider.GetBytes(buffer);
-            return buffer[0];
+            return SpiceBlender(buffer[0]);
         }
 
         public static byte[] NextBytes(int bytesNumber, bool zeroTheLastByte = false)
@@ -326,6 +340,7 @@ namespace MetX.Standard.Library.Encryption
 
             for (var i = 0; i < bytesNumber; i++)
             {
+                buffer[i] = SpiceBlender(buffer[i]);
                 if (buffer[i] == 0)
                     buffer[i] = (byte) NextChar();
             }

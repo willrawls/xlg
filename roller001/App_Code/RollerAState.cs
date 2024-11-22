@@ -38,6 +38,8 @@ public class RollerAState
 
     public static RollerAState Load(string? filePath)
     {
+        SuperRandom.FillSaltShaker(SuperRandom.GenerateRegularSalt());
+
         if (!File.Exists(filePath))
         {
             return new RollerAState();
@@ -49,6 +51,8 @@ public class RollerAState
 
     public void Save(string? filePath)
     {
+        SuperRandom.FillSaltShaker(SuperRandom.GenerateRegularSalt());
+
         var json = JsonSerializer.Serialize(this);
         File.WriteAllText(filePath, json.ToString());
     }
@@ -112,25 +116,45 @@ public class RollerAState
         return AttacksMultiplier;
     }
 
-    public string RollD20(RollerAState state, int bonus, out bool natural20, out bool natural1, out int hitRoll)
+
+    public string RollD20(RollerAState state, int bonus, out RollState rollState)
     {
+        rollState = new RollState();
         var roll = (int)SuperRandom.NextRoll(1, 20);
-        natural20 = roll == 20;
-        natural1 = roll == 1;
-        hitRoll = roll + bonus + (HasBless ? 1 : 0);
-        if (natural1) hitRoll = 1;
-        if (natural20) return $"{hitRoll} (Natural 20)";
-        if (natural1) return $"{hitRoll} (Natural 1)";
+        rollState.natural20 = roll == 20;
+        rollState.natural1 = roll == 1;
+        rollState.hitRoll = roll + bonus + (HasBless ? 1 : 0);
+        if (rollState.natural1)
+        {
+            rollState.hitRoll = 1;
+            return $"(Natural 1)";
+        }
+        
         var target = state.THAC0 - state.TargetAc;
-        if (hitRoll >= target) return $"{hitRoll} (Hit)";
-        return $"{hitRoll} (Miss) Target {target}";
+
+        if (rollState.natural20)
+        {
+            rollState.didHit = true;
+            return $"20+{bonus}={rollState.hitRoll}";
+        }
+        
+        if (rollState.hitRoll >= target)
+        {
+            rollState.didHit = true;
+            return $"{roll}+{bonus}={rollState.hitRoll} (Hit)";
+        }
+        return $"{roll}+{bonus}={rollState.hitRoll} (Miss) Target {target}";
     }
 
-    public string CalculateDamage(int dice, int sides, int bonusToDamage, bool natural20, bool natural1, int hitRoll)
+    public string CalculateDamage(int dice, int sides, int bonusToDamage, RollState rollState)
     {
-        if (natural1)
+        if (!rollState.didHit)
         {
-            hitRoll = -1;
+            return "";
+        }
+        if (rollState.natural1)
+        {
+            rollState.hitRoll = -1;
             return "Skip next";
         }
 
@@ -139,11 +163,55 @@ public class RollerAState
         var baseDamage = damageRoll + bonusToDamage;
         return (baseDamage
                 * (HasGiantStrength ? 2 : 1)
-                * (natural20 ? 2 : 1)).ToString();
+                * (rollState.natural20 ? 2 : 1)).ToString();
     }
 
     public int MinimumDamage()
     {
         return (MinimumHandDamage() + MinimumCestis3Damage() + MinimumCestis2Damage());
+    }
+}
+
+public class RollState
+{
+    public bool natural20;
+    public bool natural1;
+    public int hitRoll;
+    public bool didHit;
+}
+
+public class FairnessState
+{
+    public List<int> Number;
+
+    public FairnessState()
+    {
+        Number = new List<int>(21);
+        for(int i = 0; i < 21; i++)
+            Number.Add(i);
+
+        for (int i = 0; i < 10000; i++)
+        {
+            var roll = (int)SuperRandom.NextRoll(1, 20);
+            Number[roll]++;
+        }
+    }
+
+    public int Average()
+    {
+        int total = 0;
+        for (int i = 0; i < 21; i++)
+            total += Number[i];
+        return total / 20;
+    }
+
+    public int Min()
+    {
+        return Number.Where(n => n > 0).Min();
+    }
+
+    public int Max()
+    {
+        return Number.Where(n => n > 0).Max();
     }
 }
