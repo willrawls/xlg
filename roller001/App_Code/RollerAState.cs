@@ -32,6 +32,12 @@ public class RollerAState
     public int Cestis2Sides { get; set; } = 8;
     public int Cestis2Plus { get; set; } = 7;
     
+    public int BiteAttacks { get; set; } = 3;
+    public int BiteToHit { get; set; } = 0;
+    public int BiteDice { get; set; } = 1;
+    public int BiteSides { get; set; } = 4;
+    public int BitePlus { get; set; } = 0;
+    
     public int DamageMultiplier { get; set; } = 2;
     public int AttacksMultiplier { get; set; } = 1;
 
@@ -79,15 +85,16 @@ public class RollerAState
         HasBerserk = !HasBerserk;
         if (HasBerserk)
         {
-            HandsAttacks = 4;
-            Cestis3Attacks = 2;
-            Cestis2Attacks = 1;
+            HandsAttacks++;
+            Cestis3Attacks++;
+            BiteAttacks++;
         }
         else
         {
-            HandsAttacks = 3;
+            HandsAttacks = 4;
             Cestis3Attacks = 1;
             Cestis2Attacks = 1;
+            BiteAttacks = 4;
         }
     }
 
@@ -127,23 +134,30 @@ public class RollerAState
         if (rollState.natural1)
         {
             rollState.hitRoll = 1;
-            return $"(Natural 1)";
+            return "Natural 1";
         }
         
-        var target = state.THAC0 - state.TargetAc;
-
         if (rollState.natural20)
         {
             rollState.didHit = true;
-            return $"20+{bonus}={rollState.hitRoll}";
+            return $"Nat 20+{bonus}={rollState.hitRoll}";
         }
         
+        var target = state.THAC0 - state.TargetAc;
         if (rollState.hitRoll >= target)
         {
             rollState.didHit = true;
-            return $"{roll}+{bonus}={rollState.hitRoll} (Hit)";
+            return $"{roll}+{bonus}={rollState.hitRoll}";
         }
-        return $"{roll}+{bonus}={rollState.hitRoll} (Miss) Target {target}";
+
+        var missText = $"{roll}+{bonus}={rollState.hitRoll} (Miss)";
+        _alreadyMissed = true;
+        return missText;
+    }
+
+    public string Target()
+    {
+        return $"Target is {THAC0 - TargetAc}";
     }
 
     public string CalculateDamage(int dice, int sides, int bonusToDamage, RollState rollState)
@@ -161,14 +175,30 @@ public class RollerAState
         var damageRoll = (int)SuperRandom.NextRoll(dice, sides);
 
         var baseDamage = damageRoll + bonusToDamage;
-        return (baseDamage
-                * (HasGiantStrength ? 2 : 1)
-                * (rollState.natural20 ? 2 : 1)).ToString();
+        rollState.damage = baseDamage
+                           * (HasGiantStrength ? 2 : 1)
+                           * (rollState.natural20 ? 2 : 1);
+        _totalDamage += rollState.damage;
+        return rollState.damage.ToString();
     }
 
     public int MinimumDamage()
     {
         return (MinimumHandDamage() + MinimumCestis3Damage() + MinimumCestis2Damage());
+    }
+
+    private static bool _alreadyMissed;
+    private static int _totalDamage;
+    public string PreRoll()
+    {
+        _alreadyMissed = false;
+        _totalDamage = 0;
+        return Target();
+    }
+
+    public string PostRoll()
+    {
+        return $"Total damage is {_totalDamage}";
     }
 }
 
@@ -178,6 +208,7 @@ public class RollState
     public bool natural1;
     public int hitRoll;
     public bool didHit;
+    public int damage;
 }
 
 public class FairnessState

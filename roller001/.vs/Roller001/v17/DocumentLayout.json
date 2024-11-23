@@ -3,15 +3,12 @@
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D50B92B-21B1-423A-8B6F-0B68ADEDFD90}|..\\MetX\\MetX.Standard.Library\\MetX.Standard.Library.csproj|e:\\onedrive\\data\\code\\github\\xlg\\metx\\metx.standard.library\\encryption\\superrandom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\app_code\\rollerastate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:app_code\\rollerastate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:components\\pages\\rollera.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 341,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -65,41 +62,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SuperRandom.cs",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\Encryption\\SuperRandom.cs",
-              "RelativeDocumentMoniker": "..\\MetX\\MetX.Standard.Library\\Encryption\\SuperRandom.cs",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\MetX\\MetX.Standard.Library\\Encryption\\SuperRandom.cs",
-              "RelativeToolTip": "..\\MetX\\MetX.Standard.Library\\Encryption\\SuperRandom.cs",
-              "ViewState": "AgIAAPMAAAAAAAAAAAAEwAIBAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T07:03:24.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RollerA.razor",
-              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\RollerA.razor",
-              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
-              "RelativeToolTip": "Components\\Pages\\RollerA.razor",
-              "ViewState": "AgIAAIcAAAAAAAAAAAAmwJwAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-20T05:25:36.322Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "RollerAState.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\App_Code\\RollerAState.cs",
               "RelativeDocumentMoniker": "App_Code\\RollerAState.cs",
               "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\App_Code\\RollerAState.cs",
               "RelativeToolTip": "App_Code\\RollerAState.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAEwDUAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAuwK8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T05:23:18.51Z",
+              "WhenOpened": "2024-11-23T04:45:45.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RollerA.razor",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\RollerA.razor",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
+              "RelativeToolTip": "Components\\Pages\\RollerA.razor",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAAAL8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-23T04:43:09.037Z",
               "EditorCaption": ""
             }
           ]
