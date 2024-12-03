@@ -3,6 +3,12 @@
   "WorkspaceRootPath": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9745C851-E665-440A-883C-6A0AA51CC4F9}|..\\Learner001\\Learner001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\learner001\\mlmodel1.mbconfig||{93FA4DC3-61EC-47AF-B0BA-50CAD3CAF049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9745C851-E665-440A-883C-6A0AA51CC4F9}|..\\Learner001\\Learner001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\learner001\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|e:\\onedrive\\data\\code\\github\\xlg\\roller001\\app_code\\rollerastate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2D79A3EB-A52E-4858-8867-3ABB17455E6F}|Roller001.csproj|solutionrelative:app_code\\rollerastate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -63,19 +69,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MLModel1.mbconfig",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Learner001\\MLModel1.mbconfig",
+              "RelativeDocumentMoniker": "..\\Learner001\\MLModel1.mbconfig",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Learner001\\MLModel1.mbconfig",
+              "RelativeToolTip": "..\\Learner001\\MLModel1.mbconfig",
+              "Icon": "7f5c38b0-f0bc-4551-a9a8-b4f467cc4670.000012|",
+              "WhenOpened": "2024-11-24T21:39:29.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Learner001\\Program.cs",
+              "RelativeDocumentMoniker": "..\\Learner001\\Program.cs",
+              "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\Learner001\\Program.cs",
+              "RelativeToolTip": "..\\Learner001\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T21:39:12.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "RollerAState.cs",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\App_Code\\RollerAState.cs",
               "RelativeDocumentMoniker": "App_Code\\RollerAState.cs",
               "ToolTip": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\App_Code\\RollerAState.cs",
               "RelativeToolTip": "App_Code\\RollerAState.cs",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAuwK8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-23T04:45:45.117Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "RollerA.razor",
               "DocumentMoniker": "E:\\OneDrive\\Data\\code\\GitHub\\xlg\\roller001\\Components\\Pages\\RollerA.razor",
               "RelativeDocumentMoniker": "Components\\Pages\\RollerA.razor",
@@ -83,8 +114,7 @@
               "RelativeToolTip": "Components\\Pages\\RollerA.razor",
               "ViewState": "AgIAAK0AAAAAAAAAAAAAAL8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-23T04:43:09.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-23T04:43:09.037Z"
             }
           ]
         },
