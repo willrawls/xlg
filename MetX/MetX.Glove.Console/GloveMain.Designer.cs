@@ -607,7 +607,7 @@ namespace XLG.Pipeliner
             this.flowLayoutPanel1.SetFlowBreak(this.comboProviderName, true);
             this.comboProviderName.FormattingEnabled = true;
             this.comboProviderName.Items.AddRange(new object[] {
-            "System.Data.SqlClient",
+            "Microsoft.Data.SqlClient",
             "Sybase.Data.AseClient",
             "MySql.Data.MySqlClient",
             "MetX.Standard.Data.Factory.CommandLineProvider",

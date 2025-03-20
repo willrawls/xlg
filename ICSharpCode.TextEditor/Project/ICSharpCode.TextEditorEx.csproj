@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net7.0-windows</TargetFrameworks>
+		<TargetFrameworks>net8.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<PackageId>ICSharpCode.TextEditorEx</PackageId>
 		<Copyright>Copyright © Stef Heyenrath, SharpDevelop, Qwertie and MysticBoy 2014-2020</Copyright>

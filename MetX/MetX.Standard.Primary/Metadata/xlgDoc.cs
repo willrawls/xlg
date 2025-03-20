@@ -1,8 +1,8 @@
+using MetX.Standard.Library.ML;
+using MetX.Standard.Strings;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MetX.Standard.Library.ML;
-using MetX.Standard.Strings;
 
 // ReSharper disable InconsistentNaming
 
@@ -51,16 +51,16 @@ namespace MetX.Standard.Primary.Metadata
                 Views = new List<View>(),
                 Relationships = new List<Relationship>(),
                 XlgInstanceID = Guid.NewGuid().ToString("N"),
-                ConnectionStringName = outputFilePath.IsEmpty() 
+                ConnectionStringName = outputFilePath.IsEmpty()
                     ? "Initial Catalog=YourDatabase;Server=YourServer;"
                     : $"Initial Catalog={name};Server=YourServer;",
                 Now = DateTime.Now.ToString("s"),
-                DatabaseProvider = "System.Data.SqlClient",
+                DatabaseProvider = "Microsoft.Data.SqlClient",
                 Namespace = "MetX.Xlg.YourNamespace",
                 OutputFolder = outputFilePath.IsEmpty()
                     ? "C:\\SomeOutputFolder"
                     : outputFilePath.TokensBeforeLast(@"\"),
-                ProviderName = "System.Data.SqlClient",
+                ProviderName = "Microsoft.Data.SqlClient",
             };
 
             return result;
@@ -72,7 +72,7 @@ namespace MetX.Standard.Primary.Metadata
             Tables ??= new List<Table>();
             Views ??= new List<View>();
             Relationships ??= new List<Relationship>();
-            if(XlgInstanceID.IsEmpty()) XlgInstanceID = Guid.NewGuid().ToString("N");
+            if (XlgInstanceID.IsEmpty()) XlgInstanceID = Guid.NewGuid().ToString("N");
             Now ??= DateTime.Now.ToString("s");
             return this;
         }

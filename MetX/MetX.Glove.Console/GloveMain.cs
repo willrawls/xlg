@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
 using MetX.Fimm.Glove;
 using MetX.Fimm.Glove.Pipelines;
 using MetX.Standard.Library.ML;
@@ -16,6 +10,12 @@ using MetX.Windows.Library;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
 using NHotPhrase.WindowsForms;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 using XLG.Pipeliner.Properties;
 
 namespace XLG.Pipeliner;
@@ -54,7 +54,7 @@ public partial class GloveMain : Form
     private void InitializeHotKeys()
     {
         Manager.Keyboard.AddOrReplace("RegenerateNow",
-            new List<PKey> {PKey.RControlKey, PKey.LControlKey, PKey.RControlKey, PKey.RControlKey},
+            new List<PKey> { PKey.RControlKey, PKey.LControlKey, PKey.RControlKey, PKey.RControlKey },
             OnHotKeyRegenerateNow);
     }
 
@@ -207,7 +207,7 @@ public partial class GloveMain : Form
                 foreach (var currSource in Settings.Sources)
                 {
                     var lvi = new ListViewItem(currSource.DisplayName)
-                        {Tag = currSource, Checked = currSource.Selected};
+                    { Tag = currSource, Checked = currSource.Selected };
                     MetadataSources.Items.Add(lvi);
                 }
             }
@@ -220,7 +220,7 @@ public partial class GloveMain : Form
                 foreach (var currSource in Settings.Sources)
                 {
                     var lvi = new ListViewItem(currSource.DisplayName)
-                        {Tag = currSource, Checked = currSource.Selected};
+                    { Tag = currSource, Checked = currSource.Selected };
                     MetadataSources.Items.Add(lvi);
                 }
 
@@ -328,7 +328,7 @@ public partial class GloveMain : Form
 
     private void MetadataSources_ItemChecked(object sender, ItemCheckedEventArgs e)
     {
-        ((XlgSource) e.Item.Tag).Selected = e.Item.Checked;
+        ((XlgSource)e.Item.Tag).Selected = e.Item.Checked;
     }
 
     private void MetadataSources_SelectedIndexChanged(object sender, EventArgs e)
@@ -337,7 +337,7 @@ public partial class GloveMain : Form
         {
             UpdateCurrentSource();
             if (MetadataSources.SelectedItems.Count <= 0) return;
-            _xlgSource = (XlgSource) MetadataSources.SelectedItems[0].Tag;
+            _xlgSource = (XlgSource)MetadataSources.SelectedItems[0].Tag;
             textAppXlgXsl.Text = _xlgSource.XslFilename;
             textOutput.Text = _xlgSource.OutputFilename;
             textOutputXml.Text = _xlgSource.OutputXml;
@@ -368,7 +368,7 @@ public partial class GloveMain : Form
         _xlgSource.ConnectionString = textConnectionString.Text;
         _xlgSource.RegenerateOnly = checkRegenerateOnly.Checked;
         //            m_CurrSource.SqlToXml = textSqlToXml.Text;
-        if (comboProviderName.SelectedIndex > -1) _xlgSource.ProviderName = (string) comboProviderName.SelectedItem;
+        if (comboProviderName.SelectedIndex > -1) _xlgSource.ProviderName = (string)comboProviderName.SelectedItem;
     }
 
     private void buttonSave_Click(object sender, EventArgs e)
@@ -461,7 +461,7 @@ public partial class GloveMain : Form
                 {
                     newSource.OutputFilename = newSource.BasePath + itemName + ".Glove.cs";
                     newSource.OutputXml = newSource.BasePath + itemName + ".Glove.xml";
-                    newSource.ProviderName = "System.Data.SqlClient";
+                    newSource.ProviderName = "Microsoft.Data.SqlClient";
                     newSource.Selected = true;
                     newSource.XlgDocFilename = newSource.BasePath + itemName + ".xlgd";
                     newSource.XslFilename = AppData.SupportPath + "CSharp DAL.xlg.xsl";
@@ -666,7 +666,7 @@ public partial class GloveMain : Form
     {
         var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xlgQuickScripts.exe");
         exePath = FileSystem.FindExecutableAlongPath(exePath,
-            new[] {@"\..\..\..\..\MetX.QuickScripts\bin\Debug\net6.0-windows"});
+            new[] { @"\..\..\..\..\MetX.QuickScripts\bin\Debug\net6.0-windows" });
         if (!File.Exists(exePath))
             Host.MessageBox.Show("Qk Scrptr executable missing: " + exePath);
         else
