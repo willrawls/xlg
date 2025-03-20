@@ -68,7 +68,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.14" />
+		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.13.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -76,7 +76,7 @@
 		<PackageReference Include="Mvp.Xml.NetStandard" Version="1.1.1" />
 		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
 
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\MetX.Standard.Primary\MetX.Standard.Primary.csproj" />

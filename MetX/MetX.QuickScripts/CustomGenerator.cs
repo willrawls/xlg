@@ -1,53 +1,48 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-
-namespace XLG.QuickScripts
+﻿namespace XLG.QuickScripts
 {
-    [Generator]
-    public class CustomGenerator : ISourceGenerator
-    {
-        public void Initialize(GeneratorInitializationContext context) => context.RegisterForSyntaxNotifications(() => new MapToReceiver());
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.Text;
+    using System.Linq;
+    using System.Text;
 
-        public void Execute(GeneratorExecutionContext context)
-        {
-            context.AddSource("myGeneratedFile.cs", SourceText.From(@"
-namespace XLG.QuickScripts.Generated
-{
-    public static class GClass
+    namespace XLG.QuickScripts
     {
-        public static void GMethod()
+        [Generator]
+        public class CustomGenerator : IIncrementalGenerator
         {
-            // generated code
-        }
-    }
-}", Encoding.UTF8));
-        }
-        
-        
-        public sealed class MapToReceiver : ISyntaxReceiver
-        {
-            public List<TypeDeclarationSyntax> Candidates { get; } =
-                new List<TypeDeclarationSyntax>();
-            public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
+            public void Initialize(IncrementalGeneratorInitializationContext context)
             {
-                if(syntaxNode is TypeDeclarationSyntax typeDeclarationSyntax)
-                {
-                    foreach (var attributeList in 
-                        typeDeclarationSyntax.AttributeLists)
-                    {
-                        foreach (var attribute in attributeList.Attributes)
-                        {
-                            if(attribute.Name.ToString() == "MapTo" ||
-                               attribute.Name.ToString() == "MapToAttribute")
-                            {
-                                Candidates.Add(typeDeclarationSyntax);
-                            }
-                        }
-                    }
-                }
+                // Collect candidate syntax nodes
+                var provider = context.SyntaxProvider
+                    .CreateSyntaxProvider(
+                        predicate: (s, _) => s is TypeDeclarationSyntax typeDecl &&
+                                             typeDecl.AttributeLists.Any(a => a.Attributes
+                                                 .Any(attr =>
+                                                     attr.Name.ToString() == "MapTo" ||
+                                                     attr.Name.ToString() == "MapToAttribute")),
+                        transform: (ctx, _) => (TypeDeclarationSyntax)ctx.Node
+                    )
+                    .Where(static typeDecl => typeDecl is not null);
+
+                context.RegisterSourceOutput(provider, GenerateCode);
+            }
+
+            private void GenerateCode(SourceProductionContext context, TypeDeclarationSyntax typeDeclaration)
+            {
+                var className = typeDeclaration.Identifier.Text;
+                var generatedSource = $@"
+namespace XLG.QuickScripts.Generated
+{{
+    public static class {className}Generated
+    {{
+        public static void GMethod()d
+        {{
+            // generated code
+        }}
+    }}
+}}";
+                context.AddSource($"{className}Generated.cs", SourceText.From(generatedSource, Encoding.UTF8));
             }
         }
     }

@@ -1,17 +1,18 @@
-﻿using System.Text;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using System.Text;
 
 namespace MetX.Standard.Generators
 {
     [Generator]
-    public class AddClassSupportFromTemplate : ISourceGenerator
+    public class AddClassSupportFromTemplate : IIncrementalGenerator
     {
-        public void Initialize(GeneratorInitializationContext context) {}
-
-        public void Execute(GeneratorExecutionContext context)
+        public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            context.AddSource("Fred.exampleOne.cs", SourceText.From(@"
+            // Register the code generation process
+            context.RegisterPostInitializationOutput(ctx =>
+            {
+                const string generatedCode = @"
 namespace MetX.Generated
 {
     public static class FredExampleOne
@@ -22,7 +23,9 @@ namespace MetX.Generated
             System.Console.WriteLine(""Ding 2"");
         }
     }
-}", Encoding.UTF8));
+}";
+                ctx.AddSource("Fred.exampleOne.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
+            });
         }
     }
 }

@@ -1,31 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Data\\code\\github\\xlg\\MetX\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|solutionrelative:metx.glove.console\\glovemain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\metadata\\xlgdoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\metadata\\xlgdoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\io\\sql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\io\\sql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.glove.console\\glovemain.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8492F221-2DE1-4F46-9A1C-A451AA986313}|MetX.Glove.Console\\MetX.Windows.Glove.csproj|solutionrelative:metx.glove.console\\glovemain.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.console.fimm\\glove\\providers\\sqldataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4D9D18F1-A38F-4476-9B1A-42BCE486C180}|MetX.Console.Fimm\\MetX.Console.Fimm.csproj|solutionrelative:metx.console.fimm\\glove\\providers\\sqldataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7EFFD36B-54F2-4148-A74F-B46D54A9502D}|..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj|c:\\data\\code\\github\\xlg\\icsharpcode.texteditor\\project\\icsharpcode.texteditorex.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -33,73 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "xlgDoc.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\Metadata\\xlgDoc.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\Metadata\\xlgDoc.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\Metadata\\xlgDoc.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\Metadata\\xlgDoc.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAArwD4AAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:44:54.904Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "sql.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\IO\\sql.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Primary\\IO\\sql.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\IO\\sql.cs",
-              "RelativeToolTip": "MetX.Standard.Primary\\IO\\sql.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:44:44.802Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GloveMain.Designer.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.Designer.cs",
-              "RelativeDocumentMoniker": "MetX.Glove.Console\\GloveMain.Designer.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.Designer.cs",
-              "RelativeToolTip": "MetX.Glove.Console\\GloveMain.Designer.cs",
-              "ViewState": "AgIAAE4CAAAAAAAAAAArwGECAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:44:38.63Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GloveMain.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs",
-              "RelativeDocumentMoniker": "MetX.Glove.Console\\GloveMain.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Glove.Console\\GloveMain.cs",
-              "RelativeToolTip": "MetX.Glove.Console\\GloveMain.cs",
-              "ViewState": "AgIAAL0BAAAAAAAAAAAAANABAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:44:33.343Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SqlDataProvider.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Providers\\SqlDataProvider.cs",
-              "RelativeDocumentMoniker": "MetX.Console.Fimm\\Glove\\Providers\\SqlDataProvider.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Console.Fimm\\Glove\\Providers\\SqlDataProvider.cs",
-              "RelativeToolTip": "MetX.Console.Fimm\\Glove\\Providers\\SqlDataProvider.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T17:39:54.413Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -139,19 +50,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ICSharpCode.TextEditorEx.csproj",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeDocumentMoniker": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "RelativeToolTip": "..\\ICSharpCode.TextEditor\\Project\\ICSharpCode.TextEditorEx.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-20T17:00:46.371Z",
-              "EditorCaption": ""
             }
           ]
         },
