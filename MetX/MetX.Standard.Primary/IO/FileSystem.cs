@@ -1,3 +1,7 @@
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Pipelines;
+using MetX.Standard.Strings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -5,10 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using MetX.Standard.Primary.Host;
-using MetX.Standard.Primary.Interfaces;
-using MetX.Standard.Primary.Pipelines;
-using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.IO
 {
@@ -199,12 +199,13 @@ namespace MetX.Standard.Primary.IO
                     if (--maxDepth > 1)
                         DeepCopy((DirectoryInfo)currSource, dest.CreateSubdirectory(currSource.Name), maxDepth);
                 }
-                else if((currSource.Attributes & FileAttributes.Normal) == FileAttributes.Normal
-                        || (currSource.Attributes & FileAttributes.Archive) == FileAttributes.Archive)
+                else if ((currSource.Attributes & FileAttributes.ReparsePoint) == 0)
+                //if((currSource.Attributes & FileAttributes.Normal) == FileAttributes.Normal
+                //   || (currSource.Attributes & FileAttributes.Archive) == FileAttributes.Archive)
                 {
                     var currSourceFile = (FileInfo)currSource;
                     var destinationFilePath = dest.FullName + @"\" + currSourceFile.Name;
-                    if(File.Exists(destinationFilePath))
+                    if (File.Exists(destinationFilePath))
                     {
                         if (overwriteExistingFiles)
                             SafelyDeleteFile(destinationFilePath);
@@ -272,16 +273,18 @@ namespace MetX.Standard.Primary.IO
                 if ((currSource.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                 {
                     var add = folderFilter == null || folderFilter.IsMatch(currSource.FullName);
-                    if(add)
+                    if (add)
                         target.Folders.Add(
-                            DeepContents(new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime, currSource.LastWriteTime), (DirectoryInfo) currSource, fileFilter, folderFilter));
+                            DeepContents(
+                                new XlgFolder(currSource.FullName, currSource.Name, currSource.CreationTime,
+                                    currSource.LastWriteTime), (DirectoryInfo)currSource, fileFilter, folderFilter));
                 }
                 else
                 {
                     var fi = (FileInfo)currSource;
 
                     var add = fileFilter == null || fileFilter.IsMatch(fi.Name);
-                    if(add)
+                    if (add)
                         target.Files.Add(
                             new XlgFile(
                                 fi.FullName.EndsWith(fi.Name)
@@ -368,7 +371,7 @@ namespace MetX.Standard.Primary.IO
 
                 GatherOutput(filename, arguments, workingFolder, 0, windowStyle, true);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e;
             }
@@ -522,7 +525,7 @@ namespace MetX.Standard.Primary.IO
 
             var fullPath = Environment.GetEnvironmentVariable("PATH")?.ToUpper() ?? "";
             if (fullPath.IsEmpty()) return pathToExecutable;
-            
+
             var paths = fullPath.Split(';').Distinct().ToArray();
             foreach (var path in paths)
             {

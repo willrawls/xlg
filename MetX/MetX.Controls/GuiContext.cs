@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
-using MetX.Fimm;
+﻿using MetX.Fimm;
 using MetX.Fimm.Scripts;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 
 #pragma warning disable 414
 namespace MetX.Windows.Controls
@@ -33,9 +33,9 @@ namespace MetX.Windows.Controls
             var quickScriptOutput = new QuickScriptOutput(script, caller, title, output, host);
             OutputWindows.Add(quickScriptOutput);
 
-            if (caller.ToolWindow != null) 
+            if (caller.ToolWindow != null)
                 caller.ToolWindow.Show(quickScriptOutput);
-            else if(host != null)
+            else if (host != null)
             {
                 quickScriptOutput.Bounds = host.Boundary;
                 quickScriptOutput.Show();
@@ -58,7 +58,7 @@ namespace MetX.Windows.Controls
             Form callerAsWinForm = null;
             {
                 callerAsWinForm = caller as Form;
-                if (callerAsWinForm is {InvokeRequired: true})
+                if (callerAsWinForm is { InvokeRequired: true })
                 {
                     callerAsWinForm.Invoke(
                         new Action<ScriptRunningWindow, XlgQuickScript, IShowText, IGenerationHost>(RunQuickScript),
@@ -77,9 +77,10 @@ namespace MetX.Windows.Controls
                 {
                     if (string.IsNullOrEmpty(scriptToRun.DestinationFilePath))
                     {
-                        if(callerAsWinForm != null)
+                        if (callerAsWinForm != null)
                         {
-                            MessageBox.Show(callerAsWinForm, "Please supply an output filename.", "OUTPUT FILE PATH REQUIRED");
+                            MessageBox.Show(callerAsWinForm, "Please supply an output filename.",
+                                "OUTPUT FILE PATH REQUIRED");
                             callerAsWinForm.Controls["DestinationParam"]?.Focus();
                         }
                         else
@@ -95,13 +96,35 @@ namespace MetX.Windows.Controls
 
                 var fireAndForget = scriptToRun.Destination != QuickScriptDestination.TextBox;
                 var runResult = Run(caller, scriptToRun, host, fireAndForget);
-                if (runResult.InputMissing) 
+                if (runResult.InputMissing)
                     callerAsWinForm?.Controls["InputParam"]?.Focus();
+
+                if (runResult.ErrorOutput.IsNotEmpty() && !runResult.ErrorOutput.Contains("SUCCESS") &&
+                    runResult.GatheredOutput.IsEmpty())
+                {
+                    if (targetOutput == null)
+                    {
+                        CloseAllWindows();
+                        ViewInNewQuickScriptOutputWindow(
+                            caller,
+                            scriptToRun,
+                            "FAILED: " + scriptToRun.Name + " at " + DateTime.Now.ToString("G"),
+                            runResult.ErrorOutput,
+                            host);
+                    }
+                    else
+                    {
+                        targetOutput.Title = scriptToRun.Name + " at " + DateTime.Now.ToString("G");
+                        targetOutput.TextToShow = runResult.GatheredOutput;
+                    }
+
+                    return;
+                }
 
                 if (!runResult.KeepGoing || fireAndForget)
                     return;
 
-                if(runResult.GatheredOutput.IsEmpty())
+                if (runResult.GatheredOutput.IsEmpty())
                     runResult.GatheredOutput = "No output was generated.";
 
                 try
@@ -152,9 +175,9 @@ namespace MetX.Windows.Controls
         }
 
         private static RunResult Run(
-            IRunQuickScript caller, 
-            XlgQuickScript scriptToRun, 
-            IGenerationHost host, 
+            IRunQuickScript caller,
+            XlgQuickScript scriptToRun,
+            IGenerationHost host,
             bool fireAndForget)
         {
             var wallaby = new Wallaby(host);
@@ -166,7 +189,7 @@ namespace MetX.Windows.Controls
                 var finalDetails = result.FinalDetails(out var keyLines);
 
                 CloseAllWindows();
-                
+
                 var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
                 sourceCodeWindow?.Find("|Error");
 

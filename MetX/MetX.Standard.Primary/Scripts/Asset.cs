@@ -1,7 +1,7 @@
+using MetX.Standard.Strings;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -43,8 +43,8 @@ namespace MetX.Standard.Primary.Scripts
             {
                 filename = settings.TemplateNameAsLegalFilenameWithoutExtension + filename.Substring(1);
             }
-            
-            if(settings.QuickScriptTemplate.TemplatePath.StartsWith(RelativePath))
+
+            if (RelativePath == "." || settings.QuickScriptTemplate.TemplatePath.StartsWith(RelativePath))
             {
                 return Path.Combine(settings.ProjectFolder, filename);
             }

@@ -14,6 +14,8 @@ namespace MetX.Standard.Primary.Generation
                 GenFramework.Core31 => "core3.1",
                 GenFramework.Standard20 => "netstandard2.0",
                 GenFramework.Standard21 => "netstandard2.1",
+                GenFramework.Net80Windows => "net8.0-windows",
+                GenFramework.Net80 => "net8.0",
                 GenFramework.Unknown => throw new ArgumentOutOfRangeException(nameof(target), target, null),
                 _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
             };

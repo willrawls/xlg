@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using MetX.Standard.Primary.IO;
+﻿using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using System;
+using System.IO;
 
 namespace MetX.Standard.Primary.Generation
 {
     public class CsProjGeneratorOptions
     {
         public const string Delimiter = "~~";
-            
+
         public string GenerationSet { get; set; }
         public string PathToTemplatesFolder { get; set; }
         public string OutputPath { get; set; }
@@ -88,6 +88,10 @@ namespace MetX.Standard.Primary.Generation
                     return "net6.0";
                 case GenFramework.Net60Windows:
                     return "net-6.0windows";
+                case GenFramework.Net80Windows:
+                    return "net8.0";
+                case GenFramework.Net80:
+                    return "net-8.0windows";
                 case GenFramework.Core31:
                     return "netcoreapp3.1";
                 case GenFramework.Standard20:
@@ -178,7 +182,7 @@ namespace MetX.Standard.Primary.Generation
             TargetFramework = targetFramework;
             return this;
         }
- 
+
         public bool AssertValid()
         {
             GeneratorsName.ThrowIfEmpty("GeneratorsName");
@@ -196,7 +200,7 @@ namespace MetX.Standard.Primary.Generation
 
             if (TargetFramework == GenFramework.Unknown)
                 throw new ArgumentOutOfRangeException("TargetFramework");
-            if(OutputType == GenOutputType.Unknown)
+            if (OutputType == GenOutputType.Unknown)
                 throw new ArgumentOutOfRangeException("OutputType");
 
             if (!Directory.Exists(PathToTemplatesFolder))
@@ -204,12 +208,12 @@ namespace MetX.Standard.Primary.Generation
             if (!File.Exists(PathToMetXStandardDll))
             {
                 var secondChance = Path.Combine(PathToMetXStandardDll, "MetX.Standard.Primary.dll");
-                if(!File.Exists(secondChance))
+                if (!File.Exists(secondChance))
                     throw new ArgumentOutOfRangeException("PathToMetXStandardDll");
                 PathToMetXStandardDll = secondChance;
             }
-            
+
             return true;
         }
-   }
+    }
 }

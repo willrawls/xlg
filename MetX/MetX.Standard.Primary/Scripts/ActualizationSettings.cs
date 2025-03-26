@@ -1,9 +1,9 @@
-using System;
-using System.IO;
-using System.Linq;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -29,13 +29,13 @@ namespace MetX.Standard.Primary.Scripts
             ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension, $"On_{DateTime.Now:yyyyMMddhhmmss}");
             Directory.CreateDirectory(ProjectFolder);
 
-            if(!simulate)
+            if (!simulate)
             {
                 FileSystem.CleanFolder(Path.Combine(ProjectFolder, "obj"));
                 FileSystem.CleanFolder(Path.Combine(ProjectFolder, "bin"));
             }
             DebugPath = Path.Combine(ProjectFolder, "bin", "Debug");
-            
+
             GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
         }
 
@@ -43,7 +43,7 @@ namespace MetX.Standard.Primary.Scripts
         {
             if (!Directory.Exists(DebugPath))
             {
-                BinPath = Path.Combine(DebugPath, "net6.0");
+                BinPath = Path.Combine(DebugPath, "net8.0");
                 return;
             }
 

@@ -12,5 +12,7 @@
         Net70,
         Standard20,
         Standard21,
+        Net80Windows,
+        Net80
     }
 }

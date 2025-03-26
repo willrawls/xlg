@@ -1,10 +1,10 @@
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Strings;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using MetX.Standard.Primary.IO;
-using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -20,8 +20,9 @@ namespace MetX.Standard.Primary.Scripts
         public string DestinationExecutableFilePath { get; set; }
 
         public bool ActualizationSuccessful => ActualizeErrorText.IsEmpty();
-        public bool CompileSuccessful => Settings.Simulate || 
-                                         (ActualizationSuccessful 
+
+        public bool CompileSuccessful => Settings.Simulate ||
+                                         (ActualizationSuccessful
                                           && CompileErrorText.IsEmpty()
                                           && OutputText.AsStringFromObject().Contains(" 0 Error(s)")
                                           && File.Exists(DestinationExecutableFilePath));
@@ -36,7 +37,7 @@ namespace MetX.Standard.Primary.Scripts
                 var errorsText = ActualizeErrorText.AsStringFromObject() ?? "";
                 if (CompileErrorText.IsEmpty()) return errorsText;
 
-                if(errorsText.IsNotEmpty())
+                if (errorsText.IsNotEmpty())
                     return errorsText + "\n" + CompileErrorText;
                 else
                     return CompileErrorText;
@@ -76,8 +77,11 @@ namespace MetX.Standard.Primary.Scripts
         {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.AppendLine("-----[ Output Folder ]-----");
+            sb.AppendLine("-----[ Output Folder/Bin Paths ]-----");
             sb.AppendLine($"{Settings.ProjectFolder}");
+
+            Settings.UpdateBinPath();
+            sb.AppendLine($"{Settings.BinPath}");
 
             if (CompileErrorText.IsEmpty() && OutputText != null && !OutputText.Contains(": error "))
             {
@@ -86,14 +90,14 @@ namespace MetX.Standard.Primary.Scripts
                 sb.AppendLine("-----[ SUCCESS! ]-----");
                 sb.AppendLine();
             }
-            else if(CompileErrorText.IsNotEmpty())
+            else if (CompileErrorText.IsNotEmpty())
             {
                 sb.AppendLine();
                 sb.AppendLine("-----[ Compilation failure ]-----");
                 sb.AppendLine();
                 sb.AppendLine(CompileErrorText);
-            }   
-            
+            }
+
             sb.AppendLine();
             sb.AppendLine("-----[ Output from dotnet.exe ]-----");
             sb.AppendLine();
@@ -110,7 +114,7 @@ namespace MetX.Standard.Primary.Scripts
                     ;
 
             var nonWarningLines = massagedOutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
-            foreach(var nonWarningLine in nonWarningLines)
+            foreach (var nonWarningLine in nonWarningLines)
             {
                 if (!nonWarningLine.Contains("Microsoft (R) Build Engine") &&
                     !nonWarningLine.Contains("Copyright (C) Microsoft Corporation") &&
@@ -120,7 +124,7 @@ namespace MetX.Standard.Primary.Scripts
                     if (nonWarningLine.Contains("Error(s)")
                         || nonWarningLine.StartsWith("..."))
                         sb.AppendLine();
-                    
+
                     sb.AppendLine(nonWarningLine);
                 }
                 else
@@ -142,7 +146,7 @@ namespace MetX.Standard.Primary.Scripts
                     lineNumberText = lineNumberText.FirstToken(",");
                 if (!int.TryParse(lineNumberText, out var lineNumber)) continue;
 
-                if(keyLines.All(x => x != lineNumber))
+                if (keyLines.All(x => x != lineNumber))
                     keyLines.Add(lineNumber);
             }
 
