@@ -3,7 +3,7 @@ using MetX.Standard.Strings;
 namespace MetX.Standard.Test.Strings;
 
 [TestClass]
-public class TokenizerTests
+public class OldTokenizerTests
 {
     public TestContext TestContext { get; set; }
 
@@ -34,17 +34,17 @@ public class TokenizerTests
 
     public static void Carve()
     {
-        var result = "".Carve(new int[] { 1, 3, 5}, 1);
+        var result = "".Carve(new int[] { 1, 3, 5 }, 1);
         Assert.AreEqual(0, result.Length);
 
         result = "".Carve(null, 1);
         Assert.AreEqual(0, result.Length);
 
-        result = ".1.3.5".Carve(new int[] { 1, 3, 5}, 1);
-        Assert.AreEqual(new string[] { "1", "3", "5"}, result);
+        result = ".1.3.5".Carve(new int[] { 1, 3, 5 }, 1);
+        Assert.AreEqual(new string[] { "1", "3", "5" }, result);
 
-        result = "..1..3..5..".Carve(new int[] { 1, 3, 5}, 2);
-        Assert.AreEqual(new [] { "1", "3", "5"}, result);
+        result = "..1..3..5..".Carve(new int[] { 1, 3, 5 }, 2);
+        Assert.AreEqual(new[] { "1", "3", "5" }, result);
     }
 
     public static void FirstToken()
@@ -68,10 +68,10 @@ public class TokenizerTests
         Assert.AreEqual(0, result.Count);
 
         result = "Henry is all talk and no {game}".EveryTokenBetween("{", "}");
-        Assert.AreEqual(new List<string>() {"game"}, result);
+        Assert.AreEqual(new List<string>() { "game" }, result);
 
         result = "Henry is {all talk} and no {game} and no {fun}".EveryTokenBetween("{", "}");
-        Assert.AreEqual(new List<string>() {"all talk", "game"}, result);
+        Assert.AreEqual(new List<string>() { "all talk", "game" }, result);
     }
     // Write a unit test for Splice
     public static void Splice()
@@ -206,7 +206,6 @@ public class TokenizerTests
         Assert.AreEqual(new List<int>(), result.ToList());
 
         result = "a b c ".TokenIndexes().ToList();
-        Assert.AreEqual(new List<int>() { 0, 2, 4, 6}, result);
-
+        Assert.AreEqual(new List<int>() { 0, 2, 4, 6 }, result);
     }
 }

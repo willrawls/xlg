@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MetX.Standard.Strings
 {
-    public static class TokenFunctionsByGpt
+    public static class TokenFunctionsByGptBasic
     {
         // ---------------------------------------------------------------
         //   ChatGPT generated functions for token manipulation
@@ -13,46 +13,6 @@ namespace MetX.Standard.Strings
         //   to manipulate tokens in strings, including splitting,
         //   trimming, and replacing tokens. These are what it delivered.
         // ---------------------------------------------------------------
-
-        /*
-         Here's other functions it can write:
-            🔢 Categories of Functions You Could Build
-                🔁 Basic Token Manipulation (10–15 functions)
-                    RemoveDuplicateTokens, TokenExists, IndexOfToken
-
-                🧠 Search & Pattern Matching (10–20 functions)
-                    FindTokenMatching(predicate)
-                    AllTokensMatch(predicate)
-                    AnyTokenMatches(predicate)
-                    TokenStartsWith, TokenEndsWith, TokenContains
-                    TokensWithLength(n), TokensLongerThan(n), etc.
-                    FindLongestToken, FindShortestToken
-
-                🔧 Transformations & Filters (15–30 functions)
-                    MapTokens(Func<string, string>)
-                    FilterTokens(predicate)
-                    DistinctTokens(), SortedTokens()
-                    SanitizeTokens(), PadTokens(), TruncateTokens(n)
-                    SurroundTokens(prefix, suffix)
-
-                📚 Token Pairing / Zipping (5–10 functions)
-                    TokenPairs(), TokenPairsWithDelimiter()
-                    ZipTokens(otherDelimitedString)
-                    KeyValuePairsFromTokens(everyN = 2)
-                    GroupTokens(n)
-
-                🧩 Advanced Parsing Logic (10–15 functions)
-                    NestedTokens(start, end, depth)
-                    EscapeDelimiter(delimiter), UnescapeDelimiter(delimiter)
-                    QuotedTokens(delimiter, quoteChar)
-                    SmartSplit(delimiter, escapeChar, quoteAware = true)
-                    MultiDelimiterSplit(params string[] delimiters)
-
-                🧪 Debugging / Logging (3–5 functions)
-                    PrintTokens(numbered: true)
-                    VisualizeTokenLengths()
-                    SummaryOfTokens()
-         */
 
         public static List<string> SplitAndTrim(this string input, string delimiter)
         {
@@ -326,6 +286,182 @@ namespace MetX.Standard.Strings
             }
 
             return builder.ToString();
+        }
+
+        public static int CountTokens(this string input, string delimiter = " ",
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter)) return 0;
+            int count = 0, position = 0;
+            while (position < input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                count++;
+                if (next == -1) break;
+                position = next + delimiter.Length;
+            }
+
+            return count;
+        }
+
+        public static bool TokenExists(this string input, string tokenToFind, string delimiter = " ",
+            bool ignoreCase = false,
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter) || tokenToFind == null) return false;
+            var position = 0;
+            var effectiveCompare = ignoreCase ? StringComparison.OrdinalIgnoreCase : compare;
+            while (position <= input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                var token = input.Substring(position, next - position);
+                if (string.Equals(token, tokenToFind, effectiveCompare)) return true;
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+            }
+
+            return false;
+        }
+
+        public static string InsertTokenAt(this string input, string newToken, int index = 2, string delimiter = " ",
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(delimiter) || index < 0 || newToken == null) return input;
+            var builder = new StringBuilder();
+            int position = 0, currentIndex = 0;
+            var inserted = false;
+            while (position <= input.Length)
+            {
+                if (currentIndex == index)
+                {
+                    if (builder.Length > 0) builder.Append(delimiter);
+                    builder.Append(newToken);
+                    inserted = true;
+                }
+
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                var token = input.Substring(position, next - position);
+                if (!string.IsNullOrEmpty(token) || currentIndex != index)
+                {
+                    if (builder.Length > 0) builder.Append(delimiter);
+                    builder.Append(token);
+                }
+
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+                currentIndex++;
+            }
+
+            if (!inserted && currentIndex <= index)
+            {
+                if (builder.Length > 0) builder.Append(delimiter);
+                builder.Append(newToken);
+            }
+
+            return builder.ToString();
+        }
+
+        public static string RemoveTokenAt(this string input, string delimiter = " ", int index = 2,
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter) || index < 0) return input;
+            var builder = new StringBuilder();
+            int position = 0, currentIndex = 0;
+            while (position <= input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                if (currentIndex != index)
+                {
+                    if (builder.Length > 0) builder.Append(delimiter);
+                    builder.Append(input.Substring(position, next - position));
+                }
+
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+                currentIndex++;
+            }
+
+            return builder.ToString();
+        }
+
+        public static int IndexOfToken(this string input, string token, string delimiter = " ", bool ignoreCase = false,
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter) || token == null) return -1;
+            int position = 0, index = 0;
+            var effectiveCompare = ignoreCase ? StringComparison.OrdinalIgnoreCase : compare;
+            while (position <= input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                var currentToken = input.Substring(position, next - position);
+                if (string.Equals(currentToken, token, effectiveCompare)) return index;
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+                index++;
+            }
+
+            return -1;
+        }
+
+        public static bool TokenStartsWith(this string input, string prefix, string delimiter = " ",
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter) || prefix == null) return false;
+            var position = 0;
+            while (position <= input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                var token = input.Substring(position, next - position);
+                if (token.StartsWith(prefix, compare)) return true;
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+            }
+
+            return false;
+        }
+
+        public static string RemoveDuplicateTokens(this string input, string delimiter = " ",
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(delimiter)) return input;
+            var seen = new HashSet<string>();
+            var builder = new StringBuilder();
+            var position = 0;
+            while (position <= input.Length)
+            {
+                var next = input.IndexOf(delimiter, position, compare);
+                if (next == -1) next = input.Length;
+                var token = input.Substring(position, next - position);
+                if (seen.Add(token))
+                {
+                    if (builder.Length > 0) builder.Append(delimiter);
+                    builder.Append(token);
+                }
+
+                if (next == input.Length) break;
+                position = next + delimiter.Length;
+            }
+
+            return builder.ToString();
+        }
+
+        public static StringComparer FromComparison(this StringComparer _, StringComparison comparison)
+        {
+            return comparison switch
+            {
+                StringComparison.Ordinal => StringComparer.Ordinal,
+                StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
+                StringComparison.CurrentCulture => StringComparer.CurrentCulture,
+                StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
+                StringComparison.InvariantCulture => StringComparer.InvariantCulture,
+                StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
+                _ => StringComparer.OrdinalIgnoreCase
+            };
         }
     }
 }
