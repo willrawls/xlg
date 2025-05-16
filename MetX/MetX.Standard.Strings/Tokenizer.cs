@@ -54,19 +54,19 @@ namespace MetX.Standard.Strings
                 return Array.Empty<string>();
 
             if (indexes == null || indexes.Length == 0)
-                return new[] {target};
-            
+                return new[] { target };
+
             var firstCarvePoint = 0;
             while (indexes[firstCarvePoint] < 0 && firstCarvePoint < indexes.Length) firstCarvePoint++;
-            
+
             var lastCarvePoint = indexes.Length - 1;
             while (lastCarvePoint > firstCarvePoint && indexes[lastCarvePoint] > target.Length) lastCarvePoint--;
-            
-            if(lastCarvePoint < 0)
+
+            if (lastCarvePoint < 0)
                 return new[] { target };
 
             var lengthOfArray = lastCarvePoint - firstCarvePoint + 2;
-            if(lengthOfArray < 1)
+            if (lengthOfArray < 1)
                 return new[] { target };
             var result = new string[lengthOfArray];
 
@@ -88,7 +88,7 @@ namespace MetX.Standard.Strings
 
             if (startIndex <= target.Length)
                 result[r] = target.Substring(startIndex);
-            
+
             /*
             int previousCarvePoint = 0;
             for(int resultIndex = 0, indexesIndex = firstCarvePoint; indexesIndex <= lastCarvePoint; indexesIndex++, resultIndex++)
@@ -114,7 +114,8 @@ namespace MetX.Standard.Strings
         ///  // x = "this is"
         ///  </code>
         /// </example>
-        public static string FirstToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        public static string OldFirstToken(this string target, string delimiter = " ",
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             return TokenAt(target, 1, delimiter, compare);
         }
@@ -229,9 +230,9 @@ namespace MetX.Standard.Strings
         /// </param>
         /// <param name="compare"></param>
         /// <returns></returns>
-        public static string TokenBetween(this string target, 
-            string leftDelimiter, 
-            string rightDelimiter, 
+        public static string TokenBetween(this string target,
+            string leftDelimiter = "(",
+            string rightDelimiter = ")",
             StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             if (string.IsNullOrEmpty(target))
@@ -239,7 +240,6 @@ namespace MetX.Standard.Strings
             var leftPart = TokenAt(target, 2, leftDelimiter, compare);
             return TokenAt(leftPart, 1, rightDelimiter, compare);
         }
-
 
         /// <summary>
         /// Given a string with a number of tokens with different left and right delimiters, return a List of just the tokens between every
@@ -262,8 +262,8 @@ namespace MetX.Standard.Strings
 
             if (leftDelimiter == rightDelimiter)
             {
-                return ignoreCase 
-                    ? target.AllTokensIgnoreCase(leftDelimiter) 
+                return ignoreCase
+                    ? target.AllTokensIgnoreCase(leftDelimiter)
                     : target.AllTokens(leftDelimiter);
             }
 
@@ -308,13 +308,13 @@ namespace MetX.Standard.Strings
 
             if (leftIndexes.Length == 1)
             {
-                if(leftIndexes[0] != 0)
+                if (leftIndexes[0] != 0)
                 {
                     yield return target.Substring(0, leftIndexes[0]);
                 }
                 var firstLeft = leftIndexes[0] + leftDelimiter.Length;
                 var firstLength = rightIndexes[0] - firstLeft;
-                if(firstLength > 0)
+                if (firstLength > 0)
                 {
                     yield return target.Substring(firstLeft, firstLength);
                 }
@@ -322,9 +322,9 @@ namespace MetX.Standard.Strings
                 yield return target.Substring(secondLeft);
                 yield break;
             }
-            
+
             var currentLocation = 0;
-            
+
             for (int i = 0, j = 0; i < leftIndexes.Length && j < rightIndexes.Length; i++, j++)
             {
                 if (currentLocation >= target.Length) break;
@@ -337,28 +337,29 @@ namespace MetX.Standard.Strings
                         yield break;
                     }
                 }
-                
+
                 var length = leftIndexes[i] - currentLocation;
-                if(length > 0)
+                if (length > 0)
                 {
                     yield return target.Substring(currentLocation, length);
                 }
                 currentLocation = leftIndexes[i] + leftDelimiter.Length;
                 if (currentLocation >= target.Length) break;
-                
+
                 length = rightIndexes[j] - currentLocation;
-                if(length > 0)
+                if (length > 0)
                 {
                     yield return target.Substring(currentLocation, rightIndexes[j] - currentLocation);
-                }   
+                }
+
                 currentLocation = rightIndexes[j] + rightDelimiter.Length;
                 if (currentLocation >= target.Length) break;
             }
-            
-            if(currentLocation < target.Length)
+
+            if (currentLocation < target.Length)
                 yield return target.Substring(currentLocation);
         }
-        
+
         public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
             bool consumeDelimiters, Func<string, string> tokenProcessor)
         {
@@ -367,7 +368,7 @@ namespace MetX.Standard.Strings
 
             var result = new StringBuilder();
 
-            var majorPieces = target.Split(new string[]{ leftDelimiter }, StringSplitOptions.None);
+            var majorPieces = target.Split(new string[] { leftDelimiter }, StringSplitOptions.None);
             result.Append(majorPieces[0]);
             foreach (var majorPiece in majorPieces.Skip(1))
             {
@@ -375,7 +376,8 @@ namespace MetX.Standard.Strings
                 {
                     result.Append(leftDelimiter);
                 }
-                var minorPieces = majorPiece.Split(new string[]{ rightDelimiter }, StringSplitOptions.None);
+
+                var minorPieces = majorPiece.Split(new string[] { rightDelimiter }, StringSplitOptions.None);
                 result.Append(tokenProcessor(minorPieces[0]));
                 if (!consumeDelimiters)
                 {
@@ -387,10 +389,10 @@ namespace MetX.Standard.Strings
                     result.Append(minorPieces[1]);
                 }
             }
-            
+
             return result.ToString();
         }
-        
+
         /*
         public static string UpdateBetweenTokens(this string target, string leftDelimiter, string rightDelimiter,
             bool consumeDelimiters, Func<string, string> tokenProcessor)
@@ -426,7 +428,7 @@ namespace MetX.Standard.Strings
 
                 odd = !odd;
             }
-            
+
             return result.ToString();
         }
         */
@@ -525,7 +527,7 @@ namespace MetX.Standard.Strings
                 yield break;
 
             yield return index;
-            
+
             while (index < target.Length)
             {
                 index = target.IndexOf(delimiter, index + delimiter.Length, compare);
@@ -587,8 +589,8 @@ namespace MetX.Standard.Strings
         /// <param name="target">The string to parse</param>
         /// <param name="delimiter">The token delimiter</param>
         /// <param name="compare"></param>
-        public static string TokensAfterFirst(this string target, 
-            string delimiter = " ", 
+        public static string TokensAfterFirst(this string target,
+            string delimiter = " ",
             StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
             return TokensAfter(target, 1, delimiter, compare);
@@ -676,16 +678,16 @@ namespace MetX.Standard.Strings
             if (target.IsEmpty())
                 yield return null;
 
-            var slices = target.Split(new []{ left }, options);
-            foreach(var slice in slices)
+            var slices = target.Split(new[] { left }, options);
+            foreach (var slice in slices)
             {
-                if(!slice.ToLower().Contains(right.ToLower()))
+                if (!slice.ToLower().Contains(right.ToLower()))
                 {
                     yield return slice;
                 }
                 else
                 {
-                    var dices = slice.Split(new []{ right }, options);
+                    var dices = slice.Split(new[] { right }, options);
                     foreach (var dice in dices)
                         yield return dice;
                 }
