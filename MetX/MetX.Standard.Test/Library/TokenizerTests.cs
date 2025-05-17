@@ -30,12 +30,11 @@ public class TokenizerTests
     public void AllTokensIgnoreCase_Simple_b()
     {
         var data = "aBcbd";
-        var actual = data.AllTokensIgnoreCase("b");
+        var actual = data.AllTokens("b");
         Assert.IsNotNull(actual);
-        Assert.AreEqual(3, actual.Count);
-        Assert.AreEqual("a", actual[0]);
-        Assert.AreEqual("c", actual[1]);
-        Assert.AreEqual("d", actual[2]);
+        Assert.AreEqual(2, actual.Count);
+        Assert.AreEqual("aBc", actual[0]);
+        Assert.AreEqual("d", actual[1]);
     }
 
     [TestMethod]
@@ -78,18 +77,6 @@ public class TokenizerTests
         var actual = data.TokenIndexes("");
         Assert.IsNotNull(actual);
         Assert.AreEqual(0, actual.ToArray().Length);
-    }
-
-    [TestMethod]
-    public void AllTokensIgnoreCase_Simple_B()
-    {
-        var data = "aBcbd";
-        var actual = data.AllTokensIgnoreCase("B");
-        Assert.IsNotNull(actual);
-        Assert.AreEqual(3, actual.Count);
-        Assert.AreEqual("a", actual[0]);
-        Assert.AreEqual("c", actual[1]);
-        Assert.AreEqual("d", actual[2]);
     }
 
     [TestMethod]
@@ -188,7 +175,7 @@ public class TokenizerTests
     */
 
     [DataTestMethod]
-    [DataRow("{", "}", "q{speed 50}{TAB}r", new[] { "q", "speed 50", "TAB", "r"})]
+    [DataRow("{", "}", "q{speed 50}{TAB}r", new[] { "q", "speed 50", "TAB", "r" })]
     [DataRow("//~{", "}~//", "abc//~{def}~//ghi", new[] { "abc", "def", "ghi" })]
     [DataRow("[", "]", "a[b]c[d]e", new[] { "a", "b", "c", "d", "e" })]
     [DataRow("[", "]", "a[b]c", new[] { "a", "b", "c" })]

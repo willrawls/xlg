@@ -20,29 +20,22 @@ namespace MetX.Standard.Strings
         ///     The string that separates each token. For instance, In the string "Fred went home", a space ("
         ///     ") would be a common delimiter.
         /// </param>
-        /// <param name="compare">See <see cref="System.StringSplitOptions" /></param>
+        /// <param name="splitOptions">See <see cref="System.StringSplitOptions" /></param>
+        /// <param name="compare"></param>
         /// <returns>
         ///     NOTE: Never returns null. Each delimited token returned in a string array, with empty entries optionally
         ///     removed.
         /// </returns>
-        public static List<string> AllTokens(this string target, string delimiter = " ", StringSplitOptions compare = StringSplitOptions.None)
+        public static List<string> AllTokens(this string target, string delimiter = " ",
+            StringSplitOptions splitOptions = StringSplitOptions.None)
         {
 
             var result = new List<string>();
             if (string.IsNullOrEmpty(target))
                 result.Add(string.Empty);
             else
-                result.AddRange(target.Split(new[] { delimiter }, compare));
+                result.AddRange(target.Split(new[] { delimiter }, splitOptions));
             return result;
-        }
-
-        public static List<string> AllTokensIgnoreCase(this string target, string delimiter = " ")
-        {
-            var indexes = TokenIndexes(target, delimiter, StringComparison
-                    .InvariantCultureIgnoreCase)
-                .ToArray();
-            var delimiterLength = delimiter.Length;
-            return target.Carve(indexes, delimiterLength).ToList();
         }
 
         public static string[] Carve(this string target, int[] indexes, int delimiterLength)
@@ -89,35 +82,7 @@ namespace MetX.Standard.Strings
             if (startIndex <= target.Length)
                 result[r] = target.Substring(startIndex);
 
-            /*
-            int previousCarvePoint = 0;
-            for(int resultIndex = 0, indexesIndex = firstCarvePoint; indexesIndex <= lastCarvePoint; indexesIndex++, resultIndex++)
-            {
-                result[resultIndex] = target.Substring(previousCarvePoint, indexes[indexesIndex] - previousCarvePoint);
-                previousCarvePoint = indexes[resultIndex] + 1;
-            }
-
-            if (previousCarvePoint < target.Length)
-                result[lengthOfArray - 1] = target.Substring(previousCarvePoint - 1);
-                */
-
             return result;
-        }
-
-        /// <summary>Returns the first delimited token in the indicated string</summary>
-        /// <param name="target">The string to parse</param>
-        /// <param name="delimiter">The token delimiter</param>
-        /// <param name="compare"></param>
-        /// <example>
-        ///     <code>
-        ///  string x = FirstToken("this is a test", " a ");
-        ///  // x = "this is"
-        ///  </code>
-        /// </example>
-        public static string OldFirstToken(this string target, string delimiter = " ",
-            StringComparison compare = StringComparison.OrdinalIgnoreCase)
-        {
-            return TokenAt(target, 1, delimiter, compare);
         }
 
         /// <summary>
@@ -243,44 +208,38 @@ namespace MetX.Standard.Strings
 
         /// <summary>
         /// Given a string with a number of tokens with different left and right delimiters, return a List of just the tokens between every
-        /// left delimiter and right delimiter
+        /// left delimiter and right delimiter. Rewritten by GPT
         /// </summary>
         /// <param name="target"></param>
         /// <param name="leftDelimiter"></param>
         /// <param name="rightDelimiter"></param>
         /// <param name="compare"></param>
         /// <returns></returns>
-        public static List<string> EveryTokenBetween(this string target, string leftDelimiter, string rightDelimiter, StringComparison compare = StringComparison.OrdinalIgnoreCase)
+        public static List<string> EveryTokenBetween(this string target, string leftDelimiter, string rightDelimiter,
+            StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
-            if (string.IsNullOrEmpty(target))
-                return new List<string>();
+            var results = new List<string>();
+            if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(leftDelimiter) ||
+                string.IsNullOrEmpty(rightDelimiter))
+                return results;
 
-            var ignoreCase = compare
-                is StringComparison.InvariantCultureIgnoreCase
-                or StringComparison.CurrentCultureIgnoreCase
-                or StringComparison.OrdinalIgnoreCase;
-
-            if (leftDelimiter == rightDelimiter)
+            int index = 0;
+            while (index < target.Length)
             {
-                return ignoreCase
-                    ? target.AllTokensIgnoreCase(leftDelimiter)
-                    : target.AllTokens(leftDelimiter);
+                int start = target.IndexOf(leftDelimiter, index, compare);
+                if (start == -1) break;
+                start += leftDelimiter.Length;
+
+                int end = target.IndexOf(rightDelimiter, start, compare);
+                if (end == -1) break;
+
+                if (end > start)
+                    results.Add(target.Substring(start, end - start));
+
+                index = end + rightDelimiter.Length;
             }
 
-            var parts = ignoreCase
-                ? target.AllTokensIgnoreCase(leftDelimiter)
-                : target.AllTokens(leftDelimiter);
-
-            if (parts == null || parts.Count == 0)
-                return parts;
-
-            var names = parts.Skip(1)
-                .Where(part => part
-                    .Contains(rightDelimiter))
-                .Select(part => part
-                    .TokenAt(1, rightDelimiter))
-                .ToList();
-            return names;
+            return results;
         }
 
         public static IEnumerable<string> Splice(this string target, string leftDelimiter, string rightDelimiter)

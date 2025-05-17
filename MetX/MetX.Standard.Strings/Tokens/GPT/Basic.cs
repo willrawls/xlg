@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MetX.Standard.Strings
+namespace MetX.Standard.Strings.Tokens.GPT
 {
-    public static class TokenFunctionsByGptBasic
+    public static class Basic
     {
         // ---------------------------------------------------------------
         //   ChatGPT generated functions for token manipulation
@@ -198,6 +198,16 @@ namespace MetX.Standard.Strings
             var position = 0;
             var first = true;
 
+            while (input.StartsWith(delimiter))
+            {
+                input = input.Substring(delimiter.Length);
+            }
+
+            while (input.EndsWith(delimiter))
+            {
+                input = input.Substring(0, input.Length - delimiter.Length);
+            }
+
             while (position <= input.Length)
             {
                 var next = input.IndexOf(delimiter, position, compare);
@@ -212,6 +222,13 @@ namespace MetX.Standard.Strings
                 if (next == input.Length) break;
                 position = next + delimiter.Length;
             }
+
+            var doubleDelimiter = delimiter + delimiter;
+            while (input.Contains(doubleDelimiter))
+            {
+                input = input.Replace(doubleDelimiter, delimiter);
+            }
+
 
             return builder.ToString();
         }
@@ -324,45 +341,6 @@ namespace MetX.Standard.Strings
             return false;
         }
 
-        public static string InsertTokenAt(this string input, string newToken, int index = 2, string delimiter = " ",
-            StringComparison compare = StringComparison.OrdinalIgnoreCase)
-        {
-            if (string.IsNullOrEmpty(delimiter) || index < 0 || newToken == null) return input;
-            var builder = new StringBuilder();
-            int position = 0, currentIndex = 0;
-            var inserted = false;
-            while (position <= input.Length)
-            {
-                if (currentIndex == index)
-                {
-                    if (builder.Length > 0) builder.Append(delimiter);
-                    builder.Append(newToken);
-                    inserted = true;
-                }
-
-                var next = input.IndexOf(delimiter, position, compare);
-                if (next == -1) next = input.Length;
-                var token = input.Substring(position, next - position);
-                if (!string.IsNullOrEmpty(token) || currentIndex != index)
-                {
-                    if (builder.Length > 0) builder.Append(delimiter);
-                    builder.Append(token);
-                }
-
-                if (next == input.Length) break;
-                position = next + delimiter.Length;
-                currentIndex++;
-            }
-
-            if (!inserted && currentIndex <= index)
-            {
-                if (builder.Length > 0) builder.Append(delimiter);
-                builder.Append(newToken);
-            }
-
-            return builder.ToString();
-        }
-
         public static string RemoveTokenAt(this string input, string delimiter = " ", int index = 2,
             StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
@@ -448,20 +426,6 @@ namespace MetX.Standard.Strings
             }
 
             return builder.ToString();
-        }
-
-        public static StringComparer FromComparison(this StringComparer _, StringComparison comparison)
-        {
-            return comparison switch
-            {
-                StringComparison.Ordinal => StringComparer.Ordinal,
-                StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
-                StringComparison.CurrentCulture => StringComparer.CurrentCulture,
-                StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
-                StringComparison.InvariantCulture => StringComparer.InvariantCulture,
-                StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
-                _ => StringComparer.OrdinalIgnoreCase
-            };
         }
     }
 }

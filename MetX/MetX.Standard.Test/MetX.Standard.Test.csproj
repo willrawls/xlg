@@ -17,6 +17,7 @@
     <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_PackageReference.cs" />
     <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Reference.cs" />
     <Compile Remove="Generation\CSharp\Project\ConsoleClientCsProjGeneratorTests_Target_AddSource.cs" />
+    <Compile Remove="Strings\Tokens\OldTokenizerTests.cs" />
   </ItemGroup>
 
   <ItemGroup>

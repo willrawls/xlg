@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Tokens.GPT;
 
-public static class TokenFunctionsByGptAdvanced
+public static class Advanced
 {
     /*
         🧩 Advanced Parsing Logic (10–15 functions)
@@ -18,33 +19,49 @@ public static class TokenFunctionsByGptAdvanced
 
     /// <summary>
     /// Extracts substrings between matching nested start and end delimiters up to a specified nesting depth.
+    /// Uses a stack to track delimiter positions without Span-based APIs.
     /// </summary>
-    public static List<string> NestedTokens(this string input, string start = "(", string end = ")", int depth = 1)
+    public static List<string> NestedTokens(this string input, string start = "(", string end = ")", int depth = 1,
+        StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
-        var result = new List<string>();
-        if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end)) return result;
-        var index = 0;
-        while (index < input.Length)
+        var results = new List<string>();
+        if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end) || depth < 1)
+            return results;
+
+        var stack = new Stack<int>();
+        int i = 0;
+        int len = input.Length;
+        int startLen = start.Length;
+        int endLen = end.Length;
+
+        while (i < len)
         {
-            var startIndex = input.IndexOf(start, index);
-            if (startIndex == -1) break;
-            var level = 1;
-            var endIndex = startIndex + start.Length;
-            while (endIndex < input.Length && level > 0)
+            // Opening delimiter
+            if (i + startLen <= len && string.Equals(input.Substring(i, startLen), start, compare))
             {
-                var nextStart = input.IndexOf(start, endIndex);
-                var nextEnd = input.IndexOf(end, endIndex);
-                if (nextEnd == -1) break;
-                if (nextStart != -1 && nextStart < nextEnd && depth > 1) level++;
-                else level--;
-                endIndex = nextEnd + end.Length;
+                stack.Push(i);
+                i += startLen;
+                continue;
             }
 
-            if (level == 0) result.Add(input.Substring(startIndex, endIndex - startIndex));
-            index = endIndex;
+            // Closing delimiter
+            if (i + endLen <= len && string.Equals(input.Substring(i, endLen), end, compare) && stack.Count > 0)
+            {
+                int openIndex = stack.Pop();
+                if (stack.Count + 1 == depth)
+                {
+                    // capture from openIndex through this closing delimiter
+                    results.Add(input.Substring(openIndex, i + endLen - openIndex));
+                }
+
+                i += endLen;
+                continue;
+            }
+
+            i++;
         }
 
-        return result;
+        return results;
     }
 
     /// <summary>
@@ -89,8 +106,8 @@ public static class TokenFunctionsByGptAdvanced
         var result = new List<string>();
         if (string.IsNullOrEmpty(input)) return result;
         var current = new StringBuilder();
-        bool inQuotes = false;
-        for (int i = 0; i < input.Length; i++)
+        var inQuotes = false;
+        for (var i = 0; i < input.Length; i++)
         {
             var c = input[i];
             if (quoteAware && c == '"')

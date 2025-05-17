@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Tokens.GPT;
 
-public static class TokenFunctionsByGptDebugLog
+public static class DebugLogging
 {
     /*
         🧪 Debugging / Logging (3–5 functions)

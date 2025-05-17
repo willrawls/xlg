@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Tokens.GPT;
 
-public static class TokenFunctionsByGptTransformFilter
+public static class TransformFilter
 {
     /*
         🔧 Transformations & Filters (15–30 functions)
@@ -121,7 +121,11 @@ public static class TokenFunctionsByGptTransformFilter
     public static string SanitizeTokens(this string input, string delimiter = " ",
         StringComparison compare = StringComparison.OrdinalIgnoreCase)
     {
-        return input.MapTokens(token => token.Trim(), delimiter, compare);
+        if (string.IsNullOrEmpty(input)) return "";
+        if (string.IsNullOrEmpty(delimiter)) return input;
+
+        var tokens = input.AllTokens(delimiter, StringSplitOptions.RemoveEmptyEntries);
+        return string.Join(delimiter, tokens);
     }
 
     public static string PadTokens(this string input, int totalWidth, char paddingChar = ' ', string delimiter = " ",

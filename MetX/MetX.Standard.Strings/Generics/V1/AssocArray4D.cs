@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MetX.Standard.Strings.Tokens.GPT;
+using System;
 using System.IO;
 
 namespace MetX.Standard.Strings.Generics.V1;
 
-public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem> 
-    : AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>> 
+public class AssocArray4D<T4DParent, T3DParent, T2DParent, T1DParent, TItem>
+    : AssocArray1D<T4DParent, AssocArray3D<T3DParent, T2DParent, T1DParent, TItem>>
     where T4DParent : class
     where TItem : class, new()
     where T3DParent : class
@@ -20,7 +21,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
         get => this[d1].Item[d2].Item[d3].Item[d4].Item;
         set => this[d1].Item[d2].Item[d3].Item[d4].Item = value;
     }
-    
+
     public AssocArray1D<T1DParent, TItem> this[string d1, string d2, string d3]
     {
         get => this[d1].Item[d2].Item[d3].Item;
@@ -41,7 +42,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
     public override string ToXml(bool removeNamespaces = true, bool normalizeRootNodeName = true)
     {
         var xml = base.ToXml(removeNamespaces, normalizeRootNodeName);
-        if(Name.IsEmpty()) return xml;
+        if (Name.IsEmpty()) return xml;
 
         if (Name != ActualName && normalizeRootNodeName)
             xml = xml
@@ -63,7 +64,7 @@ public class AssocArray4D<T4DParent,T3DParent,T2DParent, T1DParent, TItem>
                 ;
 
         using var sr = new StringReader(xml);
-        return (T4DParent) GetSerializer(ActualType, ExtraTypes()).Deserialize(sr);
+        return (T4DParent)GetSerializer(ActualType, ExtraTypes()).Deserialize(sr);
     }
 
 }

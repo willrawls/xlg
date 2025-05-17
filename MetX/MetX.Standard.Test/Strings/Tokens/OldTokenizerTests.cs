@@ -1,6 +1,7 @@
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens.GPT;
 
-namespace MetX.Standard.Test.Strings;
+namespace MetX.Standard.Test.Strings.Tokens;
 
 [TestClass]
 public class OldTokenizerTests
@@ -18,18 +19,6 @@ public class OldTokenizerTests
 
         result = " 2 3 4  6 ".AllTokens();
         Assert.AreEqual(6, result.Count);
-    }
-
-    public static void AllTokensIgnoreCase()
-    {
-        var result = "".AllTokensIgnoreCase();
-        Assert.AreEqual(0, result.Count);
-
-        result = "1a2a3A4A5".AllTokensIgnoreCase();
-        Assert.AreEqual(5, result.Count);
-
-        result = "Fred1Fred2fred3".AllTokensIgnoreCase();
-        Assert.AreEqual(3, result.Count);
     }
 
     public static void Carve()

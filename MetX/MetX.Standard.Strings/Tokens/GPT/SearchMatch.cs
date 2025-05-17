@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Tokens.GPT;
 
-public static class TokenFunctionsByGptSearchMatch
+public static class SearchMatch
 {
     /*
            🧠 Search & Pattern Matching (10–20 functions)

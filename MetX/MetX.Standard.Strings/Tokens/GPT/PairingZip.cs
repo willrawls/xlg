@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Tokens.GPT;
 
-public static class TokenFunctionsByGptPairingZip
+public static class PairingZip
 {
     /*
        📚 Token Pairing / Zipping (5–10 functions)
