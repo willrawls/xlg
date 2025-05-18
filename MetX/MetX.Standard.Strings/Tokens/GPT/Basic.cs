@@ -215,8 +215,12 @@ namespace MetX.Standard.Strings.Tokens.GPT
 
                 var token = input.Substring(position, next - position).Trim();
 
-                if (!first) builder.Append(delimiter);
-                builder.Append(token);
+                if (token.Length > 0)
+                {
+                    if (!first) builder.Append(delimiter);
+                    builder.Append(token);
+                }
+
                 first = false;
 
                 if (next == input.Length) break;

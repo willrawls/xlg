@@ -1,48 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Data\\code\\github\\xlg\\MetX\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokens\\gpt\\basic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokens\\gpt\\basic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\tokens\\gpt\\gptbasictests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\tokens\\gpt\\gptbasictests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokens\\gpt\\advanced.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokens\\gpt\\advanced.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.test\\library\\tokenizertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\library\\tokenizertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokenizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokenizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\tokens\\gpt\\gpttransformfiltertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\tokens\\gpt\\gpttransformfiltertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokens\\gpt\\transformfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokens\\gpt\\transformfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokens\\gpt\\stringcomparerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokens\\gpt\\stringcomparerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.test\\strings\\tokens\\gpt\\gptsearchmatchtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76F911C5-A3CE-4B25-8F09-1FA8A0790673}|MetX.Standard.Test\\MetX.Standard.Test.csproj|solutionrelative:metx.standard.test\\strings\\tokens\\gpt\\gptsearchmatchtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\tokens\\gpt\\searchmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\tokens\\gpt\\searchmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -50,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -91,136 +50,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Advanced.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\Advanced.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokens\\GPT\\Advanced.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\Advanced.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokens\\GPT\\Advanced.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAADwv0EAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:59:27.128Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Tokenizer.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokenizer.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokenizer.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokenizer.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokenizer.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAADgvyQAAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:57:03.937Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TokenizerTests.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Library\\TokenizerTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Library\\TokenizerTests.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Library\\TokenizerTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Library\\TokenizerTests.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAADgvyQAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:56:41.155Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Basic.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\Basic.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokens\\GPT\\Basic.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\Basic.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokens\\GPT\\Basic.cs",
-              "ViewState": "AgIAAM8AAAAAAAAAAADwv+YAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:55:04.888Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GptBasicTests.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptBasicTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptBasicTests.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptBasicTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptBasicTests.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAiwGwAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:54:53.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GptTransformFilterTests.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptTransformFilterTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptTransformFilterTests.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptTransformFilterTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptTransformFilterTests.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:46:32.369Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TransformFilter.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\TransformFilter.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokens\\GPT\\TransformFilter.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\TransformFilter.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokens\\GPT\\TransformFilter.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAswH0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:46:07.533Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "StringComparerExtensions.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\StringComparerExtensions.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokens\\GPT\\StringComparerExtensions.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\StringComparerExtensions.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokens\\GPT\\StringComparerExtensions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:46:03.047Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SearchMatch.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\SearchMatch.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\Tokens\\GPT\\SearchMatch.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\Tokens\\GPT\\SearchMatch.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\Tokens\\GPT\\SearchMatch.cs",
-              "ViewState": "AgIAAKYAAAAAAAAAAAAAAKwAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:44:50.557Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GptSearchMatchTests.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptSearchMatchTests.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptSearchMatchTests.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptSearchMatchTests.cs",
-              "RelativeToolTip": "MetX.Standard.Test\\Strings\\Tokens\\GPT\\GptSearchMatchTests.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T00:44:15.729Z",
-              "EditorCaption": ""
             }
           ]
         },

@@ -1,23 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings.Interfaces;
+using System;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;
-
-[Serializable]
-public class AssocItemWithChildren : BasicAssocItem
-{
-    public AssocArray Children = new();
-
-    public AssocItemWithChildren(string key, string value = null, Guid? id = null, string name = null, string category = null) : base(key, value, id, name, category)
-    {
-    }
-
-    public AssocItemWithChildren()
-    {
-    }
-}
 
 [Serializable]
 public class BasicAssocItem : IAssocItem
@@ -43,7 +29,6 @@ public class BasicAssocItem : IAssocItem
     {
         ID = Guid.NewGuid();
         Key = ID.ToString("N");
-        
     }
 
     public override string ToString()
