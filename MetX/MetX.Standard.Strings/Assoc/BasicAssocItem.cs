@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Assoc;
 
 [Serializable]
 public class BasicAssocItem : IAssocItem

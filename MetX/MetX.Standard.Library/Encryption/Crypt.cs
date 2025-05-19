@@ -1,3 +1,5 @@
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -5,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using MetX.Standard.Strings;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
@@ -30,7 +31,9 @@ namespace MetX.Standard.Library.Encryption
 
         public const string DefaultCryptKey = "ChangeTheKey";
         public const string DefaultCryptVector = "ChangeTheVector";
-        public static readonly byte[] DefaultKeyBytes = new byte[] {41, 12, 51, 6, 54, 8, 111, 89, 150, 12, 80, 10, 8, 12, 1, 170};
+
+        public static readonly byte[] DefaultKeyBytes = new byte[]
+            { 41, 12, 51, 6, 54, 8, 111, 89, 150, 12, 80, 10, 8, 12, 1, 170 };
 
         public static byte[] KeyBytes = DefaultKeyBytes;
         public static string CryptKey { get; set; } = DefaultCryptKey + DefaultCryptKey + DefaultCryptKey;
@@ -40,18 +43,18 @@ namespace MetX.Standard.Library.Encryption
         {
             lock (SyncRoot)
             {
-                if(key.IsNotEmpty())
+                if (key.IsNotEmpty())
                     CryptKey = key;
 
-                if(vector.IsNotEmpty())
+                if (vector.IsNotEmpty())
                     CryptVector = vector;
 
                 if (KeyBytes == null || KeyBytes.Length != 16)
                     throw new CryptographicException("16 byte key required. Set the KeyBytes field");
-                
+
                 var bytes = new byte[16];
                 Array.Copy(KeyBytes, bytes, 16);
-                    
+
                 using (SymmetricAlgorithm sa = new RijndaelManaged())
                 {
                     sa.BlockSize = 128;
@@ -61,10 +64,10 @@ namespace MetX.Standard.Library.Encryption
                     _decryptorFixed = sa.CreateDecryptor();
                 }
 
-                _cryptoService = new RijndaelManaged {KeySize = 256};
+                _cryptoService = new RijndaelManaged { KeySize = 256 };
                 _key = Encoding.ASCII.GetBytes(CryptKey
-                        ?? throw new InvalidOperationException()).Take(256/8).ToArray();
-                
+                                               ?? throw new InvalidOperationException()).Take(256 / 8).ToArray();
+
                 var theVector = CryptVector;
                 _vector = Encoding.ASCII.GetBytes(
                     (theVector != null && theVector.Length > _cryptoService.BlockSize / 8
@@ -81,11 +84,11 @@ namespace MetX.Standard.Library.Encryption
             _cryptoService.Key = _key;
             _cryptoService.IV = _vector;
             var dt = today ? DateTime.UtcNow : DateTime.UtcNow.AddDays(-1);
-            var v = (byte) (Math.Abs(dt.DayOfYear - dt.Day + (int) dt.DayOfWeek) + 1);
+            var v = (byte)(Math.Abs(dt.DayOfYear - dt.Day + (int)dt.DayOfWeek) + 1);
             for (var i = 0; i < _cryptoService.Key.Length; i++)
-                _cryptoService.Key[i] = (byte) ((_cryptoService.Key[i] + v) % 254);
+                _cryptoService.Key[i] = (byte)((_cryptoService.Key[i] + v) % 254);
             for (var i = 0; i < _cryptoService.IV.Length; i++)
-                _cryptoService.IV[i] = (byte) ((_cryptoService.IV[i] + v) % 254);
+                _cryptoService.IV[i] = (byte)((_cryptoService.IV[i] + v) % 254);
             if (today)
             {
                 _decryptorToday = _cryptoService.CreateDecryptor();
@@ -109,16 +112,16 @@ namespace MetX.Standard.Library.Encryption
             var ms = new MemoryStream();
 
             // create Crypto Stream that transforms a stream using the encryption
-            var cs = new CryptoStream(ms, _encryptorFixed 
-                    ?? throw new InvalidOperationException(), 
+            var cs = new CryptoStream(ms, _encryptorFixed
+                                          ?? throw new InvalidOperationException(),
                 CryptoStreamMode.Write);
-             
+
             // write out encrypted content into MemoryStream
             cs.Write(bytIn, 0, bytIn.Length);
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int) ms.Length);
+            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
             return returnValue;
@@ -134,16 +137,16 @@ namespace MetX.Standard.Library.Encryption
             var bytIn = Encoding.ASCII.GetBytes(source);
             // create a MemoryStream so that the process can be done without I/O files
             using var ms = new MemoryStream();
-            var randomPadding = SuperRandom.NextBytes(SuperRandom.NextInteger(31,61), true);
+            var randomPadding = SuperRandom.NextBytes(SuperRandom.NextInteger(31, 61), true);
 
             using var cs = new CryptoStream(ms, _encryptorToday, CryptoStreamMode.Write);
             cs.Write(randomPadding, 0, randomPadding.Length);
-                
+
             cs.Write(bytIn, 0, bytIn.Length);
             cs.FlushFinalBlock();
 
             // convert into Base64 so that the result can be used in xml
-            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int) ms.Length);
+            var returnValue = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             cs.Close();
             ms.Close();
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Assoc;
 
 [Serializable]
 public class AssocRelativeItem : BasicAssocItem, IAssocRelativeItem
@@ -14,12 +14,12 @@ public class AssocRelativeItem : BasicAssocItem, IAssocRelativeItem
     {
     }
 
-    public AssocRelativeItem(string key, string value = "", Guid? id = null, string name = null, Guid? parent = null, Guid? left = null, Guid? right = null)
+    public AssocRelativeItem(string key, string value = "", Guid? id = null, string name = null, Guid? parent = null,
+        Guid? left = null, Guid? right = null)
         : base(key, value, id, name)
     {
         Parent = parent ?? Guid.Empty;
         Left = left ?? Guid.Empty;
         Right = right ?? Guid.Empty;
     }
-
 }

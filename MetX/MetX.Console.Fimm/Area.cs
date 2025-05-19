@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using MetX.Standard.Strings;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using MetX.Standard.Strings.Tokens.GPT;
+using System;
+using System.Collections.Generic;
 
 namespace MetX.Fimm
 {
@@ -26,7 +27,7 @@ namespace MetX.Fimm
             if (!Enum.TryParse(typeof(InstructionType), instruction, true, out var possibleInstructionType)) return;
 
             if (possibleInstructionType != null)
-                InstructionType = (InstructionType) possibleInstructionType;
+                InstructionType = (InstructionType)possibleInstructionType;
 
             Name = line
                 .TokensAfterFirst(":")
@@ -40,13 +41,13 @@ namespace MetX.Fimm
             if (InstructionType == InstructionType.Template)
             {
                 TemplateType = TemplateType.Unknown;
-                if (!Enum.TryParse(typeof(TemplateType), Arguments[0], true, out var possibleTemplateType)) 
+                if (!Enum.TryParse(typeof(TemplateType), Arguments[0], true, out var possibleTemplateType))
                     possibleTemplateType = TemplateType.Default;
 
                 if (possibleTemplateType != null)
-                    TemplateType = (TemplateType) possibleTemplateType;
+                    TemplateType = (TemplateType)possibleTemplateType;
 
-                if (TemplateType != TemplateType.Unknown && Arguments.Count > 1) 
+                if (TemplateType != TemplateType.Unknown && Arguments.Count > 1)
                     Target = Arguments[1];
 
                 if (Name.IsEmpty())

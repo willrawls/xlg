@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using MetX.Standard.Primary;
+﻿using MetX.Standard.Primary;
 using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
-
+using MetX.Standard.Strings.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Diagnostics;
+using System.IO;
 
 namespace MetX.Console.Tests.Scripts;
 
@@ -25,7 +25,8 @@ public class XlgQuickScriptTemplateTests
         Assert.AreEqual("TestExe", quickScriptTemplate.Name);
 
         Assert.AreEqual(4, quickScriptTemplate.Assets.Items().Length);
-        CollectionAssert.AreEqual(new [] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" }, quickScriptTemplate.Assets.Keys());
+        CollectionAssert.AreEqual(new[] { "Program.cs", "QuickScriptProcessor.cs", "_.csproj", "_.sln" },
+            quickScriptTemplate.Assets.Keys());
 
         XlgQuickScript source = new XlgQuickScript("Freddy", "a = b;");
 
@@ -63,7 +64,7 @@ public class XlgQuickScriptTemplateTests
         System.Console.WriteLine();
         System.Console.WriteLine("----- Warnings ------");
         System.Console.WriteLine();
-        foreach(var warning in actual.Warnings)
+        foreach (var warning in actual.Warnings)
             System.Console.WriteLine($"{warning}");
         System.Console.WriteLine();
 

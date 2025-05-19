@@ -1,5 +1,5 @@
 ﻿using MetX.Standard.Library.Encryption;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Assoc;
 
 namespace MetX.Standard.Test.TestingClasses;
 

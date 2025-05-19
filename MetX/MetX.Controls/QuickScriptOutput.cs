@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.Scripts;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetX.Standard.Primary.Interfaces;
-using MetX.Standard.Primary.Scripts;
-using MetX.Standard.Strings;
 
 namespace MetX.Windows.Controls
 {
@@ -21,14 +22,15 @@ namespace MetX.Windows.Controls
 
         private const int FIRST_OFFSET_Y = 50;
         private const int FOLLOWING_OFFSET_Y = 25;
-        
+
         private const int FIRST_OFFSET_X = 25;
         private const int FOLLOWING_OFFSET_X = 15;
-        
+
         private static int nextOffsetX = FIRST_OFFSET_X;
         private static int nextOffsetY = FIRST_OFFSET_Y;
 
-        public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output, IGenerationHost host) 
+        public QuickScriptOutput(XlgQuickScript script, IRunQuickScript scriptr, string title, string output,
+            IGenerationHost host)
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
@@ -43,7 +45,7 @@ namespace MetX.Windows.Controls
         }
 
         public static QuickScriptOutput View(string title, string output, bool addLineNumbers, List<int> keyLines,
-            bool wrapText, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null) 
+            bool wrapText, IGenerationHost host, QuickScriptOutput putNextToThisWindow = null)
         {
             var quickScriptOutput = new QuickScriptOutput(title, output, addLineNumbers, keyLines, wrapText, host);
 
@@ -53,7 +55,7 @@ namespace MetX.Windows.Controls
             quickScriptOutput.BringToFront();
             Thread.Sleep(1);
             quickScriptOutput.MoveIntoPosition(putNextToThisWindow);
-            
+
             return quickScriptOutput;
         }
 
@@ -65,7 +67,7 @@ namespace MetX.Windows.Controls
                 var boundsY = putNextToThisWindow.Bounds.Y;
 
                 LastLocation = new Rectangle(
-                    boundsX, boundsY, 
+                    boundsX, boundsY,
                     putNextToThisWindow.Width, putNextToThisWindow.Height);
             }
             else if (LastLocation == Rectangle.Empty)
@@ -74,9 +76,9 @@ namespace MetX.Windows.Controls
                 nextOffsetY = FIRST_OFFSET_Y;
                 LastLocation = Host.Boundary with
                 {
-                    X = Host.Boundary.Left + nextOffsetX, 
+                    X = Host.Boundary.Left + nextOffsetX,
                     Y = Host.Boundary.Top + nextOffsetY,
-                    Width = 700, 
+                    Width = 700,
                     Height = 500
                 };
             }
@@ -84,12 +86,12 @@ namespace MetX.Windows.Controls
             {
                 LastLocation = new Rectangle(LastLocation.X + nextOffsetX, LastLocation.Y + nextOffsetY, Width, Height);
 
-                if(LastLocation.Top + 100 > Host.Boundary.Top + Host.Boundary.Height / 2
-                   || LastLocation.Left + 100 > Host.Boundary.Left + Host.Boundary.Width / 2)
+                if (LastLocation.Top + 100 > Host.Boundary.Top + Host.Boundary.Height / 2
+                    || LastLocation.Left + 100 > Host.Boundary.Left + Host.Boundary.Width / 2)
                 {
                     LastLocation = Host.Boundary with
                     {
-                        X = Host.Boundary.Left + nextOffsetX, 
+                        X = Host.Boundary.Left + nextOffsetX,
                         Y = Host.Boundary.Top + nextOffsetY,
                     };
                 }
@@ -107,14 +109,14 @@ namespace MetX.Windows.Controls
             if (start < 1)
                 return;
 
-            if(Output.Text.Length > 500)
+            if (Output.Text.Length > 500)
             {
                 Output.SelectionStart = Output.Text.Length - 500;
                 Output.SelectionLength = 0;
                 Output.ScrollToCaret();
             }
 
-            if(start < 500)
+            if (start < 500)
             {
                 Output.SelectionStart = start;
                 Output.SelectionLength = toFind.Length;
@@ -128,14 +130,15 @@ namespace MetX.Windows.Controls
             }
         }
 
-        public QuickScriptOutput(string title, string output, bool addLineNumbers, List<int> keyLines, bool wrapText, IGenerationHost host) 
+        public QuickScriptOutput(string title, string output, bool addLineNumbers, List<int> keyLines, bool wrapText,
+            IGenerationHost host)
         {
             InitializeComponent();
             Text = "qkScrptR Output - " + title;
             Host = host;
 
-            Output.Text = addLineNumbers 
-                ? output.InsertLineNumbers(keyLines) 
+            Output.Text = addLineNumbers
+                ? output.InsertLineNumbers(keyLines)
                 : output;
             Output.WordWrap = wrapText;
             Output.SelectionStart = 0;

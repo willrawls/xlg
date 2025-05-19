@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using MetX.Standard.Strings;
+﻿using MetX.Standard.Strings.Assoc;
+using System.Diagnostics;
 
 namespace MetX.Standard.Test.Strings;
 

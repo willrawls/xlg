@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings.Interfaces;
+using System;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Assoc;
 
 
 [Serializable]
@@ -16,7 +16,7 @@ public class TimeTrackingAssocItem : IAssocItem
 
     [XmlAttribute] public string Key { get; set; }
     [XmlAttribute] public Guid ID { get; set; }
-    
+
     [XmlAttribute]
     public string Value
     {
@@ -75,8 +75,8 @@ public class TimeTrackingAssocItem : IAssocItem
         Value = value ?? "";
         Name = name ?? "";
 
-        ID = id == Guid.Empty 
-            ? Guid.NewGuid() 
+        ID = id == Guid.Empty
+            ? Guid.NewGuid()
             : id ?? Guid.NewGuid();
         Key = key ?? ID.ToString("N");
         At = DateTime.Now;
@@ -88,18 +88,18 @@ public class TimeTrackingAssocItem : IAssocItem
         var sb = new StringBuilder();
 
         sb.AppendLine($"{indentation}Key:   {Key}");
-        if(ID != Guid.Empty) 
+        if (ID != Guid.Empty)
             sb.AppendLine($"{indentation}ID:       {ID:N}");
-        if(Category.IsNotEmpty())
+        if (Category.IsNotEmpty())
             sb.AppendLine($"{indentation}Category: {Category}");
-        if(Name.IsNotEmpty())
+        if (Name.IsNotEmpty())
             sb.AppendLine($"{indentation}Name:     {Name}");
-        if(Value.IsNotEmpty()) 
+        if (Value.IsNotEmpty())
             sb.AppendLine($"{indentation}Value:    {Value}");
-        if(this.Number != 0)
+        if (Number != 0)
             sb.AppendLine($"{indentation}Number:   {Number}");
-        sb.AppendLine(    $"{indentation}At:       {At:G}");
-        if(Modified != DateTime.MinValue)
+        sb.AppendLine($"{indentation}At:       {At:G}");
+        if (Modified != DateTime.MinValue)
             sb.AppendLine($"{indentation}Modified: {Modified:G}");
         return sb.ToString();
     }

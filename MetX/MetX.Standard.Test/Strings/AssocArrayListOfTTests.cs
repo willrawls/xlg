@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using MetX.Standard.Strings.Generics;
 using MetX.Standard.Test.TestingClasses;
-using AssocArrayList = MetX.Standard.Strings.AssocArrayList;
+using AssocArrayList = MetX.Standard.Strings.Assoc.AssocArrayList;
 
 namespace MetX.Standard.Test.Strings;
 

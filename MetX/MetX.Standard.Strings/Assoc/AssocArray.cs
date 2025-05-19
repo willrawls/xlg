@@ -8,7 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Assoc;
 
 [Serializable]
 [XmlRoot("AssocArray")]
@@ -179,13 +179,13 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
         }
 
         AssocArray ret;
-        if (!File.Exists(filePath)) ret = default(AssocArray);
+        if (!File.Exists(filePath)) ret = default;
         else
         {
             var xml = File
-                .ReadAllText(filePath)
-                .Replace("<ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "<AssocArray")
-                .Replace("</ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "</AssocArray")
+                    .ReadAllText(filePath)
+                    .Replace("<ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "<AssocArray")
+                    .Replace("</ListLikeSerializesToXmlOfAssocArrayAssocItemStringString", "</AssocArray")
                 ;
 
             using var stringReader = new StringReader(xml);

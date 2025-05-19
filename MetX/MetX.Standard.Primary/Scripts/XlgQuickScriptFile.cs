@@ -1,11 +1,12 @@
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Tokens.GPT;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -25,7 +26,7 @@ namespace MetX.Standard.Primary.Scripts
             {
                 if (scriptName.IsEmpty())
                     return null;
-                
+
                 return this.FirstOrDefault(s =>
                     string.Equals(scriptName, s.Name, StringComparison
                         .InvariantCultureIgnoreCase));
@@ -44,9 +45,9 @@ namespace MetX.Standard.Primary.Scripts
 
             if (File.Exists(FilePath))
             {
-                var filename =  FilePath.LastPathToken().FirstToken(".")
-                                      + "_" + DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ") 
-                                      +  ".xlgq";
+                var filename = FilePath.LastPathToken().FirstToken(".")
+                               + "_" + DateTime.Now.ToString("s").Replace(":", "").Replace("-", "").Replace("T", " ")
+                               + ".xlgq";
 
                 var backupFilePath = Path.Combine(backupPath, filename);
                 File.Move(FilePath, backupFilePath);
@@ -95,7 +96,7 @@ namespace MetX.Standard.Primary.Scripts
 
             var rawScripts = File
                 .ReadAllText(quickScriptFile.FilePath)
-                .Split(new[] {scriptNameSection}, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { scriptNameSection }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var rawScript in rawScripts)
             {

@@ -2,6 +2,7 @@
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 
 namespace MetX.Fimm.Setup;
 
@@ -20,7 +21,7 @@ public class ScriptFimmActor : FimmActorBase
         var context = new ConsoleContext();
         IGenerationHost host = new ConsoleGenerationHost(context);
         XlgQuickScript scriptToRun; // Run script FilenameWithOptionalPath (only the first script runs)
-        
+
         if (settings.AdditionalArguments.IsNotEmpty())
         {
             scriptToRun = Wallaby.FindScript(settings.Name, settings.AdditionalArguments[0]);
@@ -29,7 +30,7 @@ public class ScriptFimmActor : FimmActorBase
         {
             scriptToRun = Wallaby.FindScript(settings.Name, settings.Path);
         }
-        else if(settings.Name.Contains("\\"))
+        else if (settings.Name.Contains("\\"))
         {
             var settingsName = settings.Name.LastToken("\\");
             var path = settings.Name.TokensBeforeLast("\\");

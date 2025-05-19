@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Data\\code\\github\\xlg\\MetX\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.strings\\assocarray.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{9B46539B-E8C8-420F-BE03-19C0A4F007E8}|MetX.Standard.Strings\\MetX.Standard.Strings.csproj|solutionrelative:metx.standard.strings\\assocarray.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,21 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AssocArray.cs",
-              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\AssocArray.cs",
-              "RelativeDocumentMoniker": "MetX.Standard.Strings\\AssocArray.cs",
-              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Strings\\AssocArray.cs",
-              "RelativeToolTip": "MetX.Standard.Strings\\AssocArray.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAADwvzEAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T21:14:02.947Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"

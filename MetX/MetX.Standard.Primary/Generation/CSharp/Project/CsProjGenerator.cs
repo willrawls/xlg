@@ -1,7 +1,8 @@
-﻿using System.IO;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System.IO;
 using System.Linq;
 using System.Xml;
-using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Generation.CSharp.Project
 {
@@ -98,7 +99,7 @@ namespace MetX.Standard.Primary.Generation.CSharp.Project
 
             if (!Directory.Exists(FilePath))
                 Directory.CreateDirectory(FilePath);
-            
+
             var filename = Path.Combine(FilePath, Options.Filename + ".csproj");
             Document?.Save(filename);
 
@@ -124,7 +125,7 @@ namespace MetX.Standard.Primary.Generation.CSharp.Project
 
         public void SetElementInnerText(string xpath, string innerText)
         {
-            var node = (XmlElement) GetOrCreateElement(xpath, true)
+            var node = (XmlElement)GetOrCreateElement(xpath, true)
                        ?? MakeXPath(Document, xpath);
             node.InnerText = innerText ?? "";
         }
@@ -156,7 +157,7 @@ namespace MetX.Standard.Primary.Generation.CSharp.Project
                 if (string.IsNullOrEmpty(nextNodeInXPath)) return parent;
 
                 // get or create the node from the name
-                var node = parent.SelectSingleNode(nextNodeInXPath) 
+                var node = parent.SelectSingleNode(nextNodeInXPath)
                            ?? parent.AppendChild(Document.CreateElement(nextNodeInXPath));
 
                 // rejoin the remainder of the array as an xpath expression and recurse

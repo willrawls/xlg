@@ -2,6 +2,7 @@
 using System.IO;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Assoc;
 
 namespace MetX.Fimm;
 
@@ -212,7 +213,7 @@ public class CommonDirectoryHelper
     {
         var destinationTemplateFolder = Paths[Constants.TemplatesFolderName].Value;
         var entries = Directory.GetDirectories(destinationTemplateFolder);
-        
+
         var path = StaticTemplatesPath;
         if (path.IsEmpty()) return false;
 

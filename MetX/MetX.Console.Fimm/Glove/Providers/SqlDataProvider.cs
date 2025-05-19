@@ -1,15 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using MetX.Fimm.Glove.Data;
 using MetX.Fimm.Glove.Gatherers;
 using MetX.Standard.Primary.Metadata;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using MetX.Standard.Strings.Tokens.GPT;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Xml;
 
 //using Microsoft.VisualBasic;
 
@@ -29,7 +30,7 @@ namespace MetX.Fimm.Glove.Providers
         public override int ExecuteQuery(QueryCommand qry)
         {
             using var conn = new SqlConnection(ConnectionString);
-            
+
             var cmd = new SqlCommand(qry.CommandSql);
             AddParams(cmd, qry);
             cmd.Connection = conn;
@@ -47,7 +48,7 @@ namespace MetX.Fimm.Glove.Providers
         public override object ExecuteScalar(QueryCommand qry)
         {
             using var conn = new SqlConnection(ConnectionString);
-            
+
             var cmd = new SqlCommand(qry.CommandSql);
             AddParams(cmd, qry);
             cmd.Connection = conn;
@@ -251,13 +252,14 @@ namespace MetX.Fimm.Glove.Providers
         {
             var conn = new SqlConnection(ConnectionString);
             conn.Open();
-            var cmd = new SqlCommand(qry.CommandSql, conn) {CommandType = qry.CommandType};
+            var cmd = new SqlCommand(qry.CommandSql, conn) { CommandType = qry.CommandType };
             AddParams(cmd, qry);
             if (!cmd.Parameters.Contains("@ReturnValue"))
             {
                 var returnValue = new SqlParameter
                 {
-                    ParameterName = "@ReturnValue", Direction = ParameterDirection.ReturnValue
+                    ParameterName = "@ReturnValue",
+                    Direction = ParameterDirection.ReturnValue
                 };
                 cmd.Parameters.Add(returnValue);
             }
@@ -276,7 +278,7 @@ namespace MetX.Fimm.Glove.Providers
             }
             return ret;
         }
-        
+
 
         /// <summary>C#CD: </summary>
         /// <returns>C#CD: </returns>
@@ -437,7 +439,7 @@ namespace MetX.Fimm.Glove.Providers
                             .Where(col => col.Length > 0)
                             .Select(col => new TableSchema.TableKeyColumn(col.Trim(), null))
                             .ToList();
-                        
+
                         tableSchema.Keys.Add(new TableSchema.TableKey
                         {
                             Name = "Primary",
@@ -636,7 +638,7 @@ namespace MetX.Fimm.Glove.Providers
             }
             foreach (var param in qry.Parameters)
             {
-                var sqlParam = new SqlParameter(param.ParameterName, param.DataType) {Direction = param.Direction};
+                var sqlParam = new SqlParameter(param.ParameterName, param.DataType) { Direction = param.Direction };
                 if (param.ParameterValue != null)
                 {
                     sqlParam.Value = param.ParameterValue;
@@ -655,10 +657,10 @@ namespace MetX.Fimm.Glove.Providers
                 case int targetInt:
                     return targetInt;
                 default:
-                {
-                    var toParse = target.ToString();
-                    return int.TryParse(toParse, out var result) ? result : defaultValue;
-                }
+                    {
+                        var toParse = target.ToString();
+                        return int.TryParse(toParse, out var result) ? result : defaultValue;
+                    }
             }
         }
 
@@ -731,8 +733,8 @@ select
                                          "WHERE     (TABLE_TYPE = 'BASE TABLE') AND (TABLE_NAME <> N'sysdiagrams') " +
                                          "ORDER BY TABLE_SCHEMA, TABLE_NAME";
 
-        private const string ViewsSql = 
-@"select schema_name(v.schema_id) as schema_name, v.name as view_name, m.definition
+        private const string ViewsSql =
+            @"select schema_name(v.schema_id) as schema_name, v.name as view_name, m.definition
 from sys.views v 
     join sys.sql_modules m 
 		on m.object_id = v.object_id

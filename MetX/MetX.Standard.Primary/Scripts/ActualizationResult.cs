@@ -1,5 +1,7 @@
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Assoc;
+using MetX.Standard.Strings.Tokens;
 using MetX.Standard.Strings.Tokens.GPT;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,7 +45,6 @@ namespace MetX.Standard.Primary.Scripts
                 else
                     return CompileErrorText;
             }
-
         }
 
         public ActualizationResult(ActualizationSettings settings)
@@ -63,7 +64,8 @@ namespace MetX.Standard.Primary.Scripts
             }
 
             var csprojFilePath = Directory.GetFiles(Settings.ProjectFolder).FirstOrDefault(f => f.EndsWith(".csproj"));
-            OutputText = FileSystem.GatherOutputAndErrors("dotnet", $"build \"{csprojFilePath}\"", out var errorOutput, Settings.ProjectFolder, 60, ProcessWindowStyle.Hidden);
+            OutputText = FileSystem.GatherOutputAndErrors("dotnet", $"build \"{csprojFilePath}\"", out var errorOutput,
+                Settings.ProjectFolder, 60, ProcessWindowStyle.Hidden);
             CompileErrorText = errorOutput;
 
             return CompileSuccessful;
@@ -112,7 +114,7 @@ namespace MetX.Standard.Primary.Scripts
             var massagedOutputText = OutputText
                     .Replace($"[{this.Settings.ProjectFilePath}]", "")
                     .Replace(projectFolder, "...")
-                    ;
+                ;
 
             var nonWarningLines = massagedOutputText.LineList().Where(l => !l.ToLower().Contains("warning")).ToArray();
             foreach (var nonWarningLine in nonWarningLines)
@@ -133,6 +135,7 @@ namespace MetX.Standard.Primary.Scripts
                     sb.AppendLine();
                 }
             }
+
             sb.AppendLine();
 
             keyLines = new List<int>();

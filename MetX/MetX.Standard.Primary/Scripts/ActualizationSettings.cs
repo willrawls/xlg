@@ -1,6 +1,7 @@
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Assoc;
 using System;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace MetX.Standard.Primary.Scripts
 
             var tempFolder = Environment.GetEnvironmentVariable("TEMP") ?? @"C:\Windows\Temp";
             var targetFolder = Path.Combine(tempFolder, "QuickScriptProcessors");
-            ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension, $"On_{DateTime.Now:yyyyMMddhhmmss}");
+            ProjectFolder = Path.Combine(targetFolder, TemplateNameAsLegalFilenameWithoutExtension,
+                $"On_{DateTime.Now:yyyyMMddhhmmss}");
             Directory.CreateDirectory(ProjectFolder);
 
             if (!simulate)
@@ -34,6 +36,7 @@ namespace MetX.Standard.Primary.Scripts
                 FileSystem.CleanFolder(Path.Combine(ProjectFolder, "obj"));
                 FileSystem.CleanFolder(Path.Combine(ProjectFolder, "bin"));
             }
+
             DebugPath = Path.Combine(ProjectFolder, "bin", "Debug");
 
             GeneratedAreas = new GenInstance(scriptToRun, quickScriptTemplate, true);
@@ -67,7 +70,9 @@ namespace MetX.Standard.Primary.Scripts
         public GenInstance GeneratedAreas { get; set; }
         public IGenerationHost Host { get; set; }
 
-        public string ProjectFilePath => Path.Combine(ProjectFolder, $"{TemplateNameAsLegalFilenameWithoutExtension}.csproj");
+        public string ProjectFilePath =>
+            Path.Combine(ProjectFolder, $"{TemplateNameAsLegalFilenameWithoutExtension}.csproj");
+
         public string BinPath { get; set; }
     }
 }

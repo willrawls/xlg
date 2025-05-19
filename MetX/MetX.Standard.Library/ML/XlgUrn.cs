@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MetX.Standard.Library.Extensions;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -7,9 +11,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.XPath;
-using MetX.Standard.Library.Extensions;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Tokens.GPT;
 
 namespace MetX.Standard.Library.ML
 {
@@ -366,7 +367,7 @@ namespace MetX.Standard.Library.ML
         {
             if (DateTime.TryParse(dateStringToTest, out var convertedDateTime))
             {
-                return convertedDateTime >= DateTime.Today 
+                return convertedDateTime >= DateTime.Today
                        && convertedDateTime < DateTime.Today.AddDays(1);
             }
             return false;
@@ -417,11 +418,14 @@ namespace MetX.Standard.Library.ML
             string defaultName = string.Empty;
             var text = (sOriginalText + "").Trim();
 
-            if (text.IndexOf("@", StringComparison.Ordinal) > 0 )
+            if (text.IndexOf("@", StringComparison.Ordinal) > 0)
                 text = text.Split('@')[0];
 
             text = text.Replace(".", " ");
-            text = text.Substring(0,1).ToUpper() + text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1,1).ToUpper() + text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
+            text = text.Substring(0, 1).ToUpper() +
+                   text.Substring(1, text.IndexOf(" ", StringComparison.Ordinal)).ToLower() +
+                   text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 1, 1).ToUpper() +
+                   text.Substring(text.IndexOf(" ", StringComparison.Ordinal) + 2).ToLower();
 
             var returnValue = (text.Length == 0 ? defaultName : text).ProperCase();
             return returnValue;
@@ -450,8 +454,8 @@ namespace MetX.Standard.Library.ML
             if (string.IsNullOrEmpty(sOriginalText))
                 return string.Empty;
             var ret = sOriginalText.AsStringFromObject();
-            ret = ret == ret.ToUpper() 
-                ? ret.ToLower() 
+            ret = ret == ret.ToUpper()
+                ? ret.ToLower()
                 : ret[0].ToString().ToLower() + ret.Substring(1);
             return ret;
         }
@@ -500,7 +504,7 @@ namespace MetX.Standard.Library.ML
                 {
                     var prev = target[i - 1];
                     //if (!((prev >= 'A' && prev <= 'Z') || (prev >= '0' && prev <= '9')))
-                    if(curr >= 'A' && curr <= 'Z')
+                    if (curr >= 'A' && curr <= 'Z')
                     {
                         if (!(prev >= 'A' && prev <= 'Z'))
                             sb.Append(" ");
@@ -515,7 +519,7 @@ namespace MetX.Standard.Library.ML
             }
             return sb.ToString();
         }
-        
+
         /*
         /// <summary>Converts an xml date/time into a javascript compatible date</summary>
         /// <param name="xmlDate">The date/time to convert</param>
@@ -739,7 +743,7 @@ namespace MetX.Standard.Library.ML
         // True if not empty and = true or any integer value != 0
         public bool IsTrue(string target)
         {
-            if(target.IsEmpty())
+            if (target.IsEmpty())
                 return false;
 
             return target.ToLower() == "true"
@@ -817,7 +821,7 @@ namespace MetX.Standard.Library.ML
             while (nodeSet.MoveNext())
             {
                 if (nodeSet.Current == null) continue;
-                
+
                 var attributeValue = nodeSet.Current.GetAttribute(attributeName, string.Empty);
                 if (attributeValue == toFind && !retNodes.ContainsKey(nodeSet.Current.Value))
                     retNodes.Add(nodeSet.Current.Value, nodeSet.Current);
@@ -845,7 +849,7 @@ namespace MetX.Standard.Library.ML
             while (nodeSetToCompareAgainst.MoveNext())
             {
                 if (nodeSetToCompareAgainst.Current == null) continue;
-                
+
                 var attributeValue = nodeSetToCompareAgainst.Current.GetAttribute(attributeName, string.Empty);
                 if (!string.IsNullOrEmpty(attributeValue) && !compareSet.Contains(attributeValue))
                     compareSet.Add(attributeValue);
@@ -856,7 +860,7 @@ namespace MetX.Standard.Library.ML
             while (nodeSetToPossiblyKeep.MoveNext())
             {
                 if (nodeSetToPossiblyKeep.Current == null) continue;
-                
+
                 var attributeValue = nodeSetToPossiblyKeep.Current.GetAttribute(attributeName, string.Empty);
                 if (!compareSet.Contains(attributeValue))
                     retNodes.Add(attributeValue, nodeSetToPossiblyKeep.Current);
@@ -872,7 +876,7 @@ namespace MetX.Standard.Library.ML
             while (nodeSetToPossiblyKeep.MoveNext())
             {
                 if (nodeSetToPossiblyKeep.Current == null) continue;
-                 
+
                 var key = nodeSetToPossiblyKeep.Current.Value;
                 if (string.IsNullOrEmpty(key)) key = Guid.NewGuid().ToString();
                 retNodes.Add(key, nodeSetToPossiblyKeep.Current);

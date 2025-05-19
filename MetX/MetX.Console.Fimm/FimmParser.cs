@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MetX.Standard.Strings;
 
 namespace MetX.Fimm;
 
@@ -78,8 +79,8 @@ public class FimmParser
         {
             1 => Templates[0],
             > 1 => Templates.FirstOrDefault(t =>
-                t.IsAreaForProcessing == false 
-                && t.InstructionType == InstructionType.Template 
+                t.IsAreaForProcessing == false
+                && t.InstructionType == InstructionType.Template
                 && t.Arguments.Count == 0),
             _ => MainTemplate
         };

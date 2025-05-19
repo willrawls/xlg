@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading;
-using MetX.Standard.Strings;
 
 // ReSharper disable UnusedMember.Global
 
@@ -14,7 +15,7 @@ namespace MetX.Standard.Library
         public string FilePath { get; set; }
         public long Length { get; set; }
         public TextWriter TargetStreamWriter { get; set; }
-        public Stream TargetStream { get; set; } 
+        public Stream TargetStream { get; set; }
         public StringBuilder TargetStringBuilder { get; set; }
         public int FinishCount { get; set; }
 
@@ -24,7 +25,7 @@ namespace MetX.Standard.Library
             {
                 if (TargetStringBuilder != null)
                     return true;
-                
+
                 if (TargetStream != null)
                 {
                     if (!TargetStream.CanWrite || TargetStreamWriter != null)
@@ -81,7 +82,7 @@ namespace MetX.Standard.Library
                         File.SetAttributes(FilePath, FileAttributes.Normal);
                         File.Delete(FilePath);
                     }
-                    
+
                     var fileStream = new FileStream(FilePath, append ? FileMode.Append : FileMode.Create);
                     if (!fileStream.CanWrite)
                         return false;

@@ -1,4 +1,5 @@
-﻿using MetX.Standard.Strings.Tokens.GPT;
+﻿using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
 using System;
 using System.IO;
 

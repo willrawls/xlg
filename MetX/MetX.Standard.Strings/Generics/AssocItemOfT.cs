@@ -1,6 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using MetX.Standard.Strings.Assoc;
 using MetX.Standard.Strings.Interfaces;
+using System;
+using System.Text;
 
 namespace MetX.Standard.Strings.Generics;
 
@@ -14,21 +15,23 @@ public class AssocItemOfT<T> : BasicAssocItem, IAssocItem<T> where T : class, ne
         Item = new T();
     }
 
-    public AssocItemOfT(string key, T item = default, string value = null, Guid? id = null, string name = null, int number = 0) 
+    public AssocItemOfT(string key, T item = default, string value = null, Guid? id = null, string name = null,
+        int number = 0)
         : base(key, value, id, name)
     {
         Number = number;
-        Item = item ??  new T();
+        Item = item ?? new T();
     }
 
     public override string ToString()
     {
         var sb = new StringBuilder();
         sb.AppendLine($"      {Key}={Value ?? "nil"}, {ID:N}, {Name ?? "nil"}");
-        if(Item != null)
+        if (Item != null)
         {
             sb.AppendLine(Item.ToString());
         }
+
         return sb.ToString();
     }
 }

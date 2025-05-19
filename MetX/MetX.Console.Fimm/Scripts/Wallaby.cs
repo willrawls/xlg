@@ -1,12 +1,13 @@
 ﻿
-using System;
-using System.IO;
-using System.Linq;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using MetX.Standard.Strings.Tokens.GPT;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace MetX.Fimm.Scripts;
 
@@ -62,7 +63,7 @@ public class Wallaby
         if (scriptName.Contains("+")) return FindScript(scriptName.FirstToken("+"), scriptName.TokensAfterFirst("+"));
 
         var filePath = ResolveScriptFilePath(scriptName, FimmExtension);
-        if(filePath.IsEmpty())
+        if (filePath.IsEmpty())
             return null;
 
         var scriptList = XlgQuickScriptFile.Load(filePath);

@@ -1,8 +1,9 @@
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MetX.Standard.Strings;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -79,7 +80,7 @@ namespace MetX.Standard.Primary.Scripts
 
         public void ParseAndBuildAreas(bool resetFirst = false)
         {
-            if(resetFirst)
+            if (resetFirst)
             {
                 ResetAreas();
             }
@@ -130,18 +131,18 @@ namespace MetX.Standard.Primary.Scripts
                 {
                     SetArea("Usings");
                 }
-                else if (line.Contains("~~ClassMembers:") 
-                        || line.Contains("~~ClassMember:")
-                        || line.Contains("~~Properties:") 
-                        || line.Contains("~~Property:")
-                        || line.Contains("~~Fields:") 
-                        || line.Contains("~~Field:")
-                        || line.Contains("~~Members:") 
-                        || line.Contains("~~Member:"))
+                else if (line.Contains("~~ClassMembers:")
+                         || line.Contains("~~ClassMember:")
+                         || line.Contains("~~Properties:")
+                         || line.Contains("~~Property:")
+                         || line.Contains("~~Fields:")
+                         || line.Contains("~~Field:")
+                         || line.Contains("~~Members:")
+                         || line.Contains("~~Member:"))
                 {
                     SetArea("ClassMembers");
                 }
-                else if (line.Contains("~~ProcessLines:") 
+                else if (line.Contains("~~ProcessLines:")
                          || line.Contains("~~ProcessLine:")
                          || line.Contains("~~Line:")
                          || line.Contains("~~Body:"))
@@ -235,7 +236,7 @@ namespace MetX.Standard.Primary.Scripts
                 || specialInstruction.Contains("destination")
                 || specialInstruction == "*")
             {
-                if(_targetScript.DestinationFilePath.IsNotEmpty())
+                if (_targetScript.DestinationFilePath.IsNotEmpty())
                     _targetGenArea.Lines.Add($"Output.AppendTo(@\"{_targetScript.DestinationFilePath}\");");
                 else
                     _targetGenArea.Lines.Add($"// ~~To found nothing to do '{specialInstruction}'");
@@ -261,7 +262,7 @@ namespace MetX.Standard.Primary.Scripts
                 || specialInstruction.Contains("destination")
                 || specialInstruction == "*")
             {
-                if(_targetScript.DestinationFilePath.IsNotEmpty())
+                if (_targetScript.DestinationFilePath.IsNotEmpty())
                     _targetGenArea.Lines.Add($"Output.AppendTo(@\"{_targetScript.DestinationFilePath}\");");
                 else
                     _targetGenArea.Lines.Add("// ~~To found nothing to do");

@@ -1,14 +1,14 @@
 ﻿using System;
+using MetX.Standard.Strings.Assoc;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
 
 public class AssocTimeline : AssocTimeline<BasicAssocItem, BasicAssocItem>
 {
-
 }
 
-public class AssocTimeline<TAxis, TItem> 
+public class AssocTimeline<TAxis, TItem>
     where TAxis : class, IAssocItem
     where TItem : class, IAssocItem, new()
 {
@@ -18,7 +18,7 @@ public class AssocTimeline<TAxis, TItem>
     {
         get
         {
-            if (firstAxisKey.IsEmpty() 
+            if (firstAxisKey.IsEmpty()
                 || secondAxisKey.IsEmpty()
                 || thirdAxisKey.IsEmpty())
                 return null;
@@ -29,7 +29,7 @@ public class AssocTimeline<TAxis, TItem>
         }
         set
         {
-            if (firstAxisKey.IsEmpty() 
+            if (firstAxisKey.IsEmpty()
                 || secondAxisKey.IsEmpty()
                 || thirdAxisKey.IsEmpty())
                 return;
@@ -44,7 +44,7 @@ public class AssocTimeline<TAxis, TItem>
     {
         get
         {
-            if (first == null 
+            if (first == null
                 || second == null
                 || third == null
                 || first.ID == Guid.Empty
@@ -54,11 +54,11 @@ public class AssocTimeline<TAxis, TItem>
 
             var timeline = Timeline[at.ToString("s")];
             timeline.Item.At = at;
-            return timeline.Item.FirstAxis[first.ID, second.ID , third.ID];
+            return timeline.Item.FirstAxis[first.ID, second.ID, third.ID];
         }
         set
         {
-            if (first == null 
+            if (first == null
                 || second == null
                 || third == null
                 || first.ID == Guid.Empty
@@ -76,7 +76,7 @@ public class AssocTimeline<TAxis, TItem>
     {
         get
         {
-            if (firstAxisId == Guid.Empty 
+            if (firstAxisId == Guid.Empty
                 || secondAxisId == Guid.Empty
                 || thirdAxisId == Guid.Empty)
                 return null;
@@ -87,7 +87,7 @@ public class AssocTimeline<TAxis, TItem>
         }
         set
         {
-            if (firstAxisId == Guid.Empty 
+            if (firstAxisId == Guid.Empty
                 || secondAxisId == Guid.Empty
                 || thirdAxisId == Guid.Empty)
                 return;

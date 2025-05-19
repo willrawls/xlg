@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using MetX.Standard.Strings;
-using Microsoft.CodeAnalysis;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -11,8 +12,8 @@ namespace MetX.Standard.Primary.Scripts
     {
         public static int Line(this Location location)
         {
-            return location == null 
-                ? 0 
+            return location == null
+                ? 0
                 : location.GetMappedLineSpan().StartLinePosition.Line;
         }
 
@@ -20,7 +21,7 @@ namespace MetX.Standard.Primary.Scripts
         {
             if (failures == null || failures.Count == 0)
                 return string.Empty;
-            
+
             var sb = new StringBuilder();
 
             sb.AppendLine("Compilation failure. Errors found include:");
@@ -39,7 +40,7 @@ namespace MetX.Standard.Primary.Scripts
                 }
                 return sb.ToString();
             }
-            
+
 
             for (var index = 0; index < failures.Count; index++)
             {

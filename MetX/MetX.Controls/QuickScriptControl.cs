@@ -1,8 +1,5 @@
 ﻿// ReSharper disable UnusedVariable
 
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using ICSharpCode.TextEditor.Document.HighlightingStrategy;
 using ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
 using ICSharpCode.TextEditor.Gui;
@@ -10,7 +7,11 @@ using ICSharpCode.TextEditor.Gui.CompletionWindow;
 using ICSharpCode.TextEditor.UserControls;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using MetX.Windows.Library;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MetX.Windows.Controls
 {
@@ -37,7 +38,7 @@ namespace MetX.Windows.Controls
                 "~~Ask: \"$title\" \"$description\" \"$default\" ",
                 "~~BeginString:\n",
                 "~~EndString:\n",
-                Helpers.SlashSlashBlockLeftDelimiter + "\n", 
+                Helpers.SlashSlashBlockLeftDelimiter + "\n",
                 Helpers.SlashSlashBlockRightDelimiter + "\n",
                 "Output.AppendLine(\"$end\");",
                 "line",
@@ -110,14 +111,14 @@ namespace MetX.Windows.Controls
                 completionDataProvider,
                 '.');
 
-            if (_completionWindow != null) 
+            if (_completionWindow != null)
                 _completionWindow.Closed += CompletionWindowClosed;
         }
 
         public void CodeAreaOnKeyUp(object sender, KeyEventArgs e)
         {
             if (!e.Control || e.KeyCode != Keys.Oemtilde) return;
-            
+
             ShowThisCodeCompletion();
             e.Handled = true;
         }
@@ -125,7 +126,7 @@ namespace MetX.Windows.Controls
         public void FindNext()
         {
             var dialog = new AskForStringDialog();
-            
+
             var toFind = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: "What would you like to find?", title: "REPLACE ALL - TO FIND", defaultValue: LastFind);
             if (toFind.IsEmpty())
                 return;
@@ -148,7 +149,7 @@ namespace MetX.Windows.Controls
         public string LastReplace;
         public FindAndReplaceForm FindAndReplaceForm;
 
-        public static List<string> CodeCompletionStrings {get; set;}
+        public static List<string> CodeCompletionStrings { get; set; }
 
         public void ReplaceAll()
         {
@@ -156,9 +157,9 @@ namespace MetX.Windows.Controls
             var toFind = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: "What would you like to find?", title: "REPLACE ALL - TO FIND", defaultValue: LastFind);
             if (toFind.IsEmpty())
                 return;
-            
+
             var replacement = dialog.Ask(ParentForm.Top + 50, ParentForm.Left + 50, promptText: $"Replace with what?\n\nTo Find: {toFind}", title: "REPLACE ALL - CHOOSE REPLACEMENT", defaultValue: LastReplace);
-            
+
             LastFind = toFind;
             LastReplace = replacement;
 

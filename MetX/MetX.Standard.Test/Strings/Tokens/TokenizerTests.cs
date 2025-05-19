@@ -1,4 +1,4 @@
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 
 namespace MetX.Standard.Test.Strings.Tokens;
 

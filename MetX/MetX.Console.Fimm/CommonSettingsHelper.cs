@@ -2,6 +2,7 @@
 using MetX.Standard.Library.ML;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Assoc;
 
 namespace MetX.Fimm;
 
@@ -40,7 +41,7 @@ public class CommonSettingsHelper
         {
             if (ForHost == null)
                 ForHost = new();
-            else 
+            else
                 ForHost.Items.Clear();
 
             if (overwriteSettingsFile)
@@ -73,6 +74,7 @@ public class CommonSettingsHelper
             {
                 _commonDirectoryHelper.Paths[name].Value = ForHost[name].Value;
             }
+
             return value;
         }
     }

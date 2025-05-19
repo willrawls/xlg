@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetX.Standard.Strings.Assoc;
+using System;
 
 namespace MetX.Standard.Strings.Generics;
 
@@ -17,5 +18,4 @@ public class AssocType<T> : BasicAssocItem
     }
 
     public static AssocType<T> Wrap(T target) => new AssocType<T>(target);
-
 }

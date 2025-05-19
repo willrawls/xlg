@@ -5,7 +5,7 @@ using System.Text;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MetX.Standard.Strings
+namespace MetX.Standard.Strings.Tokens
 {
     /// <summary>
     ///     String extension methods for finding and returning a substring based on delimiter placement and position.
@@ -20,7 +20,7 @@ namespace MetX.Standard.Strings
         ///     The string that separates each token. For instance, In the string "Fred went home", a space ("
         ///     ") would be a common delimiter.
         /// </param>
-        /// <param name="splitOptions">See <see cref="System.StringSplitOptions" /></param>
+        /// <param name="splitOptions">See <see cref="StringSplitOptions" /></param>
         /// <param name="compare"></param>
         /// <returns>
         ///     NOTE: Never returns null. Each delimited token returned in a string array, with empty entries optionally
@@ -92,7 +92,7 @@ namespace MetX.Standard.Strings
         /// <returns></returns>
         public static string LastPathToken(this string target)
         {
-            return TokenAt(target, TokenCount(target, @"\"), @"\");
+            return target.TokenAt(target.TokenCount(@"\"), @"\");
         }
 
         /// <summary>Returns the last delimited token from a string</summary>
@@ -101,8 +101,8 @@ namespace MetX.Standard.Strings
         /// <param name="compare"></param>
         public static string LastToken(this string target, string delimiter = " ", StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
-            var tokenCount = TokenCount(target, delimiter, compare);
-            return TokenAt(target, tokenCount, delimiter, compare);
+            var tokenCount = target.TokenCount(delimiter, compare);
+            return target.TokenAt(tokenCount, delimiter, compare);
         }
 
         /// <summary>
@@ -202,8 +202,8 @@ namespace MetX.Standard.Strings
         {
             if (string.IsNullOrEmpty(target))
                 return string.Empty;
-            var leftPart = TokenAt(target, 2, leftDelimiter, compare);
-            return TokenAt(leftPart, 1, rightDelimiter, compare);
+            var leftPart = target.TokenAt(2, leftDelimiter, compare);
+            return leftPart.TokenAt(1, rightDelimiter, compare);
         }
 
         /// <summary>
@@ -552,7 +552,7 @@ namespace MetX.Standard.Strings
             string delimiter = " ",
             StringComparison compare = StringComparison.OrdinalIgnoreCase)
         {
-            return TokensAfter(target, 1, delimiter, compare);
+            return target.TokensAfter(1, delimiter, compare);
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace MetX.Standard.Strings
 
             var leftIndex = target.IndexOf(leftDelimiter, compare);
             if (leftIndex <= 0)
-                return TokensBefore(target, 2, leftDelimiter) + TokensAfter(target, 1, rightDelimiter);
+                return target.TokensBefore(2, leftDelimiter) + target.TokensAfter(1, rightDelimiter);
 
             var rightIndex = target.IndexOf(rightDelimiter, leftIndex + leftDelimiter.Length, compare);
             if (rightIndex > leftIndex)
@@ -595,7 +595,7 @@ namespace MetX.Standard.Strings
                 return string.Empty;
 
             if (token == 2)
-                return TokenAt(target, 1, delimiter);
+                return target.TokenAt(1, delimiter);
 
             var index = target.TokenIndex(token, delimiter, compare);
             if (index >= target.Length)

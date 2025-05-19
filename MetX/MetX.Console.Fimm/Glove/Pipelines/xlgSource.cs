@@ -1,3 +1,8 @@
+using MetX.Standard.Library.ML;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using System;
 using System.IO;
 using System.Linq;
@@ -5,10 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.Library.ML;
-using MetX.Standard.Primary.Interfaces;
-using MetX.Standard.Primary.IO;
-using MetX.Standard.Strings;
 
 namespace MetX.Fimm.Glove.Pipelines
 {

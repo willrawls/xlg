@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
+using System;
 using System.Collections;
 using System.Linq;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Tokens.GPT;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -102,10 +103,10 @@ namespace MetX.Standard.Primary.Scripts
                 .LineList()
                 .Select(line => $"~~:{line}")
                 .ToList().AsStringFromList("\n");
-            
+
             if (!result.EndsWith("\n"))
                 result += "\n";
-            
+
             return result;
         }
     }

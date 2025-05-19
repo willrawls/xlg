@@ -2,12 +2,13 @@
 
 // ReSharper disable InconsistentNaming
 
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
 using System;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Tokens.GPT;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -105,7 +106,7 @@ namespace MetX.Standard.Primary.Scripts
             {
                 var sb = new StringBuilder();
                 var lines = rawScript.LineList();
-//                var lines = rawScript.Lines();
+                //                var lines = rawScript.Lines();
                 foreach (var line in lines)
                     if (line.StartsWith("~~QuickScriptDefault:"))
                     {
@@ -155,7 +156,7 @@ namespace MetX.Standard.Primary.Scripts
                     else if (line.StartsWith("~~QuickScriptTargetFramework:"))
                     {
                         TargetFramework = line.TokensAfterFirst(":");
-                        if(TargetFramework.IsEmpty())
+                        if (TargetFramework.IsEmpty())
                             TargetFramework = "net7.0-windows";
                     }
                     else

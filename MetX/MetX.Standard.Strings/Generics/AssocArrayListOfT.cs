@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using MetX.Standard.Strings.Assoc;
 using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings.Generics;
@@ -9,14 +10,13 @@ namespace MetX.Standard.Strings.Generics;
 [Serializable]
 public class AssocArrayListOfT<TAssocItem> : List<AssocArrayOfT<TAssocItem>> where TAssocItem : class, IAssocItem, new()
 {
-    [XmlIgnore]
-    public object SyncRoot { get; }= new();
+    [XmlIgnore] public object SyncRoot { get; } = new();
 
     public AssocArrayOfT<TAssocItem> this[string key]
     {
         get
         {
-            lock(SyncRoot)
+            lock (SyncRoot)
             {
                 var assocArray = this.FirstOrDefault(item =>
                     string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
@@ -38,22 +38,23 @@ public class AssocArrayListOfT<TAssocItem> : List<AssocArrayOfT<TAssocItem>> whe
                     this[index] = value;
                     return;
                 }
+
                 Add(value);
             }
         }
     }
 }
+
 [Serializable]
 public class AssocArrayList : List<AssocArray>
 {
-    [XmlIgnore]
-    public object SyncRoot { get; }= new();
+    [XmlIgnore] public object SyncRoot { get; } = new();
 
     public AssocArray this[string key]
     {
         get
         {
-            lock(SyncRoot)
+            lock (SyncRoot)
             {
                 var assocArray = this.FirstOrDefault(item =>
                     string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
@@ -75,6 +76,7 @@ public class AssocArrayList : List<AssocArray>
                     this[index] = value;
                     return;
                 }
+
                 Add(value);
             }
         }

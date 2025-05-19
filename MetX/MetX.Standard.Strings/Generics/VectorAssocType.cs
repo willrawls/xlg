@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using MetX.Standard.Strings.Assoc;
+using System.Xml.Serialization;
 
 namespace MetX.Standard.Strings.Generics;
 
@@ -8,5 +9,4 @@ public class VectorAssocType : BasicAssocItem
     [XmlAttribute] public decimal Spin { get; set; }
     [XmlAttribute] public decimal Arc { get; set; }
     [XmlAttribute] public decimal Deformation { get; set; }
-
 }

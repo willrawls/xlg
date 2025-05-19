@@ -1,4 +1,5 @@
 ﻿using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetX.Console.Tests;
 
@@ -84,7 +85,7 @@ public class StringExtensionsTests
         Assert.AreEqual("abc", target.Left(3));
         Assert.AreEqual("", target.Left(0));
         Assert.AreEqual("abcdefg", target.Left(10));
-        Assert.AreEqual(target, target.Left(7));            
+        Assert.AreEqual(target, target.Left(7));
     }
 
     [TestMethod]
@@ -95,6 +96,6 @@ public class StringExtensionsTests
         Assert.AreEqual("efg", target.Right(3));
         Assert.AreEqual("", target.Right(0));
         Assert.AreEqual("abcdefg", target.Right(10));
-        Assert.AreEqual("", target.Right(-1));            
+        Assert.AreEqual("", target.Right(-1));
     }
 }

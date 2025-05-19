@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
-using MetX.Fimm;
+﻿using MetX.Fimm;
 using MetX.Fimm.Scripts;
 using MetX.Standard.Primary;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Scripts;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace MetX.Windows.Controls;
 
@@ -121,13 +122,13 @@ public class ConsoleContext : ContextBase
 
                     case QuickScriptDestination.Clipboard:
                         // Nothing to do. The executable did this
-                        /* 
+                        /*
                             Clipboard.Clear();
                             var textForClipboard = runResult.QuickScriptProcessor.OutputStringBuilder.ToString();
                             Clipboard.SetText(textForClipboard);
                             */
                         break;
-                        
+
                     case QuickScriptDestination.Notepad:
                         // Nothing to do. The executable did this
                         /*
@@ -173,7 +174,7 @@ public class ConsoleContext : ContextBase
 
             var source = result.OutputFiles["QuickScriptProcessor.cs"].Value;
             var finalDetails = result.FinalDetails(out var keyLines);
-                
+
             var sourceCodeWindow = ViewInNewQuickScriptOutputWindow("Source for QuickScriptProcessor.cs", source, true, keyLines, host);
             sourceCodeWindow.Find("|Error");
 

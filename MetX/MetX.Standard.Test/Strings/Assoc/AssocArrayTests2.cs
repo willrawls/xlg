@@ -1,3 +1,5 @@
+using MetX.Standard.Strings.Assoc;
+
 namespace MetX.Standard.Strings.Tests
 {
     [TestClass]

@@ -1,3 +1,14 @@
+using MetX.Fimm.Glove.Data;
+using MetX.Standard.Library.ML;
+using MetX.Standard.Primary.Host;
+using MetX.Standard.Primary.Interfaces;
+using MetX.Standard.Primary.IO;
+using MetX.Standard.Primary.Pipelines;
+using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using MetX.Standard.Strings.Tokens.GPT;
+using Mvp.Xml.Common.Xsl;
+using Mvp.Xml.Exslt;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,16 +20,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Xsl;
-using MetX.Fimm.Glove.Data;
-using MetX.Standard.Library.ML;
-using MetX.Standard.Primary.Host;
-using MetX.Standard.Primary.Interfaces;
-using MetX.Standard.Primary.IO;
-using MetX.Standard.Primary.Pipelines;
-using MetX.Standard.Strings;
-using MetX.Standard.Strings.Tokens.GPT;
-using Mvp.Xml.Common.Xsl;
-using Mvp.Xml.Exslt;
 
 namespace MetX.Fimm.Glove.Pipelines
 {
@@ -477,7 +478,7 @@ namespace MetX.Fimm.Glove.Pipelines
             return xmlDoc;
         }
 
-         public XmlDocument RelationshipXml(XmlDocument xmlDoc)
+        public XmlDocument RelationshipXml(XmlDocument xmlDoc)
         {
             var root = xmlDoc.DocumentElement;
             if (root == null)
@@ -549,9 +550,11 @@ namespace MetX.Fimm.Glove.Pipelines
                     Debug.WriteLine(ex);
                     if (Host != null)
                     {
-                        switch (Host.MessageBox.Show("Unable to get a schema for table: " + pair.ToString() + "\n\n\tAdd table to skip list and continue ?", 
-                            "CONTINUE ?", MessageBoxChoices.YesNoCancel,
-                            MessageBoxStatus.Error, MessageBoxDefault.Button1))
+                        switch (Host.MessageBox.Show(
+                                    "Unable to get a schema for table: " + pair.ToString() +
+                                    "\n\n\tAdd table to skip list and continue ?",
+                                    "CONTINUE ?", MessageBoxChoices.YesNoCancel,
+                                    MessageBoxStatus.Error, MessageBoxDefault.Button1))
                         {
                             case MessageBoxResult.Yes:
                                 AddElement(_mTablesToRender, "Exclude", "Name", pair.ToString());
@@ -584,8 +587,12 @@ namespace MetX.Fimm.Glove.Pipelines
                 try
                 {
                     var command = new QueryCommand(tableSchema.CountSql);
-                    count = (int) DataService.Instance.ExecuteScalar(command);
-                } catch { /* Ignored */ }
+                    count = (int)DataService.Instance.ExecuteScalar(command);
+                }
+                catch
+                {
+                    /* Ignored */
+                }
 
                 AddAttribute(xmlTable, "RowCount", count.ToString());
 
@@ -821,7 +828,7 @@ namespace MetX.Fimm.Glove.Pipelines
                         return FileSystem.FileToString(virtualFilename);
                     }
 
-                    using var inFile = File.Open(virtualFilename, FileMode.Create );
+                    using var inFile = File.Open(virtualFilename, FileMode.Create);
                     var rdr = new StreamReader(inFile);
                     var contents = rdr.ReadToEnd();
                     rdr.Close();
@@ -1310,7 +1317,7 @@ namespace MetX.Fimm.Glove.Pipelines
                     regex = new Regex(pattern, RegexOptions.Compiled);
                     _mPatterns.Add(name.Value, regex);
                 }
-                else if (name != null) 
+                else if (name != null)
                 {
                     regex = _mPatterns[name.Value];
                 }

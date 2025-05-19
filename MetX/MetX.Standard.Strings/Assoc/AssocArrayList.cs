@@ -4,19 +4,18 @@ using System.Linq;
 using System.Xml.Serialization;
 using MetX.Standard.Strings.Interfaces;
 
-namespace MetX.Standard.Strings;
+namespace MetX.Standard.Strings.Assoc;
 
 [Serializable]
 public class AssocArrayList : List<AssocArray>
 {
-    [XmlIgnore]
-    public object SyncRoot { get; }= new();
+    [XmlIgnore] public object SyncRoot { get; } = new();
 
     public AssocArray this[string key]
     {
         get
         {
-            lock(SyncRoot)
+            lock (SyncRoot)
             {
                 var assocArray = this.FirstOrDefault(item =>
                     string.Compare(item.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
@@ -38,6 +37,7 @@ public class AssocArrayList : List<AssocArray>
                     this[index] = value;
                     return;
                 }
+
                 Add(value);
             }
         }

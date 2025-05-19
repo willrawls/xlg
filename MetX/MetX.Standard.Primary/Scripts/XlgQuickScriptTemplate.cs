@@ -1,8 +1,9 @@
-using System;
-using System.IO;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Strings;
 using MetX.Standard.Strings.Generics;
+using MetX.Standard.Strings.Tokens;
+using System;
+using System.IO;
 
 namespace MetX.Standard.Primary.Scripts
 {
@@ -33,7 +34,7 @@ namespace MetX.Standard.Primary.Scripts
                 var asset = Assets[assetName].Item;
                 asset.Template = File.ReadAllText(file);
                 asset.OriginalAssetFilename = assetName;
-                if(TemplateListFolder.IsNotEmpty() && !TemplateListFolder.ToLower().Contains("c:\\"))
+                if (TemplateListFolder.IsNotEmpty() && !TemplateListFolder.ToLower().Contains("c:\\"))
                 {
                     asset.RelativePath = TemplateListFolder;
                     if (asset.RelativePath.StartsWith(@"\"))

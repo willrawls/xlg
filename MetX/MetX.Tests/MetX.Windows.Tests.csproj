@@ -12,7 +12,7 @@
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<Version>8.2024.1</Version>
+		<Version>2025.5.19.4</Version>
 		<Authors>William Rawls</Authors>
 		<Product>XLG</Product>
 		<PackageProjectUrl>https://github.com/willrawls/xlg</PackageProjectUrl>
@@ -24,8 +24,8 @@
 		<AssemblyOriginatorKeyFile>..\XLG.snk</AssemblyOriginatorKeyFile>
 		<IsPublishable>False</IsPublishable>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AssemblyVersion>2024.1.0.44</AssemblyVersion>
-		<FileVersion>2024.1.0.44</FileVersion>
+		<AssemblyVersion>2025.5.19.4</AssemblyVersion>
+		<FileVersion>2025.5.19.4</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

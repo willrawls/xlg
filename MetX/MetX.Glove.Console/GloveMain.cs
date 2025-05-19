@@ -5,7 +5,7 @@ using MetX.Standard.Primary.Host;
 using MetX.Standard.Primary.Interfaces;
 using MetX.Standard.Primary.IO;
 using MetX.Standard.Primary.Pipelines;
-using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
 using MetX.Windows.Library;
 using NHotPhrase.Keyboard;
 using NHotPhrase.Phrase;
