@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MetX.Standard.Strings.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MetX.Standard.Strings.Interfaces;
 
 namespace MetX.Standard.Strings;
 
@@ -30,11 +31,26 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
         if (string.IsNullOrEmpty(keyOrName) || item == null) return false;
 
         return item.Key.Equals(keyOrName) || item.Name.Equals(keyOrName);
-                
     }
 
     public AssocArray(string key) : base(key)
     {
+    }
+
+    public AssocArray(Dictionary<string, string> dict) : base()
+    {
+        foreach (var pair in dict)
+        {
+            this[pair.Key].Value = pair.Value;
+        }
+    }
+
+    public AssocArray(Dictionary<string, int> dict) : base()
+    {
+        foreach (var pair in dict)
+        {
+            this[pair.Key].Number = pair.Value;
+        }
     }
 
     [XmlIgnore]
@@ -147,7 +163,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
         Save();
     }
 
-    public  void Save()
+    public void Save()
     {
         SaveXmlToFile(FilePath, true);
     }
@@ -174,7 +190,7 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
 
             using var stringReader = new StringReader(xml);
             using var xmlTextReader = new XmlTextReader(stringReader);
-            ret = (AssocArray) GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xmlTextReader);
+            ret = (AssocArray)GetSerializer(typeof(AssocArray), ExtraTypes()).Deserialize(xmlTextReader);
         }
 
         var aa = ret;
@@ -207,17 +223,16 @@ public class AssocArray : ListLikeSerializesToXml<AssocArray, AssocArray, BasicA
         if (target.IsEmpty()) return "";
         if (!target.Contains("%")) return target;
 
-        var result = Items
-            .Aggregate(target, 
-                (current, item) => current
-                    .Replace(
-                        $"%{item.Key}%", 
-                        item.Value
+        var result = target;
+        foreach (var item in Items)
+        {
 #if NETSTANDARD2_1
-                        , true, CultureInfo.InvariantCulture
+            result = result.Replace($"%{item.Key}%", item.Value, true, CultureInfo.InvariantCulture);
 #else
+            //result = result.Replace($"%{item.Key}%", item.Value, StringComparison.InvariantCultureIgnoreCase);
 #endif
-                        ));
+        }
+
         return result;
     }
 }

@@ -155,5 +155,227 @@ namespace MetX.Standard.Strings.Tests
             Assert.IsTrue(AssocArray.DefaultKeyComparer("name", item));
             Assert.IsFalse(AssocArray.DefaultKeyComparer("other", item));
         }
+
+
+        // ===== Values Property =====
+        [TestMethod]
+        public void Values_EmptyItems_ReturnsEmptyArray()
+        {
+            var aa = new AssocArray();
+            CollectionAssert.AreEqual(Array.Empty<string>(), aa.Values);
+        }
+
+        [TestMethod]
+        public void Values_SingleItem_ReturnsArrayWithValue()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k", "v"));
+            CollectionAssert.AreEqual(new[] { "v" }, aa.Values);
+        }
+
+        [TestMethod]
+        public void Values_MultipleItems_ReturnsAllValues()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", "v1"));
+            aa.Items.Add(new BasicAssocItem("k2", "v2"));
+            CollectionAssert.AreEqual(new[] { "v1", "v2" }, aa.Values);
+        }
+
+        [TestMethod]
+        public void Values_ItemWithNullValue_ReturnsNullEntry()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", null));
+            CollectionAssert.AreEqual(new[] { (string)null }, aa.Values);
+        }
+
+        [TestMethod]
+        public void Values_ModifyingItems_ReflectsNewValues()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", "v1"));
+            aa.Items[0].Value = "v1-mod";
+            CollectionAssert.AreEqual(new[] { "v1-mod" }, aa.Values);
+        }
+
+        // ===== Numbers Property =====
+        [TestMethod]
+        public void Numbers_EmptyItems_ReturnsEmptyArray()
+        {
+            var aa = new AssocArray();
+            CollectionAssert.AreEqual(Array.Empty<int>(), aa.Numbers);
+        }
+
+        [TestMethod]
+        public void Numbers_SingleItem_ReturnsSingleNumber()
+        {
+            var aa = new AssocArray();
+            var item = new BasicAssocItem("k", "v") { Number = 42 };
+            aa.Items.Add(item);
+            CollectionAssert.AreEqual(new[] { 42 }, aa.Numbers);
+        }
+
+        [TestMethod]
+        public void Numbers_MultipleItems_ReturnsAllNumbers()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", "v1") { Number = 1 });
+            aa.Items.Add(new BasicAssocItem("k2", "v2") { Number = 2 });
+            CollectionAssert.AreEqual(new[] { 1, 2 }, aa.Numbers);
+        }
+
+        [TestMethod]
+        public void Numbers_DefaultNumber_ReturnsZero()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k", "v"));
+            CollectionAssert.AreEqual(new[] { 0 }, aa.Numbers);
+        }
+
+        [TestMethod]
+        public void Numbers_ModifyingItems_ReflectsNewNumbers()
+        {
+            var aa = new AssocArray();
+            var item = new BasicAssocItem("k", "v") { Number = 5 };
+            aa.Items.Add(item);
+            item.Number = 10;
+            CollectionAssert.AreEqual(new[] { 10 }, aa.Numbers);
+        }
+
+        // ===== Names Property =====
+        [TestMethod]
+        public void Names_EmptyItems_ReturnsEmptyArray()
+        {
+            var aa = new AssocArray();
+            CollectionAssert.AreEqual(Array.Empty<string>(), aa.Names);
+        }
+
+        [TestMethod]
+        public void Names_SingleItem_ReturnsName()
+        {
+            var aa = new AssocArray();
+            var item = new BasicAssocItem("k", "v", name: "Name1");
+            aa.Items.Add(item);
+            CollectionAssert.AreEqual(new[] { "Name1" }, aa.Names);
+        }
+
+        [TestMethod]
+        public void Names_MultipleItems_ReturnsAllNames()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", "v1", name: "N1"));
+            aa.Items.Add(new BasicAssocItem("k2", "v2", name: "N2"));
+            CollectionAssert.AreEqual(new[] { "N1", "N2" }, aa.Names);
+        }
+
+        [TestMethod]
+        public void Names_ItemWithNullName_ReturnsNullEntry()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k", "v", name: null));
+            CollectionAssert.AreEqual(new string[] { null }, aa.Names);
+        }
+
+        [TestMethod]
+        public void Names_ModifyingItems_ReflectsNewNames()
+        {
+            var aa = new AssocArray();
+            var item = new BasicAssocItem("k", "v", name: "N1");
+            aa.Items.Add(item);
+            item.Name = "N1b";
+            CollectionAssert.AreEqual(new[] { "N1b" }, aa.Names);
+        }
+
+        // ===== ToString =====
+        [TestMethod]
+        public void ToString_EmptyArray_ReturnsEmptyString()
+        {
+            var aa = new AssocArray();
+            Assert.AreEqual(string.Empty, aa.ToString());
+        }
+
+        [TestMethod]
+        public void ToString_SingleItem_ReturnsKeyValue()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k", "v"));
+            var expected = "k=v" + Environment.NewLine;
+            Assert.AreEqual(expected, aa.ToString());
+        }
+
+        [TestMethod]
+        public void ToString_MultipleItems_ReturnsMultipleLines()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k1", "v1"));
+            aa.Items.Add(new BasicAssocItem("k2", "v2"));
+            var result = aa.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            CollectionAssert.AreEqual(new[] { "k1=v1", "k2=v2" }, result);
+        }
+
+        [TestMethod]
+        public void ToString_FormatMatchesExpected()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("key", "value"));
+            var output = aa.ToString();
+            StringAssert.Matches(output, new System.Text.RegularExpressions.Regex("^key=value\r?\n$"));
+        }
+
+        [TestMethod]
+        public void ToString_ValueNull_ShowsKeyOnly()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("k", null));
+            var expected = "k=" + Environment.NewLine;
+            Assert.AreEqual(expected, aa.ToString());
+        }
+
+        // ===== Resolve =====
+        [TestMethod]
+        public void Resolve_EmptyTarget_ReturnsEmpty()
+        {
+            var aa = new AssocArray();
+            Assert.AreEqual(string.Empty, aa.Resolve(string.Empty));
+        }
+
+        [TestMethod]
+        public void Resolve_NoPlaceholders_ReturnsSame()
+        {
+            var aa = new AssocArray();
+            var input = "no placeholders here";
+            Assert.AreEqual(input, aa.Resolve(input));
+        }
+
+        [TestMethod]
+        public void Resolve_SinglePlaceholder_Replaces()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("X", "Y"));
+            var input = "start%X%end";
+            Assert.AreEqual("startYend", aa.Resolve(input));
+        }
+
+        [TestMethod]
+        public void Resolve_MultiplePlaceholders_ReplacesAll()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("A", "1"));
+            aa.Items.Add(new BasicAssocItem("B", "2"));
+            var input = "%A%+%B%=%A%";
+            Assert.AreEqual("1+2=1", aa.Resolve(input));
+        }
+
+        [TestMethod]
+        public void Resolve_PlaceholderCaseInsensitive_NoReplace()
+        {
+            var aa = new AssocArray();
+            aa.Items.Add(new BasicAssocItem("Key", "V"));
+            var input = "Value of %key%?";
+            var actual = aa.Resolve(input);
+            string expected = "Value of V?";
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
