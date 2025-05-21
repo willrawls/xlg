@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Data\\code\\github\\xlg\\MetX\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\metx.standard.primary.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\metx.standard.primary.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|c:\\data\\code\\github\\xlg\\metx\\metx.standard.primary\\io\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DFB7CFA6-E8DF-43E7-9760-F3CEA36ED54F}|MetX.Standard.Primary\\MetX.Standard.Primary.csproj|solutionrelative:metx.standard.primary\\io\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,6 +27,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MetX.Standard.Primary",
+              "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\MetX.Standard.Primary.csproj",
+              "RelativeDocumentMoniker": "MetX.Standard.Primary\\MetX.Standard.Primary.csproj",
+              "ToolTip": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\MetX.Standard.Primary.csproj",
+              "RelativeToolTip": "MetX.Standard.Primary\\MetX.Standard.Primary.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-21T18:35:04.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "FileSystem.cs",
               "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Standard.Primary\\IO\\FileSystem.cs",
               "RelativeDocumentMoniker": "MetX.Standard.Primary\\IO\\FileSystem.cs",
@@ -35,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ConsoleContext.cs",
               "DocumentMoniker": "C:\\Data\\code\\github\\xlg\\MetX\\MetX.Controls\\ConsoleContext.cs",
               "RelativeDocumentMoniker": "MetX.Controls\\ConsoleContext.cs",
