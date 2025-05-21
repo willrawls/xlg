@@ -1,0 +1,14 @@
+
+-- ----------------------------------------------------------------
+-- Uber Indexing SQL (every column)
+-- ----------------------------------------------------------------
+		
+
+-- ----------------------------------------------------------------
+-- Demo1
+   CREATE NONCLUSTERED INDEX [Demo1_ID] ON [dbo].[Demo1] ( [ID] ASC ) WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+   CREATE NONCLUSTERED INDEX [Demo1_Name] ON [dbo].[Demo1] ( [Name] ASC ) WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+   CREATE NONCLUSTERED INDEX [Demo1_ParentID] ON [dbo].[Demo1] ( [ParentID] ASC ) WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+   CREATE NONCLUSTERED INDEX [Demo1_Value] ON [dbo].[Demo1] ( [Value] ASC ) WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+		

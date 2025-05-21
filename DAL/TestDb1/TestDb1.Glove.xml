@@ -1,0 +1,39 @@
+<xlgDoc IncludeNamespace="true" ConnectionStringName="TestDb1" Namespace="TestDb1" VDirName="TestDb1" DatabaseProvider="SqlDataProvider" ProviderName="" MetXObjectName="Provider" MetXProviderAssemblyString="System.Data" ProviderAssemblyString="Fimm, Version=2024.1.0.67, Culture=neutral, PublicKeyToken=333ad29c5ca4d9dd" OutputFolder="C:\data\code\xlg\DAL\TestDb1\" Now="2025-03-20T12:13:50" XlgInstanceID="49808DDA-5CB8-4981-8CE7-B73910D33114" MetXAssemblyString="Fimm, Version=2024.1.0.67, Culture=neutral, PublicKeyToken=333ad29c5ca4d9dd">
+  <Tables>
+    <Table TableName="Demo1" ClassName="Demo1" PrimaryKeyColumnName="" RowCount="0">
+      <Columns>
+        <Column ColumnName="ID" PropertyName="ID" CSharpVariableType="Guid" Location="1" IsDotNetObject="True" CovertToPart="Worker.nzGuid" VBVariableType="Guid" AuditField="False" DbType="Guid" AutoIncrement="False" IsForeignKey="False" IsNullable="False" IsIdentity="False" IsPrimaryKey="False" IsIndexed="False" MaxLength="0" SourceType="uniqueidentifier" DomainName="" Precision="-1" Scale="-1" Description="" />
+        <Column ColumnName="Name" PropertyName="Name" CSharpVariableType="string" Location="2" IsDotNetObject="True" CovertToPart="Worker.AsStringFromBytes" VBVariableType="String" AuditField="False" DbType="String" AutoIncrement="False" IsForeignKey="False" IsNullable="False" IsIdentity="False" IsPrimaryKey="False" IsIndexed="False" MaxLength="50" SourceType="varchar" DomainName="" Precision="-1" Scale="-1" Description="" />
+        <Column ColumnName="Value" PropertyName="Value" CSharpVariableType="string" Location="3" IsDotNetObject="True" CovertToPart="Worker.AsStringFromBytes" VBVariableType="String" AuditField="False" DbType="String" AutoIncrement="False" IsForeignKey="False" IsNullable="True" IsIdentity="False" IsPrimaryKey="False" IsIndexed="False" MaxLength="50" SourceType="varchar" DomainName="" Precision="-1" Scale="-1" Description="" />
+        <Column ColumnName="ParentID" PropertyName="ParentID" CSharpVariableType="Guid" Location="4" IsDotNetObject="True" CovertToPart="Worker.nzGuid" VBVariableType="Guid" AuditField="False" DbType="Guid" AutoIncrement="False" IsForeignKey="False" IsNullable="True" IsIdentity="False" IsPrimaryKey="False" IsIndexed="False" MaxLength="0" SourceType="uniqueidentifier" DomainName="" Precision="-1" Scale="-1" Description="" />
+      </Columns>
+    </Table>
+  </Tables>
+  <Views />
+  <StoredProcedures ClassName="SPs" />
+  <XslEndpoints VirtualPath="~" xlgPath="/testdb1" VirtualDir="" Path="C:\data\code\xlg\DAL\TestDb1" Folder="TestDb1" />
+  <Render>
+    <Xsls Path="~" UrlExtension="aspx">
+      <Include Name="*" />
+      <Exclude Name="~/security/xsl/xlg" />
+      <Exclude Name="~/App_Code" />
+      <Exclude Name="~/App_Data" />
+      <Exclude Name="~/theme" />
+      <Exclude Name="~/bin" />
+      <Exclude Name="_svn" />
+      <Exclude Name=".svn" />
+      <Exclude Name="_vti_pvt" />
+      <Exclude Name="_vti_cnf" />
+      <Exclude Name="_vti_script" />
+      <Exclude Name="_vti_txt" />
+    </Xsls>
+    <Tables>
+      <Include Name="*" />
+    </Tables>
+    <StoredProcedures>
+      <Include Name="*" />
+      <Exclude Name="sp_*" />
+      <Exclude Name="dt_*" />
+    </StoredProcedures>
+  </Render>
+</xlgDoc>
