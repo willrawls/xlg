@@ -1,8 +1,9 @@
-﻿using System;
-using System.IO;
-using CommandLine;
+﻿using CommandLine;
 using MetX.Standard.Primary.Generation;
 using MetX.Standard.Strings;
+using MetX.Standard.Strings.Tokens;
+using System;
+using System.IO;
 
 namespace MetX.Standard.Generators.GenGen
 {
@@ -37,7 +38,7 @@ namespace MetX.Standard.Generators.GenGen
 
         [Option('o', "operation", Required = false, HelpText = HelpText)]
         public GenGen.Operation Operation { get; set; } = Operation.Create;
-        
+
         [Option('b', "build", Required = true, HelpText = "Build generator and client when done (Default is true)")]
         public bool Build { get; set; } = true;
 
@@ -51,7 +52,7 @@ namespace MetX.Standard.Generators.GenGen
             var namespacePart2 = namespacePart1
                                      .Replace("-", "")
                                      .Replace(".", "")
-                                     .Replace(" ", "") 
+                                     .Replace(" ", "")
                                      .ProperCase()
                                  + ".Generators";
             return namespacePart2;
